@@ -3,34 +3,73 @@
   <head>
     <title>Mong Kok</title>
     <meta charset="utf-8">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168652548-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'UA-168652548-1');
-    </script>
+    <style>
+    body{
+      margin:0px;
+    }
 
+    a{
+      color: black;
+      text-decoration: none;
+    }
+    h1{
+      font-size: 50px;
+      text-align: center;
+      border-bottom: 1px solid gray;
+      margin: 0px;
+      padding: 20px;
+    }
+    ol{
+        border-right:1px solid gray;
+        width:200px;
+        margin:0px;
+    }
+    li{
+      padding:5px;
+    }
+    #grid{
+      display:grid;
+      grid-template-columns: 240px 1fr;
+    }
+    #grid ol{
+      padding-left:30px;
+      padding-top:20px;
+    }
+    #grid #article{
+      padding-left:10px;
+    }
+
+    @media(max-width:600px){
+      #grid{
+        display:block;
+      }
+      ol{
+        border-right:none;
+      }
+      h1{
+        border-bottom: none;
+      }
+
+    }
+    </style>
 
   </head>
 
   <body>
     <h1><a href="index.html">香港 HongKong </a></h1>
-    <img src="Flag_of_Hong_Kong.svg" width="100%">
-
+<div id="grid">
     <ol>
       <li><a href="1.html">尖沙咀 Tsim Sha Tsui</a></li>
       <li><a href="2.html">中環 Central</a></li>
       <li><a href="3.html">旺角 Mong Kok</a></li>
       <li><a href="4.html">九龍 Kowloon</a></li>
     </ol>
-
+<div id="article">
     <h2>旺角 Mong Kok</h2>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sai_Yeung_Choi_Street_South_2008_Night.jpg/220px-Sai_Yeung_Choi_Street_South_2008_Night.jpg" width="100%">
+
     <p>Mong Kok (also spelled Mongkok, often abbreviated as MK) is an area in Kowloon, Hong Kong. The Prince Edward road occupies the northern part of Mong Kok.</p>
     <p>Mong Kok is one of the major shopping areas in Hong Kong. The area is characterised by a mixture of old and new multi-story buildings, with shops and restaurants at street level, and commercial or residential units above. Major industries in Mong Kok are retail, restaurants (including fast food) and entertainment. It has been described[1] and portrayed in films as an area in which triads run bars, nightclubs, and massage parlors. With its extremely high population density of 130,000/km2 or 340,000 per square mile, Mong Kok was described as the busiest district in the world by the Guinness World Records.[2]</p>
-
+</div>
   </body>
 </html>
