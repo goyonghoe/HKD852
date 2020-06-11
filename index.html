@@ -5,69 +5,73 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <script>
-      var target = document.querySelector('body');
-      if(this.value === '夜 NIGHT')
+    function setLinkColor(color)
+    {
+      var alist = document.querySelectorAll('a')
+      var i = 0;
+      while(i < alist.length)
       {
-        target.style.backgroundColor='black';
-        target.style.color='white';
-        this.value = '日 DAY'
-
-        var alist = document.querySelectorAll('a')
-        var i = 0;
-        while(i < alist.length)
-        {
-          alist[i].style.color = 'powderblue';
-          i = i + 1;
-        }
+        alist[i].style.color = color;
+        i = i + 1;
       }
-      else
-      {
-        target.style.backgroundColor='white';
-        target.style.color='black';
-        this.value = '夜 NIGHT'
+    }
 
-        var alist = document.querySelectorAll('a')
-        var i = 0;
-        while(i < alist.length)
+    function setBodyColor(color)
+    {
+      document.querySelector('body').style.color = color;
+    }
+
+    function setBackgroundColor(color)
+    {
+      document.querySelector('body').style.backgroundColor=color;
+    }
+
+    function nightDayHandler(self)
+      {
+        var target = document.querySelector('body');
+        if(self.value === '夜 NIGHT')
         {
-          alist[i].style.color = 'blue';
-          i = i + 1;
+          setBackgroundColor('black');
+          setBodyColor('white');
+          setLinkColor('powderblue');
+
+          self.value = '日 DAY'
         }
+        else
+        {
+          setBackgroundColor('white');
+          setBodyColor('black');
+          setLinkColor('blue');
+
+          self.value = '夜 NIGHT'
+          }
       }
     </script>
   </head>
 
   <body>
-    <input type="button" value="夜 NIGHT" onclick="">
+    <input type="button" value="夜 NIGHT" onclick="
+    nightDayHandler(this);
+    ">
 
     <h1><a href="index.html">香港 HongKong </a></h1>
+
     <div id="grid">
       <ol>
         <li><a href="1.html">尖沙咀 Tsim Sha Tsui</a></li>
         <li><a href="2.html">中環 Central</a></li>
         <li><a href="3.html">旺角 Mong Kok</a></li>
         <li><a href="4.html">九龍 Kowloon</a></li>
+
       </ol>
 
       <div id="article">
         <h2>香港 Hong Kong</h2>
         <p>Hong Kong (/ˌhɒŋˈkɒŋ/ (About this soundlisten); Chinese: 香港, Cantonese: [hœ́ːŋ.kɔ̌ːŋ] (About this soundlisten)), officially the Hong Kong Special Administrative Region of the People's Republic of China (HKSAR), is a metropolitan area and special administrative region of China in the eastern Pearl River Delta by the South China Sea. With over 7.5 million people of various nationalities[d] in a 1,104-square-kilometre (426 sq mi) territory, Hong Kong is one of the most densely populated places in the world.</p>
+
       </div>
     </div>
 
-    <input type="button" value="夜 NIGHT" onclick="
-      if(this.value === '夜 NIGHT')
-      {
-        document.querySelector('body').style.backgroundColor='black';
-        document.querySelector('body').style.color='white';
-        this.value = '日 DAY'
-      }
-      else
-      {
-        document.querySelector('body').style.backgroundColor='white';
-        document.querySelector('body').style.color='black';
-        this.value = '夜 NIGHT'
-      }
-    ">
+
   </body>
 </html>
