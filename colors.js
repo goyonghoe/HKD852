@@ -32,7 +32,7 @@ function nightDayHandler(self)
       Body.setColor('white');
       self.value = '日 DAY'
 
-      Links.setColor('powderblue');
+      Links.setColor('yellow');
     }
     else
     {
