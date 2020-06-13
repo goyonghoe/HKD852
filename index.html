@@ -4,49 +4,7 @@
     <title>Hong Kong</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
-    <script>
-    function setLinkColor(color)
-    {
-      var alist = document.querySelectorAll('a')
-      var i = 0;
-      while(i < alist.length)
-      {
-        alist[i].style.color = color;
-        i = i + 1;
-      }
-    }
-
-    function setBodyColor(color)
-    {
-      document.querySelector('body').style.color = color;
-    }
-
-    function setBackgroundColor(color)
-    {
-      document.querySelector('body').style.backgroundColor=color;
-    }
-
-    function nightDayHandler(self)
-      {
-        var target = document.querySelector('body');
-        if(self.value === '夜 NIGHT')
-        {
-          setBackgroundColor('black');
-          setBodyColor('white');
-          setLinkColor('powderblue');
-
-          self.value = '日 DAY'
-        }
-        else
-        {
-          setBackgroundColor('white');
-          setBodyColor('black');
-          setLinkColor('blue');
-
-          self.value = '夜 NIGHT'
-          }
-      }
-    </script>
+    <script scr="colors.js"></script>
   </head>
 
   <body>
