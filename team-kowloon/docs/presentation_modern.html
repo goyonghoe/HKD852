@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSBL AI Team - 게임 아트 자동화 시스템</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E3192;
+            --secondary: #00D4FF;
+            --accent: #FF6B9D;
+            --success: #00E676;
+            --text-dark: #1a1a1a;
+            --text-light: #666;
+            --bg-light: #f8f9fa;
+        }
+
+        .reveal {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+            font-weight: 700;
+            text-transform: none;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .reveal h1 {
+            font-size: 3em;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .reveal h2 {
+            font-size: 2.2em;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .reveal h3 {
+            font-size: 1.5em;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+
+        .reveal p, .reveal li {
+            font-size: 1.1em;
+            line-height: 1.5;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin: 0.5rem 0;
+        }
+
+        .reveal strong {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* 카드 스타일 */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            margin: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 조직도 */
+        .org-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 14px;
+            margin: 0.5rem 0;
+            font-size: 1.1em;
+            font-weight: 500;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .org-box.level-1 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .org-box.level-2 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .org-box.level-3 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        /* 화살표 */
+        .arrow {
+            font-size: 1.5em;
+            color: var(--secondary);
+            margin: 0.3rem 0;
+        }
+
+        /* 통계 카드 */
+        .stat-card {
+            background: linear-gradient(135deg, var(--bg-light), white);
+            border-radius: 16px;
+            padding: 1.2rem;
+            text-align: center;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-size: 0.95em;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+            font-weight: 500;
+        }
+
+        /* 그리드 레이아웃 */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        /* 아이콘 박스 */
+        .icon-box {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 프로세스 스텝 */
+        .process-step {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            margin: 0.6rem 0;
+            border-left: 5px solid var(--secondary);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: 700;
+            margin-right: 0.8rem;
+            font-size: 0.95em;
+        }
+
+        /* 배지 */
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 16px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 0.2rem;
+        }
+
+        .badge-primary { background: var(--primary); color: white; }
+        .badge-success { background: var(--success); color: white; }
+        .badge-accent { background: var(--accent); color: white; }
+
+        /* 섹션 타이틀 */
+        .section-subtitle {
+            color: var(--secondary);
+            font-size: 0.95em;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        /* 하이라이트 */
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        /* 비교 테이블 */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .comparison-item {
+            padding: 1.2rem;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .comparison-before {
+            background: #ffebee;
+            border: 2px solid #ef5350;
+        }
+
+        .comparison-after {
+            background: #e8f5e9;
+            border: 2px solid #66bb6a;
+        }
+
+        /* 타임라인 */
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+            margin: 1.2rem 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--secondary);
+            border-radius: 50%;
+        }
+
+        /* 리스트 스타일 */
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .reveal ul li {
+            padding-left: 1.8em;
+            position: relative;
+            margin: 0.6rem 0;
+        }
+
+        .reveal ul li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        /* 배경 그라디언트 */
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, var(--primary), #1a1f7a);
+        }
+
+        .bg-gradient-accent {
+            background: linear-gradient(135deg, var(--accent), #ff1744);
+        }
+
+        .bg-gradient-success {
+            background: linear-gradient(135deg, var(--success), #00c853);
+        }
+
+        /* 플로우차트 스타일 */
+        .flow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .flow-box {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            min-width: 150px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .flow-arrow {
+            font-size: 2em;
+            color: var(--secondary);
+        }
+
+        /* 슬라이드 콘텐츠 제약 */
+        .reveal .slides section {
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .reveal .slides section > * {
+            max-height: calc(100vh - 100px);
+            overflow: visible;
+        }
+
+        /* 콘텐츠 컨테이너 */
+        .content-container {
+            max-width: 90%;
+            margin: 0 auto;
+            max-height: calc(100vh - 150px);
+        }
+
+        .compact {
+            margin: 0.3rem 0 !important;
+            padding: 0.8rem !important;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 슬라이드 1: 타이틀 -->
+            <section class="bg-gradient-primary" style="color: white;">
+                <h1 style="-webkit-text-fill-color: white;">SSBL AI Team</h1>
+                <h3 style="color: rgba(255,255,255,0.9); font-weight: 400; margin-top: 2rem;">
+                    게임 아트 리소스 명세서<br>자동화 시스템
+                </h3>
+                <p style="margin-top: 3rem; color: rgba(255,255,255,0.8);">
+                    <span class="badge badge-accent">AI 기반</span>
+                    <span class="badge badge-success">70% 시간 절감</span>
+                    <span class="badge" style="background: white; color: var(--primary);">품질 자동 검증</span>
+                </p>
+            </section>
+
+            <!-- 슬라이드 2: 문제 정의 -->
+            <section>
+                <div class="section-subtitle">PROBLEM</div>
+                <h2>왜 만들었나요?</h2>
+
+                <div class="comparison">
+                    <div class="comparison-before">
+                        <h3 style="color: #c62828;">😰 기존 방식</h3>
+                        <div style="font-size: 3em; margin: 1rem 0;">⏰</div>
+                        <ul style="text-align: left; font-size: 1.1em;">
+                            <li>수작업으로 명세서 작성</li>
+                            <li>반복적인 복사-붙여넣기</li>
+                            <li>실수와 누락 발생</li>
+                            <li>품질 검증 어려움</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-after">
+                        <h3 style="color: #2e7d32;">✨ 자동화 시스템</h3>
+                        <div style="font-size: 3em; margin: 1rem 0;">🚀</div>
+                        <ul style="text-align: left; font-size: 1.1em;">
+                            <li>자동으로 명세서 생성</li>
+                            <li>AI가 품질 검증</li>
+                            <li>일관된 표준 유지</li>
+                            <li>70% 시간 절감</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 3: 핵심 아이디어 -->
+            <section>
+                <div class="section-subtitle">SOLUTION</div>
+                <h2>핵심 아이디어</h2>
+
+                <div class="highlight-box" style="margin: 3rem 0;">
+                    <h3 style="font-size: 2em; margin-bottom: 2rem;">
+                        💡 AI 직원들이 <strong style="color: var(--accent);">팀</strong>을 이루어 일합니다
+                    </h3>
+                </div>
+
+                <div class="grid-4" style="margin-top: 3rem;">
+                    <div class="icon-box">
+                        <div class="icon">🎯</div>
+                        <h4>CTO</h4>
+                        <p style="font-size: 1em; color: var(--text-light);">전체 총괄</p>
+                    </div>
+                    <div class="icon-box">
+                        <div class="icon">🎨</div>
+                        <h4>Art Team</h4>
+                        <p style="font-size: 1em; color: var(--text-light);">명세서 생성</p>
+                    </div>
+                    <div class="icon-box">
+                        <div class="icon">✅</div>
+                        <h4>QA Team</h4>
+                        <p style="font-size: 1em; color: var(--text-light);">품질 검증</p>
+                    </div>
+                    <div class="icon-box">
+                        <div class="icon">💾</div>
+                        <h4>Data Manager</h4>
+                        <p style="font-size: 1em; color: var(--text-light);">데이터 관리</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 4: 조직 구조 (시각화) -->
+            <section>
+                <div class="section-subtitle">ORGANIZATION</div>
+                <h2>조직 구조</h2>
+
+                <div style="max-width: 800px; margin: 2rem auto;">
+                    <div class="org-box" style="background: linear-gradient(135deg, #f093fb, #f5576c); font-size: 1.4em;">
+                        👤 당신 (사용자)
+                    </div>
+
+                    <div class="arrow">↓</div>
+
+                    <div class="org-box" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                        🎯 CTO - 전체 총괄 및 조율
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+                        <div>
+                            <div class="arrow">↓</div>
+                            <div class="org-box level-2" style="font-size: 1em;">
+                                🎨 Art Team<br>
+                                <small style="opacity: 0.8;">명세서 생성</small>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="arrow">↓</div>
+                            <div class="org-box level-3" style="font-size: 1em;">
+                                ✅ QA Team<br>
+                                <small style="opacity: 0.8;">품질 검증</small>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="arrow">↓</div>
+                            <div class="org-box level-2" style="font-size: 1em;">
+                                💾 Data Manager<br>
+                                <small style="opacity: 0.8;">데이터 관리</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 5: 작동 방식 -->
+            <section>
+                <div class="section-subtitle">HOW IT WORKS</div>
+                <h2>어떻게 작동하나요?</h2>
+
+                <div class="content-container">
+                    <div class="grid-2" style="margin-top: 1.5rem;">
+                        <div class="process-step compact">
+                            <span class="step-number">1</span>
+                            <strong>요청</strong>
+                            <p style="margin: 0.2rem 0; color: var(--text-light); font-size: 0.95em;">
+                                "명세서 만들어줘"
+                            </p>
+                        </div>
+
+                        <div class="process-step compact">
+                            <span class="step-number">2</span>
+                            <strong>CTO 분석</strong>
+                            <p style="margin: 0.2rem 0; color: var(--text-light); font-size: 0.95em;">
+                                아티스트, 카테고리 파악
+                            </p>
+                        </div>
+
+                        <div class="process-step compact">
+                            <span class="step-number">3</span>
+                            <strong>Art Team 작업</strong>
+                            <p style="margin: 0.2rem 0; color: var(--text-light); font-size: 0.95em;">
+                                명세서 자동 생성
+                            </p>
+                        </div>
+
+                        <div class="process-step compact" style="background: linear-gradient(135deg, #e8f5e9, white);">
+                            <span class="step-number" style="background: var(--success);">✓</span>
+                            <strong>완성</strong>
+                            <p style="margin: 0.2rem 0; color: var(--success); font-weight: 600; font-size: 0.95em;">
+                                파일 생성 완료
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box" style="margin-top: 2rem;">
+                        <p style="font-size: 1.15em; text-align: center; margin: 0;">
+                            ⚡ <strong>평균 2분</strong> 안에 자동 완성
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 6: CTO 역할 -->
+            <section>
+                <div class="section-subtitle">TEAM</div>
+                <h2>🎯 CTO</h2>
+                <h3 style="color: var(--text-light); font-weight: 400; margin-bottom: 3rem;">
+                    Chief Technology Officer
+                </h3>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4 style="color: var(--primary); margin-bottom: 1.5rem;">주요 역할</h4>
+                        <ul style="font-size: 1.1em;">
+                            <li>요청 분석</li>
+                            <li>팀에 작업 위임</li>
+                            <li>진행 모니터링</li>
+                            <li>결과 보고</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="background: linear-gradient(135deg, #f8f9fa, white);">
+                        <h4 style="color: var(--accent); margin-bottom: 1.5rem;">의사결정 원칙</h4>
+                        <ul style="font-size: 1.1em;">
+                            <li>팀에 권한 위임</li>
+                            <li>병렬 처리로 효율성</li>
+                            <li>품질 우선</li>
+                            <li>명확한 소통</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 7: Art Team -->
+            <section>
+                <div class="section-subtitle">TEAM</div>
+                <h2>🎨 Art Team</h2>
+                <h3 style="color: var(--text-light); font-weight: 400; margin-bottom: 3rem;">
+                    명세서 생성 전문팀
+                </h3>
+
+                <div class="grid-3">
+                    <div class="card">
+                        <div style="font-size: 3em; margin-bottom: 1rem;">📝</div>
+                        <h4>Art Spec Manager</h4>
+                        <p style="font-size: 1em; color: var(--text-light); line-height: 1.6;">
+                            명세서 구조 설계<br>
+                            카테고리별 생성<br>
+                            멤버별 확장
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div style="font-size: 3em; margin-bottom: 1rem;">🖼️</div>
+                        <h4>Visual Curator</h4>
+                        <p style="font-size: 1em; color: var(--text-light); line-height: 1.6;">
+                            참고 이미지 큐레이션<br>
+                            시각 자료 구성<br>
+                            Google Drive 관리
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div style="font-size: 3em; margin-bottom: 1rem;">🔗</div>
+                        <h4>Resource Coordinator</h4>
+                        <p style="font-size: 1em; color: var(--text-light); line-height: 1.6;">
+                            리소스 분류<br>
+                            파일명 패턴 생성<br>
+                            용도 설명 작성
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 8: QA Team -->
+            <section>
+                <div class="section-subtitle">TEAM</div>
+                <h2>✅ QA Team</h2>
+                <h3 style="color: var(--text-light); font-weight: 400; margin-bottom: 3rem;">
+                    품질 검증 전문팀
+                </h3>
+
+                <div class="grid-2">
+                    <div class="card" style="border-top: 5px solid var(--success);">
+                        <div style="font-size: 3em; margin-bottom: 1rem;">🔬</div>
+                        <h4>Image Validator</h4>
+                        <p style="font-size: 1.1em; color: var(--text-light); margin: 1rem 0;">
+                            이미지 자동 검증
+                        </p>
+                        <div style="text-align: left; margin-top: 1.5rem;">
+                            <div class="badge badge-primary">사이즈</div>
+                            <div class="badge badge-primary">포맷</div>
+                            <div class="badge badge-primary">색상</div>
+                            <div class="badge badge-primary">파일 크기</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-top: 5px solid var(--accent);">
+                        <div style="font-size: 3em; margin-bottom: 1rem;">📋</div>
+                        <h4>Review Specialist</h4>
+                        <p style="font-size: 1.1em; color: var(--text-light); margin: 1rem 0;">
+                            데이터 일관성 검증
+                        </p>
+                        <div style="text-align: left; margin-top: 1.5rem;">
+                            <div class="badge badge-accent">필수 필드</div>
+                            <div class="badge badge-accent">멤버 순서</div>
+                            <div class="badge badge-accent">일관성</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 9: Data Manager -->
+            <section>
+                <div class="section-subtitle">TEAM</div>
+                <h2>💾 Data Manager</h2>
+                <h3 style="color: var(--text-light); font-weight: 400; margin-bottom: 3rem;">
+                    마스터 데이터 관리
+                </h3>
+
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="card">
+                        <div class="grid-3" style="text-align: center;">
+                            <div>
+                                <div style="font-size: 3em; margin-bottom: 1rem;">👥</div>
+                                <h4>아티스트 정보</h4>
+                                <p style="font-size: 1em; color: var(--text-light);">
+                                    멤버 구성<br>타입, 소속사
+                                </p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3em; margin-bottom: 1rem;">💿</div>
+                                <h4>앨범 정보</h4>
+                                <p style="font-size: 1em; color: var(--text-light);">
+                                    발매일<br>트랙 리스트
+                                </p>
+                            </div>
+                            <div>
+                                <div style="font-size: 3em; margin-bottom: 1rem;">🖼️</div>
+                                <h4>참고 이미지</h4>
+                                <p style="font-size: 1em; color: var(--text-light);">
+                                    카테고리별<br>이미지 정의
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="highlight-box" style="margin-top: 2rem;">
+                            <p style="font-size: 1.2em; text-align: center; margin: 0;">
+                                ⚡ <strong>즉시 조회</strong> | 🎯 <strong>100% 정확도</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 10: 성과 -->
+            <section class="bg-gradient-success" style="color: white;">
+                <div class="section-subtitle" style="color: rgba(255,255,255,0.8);">RESULTS</div>
+                <h2 style="color: white;">놀라운 성과</h2>
+
+                <div class="grid-4" style="margin-top: 3rem;">
+                    <div class="stat-card" style="background: white;">
+                        <div class="stat-number">70%</div>
+                        <div class="stat-label">시간 절감</div>
+                    </div>
+
+                    <div class="stat-card" style="background: white;">
+                        <div class="stat-number">90%</div>
+                        <div class="stat-label">품질 이슈 차단</div>
+                    </div>
+
+                    <div class="stat-card" style="background: white;">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">일관성 향상</div>
+                    </div>
+
+                    <div class="stat-card" style="background: white;">
+                        <div class="stat-number">17개</div>
+                        <div class="stat-label">자동 생성 명세서</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 11: 실제 사례 -->
+            <section>
+                <div class="section-subtitle">CASE STUDY</div>
+                <h2>실제 사용 사례</h2>
+
+                <div class="content-container">
+                    <div class="card" style="background: linear-gradient(135deg, #fff5f8, white); border-left: 5px solid var(--accent); padding: 1.2rem;">
+                        <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.4em;">
+                            MEOVV "MY EYES OPEN VVIDE"
+                        </h3>
+
+                        <div class="grid-2" style="margin: 1rem 0; gap: 1.5rem;">
+                            <div class="stat-card">
+                                <div class="stat-number" style="font-size: 2.5em;">2분</div>
+                                <div class="stat-label">투입 시간</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" style="font-size: 2.5em;">26개</div>
+                                <div class="stat-label">생성 항목</div>
+                            </div>
+                        </div>
+
+                        <div class="highlight-box" style="margin-top: 1rem; padding: 1rem;">
+                            <p style="font-size: 1em; line-height: 1.6; margin: 0;">
+                                <strong>5명 멤버</strong> 리소스 자동 확장 →
+                                <strong>품질 검증</strong> 자동 완료 →
+                                <strong>업로드 준비</strong> 완료
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 12: 사용 방법 -->
+            <section>
+                <div class="section-subtitle">HOW TO USE</div>
+                <h2>사용 방법</h2>
+
+                <div style="max-width: 700px; margin: 0 auto;">
+                    <div class="timeline-item">
+                        <h3>1. Skills 설치 (최초 1회)</h3>
+                        <p style="color: var(--text-light);">설치 스크립트 실행으로 AI 팀 구성</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>2. Claude Code 실행</h3>
+                        <p style="color: var(--text-light);">team-kowloon 폴더에서 시작</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>3. CTO에게 요청</h3>
+                        <div class="highlight-box" style="margin-top: 1rem;">
+                            <p style="font-size: 1.3em; margin: 0;">
+                                💬 "MEOVV 신규앨범 명세서 만들어줘"
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h3>4. 결과 확인</h3>
+                        <p style="color: var(--text-light);">생성된 명세서 파일 확인 및 활용</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 13: 핵심 가치 -->
+            <section>
+                <div class="section-subtitle">VALUE</div>
+                <h2>왜 특별한가요?</h2>
+
+                <div class="content-container">
+                    <div class="grid-4" style="margin-top: 1.5rem;">
+                        <div class="card compact" style="text-align: center;">
+                            <div style="font-size: 2.5em; margin-bottom: 0.5rem;">🤖</div>
+                            <h3 style="font-size: 1.3em; margin-bottom: 0.5rem;">AI 협업</h3>
+                            <p style="color: var(--text-light); font-size: 0.95em; line-height: 1.5; margin: 0;">
+                                전문 AI 팀원들이<br>자동 협업
+                            </p>
+                        </div>
+
+                        <div class="card compact" style="text-align: center;">
+                            <div style="font-size: 2.5em; margin-bottom: 0.5rem;">⚡</div>
+                            <h3 style="font-size: 1.3em; margin-bottom: 0.5rem;">즉시 실행</h3>
+                            <p style="color: var(--text-light); font-size: 0.95em; line-height: 1.5; margin: 0;">
+                                요청 즉시<br>자동 완성
+                            </p>
+                        </div>
+
+                        <div class="card compact" style="text-align: center;">
+                            <div style="font-size: 2.5em; margin-bottom: 0.5rem;">🎯</div>
+                            <h3 style="font-size: 1.3em; margin-bottom: 0.5rem;">품질 보장</h3>
+                            <p style="color: var(--text-light); font-size: 0.95em; line-height: 1.5; margin: 0;">
+                                자동 검증으로<br>실수 차단
+                            </p>
+                        </div>
+
+                        <div class="card compact" style="text-align: center;">
+                            <div style="font-size: 2.5em; margin-bottom: 0.5rem;">📊</div>
+                            <h3 style="font-size: 1.3em; margin-bottom: 0.5rem;">일관성</h3>
+                            <p style="color: var(--text-light); font-size: 0.95em; line-height: 1.5; margin: 0;">
+                                동일한 표준<br>유지
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box" style="margin-top: 1.5rem;">
+                        <p style="font-size: 1.2em; text-align: center; margin: 0;">
+                            💡 <strong>70% 시간 절감</strong> · <strong>90% 품질 향상</strong>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 14: 향후 계획 -->
+            <section>
+                <div class="section-subtitle">ROADMAP</div>
+                <h2>향후 계획</h2>
+
+                <div class="grid-2" style="margin-top: 3rem;">
+                    <div>
+                        <h3 style="color: var(--success); margin-bottom: 2rem;">✅ 완료</h3>
+                        <ul style="font-size: 1.1em;">
+                            <li>AI 팀 구축</li>
+                            <li>자동 명세서 생성</li>
+                            <li>품질 검증 시스템</li>
+                            <li>데이터 관리</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 style="color: var(--accent); margin-bottom: 2rem;">🚀 예정</h3>
+                        <ul style="font-size: 1.1em;">
+                            <li>Slack 실시간 알림</li>
+                            <li>자동 업로드</li>
+                            <li>이미지 최적화</li>
+                            <li>분석 리포트</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 15: 마무리 -->
+            <section class="bg-gradient-primary" style="color: white;">
+                <h2 style="color: white; font-size: 3em; margin-bottom: 2rem;">
+                    게임 아트 제작의<br>
+                    <span style="color: var(--secondary);">새로운 표준</span>
+                </h2>
+
+                <div style="margin: 4rem 0;">
+                    <p style="font-size: 1.5em; line-height: 2; color: rgba(255,255,255,0.9);">
+                        AI 팀과 함께<br>
+                        더 빠르고, 더 정확하게<br>
+                        더 나은 결과물을 만드세요
+                    </p>
+                </div>
+
+                <div style="margin-top: 4rem;">
+                    <span class="badge" style="background: white; color: var(--primary); font-size: 1.2em;">
+                        SSBL AI Team
+                    </span>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            transition: 'fade',
+            transitionSpeed: 'slow',
+            backgroundTransition: 'fade',
+            width: 1920,
+            height: 1080,
+            margin: 0.04,
+        });
+    </script>
+</body>
+</html>

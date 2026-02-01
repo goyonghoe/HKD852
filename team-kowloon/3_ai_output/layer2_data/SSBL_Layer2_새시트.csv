@@ -62,3 +62,8 @@ id,project,category_main,artist,album,resource_type,size_width,size_height,size_
 61,SSBL,신규 유저 뽑기 이벤트,,오픈 기념 신규 유저 300회 뽑기,오픈 기념 신규 유저 300회 뽑기 배너,,,input_required,,,,pending,required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
 62,SSBL,신규 앨범 업데이트,TAEYANG,,데모테스트리소스,,,,,홍길동,,cancelled,not_required,,high,,,2026-02-01T06:21:39.120585Z,2026-02-01T06:21:40.093555Z
 63,SSBL,신규 앨범 업데이트,TAEYANG,,테스트 컨셉아트,,,,,,,pending,not_required,,high,,,2026-02-01T06:21:44.573630Z,2026-02-01T06:21:44.573630Z
+64,SSBL,한정 테마 포토카드 업데이트,MEOVV,MY EYES OPEN VVIDE,한정 테마 포토카드 초상,380,512,,,,,pending,not_required,,medium,,,2026-02-01T09:30:47.368347Z,2026-02-01T09:30:47.368347Z
+65,SSBL,한정 테마 포토카드 업데이트,MEOVV,MY EYES OPEN VVIDE,프로필 이미지,128,128,,,,,pending,not_required,,medium,,,2026-02-01T09:30:47.368347Z,2026-02-01T09:30:47.368347Z
+66,SSBL,한정 테마 포토카드 업데이트,MEOVV,MY EYES OPEN VVIDE,한정 테마 포토카드 프레임 (라지),380,512,,,,,pending,not_required,,medium,,,2026-02-01T09:30:47.368347Z,2026-02-01T09:30:47.368347Z
+67,SSBL,한정 테마 포토카드 업데이트,MEOVV,MY EYES OPEN VVIDE,한정 테마 포토카드 프레임 (스몰),,,TBD,,,,pending,not_required,,medium,,,2026-02-01T09:30:47.368347Z,2026-02-01T09:30:47.368347Z
+68,SSBL,한정 테마 포토카드 업데이트,MEOVV,MY EYES OPEN VVIDE,배경 이미지,1280,1280,,,,,pending,not_required,,medium,,,2026-02-01T09:30:47.368347Z,2026-02-01T09:30:47.368347Z
