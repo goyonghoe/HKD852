@@ -1,0 +1,62 @@
+﻿ID,아티스트,앨범,카테고리,리소스 타입,사이즈,상태,우선순위,아트 담당자,기획 담당자,완성도,누락 항목,다음 액션
+1,TAEYANG,Quintessence,신규 앨범 업데이트,일반 테마 포토카드 초상,380x512,pending,high,-,고용회,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+2,TAEYANG,Quintessence,신규 앨범 업데이트,엠블럼 이미지,280x40,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+3,TAEYANG,Quintessence,신규 앨범 업데이트,프로필 이미지,128x128,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+4,TAEYANG,Quintessence,신규 앨범 업데이트,앨범 커버 이미지,512x512,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+5,TAEYANG,Quintessence,신규 앨범 업데이트,배경 이미지,1280x1280,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+6,JEON SOMI,Chaotic & Confused,신규 앨범 업데이트,일반 테마 포토카드 초상,380x512,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+7,JEON SOMI,Chaotic & Confused,신규 앨범 업데이트,엠블럼 이미지,280x40,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+8,JEON SOMI,Chaotic & Confused,신규 앨범 업데이트,프로필 이미지,128x128,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+9,JEON SOMI,Chaotic & Confused,신규 앨범 업데이트,앨범 커버 이미지,512x512,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+10,JEON SOMI,Chaotic & Confused,신규 앨범 업데이트,배경 이미지,1280x1280,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+11,MEOVV,BURNING UP,신규 앨범 업데이트,일반 테마 포토카드 초상,380x512,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+12,MEOVV,BURNING UP,신규 앨범 업데이트,엠블럼 이미지,280x40,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+13,MEOVV,BURNING UP,신규 앨범 업데이트,프로필 이미지,128x128,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+14,MEOVV,BURNING UP,신규 앨범 업데이트,앨범 커버 이미지,512x512,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+15,MEOVV,BURNING UP,신규 앨범 업데이트,배경 이미지,1280x1280,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+16,ADP,ALLDAY PROJECT,신규 앨범 업데이트,일반 테마 포토카드 초상,380x512,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+17,ADP,ALLDAY PROJECT,신규 앨범 업데이트,엠블럼 이미지,280x40,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+18,ADP,ALLDAY PROJECT,신규 앨범 업데이트,프로필 이미지,128x128,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+19,ADP,ALLDAY PROJECT,신규 앨범 업데이트,앨범 커버 이미지,512x512,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+20,ADP,ALLDAY PROJECT,신규 앨범 업데이트,배경 이미지,1280x1280,pending,high,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+21,TAEYANG,Quintessence,한정 테마 포토카드 업데이트,한정 테마 포토카드 초상,380x512,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+22,TAEYANG,Quintessence,한정 테마 포토카드 업데이트,프로필 이미지,128x128,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+23,TAEYANG,Quintessence,한정 테마 포토카드 업데이트,한정 테마 포토카드 프레임 (라지),380x512,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+24,TAEYANG,Quintessence,한정 테마 포토카드 업데이트,한정 테마 포토카드 프레임 (스몰),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+25,TAEYANG,Quintessence,한정 테마 포토카드 업데이트,배경 이미지,1280x1280,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+26,JEON SOMI,Chaotic & Confused,한정 테마 포토카드 업데이트,한정 테마 포토카드 초상,380x512,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+27,JEON SOMI,Chaotic & Confused,한정 테마 포토카드 업데이트,프로필 이미지,128x128,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+28,JEON SOMI,Chaotic & Confused,한정 테마 포토카드 업데이트,한정 테마 포토카드 프레임 (라지),380x512,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+29,JEON SOMI,Chaotic & Confused,한정 테마 포토카드 업데이트,한정 테마 포토카드 프레임 (스몰),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+30,JEON SOMI,Chaotic & Confused,한정 테마 포토카드 업데이트,배경 이미지,1280x1280,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+31,MEOVV,BURNING UP,한정 테마 포토카드 업데이트,한정 테마 포토카드 초상,380x512,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+32,MEOVV,BURNING UP,한정 테마 포토카드 업데이트,프로필 이미지,128x128,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+33,MEOVV,BURNING UP,한정 테마 포토카드 업데이트,한정 테마 포토카드 프레임 (라지),380x512,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+34,MEOVV,BURNING UP,한정 테마 포토카드 업데이트,한정 테마 포토카드 프레임 (스몰),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+35,MEOVV,BURNING UP,한정 테마 포토카드 업데이트,배경 이미지,1280x1280,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+36,ADP,ALLDAY PROJECT,한정 테마 포토카드 업데이트,한정 테마 포토카드 초상,380x512,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+37,ADP,ALLDAY PROJECT,한정 테마 포토카드 업데이트,프로필 이미지,128x128,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+38,ADP,ALLDAY PROJECT,한정 테마 포토카드 업데이트,한정 테마 포토카드 프레임 (라지),380x512,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+39,ADP,ALLDAY PROJECT,한정 테마 포토카드 업데이트,한정 테마 포토카드 프레임 (스몰),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+40,ADP,ALLDAY PROJECT,한정 테마 포토카드 업데이트,배경 이미지,1280x1280,pending,medium,-,-,85%,아트 담당자,🟡 권장: 아트 담당자 입력
+41,TAEYANG,Quintessence,이벤트 패스,이벤트 패스 상품 이미지,TBD,pending,high,-,박상헌,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+42,TAEYANG,Quintessence,이벤트 패스,이벤트 패스 배너,TBD,pending,high,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+43,JEON SOMI,Chaotic & Confused,이벤트 패스,이벤트 패스 상품 이미지,TBD,pending,high,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+44,JEON SOMI,Chaotic & Confused,이벤트 패스,이벤트 패스 배너,TBD,pending,high,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+45,MEOVV,BURNING UP,이벤트 패스,이벤트 패스 상품 이미지,TBD,pending,high,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+46,MEOVV,BURNING UP,이벤트 패스,이벤트 패스 배너,TBD,pending,high,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+47,ADP,ALLDAY PROJECT,이벤트 패스,이벤트 패스 상품 이미지,TBD,pending,high,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+48,ADP,ALLDAY PROJECT,이벤트 패스,이벤트 패스 배너,TBD,pending,high,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+49,TAEYANG,Quintessence,픽업 뽑기 상점,픽업 뽑기 상점 배경,TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+50,TAEYANG,Quintessence,픽업 뽑기 상점,픽업 뽑기 로비 배너 (라지),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+51,TAEYANG,Quintessence,픽업 뽑기 상점,픽업 뽑기 로비 배너 (스몰),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+52,JEON SOMI,Chaotic & Confused,픽업 뽑기 상점,픽업 뽑기 상점 배경,TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+53,JEON SOMI,Chaotic & Confused,픽업 뽑기 상점,픽업 뽑기 로비 배너 (라지),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+54,JEON SOMI,Chaotic & Confused,픽업 뽑기 상점,픽업 뽑기 로비 배너 (스몰),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+55,MEOVV,BURNING UP,픽업 뽑기 상점,픽업 뽑기 상점 배경,TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+56,MEOVV,BURNING UP,픽업 뽑기 상점,픽업 뽑기 로비 배너 (라지),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+57,MEOVV,BURNING UP,픽업 뽑기 상점,픽업 뽑기 로비 배너 (스몰),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+58,ADP,ALLDAY PROJECT,픽업 뽑기 상점,픽업 뽑기 상점 배경,TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+59,ADP,ALLDAY PROJECT,픽업 뽑기 상점,픽업 뽑기 로비 배너 (라지),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+60,ADP,ALLDAY PROJECT,픽업 뽑기 상점,픽업 뽑기 로비 배너 (스몰),TBD,pending,medium,-,-,57%,"이미지 너비, 이미지 높이, 아트 담당자","🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+61,-,오픈 기념 신규 유저 300회 뽑기,신규 유저 뽑기 이벤트,오픈 기념 신규 유저 300회 뽑기 배너,input_required,pending,high,-,-,21%,"아티스트, 이미지 너비, 이미지 높이",🔴 필수: 아티스트 입력

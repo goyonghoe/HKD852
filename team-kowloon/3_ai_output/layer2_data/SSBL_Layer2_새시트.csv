@@ -1,0 +1,64 @@
+id,project,category_main,artist,album,resource_type,size_width,size_height,size_note,owner_planning,owner_art,detail_link,status,translation_status,languages,priority,due_date,notes,created_at,updated_at
+1,SSBL,신규 앨범 업데이트,TAEYANG,Quintessence,일반 테마 포토카드 초상,380,512,,고용회,,,pending,not_required,"KR,EN,JP",high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+2,SSBL,신규 앨범 업데이트,TAEYANG,Quintessence,엠블럼 이미지,280,40,approximate,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+3,SSBL,신규 앨범 업데이트,TAEYANG,Quintessence,프로필 이미지,128,128,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+4,SSBL,신규 앨범 업데이트,TAEYANG,Quintessence,앨범 커버 이미지,512,512,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+5,SSBL,신규 앨범 업데이트,TAEYANG,Quintessence,배경 이미지,1280,1280,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+6,SSBL,신규 앨범 업데이트,JEON SOMI,Chaotic & Confused,일반 테마 포토카드 초상,380,512,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+7,SSBL,신규 앨범 업데이트,JEON SOMI,Chaotic & Confused,엠블럼 이미지,280,40,approximate,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+8,SSBL,신규 앨범 업데이트,JEON SOMI,Chaotic & Confused,프로필 이미지,128,128,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+9,SSBL,신규 앨범 업데이트,JEON SOMI,Chaotic & Confused,앨범 커버 이미지,512,512,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+10,SSBL,신규 앨범 업데이트,JEON SOMI,Chaotic & Confused,배경 이미지,1280,1280,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+11,SSBL,신규 앨범 업데이트,MEOVV,BURNING UP,일반 테마 포토카드 초상,380,512,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+12,SSBL,신규 앨범 업데이트,MEOVV,BURNING UP,엠블럼 이미지,280,40,approximate,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+13,SSBL,신규 앨범 업데이트,MEOVV,BURNING UP,프로필 이미지,128,128,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+14,SSBL,신규 앨범 업데이트,MEOVV,BURNING UP,앨범 커버 이미지,512,512,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+15,SSBL,신규 앨범 업데이트,MEOVV,BURNING UP,배경 이미지,1280,1280,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+16,SSBL,신규 앨범 업데이트,ADP,ALLDAY PROJECT,일반 테마 포토카드 초상,380,512,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+17,SSBL,신규 앨범 업데이트,ADP,ALLDAY PROJECT,엠블럼 이미지,280,40,approximate,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+18,SSBL,신규 앨범 업데이트,ADP,ALLDAY PROJECT,프로필 이미지,128,128,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+19,SSBL,신규 앨범 업데이트,ADP,ALLDAY PROJECT,앨범 커버 이미지,512,512,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+20,SSBL,신규 앨범 업데이트,ADP,ALLDAY PROJECT,배경 이미지,1280,1280,,,,,pending,not_required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+21,SSBL,한정 테마 포토카드 업데이트,TAEYANG,Quintessence,한정 테마 포토카드 초상,380,512,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+22,SSBL,한정 테마 포토카드 업데이트,TAEYANG,Quintessence,프로필 이미지,128,128,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+23,SSBL,한정 테마 포토카드 업데이트,TAEYANG,Quintessence,한정 테마 포토카드 프레임 (라지),380,512,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+24,SSBL,한정 테마 포토카드 업데이트,TAEYANG,Quintessence,한정 테마 포토카드 프레임 (스몰),,,TBD,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+25,SSBL,한정 테마 포토카드 업데이트,TAEYANG,Quintessence,배경 이미지,1280,1280,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+26,SSBL,한정 테마 포토카드 업데이트,JEON SOMI,Chaotic & Confused,한정 테마 포토카드 초상,380,512,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+27,SSBL,한정 테마 포토카드 업데이트,JEON SOMI,Chaotic & Confused,프로필 이미지,128,128,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+28,SSBL,한정 테마 포토카드 업데이트,JEON SOMI,Chaotic & Confused,한정 테마 포토카드 프레임 (라지),380,512,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+29,SSBL,한정 테마 포토카드 업데이트,JEON SOMI,Chaotic & Confused,한정 테마 포토카드 프레임 (스몰),,,TBD,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+30,SSBL,한정 테마 포토카드 업데이트,JEON SOMI,Chaotic & Confused,배경 이미지,1280,1280,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+31,SSBL,한정 테마 포토카드 업데이트,MEOVV,BURNING UP,한정 테마 포토카드 초상,380,512,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+32,SSBL,한정 테마 포토카드 업데이트,MEOVV,BURNING UP,프로필 이미지,128,128,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+33,SSBL,한정 테마 포토카드 업데이트,MEOVV,BURNING UP,한정 테마 포토카드 프레임 (라지),380,512,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+34,SSBL,한정 테마 포토카드 업데이트,MEOVV,BURNING UP,한정 테마 포토카드 프레임 (스몰),,,TBD,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+35,SSBL,한정 테마 포토카드 업데이트,MEOVV,BURNING UP,배경 이미지,1280,1280,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+36,SSBL,한정 테마 포토카드 업데이트,ADP,ALLDAY PROJECT,한정 테마 포토카드 초상,380,512,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+37,SSBL,한정 테마 포토카드 업데이트,ADP,ALLDAY PROJECT,프로필 이미지,128,128,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+38,SSBL,한정 테마 포토카드 업데이트,ADP,ALLDAY PROJECT,한정 테마 포토카드 프레임 (라지),380,512,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+39,SSBL,한정 테마 포토카드 업데이트,ADP,ALLDAY PROJECT,한정 테마 포토카드 프레임 (스몰),,,TBD,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+40,SSBL,한정 테마 포토카드 업데이트,ADP,ALLDAY PROJECT,배경 이미지,1280,1280,,,,,pending,not_required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+41,SSBL,이벤트 패스,TAEYANG,Quintessence,이벤트 패스 상품 이미지,,,TBD,박상헌,,,pending,required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+42,SSBL,이벤트 패스,TAEYANG,Quintessence,이벤트 패스 배너,,,TBD,,,,pending,required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+43,SSBL,이벤트 패스,JEON SOMI,Chaotic & Confused,이벤트 패스 상품 이미지,,,TBD,,,,pending,required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+44,SSBL,이벤트 패스,JEON SOMI,Chaotic & Confused,이벤트 패스 배너,,,TBD,,,,pending,required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+45,SSBL,이벤트 패스,MEOVV,BURNING UP,이벤트 패스 상품 이미지,,,TBD,,,,pending,required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+46,SSBL,이벤트 패스,MEOVV,BURNING UP,이벤트 패스 배너,,,TBD,,,,pending,required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+47,SSBL,이벤트 패스,ADP,ALLDAY PROJECT,이벤트 패스 상품 이미지,,,TBD,,,,pending,required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+48,SSBL,이벤트 패스,ADP,ALLDAY PROJECT,이벤트 패스 배너,,,TBD,,,,pending,required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+49,SSBL,픽업 뽑기 상점,TAEYANG,Quintessence,픽업 뽑기 상점 배경,,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+50,SSBL,픽업 뽑기 상점,TAEYANG,Quintessence,픽업 뽑기 로비 배너 (라지),,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+51,SSBL,픽업 뽑기 상점,TAEYANG,Quintessence,픽업 뽑기 로비 배너 (스몰),,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+52,SSBL,픽업 뽑기 상점,JEON SOMI,Chaotic & Confused,픽업 뽑기 상점 배경,,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+53,SSBL,픽업 뽑기 상점,JEON SOMI,Chaotic & Confused,픽업 뽑기 로비 배너 (라지),,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+54,SSBL,픽업 뽑기 상점,JEON SOMI,Chaotic & Confused,픽업 뽑기 로비 배너 (스몰),,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+55,SSBL,픽업 뽑기 상점,MEOVV,BURNING UP,픽업 뽑기 상점 배경,,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+56,SSBL,픽업 뽑기 상점,MEOVV,BURNING UP,픽업 뽑기 로비 배너 (라지),,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+57,SSBL,픽업 뽑기 상점,MEOVV,BURNING UP,픽업 뽑기 로비 배너 (스몰),,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+58,SSBL,픽업 뽑기 상점,ADP,ALLDAY PROJECT,픽업 뽑기 상점 배경,,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+59,SSBL,픽업 뽑기 상점,ADP,ALLDAY PROJECT,픽업 뽑기 로비 배너 (라지),,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+60,SSBL,픽업 뽑기 상점,ADP,ALLDAY PROJECT,픽업 뽑기 로비 배너 (스몰),,,TBD,,,,pending,required,,medium,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+61,SSBL,신규 유저 뽑기 이벤트,,오픈 기념 신규 유저 300회 뽑기,오픈 기념 신규 유저 300회 뽑기 배너,,,input_required,,,,pending,required,,high,,,2026-02-01T04:38:01.906485Z,2026-02-01T04:38:01.906485Z
+62,SSBL,신규 앨범 업데이트,TAEYANG,,데모테스트리소스,,,,,홍길동,,cancelled,not_required,,high,,,2026-02-01T06:21:39.120585Z,2026-02-01T06:21:40.093555Z
+63,SSBL,신규 앨범 업데이트,TAEYANG,,테스트 컨셉아트,,,,,,,pending,not_required,,high,,,2026-02-01T06:21:44.573630Z,2026-02-01T06:21:44.573630Z
