@@ -1,0 +1,13 @@
+{
+  "project": "SSBL",
+  "google_sheets": {
+    "spreadsheet_id": "1wzyjG6pRK53DnhPAL_XNVeMrclovMGnbWQ4xpBBLEmQ",
+    "layer1_url": "https://docs.google.com/spreadsheets/d/1wzyjG6pRK53DnhPAL_XNVeMrclovMGnbWQ4xpBBLEmQ/export?format=csv",
+    "layer2_gid": "1466452963",
+    "layer2_url": "https://docs.google.com/spreadsheets/d/1wzyjG6pRK53DnhPAL_XNVeMrclovMGnbWQ4xpBBLEmQ/export?format=csv&gid=1466452963"
+  },
+  "local_files": {
+    "layer1_csv": "3_ai_output/layer2_data/SSBL_아트명세서_새시트.csv",
+    "layer2_csv": "3_ai_output/layer2_data/SSBL_Layer2_새시트.csv"
+  }
+}

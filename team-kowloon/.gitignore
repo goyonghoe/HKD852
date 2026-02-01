@@ -1,0 +1,14 @@
+service_account_key.json
+# Credentials
+1_human_control/credentials/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+
+# AI Output (optional - 필요시 주석 해제)
+# 3_ai_output/
