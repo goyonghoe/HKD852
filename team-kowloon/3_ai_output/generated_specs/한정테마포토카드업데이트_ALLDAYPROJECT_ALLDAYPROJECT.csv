@@ -1,0 +1,42 @@
+﻿[시각 참고 자료]
+화면명,설명,이미지 링크
+한정 테마 포토카드 화면,한정 테마 포토카드 수집 화면,(Google Drive 공유 링크 입력)
+프레임 (라지) 화면,포토카드 상세 화면에서 큰 프레임이 적용된 모습,(Google Drive 공유 링크 입력)
+프레임 (스몰) 화면,포토카드 목록 화면에서 작은 프레임이 적용된 모습,(Google Drive 공유 링크 입력)
+
+[한정 테마 포토카드 업데이트] 일감 기본 정보
+구분,내용
+앨범 코드,(입력 필요)
+일감 구분,ALLDAY PROJECT - ALLDAY PROJECT 한정 테마 포토카드 업데이트
+아티스트 이름,ALLDAY PROJECT
+멤버 (순서 고정),"ANNIE, TARZZAN, BAILEY, WOOCHAN, YOUNGSEO"
+앨범 구분,ALLDAY PROJECT
+앨범 발매일,2025-12-08
+엠블럼 이미지 경로,(입력 필요)
+원본 리소스 경로,(입력 필요)
+제작 리소스 저장 경로,(입력 필요)
+이미지 제작 시 참고 사항,-
+
+[리소스 제작 체크리스트]
+리소스 구분,구분,사이즈,파일명,용도 설명,작업 완료,비고
+배경 이미지,-,1280x1280,Image_LobbyBg_{code},메인 로비 화면의 배경 이미지,FALSE,
+프로필 이미지,ANNIE,128x128,Image_Profile_{code},메인 화면 상단 및 마이페이지에 표시되는 프로필 이미지,FALSE,
+프로필 이미지,TARZZAN,128x128,Image_Profile_{code},메인 화면 상단 및 마이페이지에 표시되는 프로필 이미지,FALSE,
+프로필 이미지,BAILEY,128x128,Image_Profile_{code},메인 화면 상단 및 마이페이지에 표시되는 프로필 이미지,FALSE,
+프로필 이미지,WOOCHAN,128x128,Image_Profile_{code},메인 화면 상단 및 마이페이지에 표시되는 프로필 이미지,FALSE,
+프로필 이미지,YOUNGSEO,128x128,Image_Profile_{code},메인 화면 상단 및 마이페이지에 표시되는 프로필 이미지,FALSE,
+한정 테마 포토카드 초상,ANNIE,380x512,Image_Card_{code},한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 초상,TARZZAN,380x512,Image_Card_{code},한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 초상,BAILEY,380x512,Image_Card_{code},한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 초상,WOOCHAN,380x512,Image_Card_{code},한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 초상,YOUNGSEO,380x512,Image_Card_{code},한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 프레임 (라지),ANNIE,380x512,Image_ThemeType_{code}_Large,한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 프레임 (라지),TARZZAN,380x512,Image_ThemeType_{code}_Large,한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 프레임 (라지),BAILEY,380x512,Image_ThemeType_{code}_Large,한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 프레임 (라지),WOOCHAN,380x512,Image_ThemeType_{code}_Large,한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 프레임 (라지),YOUNGSEO,380x512,Image_ThemeType_{code}_Large,한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 프레임 (스몰),ANNIE,TBD,Image_ThemeType_{code}_Small,한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 프레임 (스몰),TARZZAN,TBD,Image_ThemeType_{code}_Small,한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 프레임 (스몰),BAILEY,TBD,Image_ThemeType_{code}_Small,한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 프레임 (스몰),WOOCHAN,TBD,Image_ThemeType_{code}_Small,한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,
+한정 테마 포토카드 프레임 (스몰),YOUNGSEO,TBD,Image_ThemeType_{code}_Small,한정 테마 포토카드 수집 화면에 표시되는 캐릭터 이미지,FALSE,

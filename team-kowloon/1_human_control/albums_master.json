@@ -1,0 +1,66 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-02-01",
+  "albums": [
+    {
+      "artist": "TAEYANG",
+      "title": "Quintessence",
+      "release_date": null,
+      "release_date_status": "TBD",
+      "track_count": 10,
+      "tracks": [],
+      "tracks_status": "unreleased",
+      "notes": "10곡 예정, 곡 정보 미공개"
+    },
+    {
+      "artist": "JEON SOMI",
+      "title": "Chaotic & Confused",
+      "release_date": "2025-08-11",
+      "release_date_status": "confirmed",
+      "track_count": 5,
+      "tracks": [
+        "Escapade",
+        "EXTRA",
+        "Chaotic & Confused",
+        "CLOSER",
+        "DELU"
+      ],
+      "tracks_status": "released"
+    },
+    {
+      "artist": "MEOVV",
+      "title": "MY EYES OPEN VVIDE",
+      "release_date": "2025-05-12",
+      "release_date_status": "confirmed",
+      "track_count": 6,
+      "tracks": [
+        "HANDS UP",
+        "DROP TOP",
+        "MEOW",
+        "BODY",
+        "TOXIC",
+        "LIT RIGHT NOW"
+      ],
+      "tracks_status": "released"
+    },
+    {
+      "artist": "ALLDAY PROJECT",
+      "title": "ALLDAY PROJECT",
+      "release_date": "2025-12-08",
+      "release_date_status": "confirmed",
+      "track_count": 4,
+      "tracks": [
+        "ONE MORE TIME",
+        "LOOK AT ME",
+        "YOU AND I",
+        "WHERE U AT"
+      ],
+      "tracks_status": "released"
+    }
+  ],
+  "notes": [
+    "앨범 정보는 발매일 기준으로 업데이트 필요",
+    "새 앨범 추가 시 이 파일 업데이트",
+    "artist 필드는 artists_master.json과 일치해야 함"
+  ]
+}
