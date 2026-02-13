@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- Header Label -->
+  <text x="100" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#808080">RISK &amp; NEXT STEPS</text>
+
+  <!-- Title -->
+  <text x="100" y="200" font-family="Space Mono, monospace" font-weight="700" font-size="64" fill="#FFFFFF">리스크 관리</text>
+  <text x="100" y="260" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="28" fill="#B0B0B0">인지하고 대응 중</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="320" x2="1820" y2="320" stroke="#333333" stroke-width="1"/>
+
+  <!-- Risk Table -->
+  <g transform="translate(100, 380)">
+    <!-- Table Header -->
+    <rect x="0" y="0" width="1200" height="60" fill="#1a1a2e" rx="8"/>
+    <text x="60" y="40" font-family="Space Mono, monospace" font-weight="700" font-size="18" fill="#FFFFFF">영역</text>
+    <text x="300" y="40" font-family="Space Mono, monospace" font-weight="700" font-size="18" fill="#FFFFFF">리스크</text>
+    <text x="700" y="40" font-family="Space Mono, monospace" font-weight="700" font-size="18" fill="#FFFFFF">대응</text>
+
+    <!-- Row 1: 런칭 -->
+    <rect x="0" y="70" width="1200" height="80" fill="#111111" rx="8"/>
+    <text x="60" y="120" font-family="Space Mono, monospace" font-weight="700" font-size="18" fill="#FFFFFF">런칭</text>
+    <text x="300" y="115" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#CCCCCC">품질 이슈</text>
+    <text x="700" y="115" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#999999">QA 강화, 단계적 롤아웃</text>
+
+    <!-- Row 2: AI 도입 -->
+    <rect x="0" y="160" width="1200" height="80" fill="#111111" rx="8"/>
+    <text x="60" y="210" font-family="Space Mono, monospace" font-weight="700" font-size="18" fill="#FFFFFF">AI 도입</text>
+    <text x="300" y="205" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#CCCCCC">과도한 자동화</text>
+    <text x="700" y="205" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#999999">점진적 적용, 모니터링</text>
+
+    <!-- Row 3: 운영 -->
+    <rect x="0" y="250" width="1200" height="80" fill="#111111" rx="8"/>
+    <text x="60" y="300" font-family="Space Mono, monospace" font-weight="700" font-size="18" fill="#FFFFFF">운영</text>
+    <text x="300" y="295" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#CCCCCC">변경 저항</text>
+    <text x="700" y="295" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#999999">교육, 커뮤니케이션</text>
+  </g>
+
+  <!-- Next Steps Card -->
+  <g transform="translate(1380, 380)">
+    <rect x="0" y="0" width="440" height="330" fill="#111111" rx="16" stroke="#333333" stroke-width="1"/>
+    <text x="40" y="50" font-family="Space Mono, monospace" font-weight="700" font-size="16" fill="#808080">NEXT STEPS</text>
+    <text x="40" y="100" font-family="Space Mono, monospace" font-weight="700" font-size="32" fill="#FFFFFF">다음 단계</text>
+    <line x1="40" y1="130" x2="400" y2="130" stroke="#222222" stroke-width="1"/>
+    <text x="40" y="180" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#CCCCCC">3월 런칭</text>
+    <text x="40" y="215" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#CCCCCC">D-Day 준비 완료</text>
+    <rect x="40" y="260" width="360" height="50" fill="#FFFFFF" rx="8"/>
+    <text x="220" y="293" font-family="Space Mono, monospace" font-weight="700" font-size="18" fill="#0A0A0A" text-anchor="middle">런칭 카운트다운</text>
+  </g>
+
+  <!-- Bottom CTA -->
+  <g transform="translate(100, 780)">
+    <rect x="0" y="0" width="1720" height="90" fill="#111111" rx="12"/>
+    <text x="860" y="55" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="24" fill="#B0B0B0" text-anchor="middle">질문 있으시면 말씀해주세요</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="980" x2="1820" y2="980" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080">MONTHLY REPORT · 2026 H1</text>
+  <text x="1820" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="end">5 / 5</text>
+</svg>

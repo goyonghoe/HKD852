@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plastic SCM 입사자 교육</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #0F0720; font-family: Inter, Pretendard, -apple-system, sans-serif; }
+
+    /* Presentation mode */
+    #presentation { width: 100%; height: 100%; position: relative; }
+
+    .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .slide svg {
+      width: 100%;
+      height: 100%;
+      max-width: 100vw;
+      max-height: 100vh;
+      object-fit: contain;
+    }
+
+    /* Slide counter */
+    #counter {
+      position: fixed;
+      bottom: 16px;
+      right: 24px;
+      color: #A78BFA;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.7;
+      z-index: 100;
+      pointer-events: none;
+      letter-spacing: 1px;
+    }
+
+    /* Navigation hints */
+    #nav-hint {
+      position: fixed;
+      bottom: 16px;
+      left: 24px;
+      color: #A78BFA;
+      font-size: 12px;
+      opacity: 0.4;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    /* Grid view */
+    #grid-view {
+      display: none;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      padding: 40px;
+      background: #0F0720;
+    }
+    #grid-view.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+      align-content: start;
+    }
+    .grid-item {
+      cursor: pointer;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, transform 0.2s;
+      background: #1A0F2E;
+    }
+    .grid-item:hover {
+      border-color: #8B5CF6;
+      transform: scale(1.03);
+    }
+    .grid-item.current {
+      border-color: #8B5CF6;
+    }
+    .grid-item svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .grid-label {
+      padding: 10px 14px;
+      color: #C4B5FD;
+      font-size: 13px;
+      font-weight: 500;
+      background: #2D1B4E;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .grid-label .num {
+      color: #8B5CF6;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    /* Hide elements in grid mode */
+    body.grid-mode #presentation { display: none; }
+    body.grid-mode #counter { display: none; }
+    body.grid-mode #nav-hint { display: none; }
+  </style>
+</head>
+<body>
+  <div id="presentation">
+    <div class="slide" data-index="1" data-title="Title">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="accentLine1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8B5CF6"/>
+      <stop offset="100%" style="stop-color:#6D28D9;stop-opacity:0.3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad1)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="1650" cy="250" r="350" fill="#8B5CF6" opacity="0.04"/>
+  <circle cx="200" cy="850" r="250" fill="#A78BFA" opacity="0.03"/>
+  <circle cx="1400" cy="800" r="180" fill="#6D28D9" opacity="0.05"/>
+
+  <!-- Accent top line -->
+  <rect x="100" y="80" width="120" height="4" rx="2" fill="#8B5CF6"/>
+
+  <!-- Category label -->
+  <text x="100" y="340" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="22" fill="#A78BFA" letter-spacing="4">ONBOARDING TRAINING</text>
+
+  <!-- Main title -->
+  <text x="100" y="430" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="72" fill="#FAF5FF">Plastic SCM</text>
+  <text x="100" y="520" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="72" fill="#FAF5FF">입사자 교육</text>
+
+  <!-- Subtitle -->
+  <text x="100" y="600" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="28" fill="#C4B5FD">Unity Version Control — 게임 개발 팀을 위한 버전 관리 완전 가이드</text>
+
+  <!-- Divider line -->
+  <line x1="100" y1="660" x2="600" y2="660" stroke="url(#accentLine1)" stroke-width="2"/>
+
+  <!-- Meta info -->
+  <text x="100" y="720" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD" opacity="0.7">대상: 신규 입사자 (프로그래머 &amp; 아티스트)</text>
+  <text x="100" y="760" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD" opacity="0.7">예상 소요 시간: 약 30분</text>
+
+  <!-- Version control icon representation -->
+  <g transform="translate(1350, 400)" opacity="0.15">
+    <circle cx="0" cy="0" r="12" fill="#8B5CF6"/>
+    <circle cx="0" cy="80" r="12" fill="#8B5CF6"/>
+    <circle cx="80" cy="40" r="12" fill="#A78BFA"/>
+    <circle cx="80" cy="120" r="12" fill="#A78BFA"/>
+    <circle cx="0" cy="160" r="12" fill="#8B5CF6"/>
+    <line x1="0" y1="12" x2="0" y2="68" stroke="#8B5CF6" stroke-width="2"/>
+    <line x1="0" y1="92" x2="0" y2="148" stroke="#8B5CF6" stroke-width="2"/>
+    <line x1="12" y1="80" x2="68" y2="48" stroke="#A78BFA" stroke-width="2"/>
+    <line x1="80" y1="52" x2="80" y2="108" stroke="#A78BFA" stroke-width="2"/>
+    <line x1="68" y1="120" x2="12" y2="155" stroke="#A78BFA" stroke-width="2"/>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">1 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="2" data-title="목차">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad2)"/>
+  <circle cx="1700" cy="200" r="300" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section label -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="150" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">목차</text>
+  <text x="280" y="150" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="48" fill="#C4B5FD" opacity="0.5">Agenda</text>
+
+  <!-- Agenda items - Left column -->
+  <g transform="translate(100, 240)">
+    <!-- Item 1 -->
+    <rect x="0" y="0" width="800" height="90" rx="12" fill="#2D1B4E" opacity="0.6"/>
+    <text x="30" y="38" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">01</text>
+    <text x="90" y="38" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">버전 관리, 왜 필요한가?</text>
+    <text x="90" y="68" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7">버전 관리 없는 개발의 위험성</text>
+
+    <!-- Item 2 -->
+    <rect x="0" y="110" width="800" height="90" rx="12" fill="#2D1B4E" opacity="0.6"/>
+    <text x="30" y="148" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">02</text>
+    <text x="90" y="148" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">Plastic SCM 소개</text>
+    <text x="90" y="178" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7">Git과의 차이점, 게임 개발에 최적화된 이유</text>
+
+    <!-- Item 3 -->
+    <rect x="0" y="220" width="800" height="90" rx="12" fill="#2D1B4E" opacity="0.6"/>
+    <text x="30" y="258" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">03</text>
+    <text x="90" y="258" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">설치 및 초기 설정</text>
+    <text x="90" y="288" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7">워크스페이스 · 리포지토리 · 조직 설정</text>
+
+    <!-- Item 4 -->
+    <rect x="0" y="330" width="800" height="90" rx="12" fill="#2D1B4E" opacity="0.6"/>
+    <text x="30" y="368" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">04</text>
+    <text x="90" y="368" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">핵심 워크플로우</text>
+    <text x="90" y="398" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7">Checkin · Checkout · Update · 변경사항 관리</text>
+
+    <!-- Item 5 -->
+    <rect x="0" y="440" width="800" height="90" rx="12" fill="#2D1B4E" opacity="0.6"/>
+    <text x="30" y="478" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">05</text>
+    <text x="90" y="478" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">Classic vs Gluon</text>
+    <text x="90" y="508" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7">프로그래머용 · 아티스트용 인터페이스</text>
+  </g>
+
+  <!-- Agenda items - Right column -->
+  <g transform="translate(1000, 240)">
+    <!-- Item 6 -->
+    <rect x="0" y="0" width="800" height="90" rx="12" fill="#2D1B4E" opacity="0.6"/>
+    <text x="30" y="38" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">06</text>
+    <text x="90" y="38" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">브랜치 전략</text>
+    <text x="90" y="68" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7">Task Branch · 16시간 규칙 · Trunk 기반</text>
+
+    <!-- Item 7 -->
+    <rect x="0" y="110" width="800" height="90" rx="12" fill="#2D1B4E" opacity="0.6"/>
+    <text x="30" y="148" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">07</text>
+    <text x="90" y="148" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">머지와 충돌 해결</text>
+    <text x="90" y="178" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7">3-Way Merge · Xmerge · Semantic Merge</text>
+
+    <!-- Item 8 -->
+    <rect x="0" y="220" width="800" height="90" rx="12" fill="#2D1B4E" opacity="0.6"/>
+    <text x="30" y="258" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">08</text>
+    <text x="90" y="258" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">테스트 전략</text>
+    <text x="90" y="288" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7">리그레션 · 스모크 테스트 · CI/CD</text>
+
+    <!-- Item 9 -->
+    <rect x="0" y="330" width="800" height="90" rx="12" fill="#2D1B4E" opacity="0.6"/>
+    <text x="30" y="368" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">09</text>
+    <text x="90" y="368" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">마이그레이션</text>
+    <text x="90" y="398" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7">Git/SVN에서 전환하기</text>
+
+    <!-- Item 10 -->
+    <rect x="0" y="440" width="800" height="90" rx="12" fill="#2D1B4E" opacity="0.6"/>
+    <text x="30" y="478" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">10</text>
+    <text x="90" y="478" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">Unity 연동 · 베스트 프랙티스 · Q&amp;A</text>
+    <text x="90" y="508" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7">에디터 연동 · 팀 규칙 · 학습 리소스</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">2 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="3" data-title="버전 관리, 왜 필요한가?">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad3)"/>
+  <circle cx="1700" cy="900" r="300" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section number + title -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 01</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">버전 관리, 왜 필요한가?</text>
+
+  <!-- Without VCS - Problem cards -->
+  <text x="100" y="280" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">버전 관리 없이 개발하면?</text>
+
+  <!-- Problem card 1 -->
+  <rect x="100" y="310" width="520" height="140" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <text x="140" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#EF4444" opacity="0.8">01</text>
+  <text x="220" y="355" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">파일 덮어쓰기 사고</text>
+  <text x="220" y="390" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">"최종_최종_진짜최종_v3.unity" — 누가 최신?</text>
+  <text x="220" y="420" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">동시 편집으로 3일치 작업이 소실</text>
+
+  <!-- Problem card 2 -->
+  <rect x="700" y="310" width="520" height="140" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <text x="740" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#EF4444" opacity="0.8">02</text>
+  <text x="820" y="355" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">롤백 불가능</text>
+  <text x="820" y="390" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">"어제 버전으로 돌리고 싶은데…"</text>
+  <text x="820" y="420" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">이전 상태 복원이 불가능</text>
+
+  <!-- Problem card 3 -->
+  <rect x="1300" y="310" width="520" height="140" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <text x="1340" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#EF4444" opacity="0.8">03</text>
+  <text x="1420" y="355" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">협업 병목</text>
+  <text x="1420" y="390" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">"이 파일 누가 쓰고 있어요?"</text>
+  <text x="1420" y="420" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">팀원 간 변경 사항 추적 불가</text>
+
+  <!-- Arrow down -->
+  <line x1="960" y1="490" x2="960" y2="540" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="950,540 970,540 960,555" fill="#8B5CF6" opacity="0.5"/>
+
+  <!-- Solution banner -->
+  <rect x="100" y="570" width="1720" height="100" rx="16" fill="#8B5CF6" opacity="0.12"/>
+  <rect x="100" y="570" width="6" height="100" rx="3" fill="#8B5CF6"/>
+  <text x="140" y="620" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="28" fill="#FAF5FF">버전 관리 시스템(VCS)이 해결합니다</text>
+  <text x="140" y="652" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">모든 변경 이력 추적 · 안전한 병렬 작업 · 즉시 롤백 · 코드 리뷰 · 릴리즈 관리</text>
+
+  <!-- Game dev specific stats -->
+  <text x="100" y="740" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">게임 개발에서 특히 중요한 이유</text>
+
+  <rect x="100" y="770" width="400" height="160" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="300" y="820" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="44" fill="#8B5CF6" text-anchor="middle">10~100GB+</text>
+  <text x="300" y="860" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD" text-anchor="middle">프로젝트 용량</text>
+  <text x="300" y="890" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.6" text-anchor="middle">텍스처, 모델, 오디오 등 대용량 에셋</text>
+
+  <rect x="560" y="770" width="400" height="160" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="760" y="820" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="44" fill="#8B5CF6" text-anchor="middle">10~50+명</text>
+  <text x="760" y="860" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD" text-anchor="middle">팀 규모</text>
+  <text x="760" y="890" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.6" text-anchor="middle">프로그래머 + 아티스트 + 기획자</text>
+
+  <rect x="1020" y="770" width="400" height="160" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="1220" y="820" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="44" fill="#8B5CF6" text-anchor="middle">바이너리</text>
+  <text x="1220" y="860" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD" text-anchor="middle">파일 유형</text>
+  <text x="1220" y="890" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.6" text-anchor="middle">.fbx .psd .png — 텍스트 diff 불가</text>
+
+  <rect x="1480" y="770" width="340" height="160" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="1650" y="820" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="44" fill="#8B5CF6" text-anchor="middle">빈번한</text>
+  <text x="1650" y="860" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD" text-anchor="middle">이터레이션</text>
+  <text x="1650" y="890" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.6" text-anchor="middle">매일 수십 번 빌드 &amp; 테스트</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">3 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="4" data-title="Plastic SCM 소개">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad4)"/>
+  <circle cx="1600" cy="200" r="250" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 02</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">Plastic SCM 소개</text>
+  <text x="100" y="235" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="22" fill="#C4B5FD" opacity="0.7">현재 공식 명칭: Unity Version Control (UVCS)</text>
+
+  <!-- Key features - 3 column cards -->
+  <text x="100" y="300" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">핵심 특징</text>
+
+  <!-- Feature 1 -->
+  <rect x="100" y="330" width="540" height="180" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <rect x="100" y="330" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="140" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">대용량 파일 최적화</text>
+  <text x="140" y="415" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">수 GB 바이너리도 빠르게 처리</text>
+  <text x="140" y="445" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Git LFS 없이도 네이티브 지원</text>
+  <text x="140" y="475" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">텍스처·모델·오디오 에셋에 최적</text>
+
+  <!-- Feature 2 -->
+  <rect x="690" y="330" width="540" height="180" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <rect x="690" y="330" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="730" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">시각적 브랜치 관리</text>
+  <text x="730" y="415" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Branch Explorer로 한눈에 파악</text>
+  <text x="730" y="445" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">드래그 &amp; 드롭으로 머지 가능</text>
+  <text x="730" y="475" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Git보다 직관적인 브랜치 시각화</text>
+
+  <!-- Feature 3 -->
+  <rect x="1280" y="330" width="540" height="180" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <rect x="1280" y="330" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="1320" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">Unity 네이티브 통합</text>
+  <text x="1320" y="415" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Unity 에디터 내 직접 사용 가능</text>
+  <text x="1320" y="445" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Unity Cloud와 완전 통합</text>
+  <text x="1320" y="475" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">에셋 잠금(Lock) 기능 내장</text>
+
+  <!-- Comparison table: Plastic vs Git -->
+  <text x="100" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">Plastic SCM vs Git 비교</text>
+
+  <!-- Table header -->
+  <rect x="100" y="610" width="1720" height="50" rx="8" fill="#8B5CF6" opacity="0.2"/>
+  <text x="440" y="642" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#FAF5FF" text-anchor="middle">항목</text>
+  <text x="860" y="642" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#FAF5FF" text-anchor="middle">Plastic SCM</text>
+  <text x="1380" y="642" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#FAF5FF" text-anchor="middle">Git</text>
+
+  <!-- Row 1 -->
+  <rect x="100" y="665" width="1720" height="45" rx="0" fill="#2D1B4E" opacity="0.2"/>
+  <text x="440" y="694" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" text-anchor="middle">대용량 바이너리</text>
+  <text x="860" y="694" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">네이티브 지원 (빠름)</text>
+  <text x="1380" y="694" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#EF4444" opacity="0.8" text-anchor="middle">LFS 필요 (느림)</text>
+
+  <!-- Row 2 -->
+  <rect x="100" y="715" width="1720" height="45" rx="0" fill="#2D1B4E" opacity="0.1"/>
+  <text x="440" y="744" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" text-anchor="middle">GUI</text>
+  <text x="860" y="744" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">풍부한 내장 GUI</text>
+  <text x="1380" y="744" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FBBF24" text-anchor="middle">서드파티 (SourceTree 등)</text>
+
+  <!-- Row 3 -->
+  <rect x="100" y="765" width="1720" height="45" rx="0" fill="#2D1B4E" opacity="0.2"/>
+  <text x="440" y="794" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" text-anchor="middle">파일 잠금</text>
+  <text x="860" y="794" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">내장 Lock 시스템</text>
+  <text x="1380" y="794" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#EF4444" opacity="0.8" text-anchor="middle">미지원</text>
+
+  <!-- Row 4 -->
+  <rect x="100" y="815" width="1720" height="45" rx="0" fill="#2D1B4E" opacity="0.1"/>
+  <text x="440" y="844" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" text-anchor="middle">학습 난이도</text>
+  <text x="860" y="844" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">낮음 (GUI 중심)</text>
+  <text x="1380" y="844" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FBBF24" text-anchor="middle">높음 (CLI 중심)</text>
+
+  <!-- Row 5 -->
+  <rect x="100" y="865" width="1720" height="45" rx="0" fill="#2D1B4E" opacity="0.2"/>
+  <text x="440" y="894" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" text-anchor="middle">아티스트 친화</text>
+  <text x="860" y="894" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">Gluon 인터페이스 제공</text>
+  <text x="1380" y="894" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#EF4444" opacity="0.8" text-anchor="middle">비개발자에게 어려움</text>
+
+  <!-- Key takeaway -->
+  <rect x="100" y="930" width="1720" height="50" rx="12" fill="#8B5CF6" opacity="0.1"/>
+  <text x="960" y="962" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#A78BFA" text-anchor="middle">Plastic SCM = 게임 개발에 최적화된 버전 관리 → 대용량 에셋 + 비개발자 친화 + Unity 완전 통합</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">4 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="5" data-title="설치 및 초기 설정">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad5)"/>
+  <circle cx="150" cy="900" r="200" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 03</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">설치 및 초기 설정</text>
+
+  <!-- Step 1 -->
+  <rect x="100" y="250" width="840" height="340" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="250" width="6" height="340" rx="3" fill="#8B5CF6"/>
+
+  <text x="140" y="300" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">Step 1. 설치</text>
+
+  <text x="140" y="345" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">다운로드</text>
+  <text x="140" y="375" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">plasticscm.com → 설치 마법사 실행</text>
+  <text x="140" y="405" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">또는 Unity Hub → Package Manager에서 설치</text>
+
+  <text x="140" y="450" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">계정 설정</text>
+  <text x="140" y="480" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Unity ID로 로그인 (SSO 지원)</text>
+  <text x="140" y="510" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">사내 조직에 초대 받기 → 관리자에게 요청</text>
+
+  <rect x="140" y="535" width="760" height="36" rx="8" fill="#8B5CF6" opacity="0.1"/>
+  <text x="160" y="559" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#A78BFA">팁: 설치 후 첫 실행 시 Plastic 또는 Gluon 모드 선택 (나중에 변경 가능)</text>
+
+  <!-- Step 2 -->
+  <rect x="980" y="250" width="840" height="340" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="980" y="250" width="6" height="340" rx="3" fill="#8B5CF6"/>
+
+  <text x="1020" y="300" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">Step 2. 워크스페이스 생성</text>
+
+  <text x="1020" y="345" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">리포지토리 (Repository)</text>
+  <text x="1020" y="375" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">프로젝트의 전체 변경 이력이 저장되는 곳</text>
+  <text x="1020" y="405" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Plastic Cloud 또는 사내 서버에 위치</text>
+
+  <text x="1020" y="450" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">워크스페이스 (Workspace)</text>
+  <text x="1020" y="480" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">내 컴퓨터의 로컬 작업 폴더</text>
+  <text x="1020" y="510" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Unity 프로젝트 폴더 = 워크스페이스</text>
+
+  <rect x="1020" y="535" width="760" height="36" rx="8" fill="#8B5CF6" opacity="0.1"/>
+  <text x="1040" y="559" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#A78BFA">팁: 기존 프로젝트에 합류 시 → 리포지토리 선택 → 워크스페이스 자동 생성</text>
+
+  <!-- Diagram: Repository ↔ Workspace -->
+  <text x="100" y="660" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">구조 이해</text>
+
+  <!-- Cloud/Server box -->
+  <rect x="200" y="700" width="500" height="220" rx="16" fill="#2D1B4E" opacity="0.3" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="450" y="740" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#A78BFA" text-anchor="middle">Plastic Cloud / 사내 서버</text>
+  <rect x="280" y="760" width="340" height="60" rx="10" fill="#8B5CF6" opacity="0.15"/>
+  <text x="450" y="798" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#FAF5FF" text-anchor="middle">Repository</text>
+  <text x="450" y="850" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">전체 이력 · 브랜치 · 모든 버전</text>
+  <text x="450" y="880" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">팀 전체가 공유</text>
+
+  <!-- Arrows -->
+  <line x1="700" y1="790" x2="850" y2="790" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="845,783 860,790 845,797" fill="#8B5CF6" opacity="0.5"/>
+  <text x="775" y="775" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#A78BFA" text-anchor="middle">Update</text>
+
+  <line x1="850" y1="830" x2="700" y2="830" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="705,823 690,830 705,837" fill="#8B5CF6" opacity="0.5"/>
+  <text x="775" y="855" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#A78BFA" text-anchor="middle">Checkin</text>
+
+  <!-- Local boxes -->
+  <rect x="860" y="700" width="460" height="220" rx="16" fill="#2D1B4E" opacity="0.3" stroke="#A78BFA" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="1090" y="740" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#A78BFA" text-anchor="middle">내 컴퓨터</text>
+  <rect x="920" y="760" width="340" height="60" rx="10" fill="#A78BFA" opacity="0.15"/>
+  <text x="1090" y="798" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#FAF5FF" text-anchor="middle">Workspace</text>
+  <text x="1090" y="850" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">로컬 작업 파일들</text>
+  <text x="1090" y="880" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">= Unity 프로젝트 폴더</text>
+
+  <!-- Other team members -->
+  <rect x="1400" y="700" width="420" height="220" rx="16" fill="#2D1B4E" opacity="0.2" stroke="#6D28D9" stroke-width="1" stroke-opacity="0.2"/>
+  <text x="1610" y="740" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#6D28D9" text-anchor="middle">팀원들</text>
+  <text x="1610" y="790" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.5" text-anchor="middle">각자의 Workspace</text>
+  <text x="1610" y="820" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.5" text-anchor="middle">같은 Repository에 연결</text>
+  <text x="1610" y="860" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.5" text-anchor="middle">독립적으로 작업</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">5 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="6" data-title="핵심 워크플로우">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad6)"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 04</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">핵심 워크플로우</text>
+
+  <!-- Workflow diagram - horizontal flow -->
+  <text x="100" y="270" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">일상 작업 흐름</text>
+
+  <!-- Step boxes in flow -->
+  <!-- 1. Update -->
+  <rect x="100" y="300" width="300" height="120" rx="16" fill="#8B5CF6" opacity="0.15" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="250" y="350" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="28" fill="#FAF5FF" text-anchor="middle">1. Update</text>
+  <text x="250" y="385" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" text-anchor="middle">최신 변경사항 받기</text>
+
+  <line x1="400" y1="360" x2="470" y2="360" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="465,353 480,360 465,367" fill="#8B5CF6" opacity="0.5"/>
+
+  <!-- 2. 작업 -->
+  <rect x="480" y="300" width="300" height="120" rx="16" fill="#A78BFA" opacity="0.15" stroke="#A78BFA" stroke-width="2"/>
+  <text x="630" y="350" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="28" fill="#FAF5FF" text-anchor="middle">2. 작업</text>
+  <text x="630" y="385" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" text-anchor="middle">코드·에셋 수정</text>
+
+  <line x1="780" y1="360" x2="850" y2="360" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="845,353 860,360 845,367" fill="#8B5CF6" opacity="0.5"/>
+
+  <!-- 3. 변경 확인 -->
+  <rect x="860" y="300" width="300" height="120" rx="16" fill="#A78BFA" opacity="0.15" stroke="#A78BFA" stroke-width="2"/>
+  <text x="1010" y="350" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="28" fill="#FAF5FF" text-anchor="middle">3. 변경 확인</text>
+  <text x="1010" y="385" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" text-anchor="middle">Pending Changes 확인</text>
+
+  <line x1="1160" y1="360" x2="1230" y2="360" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="1225,353 1240,360 1225,367" fill="#8B5CF6" opacity="0.5"/>
+
+  <!-- 4. Checkin -->
+  <rect x="1240" y="300" width="300" height="120" rx="16" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="1390" y="350" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="28" fill="#FAF5FF" text-anchor="middle">4. Checkin</text>
+  <text x="1390" y="385" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" text-anchor="middle">변경사항 저장(커밋)</text>
+
+  <line x1="1540" y1="360" x2="1610" y2="360" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="1605,353 1620,360 1605,367" fill="#8B5CF6" opacity="0.5"/>
+
+  <!-- 5. 반복 -->
+  <rect x="1620" y="300" width="200" height="120" rx="16" fill="#6D28D9" opacity="0.2" stroke="#6D28D9" stroke-width="1"/>
+  <text x="1720" y="355" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#A78BFA" text-anchor="middle">반복</text>
+  <text x="1720" y="385" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" text-anchor="middle">→ Step 1</text>
+
+  <!-- Detailed explanation cards -->
+  <text x="100" y="500" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">주요 동작 상세</text>
+
+  <!-- Update card -->
+  <rect x="100" y="530" width="550" height="200" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="530" width="550" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="140" y="575" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">Update (업데이트)</text>
+  <text x="140" y="610" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FAF5FF">서버의 최신 변경사항을 내 워크스페이스에 반영</text>
+  <text x="140" y="645" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 작업 시작 전 반드시 실행</text>
+  <text x="140" y="675" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 충돌 가능성을 미리 줄여줌</text>
+  <text x="140" y="705" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Git의 'pull'과 유사한 개념</text>
+
+  <!-- Checkin card -->
+  <rect x="690" y="530" width="550" height="200" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="690" y="530" width="550" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="730" y="575" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">Checkin (체크인)</text>
+  <text x="730" y="610" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FAF5FF">내 변경사항을 서버에 저장</text>
+  <text x="730" y="645" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 코멘트 필수 작성 (무엇을, 왜 변경했는지)</text>
+  <text x="730" y="675" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 새로운 Changeset(변경셋)이 생성됨</text>
+  <text x="730" y="705" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Git의 'commit + push'와 유사</text>
+
+  <!-- Pending Changes card -->
+  <rect x="1280" y="530" width="540" height="200" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="1280" y="530" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="1320" y="575" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">Pending Changes</text>
+  <text x="1320" y="610" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FAF5FF">현재 변경된 파일 목록 확인</text>
+  <text x="1320" y="645" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 추가 / 수정 / 삭제된 파일 한눈에</text>
+  <text x="1320" y="675" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Diff 뷰로 변경 내용 비교 가능</text>
+  <text x="1320" y="705" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 체크인 전 반드시 확인!</text>
+
+  <!-- Important note -->
+  <rect x="100" y="770" width="1720" height="70" rx="12" fill="#8B5CF6" opacity="0.08"/>
+  <rect x="100" y="770" width="6" height="70" rx="3" fill="#FBBF24"/>
+  <text x="140" y="800" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#FBBF24">주의</text>
+  <text x="200" y="800" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#FAF5FF">Plastic SCM은 Git과 달리 Checkin = Commit + Push 를 동시에 수행합니다.</text>
+  <text x="140" y="825" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.7">로컬에만 저장하는 단계가 없으므로, Checkin하면 즉시 서버에 반영됩니다. (분산 모드 제외)</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">6 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="7" data-title="Classic vs Gluon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad7)"/>
+  <circle cx="1700" cy="500" r="300" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 05</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">Classic vs Gluon</text>
+  <text x="100" y="235" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="22" fill="#C4B5FD" opacity="0.7">직군에 따라 최적화된 두 가지 인터페이스</text>
+
+  <!-- Two column comparison -->
+  <!-- Classic (Left) -->
+  <rect x="100" y="280" width="830" height="580" rx="20" fill="#2D1B4E" opacity="0.3" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <rect x="100" y="280" width="830" height="70" rx="20" fill="#8B5CF6" opacity="0.15"/>
+  <rect x="100" y="330" width="830" height="20" fill="#2D1B4E" opacity="0.3"/>
+  <text x="515" y="325" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="30" fill="#FAF5FF" text-anchor="middle">Plastic (Classic)</text>
+
+  <text x="140" y="400" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6">대상</text>
+  <text x="140" y="435" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#FAF5FF">프로그래머 · 기술 직군</text>
+
+  <text x="140" y="485" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6">특징</text>
+  <text x="140" y="520" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 전체 프로젝트 파일을 다운로드</text>
+  <text x="140" y="550" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 자유로운 파일 수정 (자동 감지)</text>
+  <text x="140" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 브랜치 &amp; 머지 풀 기능</text>
+  <text x="140" y="610" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• Branch Explorer 시각화</text>
+  <text x="140" y="640" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• CLI 지원</text>
+
+  <text x="140" y="690" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6">Git과 유사한 점</text>
+  <text x="140" y="725" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 분산 개발 지원</text>
+  <text x="140" y="755" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 변경 자동 감지</text>
+  <text x="140" y="785" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 코드 리뷰 / PR 지원</text>
+
+  <rect x="140" y="810" width="750" height="36" rx="8" fill="#8B5CF6" opacity="0.1"/>
+  <text x="160" y="834" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="16" fill="#A78BFA">추천: 코드를 작성하는 모든 팀원</text>
+
+  <!-- Gluon (Right) -->
+  <rect x="990" y="280" width="830" height="580" rx="20" fill="#2D1B4E" opacity="0.3" stroke="#A78BFA" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <rect x="990" y="280" width="830" height="70" rx="20" fill="#A78BFA" opacity="0.15"/>
+  <rect x="990" y="330" width="830" height="20" fill="#2D1B4E" opacity="0.3"/>
+  <text x="1405" y="325" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="30" fill="#FAF5FF" text-anchor="middle">Gluon</text>
+
+  <text x="1030" y="400" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#A78BFA">대상</text>
+  <text x="1030" y="435" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#FAF5FF">아티스트 · 디자이너 · 비개발 직군</text>
+
+  <text x="1030" y="485" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#A78BFA">특징</text>
+  <text x="1030" y="520" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 필요한 파일만 선택 다운로드</text>
+  <text x="1030" y="550" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 명시적 Checkout → 편집 → Checkin</text>
+  <text x="1030" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 파일 Lock으로 충돌 원천 차단</text>
+  <text x="1030" y="610" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 간결한 UI (복잡한 기능 숨김)</text>
+  <text x="1030" y="640" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 브랜치 없이 /main에서 직접 작업</text>
+
+  <text x="1030" y="690" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#A78BFA">핵심 장점</text>
+  <text x="1030" y="725" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 버전 관리 경험 없어도 쉽게 사용</text>
+  <text x="1030" y="755" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• Lock = "이 파일 내가 작업 중" 선언</text>
+  <text x="1030" y="785" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 대용량 에셋 부분 다운로드</text>
+
+  <rect x="1030" y="810" width="750" height="36" rx="8" fill="#A78BFA" opacity="0.1"/>
+  <text x="1050" y="834" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="16" fill="#A78BFA">추천: 3D 모델러, 텍스처 아티스트, 사운드 디자이너, 기획자</text>
+
+  <!-- Bottom note -->
+  <rect x="100" y="890" width="1720" height="60" rx="12" fill="#8B5CF6" opacity="0.08"/>
+  <text x="960" y="925" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF" text-anchor="middle">같은 Repository를 공유하므로, 프로그래머(Classic)와 아티스트(Gluon)가 동시에 작업 가능!</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">7 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="8" data-title="브랜치 전략">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad8" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad8)"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 06</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">브랜치 전략</text>
+  <text x="100" y="235" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="22" fill="#C4B5FD" opacity="0.7">Task Branch — 안전하고 빠른 개발의 핵심</text>
+
+  <!-- Branch diagram -->
+  <text x="100" y="310" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">Task Branch 워크플로우</text>
+
+  <!-- Main branch line -->
+  <line x1="200" y1="420" x2="1750" y2="420" stroke="#8B5CF6" stroke-width="4" opacity="0.8"/>
+  <text x="150" y="425" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="18" fill="#8B5CF6" text-anchor="end">main</text>
+
+  <!-- Commits on main -->
+  <circle cx="300" cy="420" r="10" fill="#8B5CF6"/>
+  <circle cx="700" cy="420" r="10" fill="#8B5CF6"/>
+  <circle cx="1200" cy="420" r="10" fill="#8B5CF6"/>
+  <circle cx="1700" cy="420" r="10" fill="#8B5CF6"/>
+
+  <!-- Task branch 1 -->
+  <line x1="300" y1="420" x2="400" y2="540" stroke="#A78BFA" stroke-width="2" opacity="0.6"/>
+  <line x1="400" y1="540" x2="600" y2="540" stroke="#A78BFA" stroke-width="3"/>
+  <line x1="600" y1="540" x2="700" y2="420" stroke="#A78BFA" stroke-width="2" opacity="0.6"/>
+  <circle cx="400" cy="540" r="8" fill="#A78BFA"/>
+  <circle cx="500" cy="540" r="8" fill="#A78BFA"/>
+  <circle cx="600" cy="540" r="8" fill="#A78BFA"/>
+  <text x="500" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="16" fill="#A78BFA" text-anchor="middle">task/login-fix</text>
+
+  <!-- Task branch 2 -->
+  <line x1="700" y1="420" x2="800" y2="540" stroke="#C4B5FD" stroke-width="2" opacity="0.6"/>
+  <line x1="800" y1="540" x2="1100" y2="540" stroke="#C4B5FD" stroke-width="3"/>
+  <line x1="1100" y1="540" x2="1200" y2="420" stroke="#C4B5FD" stroke-width="2" opacity="0.6"/>
+  <circle cx="800" cy="540" r="8" fill="#C4B5FD"/>
+  <circle cx="950" cy="540" r="8" fill="#C4B5FD"/>
+  <circle cx="1100" cy="540" r="8" fill="#C4B5FD"/>
+  <text x="950" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="16" fill="#C4B5FD" text-anchor="middle">task/new-ui-panel</text>
+
+  <!-- Task branch 3 (in progress) -->
+  <line x1="1200" y1="420" x2="1300" y2="540" stroke="#6D28D9" stroke-width="2" opacity="0.6"/>
+  <line x1="1300" y1="540" x2="1550" y2="540" stroke="#6D28D9" stroke-width="3" stroke-dasharray="8,4"/>
+  <circle cx="1300" cy="540" r="8" fill="#6D28D9"/>
+  <circle cx="1400" cy="540" r="8" fill="#6D28D9"/>
+  <text x="1420" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="16" fill="#6D28D9" text-anchor="middle">task/inventory-system (진행 중)</text>
+
+  <!-- Merge arrows -->
+  <text x="650" y="475" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#10B981">merge ✓</text>
+  <text x="1150" y="475" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#10B981">merge ✓</text>
+
+  <!-- Rules section -->
+  <text x="100" y="660" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">브랜치 규칙</text>
+
+  <!-- Rule cards -->
+  <rect x="100" y="690" width="400" height="140" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="300" y="730" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#8B5CF6" text-anchor="middle">Short</text>
+  <text x="300" y="765" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF" text-anchor="middle">짧게 유지</text>
+  <text x="300" y="795" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">최대한 빨리 머지</text>
+  <text x="300" y="818" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">오래될수록 충돌 위험 ↑</text>
+
+  <rect x="540" y="690" width="400" height="140" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="740" y="730" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#8B5CF6" text-anchor="middle">1 Task</text>
+  <text x="740" y="765" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF" text-anchor="middle">= 1 Branch</text>
+  <text x="740" y="795" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">하나의 작업 단위로 분리</text>
+  <text x="740" y="818" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">JIRA 티켓과 연동 권장</text>
+
+  <rect x="980" y="690" width="400" height="140" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="1180" y="730" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#8B5CF6" text-anchor="middle">Review</text>
+  <text x="1180" y="765" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF" text-anchor="middle">머지 전 필수</text>
+  <text x="1180" y="795" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">코드 리뷰 / Pull Request</text>
+  <text x="1180" y="818" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">Mergebot 자동 머지 가능</text>
+
+  <rect x="1420" y="690" width="400" height="140" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="1620" y="730" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#8B5CF6" text-anchor="middle">Naming</text>
+  <text x="1620" y="765" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF" text-anchor="middle">네이밍 컨벤션</text>
+  <text x="1620" y="795" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">task/기능명 또는</text>
+  <text x="1620" y="818" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">fix/이슈번호-설명</text>
+
+  <!-- Tip -->
+  <rect x="100" y="860" width="1720" height="50" rx="12" fill="#8B5CF6" opacity="0.08"/>
+  <text x="960" y="892" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#A78BFA" text-anchor="middle">Branch Explorer에서 드래그 &amp; 드롭으로 브랜치를 시각적으로 생성하고 머지할 수 있습니다</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">8 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="9" data-title="머지와 충돌 해결">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad9" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad9)"/>
+  <circle cx="1750" cy="150" r="250" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 07</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">머지와 충돌 해결</text>
+
+  <!-- Merge types -->
+  <text x="100" y="280" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">Plastic SCM의 강력한 머지 기능</text>
+
+  <!-- 3 merge cards -->
+  <rect x="100" y="310" width="540" height="280" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="310" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="370" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="26" fill="#FAF5FF" text-anchor="middle">3-Way Merge</text>
+  <text x="140" y="400" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">기본 머지 방식</text>
+  <text x="140" y="435" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 공통 조상(Base) 기준으로 비교</text>
+  <text x="140" y="465" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Source와 Destination 변경 분석</text>
+  <text x="140" y="495" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 충돌이 없으면 자동 머지 완료</text>
+
+  <!-- Diagram -->
+  <circle cx="250" cy="540" r="6" fill="#C4B5FD" opacity="0.5"/>
+  <text x="270" y="545" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.5">Base</text>
+  <line x1="256" y1="536" x2="380" y2="540" stroke="#8B5CF6" stroke-width="1.5" opacity="0.4"/>
+  <line x1="256" y1="544" x2="380" y2="570" stroke="#A78BFA" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="380" cy="540" r="6" fill="#8B5CF6"/>
+  <circle cx="380" cy="570" r="6" fill="#A78BFA"/>
+  <text x="400" y="545" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#8B5CF6">Src</text>
+  <text x="400" y="575" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#A78BFA">Dst</text>
+  <line x1="386" y1="540" x2="500" y2="555" stroke="#8B5CF6" stroke-width="1.5" opacity="0.4"/>
+  <line x1="386" y1="570" x2="500" y2="555" stroke="#A78BFA" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="500" cy="555" r="8" fill="#10B981"/>
+  <text x="520" y="560" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="14" fill="#10B981">Merge</text>
+
+  <!-- Xmerge -->
+  <rect x="690" y="310" width="540" height="280" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="690" y="310" width="540" height="4" rx="2" fill="#A78BFA"/>
+  <text x="960" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="26" fill="#FAF5FF" text-anchor="middle">Xmerge (자동 해결)</text>
+  <text x="730" y="400" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">같은 파일 내 다른 영역 수정 시</text>
+  <text x="730" y="435" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 블록 단위로 변경 영역 분석</text>
+  <text x="730" y="465" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 겹치지 않으면 자동으로 합침</text>
+  <text x="730" y="495" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Git보다 높은 자동 해결 성공률</text>
+
+  <rect x="730" y="520" width="460" height="50" rx="10" fill="#10B981" opacity="0.1"/>
+  <text x="960" y="550" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">대부분의 충돌을 자동으로 해결!</text>
+
+  <!-- Semantic Merge -->
+  <rect x="1280" y="310" width="540" height="280" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="1280" y="310" width="540" height="4" rx="2" fill="#6D28D9"/>
+  <text x="1550" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="26" fill="#FAF5FF" text-anchor="middle">Semantic Merge</text>
+  <text x="1320" y="400" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">코드 구조를 이해하는 스마트 머지</text>
+  <text x="1320" y="435" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 함수/클래스 단위로 분석</text>
+  <text x="1320" y="465" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 메서드 이동/이름 변경도 추적</text>
+  <text x="1320" y="495" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• C#, Java, C++ 등 지원</text>
+
+  <rect x="1320" y="520" width="460" height="50" rx="10" fill="#8B5CF6" opacity="0.1"/>
+  <text x="1550" y="550" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#A78BFA" text-anchor="middle">Unity C# 코드에 특히 유용</text>
+
+  <!-- Manual conflict resolution steps -->
+  <text x="100" y="650" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">수동 충돌 해결이 필요한 경우</text>
+
+  <!-- Steps -->
+  <rect x="100" y="680" width="1720" height="240" rx="16" fill="#2D1B4E" opacity="0.3"/>
+
+  <!-- Step 1 -->
+  <circle cx="250" cy="760" r="30" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="250" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6" text-anchor="middle">1</text>
+  <text x="250" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">충돌 감지</text>
+  <text x="250" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">머지 시 자동 알림</text>
+  <text x="250" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">충돌 파일 목록 표시</text>
+
+  <line x1="350" y1="760" x2="430" y2="760" stroke="#8B5CF6" stroke-width="1.5" opacity="0.3"/>
+  <polygon points="425,753 440,760 425,767" fill="#8B5CF6" opacity="0.3"/>
+
+  <!-- Step 2 -->
+  <circle cx="530" cy="760" r="30" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="530" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6" text-anchor="middle">2</text>
+  <text x="530" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">머지 도구 실행</text>
+  <text x="530" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">내장 Merge Tool 또는</text>
+  <text x="530" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">외부 도구 (VS Code 등)</text>
+
+  <line x1="630" y1="760" x2="710" y2="760" stroke="#8B5CF6" stroke-width="1.5" opacity="0.3"/>
+  <polygon points="705,753 720,760 705,767" fill="#8B5CF6" opacity="0.3"/>
+
+  <!-- Step 3 -->
+  <circle cx="810" cy="760" r="30" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="810" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6" text-anchor="middle">3</text>
+  <text x="810" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">3개 패널 비교</text>
+  <text x="810" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">Base | Source | Destination</text>
+  <text x="810" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">차이를 색상으로 표시</text>
+
+  <line x1="910" y1="760" x2="990" y2="760" stroke="#8B5CF6" stroke-width="1.5" opacity="0.3"/>
+  <polygon points="985,753 1000,760 985,767" fill="#8B5CF6" opacity="0.3"/>
+
+  <!-- Step 4 -->
+  <circle cx="1090" cy="760" r="30" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="1090" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6" text-anchor="middle">4</text>
+  <text x="1090" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">선택 &amp; 편집</text>
+  <text x="1090" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">어느 쪽 변경을 사용할지</text>
+  <text x="1090" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">클릭으로 선택 또는 직접 수정</text>
+
+  <line x1="1190" y1="760" x2="1270" y2="760" stroke="#8B5CF6" stroke-width="1.5" opacity="0.3"/>
+  <polygon points="1265,753 1280,760 1265,767" fill="#8B5CF6" opacity="0.3"/>
+
+  <!-- Step 5 -->
+  <circle cx="1370" cy="760" r="30" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="1370" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6" text-anchor="middle">5</text>
+  <text x="1370" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">테스트</text>
+  <text x="1370" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">머지 결과 빌드 &amp; 실행</text>
+  <text x="1370" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">문제 없는지 확인</text>
+
+  <line x1="1470" y1="760" x2="1550" y2="760" stroke="#8B5CF6" stroke-width="1.5" opacity="0.3"/>
+  <polygon points="1545,753 1560,760 1545,767" fill="#8B5CF6" opacity="0.3"/>
+
+  <!-- Step 6 -->
+  <circle cx="1650" cy="760" r="30" fill="#10B981" opacity="0.2" stroke="#10B981" stroke-width="2"/>
+  <text x="1650" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#10B981" text-anchor="middle">6</text>
+  <text x="1650" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">Checkin</text>
+  <text x="1650" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">머지 결과를 서버에 저장</text>
+  <text x="1650" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#10B981" opacity="0.7" text-anchor="middle">완료!</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">9 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="10" data-title="테스트 전략과 VCS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad10" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad10)"/>
+  <circle cx="1700" cy="300" r="280" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 09</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">테스트 전략과 VCS</text>
+  <text x="100" y="235" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="22" fill="#C4B5FD" opacity="0.7">머지 전 테스트로 main 브랜치를 보호하는 전략</text>
+
+  <!-- Workflow section title -->
+  <text x="100" y="295" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">머지 전 테스트 워크플로우 — 두 가지 접근</text>
+
+  <!-- Case A: Direct test before merge -->
+  <rect x="100" y="315" width="1720" height="95" rx="14" fill="#2D1B4E" opacity="0.25" stroke="#FBBF24" stroke-width="1" stroke-opacity="0.3"/>
+  <rect x="100" y="315" width="6" height="95" rx="3" fill="#FBBF24"/>
+
+  <text x="140" y="345" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="17" fill="#FBBF24">Case A</text>
+  <text x="225" y="345" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="17" fill="#FAF5FF">직접 테스트 후 머지 — 빠르고 간단</text>
+
+  <!-- Case A flow boxes -->
+  <rect x="140" y="360" width="180" height="40" rx="8" fill="#8B5CF6" opacity="0.15" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="230" y="386" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="15" fill="#FAF5FF" text-anchor="middle">Branch 작업 완료</text>
+
+  <line x1="320" y1="380" x2="370" y2="380" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="366,375 376,380 366,385" fill="#8B5CF6" opacity="0.5"/>
+
+  <rect x="376" y="360" width="200" height="40" rx="8" fill="#FBBF24" opacity="0.12" stroke="#FBBF24" stroke-width="1.5"/>
+  <text x="476" y="386" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="15" fill="#FBBF24" text-anchor="middle">Smoke Test</text>
+
+  <line x1="576" y1="380" x2="626" y2="380" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="622,375 632,380 622,385" fill="#8B5CF6" opacity="0.5"/>
+
+  <text x="650" y="386" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="15" fill="#10B981">Pass ✓</text>
+
+  <line x1="700" y1="380" x2="750" y2="380" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="746,375 756,380 746,385" fill="#8B5CF6" opacity="0.5"/>
+
+  <rect x="756" y="360" width="200" height="40" rx="8" fill="#10B981" opacity="0.15" stroke="#10B981" stroke-width="1.5"/>
+  <text x="856" y="386" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="15" fill="#10B981" text-anchor="middle">Merge to main</text>
+
+  <line x1="956" y1="380" x2="1006" y2="380" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="1002,375 1012,380 1002,385" fill="#8B5CF6" opacity="0.5"/>
+
+  <rect x="1012" y="360" width="220" height="40" rx="8" fill="#EF4444" opacity="0.1" stroke="#EF4444" stroke-width="1"/>
+  <text x="1122" y="386" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="15" fill="#EF4444" text-anchor="middle">Regression Test</text>
+
+  <line x1="1232" y1="380" x2="1282" y2="380" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="1278,375 1288,380 1278,385" fill="#8B5CF6" opacity="0.5"/>
+
+  <rect x="1288" y="360" width="160" height="40" rx="8" fill="#8B5CF6" opacity="0.15" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="1368" y="386" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="15" fill="#FAF5FF" text-anchor="middle">Release</text>
+
+  <!-- Case B: Rebase then test -->
+  <rect x="100" y="425" width="1720" height="105" rx="14" fill="#2D1B4E" opacity="0.25" stroke="#10B981" stroke-width="1" stroke-opacity="0.3"/>
+  <rect x="100" y="425" width="6" height="105" rx="3" fill="#10B981"/>
+
+  <text x="140" y="455" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="17" fill="#10B981">Case B</text>
+  <text x="225" y="455" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="17" fill="#FAF5FF">리베이스 후 테스트 — main 최신 상태에서 검증 (권장)</text>
+
+  <!-- Case B flow boxes -->
+  <rect x="140" y="470" width="180" height="40" rx="8" fill="#8B5CF6" opacity="0.15" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="230" y="496" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="15" fill="#FAF5FF" text-anchor="middle">Branch 작업 완료</text>
+
+  <line x1="320" y1="490" x2="360" y2="490" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="356,485 366,490 356,495" fill="#8B5CF6" opacity="0.5"/>
+
+  <rect x="366" y="470" width="200" height="40" rx="8" fill="#A78BFA" opacity="0.15" stroke="#A78BFA" stroke-width="1.5"/>
+  <text x="466" y="496" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="15" fill="#A78BFA" text-anchor="middle">Rebase main</text>
+
+  <line x1="566" y1="490" x2="606" y2="490" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="602,485 612,490 602,495" fill="#8B5CF6" opacity="0.5"/>
+
+  <rect x="612" y="470" width="200" height="40" rx="8" fill="#FBBF24" opacity="0.12" stroke="#FBBF24" stroke-width="1.5"/>
+  <text x="712" y="496" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="15" fill="#FBBF24" text-anchor="middle">Smoke Test</text>
+
+  <line x1="812" y1="490" x2="852" y2="490" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="848,485 858,490 848,495" fill="#8B5CF6" opacity="0.5"/>
+
+  <text x="876" y="496" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="15" fill="#10B981">Pass ✓</text>
+
+  <line x1="926" y1="490" x2="966" y2="490" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="962,485 972,490 962,495" fill="#8B5CF6" opacity="0.5"/>
+
+  <rect x="972" y="470" width="200" height="40" rx="8" fill="#10B981" opacity="0.15" stroke="#10B981" stroke-width="1.5"/>
+  <text x="1072" y="496" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="15" fill="#10B981" text-anchor="middle">Merge to main</text>
+
+  <line x1="1172" y1="490" x2="1212" y2="490" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="1208,485 1218,490 1208,495" fill="#8B5CF6" opacity="0.5"/>
+
+  <rect x="1218" y="470" width="220" height="40" rx="8" fill="#EF4444" opacity="0.1" stroke="#EF4444" stroke-width="1"/>
+  <text x="1328" y="496" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="15" fill="#EF4444" text-anchor="middle">Regression Test</text>
+
+  <line x1="1438" y1="490" x2="1478" y2="490" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="1474,485 1484,490 1474,495" fill="#8B5CF6" opacity="0.5"/>
+
+  <rect x="1484" y="470" width="160" height="40" rx="8" fill="#8B5CF6" opacity="0.15" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="1564" y="496" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="15" fill="#FAF5FF" text-anchor="middle">Release</text>
+
+  <!-- Case B advantage note -->
+  <text x="140" y="525" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7">→ main의 최신 변경사항과 함께 테스트하므로, 머지 후 충돌이나 사이드이펙트를 사전에 발견할 수 있습니다</text>
+
+  <!-- Smoke Test detail -->
+  <rect x="100" y="550" width="860" height="260" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="550" width="860" height="4" rx="2" fill="#FBBF24"/>
+
+  <text x="140" y="595" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="26" fill="#FBBF24">Smoke Test (스모크 테스트)</text>
+  <text x="140" y="628" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FAF5FF">"빌딩에 연기가 나는지 확인하는" 최소한의 검증</text>
+
+  <text x="140" y="668" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#C4B5FD">언제?</text>
+  <text x="140" y="696" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• 머지 전, 브랜치에서 빌드 후 바로 실행</text>
+  <text x="140" y="722" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• main 리베이스 후 테스트하면 더 안전</text>
+
+  <text x="140" y="760" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#C4B5FD">무엇을?</text>
+  <text x="140" y="788" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• 게임이 실행되는가? (크래시 없이 메인 화면 진입)</text>
+
+  <!-- Regression Test detail -->
+  <rect x="1000" y="550" width="820" height="260" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="1000" y="550" width="820" height="4" rx="2" fill="#EF4444"/>
+
+  <text x="1040" y="595" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="26" fill="#EF4444">Regression Test (리그레션 테스트)</text>
+  <text x="1040" y="628" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FAF5FF">"새 코드가 기존 기능을 망가뜨리지 않았는지" 검증</text>
+
+  <text x="1040" y="668" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#C4B5FD">왜 중요한가?</text>
+  <text x="1040" y="696" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• 인벤토리 수정 → 상점 결제가 깨질 수 있음</text>
+  <text x="1040" y="722" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• UI 변경 → 다른 해상도에서 레이아웃 깨짐</text>
+
+  <text x="1040" y="760" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#C4B5FD">Plastic SCM과의 연관</text>
+  <text x="1040" y="788" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• Mergebot + CI/CD로 머지 전 자동 실행</text>
+
+  <!-- Comparison table -->
+  <text x="100" y="855" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">비교 요약</text>
+
+  <rect x="100" y="875" width="1720" height="38" rx="8" fill="#8B5CF6" opacity="0.2"/>
+  <text x="440" y="900" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="17" fill="#FAF5FF" text-anchor="middle">항목</text>
+  <text x="860" y="900" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="17" fill="#FBBF24" text-anchor="middle">Smoke Test</text>
+  <text x="1380" y="900" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="17" fill="#EF4444" text-anchor="middle">Regression Test</text>
+
+  <rect x="100" y="918" width="1720" height="33" fill="#2D1B4E" opacity="0.15"/>
+  <text x="440" y="940" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#C4B5FD" text-anchor="middle">목적</text>
+  <text x="860" y="940" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#FAF5FF" text-anchor="middle">"실행이 되나?" — 최소 동작 확인</text>
+  <text x="1380" y="940" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#FAF5FF" text-anchor="middle">"기존 기능 괜찮나?" — 사이드이펙트 검출</text>
+
+  <rect x="100" y="956" width="1720" height="33" fill="#2D1B4E" opacity="0.08"/>
+  <text x="440" y="978" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#C4B5FD" text-anchor="middle">시점</text>
+  <text x="860" y="978" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#FAF5FF" text-anchor="middle">머지 전 (브랜치에서 실행)</text>
+  <text x="1380" y="978" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#FAF5FF" text-anchor="middle">머지 후 (전수 검사)</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">10 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="11" data-title="마이그레이션 가이드">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad11" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad11)"/>
+  <circle cx="200" cy="850" r="200" fill="#8B5CF6" opacity="0.03"/>
+  <circle cx="1700" cy="200" r="250" fill="#A78BFA" opacity="0.02"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 10</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">마이그레이션 가이드</text>
+  <text x="100" y="235" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="22" fill="#C4B5FD" opacity="0.7">Git / SVN에서 Plastic SCM으로 전환하기</text>
+
+  <!-- What is Migration -->
+  <rect x="100" y="280" width="1720" height="90" rx="16" fill="#8B5CF6" opacity="0.1"/>
+  <rect x="100" y="280" width="6" height="90" rx="3" fill="#8B5CF6"/>
+  <text x="140" y="320" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">마이그레이션(Migration)이란?</text>
+  <text x="140" y="352" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD">기존 버전 관리 시스템의 프로젝트 · 이력 · 브랜치를 새로운 시스템으로 옮기는 작업</text>
+
+  <!-- Migration paths - 3 cards -->
+  <text x="100" y="420" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">주요 마이그레이션 경로</text>
+
+  <!-- Git → Plastic -->
+  <rect x="100" y="450" width="540" height="240" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="450" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="140" y="500" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">Git → Plastic SCM</text>
+
+  <text x="140" y="540" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#8B5CF6">방법</text>
+  <text x="140" y="568" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• GitSync 기능으로 양방향 동기화 가능</text>
+  <text x="140" y="596" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• Git 이력을 완전히 보존하여 가져오기</text>
+  <text x="140" y="624" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• Git 팀원과 Plastic 팀원이 동시 작업 가능</text>
+  <text x="140" y="660" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#10B981">점진적 전환에 최적 — 팀 전체가 한꺼번에 바꿀 필요 없음</text>
+
+  <!-- SVN → Plastic -->
+  <rect x="690" y="450" width="540" height="240" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="690" y="450" width="540" height="4" rx="2" fill="#A78BFA"/>
+  <text x="730" y="500" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">SVN → Plastic SCM</text>
+
+  <text x="730" y="540" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#A78BFA">방법</text>
+  <text x="730" y="568" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• SVN Import 도구로 이력 포함 마이그레이션</text>
+  <text x="730" y="596" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• trunk/branches/tags 구조 자동 매핑</text>
+  <text x="730" y="624" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• 대용량 바이너리도 문제없이 이전</text>
+  <text x="730" y="660" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#10B981">레거시 SVN 프로젝트 현대화에 적합</text>
+
+  <!-- Perforce → Plastic -->
+  <rect x="1280" y="450" width="540" height="240" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="1280" y="450" width="540" height="4" rx="2" fill="#6D28D9"/>
+  <text x="1320" y="500" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">Perforce → Plastic SCM</text>
+
+  <text x="1320" y="540" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#6D28D9">방법</text>
+  <text x="1320" y="568" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• 전용 마이그레이션 도구 제공</text>
+  <text x="1320" y="596" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• 유사한 Lock/Checkout 워크플로우</text>
+  <text x="1320" y="624" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• 전환 학습 비용이 낮음</text>
+  <text x="1320" y="660" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#10B981">라이선스 비용 절감 효과</text>
+
+  <!-- Migration checklist -->
+  <text x="100" y="740" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">마이그레이션 체크리스트</text>
+
+  <rect x="100" y="770" width="1720" height="170" rx="16" fill="#2D1B4E" opacity="0.3"/>
+
+  <!-- Checklist items in 2 columns -->
+  <text x="160" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">준비 단계</text>
+  <text x="160" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">1. 기존 이력 보존 필요 여부 결정</text>
+  <text x="160" y="868" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">2. ignore 규칙 재설정 (ignore.conf)</text>
+  <text x="160" y="896" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">3. 테스트 리포지토리에서 먼저 시범 마이그레이션</text>
+  <text x="160" y="924" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">4. 팀원 교육 일정 확보 (이 교육!)</text>
+
+  <text x="960" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">실행 단계</text>
+  <text x="960" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">5. 마이그레이션 실행 (이력 포함 / 스냅샷만)</text>
+  <text x="960" y="868" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">6. 빌드 검증 — Smoke Test 필수!</text>
+  <text x="960" y="896" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">7. Regression Test로 기존 기능 확인</text>
+  <text x="960" y="924" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">8. 기존 VCS 읽기 전용으로 전환 → 완전 이전</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">11 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="12" data-title="Unity 에디터 연동">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad12" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad12)"/>
+  <circle cx="200" cy="200" r="200" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 11</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">Unity 에디터 연동</text>
+  <text x="100" y="235" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="22" fill="#C4B5FD" opacity="0.7">Unity 에디터 안에서 바로 버전 관리하기</text>
+
+  <!-- Setup steps -->
+  <text x="100" y="310" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">연동 방법</text>
+
+  <rect x="100" y="340" width="1720" height="120" rx="16" fill="#2D1B4E" opacity="0.3"/>
+  <rect x="100" y="340" width="6" height="120" rx="3" fill="#8B5CF6"/>
+
+  <text x="160" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#8B5CF6">Step 1</text>
+  <text x="260" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">Window → Plastic SCM 열기</text>
+  <text x="260" y="410" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Unity 2021.2+ 에서 기본 내장. 이전 버전은 Package Manager에서 "Version Control" 설치</text>
+
+  <text x="660" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#8B5CF6">Step 2</text>
+  <text x="760" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">Unity ID 로그인</text>
+  <text x="760" y="410" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">조직에 연결된 계정으로 로그인</text>
+
+  <text x="1160" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#8B5CF6">Step 3</text>
+  <text x="1260" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">워크스페이스 연결</text>
+  <text x="1260" y="410" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">기존 리포지토리 선택 또는 새로 생성</text>
+
+  <!-- Key features in Unity -->
+  <text x="100" y="520" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">Unity 에디터 내 핵심 기능</text>
+
+  <!-- Feature cards - 2x2 grid -->
+  <rect x="100" y="550" width="830" height="170" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="550" width="830" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="140" y="600" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">Pending Changes 탭</text>
+  <text x="140" y="635" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 에디터에서 수정한 에셋이 실시간 반영</text>
+  <text x="140" y="665" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 씬, 프리팹, 스크립트 변경 감지</text>
+  <text x="140" y="695" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 코멘트 작성 후 바로 Checkin</text>
+
+  <rect x="990" y="550" width="830" height="170" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="990" y="550" width="830" height="4" rx="2" fill="#A78BFA"/>
+  <text x="1030" y="600" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">파일 잠금 (Lock)</text>
+  <text x="1030" y="635" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 에셋 우클릭 → Lock으로 독점 편집</text>
+  <text x="1030" y="665" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 다른 팀원은 수정 불가 (충돌 원천 차단)</text>
+  <text x="1030" y="695" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 바이너리 에셋 (씬, 프리팹)에 필수!</text>
+
+  <rect x="100" y="740" width="830" height="170" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="740" width="830" height="4" rx="2" fill="#6D28D9"/>
+  <text x="140" y="790" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">히스토리 뷰</text>
+  <text x="140" y="825" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 파일별 변경 이력 한눈에 확인</text>
+  <text x="140" y="855" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 누가, 언제, 무엇을 변경했는지</text>
+  <text x="140" y="885" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 이전 버전으로 되돌리기 가능</text>
+
+  <rect x="990" y="740" width="830" height="170" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="990" y="740" width="830" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="1030" y="790" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">ignore.conf 설정</text>
+  <text x="1030" y="825" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Library/, Temp/, Logs/ 폴더 제외</text>
+  <text x="1030" y="855" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• .gitignore와 동일한 역할</text>
+  <text x="1030" y="885" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 자동 생성되는 파일은 반드시 제외</text>
+
+  <!-- Tip -->
+  <rect x="100" y="930" width="1720" height="50" rx="12" fill="#FBBF24" opacity="0.08"/>
+  <rect x="100" y="930" width="6" height="50" rx="3" fill="#FBBF24"/>
+  <text x="140" y="960" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="18" fill="#FBBF24">중요</text>
+  <text x="200" y="960" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FAF5FF">씬(.unity)과 프리팹(.prefab)은 바이너리이므로 반드시 Lock 후 작업하세요. 머지가 거의 불가능합니다.</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">12 / 13</text>
+</svg>
+    </div>
+    <div class="slide" data-index="13" data-title="베스트 프랙티스 & Q&A">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad13" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="accentLine13" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8B5CF6"/>
+      <stop offset="100%" style="stop-color:#6D28D9;stop-opacity:0.3"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad13)"/>
+  <circle cx="1600" cy="800" r="300" fill="#8B5CF6" opacity="0.03"/>
+  <circle cx="300" cy="200" r="200" fill="#A78BFA" opacity="0.02"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 12 &amp; 13</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">베스트 프랙티스 &amp; Q&amp;A</text>
+
+  <!-- Do's -->
+  <text x="100" y="280" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#10B981">DO — 꼭 지키세요</text>
+
+  <rect x="100" y="300" width="830" height="310" rx="16" fill="#10B981" opacity="0.05" stroke="#10B981" stroke-width="1" stroke-opacity="0.2"/>
+
+  <text x="140" y="340" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">1. 작업 시작 전 항상 Update</text>
+  <text x="160" y="368" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">최신 변경사항을 받아야 충돌을 최소화할 수 있습니다</text>
+
+  <text x="140" y="405" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">2. 작은 단위로 자주 Checkin</text>
+  <text x="160" y="433" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">"기능 A 구현 완료", "버그 B 수정" — 의미 있는 단위로</text>
+
+  <text x="140" y="470" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">3. 의미 있는 코멘트 작성</text>
+  <text x="160" y="498" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">"수정함" (X) → "인벤토리 슬롯 드래그 버그 수정 (#1234)" (O)</text>
+
+  <text x="140" y="535" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">4. 씬/프리팹은 반드시 Lock 후 작업</text>
+  <text x="160" y="563" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">바이너리 파일은 머지 불가 → Lock으로 충돌 원천 차단</text>
+
+  <!-- Don'ts -->
+  <text x="990" y="280" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#EF4444">DON'T — 피하세요</text>
+
+  <rect x="990" y="300" width="830" height="310" rx="16" fill="#EF4444" opacity="0.05" stroke="#EF4444" stroke-width="1" stroke-opacity="0.2"/>
+
+  <text x="1030" y="340" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">1. 오랫동안 Checkin 없이 작업</text>
+  <text x="1050" y="368" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">일주일치 변경을 한 번에 → 대규모 충돌 위험</text>
+
+  <text x="1030" y="405" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">2. Library/ 폴더를 버전 관리에 포함</text>
+  <text x="1050" y="433" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">자동 생성 폴더 → ignore.conf에 반드시 추가</text>
+
+  <text x="1030" y="470" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">3. Lock을 장기간 유지</text>
+  <text x="1050" y="498" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">작업 완료 후 즉시 Unlock → 팀원 작업 차단 방지</text>
+
+  <text x="1030" y="535" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">4. 빌드 깨진 상태로 Checkin</text>
+  <text x="1050" y="563" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">Checkin 전 빌드 확인 → 팀 전체에 영향</text>
+
+  <!-- Resources -->
+  <text x="100" y="680" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#C4B5FD">참고 자료</text>
+
+  <rect x="100" y="710" width="550" height="70" rx="12" fill="#2D1B4E" opacity="0.4"/>
+  <text x="140" y="745" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#A78BFA">Unity Learn</text>
+  <text x="140" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#C4B5FD" opacity="0.7">learn.unity.com — Plastic SCM 튜토리얼</text>
+
+  <rect x="690" y="710" width="550" height="70" rx="12" fill="#2D1B4E" opacity="0.4"/>
+  <text x="730" y="745" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#A78BFA">공식 문서</text>
+  <text x="730" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#C4B5FD" opacity="0.7">docs.unity.com — Unity Version Control Manual</text>
+
+  <rect x="1280" y="710" width="540" height="70" rx="12" fill="#2D1B4E" opacity="0.4"/>
+  <text x="1320" y="745" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#A78BFA">Plastic SCM Book</text>
+  <text x="1320" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#C4B5FD" opacity="0.7">docs.plasticscm.com/book — 심화 학습</text>
+
+  <!-- Q&A section -->
+  <rect x="100" y="810" width="1720" height="120" rx="20" fill="#8B5CF6" opacity="0.1" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.3"/>
+  <text x="960" y="860" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="36" fill="#FAF5FF" text-anchor="middle">Q &amp; A</text>
+  <text x="960" y="900" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD" text-anchor="middle">궁금한 점이 있으시면 질문해주세요!</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">13 / 13</text>
+</svg>
+    </div>
+  </div>
+
+  <div id="grid-view"></div>
+
+  <div id="counter"></div>
+  <div id="nav-hint">Arrow Keys / Swipe | G: Grid | F: Fullscreen</div>
+
+  <script>
+    const TOTAL = 13;
+    const slideTitles = [
+      "Title",
+      "목차",
+      "버전 관리, 왜 필요한가?",
+      "Plastic SCM 소개",
+      "설치 및 초기 설정",
+      "핵심 워크플로우",
+      "Classic vs Gluon",
+      "브랜치 전략",
+      "머지와 충돌 해결",
+      "테스트 전략과 VCS",
+      "마이그레이션 가이드",
+      "Unity 에디터 연동",
+      "베스트 프랙티스 & Q&A"
+    ];
+
+    let current = 1;
+    let gridMode = false;
+
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('counter');
+    const gridView = document.getElementById('grid-view');
+
+    function showSlide(n) {
+      if (n < 1) n = 1;
+      if (n > TOTAL) n = TOTAL;
+      current = n;
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === n - 1);
+      });
+      counter.textContent = current + ' / ' + TOTAL;
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    function buildGrid() {
+      gridView.innerHTML = '';
+      slides.forEach((slide, i) => {
+        const item = document.createElement('div');
+        item.className = 'grid-item' + (i === current - 1 ? ' current' : '');
+        
+        const svgClone = slide.querySelector('svg').cloneNode(true);
+        item.appendChild(svgClone);
+        
+        const label = document.createElement('div');
+        label.className = 'grid-label';
+        label.innerHTML = '<span class="num">' + String(i + 1).padStart(2, '0') + '</span><span>' + slideTitles[i] + '</span>';
+        item.appendChild(label);
+        
+        item.addEventListener('click', () => {
+          current = i + 1;
+          toggleGrid();
+          showSlide(current);
+        });
+        
+        gridView.appendChild(item);
+      });
+    }
+
+    function toggleGrid() {
+      gridMode = !gridMode;
+      document.body.classList.toggle('grid-mode', gridMode);
+      if (gridMode) {
+        buildGrid();
+        gridView.classList.add('active');
+      } else {
+        gridView.classList.remove('active');
+        showSlide(current);
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (gridMode && e.key !== 'g' && e.key !== 'G' && e.key !== 'Escape') return;
+      
+      switch(e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+        case ' ':
+          e.preventDefault();
+          nextSlide();
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          e.preventDefault();
+          prevSlide();
+          break;
+        case 'Home':
+          e.preventDefault();
+          showSlide(1);
+          break;
+        case 'End':
+          e.preventDefault();
+          showSlide(TOTAL);
+          break;
+        case 'g':
+        case 'G':
+          e.preventDefault();
+          toggleGrid();
+          break;
+        case 'f':
+        case 'F':
+          e.preventDefault();
+          toggleFullscreen();
+          break;
+        case 'Escape':
+          if (gridMode) {
+            e.preventDefault();
+            toggleGrid();
+          }
+          break;
+      }
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartTime = Date.now();
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      if (gridMode) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      const dt = Date.now() - touchStartTime;
+      
+      if (dt > 500) return; // too slow
+      if (Math.abs(dx) < 50) return; // too short
+      if (Math.abs(dy) > Math.abs(dx)) return; // vertical swipe
+      
+      if (dx < 0) nextSlide();
+      else prevSlide();
+    }, { passive: true });
+
+    // Click navigation (left/right halves)
+    document.getElementById('presentation').addEventListener('click', (e) => {
+      if (gridMode) return;
+      const x = e.clientX / window.innerWidth;
+      if (x > 0.5) nextSlide();
+      else prevSlide();
+    });
+
+    // Initialize
+    showSlide(1);
+  </script>
+</body>
+</html>

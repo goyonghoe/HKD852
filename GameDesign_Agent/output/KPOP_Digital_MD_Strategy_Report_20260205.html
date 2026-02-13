@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOP 디지털 MD 패러다임 전환 전략 보고서</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+        :root {
+            --primary: #6C5CE7;
+            --primary-dark: #4A3DB8;
+            --secondary: #00CEC9;
+            --accent: #FD79A8;
+            --warning: #FDCB6E;
+            --danger: #E17055;
+            --success: #00B894;
+            --bg-dark: #0A0A1A;
+            --bg-card: #141428;
+            --bg-card-hover: #1A1A35;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B2B2D0;
+            --text-muted: #6C6C8A;
+            --border: #2A2A45;
+            --gradient-1: linear-gradient(135deg, #6C5CE7, #a855f7);
+            --gradient-2: linear-gradient(135deg, #00CEC9, #00b4d8);
+            --gradient-3: linear-gradient(135deg, #FD79A8, #e63946);
+            --gradient-4: linear-gradient(135deg, #FDCB6E, #f77f00);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(ellipse at 20% 50%, rgba(108,92,231,0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 50%, rgba(253,121,168,0.1) 0%, transparent 50%),
+                        var(--bg-dark);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236C5CE7' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(108,92,231,0.2);
+            border: 1px solid rgba(108,92,231,0.4);
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #B2B2D0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.9;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Navigation */
+        .toc {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10,10,26,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0;
+            overflow-x: auto;
+        }
+
+        .toc-inner {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .toc a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 1rem 1.2rem;
+            white-space: nowrap;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .toc a:hover {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-number {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: rgba(108,92,231,0.15);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .section-header p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: rgba(108,92,231,0.3);
+            background: var(--bg-card-hover);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .card p, .card li {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.9;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card ul li {
+            padding: 0.3rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(108,92,231,0.4);
+            box-shadow: 0 20px 60px rgba(108,92,231,0.1);
+        }
+
+        .stat-value {
+            font-size: 2.4rem;
+            font-weight: 900;
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-value.purple { color: var(--primary); }
+        .stat-value.teal { color: var(--secondary); }
+        .stat-value.pink { color: var(--accent); }
+        .stat-value.gold { color: var(--warning); }
+        .stat-value.green { color: var(--success); }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .stat-source {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            opacity: 0.7;
+        }
+
+        /* Two Column */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .two-col { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .data-table th {
+            background: rgba(108,92,231,0.15);
+            color: var(--primary);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .data-table td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .data-table tr:hover td {
+            background: rgba(108,92,231,0.05);
+        }
+
+        /* Tag */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .tag-positive {
+            background: rgba(0,184,148,0.15);
+            color: var(--success);
+        }
+
+        .tag-negative {
+            background: rgba(225,112,85,0.15);
+            color: var(--danger);
+        }
+
+        .tag-neutral {
+            background: rgba(253,203,110,0.15);
+            color: var(--warning);
+        }
+
+        .tag-info {
+            background: rgba(108,92,231,0.15);
+            color: var(--primary);
+        }
+
+        /* Perspective Cards */
+        .perspective-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .perspective-card {
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid;
+        }
+
+        .perspective-card.positive {
+            background: rgba(0,184,148,0.05);
+            border-color: rgba(0,184,148,0.2);
+        }
+
+        .perspective-card.negative {
+            background: rgba(225,112,85,0.05);
+            border-color: rgba(225,112,85,0.2);
+        }
+
+        .perspective-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .perspective-card.positive h3 { color: var(--success); }
+        .perspective-card.negative h3 { color: var(--danger); }
+
+        .perspective-card ol {
+            padding-left: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .perspective-card ol li {
+            margin-bottom: 0.8rem;
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        .perspective-card ol li strong {
+            color: var(--text-primary);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 1rem 0;
+        }
+
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card.recommended {
+            border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(108,92,231,0.15);
+        }
+
+        .pricing-card.recommended::before {
+            content: 'RECOMMENDED';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--gradient-1);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.4rem;
+            letter-spacing: 0.1em;
+        }
+
+        .pricing-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .pricing-card .price-sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+
+        .pricing-card ul li {
+            padding: 0.5rem 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(42,42,69,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+            .perspective-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Agenda */
+        .agenda-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .agenda-time {
+            min-width: 80px;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .agenda-content h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .agenda-content p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(108,92,231,0.1), rgba(253,121,168,0.1));
+            border: 1px solid rgba(108,92,231,0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .highlight-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Source List */
+        .sources {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .sources h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .sources a {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-decoration: none;
+            padding: 0.3rem 0;
+            transition: color 0.2s;
+        }
+
+        .sources a:hover {
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Flow Chart */
+        .flow-chart {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .flow-step .step-title {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .flow-step .step-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        .flow-arrow {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Comparison Bar */
+        .bar-chart {
+            margin: 1.5rem 0;
+        }
+
+        .bar-item {
+            margin-bottom: 1rem;
+        }
+
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+            font-size: 0.85rem;
+        }
+
+        .bar-label span:first-child { color: var(--text-primary); font-weight: 500; }
+        .bar-label span:last-child { color: var(--text-muted); }
+
+        .bar-track {
+            height: 8px;
+            background: rgba(108,92,231,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .bar-fill.purple { background: var(--gradient-1); }
+        .bar-fill.teal { background: var(--gradient-2); }
+        .bar-fill.pink { background: var(--gradient-3); }
+        .bar-fill.gold { background: var(--gradient-4); }
+
+        /* Idea Cards */
+        .idea-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .idea-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            transition: all 0.3s;
+        }
+
+        .idea-card:hover {
+            border-color: rgba(108,92,231,0.4);
+            transform: translateY(-3px);
+        }
+
+        .idea-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .idea-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .idea-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .emphasis {
+            color: var(--warning);
+            font-weight: 700;
+        }
+
+        .text-primary-color { color: var(--primary); font-weight: 600; }
+        .text-accent { color: var(--accent); font-weight: 600; }
+        .text-success { color: var(--success); font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">CONFIDENTIAL &mdash; INTERNAL MEETING BRIEF</div>
+        <h1>KPOP <span>디지털 MD</span> 패러다임 전환<br>전략 보고서</h1>
+        <p class="hero-subtitle">
+            리듬게임+포토카드 수집 서비스에서 <strong>KPOP 디지털 MD 플랫폼</strong>으로의 비즈니스 패러다임 전환 검토.<br>
+            아티스트 개별 유료 앱 모델의 시장 기회, 수익 구조, 리스크를 종합 분석합니다.
+        </p>
+        <div class="hero-meta">
+            <span>2026.02.05</span>
+            <span>|</span>
+            <span>신규 프로젝트 아이디어 미팅용</span>
+            <span>|</span>
+            <span>GameDesign Agent 분석</span>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TOC ========== -->
+<nav class="toc">
+    <div class="toc-inner">
+        <a href="#market">시장 트렌드</a>
+        <a href="#paradigm">패러다임 전환</a>
+        <a href="#pricing">유료 앱 가격</a>
+        <a href="#iap">부분유료화</a>
+        <a href="#product">상품 설계</a>
+        <a href="#perspectives">양면 분석</a>
+        <a href="#ideas">브레인스토밍</a>
+        <a href="#agenda">회의 전략</a>
+        <a href="#sources">출처</a>
+    </div>
+</nav>
+
+<!-- ========== SECTION 1: 시장 트렌드 ========== -->
+<section id="market">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">SECTION 01</div>
+            <h2>KPOP MD 시장 트렌드 검증</h2>
+            <p>"기업들이 MD 상품에 주력하는 방향으로 업계가 흘러가고 있다"는 가설을 데이터로 검증합니다.</p>
+        </div>
+
+        <!-- Key Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value purple">9%</div>
+                <div class="stat-label">K-POP 메모라빌리아 시장 CAGR<br>(2025-2033)</div>
+                <div class="stat-source">HTF Market Insights</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value teal">$2.2B</div>
+                <div class="stat-label">북미 K-POP 메모라빌리아<br>시장 규모 (2025)</div>
+                <div class="stat-source">HTF Market Insights</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value pink">$1,400</div>
+                <div class="stat-label">K-POP 팬 1인당<br>연간 평균 지출</div>
+                <div class="stat-source">Gitnux 2026 Report</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value gold">7,473억</div>
+                <div class="stat-label">4대 엔터사 MD 매출<br>합계 (2024)</div>
+                <div class="stat-source">한국콘텐츠진흥원</div>
+            </div>
+        </div>
+
+        <!-- MD Revenue Details -->
+        <div class="card">
+            <h3>빅4 엔터사 MD/굿즈 매출 비중 추이</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>기업</th>
+                        <th>MD/라이선싱 매출 비중</th>
+                        <th>주요 동향 (2025)</th>
+                        <th>전략 방향</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>HYBE</strong></td>
+                        <td>42% (간접 매출 중)</td>
+                        <td>MD+라이선싱 매출 1,683억(Q3), YoY +70%</td>
+                        <td>Weverse 기반 통합 커머스 생태계</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SM</strong></td>
+                        <td>24%</td>
+                        <td>Kwangya 플랫폼 디지털 MD 확대</td>
+                        <td>IP 기반 디지털 콘텐츠 다각화</td>
+                    </tr>
+                    <tr>
+                        <td><strong>JYP</strong></td>
+                        <td>20-25%</td>
+                        <td>위버스 입점, MD 라인 확장</td>
+                        <td>글로벌 팬 직접 판매 강화</td>
+                    </tr>
+                    <tr>
+                        <td><strong>YG</strong></td>
+                        <td>20-25%</td>
+                        <td>BLACKPINK 디지털 컬렉터블 협업</td>
+                        <td>패션/뷰티 크로스오버 MD</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="highlight-box">
+            <h3>검증 결과: MD 중심 전환은 명확한 업계 트렌드</h3>
+            <p>
+                HYBE의 Q3 2025 사례가 가장 극적입니다. <span class="emphasis">MD+라이선싱 매출이 전년 대비 70% 성장</span>하며
+                전체 매출의 핵심 동력으로 자리잡았습니다. 2025년 3분기 기준 HYBE의 분기 매출은
+                <span class="emphasis">$5.247억(7,272억 원)</span>으로 사상 최고치를 기록했으며, 이 중 상당 부분이
+                MD, 플랫폼, 라이선싱에서 발생했습니다.
+                위버스 숍에서는 2024년 한 해 동안 <span class="emphasis">2,060만 개의 MD 아이템</span>이 판매되었습니다(전년 대비 +13%).<br><br>
+                한편 음반 시장에서도 MD화 현상이 나타나고 있습니다. 한국소비자원 설문에 따르면
+                K팝 음반 구매자 중 <span class="emphasis">52.7%가 포토카드 등 굿즈를 모으려고 앨범을 구매</span>했다고 응답하여,
+                앨범 자체가 이미 MD 상품의 성격을 강하게 띠고 있음을 보여줍니다.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>디지털 MD 트렌드 핵심 키워드 (2025-2026)</h3>
+            <div class="two-col">
+                <div>
+                    <ul>
+                        <li><strong>디지털 포토카드 & AR 카드:</strong> 물리적 포토카드의 디지털 확장, AR 기능 결합으로 새로운 수집 경험 제공</li>
+                        <li><strong>Phygital 상품:</strong> Deloitte 예측 - 2025년 팬의 50%가 실물+디지털 연계 상품과 인터랙션. 시장 규모 $15억</li>
+                        <li><strong>구독형 디지털 멤버십:</strong> 위버스 디지털 멤버십 도입으로 광고 없는 시청, 오프라인 다운로드, 고화질 스트리밍 등 제공</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><strong>팬 커뮤니케이션 앱 (Bubble):</strong> 아티스트당 월 $4~5 구독. 2021년 120만 유저로 $1,300만 수익 달성</li>
+                        <li><strong>희소성 기반 모델:</strong> HYBE CEO가 2026년 전략으로 "희소성 기반 새로운 경험 모델" 개발 예고</li>
+                        <li><strong>블록체인/Web3:</strong> K-Diamonds x KPOP DAO 등 Web3 팬덤 생태계 시도 중. 연간 $100억 가치 잠재력 추정</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SECTION 2: 패러다임 전환 ========== -->
+<section id="paradigm" style="background: rgba(108,92,231,0.03);">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">SECTION 02</div>
+            <h2>"KPOP 디지털 MD 기업"으로의 패러다임 전환</h2>
+            <p>게임 회사에서 디지털 MD 판매 기업으로의 전환이 투자 기회를 확대할 것이라는 가설 검증</p>
+        </div>
+
+        <div class="card">
+            <h3>업계 패러다임 전환의 근거</h3>
+            <div class="bar-chart">
+                <div class="bar-item">
+                    <div class="bar-label">
+                        <span>HYBE 전략 구조 변화</span>
+                        <span>"Label-Solution-Platform" → "Music-Platform-Tech"</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill purple" style="width: 95%"></div></div>
+                </div>
+                <div class="bar-item">
+                    <div class="bar-label">
+                        <span>MD/라이선싱 매출 성장률 (YoY)</span>
+                        <span>HYBE Q3 2025: +70%</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill teal" style="width: 70%"></div></div>
+                </div>
+                <div class="bar-item">
+                    <div class="bar-label">
+                        <span>위버스 누적 흑자 전환</span>
+                        <span>2025 Q3 기준 달성</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill pink" style="width: 80%"></div></div>
+                </div>
+                <div class="bar-item">
+                    <div class="bar-label">
+                        <span>VC의 K-POP 스타트업 투자 증가</span>
+                        <span>엔터 꺼리던 VC들이 적극 투자</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill gold" style="width: 75%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div class="card">
+                <h3>투자자 관점의 시사점</h3>
+                <ul>
+                    <li><strong>팬덤 = 투자 자본:</strong> 팬덤 자체가 투자 가능한 자산으로 인정받기 시작. 팬 신뢰가 비즈니스 자산화</li>
+                    <li><strong>반복 수익 모델 선호:</strong> 투자자들은 일회성 게임 매출보다 구독/MD의 예측 가능한 반복 수익을 선호</li>
+                    <li><strong>플랫폼 밸류에이션:</strong> "게임 회사" 대비 "팬덤 플랫폼/디지털 MD 기업"이 더 높은 밸류에이션을 받는 추세</li>
+                    <li><strong>크로스 IP 확장성:</strong> MD 기업은 게임 외 다양한 아티스트/IP로 확장 가능하여 투자 매력도 상승</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>경쟁 환경 변화</h3>
+                <ul>
+                    <li><strong>Weverse:</strong> MAU 1,160만, 중국 진출(QQ Music, Tmall). 사실상 업계 표준 플랫폼화</li>
+                    <li><strong>Bubble (Dear U):</strong> 2025년 Berriz(카카오) 등 신규 경쟁자 등장. 아티스트 1인당 구독 모델 검증 완료</li>
+                    <li><strong>VC 투자 확대:</strong> Vlast, 23i 등 엔터-테크 니치 플레이어들에 대한 VC 투자 급증</li>
+                    <li><strong>2026 = 기회의 창:</strong> KoreaTechDesk 분석에 따르면 2026년은 K-콘텐츠의 "Critical Window"</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h3>패러다임 전환 분석 결론</h3>
+            <p>
+                <strong>"KPOP 팬덤 게임 회사"에서 "KPOP 디지털 MD 판매 기업"으로의 포지셔닝 전환은 유효한 전략입니다.</strong><br><br>
+                HYBE가 이미 "Music-Platform-Tech" 구조로 전환을 선언했고, 실제로 MD/라이선싱이 핵심 수익원으로 부상했습니다.
+                투자 시장에서도 '게임 퍼블리셔'보다 '팬덤 플랫폼/디지털 MD 기업'의 밸류에이션이 더 높게 형성되는 추세입니다.
+                다만, 이 전환은 <span class="text-accent">기존 리듬게임 역량을 버리는 것이 아니라</span>,
+                리듬게임을 디지털 MD 생태계의 <span class="text-primary-color">핵심 인게이지먼트 엔진</span>으로 재정의하는 것이 핵심입니다.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SECTION 3: 유료 앱 가격 ========== -->
+<section id="pricing">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">SECTION 03</div>
+            <h2>유료 앱 가격 전략</h2>
+            <p>팬덤 대상 유료 앱의 적정 가격대와 가격 심리학 분석</p>
+        </div>
+
+        <div class="card">
+            <h3>모바일 앱 수익화 모델 비교 (2025 기준)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>모델</th>
+                        <th>설명</th>
+                        <th>매출 비중</th>
+                        <th>K-POP 적합도</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Free-to-Play (F2P)</strong></td>
+                        <td>무료 다운로드 + IAP/광고</td>
+                        <td>앱 매출의 95%+</td>
+                        <td><span class="tag tag-positive">현재 모델</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Premium (유료)</strong></td>
+                        <td>유료 다운로드, 추가 과금 없음</td>
+                        <td>시장의 ~3%</td>
+                        <td><span class="tag tag-neutral">부분 적합</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Paymium (유료+IAP)</strong></td>
+                        <td>유료 다운로드 + 인앱 구매</td>
+                        <td>시장의 ~2%</td>
+                        <td><span class="tag tag-info">제안 모델</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>구독형</strong></td>
+                        <td>월/연 구독료</td>
+                        <td>성장 중 (배틀패스 70%+ 보급)</td>
+                        <td><span class="tag tag-positive">높음</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pricing Recommendation -->
+        <h3 style="margin: 2rem 0 1rem; font-size: 1.3rem;">아티스트 전용 앱 가격 제안</h3>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h4>Entry Tier</h4>
+                <div class="price">$4.99</div>
+                <div class="price-sub">약 6,500원</div>
+                <ul>
+                    <li>커피 한 잔 가격 = 심리적 저항 최소</li>
+                    <li>리듬게임 기본 콘텐츠 10곡+</li>
+                    <li>기본 포토카드 세트 포함</li>
+                    <li>팬이 "최애에게 커피 한 잔" 가치</li>
+                    <li>저과금 팬층 대상 진입장벽 최소화</li>
+                </ul>
+            </div>
+            <div class="pricing-card recommended">
+                <h4>Standard Tier</h4>
+                <div class="price">$9.99</div>
+                <div class="price-sub">약 13,000원</div>
+                <ul>
+                    <li>심리적 "10달러 벽" 바로 아래</li>
+                    <li>리듬게임 풀 콘텐츠 (30곡+)</li>
+                    <li>한정판 포토카드 세트 포함</li>
+                    <li>독점 보이스/영상 메시지</li>
+                    <li>IAP 67% 볼륨존($1-$5) 진입 유도</li>
+                </ul>
+            </div>
+            <div class="pricing-card">
+                <h4>Deluxe Tier</h4>
+                <div class="price">$14.99</div>
+                <div class="price-sub">약 19,500원</div>
+                <ul>
+                    <li>디지털 앨범과 유사한 가격대</li>
+                    <li>모든 Standard 기능 포함</li>
+                    <li>초회한정 포토카드 20장+</li>
+                    <li>AR 포토카드 체험</li>
+                    <li>초기 프리미엄 아이템 번들</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>가격 설정 근거 데이터</h3>
+            <div class="two-col">
+                <div>
+                    <h4 style="color: var(--secondary); margin-bottom: 0.8rem;">시장 데이터</h4>
+                    <ul>
+                        <li>IAP 구매의 67%가 <strong>$1~$5 사이</strong>(볼륨존). 하지만 이것이 매출의 27%에 불과</li>
+                        <li>$50 이상 구매가 매출의 <strong>9%를 차지</strong>하지만 대부분 고래 유저에서 발생</li>
+                        <li>전체 모바일 게임 매출의 <strong>50%가 상위 10% 유저</strong>에서 발생</li>
+                        <li>Bubble 앱: 아티스트 1인당 <strong>월 $4~$5</strong> 구독이 시장에서 검증됨</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--accent); margin-bottom: 0.8rem;">팬 심리 근거</h4>
+                    <ul>
+                        <li><strong>$9.99 권장 이유:</strong> "최애에게 투자"라는 심리에서 커피보다 비싸지만 앨범보다 저렴한 Sweet Spot</li>
+                        <li><strong>소유 심리:</strong> "나만의 최애 앱"이라는 독점적 소유감이 구매 정당화</li>
+                        <li><strong>매몰비용 효과:</strong> 유료 구매 후 이탈률이 F2P보다 낮고, 추가 과금 전환율도 높아짐</li>
+                        <li><strong>게이트키핑 효과:</strong> 유료 앱은 진성 팬만 필터링하여 커뮤니티 품질 향상</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SECTION 4: 부분유료화 ========== -->
+<section id="iap" style="background: rgba(108,92,231,0.03);">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">SECTION 04</div>
+            <h2>유료 앱 내 부분유료화 전략</h2>
+            <p>유료 앱에서 추가 IAP에 대한 사용자 수용도와 적합한 상품 구성</p>
+        </div>
+
+        <div class="perspective-grid">
+            <div class="perspective-card positive">
+                <h3>Paymium 모델이 통하는 조건</h3>
+                <ol>
+                    <li><strong>프리미엄 경험 약속:</strong> 앱 자체가 충분히 고품질이어서 유료 가격을 정당화할 때</li>
+                    <li><strong>추가 구매가 코스메틱일 때:</strong> 게임 진행에 필수적이지 않은 수집/꾸미기 요소</li>
+                    <li><strong>팬덤 특수성:</strong> K-POP 팬은 "최애 지지" 차원에서 지불 의향이 일반 유저보다 높음</li>
+                    <li><strong>독점 콘텐츠 가치:</strong> 다른 곳에서 구할 수 없는 콘텐츠에 대한 추가 지불 의향 존재</li>
+                    <li><strong>투명한 가치 제시:</strong> "앱 가격 = 기본 콘텐츠", "IAP = 추가 프리미엄 콘텐츠"로 명확히 구분</li>
+                </ol>
+            </div>
+            <div class="perspective-card negative">
+                <h3>Paymium 리스크 요인</h3>
+                <ol>
+                    <li><strong>이중 과금 인식:</strong> "돈 내고 샀는데 또 돈을 내라고?" 부정적 리뷰 리스크 존재</li>
+                    <li><strong>앱스토어 리뷰 폭탄:</strong> 유료 앱+IAP 조합은 평점에 민감. 초기 리뷰가 앱 생존을 좌우</li>
+                    <li><strong>시장 관행과 충돌:</strong> 모바일 게임 95%가 F2P. 유저들이 유료 앱에 익숙하지 않음</li>
+                    <li><strong>다운로드 수 제한:</strong> 유료 앱은 F2P 대비 다운로드 수가 현저히 낮아 바이럴 효과 제한</li>
+                    <li><strong>환불 리스크:</strong> 기대와 다를 경우 앱스토어 환불 정책에 의한 매출 유출 가능</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>유료 앱에서 수용되는 IAP 상품 유형</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>상품 유형</th>
+                        <th>사용자 수용도</th>
+                        <th>예시</th>
+                        <th>가격대</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>코스메틱/꾸미기</strong></td>
+                        <td><span class="tag tag-positive">높음</span></td>
+                        <td>테마, 스킨, 프로필 꾸미기</td>
+                        <td>$0.99~$4.99</td>
+                    </tr>
+                    <tr>
+                        <td><strong>추가 수집 콘텐츠</strong></td>
+                        <td><span class="tag tag-positive">높음</span></td>
+                        <td>시즌 포토카드 팩, 한정 디지털 MD</td>
+                        <td>$1.99~$9.99</td>
+                    </tr>
+                    <tr>
+                        <td><strong>콘텐츠 확장팩</strong></td>
+                        <td><span class="tag tag-positive">높음</span></td>
+                        <td>신곡 팩, 보너스 스테이지</td>
+                        <td>$2.99~$6.99</td>
+                    </tr>
+                    <tr>
+                        <td><strong>구독 서비스</strong></td>
+                        <td><span class="tag tag-neutral">중간</span></td>
+                        <td>월간 독점 콘텐츠 멤버십</td>
+                        <td>$3.99~$5.99/월</td>
+                    </tr>
+                    <tr>
+                        <td><strong>편의성 아이템</strong></td>
+                        <td><span class="tag tag-neutral">중간</span></td>
+                        <td>에너지 충전, 자동 플레이</td>
+                        <td>$0.99~$2.99</td>
+                    </tr>
+                    <tr>
+                        <td><strong>능력치 강화(P2W)</strong></td>
+                        <td><span class="tag tag-negative">낮음</span></td>
+                        <td>게임 내 경쟁 우위 아이템</td>
+                        <td>N/A (비추천)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="highlight-box">
+            <h3>핵심 원칙: "Pay-to-Collect, Not Pay-to-Win"</h3>
+            <p>
+                유료 앱 내 IAP의 성공 핵심은 <span class="emphasis">"수집(Collection)"과 "표현(Expression)"</span>에 초점을 맞추는 것입니다.<br><br>
+                K-POP 팬에게 포토카드 수집은 게임 공략이 아닌 <strong>"덕질"의 일부</strong>입니다.
+                따라서 IAP는 게임 진행을 유리하게 만드는 것이 아니라,
+                <span class="text-primary-color">더 많이 수집하고, 더 예쁘게 꾸미고, 더 특별한 콘텐츠를 즐기는</span> 방향이어야 합니다.<br><br>
+                유료 앱을 구매한 유저는 이미 "진성 팬"으로 자기 선별된 상태이므로,
+                F2P 유저 대비 <strong>추가 과금 전환율이 2~3배 높을 것</strong>으로 예상됩니다.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SECTION 5: 상품 설계 ========== -->
+<section id="product">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">SECTION 05</div>
+            <h2>아티스트 전용 앱 상품 설계</h2>
+            <p>리듬게임 + 포토카드 수집 + @ 의 "@" 에 해당하는 콘텐츠와 수익화 구조</p>
+        </div>
+
+        <h3 style="margin-bottom: 1.5rem;">앱 가치 구조 (Value Layer)</h3>
+        <div class="flow-chart">
+            <div class="flow-step">
+                <div class="step-title">Layer 1: 기본</div>
+                <div class="step-desc">유료 앱 가격에 포함</div>
+            </div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">
+                <div class="step-title">Layer 2: 시즌</div>
+                <div class="step-desc">정기 IAP 콘텐츠</div>
+            </div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">
+                <div class="step-title">Layer 3: 프리미엄</div>
+                <div class="step-desc">한정판/이벤트</div>
+            </div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">
+                <div class="step-title">Layer 4: 구독</div>
+                <div class="step-desc">월간 멤버십</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Layer 1 — 유료 앱 기본 포함 콘텐츠 ($9.99)</h3>
+            <div class="two-col">
+                <div>
+                    <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">리듬게임</h4>
+                    <ul>
+                        <li>아티스트 대표곡 20~30곡 플레이</li>
+                        <li>3단계 난이도 (Easy/Normal/Hard)</li>
+                        <li>기본 점수 시스템 & 랭킹</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--accent); margin-bottom: 0.5rem;">디지털 MD</h4>
+                    <ul>
+                        <li>기본 포토카드 세트 (20~30장)</li>
+                        <li>프로필 꾸미기 기본 아이템</li>
+                        <li>아티스트 독점 배경화면 세트</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Layer 2 — 시즌별 IAP 콘텐츠 (정기 업데이트)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>상품</th>
+                        <th>가격</th>
+                        <th>주기</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>신곡 팩</td>
+                        <td>$2.99~$4.99</td>
+                        <td>컴백 시</td>
+                        <td>신보 수록곡 5~7곡 + 컴백 포토카드 세트</td>
+                    </tr>
+                    <tr>
+                        <td>시즌 포토카드 팩</td>
+                        <td>$1.99~$3.99</td>
+                        <td>월 1~2회</td>
+                        <td>테마별 포토카드 5~10장 (봄, 여름, 콘서트 등)</td>
+                    </tr>
+                    <tr>
+                        <td>꾸미기 테마 팩</td>
+                        <td>$0.99~$2.99</td>
+                        <td>월 1회</td>
+                        <td>시즌별 UI 테마, 배경, 이펙트</td>
+                    </tr>
+                    <tr>
+                        <td>보이스 메시지 팩</td>
+                        <td>$1.99~$3.99</td>
+                        <td>월 1회</td>
+                        <td>아티스트 독점 음성 메시지 3~5개</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>Layer 3 — 프리미엄 한정판 (이벤트성)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>상품</th>
+                        <th>가격</th>
+                        <th>타이밍</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>생일 스페셜 팩</td>
+                        <td>$6.99~$9.99</td>
+                        <td>멤버 생일</td>
+                        <td>생일 한정 포토카드 + 특별 게임 스테이지 + 보이스</td>
+                    </tr>
+                    <tr>
+                        <td>기념일 번들</td>
+                        <td>$9.99~$14.99</td>
+                        <td>데뷔 기념일 등</td>
+                        <td>히스토리 포토카드 컬렉션 + 비하인드 영상</td>
+                    </tr>
+                    <tr>
+                        <td>콘서트 연계 팩</td>
+                        <td>$4.99~$9.99</td>
+                        <td>투어/콘서트 시</td>
+                        <td>콘서트 현장 포토카드 + AR 카드 + 세트리스트 스테이지</td>
+                    </tr>
+                    <tr>
+                        <td>Phygital 번들</td>
+                        <td>$14.99~$29.99</td>
+                        <td>분기 1회</td>
+                        <td>실물 포토카드 배송 + 디지털 한정판 + AR 체험</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>Layer 4 — 월간 구독 멤버십 (선택사항)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>등급</th>
+                        <th>월 가격</th>
+                        <th>혜택</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tag tag-info">STAN</span></td>
+                        <td>$3.99/월</td>
+                        <td>매월 포토카드 3장 + 독점 배경화면 + 광고 제거</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-positive">BIAS</span></td>
+                        <td>$7.99/월</td>
+                        <td>STAN 혜택 + 월간 보이스 메시지 + 프리미엄 테마 + 신곡 팩 할인 30%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="highlight-box">
+            <h3>예상 유저당 연간 수익(ARPU) 시뮬레이션</h3>
+            <table class="data-table" style="margin-top: 1rem;">
+                <thead>
+                    <tr>
+                        <th>세그먼트</th>
+                        <th>비율</th>
+                        <th>앱 구매</th>
+                        <th>연간 IAP</th>
+                        <th>구독</th>
+                        <th>연간 ARPU</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>앱만 구매</td>
+                        <td>~50%</td>
+                        <td>$9.99</td>
+                        <td>$0</td>
+                        <td>$0</td>
+                        <td><strong>$9.99</strong></td>
+                    </tr>
+                    <tr>
+                        <td>라이트 과금</td>
+                        <td>~30%</td>
+                        <td>$9.99</td>
+                        <td>$20~40</td>
+                        <td>$0</td>
+                        <td><strong>$30~50</strong></td>
+                    </tr>
+                    <tr>
+                        <td>구독+과금</td>
+                        <td>~15%</td>
+                        <td>$9.99</td>
+                        <td>$40~80</td>
+                        <td>$48~96</td>
+                        <td><strong>$98~186</strong></td>
+                    </tr>
+                    <tr>
+                        <td>고래(Whale)</td>
+                        <td>~5%</td>
+                        <td>$9.99</td>
+                        <td>$200+</td>
+                        <td>$96</td>
+                        <td><strong>$300+</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 1rem;">
+                <span class="emphasis">가중 평균 ARPU 추정: $40~60/유저/년</span> —
+                이는 F2P 리듬게임의 평균 ARPU($5~15)에 비해
+                <span class="text-success">4~8배 높은 수치</span>이며,
+                적은 유저 수로도 의미 있는 수익 달성이 가능함을 시사합니다.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SECTION 6: 양면 분석 ========== -->
+<section id="perspectives" style="background: rgba(108,92,231,0.03);">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">SECTION 06</div>
+            <h2>양면 분석: 비판적 관점 vs 긍정 전망</h2>
+            <p>아티스트 전용 유료 앱 모델에 대한 균형 잡힌 시각</p>
+        </div>
+
+        <div class="perspective-grid">
+            <div class="perspective-card positive">
+                <h3>긍정 전망 (Bullish Case)</h3>
+                <ol>
+                    <li><strong>시장 검증 완료:</strong> Bubble($1,300만/년, 120만 유저), Weverse(MAU 1,160만), 번개장터 포토카드 82초 내 판매 등 팬의 디지털 MD 지불 의향은 이미 검증됨</li>
+                    <li><strong>아티스트 니즈 부합:</strong> 아티스트들이 회사 통합 플랫폼이 아닌 개인 서비스 앱을 원하는 것은 사실상 "커맨드 풀" — IP 홀더의 적극적 참여가 마케팅 비용 절감</li>
+                    <li><strong>고ARPU 팬덤:</strong> K-POP 팬 1인당 연간 $1,400 지출. 유료 앱 $9.99는 전체 지출의 0.7%에 불과하여 가격 저항이 극히 낮음</li>
+                    <li><strong>B2B 확장성:</strong> 한 아티스트에 성공 사례를 만들면, 다른 아티스트/소속사로 복제 가능한 SaaS형 사업 모델로 발전</li>
+                    <li><strong>진입 장벽:</strong> 유료 앱은 진성 팬만 필터링 → 커뮤니티 품질 향상 → 리텐션 증가의 선순환</li>
+                    <li><strong>투자 내러티브 강화:</strong> "게임 회사"에서 "아티스트별 디지털 MD 플랫폼 제공 기업"으로 전환 시 밸류에이션 리레이팅 가능</li>
+                    <li><strong>업계 타이밍:</strong> 2026년은 K-콘텐츠 투자의 "Critical Window". HYBE의 희소성 모델과 맥락이 같은 전략</li>
+                </ol>
+            </div>
+            <div class="perspective-card negative">
+                <h3>비판적 관점 (Bear Case)</h3>
+                <ol>
+                    <li><strong>유료 앱 시장 축소:</strong> 모바일 앱 매출의 95%+가 F2P에서 발생. 유료 앱 시장은 전체의 2~3%로 구조적 한계</li>
+                    <li><strong>다운로드 장벽:</strong> F2P 대비 다운로드 수가 1/10~1/100 수준으로 떨어져 바이럴 성장이 사실상 불가. 신규 팬 유입 경로 차단</li>
+                    <li><strong>Paymium 반감:</strong> "돈 내고 샀는데 또 돈 내라니" 부정적 리뷰 리스크. 앱스토어 평점 하락 시 회복 극난</li>
+                    <li><strong>아티스트 의존성:</strong> 특정 아티스트 전용 앱은 해당 아티스트의 인기/활동에 전적으로 의존. 군입대, 활동 중단 시 매출 급감</li>
+                    <li><strong>운영 비용 분산:</strong> 통합 앱 1개 vs 아티스트별 앱 N개의 운영/업데이트 비용 비교 시 효율성 저하</li>
+                    <li><strong>위버스와의 정면 경쟁:</strong> HYBE의 위버스가 이미 생태계를 장악 중. 개별 앱이 생태계 대비 경쟁 우위를 확보하기 어려움</li>
+                    <li><strong>NFT 교훈:</strong> Nike, Starbucks 등 대기업도 Web3 리워드를 중단. 디지털 소유권 모델의 지속 가능성에 대한 시장 회의론 존재</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>리스크 완화 전략</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>리스크</th>
+                        <th>심각도</th>
+                        <th>완화 전략</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>유료 앱 다운로드 감소</td>
+                        <td><span class="tag tag-negative">높음</span></td>
+                        <td>무료 체험 버전 제공 → 유료 전환 유도 (Lite 버전 전략)</td>
+                    </tr>
+                    <tr>
+                        <td>Paymium 반감</td>
+                        <td><span class="tag tag-neutral">중간</span></td>
+                        <td>앱 가격 = "풀 게임", IAP = "추가 수집 콘텐츠"로 명확 구분. 게임 진행 영향 Zero</td>
+                    </tr>
+                    <tr>
+                        <td>아티스트 활동 중단</td>
+                        <td><span class="tag tag-negative">높음</span></td>
+                        <td>오프라인 콘텐츠(리듬게임, 수집) 강화. 활동 중단 시에도 즐길 수 있는 콘텐츠 확보</td>
+                    </tr>
+                    <tr>
+                        <td>멀티 앱 운영 비용</td>
+                        <td><span class="tag tag-neutral">중간</span></td>
+                        <td>공통 엔진 + 스킨/콘텐츠 분리 아키텍처. 템플릿 기반 앱 생성 파이프라인 구축</td>
+                    </tr>
+                    <tr>
+                        <td>위버스 생태계 경쟁</td>
+                        <td><span class="tag tag-neutral">중간</span></td>
+                        <td>"게임+수집" 특화 포지셔닝. 위버스가 제공하지 않는 인터랙티브 경험에 집중</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SECTION 7: 브레인스토밍 ========== -->
+<section id="ideas">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">SECTION 07</div>
+            <h2>브레인스토밍 아이디어</h2>
+            <p>아티스트 전용 앱의 "+@" 기능과 차별화 아이디어</p>
+        </div>
+
+        <div class="idea-grid">
+            <div class="idea-card">
+                <div class="idea-icon">🎵</div>
+                <h4>My Stage Mode</h4>
+                <p>팬이 직접 리듬게임 스테이지를 디자인하고 다른 팬에게 공유. UGC 기반 콘텐츠 확장으로 개발 리소스 최소화하면서 무한 콘텐츠 생산</p>
+            </div>
+            <div class="idea-card">
+                <div class="idea-icon">📸</div>
+                <h4>AR 포토카드 스튜디오</h4>
+                <p>수집한 디지털 포토카드를 AR로 실제 공간에 배치/촬영. 나만의 포토카드 전시관을 만들어 SNS에 공유. Phygital 경험의 핵심</p>
+            </div>
+            <div class="idea-card">
+                <div class="idea-icon">🎂</div>
+                <h4>Birthday & Anniversary Engine</h4>
+                <p>멤버 생일, 데뷔 기념일에 자동 활성화되는 한정 이벤트+MD. 팬덤 캘린더 연동으로 시즌별 매출 피크 자동 생성</p>
+            </div>
+            <div class="idea-card">
+                <div class="idea-icon">🏠</div>
+                <h4>My Bias Room</h4>
+                <p>수집한 포토카드, MD, 업적으로 나만의 최애 방 꾸미기. 다른 팬 방 방문 & 좋아요. 수집 동기 부여 + 소셜 기능</p>
+            </div>
+            <div class="idea-card">
+                <div class="idea-icon">🎤</div>
+                <h4>Voice Diary</h4>
+                <p>아티스트가 녹음한 짧은 음성 다이어리를 정기 전달. Bubble의 텍스트 모델을 음성으로 확장. 친밀감 극대화 콘텐츠</p>
+            </div>
+            <div class="idea-card">
+                <div class="idea-icon">🏆</div>
+                <h4>Fan Achievement System</h4>
+                <p>게임 플레이, 수집, 출석 등을 통한 팬 레벨/뱃지 시스템. "진정한 팬" 인증 심리를 자극하여 인게이지먼트 & 과금 유도</p>
+            </div>
+            <div class="idea-card">
+                <div class="idea-icon">🎁</div>
+                <h4>Fan-to-Fan 선물</h4>
+                <p>디지털 포토카드, 아이템을 다른 팬에게 선물할 수 있는 기능. 생일 선물 문화와 연계. 바이럴 + 재구매 유발</p>
+            </div>
+            <div class="idea-card">
+                <div class="idea-icon">📦</div>
+                <h4>Phygital Mystery Box</h4>
+                <p>앱 내 구매 시 실물 포토카드+디지털 아이템이 함께 제공되는 미스터리 박스. 온라인 언박싱 경험 + 실물 배송의 설렘 결합</p>
+            </div>
+            <div class="idea-card">
+                <div class="idea-icon">🌍</div>
+                <h4>Tour Connect Mode</h4>
+                <p>콘서트/팬미팅 현장에서만 해금되는 특별 콘텐츠. GPS 기반 한정 포토카드 & 스테이지. 현장 참여 가치 극대화</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>"유료 앱 가격을 정당화하는" 킬러 기능 후보</h3>
+            <p>무료 앱에서는 제공하기 어렵지만, 유료 앱이기에 가능한 프리미엄 경험</p>
+            <div class="divider"></div>
+            <div class="two-col" style="margin-top: 1rem;">
+                <div>
+                    <ul>
+                        <li><strong>광고 완전 제거:</strong> 유료 앱의 가장 직관적인 가치. 몰입감 보장</li>
+                        <li><strong>오프라인 플레이:</strong> 인터넷 없이도 리듬게임 & 포토카드 감상 가능</li>
+                        <li><strong>HQ 오디오:</strong> 무손실 음원으로 리듬게임 플레이 (팬들에게 가치 높음)</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><strong>독점 콘텐츠:</strong> 앱에서만 볼 수 있는 포토카드/영상 (소유 심리 자극)</li>
+                        <li><strong>얼리 액세스:</strong> 신곡 발매 전 리듬게임에서 먼저 플레이</li>
+                        <li><strong>아티스트 커스텀 UI:</strong> 아티스트가 직접 참여한 인터페이스 디자인</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SECTION 8: 회의 전략 ========== -->
+<section id="agenda" style="background: rgba(108,92,231,0.03);">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">SECTION 08</div>
+            <h2>미팅 아젠다 & 전략 가이드</h2>
+            <p>브레인스토밍 성격의 미팅을 효과적으로 이끌기 위한 구조와 전략</p>
+        </div>
+
+        <div class="card">
+            <h3>권장 미팅 아젠다</h3>
+
+            <div class="agenda-item">
+                <div class="agenda-time">10분</div>
+                <div class="agenda-content">
+                    <h4>1. 컨텍스트 세팅: "왜 지금인가?"</h4>
+                    <p>시장 데이터 공유 (MD 매출 성장, HYBE 전략 전환, VC 투자 확대). "KPOP 디지털 MD 기업"으로의 전환 당위성 합의 도출</p>
+                </div>
+            </div>
+
+            <div class="agenda-item">
+                <div class="agenda-time">15분</div>
+                <div class="agenda-content">
+                    <h4>2. 핵심 쟁점 토론: "유료 앱 모델의 가능성"</h4>
+                    <p>유료 앱 vs F2P 유지 vs 하이브리드(Lite+Premium)의 3가지 선택지 비교. 각 팀원에게 하나의 입장을 배정하여 구조화된 토론 진행</p>
+                </div>
+            </div>
+
+            <div class="agenda-item">
+                <div class="agenda-time">20분</div>
+                <div class="agenda-content">
+                    <h4>3. 브레인스토밍: "아티스트 앱의 +@"</h4>
+                    <p>리듬게임+포토카드 외에 어��� 기능/콘텐츠를 추가할 것인가. 포스트잇/화이트보드 활용 자유 아이디어 발산 → 투표로 Top 3 선정</p>
+                </div>
+            </div>
+
+            <div class="agenda-item">
+                <div class="agenda-time">10분</div>
+                <div class="agenda-content">
+                    <h4>4. 수익 모델 설계: "어떻게 돈을 벌 것인가?"</h4>
+                    <p>가격 전략 논의 ($4.99 vs $9.99 vs Tier), IAP 상품 구성, 구독 모델 도입 여부. 예상 ARPU 시뮬레이션 공유</p>
+                </div>
+            </div>
+
+            <div class="agenda-item">
+                <div class="agenda-time">10분</div>
+                <div class="agenda-content">
+                    <h4>5. 실행 로드맵: "첫 번째 타겟 아티스트와 MVP"</h4>
+                    <p>파일럿 대상 아티스트 선정 기준, MVP 범위 정의, 타임라인 초안. Go/No-Go 판단 기준(KPI) 합의</p>
+                </div>
+            </div>
+
+            <div class="agenda-item" style="border-bottom: none;">
+                <div class="agenda-time">5분</div>
+                <div class="agenda-content">
+                    <h4>6. Next Steps & Action Items</h4>
+                    <p>담당자 배정, 추가 조사 필요 항목 정리, 다음 미팅 일정 확정</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div class="card">
+                <h3>미팅 퍼실리테이션 팁</h3>
+                <ul>
+                    <li><strong>"Yes, and..." 규칙:</strong> 브레인스토밍 단계에서는 아이디어를 부정하지 않고 확장하기</li>
+                    <li><strong>의사결정은 나중에:</strong> 오늘은 아이디어 수집이 목적. 결정은 데이터 검증 후</li>
+                    <li><strong>Devil's Advocate 지정:</strong> 한 명에게 의도적으로 비판적 역할 부여하여 맹점 발견</li>
+                    <li><strong>Time Boxing:</strong> 각 아젠다에 엄격한 시간 제한. 넘어가면 "Parking Lot"에 기록 후 진행</li>
+                    <li><strong>투표 시스템:</strong> 아이디어 선정 시 점수제 투표(3표씩)로 빠른 우선순위 결정</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>미팅에서 던질 핵심 질문들</h3>
+                <ul>
+                    <li>"우리의 핵심 경쟁력은 리듬게임 기술인가, 아니면 IP 접근성인가?"</li>
+                    <li>"아티스트가 직접 참여(콘텐츠 제공)하는 수준은 어디까지 가능한가?"</li>
+                    <li>"첫 번째 아티스트 앱이 실패하면 우리에게 미치는 영향은?"</li>
+                    <li>"유료 앱으로 전환 시 기존 슈퍼스타 시리즈 유저에게 미치는 영향은?"</li>
+                    <li>"위버스/버블과 공존할 수 있는 우리만의 포지션은 무엇인가?"</li>
+                    <li>"B2B 모델(앱 제작 대행)로 발전 가능성은?"</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h3>전략적 제언: 단계적 접근법 (Phased Approach)</h3>
+            <p>
+                한 번에 유료 앱으로 전면 전환하기보다, <span class="emphasis">3단계 접근</span>을 권장합니다:<br><br>
+                <strong>Phase 1 — 검증 (3개월):</strong> 기존 슈퍼스타 시리즈 중 하나의 아티스트에 대해 "프리미엄 디지털 MD 팩"을 IAP로 출시.
+                팬의 디지털 MD 지불 의향을 실제 데이터로 검증합니다.<br><br>
+                <strong>Phase 2 — 파일럿 (6개월):</strong> 검증된 데이터를 기반으로 한 명의 아티스트 전용 유료 앱을 MVP로 출시.
+                가격, 상품, 리텐션 데이터를 수집하여 비즈니스 모델을 확정합니다.<br><br>
+                <strong>Phase 3 — 스케일 (12개월~):</strong> 파일럿 성과를 기반으로 공통 엔진 + 스킨/콘텐츠 분리 아키텍처를 구축하고,
+                다수 아티스트로 확장합니다. 이 시점에서 "아티스트 앱 제작 플랫폼 기업"으로의 포지셔닝이 완성됩니다.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SECTION 9: 출처 ========== -->
+<section id="sources">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">SECTION 09</div>
+            <h2>참고 자료 및 출처</h2>
+        </div>
+
+        <div class="sources">
+            <h3>시장 데이터 & 산업 분석</h3>
+            <a href="https://htfmarketinsights.com/report/4371265-kpop-memorabilia-market" target="_blank">HTF Market Insights — K-pop Memorabilia Market Growth Analysis (2025-2033)</a>
+            <a href="https://gitnux.org/kpop-industry-statistics/" target="_blank">Gitnux — Kpop Industry Statistics: Market Data Report 2026</a>
+            <a href="https://www.alliedmarketresearch.com/k-pop-events-market-A47369" target="_blank">Allied Market Research — K-pop Events Market Size, Share, Growth (Forecast 2031)</a>
+            <a href="https://go2marketresearch.com/reports/k-pop-production-market" target="_blank">Go 2 Market Research — Global K-pop Production Market Report 2025-2035</a>
+            <a href="https://welcon.kocca.kr/ko/info/trend/1956730" target="_blank">한국콘텐츠진흥원 — 케이팝 굿즈 시장의 확장세</a>
+            <a href="https://www.venturesquare.net/1035966" target="_blank">번개장터 — 2025 글로벌 K-POP 트렌드 리포트</a>
+            <a href="https://dailian.co.kr/news/view/1273132" target="_blank">데일리안 — 케이팝 날자 덩달아 뛰는 굿즈 시장…폭발적 성장 뒤의 그림자</a>
+        </div>
+
+        <div class="sources">
+            <h3>HYBE / 위버스 / 빅4 실적</h3>
+            <a href="https://www.hellokpop.com/news/hybe-hits-record-high-quarterly-revenue-in-2025-q3/" target="_blank">HelloKPOP — HYBE Hits Record-High Quarterly Revenue in 2025 Q3</a>
+            <a href="https://www.musicbusinessworldwide.com/hybes-weverse-fandom-10m-users-after-revenues-grew-21-yoy-in-q2/" target="_blank">Music Business Worldwide — HYBE's Weverse Surpassed 10M Active Users</a>
+            <a href="https://www.billboard.com/pro/hybe-weverse-pioneering-new-superfan-subscription-model/" target="_blank">Billboard — HYBE's Weverse Is Pioneering a New Superfan Subscription Model</a>
+            <a href="https://kpopnewswire.com/hybe-yg-jyp-sm-q3-2025-earnings/" target="_blank">K-POP Newswire — How Much the Big 4 Made in Q3 2025</a>
+            <a href="https://www.billboard.com/pro/k-pop-business-booming-q2-2025-music-earnings-takeaways/" target="_blank">Billboard — K-Pop Business Is Booming: Q2 2025 Takeaways</a>
+            <a href="https://kpoppost.com/k-pop-investment-guide-roi-comparison-of-hybe-sm-yg-and-jyp/" target="_blank">KPOPPOST — K-Pop Investment Guide: ROI Comparison of HYBE, SM, YG, and JYP</a>
+        </div>
+
+        <div class="sources">
+            <h3>수익화 모델 & 앱 전략</h3>
+            <a href="https://asomobile.net/en/blog/mobile-market-money-app-monetization-in-2025/" target="_blank">ASO Mobile — App Monetization Strategies 2025: Premium, Freemium, Paymium</a>
+            <a href="https://tyrads.com/app-pricing-models/" target="_blank">TyrAds — App Pricing Models Explained: How to Choose the Right Strategy in 2025</a>
+            <a href="https://segwise.ai/blog/comparing-different-monetization-models-freemium-premium-and-subscription-for-mobile-games-clxvdqq6z00074gdktfh3ust5" target="_blank">Segwise — Comparing Different Monetization Models: Freemium, Premium, and Subscription</a>
+            <a href="https://tyrads.com/microtransaction/" target="_blank">TyrAds — Microtransactions: How Freemium Apps and Games Monetize in 2025</a>
+            <a href="https://businessmodelanalyst.com/free-to-play-gaming-economics-how-0-games-generate-billions/" target="_blank">Business Model Analyst — Free-to-Play Gaming Economics</a>
+        </div>
+
+        <div class="sources">
+            <h3>팬덤 플랫폼 & 팬 심리</h3>
+            <a href="https://www.nngroup.com/articles/kpop-private-messaging/" target="_blank">NN/g — K-Pop Apps Create the Illusion of Private Messaging with Celebrities</a>
+            <a href="https://www.hollywoodreporter.com/business/digital/kpop-fan-communication-texting-app-1236389307/" target="_blank">Hollywood Reporter — Want to Text a K-Pop Idol? There's an App For That</a>
+            <a href="https://www.tandfonline.com/doi/full/10.1080/03007766.2025.2492505" target="_blank">Taylor & Francis — The Labor Process of Relational Labor: K-pop Fan Platform "Bubble"</a>
+            <a href="https://respawn.outlookindia.com/pop-culture/pop-culture-guides/weverse-vs-bubble-the-battle-for-k-pop-fans" target="_blank">Outlook India — Weverse vs. Bubble: The Battle for K-Pop Fans</a>
+            <a href="https://journals.sagepub.com/doi/10.1177/20563051251326689" target="_blank">SAGE Journals — Platform Fandom: Weverse and the Technological Domestication of Fan Community (2025)</a>
+        </div>
+
+        <div class="sources">
+            <h3>투자 & 미래 전략</h3>
+            <a href="https://koreatechdesk.com/k-content-investment-critical-window" target="_blank">KoreaTechDesk — 2026: The Critical Window for K-Content</a>
+            <a href="https://www.kedglobal.com/venture-capital/newsView/ked202509110004" target="_blank">KED Global — VCs Step Up K-pop Startup Bets</a>
+            <a href="https://www.musicbusinessworldwide.com/as-k-pop-superstars-bts-return-hybe-ceo-to-test-scarcity-model-for-fandom-business/" target="_blank">MBW — HYBE CEO to Test 'Scarcity' Model for Fandom Business</a>
+            <a href="https://www.insighttrendsworld.com/post/entertainment-2026-pop-culture-strategy-the-fan-led-phygital-commerce-revolution" target="_blank">Insight Trends World — 2026 Pop Culture Strategy: The Fan-Led, Phygital Commerce Revolution</a>
+            <a href="https://essentialbizmarketing.com/blog/international-business/merging-blockchain-with-k-pop-nfts-and-the-future-of-fan-engagement/" target="_blank">Essential Biz Marketing — How K-Pop Uses NFTs and Blockchain to Reinvent Fan Engagement</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>KPOP 디지털 MD 패러다임 전환 전략 보고서 &mdash; 2026.02.05<br>
+        GameDesign Agent 분석 | 사내 미팅 전용 자료 | Confidential</p>
+    </div>
+</footer>
+
+</body>
+</html>

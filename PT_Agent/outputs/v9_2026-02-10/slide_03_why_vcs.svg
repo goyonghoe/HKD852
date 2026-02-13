@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  <circle cx="1700" cy="900" r="300" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section number + title -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 01</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">버전 관리, 왜 필요한가?</text>
+
+  <!-- Without VCS - Problem cards -->
+  <text x="100" y="280" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">버전 관리 없이 개발하면?</text>
+
+  <!-- Problem card 1 -->
+  <rect x="100" y="310" width="520" height="140" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <text x="140" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#EF4444" opacity="0.8">01</text>
+  <text x="220" y="355" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">파일 덮어쓰기 사고</text>
+  <text x="220" y="390" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">"최종_최종_진짜최종_v3.unity" — 누가 최신?</text>
+  <text x="220" y="420" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">동시 편집으로 3일치 작업이 소실</text>
+
+  <!-- Problem card 2 -->
+  <rect x="700" y="310" width="520" height="140" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <text x="740" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#EF4444" opacity="0.8">02</text>
+  <text x="820" y="355" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">롤백 불가능</text>
+  <text x="820" y="390" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">"어제 버전으로 돌리고 싶은데…"</text>
+  <text x="820" y="420" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">이전 상태 복원이 불가능</text>
+
+  <!-- Problem card 3 -->
+  <rect x="1300" y="310" width="520" height="140" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <text x="1340" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#EF4444" opacity="0.8">03</text>
+  <text x="1420" y="355" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="24" fill="#FAF5FF">협업 병목</text>
+  <text x="1420" y="390" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">"이 파일 누가 쓰고 있어요?"</text>
+  <text x="1420" y="420" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">팀원 간 변경 사항 추적 불가</text>
+
+  <!-- Arrow down -->
+  <line x1="960" y1="490" x2="960" y2="540" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="950,540 970,540 960,555" fill="#8B5CF6" opacity="0.5"/>
+
+  <!-- Solution banner -->
+  <rect x="100" y="570" width="1720" height="100" rx="16" fill="#8B5CF6" opacity="0.12"/>
+  <rect x="100" y="570" width="6" height="100" rx="3" fill="#8B5CF6"/>
+  <text x="140" y="620" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="28" fill="#FAF5FF">버전 관리 시스템(VCS)이 해결합니다</text>
+  <text x="140" y="652" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">모든 변경 이력 추적 · 안전한 병렬 작업 · 즉시 롤백 · 코드 리뷰 · 릴리즈 관리</text>
+
+  <!-- Game dev specific stats -->
+  <text x="100" y="740" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">게임 개발에서 특히 중요한 이유</text>
+
+  <rect x="100" y="770" width="400" height="160" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="300" y="820" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="44" fill="#8B5CF6" text-anchor="middle">10~100GB+</text>
+  <text x="300" y="860" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD" text-anchor="middle">프로젝트 용량</text>
+  <text x="300" y="890" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.6" text-anchor="middle">텍스처, 모델, 오디오 등 대용량 에셋</text>
+
+  <rect x="560" y="770" width="400" height="160" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="760" y="820" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="44" fill="#8B5CF6" text-anchor="middle">10~50+명</text>
+  <text x="760" y="860" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD" text-anchor="middle">팀 규모</text>
+  <text x="760" y="890" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.6" text-anchor="middle">프로그래머 + 아티스트 + 기획자</text>
+
+  <rect x="1020" y="770" width="400" height="160" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="1220" y="820" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="44" fill="#8B5CF6" text-anchor="middle">바이너리</text>
+  <text x="1220" y="860" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD" text-anchor="middle">파일 유형</text>
+  <text x="1220" y="890" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.6" text-anchor="middle">.fbx .psd .png — 텍스트 diff 불가</text>
+
+  <rect x="1480" y="770" width="340" height="160" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="1650" y="820" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="44" fill="#8B5CF6" text-anchor="middle">빈번한</text>
+  <text x="1650" y="860" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD" text-anchor="middle">이터레이션</text>
+  <text x="1650" y="890" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.6" text-anchor="middle">매일 수십 번 빌드 &amp; 테스트</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">3 / 13</text>
+</svg>

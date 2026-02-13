@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- v4: Minto Pyramid - 결론부터 시작 -->
+  <!-- Glance Test: 3초 내 "2026 H1 핵심" 파악 가능 -->
+
+  <!-- Header Label -->
+  <text x="100" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#808080">2026 H1 EXECUTIVE SUMMARY</text>
+
+  <!-- 핵심 결론 (Pyramid Top) - 가장 크게 -->
+  <text x="100" y="220" font-family="Space Mono, monospace" font-weight="700" font-size="72" fill="#FFFFFF">런칭 → 운영 체계 구축</text>
+
+  <!-- 부제 (Why this matters) -->
+  <text x="100" y="290" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="28" fill="#B0B0B0">Q1 글로벌 서비스 출시 · Q2 AI 기반 효율화</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="350" x2="1820" y2="350" stroke="#333333" stroke-width="1"/>
+
+  <!-- Two Column Layout: Q1 vs Q2 -->
+  <!-- Visual Hierarchy: 큰 숫자 → 핵심 메시지 → 상세 -->
+
+  <!-- Q1 Column -->
+  <g transform="translate(100, 400)">
+    <!-- Quarter Badge - 크게 -->
+    <text x="0" y="80" font-family="Space Mono, monospace" font-weight="700" font-size="120" fill="#FFFFFF" opacity="0.15">Q1</text>
+    <text x="200" y="60" font-family="Space Mono, monospace" font-weight="700" font-size="40" fill="#FFFFFF">서비스 런칭</text>
+
+    <!-- Key Point (6x6 적용: 짧게) -->
+    <text x="200" y="120" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="24" fill="#CCCCCC">SUPERSTAR THEBLACKLABEL</text>
+    <text x="200" y="160" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="24" fill="#CCCCCC">글로벌 동시 출시</text>
+
+    <!-- Status Indicator -->
+    <g transform="translate(200, 200)">
+      <rect x="0" y="0" width="140" height="44" fill="#333333" rx="22"/>
+      <text x="70" y="30" font-family="Space Mono, monospace" font-weight="700" font-size="16" fill="#FFFFFF" text-anchor="middle">3월 목표</text>
+    </g>
+  </g>
+
+  <!-- Arrow between columns -->
+  <text x="960" y="550" font-family="Space Mono, monospace" font-weight="400" font-size="60" fill="#444444" text-anchor="middle">→</text>
+
+  <!-- Q2 Column -->
+  <g transform="translate(1000, 400)">
+    <!-- Quarter Badge - 크게 -->
+    <text x="0" y="80" font-family="Space Mono, monospace" font-weight="700" font-size="120" fill="#FFFFFF" opacity="0.15">Q2</text>
+    <text x="200" y="60" font-family="Space Mono, monospace" font-weight="700" font-size="40" fill="#FFFFFF">AI 운영 체계</text>
+
+    <!-- Key Point -->
+    <text x="200" y="120" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="24" fill="#CCCCCC">AI Agent 조직 모델</text>
+    <text x="200" y="160" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="24" fill="#CCCCCC">Human-in-the-Loop</text>
+
+    <!-- Status Indicator -->
+    <g transform="translate(200, 200)">
+      <rect x="0" y="0" width="140" height="44" fill="#222222" rx="22"/>
+      <text x="70" y="30" font-family="Space Mono, monospace" font-weight="400" font-size="16" fill="#999999" text-anchor="middle">6월 목표</text>
+    </g>
+  </g>
+
+  <!-- Bottom Key Message (Pyramid 핵심 반복) -->
+  <g transform="translate(100, 750)">
+    <rect x="0" y="0" width="1720" height="120" fill="#111111" rx="12"/>
+    <text x="860" y="45" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="24" fill="#FFFFFF" text-anchor="middle">핵심 메시지</text>
+    <text x="860" y="90" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#B0B0B0" text-anchor="middle">런칭 성공 → AI로 운영 효율화 → 인간 중심 의사결정 유지</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="980" x2="1820" y2="980" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080">MONTHLY REPORT · 2026 H1</text>
+  <text x="1820" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="end">1 / 5</text>
+</svg>

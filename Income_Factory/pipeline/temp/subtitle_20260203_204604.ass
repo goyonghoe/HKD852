@@ -1,0 +1,28 @@
+[Script Info]
+Title: YouTube Shorts Subtitles
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,60,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,4,2,2,50,50,400,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:04.00,Default,,0,0,0,,ChatGPT로 돈 번다는\N사람들, 진짜일까요?
+Dialogue: 0,0:00:04.00,0:00:08.00,Default,,0,0,0,,저도 처음엔 믿지 않았습니다.
+Dialogue: 0,0:00:08.00,0:00:12.00,Default,,0,0,0,,근데 직접 해보니까 진짜였어요.
+Dialogue: 0,0:00:12.00,0:00:16.00,Default,,0,0,0,,첫 번째, AI 썸네일 제작.
+Dialogue: 0,0:00:16.00,0:00:20.00,Default,,0,0,0,,Canva에서 AI로 썸네일\N만들어서 크몽에 올리세요.
+Dialogue: 0,0:00:20.00,0:00:24.00,Default,,0,0,0,,건당 5천원, 하루 10개면 5만원입니다.
+Dialogue: 0,0:00:24.00,0:00:28.00,Default,,0,0,0,,두 번째, AI 블로그 글 대필.
+Dialogue: 0,0:00:28.00,0:00:32.00,Default,,0,0,0,,ChatGPT로 초안 잡고 다듬으면 끝.
+Dialogue: 0,0:00:32.00,0:00:36.00,Default,,0,0,0,,글 하나에 2만원, 하루 3개면 6만원.
+Dialogue: 0,0:00:36.00,0:00:40.00,Default,,0,0,0,,세 번째, AI 번역 서비스.
+Dialogue: 0,0:00:40.00,0:00:44.00,Default,,0,0,0,,DeepL이랑 ChatGPT 조합하면\N전문 번역가 수준 나옵니다.
+Dialogue: 0,0:00:44.00,0:00:48.00,Default,,0,0,0,,A4 한 장에 1만원.
+Dialogue: 0,0:00:48.00,0:00:52.00,Default,,0,0,0,,이 세 가지만 해도 월 100만원은\N현실적인 목표입니다.
+Dialogue: 0,0:00:52.00,0:00:56.00,Default,,0,0,0,,중요한 건 시작하는 겁니다.
+Dialogue: 0,0:00:56.00,0:01:00.00,Default,,0,0,0,,더 자세한 방법이 궁금하면 팔로우 해두세요.

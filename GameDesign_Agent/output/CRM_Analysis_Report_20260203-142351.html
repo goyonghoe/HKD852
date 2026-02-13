@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM 리스트 1차 결과물 분석 리포트</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-yellow: #d29922;
+            --accent-red: #f85149;
+            --accent-purple: #a371f7;
+            --border-color: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: var(--bg-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .skill-tag {
+            background: var(--bg-tertiary);
+            color: var(--accent-blue);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--text-primary);
+        }
+
+        h3:first-of-type {
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+        }
+
+        .status-good { color: var(--accent-green); }
+        .status-warning { color: var(--accent-yellow); }
+        .status-danger { color: var(--accent-red); }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .badge-must { background: #f8514926; color: var(--accent-red); }
+        .badge-should { background: #d2992226; color: var(--accent-yellow); }
+        .badge-could { background: #3fb95026; color: var(--accent-green); }
+
+        .score-card {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .score-item {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .score-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .highlight-box {
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--accent-blue);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box.warning {
+            border-left-color: var(--accent-yellow);
+        }
+
+        .highlight-box.danger {
+            border-left-color: var(--accent-red);
+        }
+
+        .highlight-box.success {
+            border-left-color: var(--accent-green);
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding: 1.5rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .flow-item {
+            background: var(--bg-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .flow-arrow {
+            color: var(--text-secondary);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .summary-card {
+            background: var(--bg-tertiary);
+            padding: 1.25rem;
+            border-radius: 8px;
+        }
+
+        .summary-card h4 {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .decision-box {
+            background: linear-gradient(135deg, #1a1f35, #0d1117);
+            border: 2px solid var(--accent-purple);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .decision-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-purple);
+        }
+
+        .decision-item {
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .decision-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .decision-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: var(--accent-purple);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            margin-right: 0.75rem;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .toc {
+            background: var(--bg-secondary);
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .toc-title {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .toc-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .toc-item {
+            background: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+
+        .toc-item:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 1rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CRM 리스트 1차 결과물 분석 리포트</h1>
+            <p class="subtitle">GameDesign Agent 6개 스킬 분석 결과</p>
+            <div class="meta-info">
+                <span class="meta-item">분석 대상: CRM 리스트 20개 항목</span>
+                <span class="meta-item">분석일: 2026-02-03</span>
+                <span class="meta-item">최종 평가: <strong style="color: var(--accent-yellow);">조건부 승인</strong></span>
+            </div>
+        </header>
+
+        <nav class="toc">
+            <div class="toc-title">목차</div>
+            <div class="toc-list">
+                <a href="#requirement" class="toc-item">/requirement</a>
+                <a href="#coordinate" class="toc-item">/coordinate</a>
+                <a href="#monetize" class="toc-item">/monetize</a>
+                <a href="#ux" class="toc-item">/ux</a>
+                <a href="#balance" class="toc-item">/balance</a>
+                <a href="#pd-review" class="toc-item">/pd-review</a>
+                <a href="#decision" class="toc-item">회의 결정 사항</a>
+            </div>
+        </nav>
+
+        <!-- 핵심 요구사항 -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">📋</span>
+                <h2 class="section-title">핵심 요구사항</h2>
+            </div>
+            <table>
+                <tr>
+                    <th style="width: 30%;">요구사항</th>
+                    <th>설명</th>
+                </tr>
+                <tr>
+                    <td><strong>PUR 또는 ARPPU 증가</strong></td>
+                    <td>과금률(PUR) 또는 과금유저당 매출(ARPPU) 중 하나 이상 증가</td>
+                </tr>
+                <tr>
+                    <td><strong>유저 상태 기반 타겟팅</strong></td>
+                    <td>신규, 지속 플레이 등 유저 상태별 명확한 타겟 설정</td>
+                </tr>
+                <tr>
+                    <td><strong>거부할 수 없는 상품</strong></td>
+                    <td>가치 인식 > 가격 저항 구조</td>
+                </tr>
+                <tr>
+                    <td><strong>코어루프 연계</strong></td>
+                    <td>게임의 핵심 루프와 자연스럽게 연결</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- /requirement -->
+        <section class="section" id="requirement">
+            <div class="section-header">
+                <span class="section-icon">🔍</span>
+                <h2 class="section-title">요구사항 분석</h2>
+                <span class="skill-tag">/requirement</span>
+            </div>
+
+            <h3>핵심 니즈 도출</h3>
+            <table>
+                <tr>
+                    <th>표면적 요구사항</th>
+                    <th>근본적 니즈</th>
+                </tr>
+                <tr>
+                    <td>PUR/ARPPU 증가</td>
+                    <td>매출 성장 및 수익 구조 안정화</td>
+                </tr>
+                <tr>
+                    <td>유저 상태 기반 타겟팅</td>
+                    <td>개인화된 과금 경험으로 전환율 극대화</td>
+                </tr>
+                <tr>
+                    <td>거부할 수 없는 상품</td>
+                    <td>가치 인식 > 가격 저항 구조</td>
+                </tr>
+                <tr>
+                    <td>코어루프 고려</td>
+                    <td>자연스러운 과금 동선, 플레이 방해 최소화</td>
+                </tr>
+            </table>
+
+            <h3>요구사항 우선순위</h3>
+            <table>
+                <tr>
+                    <th>우선순위</th>
+                    <th>구분</th>
+                    <th>요구사항</th>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-must">Must</span></td>
+                    <td>비즈니스</td>
+                    <td>PUR 또는 ARPPU 중 하나 이상 증가</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-must">Must</span></td>
+                    <td>기능</td>
+                    <td>유저 상태(신규/Streak) 식별 시스템</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-must">Must</span></td>
+                    <td>기능</td>
+                    <td>트리거 조건 감지 및 팝업 노출</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-should">Should</span></td>
+                    <td>사용자</td>
+                    <td>상품 가치 > 가격 인식 설계</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-could">Could</span></td>
+                    <td>기능</td>
+                    <td>A/B 테스트 구조</td>
+                </tr>
+            </table>
+
+            <div class="highlight-box warning">
+                <h3 style="margin-top: 0;">⚠️ 불명확한 점 (확인 필요)</h3>
+                <ul>
+                    <li><strong>신규 유저</strong> 정의: D1? D7? 첫 과금 전?</li>
+                    <li><strong>Streak</strong> 정의: 연속 접속? 과금 이력 있는 유저?</li>
+                    <li><strong>코어루프</strong> 문서화 여부</li>
+                    <li><strong>트리거 중복</strong> 처리: 여러 조건 동시 충족 시 우선순위</li>
+                    <li><strong>노출 빈도 제한</strong>: 동일 CRM 재노출 정책</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- /coordinate -->
+        <section class="section" id="coordinate">
+            <div class="section-header">
+                <span class="section-icon">🔀</span>
+                <h2 class="section-title">작업 분배</h2>
+                <span class="skill-tag">/coordinate</span>
+            </div>
+
+            <h3>요구사항 유형 판별</h3>
+            <p>CRM 상품 기획 검토 → <strong>수익화 개선</strong> (복합 요청)</p>
+
+            <h3>분석 흐름</h3>
+            <div class="flow-diagram">
+                <span class="flow-item">/monetize</span>
+                <span class="flow-arrow">─┐</span>
+                <span></span>
+            </div>
+            <div class="flow-diagram">
+                <span class="flow-item">/ux</span>
+                <span class="flow-arrow">──┼──→</span>
+                <span class="flow-item">/pd-review</span>
+            </div>
+            <div class="flow-diagram">
+                <span class="flow-item">/balance</span>
+                <span class="flow-arrow">─┘</span>
+                <span></span>
+            </div>
+
+            <h3>스킬별 담당 영역</h3>
+            <table>
+                <tr>
+                    <th>스킬</th>
+                    <th>담당 영역</th>
+                    <th>산출물</th>
+                </tr>
+                <tr>
+                    <td><code>/monetize</code></td>
+                    <td>수익화 구조, 가격 전략, PUR/ARPPU 효과</td>
+                    <td>수익화 적합성 평가표</td>
+                </tr>
+                <tr>
+                    <td><code>/ux</code></td>
+                    <td>트리거 타이밍, 유저 감정, 노출 UX</td>
+                    <td>UX 리스크 평가표</td>
+                </tr>
+                <tr>
+                    <td><code>/balance</code></td>
+                    <td>상품 구조 균형, 가격대 분포, 중복</td>
+                    <td>밸런스 조정 권고안</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- /monetize -->
+        <section class="section" id="monetize">
+            <div class="section-header">
+                <span class="section-icon">💰</span>
+                <h2 class="section-title">수익화 분석</h2>
+                <span class="skill-tag">/monetize</span>
+            </div>
+
+            <h3>CRM 목적별 분포</h3>
+            <div class="score-card">
+                <div class="score-item">
+                    <div class="score-value">9</div>
+                    <div class="score-label">PUR↑ (과금률)</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-value">9</div>
+                    <div class="score-label">ARPPU↑ (객단가)</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-value">2</div>
+                    <div class="score-label">둘 다 (팬덤)</div>
+                </div>
+            </div>
+
+            <h3>과금 심리 트리거 분석</h3>
+            <table>
+                <tr>
+                    <th>트리거</th>
+                    <th>개수</th>
+                    <th>평가</th>
+                </tr>
+                <tr>
+                    <td>결핍</td>
+                    <td>6개</td>
+                    <td><span class="status-good">✅ 적절 - 자연스러운 과금 동기</span></td>
+                </tr>
+                <tr>
+                    <td>자기 보상</td>
+                    <td>5개</td>
+                    <td><span class="status-good">✅ 긍정적 경험 연계</span></td>
+                </tr>
+                <tr>
+                    <td>팬덤 경향</td>
+                    <td>2개</td>
+                    <td><span class="status-good">✅ 음악게임 특화, 효과적</span></td>
+                </tr>
+                <tr>
+                    <td>실패</td>
+                    <td>4개</td>
+                    <td><span class="status-warning">⚠️ 주의 - 부정 감정 유발</span></td>
+                </tr>
+                <tr>
+                    <td>추락 공포</td>
+                    <td>4개</td>
+                    <td><span class="status-danger">🔴 고위험 - 과도한 압박감</span></td>
+                </tr>
+            </table>
+
+            <div class="highlight-box danger">
+                <strong>부정 트리거 비중: 40% (8/20)</strong><br>
+                실패(4개) + 추락 공포(4개) = 8개로 전체의 40% 차지 → 25% 이하로 조정 권장
+            </div>
+
+            <h3>가격 포인트 분석</h3>
+            <table>
+                <tr>
+                    <th>가격대</th>
+                    <th>개수</th>
+                    <th>타겟</th>
+                    <th>평가</th>
+                </tr>
+                <tr>
+                    <td>₩1,500~3,000</td>
+                    <td>6개</td>
+                    <td>Minnow (첫 과금)</td>
+                    <td><span class="status-good">✅ 적절한 진입 장벽</span></td>
+                </tr>
+                <tr>
+                    <td>₩12,000</td>
+                    <td>4개</td>
+                    <td>Dolphin</td>
+                    <td><span class="status-warning">⚠️ 볼륨존 부족</span></td>
+                </tr>
+                <tr>
+                    <td>₩29,000</td>
+                    <td>2개</td>
+                    <td>Dolphin</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>₩59,000~119,000</td>
+                    <td>4개</td>
+                    <td>Whale</td>
+                    <td><span class="status-warning">⚠️ 점프 과다 (₩29K→₩59K)</span></td>
+                </tr>
+            </table>
+
+            <div class="highlight-box warning">
+                <strong>가격 점프 문제:</strong> ₩3,000 → ₩12,000 (4배 점프)<br>
+                권장: ₩6,000 또는 ₩9,000 단계 추가
+            </div>
+        </section>
+
+        <!-- /ux -->
+        <section class="section" id="ux">
+            <div class="section-header">
+                <span class="section-icon">🎨</span>
+                <h2 class="section-title">유저 경험 분석</h2>
+                <span class="skill-tag">/ux</span>
+            </div>
+
+            <h3>UX 원칙 체크</h3>
+            <table>
+                <tr>
+                    <th>UX 원칙</th>
+                    <th>평가</th>
+                    <th>문제점</th>
+                </tr>
+                <tr>
+                    <td>보상감</td>
+                    <td><span class="status-warning">⚠️ 미흡</span></td>
+                    <td>실패/공포 트리거 8개 - 부정 경험 후 팝업</td>
+                </tr>
+                <tr>
+                    <td>맥락성</td>
+                    <td><span class="status-good">✅ 양호</span></td>
+                    <td>대부분 상황에 맞는 상품 제시</td>
+                </tr>
+                <tr>
+                    <td>최소성</td>
+                    <td><span class="status-warning">⚠️ 우려</span></td>
+                    <td>20개 CRM 모두 "시간 제한" - 과도한 긴급성</td>
+                </tr>
+                <tr>
+                    <td>용서성</td>
+                    <td><span class="status-danger">❌ 미흡</span></td>
+                    <td>구매 거부 후 재노출 정책 없음</td>
+                </tr>
+                <tr>
+                    <td>기대성</td>
+                    <td><span class="status-warning">⚠️ 우려</span></td>
+                    <td>돌발 팝업 - 예측 불가</td>
+                </tr>
+            </table>
+
+            <div class="highlight-box danger">
+                <h3 style="margin-top: 0;">🔴 주요 UX 이슈</h3>
+                <ul>
+                    <li><strong>세션당 최대 5개 팝업 가능</strong> → 과도함</li>
+                    <li><strong>부정 감정 직후 팝업 노출</strong> → 거부감 유발</li>
+                    <li><strong>구매 거부 후 재노출 정책 없음</strong></li>
+                    <li><strong>돌발 팝업</strong>으로 예측 불가</li>
+                </ul>
+            </div>
+
+            <h3>부정 감정 트리거 상세</h3>
+            <table>
+                <tr>
+                    <th>CRM</th>
+                    <th>감정</th>
+                    <th>트리거 상황</th>
+                    <th>리스크</th>
+                </tr>
+                <tr>
+                    <td>라인 13-15</td>
+                    <td>실패</td>
+                    <td>리그 라이벌 추월 실패</td>
+                    <td><span class="status-danger">🔴 패배 직후 과금 압박</span></td>
+                </tr>
+                <tr>
+                    <td>라인 22-23</td>
+                    <td>실패</td>
+                    <td>가챠 동일 카드 3연속</td>
+                    <td><span class="status-danger">🔴 분노 상태에서 과금 유도</span></td>
+                </tr>
+                <tr>
+                    <td>라인 36-39</td>
+                    <td>공포</td>
+                    <td>1위인데 추월 위기</td>
+                    <td><span class="status-danger">🔴 불안 조장</span></td>
+                </tr>
+                <tr>
+                    <td>라인 43-45</td>
+                    <td>공포</td>
+                    <td>명예의 전당 탈락 위기</td>
+                    <td><span class="status-danger">🔴 ₩119,000 고가 + 불안</span></td>
+                </tr>
+            </table>
+
+            <h3>UX 개선 제안</h3>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h4><span class="status-good">✅</span> 즉시 개선 (Quick Win)</h4>
+                    <ul>
+                        <li>부정 감정 직후 <strong>3-5초 딜레이</strong> + 위로 메시지</li>
+                        <li>일부 CRM "이번 주"로 시간 제한 완화</li>
+                        <li><strong>세션당 최대 2개</strong> 제한 로직</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h4><span class="status-warning">⚠️</span> 중기 개선</h4>
+                    <ul>
+                        <li>거부 후 <strong>24시간 쿨다운</strong> 또는 영구 숨김 옵션</li>
+                        <li>CRM 노출 전 <strong>미리보기 아이콘</strong> 표시</li>
+                        <li>₩59K+ 상품 <strong>"나중에 보기"</strong> 옵션 필수</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- /balance -->
+        <section class="section" id="balance">
+            <div class="section-header">
+                <span class="section-icon">⚖️</span>
+                <h2 class="section-title">밸런스 분석</h2>
+                <span class="skill-tag">/balance</span>
+            </div>
+
+            <h3>상품 유형별 분포</h3>
+            <table>
+                <tr>
+                    <th>상품 유형</th>
+                    <th>개수</th>
+                    <th>비율</th>
+                    <th>평가</th>
+                </tr>
+                <tr>
+                    <td>성장 재화 패키지</td>
+                    <td>7개</td>
+                    <td>35%</td>
+                    <td><span class="status-warning">⚠️ 과다 - 차별화 부족</span></td>
+                </tr>
+                <tr>
+                    <td>다이아 상품</td>
+                    <td>4개</td>
+                    <td>20%</td>
+                    <td><span class="status-good">✅ 적절</span></td>
+                </tr>
+                <tr>
+                    <td>패스/월정액</td>
+                    <td>3개</td>
+                    <td>15%</td>
+                    <td><span class="status-good">✅ 적절</span></td>
+                </tr>
+                <tr>
+                    <td>스탭업 패키지</td>
+                    <td>2개</td>
+                    <td>10%</td>
+                    <td><span class="status-good">✅ 적절</span></td>
+                </tr>
+                <tr>
+                    <td>포토카드 직접</td>
+                    <td>2개</td>
+                    <td>10%</td>
+                    <td><span class="status-good">✅ 적절</span></td>
+                </tr>
+                <tr>
+                    <td>인벤토리/편의</td>
+                    <td>1개</td>
+                    <td>5%</td>
+                    <td><span class="status-warning">⚠️ 부족</span></td>
+                </tr>
+                <tr>
+                    <td>뽑기권</td>
+                    <td>1개</td>
+                    <td>5%</td>
+                    <td><span class="status-warning">⚠️ 부족</span></td>
+                </tr>
+            </table>
+
+            <h3>중복 구조 문제</h3>
+            <div class="highlight-box warning">
+                <h4 style="margin-top: 0;">패턴 A: 자기보상 다이아 상품 (라인 28-35)</h4>
+                <p>4개 CRM이 동일 상품/가격 (₩1,500 / ₩12,000) → <strong>차별화 필요</strong></p>
+            </div>
+            <div class="highlight-box warning">
+                <h4 style="margin-top: 0;">패턴 B: 추락공포 성장패키지 (라인 36-45)</h4>
+                <p>트리거만 다르고 상품 동일 (₩59,000) → <strong>상품 내용물 차별화 필요</strong></p>
+            </div>
+
+            <h3>경제 밸런스 영향</h3>
+            <table>
+                <tr>
+                    <th>상품 유형</th>
+                    <th>경제 영향</th>
+                    <th>인플레이션 리스크</th>
+                </tr>
+                <tr>
+                    <td>성장 재화 패키지</td>
+                    <td>높음</td>
+                    <td><span class="status-danger">🔴 고위험 - 경험치/코인 대량 유입</span></td>
+                </tr>
+                <tr>
+                    <td>다이아 상품</td>
+                    <td>중간</td>
+                    <td><span class="status-warning">🟡 중위험 - 가챠 접근성 증가</span></td>
+                </tr>
+                <tr>
+                    <td>패스/월정액</td>
+                    <td>낮음</td>
+                    <td><span class="status-good">🟢 저위험 - 점진적 공급</span></td>
+                </tr>
+            </table>
+
+            <h3>밸런스 조정 권고</h3>
+            <table>
+                <tr>
+                    <th>항목</th>
+                    <th>현재</th>
+                    <th>제안</th>
+                    <th>사유</th>
+                </tr>
+                <tr>
+                    <td>중가 상품</td>
+                    <td>4개</td>
+                    <td>6개+</td>
+                    <td>볼륨존 강화</td>
+                </tr>
+                <tr>
+                    <td>가격 점프</td>
+                    <td>₩3K→₩12K (4x)</td>
+                    <td>₩6K 단계 추가 (2x)</td>
+                    <td>자연스러운 상승</td>
+                </tr>
+                <tr>
+                    <td>성장패키지 비중</td>
+                    <td>35%</td>
+                    <td>25%</td>
+                    <td>차별화 및 인플레 관리</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- /pd-review -->
+        <section class="section" id="pd-review">
+            <div class="section-header">
+                <span class="section-icon">👔</span>
+                <h2 class="section-title">종합 평가 (PD Review)</h2>
+                <span class="skill-tag">/pd-review</span>
+            </div>
+
+            <div class="highlight-box success">
+                <h3 style="margin-top: 0; color: var(--accent-yellow);">평가 결과: 조건부 승인 (Conditional)</h3>
+                <p>방향성은 좋으나, 실행 전 정제가 필요합니다.</p>
+            </div>
+
+            <h3>평가 점수</h3>
+            <div class="score-card">
+                <div class="score-item">
+                    <div class="score-value">4/5</div>
+                    <div class="score-label">전략적 적합성</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-value">3/5</div>
+                    <div class="score-label">실행 가능성</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-value">4/5</div>
+                    <div class="score-label">시장 경쟁력</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-value">4/5</div>
+                    <div class="score-label">수익성</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-value">3/5</div>
+                    <div class="score-label">리스크</div>
+                </div>
+                <div class="score-item" style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));">
+                    <div class="score-value" style="color: white;">3.6/5</div>
+                    <div class="score-label" style="color: rgba(255,255,255,0.8);">종합</div>
+                </div>
+            </div>
+
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h4><span class="status-good">✅</span> 잘된 점 (Strengths)</h4>
+                    <ul>
+                        <li><strong>타겟 세분화</strong> 명확 (신규 PUR / Streak ARPPU)</li>
+                        <li><strong>구매 심리</strong> 5가지 트리거 다양하게 활용</li>
+                        <li><strong>음악게임 특화</strong> 팬덤 활용 (컴백/데뷔 기념일)</li>
+                        <li><strong>가격 진입점</strong> ₩1,500 적절</li>
+                        <li><strong>시간 제한</strong> 일관 적용으로 긴급성 유발</li>
+                    </ul>
+                </div>
+                <div class="summary-card">
+                    <h4><span class="status-danger">🔴</span> 개선 필요 (Improvements)</h4>
+                    <ul>
+                        <li>부정 트리거 비중 40% → <strong>25% 이하</strong>로 조정</li>
+                        <li>성장 패키지 35% 동일 → <strong>차별화</strong></li>
+                        <li>₩3K→₩12K 점프 → <strong>₩6K 추가</strong></li>
+                        <li>복잡 트리거 (라인 4-10) → <strong>단순화</strong></li>
+                        <li>재노출 정책 없음 → <strong>정의 필요</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>리스크 요약</h3>
+            <table>
+                <tr>
+                    <th>수준</th>
+                    <th>리스크</th>
+                    <th>대응 필요 사항</th>
+                </tr>
+                <tr>
+                    <td><span class="status-danger">🔴 높음</span></td>
+                    <td>북미 P2W 비판</td>
+                    <td>랭킹 연계 상품 톤다운 검토</td>
+                </tr>
+                <tr>
+                    <td><span class="status-danger">🔴 높음</span></td>
+                    <td>추락 공포 CRM 4개 과다</td>
+                    <td>라인 36-45 재검토, 톤앤매너 조정</td>
+                </tr>
+                <tr>
+                    <td><span class="status-warning">🟡 중간</span></td>
+                    <td>팝업 피로도</td>
+                    <td>세션당 최대 2개 제한 로직</td>
+                </tr>
+                <tr>
+                    <td><span class="status-warning">🟡 중간</span></td>
+                    <td>개발 복잡도</td>
+                    <td>트리거 조건 단순화 우선</td>
+                </tr>
+                <tr>
+                    <td><span class="status-warning">🟡 중간</span></td>
+                    <td>경제 인플레이션</td>
+                    <td>성장 재화 공급량 모니터링</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- 회의 결정 사항 -->
+        <div class="decision-box" id="decision">
+            <h2 class="decision-title">📌 회의 결정 사항</h2>
+
+            <div class="decision-item">
+                <span class="decision-number">1</span>
+                <strong>MVP 범위</strong>
+                <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                    20개 중 몇 개를 1차 출시에 포함할 것인가?<br>
+                    → <strong style="color: var(--accent-green);">권장: 10개 이내</strong>
+                </p>
+            </div>
+
+            <div class="decision-item">
+                <span class="decision-number">2</span>
+                <strong>추락 공포 CRM (4개)</strong>
+                <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                    라인 36-45의 추락 공포 기반 CRM을 어떻게 처리할 것인가?<br>
+                    → <strong style="color: var(--accent-yellow);">유지 / 수정 / 제외?</strong>
+                </p>
+            </div>
+
+            <div class="decision-item">
+                <span class="decision-number">3</span>
+                <strong>복잡 트리거 (라인 4-10)</strong>
+                <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                    포토카드 세트 실시간 체크 등 복잡한 조건을 어떻게 처리할 것인가?<br>
+                    → <strong style="color: var(--accent-yellow);">1차 제외 / 단순화?</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">📋</span>
+                <h2 class="section-title">Next Steps</h2>
+            </div>
+
+            <table>
+                <tr>
+                    <th>순서</th>
+                    <th>액션</th>
+                    <th>담당</th>
+                    <th>우선순위</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>MVP 10개 선정</td>
+                    <td>회의</td>
+                    <td><span class="status-danger">🔴 필수</span></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>트리거 구현 난이도 확인</td>
+                    <td>개발팀</td>
+                    <td><span class="status-danger">🔴 필수</span></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>추락 공포 톤앤매너 수정안</td>
+                    <td>기획</td>
+                    <td><span class="status-warning">🟡 권장</span></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>₩6K 단계 상품 검토</td>
+                    <td>기획</td>
+                    <td><span class="status-warning">🟡 권장</span></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>재노출 정책 문서화</td>
+                    <td>기획</td>
+                    <td><span class="status-good">🟢 후순위</span></td>
+                </tr>
+            </table>
+        </section>
+
+        <footer>
+            <p>Generated by <strong>GameDesign Agent</strong> - 6 Skills Analysis</p>
+            <p style="margin-top: 0.5rem;">/requirement → /coordinate → /monetize → /ux → /balance → /pd-review</p>
+        </footer>
+    </div>
+</body>
+</html>

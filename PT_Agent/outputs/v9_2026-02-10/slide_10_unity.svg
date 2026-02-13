@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  <circle cx="200" cy="200" r="200" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 11</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">Unity 에디터 연동</text>
+  <text x="100" y="235" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="22" fill="#C4B5FD" opacity="0.7">Unity 에디터 안에서 바로 버전 관리하기</text>
+
+  <!-- Setup steps -->
+  <text x="100" y="310" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">연동 방법</text>
+
+  <rect x="100" y="340" width="1720" height="120" rx="16" fill="#2D1B4E" opacity="0.3"/>
+  <rect x="100" y="340" width="6" height="120" rx="3" fill="#8B5CF6"/>
+
+  <text x="160" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#8B5CF6">Step 1</text>
+  <text x="260" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">Window → Plastic SCM 열기</text>
+  <text x="260" y="410" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Unity 2021.2+ 에서 기본 내장. 이전 버전은 Package Manager에서 "Version Control" 설치</text>
+
+  <text x="660" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#8B5CF6">Step 2</text>
+  <text x="760" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">Unity ID 로그인</text>
+  <text x="760" y="410" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">조직에 연결된 계정으로 로그인</text>
+
+  <text x="1160" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#8B5CF6">Step 3</text>
+  <text x="1260" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">워크스페이스 연결</text>
+  <text x="1260" y="410" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">기존 리포지토리 선택 또는 새로 생성</text>
+
+  <!-- Key features in Unity -->
+  <text x="100" y="520" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">Unity 에디터 내 핵심 기능</text>
+
+  <!-- Feature cards - 2x2 grid -->
+  <rect x="100" y="550" width="830" height="170" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="550" width="830" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="140" y="600" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">Pending Changes 탭</text>
+  <text x="140" y="635" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 에디터에서 수정한 에셋이 실시간 반영</text>
+  <text x="140" y="665" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 씬, 프리팹, 스크립트 변경 감지</text>
+  <text x="140" y="695" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 코멘트 작성 후 바로 Checkin</text>
+
+  <rect x="990" y="550" width="830" height="170" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="990" y="550" width="830" height="4" rx="2" fill="#A78BFA"/>
+  <text x="1030" y="600" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">파일 잠금 (Lock)</text>
+  <text x="1030" y="635" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 에셋 우클릭 → Lock으로 독점 편집</text>
+  <text x="1030" y="665" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 다른 팀원은 수정 불가 (충돌 원천 차단)</text>
+  <text x="1030" y="695" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 바이너리 에셋 (씬, 프리팹)에 필수!</text>
+
+  <rect x="100" y="740" width="830" height="170" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="740" width="830" height="4" rx="2" fill="#6D28D9"/>
+  <text x="140" y="790" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">히스토리 뷰</text>
+  <text x="140" y="825" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 파일별 변경 이력 한눈에 확인</text>
+  <text x="140" y="855" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 누가, 언제, 무엇을 변경했는지</text>
+  <text x="140" y="885" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 이전 버전으로 되돌리기 가능</text>
+
+  <rect x="990" y="740" width="830" height="170" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="990" y="740" width="830" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="1030" y="790" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">ignore.conf 설정</text>
+  <text x="1030" y="825" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Library/, Temp/, Logs/ 폴더 제외</text>
+  <text x="1030" y="855" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• .gitignore와 동일한 역할</text>
+  <text x="1030" y="885" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 자동 생성되는 파일은 반드시 제외</text>
+
+  <!-- Tip -->
+  <rect x="100" y="930" width="1720" height="50" rx="12" fill="#FBBF24" opacity="0.08"/>
+  <rect x="100" y="930" width="6" height="50" rx="3" fill="#FBBF24"/>
+  <text x="140" y="960" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="18" fill="#FBBF24">중요</text>
+  <text x="200" y="960" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FAF5FF">씬(.unity)과 프리팹(.prefab)은 바이너리이므로 반드시 Lock 후 작업하세요. 머지가 거의 불가능합니다.</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">12 / 13</text>
+</svg>

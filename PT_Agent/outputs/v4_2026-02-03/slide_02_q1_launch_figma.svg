@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- v4: One Idea Per Slide - Q1 런칭 집중 -->
+  <!-- Glance Test: "3월 글로벌 런칭" 즉시 파악 -->
+  <!-- Data-Ink: 불필요한 태그/디테일 제거 -->
+
+  <!-- Header -->
+  <text x="100" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#808080">Q1 2026 · PRIORITY</text>
+
+  <!-- Main Visual: 큰 Q1 배지 -->
+  <g transform="translate(100, 150)">
+    <rect x="0" y="0" width="120" height="60" fill="#FFFFFF" rx="8"/>
+    <text x="60" y="44" font-family="Space Mono, monospace" font-weight="700" font-size="36" fill="#0A0A0A" text-anchor="middle">Q1</text>
+  </g>
+
+  <!-- 핵심 메시지 (결론) - 가장 크게 -->
+  <text x="250" y="200" font-family="Space Mono, monospace" font-weight="700" font-size="64" fill="#FFFFFF">3월 글로벌 런칭</text>
+
+  <!-- Sub-message -->
+  <text x="100" y="280" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="28" fill="#B0B0B0">SUPERSTAR THEBLACKLABEL · K-Pop 리듬게임 전세계 동시 출시</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="340" x2="1820" y2="340" stroke="#333333" stroke-width="1"/>
+
+  <!-- Visual Hierarchy: 3개 핵심 요소만 (MECE) -->
+  <!-- Card Layout: 3등분 -->
+
+  <!-- Card 1: What -->
+  <g transform="translate(100, 400)">
+    <rect x="0" y="0" width="520" height="380" fill="#111111" rx="16"/>
+
+    <!-- Icon Area -->
+    <rect x="40" y="40" width="80" height="80" fill="#1A1A1A" rx="12"/>
+    <text x="80" y="95" font-family="Space Mono, monospace" font-size="40" fill="#FFFFFF" text-anchor="middle">▶</text>
+
+    <!-- Title -->
+    <text x="40" y="170" font-family="Space Mono, monospace" font-weight="700" font-size="28" fill="#FFFFFF">SUPERSTAR</text>
+    <text x="40" y="205" font-family="Space Mono, monospace" font-weight="400" font-size="16" fill="#808080">THEBLACKLABEL</text>
+
+    <!-- Key Point (6x6: 2줄만) -->
+    <text x="40" y="280" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#CCCCCC">더블랙레이블 IP 기반</text>
+    <text x="40" y="315" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#CCCCCC">글로벌 앱스토어 피처링 목표</text>
+  </g>
+
+  <!-- Card 2: How -->
+  <g transform="translate(700, 400)">
+    <rect x="0" y="0" width="520" height="380" fill="#111111" rx="16"/>
+
+    <!-- Icon Area -->
+    <rect x="40" y="40" width="80" height="80" fill="#1A1A1A" rx="12"/>
+    <text x="80" y="95" font-family="Space Mono, monospace" font-size="40" fill="#FFFFFF" text-anchor="middle">⚙</text>
+
+    <!-- Title -->
+    <text x="40" y="170" font-family="Space Mono, monospace" font-weight="700" font-size="28" fill="#FFFFFF">LIVE OPS</text>
+    <text x="40" y="205" font-family="Space Mono, monospace" font-weight="400" font-size="16" fill="#808080">INFRASTRUCTURE</text>
+
+    <!-- Key Point -->
+    <text x="40" y="280" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#CCCCCC">글로벌 서버 인프라</text>
+    <text x="40" y="315" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#CCCCCC">24/7 모니터링 + CS</text>
+  </g>
+
+  <!-- Card 3: Content -->
+  <g transform="translate(1300, 400)">
+    <rect x="0" y="0" width="520" height="380" fill="#111111" rx="16"/>
+
+    <!-- Icon Area -->
+    <rect x="40" y="40" width="80" height="80" fill="#1A1A1A" rx="12"/>
+    <text x="80" y="95" font-family="Space Mono, monospace" font-size="40" fill="#FFFFFF" text-anchor="middle">★</text>
+
+    <!-- Title -->
+    <text x="40" y="170" font-family="Space Mono, monospace" font-weight="700" font-size="28" fill="#FFFFFF">IP PIPELINE</text>
+    <text x="40" y="205" font-family="Space Mono, monospace" font-weight="400" font-size="16" fill="#808080">CONTENT</text>
+
+    <!-- Key Point -->
+    <text x="40" y="280" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#CCCCCC">아티스트 콘텐츠 파이프라인</text>
+    <text x="40" y="315" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#CCCCCC">정기 업데이트 체계</text>
+  </g>
+
+  <!-- Bottom Takeaway -->
+  <g transform="translate(100, 840)">
+    <text x="0" y="30" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="20" fill="#808080">핵심:</text>
+    <text x="70" y="30" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#B0B0B0">제품 + 인프라 + 콘텐츠 — 세 축이 동시에 준비되어야 성공적 런칭</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="980" x2="1820" y2="980" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080">MONTHLY REPORT · 2026 H1 ROADMAP</text>
+  <text x="1820" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="end">2 / 5</text>
+</svg>

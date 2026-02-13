@@ -3,6 +3,17 @@
 ## 프로젝트 개요
 THEBLACKLABEL 소속 아티스트들의 슈퍼스타 리듬게임 런칭을 위한 프로젝트입니다.
 
+---
+
+## 공통 표준
+
+이 에이전트는 HKD852 루트의 Claude Code 가이드를 따릅니다.
+- **가이드 인덱스**: [Claude Code 공식 가이드](../../docs/claude-code-guide/INDEX.md)
+- **스킬 표준**: [스킬 구조 가이드](../../docs/claude-code-guide/skills/01-skill-structure.md)
+- **가이드 업데이트 체크**: `/guide-update-check`
+
+---
+
 ## 프로젝트 멤버
 - **Project Director**: Kowloon
 - **Cowork AI Team**: 게임 디자인팀, 데이터 설정 팀, 데이터 분석 팀, 운영 팀, 사업개발 팀, 크리에이티브 팀, 아트 팀, QA팀, 프로토타입 팀

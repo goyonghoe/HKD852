@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- #04 TECH VIOLET - Title Slide -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F0720"/>
+      <stop offset="100%" style="stop-color:#1A1033;stop-opacity:0.5"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8B5CF6"/>
+      <stop offset="100%" style="stop-color:#A855F7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+
+  <!-- Decorative Elements -->
+  <circle cx="1600" cy="200" r="300" fill="#8B5CF6" opacity="0.05"/>
+  <circle cx="300" cy="800" r="200" fill="#A855F7" opacity="0.05"/>
+
+  <!-- Main Title -->
+  <text x="960" y="380" font-family="Inter, sans-serif" font-weight="800" font-size="120" fill="#FAF5FF" text-anchor="middle">AI</text>
+  <text x="960" y="480" font-family="Inter, sans-serif" font-weight="300" font-size="60" fill="#8B5CF6" text-anchor="middle">×</text>
+  <text x="960" y="580" font-family="Inter, sans-serif" font-weight="800" font-size="100" fill="#FAF5FF" text-anchor="middle">Mobile Gaming</text>
+
+  <!-- Subtitle -->
+  <text x="960" y="680" font-family="Pretendard, sans-serif" font-weight="400" font-size="32" fill="#C4B5FD" text-anchor="middle">인공지능이 바꾸는 모바일 게임의 미래</text>
+
+  <!-- Accent Line -->
+  <rect x="760" y="720" width="400" height="4" fill="url(#accentGrad)" rx="2"/>
+
+  <!-- Date & Source Info -->
+  <text x="960" y="820" font-family="Inter, sans-serif" font-weight="400" font-size="18" fill="#A78BFA" text-anchor="middle">2026 Industry Trend Report</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#2E1A47" stroke-width="1"/>
+  <text x="100" y="1040" font-family="Inter, sans-serif" font-weight="400" font-size="12" fill="#A78BFA">AI × MOBILE GAMING</text>
+  <text x="1820" y="1040" font-family="Inter, sans-serif" font-weight="400" font-size="12" fill="#A78BFA" text-anchor="end">1 / 8</text>
+</svg>

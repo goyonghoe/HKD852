@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- #04 TECH VIOLET - Industry Cases -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F0720"/>
+      <stop offset="100%" style="stop-color:#1A1033;stop-opacity:0.5"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A1033"/>
+      <stop offset="100%" style="stop-color:#0F0720"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+
+  <!-- Section Label -->
+  <text x="100" y="80" font-family="Inter, sans-serif" font-weight="500" font-size="13" fill="#A78BFA" letter-spacing="0.15em">INDUSTRY CASES</text>
+
+  <!-- Title -->
+  <text x="100" y="180" font-family="Inter, sans-serif" font-weight="700" font-size="56" fill="#FAF5FF">글로벌 기업 동향</text>
+  <text x="100" y="230" font-family="Pretendard, sans-serif" font-weight="400" font-size="24" fill="#C4B5FD">빅플레이어들의 AI 투자가 가속화되고 있습니다</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="270" x2="1820" y2="270" stroke="#4C1D95" stroke-width="1"/>
+
+  <!-- 3 Case Cards -->
+  <g transform="translate(100, 320)">
+    <!-- Roblox -->
+    <g transform="translate(0, 0)">
+      <rect width="540" height="420" fill="url(#cardGrad)" rx="20" stroke="#8B5CF6" stroke-width="2"/>
+
+      <!-- Company Badge -->
+      <rect x="40" y="40" width="120" height="36" fill="#8B5CF6" rx="18"/>
+      <text x="100" y="64" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#0F0720" text-anchor="middle">ROBLOX</text>
+
+      <!-- Year -->
+      <text x="480" y="64" font-family="Inter, sans-serif" font-weight="500" font-size="14" fill="#A78BFA" text-anchor="end">2025-2026</text>
+
+      <line x1="40" y1="100" x2="500" y2="100" stroke="#4C1D95" stroke-width="1"/>
+
+      <!-- Content -->
+      <text x="40" y="150" font-family="Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">Cube 3D + Cipher</text>
+
+      <text x="40" y="200" font-family="Pretendard, sans-serif" font-weight="400" font-size="18" fill="#E9D5FF">• 오픈소스 3D 파운데이션 모델</text>
+      <text x="40" y="235" font-family="Pretendard, sans-serif" font-weight="400" font-size="18" fill="#E9D5FF">• 4D 오브젝트 자동 생성</text>
+      <text x="40" y="270" font-family="Pretendard, sans-serif" font-weight="400" font-size="18" fill="#E9D5FF">• AAA급 에셋 생성 (90% 성공)</text>
+
+      <rect x="40" y="320" width="460" height="60" fill="#2E1A47" rx="12"/>
+      <text x="270" y="358" font-family="Pretendard, sans-serif" font-weight="500" font-size="18" fill="#8B5CF6" text-anchor="middle">"누구나 게임 창작자가 되는 시대"</text>
+    </g>
+
+    <!-- Sony -->
+    <g transform="translate(580, 0)">
+      <rect width="540" height="420" fill="url(#cardGrad)" rx="20"/>
+
+      <!-- Company Badge -->
+      <rect x="40" y="40" width="120" height="36" fill="#2E1A47" rx="18"/>
+      <text x="100" y="64" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#FAF5FF" text-anchor="middle">SONY</text>
+
+      <!-- Year -->
+      <text x="480" y="64" font-family="Inter, sans-serif" font-weight="500" font-size="14" fill="#A78BFA" text-anchor="end">2025-2026</text>
+
+      <line x1="40" y1="100" x2="500" y2="100" stroke="#4C1D95" stroke-width="1"/>
+
+      <!-- Content -->
+      <text x="40" y="150" font-family="Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">Ghost Player 특허</text>
+
+      <text x="40" y="200" font-family="Pretendard, sans-serif" font-weight="400" font-size="18" fill="#E9D5FF">• AI가 막힌 구간 대신 플레이</text>
+      <text x="40" y="235" font-family="Pretendard, sans-serif" font-weight="400" font-size="18" fill="#E9D5FF">• PSSR 2.0 AI 업스케일링</text>
+      <text x="40" y="270" font-family="Pretendard, sans-serif" font-weight="400" font-size="18" fill="#E9D5FF">• iSize AI 비디오 기업 인수</text>
+
+      <rect x="40" y="320" width="460" height="60" fill="#2E1A47" rx="12"/>
+      <text x="270" y="358" font-family="Pretendard, sans-serif" font-weight="500" font-size="18" fill="#8B5CF6" text-anchor="middle">"AI가 게임을 대신 클리어"</text>
+    </g>
+
+    <!-- Ubisoft -->
+    <g transform="translate(1160, 0)">
+      <rect width="540" height="420" fill="url(#cardGrad)" rx="20"/>
+
+      <!-- Company Badge -->
+      <rect x="40" y="40" width="120" height="36" fill="#2E1A47" rx="18"/>
+      <text x="100" y="64" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#FAF5FF" text-anchor="middle">UBISOFT</text>
+
+      <!-- Year -->
+      <text x="480" y="64" font-family="Inter, sans-serif" font-weight="500" font-size="14" fill="#A78BFA" text-anchor="end">2025</text>
+
+      <line x1="40" y1="100" x2="500" y2="100" stroke="#4C1D95" stroke-width="1"/>
+
+      <!-- Content -->
+      <text x="40" y="150" font-family="Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">"Teammates" 발표</text>
+
+      <text x="40" y="200" font-family="Pretendard, sans-serif" font-weight="400" font-size="18" fill="#E9D5FF">• 적응형 AI 동료 시스템</text>
+      <text x="40" y="235" font-family="Pretendard, sans-serif" font-weight="400" font-size="18" fill="#E9D5FF">• 음성/감정/행동 반응</text>
+      <text x="40" y="270" font-family="Pretendard, sans-serif" font-weight="400" font-size="18" fill="#E9D5FF">• GenAI NPC 진화</text>
+
+      <rect x="40" y="320" width="460" height="60" fill="#2E1A47" rx="12"/>
+      <text x="270" y="358" font-family="Pretendard, sans-serif" font-weight="500" font-size="18" fill="#8B5CF6" text-anchor="middle">"살아있는 NPC 경험"</text>
+    </g>
+  </g>
+
+  <!-- Bottom Timeline -->
+  <g transform="translate(100, 800)">
+    <rect width="1720" height="60" fill="#1A1033" rx="12"/>
+    <text x="860" y="40" font-family="Pretendard, sans-serif" font-weight="400" font-size="20" fill="#E9D5FF" text-anchor="middle">
+      2025-2026: AI 게임 <tspan fill="#8B5CF6">기술 공개/특허/출시</tspan> 러시 → 경쟁 본격화
+    </text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#1A1033" stroke-width="1"/>
+  <text x="100" y="1040" font-family="Inter, sans-serif" font-weight="400" font-size="12" fill="#A78BFA">AI × MOBILE GAMING</text>
+  <text x="1820" y="1040" font-family="Inter, sans-serif" font-weight="400" font-size="12" fill="#A78BFA" text-anchor="end">7 / 8</text>
+</svg>

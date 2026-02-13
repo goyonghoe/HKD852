@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>모바일서비스 퍼널전략 기초 가이드 | HKD852</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+:root{
+  --bg-primary:#0d1117;
+  --bg-secondary:#161b22;
+  --bg-tertiary:#21262d;
+  --text-primary:#f0f6fc;
+  --text-secondary:#8b949e;
+  --border:#30363d;
+  --blue:#58a6ff;
+  --green:#3fb950;
+  --yellow:#d29922;
+  --red:#f85149;
+  --purple:#a371f7;
+  --pink:#d96cc0;
+  --orange:#f0883e;
+}
+body{
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',Helvetica,Arial,sans-serif;
+  line-height:1.7;
+  padding:0;
+}
+
+/* Sidebar TOC */
+.sidebar{
+  position:fixed;
+  top:0;left:0;
+  width:260px;height:100vh;
+  background:var(--bg-secondary);
+  border-right:1px solid var(--border);
+  overflow-y:auto;
+  padding:24px 16px;
+  z-index:100;
+}
+.sidebar h2{
+  font-size:0.85rem;
+  color:var(--text-secondary);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:16px;
+}
+.sidebar a{
+  display:block;
+  color:var(--text-secondary);
+  text-decoration:none;
+  font-size:0.85rem;
+  padding:6px 12px;
+  border-radius:6px;
+  margin-bottom:2px;
+  transition:all 0.2s;
+}
+.sidebar a:hover{
+  color:var(--text-primary);
+  background:var(--bg-tertiary);
+}
+.sidebar a.stage{
+  font-weight:600;
+  padding-left:8px;
+  border-left:3px solid transparent;
+}
+.sidebar a.stage:hover{border-left-color:var(--blue);}
+.sidebar .dot{
+  display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle;
+}
+
+/* Main */
+.main{
+  margin-left:260px;
+  max-width:1000px;
+  padding:48px 40px 80px;
+}
+
+/* Header */
+.page-header{
+  text-align:center;
+  padding-bottom:40px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:48px;
+}
+.page-header h1{
+  font-size:2.4rem;
+  font-weight:800;
+  margin-bottom:12px;
+  background:linear-gradient(135deg,var(--purple),var(--blue),var(--green),var(--yellow),var(--red),var(--pink));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.page-header .subtitle{
+  color:var(--text-secondary);
+  font-size:1.1rem;
+  margin-bottom:8px;
+}
+.page-header .meta{
+  color:var(--text-secondary);
+  font-size:0.8rem;
+}
+
+/* Section */
+.section{margin-bottom:56px;}
+.section-title{
+  font-size:1.6rem;
+  font-weight:700;
+  margin-bottom:24px;
+  padding-bottom:12px;
+  border-bottom:2px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.section-title .badge{
+  display:inline-block;
+  padding:3px 12px;
+  border-radius:20px;
+  font-size:0.75rem;
+  font-weight:600;
+  color:#fff;
+}
+
+/* Subsection */
+h3{
+  font-size:1.15rem;
+  font-weight:600;
+  margin:28px 0 12px;
+  color:var(--text-primary);
+}
+h4{
+  font-size:0.95rem;
+  font-weight:600;
+  margin:20px 0 8px;
+  color:var(--text-secondary);
+}
+p{margin-bottom:12px;}
+
+/* Table */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:16px 0 24px;
+  font-size:0.9rem;
+}
+th{
+  background:var(--bg-tertiary);
+  text-align:left;
+  padding:10px 14px;
+  border:1px solid var(--border);
+  font-weight:600;
+  color:var(--text-secondary);
+}
+td{
+  padding:10px 14px;
+  border:1px solid var(--border);
+  background:var(--bg-secondary);
+}
+
+/* Info boxes */
+.box{
+  padding:16px 20px;
+  border-radius:8px;
+  margin:16px 0 24px;
+  font-size:0.9rem;
+  border-left:4px solid;
+}
+.box-info{background:rgba(88,166,255,0.08);border-color:var(--blue);}
+.box-warn{background:rgba(210,153,34,0.08);border-color:var(--yellow);}
+.box-danger{background:rgba(248,81,73,0.08);border-color:var(--red);}
+.box-tip{background:rgba(63,185,80,0.08);border-color:var(--green);}
+.box-agent{background:rgba(163,113,247,0.08);border-color:var(--purple);}
+.box strong{display:block;margin-bottom:6px;}
+
+/* Details */
+details{
+  background:var(--bg-secondary);
+  border:1px solid var(--border);
+  border-radius:8px;
+  margin:16px 0;
+  padding:0;
+}
+details summary{
+  padding:12px 16px;
+  cursor:pointer;
+  font-weight:600;
+  font-size:0.9rem;
+  color:var(--text-secondary);
+  user-select:none;
+}
+details summary:hover{color:var(--text-primary);}
+details[open] summary{border-bottom:1px solid var(--border);}
+details .detail-content{padding:16px;}
+
+/* Checklist */
+.checklist{list-style:none;padding:0;margin:12px 0 24px;}
+.checklist li{
+  padding:8px 12px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  margin-bottom:6px;
+  background:var(--bg-secondary);
+  font-size:0.9rem;
+  display:flex;align-items:center;gap:10px;
+}
+.checklist input[type="checkbox"]{
+  width:16px;height:16px;accent-color:var(--green);flex-shrink:0;
+}
+
+/* Code */
+code{
+  background:var(--bg-tertiary);
+  padding:2px 6px;
+  border-radius:4px;
+  font-size:0.85rem;
+  font-family:'SF Mono',Consolas,monospace;
+}
+
+/* Tags */
+.tag{
+  display:inline-block;
+  padding:2px 10px;
+  border-radius:12px;
+  font-size:0.75rem;
+  font-weight:600;
+  margin-right:4px;
+}
+
+/* SVG container */
+.svg-wrap{
+  background:var(--bg-secondary);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:24px;
+  margin:24px 0;
+  text-align:center;
+  overflow-x:auto;
+}
+
+/* Scenario card */
+.scenario{
+  background:var(--bg-secondary);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:20px 24px;
+  margin:16px 0;
+}
+.scenario h4{margin-top:0;color:var(--blue);}
+.scenario ol{padding-left:20px;font-size:0.9rem;}
+.scenario li{margin-bottom:6px;}
+
+/* Glossary */
+.glossary{columns:2;column-gap:32px;font-size:0.85rem;}
+.glossary dt{font-weight:600;color:var(--blue);margin-top:10px;}
+.glossary dd{margin:0 0 4px;color:var(--text-secondary);}
+
+/* Responsive */
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .main{margin-left:0;padding:24px 16px 60px;}
+  .page-header h1{font-size:1.6rem;}
+  .glossary{columns:1;}
+}
+@media print{
+  .sidebar{display:none;}
+  .main{margin-left:0;max-width:100%;}
+  body{background:#fff;color:#000;}
+  .box{border:1px solid #ccc;}
+  table th{background:#eee;}
+  table td{background:#fff;}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR TOC -->
+<nav class="sidebar">
+  <h2>목차</h2>
+  <a href="#overview">개요</a>
+  <a href="#awareness" class="stage"><span class="dot" style="background:var(--purple)"></span>1. Awareness</a>
+  <a href="#acquisition" class="stage"><span class="dot" style="background:var(--blue)"></span>2. Acquisition</a>
+  <a href="#activation" class="stage"><span class="dot" style="background:var(--green)"></span>3. Activation</a>
+  <a href="#retention" class="stage"><span class="dot" style="background:var(--yellow)"></span>4. Retention</a>
+  <a href="#revenue" class="stage"><span class="dot" style="background:var(--red)"></span>5. Revenue</a>
+  <a href="#referral" class="stage"><span class="dot" style="background:var(--pink)"></span>6. Referral</a>
+  <a href="#agent-matrix">에이전트 연계</a>
+  <a href="#master-checklist">실전 체크리스트</a>
+  <a href="#glossary">용어 사전</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+<!-- HEADER -->
+<header class="page-header">
+  <h1>모바일서비스 퍼널전략 수립 기초 가이드</h1>
+  <p class="subtitle">AAARRR 프레임워크로 이해하는 모바일 성장 전략</p>
+  <p class="meta">HKD852 Studio | 2026-02-13 | v1.0</p>
+</header>
+
+<!-- ==================== OVERVIEW ==================== -->
+<section class="section" id="overview">
+  <h2 class="section-title">개요</h2>
+
+  <h3>퍼널이란?</h3>
+  <p>퍼널(Funnel)은 잠재 유저가 제품을 인지한 후 설치, 활성화, 유지, 과금, 추천에 이르기까지의 전환 흐름을 깔때기 형태로 시각화한 것입니다. 각 단계마다 유저가 이탈하므로 깔때기 모양이 되며, <strong>어느 단계에서 얼마나 이탈하는지</strong>를 파악하고 개선하는 것이 퍼널 전략의 핵심입니다.</p>
+
+  <h3>AAARRR (Pirate Metrics)</h3>
+  <p>Dave McClure가 제안한 스타트업/모바일 성장 프레임워크로, 6단계로 구성됩니다.</p>
+
+  <div class="svg-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320">
+      <!-- Funnel stages -->
+      <defs>
+        <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+          <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+        </filter>
+      </defs>
+
+      <!-- Stage 1: Awareness -->
+      <rect x="20" y="40" width="130" height="60" rx="10" fill="#a371f7" opacity="0.9" filter="url(#shadow)"/>
+      <text x="85" y="65" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Awareness</text>
+      <text x="85" y="82" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">인지</text>
+
+      <!-- Arrow 1 -->
+      <path d="M155 70 L175 70" stroke="#8b949e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+      <!-- Stage 2: Acquisition -->
+      <rect x="180" y="40" width="130" height="60" rx="10" fill="#58a6ff" opacity="0.9" filter="url(#shadow)"/>
+      <text x="245" y="65" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Acquisition</text>
+      <text x="245" y="82" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">획득</text>
+
+      <!-- Arrow 2 -->
+      <path d="M315 70 L335 70" stroke="#8b949e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+      <!-- Stage 3: Activation -->
+      <rect x="340" y="40" width="130" height="60" rx="10" fill="#3fb950" opacity="0.9" filter="url(#shadow)"/>
+      <text x="405" y="65" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Activation</text>
+      <text x="405" y="82" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">활성화</text>
+
+      <!-- Arrow 3 -->
+      <path d="M475 70 L495 70" stroke="#8b949e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+      <!-- Stage 4: Retention -->
+      <rect x="500" y="40" width="130" height="60" rx="10" fill="#d29922" opacity="0.9" filter="url(#shadow)"/>
+      <text x="565" y="65" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Retention</text>
+      <text x="565" y="82" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">리텐션</text>
+
+      <!-- Arrow 4 -->
+      <path d="M635 70 L655 70" stroke="#8b949e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+      <!-- Stage 5: Revenue -->
+      <rect x="660" y="40" width="130" height="60" rx="10" fill="#f85149" opacity="0.9" filter="url(#shadow)"/>
+      <text x="725" y="65" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Revenue</text>
+      <text x="725" y="82" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">수익화</text>
+
+      <!-- Stage 6: Referral (below) -->
+      <rect x="340" y="160" width="220" height="60" rx="10" fill="#d96cc0" opacity="0.9" filter="url(#shadow)"/>
+      <text x="450" y="185" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Referral</text>
+      <text x="450" y="202" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">추천 (다시 Awareness로 순환)</text>
+
+      <!-- Arrow: Revenue down to Referral -->
+      <path d="M725 105 L725 140 Q725 160 705 170 L565 190" stroke="#d96cc0" stroke-width="2" fill="none" stroke-dasharray="6,3"/>
+
+      <!-- Arrow: Referral back to Awareness (cycle) -->
+      <path d="M340 190 L85 190 L85 105" stroke="#a371f7" stroke-width="2" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowPurple)"/>
+
+      <!-- Cycle label -->
+      <text x="200" y="180" text-anchor="middle" fill="var(--text-secondary)" font-size="10" font-style="italic">Growth Loop</text>
+
+      <!-- Funnel shape (background) -->
+      <polygon points="20,130 900,130 820,145 100,145" fill="rgba(255,255,255,0.03)"/>
+
+      <!-- Arrow markers -->
+      <defs>
+        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#8b949e"/>
+        </marker>
+        <marker id="arrowPurple" markerWidth="8" markerHeight="6" refX="4" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#a371f7"/>
+        </marker>
+      </defs>
+
+      <!-- Labels -->
+      <text x="450" y="270" text-anchor="middle" fill="var(--text-secondary)" font-size="11">
+        AAARRR — Pirate Metrics Framework
+      </text>
+      <text x="450" y="290" text-anchor="middle" fill="var(--text-secondary)" font-size="10">
+        각 단계의 전환율을 측정하고 최적화하여 성장 엔진을 구축
+      </text>
+    </svg>
+  </div>
+
+  <h3>역순 최적화 원칙</h3>
+  <div class="box box-tip">
+    <strong>Retention 먼저, Acquisition 나중에</strong>
+    리텐션이 안 되는 상태에서 유저를 대량 획득하면 밑 빠진 독에 물 붓기입니다. 최적화 순서: <strong>Activation/Retention → Revenue → Referral → Acquisition → Awareness</strong>
+  </div>
+</section>
+
+<!-- ==================== 1. AWARENESS ==================== -->
+<section class="section" id="awareness">
+  <h2 class="section-title">
+    <span class="badge" style="background:var(--purple)">STAGE 1</span>
+    Awareness (인지) — 알리기
+  </h2>
+
+  <p>잠재 유저가 제품의 존재를 알게 되는 단계입니다. 타겟 오디언스에게 최대한 효율적으로 노출하는 것이 목표이며, <strong>"누구에게, 어디서 알릴 것인가"</strong>가 핵심 질문입니다.</p>
+
+  <h3>핵심 KPI</h3>
+  <table>
+    <tr><th>지표</th><th>정의</th><th>목표 예시</th><th>측정 도구</th></tr>
+    <tr><td>Reach</td><td>고유 노출 수</td><td>50,000+ (D+7)</td><td>GA4, SNS Analytics</td></tr>
+    <tr><td>Impressions</td><td>총 노출 횟수</td><td>500,000+ (D+30)</td><td>Meta Ads, Google Ads</td></tr>
+    <tr><td>Share of Voice</td><td>경쟁사 대비 언급 비율</td><td>5%+</td><td>Brand24, Mention</td></tr>
+    <tr><td>CTR</td><td>노출 대비 클릭률</td><td>2~5%</td><td>광고 플랫폼</td></tr>
+  </table>
+
+  <h3>핵심 전술</h3>
+
+  <h4>1. 유료 채널 (Paid)</h4>
+  <table>
+    <tr><th>채널</th><th>특성</th><th>CPI 벤치마크</th><th>추천 장르</th></tr>
+    <tr><td>Facebook / Instagram</td><td>정밀 타겟팅, 리타겟팅</td><td>$2~$5 (미국)</td><td>캐주얼, 퍼즐</td></tr>
+    <tr><td>Google UAC</td><td>의도 기반, 자동 최적화</td><td>$3~$8 (미국)</td><td>유틸리티, 미드코어</td></tr>
+    <tr><td>TikTok Ads</td><td>짧은 영상, Z세대</td><td>$1~$4</td><td>하이퍼캐주얼</td></tr>
+    <tr><td>인플루언서</td><td>진정성, 타겟 정확도</td><td>$100~$5,000/건</td><td>전 장르</td></tr>
+  </table>
+
+  <h4>2. 자연 채널 (Organic)</h4>
+  <ul>
+    <li><strong>ASO</strong>: 앱스토어 자연 다운로드 20~40% 기여. 키워드 최적화 필수</li>
+    <li><strong>소셜 미디어</strong>: Building in Public, 개발 일지, 티저</li>
+    <li><strong>콘텐츠 마케팅</strong>: YouTube 영상, 블로그 SEO, Reddit 가치 제공</li>
+  </ul>
+
+  <h4>3. 바이럴 채널</h4>
+  <ul>
+    <li><strong>Product Hunt</strong>: 런칭 당일 집중 투표, 주간 Top 5 목표</li>
+    <li><strong>커뮤니티</strong>: Reddit, Discord, Indie Hackers</li>
+  </ul>
+
+  <details>
+    <summary>시장별 차이: 북미 vs 중국</summary>
+    <div class="detail-content">
+      <table>
+        <tr><th>항목</th><th>북미</th><th>중국</th></tr>
+        <tr><td>주요 채널</td><td>Facebook, Google, Reddit, X</td><td>Douyin(틱톡), Weibo, Bilibili, WeChat</td></tr>
+        <tr><td>피처링</td><td>App Store Featured 중요</td><td>앱스토어 배너 구매 일반적</td></tr>
+        <tr><td>인플루언서</td><td>YouTube, Twitch 스트리머</td><td>KOL(Key Opinion Leader) 계층 체계</td></tr>
+        <tr><td>비용 수준</td><td>높음 ($3~$8 CPI)</td><td>중간 ($1~$3 CPI)</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <div class="box box-danger">
+    <strong>흔한 실수</strong>
+    - 타겟 Persona 없이 광범위 노출 → CPI 폭등<br>
+    - ASO 무시하고 유료 광고만 의존 → 자연 유입 0%<br>
+    - 제품 준비 전 마케팅 선행 → 높은 이탈률로 평점 하락
+  </div>
+
+  <div class="box box-agent">
+    <strong>HKD852 에이전트 활용</strong>
+    - <code>Marketing_Agent /aso</code> → 앱스토어 키워드 분석 + 메타데이터 최적화<br>
+    - <code>Marketing_Agent /social-copy</code> → X, Instagram, YouTube 홍보 카피 생성<br>
+    - <code>Marketing_Agent /launch-plan</code> → D-7~D+30 마케팅 타임라인 수립
+  </div>
+
+  <h3>체크리스트</h3>
+  <ul class="checklist">
+    <li><input type="checkbox"> 타겟 Persona 3개 정의 (인구통계 + 행동 + 동기)</li>
+    <li><input type="checkbox"> ASO 키워드 리서치 완료 (20개+)</li>
+    <li><input type="checkbox"> UTM 파라미터 태깅 전략 수립</li>
+    <li><input type="checkbox"> 채널별 예산 배분 결정</li>
+    <li><input type="checkbox"> 인플루언서 후보 리스트 작성 (10명+)</li>
+  </ul>
+</section>
+
+<!-- ==================== 2. ACQUISITION ==================== -->
+<section class="section" id="acquisition">
+  <h2 class="section-title">
+    <span class="badge" style="background:var(--blue)">STAGE 2</span>
+    Acquisition (획득) — 데려오기
+  </h2>
+
+  <p>인지한 유저가 실제로 앱을 설치하거나 서비스에 가입하는 단계입니다. 최소 비용으로 <strong>질 좋은 유저</strong>를 확보하는 것이 핵심이며, "전환율을 어떻게 높일 것인가"가 핵심 질문입니다.</p>
+
+  <h3>핵심 KPI</h3>
+  <table>
+    <tr><th>지표</th><th>정의</th><th>목표 (캐주얼 / 미드코어)</th><th>측정 도구</th></tr>
+    <tr><td>CPI</td><td>설치당 비용</td><td>$2~$5 / $5~$15</td><td>MMP (Adjust, AppsFlyer)</td></tr>
+    <tr><td>CVR</td><td>스토어 페이지→설치 전환율</td><td>30%+ / 20%+</td><td>App Store Connect, Play Console</td></tr>
+    <tr><td>Organic Ratio</td><td>자연 유입 비율</td><td>60%+ / 40%+</td><td>MMP</td></tr>
+    <tr><td>Quality Score</td><td>유저 퀄리티 (D7 리텐션 기준)</td><td>20%+ / 30%+</td><td>내부 분석</td></tr>
+  </table>
+
+  <h3>핵심 전술</h3>
+
+  <h4>1. 스토어 페이지 최적화</h4>
+  <table>
+    <tr><th>요소</th><th>영향도</th><th>핵심 원칙</th></tr>
+    <tr><td>아이콘</td><td>가장 높음</td><td>단순, 대비 강한 색상, 캐릭터 얼굴, A/B 테스트 필수</td></tr>
+    <tr><td>스크린샷</td><td>높음</td><td>첫 2장이 결정적, 가치 제안 텍스트 오버레이, 세로형</td></tr>
+    <tr><td>프리뷰 영상</td><td>높음</td><td>15~30초, 첫 3초 후킹, 게임플레이 중심</td></tr>
+    <tr><td>제목 / 부제</td><td>중간</td><td>핵심 키워드 포함, 30자 이내</td></tr>
+    <tr><td>설명</td><td>낮음</td><td>첫 3줄에 핵심, 키워드 자연스럽게 배치</td></tr>
+  </table>
+
+  <h4>2. 유저 퀄리티 vs 수량 트레이드오프</h4>
+  <div class="box box-info">
+    <strong>핵심 원칙: LTV > CPI x 3</strong>
+    CPI가 낮아도 D1 리텐션 10%인 유저보다, CPI가 2배 높아도 D1 40%인 유저가 3배 이상 가치 있습니다. 초기 볼륨보다 <strong>유저 퀄리티를 우선</strong>하세요.
+  </div>
+
+  <h4>3. 채널 다변화</h4>
+  <ul>
+    <li><strong>단일 채널 의존 위험</strong>: 알고리즘 변경, 정책 변경에 취약</li>
+    <li><strong>테스트 → 확장</strong>: 소규모 테스트 후 ROAS 좋은 채널에 집중</li>
+    <li><strong>크로스 프로모션</strong>: 자사 타 제품 유저 대상 (비용 $0)</li>
+  </ul>
+
+  <details>
+    <summary>시장별 차이: 북미 vs 중국</summary>
+    <div class="detail-content">
+      <table>
+        <tr><th>항목</th><th>북미</th><th>중국</th></tr>
+        <tr><td>주요 스토어</td><td>App Store, Google Play</td><td>300+ 안드로이드 스토어 (Huawei, Xiaomi, OPPO 등)</td></tr>
+        <tr><td>CVR 벤치마크</td><td>30~40%</td><td>15~25% (경쟁 치열)</td></tr>
+        <tr><td>사전 등록</td><td>Google Play 사전 등록</td><td>TapTap 예약, Bilibili 예약</td></tr>
+        <tr><td>결제</td><td>앱스토어 결제</td><td>위챗페이, 알리페이 연동 필수</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <div class="box box-danger">
+    <strong>흔한 실수</strong>
+    - 아이콘 A/B 테스트 없이 확정 → 전환율 10~20% 손실 가능<br>
+    - MMP 미설치 → 어떤 채널이 효과적인지 측정 불가<br>
+    - 볼륨만 추구 → 낮은 퀄리티 유저로 리텐션/수익 악화
+  </div>
+
+  <div class="box box-agent">
+    <strong>HKD852 에이전트 활용</strong>
+    - <code>Marketing_Agent /aso</code> → 스토어 제목, 설명, 키워드 최적화<br>
+    - <code>GameDesign_Agent /ux</code> → 스토어 스크린샷에 보여줄 핵심 UX 포인트 추출
+  </div>
+
+  <h3>체크리스트</h3>
+  <ul class="checklist">
+    <li><input type="checkbox"> 아이콘 후보 3개 A/B 테스트</li>
+    <li><input type="checkbox"> 스크린샷 세로형 5~8장 제작</li>
+    <li><input type="checkbox"> 프리뷰 영상 30초 이내 제작</li>
+    <li><input type="checkbox"> MMP 연동 (Adjust / AppsFlyer / Singular)</li>
+    <li><input type="checkbox"> 채널별 소규모 테스트 ($100~$500) 실행</li>
+  </ul>
+</section>
+
+<!-- ==================== 3. ACTIVATION ==================== -->
+<section class="section" id="activation">
+  <h2 class="section-title">
+    <span class="badge" style="background:var(--green)">STAGE 3</span>
+    Activation (활성화) — 가치 경험시키기
+  </h2>
+
+  <p>신규 유저가 제품의 <strong>핵심 가치를 처음 경험하는</strong> 단계입니다. 이 단계의 목표는 유저를 가능한 빠르게 "Aha Moment"에 도달시키는 것이며, "무엇을 경험해야 이 제품의 가치를 알 수 있는가"가 핵심 질문입니다.</p>
+
+  <div class="box box-info">
+    <strong>상세 가이드 →</strong>
+    설치→실행→BI/CI→약관→로그인→다운로드→계정→튜토리얼→Aha Moment까지의 마이크로 퍼널 상세 설계는 <a href="onboarding-funnel-design-guide.html" style="color:var(--blue);font-weight:600">온보딩 퍼널 설계 가이드</a>를 참조하세요.
+  </div>
+
+  <h3>핵심 KPI</h3>
+  <table>
+    <tr><th>지표</th><th>정의</th><th>목표</th><th>측정</th></tr>
+    <tr><td>Tutorial Completion</td><td>튜토리얼 완료율</td><td>70%+</td><td>인앱 이벤트</td></tr>
+    <tr><td>Time to Aha</td><td>Aha Moment 도달 시간</td><td>3분 이내</td><td>이벤트 타임스탬프</td></tr>
+    <tr><td>D0 Retention</td><td>설치 당일 재접속</td><td>50%+</td><td>MMP / 내부 분석</td></tr>
+    <tr><td>FTUE Drop-off</td><td>온보딩 중 이탈 지점</td><td>각 스텝 90%+ 통과</td><td>Funnel 분석</td></tr>
+  </table>
+
+  <h3>Aha Moment 정의</h3>
+  <div class="box box-tip">
+    <strong>Aha Moment = 유저가 "이 앱 좋다!" 느끼는 순간</strong>
+    장르별 예시:<br>
+    - 퍼즐 게임: 첫 레벨 클리어 + 보상 획득<br>
+    - RPG: 첫 스킬 사용 + 몬스터 처치<br>
+    - 소셜 앱: 첫 친구 추가 + 메시지 수신<br>
+    - 생산성 앱: 첫 작업 완료 + 결과 확인
+  </div>
+
+  <h3>온보딩 설계 원칙</h3>
+  <table>
+    <tr><th>원칙</th><th>설명</th><th>나쁜 예</th><th>좋은 예</th></tr>
+    <tr><td>Show, Don't Tell</td><td>텍스트 설명 대신 직접 행동</td><td>10줄 설명 팝업</td><td>하이라이트로 터치 유도</td></tr>
+    <tr><td>마찰 최소화</td><td>가입/설정을 뒤로 미룸</td><td>시작 전 회원가입 강제</td><td>게스트 플레이 → 나중에 가입</td></tr>
+    <tr><td>즉각적 보상</td><td>첫 행동에 즉시 피드백</td><td>보상 없는 5분 튜토리얼</td><td>첫 행동 후 즉시 보상 + 효과음</td></tr>
+    <tr><td>점진적 공개</td><td>기능을 한번에 다 보여주지 않음</td><td>모든 메뉴 한꺼번에 개방</td><td>레벨/진행도에 따라 점진 해제</td></tr>
+  </table>
+
+  <h3>Layered Onboarding</h3>
+  <table>
+    <tr><th>계층</th><th>시점</th><th>내용</th><th>목표</th></tr>
+    <tr><td>Tier 1</td><td>첫 1~3분</td><td>핵심 조작 + Aha Moment</td><td>가치 인지</td></tr>
+    <tr><td>Tier 2</td><td>세션 1~2</td><td>2차 기능, 소셜 연결</td><td>습관 형성 시작</td></tr>
+    <tr><td>Tier 3</td><td>D1~D3</td><td>고급 기능, 커스터마이징</td><td>투자감 형성</td></tr>
+    <tr><td>Tier 4</td><td>D7+</td><td>엔드게임, 경쟁 콘텐츠</td><td>장기 목표 제시</td></tr>
+  </table>
+
+  <details>
+    <summary>시장별 차이: 북미 vs 중국</summary>
+    <div class="detail-content">
+      <table>
+        <tr><th>항목</th><th>북미</th><th>중국</th></tr>
+        <tr><td>온보딩 선호</td><td>미니멀, 텍스트 최소</td><td>상세 가이드 선호, NPC 안내 친숙</td></tr>
+        <tr><td>회원가입</td><td>Apple/Google 간편 로그인</td><td>WeChat/QQ 로그인 필수</td></tr>
+        <tr><td>첫 보상</td><td>가챠/뽑기 → 낮은 수용도</td><td>사전 등록 보상, 첫날 10연차 일반적</td></tr>
+        <tr><td>튜토리얼 길이</td><td>2~3분 선호</td><td>5~10분까지 수용</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <div class="box box-danger">
+    <strong>흔한 실수</strong>
+    - 과도한 권한 요청 (알림, 위치, 연락처를 첫 실행에 모두 요구)<br>
+    - 회원가입 강제 → 30~50% 즉시 이탈<br>
+    - 너무 긴 튜토리얼 → 핵심 가치 도달 전 이탈<br>
+    - 스킵 불가 → 재설치 유저, 경험자 이탈
+  </div>
+
+  <div class="box box-agent">
+    <strong>HKD852 에이전트 활용</strong>
+    - <code>GameDesign_Agent /ux</code> → FTUE 플로우 설계 및 이탈 구간 분석<br>
+    - <code>GameDesign_Agent /balance</code> → 튜토리얼 보상 적정량 설계
+  </div>
+
+  <h3>체크리스트</h3>
+  <ul class="checklist">
+    <li><input type="checkbox"> Aha Moment 명확히 정의</li>
+    <li><input type="checkbox"> Aha Moment 도달까지 3분 이내 확인</li>
+    <li><input type="checkbox"> 튜토리얼 각 스텝별 이탈률 계측 이벤트 심기</li>
+    <li><input type="checkbox"> 게스트 플레이 지원 (회원가입 후순위)</li>
+    <li><input type="checkbox"> 스킵 옵션 제공 (재설치/경험자 대응)</li>
+  </ul>
+</section>
+
+<!-- ==================== 4. RETENTION ==================== -->
+<section class="section" id="retention">
+  <h2 class="section-title">
+    <span class="badge" style="background:var(--yellow)">STAGE 4</span>
+    Retention (리텐션) — 돌아오게 하기
+  </h2>
+
+  <p>유저가 며칠, 몇 주, 몇 달에 걸쳐 지속적으로 재방문하는 단계입니다. <strong>리텐션은 모든 성장의 기반</strong>이며, "왜 내일도 돌아올까?"가 핵심 질문입니다. 리텐션 없이 획득을 늘리면 밑 빠진 독에 물 붓기입니다.</p>
+
+  <h3>핵심 KPI</h3>
+  <table>
+    <tr><th>지표</th><th>정의</th><th>캐주얼</th><th>미드코어</th><th>하드코어</th></tr>
+    <tr><td>D1 Retention</td><td>1일 후 복귀율</td><td>35~45%</td><td>40~55%</td><td>50~65%</td></tr>
+    <tr><td>D7 Retention</td><td>7일 후 복귀율</td><td>15~25%</td><td>20~35%</td><td>25~40%</td></tr>
+    <tr><td>D30 Retention</td><td>30일 후 복귀율</td><td>5~12%</td><td>8~18%</td><td>12~25%</td></tr>
+    <tr><td>Stickiness</td><td>DAU / MAU</td><td>15~25%</td><td>20~35%</td><td>30~50%</td></tr>
+    <tr><td>Churn Rate</td><td>이탈률</td><td colspan="3">낮을수록 좋음 (D1 Churn 55% 이하)</td></tr>
+  </table>
+
+  <h3>리텐션 곡선 이해</h3>
+  <div class="svg-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 280" width="600" height="280">
+      <!-- Axes -->
+      <line x1="60" y1="20" x2="60" y2="230" stroke="#30363d" stroke-width="1"/>
+      <line x1="60" y1="230" x2="570" y2="230" stroke="#30363d" stroke-width="1"/>
+
+      <!-- Y axis labels -->
+      <text x="50" y="25" text-anchor="end" fill="#8b949e" font-size="10">100%</text>
+      <text x="50" y="75" text-anchor="end" fill="#8b949e" font-size="10">75%</text>
+      <text x="50" y="130" text-anchor="end" fill="#8b949e" font-size="10">50%</text>
+      <text x="50" y="180" text-anchor="end" fill="#8b949e" font-size="10">25%</text>
+      <text x="50" y="233" text-anchor="end" fill="#8b949e" font-size="10">0%</text>
+
+      <!-- X axis labels -->
+      <text x="60" y="248" text-anchor="middle" fill="#8b949e" font-size="10">D0</text>
+      <text x="130" y="248" text-anchor="middle" fill="#8b949e" font-size="10">D1</text>
+      <text x="220" y="248" text-anchor="middle" fill="#8b949e" font-size="10">D3</text>
+      <text x="340" y="248" text-anchor="middle" fill="#8b949e" font-size="10">D7</text>
+      <text x="460" y="248" text-anchor="middle" fill="#8b949e" font-size="10">D14</text>
+      <text x="550" y="248" text-anchor="middle" fill="#8b949e" font-size="10">D30</text>
+
+      <!-- Grid lines -->
+      <line x1="60" y1="75" x2="570" y2="75" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="60" y1="130" x2="570" y2="130" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="60" y1="180" x2="570" y2="180" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+
+      <!-- Good curve (green) - flattening -->
+      <polyline points="60,20 130,100 220,130 340,150 460,160 550,165" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="555" y="160" fill="#3fb950" font-size="10" font-weight="600">Good</text>
+
+      <!-- Average curve (yellow) -->
+      <polyline points="60,20 130,130 220,165 340,190 460,205 550,212" fill="none" stroke="#d29922" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="555" y="208" fill="#d29922" font-size="10" font-weight="600">Avg</text>
+
+      <!-- Bad curve (red) - keeps dropping -->
+      <polyline points="60,20 130,160 220,200 340,218 460,225 550,228" fill="none" stroke="#f85149" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="555" y="225" fill="#f85149" font-size="10" font-weight="600">Bad</text>
+
+      <!-- Legend -->
+      <text x="315" y="270" text-anchor="middle" fill="#8b949e" font-size="10">Plateau(평탄화)가 빨리 형성될수록 건강한 리텐션</text>
+    </svg>
+  </div>
+
+  <h3>핵심 전술</h3>
+
+  <h4>1. 핵심 루프 (Core Loop) 설계</h4>
+  <p>유저가 반복하는 3~15분 주기의 기본 행동 순환입니다. <strong>행동 → 보상 → 강화 → 동기 → 행동</strong>의 사이클이 짧고 명확할수록 리텐션이 높습니다.</p>
+
+  <h4>2. 습관 형성 — Hook Model</h4>
+  <table>
+    <tr><th>단계</th><th>설명</th><th>모바일 게임 예시</th></tr>
+    <tr><td>Trigger (계기)</td><td>행동을 시작하게 하는 자극</td><td>푸시 알림 "에너지가 찼습니다!", 일일 보상</td></tr>
+    <tr><td>Action (행동)</td><td>보상을 얻기 위한 단순 행동</td><td>앱 열기 → 보상 수령 → 1판 플레이</td></tr>
+    <tr><td>Variable Reward (가변 보상)</td><td>예측 불가한 보상으로 도파민</td><td>랜덤 보상 상자, 가챠, 드롭 아이템</td></tr>
+    <tr><td>Investment (투자)</td><td>유저가 시간/노력을 투자</td><td>캐릭터 육성, 컬렉션, 커스터마이징</td></tr>
+  </table>
+
+  <h4>3. 소셜 리텐션</h4>
+  <div class="box box-tip">
+    <strong>길드/클랜 가입 유저는 미가입 유저 대비 리텐션 +30%p</strong>
+    - 친구 시스템: 함께 플레이할 이유 제공<br>
+    - 길드: 소속감 + 의무감 (길드전, 기여)<br>
+    - 랭킹: 경쟁 + 목표 제시
+  </div>
+
+  <h4>4. LiveOps (라이브 운영)</h4>
+  <ul>
+    <li><strong>일일</strong>: 로그인 보상, 일일 퀘스트, 한정 상점</li>
+    <li><strong>주간</strong>: 주간 이벤트, 시즌 퀘스트 진행</li>
+    <li><strong>월간</strong>: 시즌/배틀패스 갱신, 대규모 이벤트</li>
+    <li><strong>특별</strong>: 공휴일, 기념일, 콜라보레이션</li>
+  </ul>
+
+  <h4>5. 이탈 원인 분석</h4>
+  <table>
+    <tr><th>이탈 시점</th><th>주요 원인</th><th>대응 전략</th></tr>
+    <tr><td>D0~D1</td><td>온보딩 실패, 기대 불일치</td><td>FTUE 개선, 스토어 메시지 정합성</td></tr>
+    <tr><td>D1~D7</td><td>핵심 루프 약함, 콘텐츠 부족</td><td>초반 콘텐츠 밀도 증가, 목표 제시</td></tr>
+    <tr><td>D7~D30</td><td>콘텐츠 소진, 난이도 벽</td><td>LiveOps 이벤트, 소셜 기능, 난이도 조정</td></tr>
+    <tr><td>D30+</td><td>엔드게임 부재, 경쟁작 이동</td><td>시즌 시스템, PvP/GvG, UGC</td></tr>
+  </table>
+
+  <details>
+    <summary>시장별 차이: 북미 vs 중국</summary>
+    <div class="detail-content">
+      <table>
+        <tr><th>항목</th><th>북미</th><th>중국</th></tr>
+        <tr><td>리텐션 기대치</td><td>D1: 40%, D7: 20%</td><td>D1: 50%+, D7: 30%+ (경쟁 치열)</td></tr>
+        <tr><td>푸시 알림</td><td>과도하면 삭제 사유 1위</td><td>상대적으로 수용도 높음</td></tr>
+        <tr><td>일일 보상</td><td>있으면 좋지만 의무감 X</td><td>일일 출석 + 누적 보상 기본</td></tr>
+        <tr><td>소셜</td><td>비동기 소셜 (리더보드)</td><td>실시간 소셜 (파티, 채팅)</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <div class="box box-danger">
+    <strong>흔한 실수</strong>
+    - 푸시 알림 도배 → 앱 삭제 사유 1위<br>
+    - 콘텐츠 소진 미계획 → D7 이후 급격한 이탈<br>
+    - 하드코어 유저만 고려 → 캐주얼 유저층 이탈<br>
+    - 리텐션 측정 미비 → 문제 인식 지연
+  </div>
+
+  <div class="box box-agent">
+    <strong>HKD852 에이전트 활용</strong>
+    - <code>GameDesign_Agent /liveops</code> → 이벤트 캘린더, 시즌 설계<br>
+    - <code>GameDesign_Agent /balance</code> → 성장 곡선 분석, 난이도 조정<br>
+    - <code>GameDesign_Agent /ux</code> → 이탈 구간 UX 개선
+  </div>
+
+  <h3>체크리스트</h3>
+  <ul class="checklist">
+    <li><input type="checkbox"> D1/D7/D30 리텐션 목표 설정</li>
+    <li><input type="checkbox"> 코호트 분석 대시보드 구축</li>
+    <li><input type="checkbox"> 핵심 루프 1사이클 시간 측정 (목표: 3~15분)</li>
+    <li><input type="checkbox"> 푸시 알림 전략 수립 (빈도, 타이밍, A/B 테스트)</li>
+    <li><input type="checkbox"> 30일치 LiveOps 이벤트 캘린더 작성</li>
+  </ul>
+</section>
+
+<!-- ==================== 5. REVENUE ==================== -->
+<section class="section" id="revenue">
+  <h2 class="section-title">
+    <span class="badge" style="background:var(--red)">STAGE 5</span>
+    Revenue (수익화) — 돈 벌기
+  </h2>
+
+  <p>활성 유저가 실제로 과금하는 단계입니다. 지속 가능한 비즈니스를 위해 유저가 <strong>기꺼이 지불할 가치</strong>를 제공해야 하며, "이 가격에 이 가치를 기꺼이 지불할까?"가 핵심 질문입니다.</p>
+
+  <h3>핵심 KPI</h3>
+  <table>
+    <tr><th>지표</th><th>정의</th><th>캐주얼</th><th>미드코어</th></tr>
+    <tr><td>ARPDAU</td><td>일 활성 유저당 수익</td><td>$0.05~$0.30</td><td>$0.30~$2.00</td></tr>
+    <tr><td>ARPPU</td><td>과금 유저당 수익</td><td>$5~$15</td><td>$20~$80</td></tr>
+    <tr><td>Conversion Rate</td><td>과금 전환율</td><td>2~5%</td><td>3~8%</td></tr>
+    <tr><td>LTV</td><td>유저 생애 가치</td><td colspan="2">LTV > CPI x 3 (황금률)</td></tr>
+    <tr><td>ROAS</td><td>광고 투자 수익률</td><td colspan="2">D7: 30%+, D30: 70%+</td></tr>
+  </table>
+
+  <h3>수익화 모델</h3>
+
+  <h4>1. 하이브리드 모델 (현재 주류)</h4>
+  <table>
+    <tr><th>수익원</th><th>비중 (캐주얼)</th><th>비중 (미드코어)</th><th>특성</th></tr>
+    <tr><td>IAP (인앱 구매)</td><td>20~40%</td><td>60~80%</td><td>고래 의존도 높음, LTV 핵심</td></tr>
+    <tr><td>광고</td><td>40~60%</td><td>10~20%</td><td>비과금 유저 수익화, 보상형 필수</td></tr>
+    <tr><td>구독</td><td>10~20%</td><td>10~20%</td><td>예측 가능한 수익, 리텐션 연동</td></tr>
+  </table>
+
+  <h4>2. IAP 상품 피라미드</h4>
+  <div class="svg-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" width="500" height="300">
+      <!-- Pyramid -->
+      <polygon points="250,30 100,250 400,250" fill="none" stroke="#30363d" stroke-width="2"/>
+
+      <!-- Tier lines -->
+      <line x1="135" y1="180" x2="365" y2="180" stroke="#30363d" stroke-width="1"/>
+      <line x1="165" y1="140" x2="335" y2="140" stroke="#30363d" stroke-width="1"/>
+      <line x1="200" y1="95" x2="300" y2="95" stroke="#30363d" stroke-width="1"/>
+
+      <!-- Tier fills -->
+      <polygon points="200,95 300,95 335,140 165,140" fill="rgba(248,81,73,0.15)"/>
+      <polygon points="165,140 335,140 365,180 135,180" fill="rgba(210,153,34,0.15)"/>
+      <polygon points="135,180 365,180 400,250 100,250" fill="rgba(63,185,80,0.15)"/>
+      <polygon points="250,30 200,95 300,95" fill="rgba(163,113,247,0.15)"/>
+
+      <!-- Labels -->
+      <text x="250" y="72" text-anchor="middle" fill="#a371f7" font-size="11" font-weight="700">$49.99+</text>
+      <text x="250" y="125" text-anchor="middle" fill="#f85149" font-size="11" font-weight="700">$9.99~$29.99</text>
+      <text x="250" y="168" text-anchor="middle" fill="#d29922" font-size="11" font-weight="700">$4.99~$9.99</text>
+      <text x="250" y="225" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="700">$0.99~$2.99</text>
+
+      <!-- Right labels -->
+      <text x="410" y="72" fill="#8b949e" font-size="10">고래 ~1%</text>
+      <text x="410" y="125" fill="#8b949e" font-size="10">돌고래 ~5%</text>
+      <text x="410" y="168" fill="#8b949e" font-size="10">소과금 ~15%</text>
+      <text x="410" y="225" fill="#8b949e" font-size="10">첫 과금 유도 ~20%</text>
+
+      <!-- Bottom label -->
+      <text x="250" y="280" text-anchor="middle" fill="#8b949e" font-size="10">낮은 가격으로 첫 결제 장벽을 낮추고, 점진적으로 상위 상품 노출</text>
+    </svg>
+  </div>
+
+  <h4>3. 배틀패스 / 시즌패스</h4>
+  <table>
+    <tr><th>항목</th><th>권장값</th><th>비고</th></tr>
+    <tr><td>가격</td><td>$4.99~$9.99</td><td>IAP 중 가성비 최고 포지셔닝</td></tr>
+    <tr><td>기간</td><td>6~10주 (1시즌)</td><td>너무 짧으면 피로, 너무 길면 이탈</td></tr>
+    <tr><td>티어 수</td><td>40~60 티어</td><td>일 1~2 티어 진행 가능 설계</td></tr>
+    <tr><td>전환율</td><td>30~50%</td><td>무료 트랙 체험 후 구매 유도</td></tr>
+    <tr><td>무료:유료 보상</td><td>40:60</td><td>무료도 충분히 매력적이어야 함</td></tr>
+  </table>
+
+  <h4>4. 광고 수익화</h4>
+  <table>
+    <tr><th>광고 유형</th><th>eCPM 범위</th><th>유저 경험</th><th>적합 장르</th></tr>
+    <tr><td>보상형 (Rewarded)</td><td>$10~$50</td><td>좋음 (자발적 시청)</td><td>전 장르</td></tr>
+    <tr><td>인터스티셜</td><td>$5~$20</td><td>보통 (자연스러운 전환점에)</td><td>캐주얼, 하이퍼캐주얼</td></tr>
+    <tr><td>배너</td><td>$0.5~$3</td><td>낮음 (무시됨)</td><td>유틸리티</td></tr>
+    <tr><td>네이티브</td><td>$3~$15</td><td>좋음 (콘텐츠에 자연스럽게)</td><td>뉴스, 소셜</td></tr>
+  </table>
+
+  <details>
+    <summary>시장별 차이: 북미 vs 중국</summary>
+    <div class="detail-content">
+      <table>
+        <tr><th>항목</th><th>북미</th><th>중국</th></tr>
+        <tr><td>주요 수익 모델</td><td>배틀패스 + 스킨 + 광고</td><td>가챠(천장 시스템) + VIP + 첫 충전</td></tr>
+        <tr><td>P2W 수용도</td><td>매우 낮음 (Pay-to-Skip은 수용)</td><td>일반적 수용 (실력+투자 밸런스)</td></tr>
+        <tr><td>가격 민감도</td><td>$0.99 첫 결제 효과적</td><td>6위안(~$0.80) 첫 충전 일반적</td></tr>
+        <tr><td>고래 비율</td><td>1~2%</td><td>3~5% (VIP 시스템으로 체계화)</td></tr>
+        <tr><td>필수 요소</td><td>투명한 확률 공개</td><td>천장 시스템(Pity), 첫 충전 2배</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <div class="box box-danger">
+    <strong>흔한 실수</strong>
+    - Pay-to-Win 설계 → 북미 시장 평점 폭락 + 리뷰 테러<br>
+    - 첫 과금 장벽 높음 ($4.99+만 존재) → 전환율 급감<br>
+    - 광고 빈도 과다 → 리텐션 악화가 광고 수익을 초과<br>
+    - LTV 계산 없이 UA 비용 집행 → 지속 불가능한 적자
+  </div>
+
+  <div class="box box-agent">
+    <strong>HKD852 에이전트 활용</strong>
+    - <code>GameDesign_Agent /monetize</code> → F2P/IAP/광고 수익화 전략 설계<br>
+    - <code>GameDesign_Agent /liveops</code> → 배틀패스, 시즌 상점 설계<br>
+    - <code>GameDesign_Agent /balance</code> → 경제 밸런싱, 인플레이션 관리
+  </div>
+
+  <h3>체크리스트</h3>
+  <ul class="checklist">
+    <li><input type="checkbox"> LTV 예측 모델 수립 (D7/D30/D60 기준)</li>
+    <li><input type="checkbox"> IAP 상품 피라미드 설계 (4단계)</li>
+    <li><input type="checkbox"> 첫 과금 유도 상품 $0.99~$2.99 포함</li>
+    <li><input type="checkbox"> 광고 빈도/위치 테스트 (보상형 우선)</li>
+    <li><input type="checkbox"> P2W 레벨 체크 (Fairness Audit)</li>
+  </ul>
+</section>
+
+<!-- ==================== 6. REFERRAL ==================== -->
+<section class="section" id="referral">
+  <h2 class="section-title">
+    <span class="badge" style="background:var(--pink)">STAGE 6</span>
+    Referral (추천) — 입소문 내기
+  </h2>
+
+  <p>기존 유저가 신규 유저를 데려오는 단계입니다. 유료 마케팅 비용 없이 자생적 성장을 만드는 것이 목표이며, "유저가 자발적으로 공유하고 싶을까?"가 핵심 질문입니다.</p>
+
+  <h3>핵심 KPI</h3>
+  <table>
+    <tr><th>지표</th><th>정의</th><th>목표</th><th>산식</th></tr>
+    <tr><td>K-Factor</td><td>바이럴 계수</td><td>0.5+ (좋음), 1.0+ (바이럴)</td><td>K = 초대율(i) × 전환율(c)</td></tr>
+    <tr><td>Referral Rate</td><td>초대 기능 사용 비율</td><td>10~20%</td><td>초대한 유저 / 전체 유저</td></tr>
+    <tr><td>NPS</td><td>순추천지수</td><td>50+ (우수)</td><td>추천(9~10) - 비추천(0~6)</td></tr>
+    <tr><td>Viral Cycle Time</td><td>초대→설치 소요 시간</td><td>짧을수록 좋음</td><td>공유 시점 ~ 설치 시점</td></tr>
+  </table>
+
+  <h3>K-Factor 이해</h3>
+  <div class="box box-info">
+    <strong>K = i (초대율) × c (초대→설치 전환율)</strong>
+    - 예) 유저 100명 중 20명이 초대(i=0.2), 초대받은 사람 중 25%가 설치(c=0.25)<br>
+    - K = 0.2 × 0.25 = 0.05 → 100명당 5명 추가 (보통)<br>
+    - <strong>K ≥ 1</strong>이면 기하급수적 성장 (매우 드묾)<br>
+    - K = 0.3~0.5면 유료 UA 비용 30~50% 절감 효과
+  </div>
+
+  <h3>핵심 전술</h3>
+
+  <h4>1. 친구 초대 시스템</h4>
+  <table>
+    <tr><th>유형</th><th>초대자 보상</th><th>피초대자 보상</th><th>효과</th></tr>
+    <tr><td>양쪽 보상</td><td>프리미엄 재화 500</td><td>스타터 팩</td><td>전환율 높음 (권장)</td></tr>
+    <tr><td>초대자만</td><td>한정 아이템</td><td>없음</td><td>초대 동기 높지만 전환 낮음</td></tr>
+    <tr><td>마일스톤</td><td>3명/5명/10명 단계별</td><td>기본 보상</td><td>다수 초대 유도</td></tr>
+  </table>
+
+  <h4>2. 소셜 공유 트리거</h4>
+  <p>유저가 <strong>자연스럽게</strong> 공유하고 싶은 순간에 공유 버튼을 제공합니다.</p>
+  <ul>
+    <li><strong>성취 순간</strong>: 신기록, 레벨업, 희귀 아이템 획득</li>
+    <li><strong>감정적 순간</strong>: 웃긴 결과, 놀라운 장면, 아슬아슬한 승리</li>
+    <li><strong>경쟁 순간</strong>: 랭킹 1위, PvP 승리, 친구보다 높은 점수</li>
+    <li><strong>커스터마이징</strong>: 캐릭터/공간 꾸미기 결과물</li>
+  </ul>
+
+  <h4>3. 플랫폼별 공유 최적화</h4>
+  <table>
+    <tr><th>플랫폼</th><th>최적 포맷</th><th>핵심 요소</th></tr>
+    <tr><td>X (Twitter)</td><td>이미지 + 짧은 텍스트</td><td>해시태그, 멘션, 달성 내용</td></tr>
+    <tr><td>Instagram</td><td>9:16 스토리</td><td>스티커, 게임 결과 카드</td></tr>
+    <tr><td>TikTok</td><td>15~60초 영상</td><td>트렌드 사운드, 게임플레이 하이라이트</td></tr>
+    <tr><td>Discord</td><td>Rich Embed</td><td>서버 초대, 실시간 활동 표시</td></tr>
+  </table>
+
+  <h4>4. 바이럴 루프 설계</h4>
+  <div class="box box-tip">
+    <strong>최적 바이럴 루프: 행동 → 공유 → 클릭 → 설치 → 행동</strong>
+    - Deep Link 필수 (공유한 콘텐츠로 바로 이동)<br>
+    - 공유 콘텐츠 자체가 가치 있어야 함 (단순 광고 X)<br>
+    - 사이클 타임 단축: 공유 → 설치까지 2탭 이내
+  </div>
+
+  <details>
+    <summary>시장별 차이: 북미 vs 중국</summary>
+    <div class="detail-content">
+      <table>
+        <tr><th>항목</th><th>북미</th><th>중국</th></tr>
+        <tr><td>주요 공유 채널</td><td>iMessage, X, Discord, Reddit</td><td>WeChat 모멘트, QQ, Douyin</td></tr>
+        <tr><td>공유 동기</td><td>개인 성취, 재미</td><td>사회적 지위, 체면, 그룹 혜택</td></tr>
+        <tr><td>초대 보상</td><td>가상 아이템</td><td>현금 쿠폰 효과적 (핀둬둬 모델)</td></tr>
+        <tr><td>바이럴 메커니즘</td><td>자발적 공유 중심</td><td>그룹 구매, 초대 경쟁, 럭키드로우</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <div class="box box-danger">
+    <strong>흔한 실수</strong>
+    - 강제 공유 팝업 → 부정적 리뷰 유발<br>
+    - Deep Link 미구현 → 공유→설치 전환율 급감<br>
+    - 공유 콘텐츠가 광고처럼 보임 → 클릭률 1% 미만<br>
+    - 초대 보상이 게임 밸런스 파괴 → 핵심 유저 반발
+  </div>
+
+  <div class="box box-agent">
+    <strong>HKD852 에이전트 활용</strong>
+    - <code>Marketing_Agent /social-copy</code> → 공유 메시지, 해시태그, CTA 최적화<br>
+    - <code>GameDesign_Agent /ux</code> → 공유 트리거 배치, Deep Link 플로우 설계
+  </div>
+
+  <h3>체크리스트</h3>
+  <ul class="checklist">
+    <li><input type="checkbox"> 친구 초대 시스템 설계 (양쪽 보상)</li>
+    <li><input type="checkbox"> Deep Link 구현 (Branch.io / Firebase Dynamic Links)</li>
+    <li><input type="checkbox"> 공유 트리거 3곳 이상 배치</li>
+    <li><input type="checkbox"> 공유 콘텐츠 디자인 (결과 카드, 스크린샷 프레임)</li>
+    <li><input type="checkbox"> K-Factor 측정 이벤트 심기</li>
+  </ul>
+</section>
+
+<!-- ==================== AGENT MATRIX ==================== -->
+<section class="section" id="agent-matrix">
+  <h2 class="section-title">HKD852 에이전트 연계 매트릭스</h2>
+
+  <h3>퍼널 단계별 추천 에이전트</h3>
+  <table>
+    <tr>
+      <th>퍼널 단계</th>
+      <th>추천 에이전트</th>
+      <th>스킬</th>
+      <th>산출물</th>
+    </tr>
+    <tr>
+      <td><span class="tag" style="background:var(--purple);color:#fff">Awareness</span></td>
+      <td>Marketing_Agent</td>
+      <td><code>/aso</code> <code>/social-copy</code> <code>/launch-plan</code></td>
+      <td>ASO 보고서, 카피, 타임라인</td>
+    </tr>
+    <tr>
+      <td><span class="tag" style="background:var(--blue);color:#fff">Acquisition</span></td>
+      <td>Marketing_Agent, GameDesign_Agent</td>
+      <td><code>/aso</code> <code>/ux</code></td>
+      <td>스토어 최적화, 온보딩 UX</td>
+    </tr>
+    <tr>
+      <td><span class="tag" style="background:var(--green);color:#fff">Activation</span></td>
+      <td>GameDesign_Agent</td>
+      <td><code>/ux</code> <code>/balance</code></td>
+      <td>FTUE 설계, 튜토리얼 밸런스</td>
+    </tr>
+    <tr>
+      <td><span class="tag" style="background:var(--yellow);color:#fff">Retention</span></td>
+      <td>GameDesign_Agent</td>
+      <td><code>/liveops</code> <code>/balance</code> <code>/ux</code></td>
+      <td>이벤트 캘린더, 성장 곡선</td>
+    </tr>
+    <tr>
+      <td><span class="tag" style="background:var(--red);color:#fff">Revenue</span></td>
+      <td>GameDesign_Agent</td>
+      <td><code>/monetize</code> <code>/liveops</code> <code>/balance</code></td>
+      <td>수익화 설계, 배틀패스, 경제</td>
+    </tr>
+    <tr>
+      <td><span class="tag" style="background:var(--pink);color:#fff">Referral</span></td>
+      <td>GameDesign_Agent, Marketing_Agent</td>
+      <td><code>/ux</code> <code>/social-copy</code></td>
+      <td>바이럴 UX, 초대 메시지</td>
+    </tr>
+    <tr>
+      <td style="color:var(--text-secondary)">전체 분석</td>
+      <td>Income_Factory</td>
+      <td><code>/idea-analyze</code></td>
+      <td>주간 퍼널 성과 리포트</td>
+    </tr>
+  </table>
+
+  <h3>실전 시나리오</h3>
+
+  <div class="scenario">
+    <h4>시나리오 1: 신규 모바일 게임 런칭 준비</h4>
+    <ol>
+      <li><code>Marketing_Agent /aso</code> → 앱스토어 키워드 분석 + 메타데이터 최적화</li>
+      <li><code>Marketing_Agent /social-copy</code> → X, Instagram, YouTube 런칭 카피</li>
+      <li><code>Marketing_Agent /launch-plan</code> → D-7~D+30 마케팅 타임라인</li>
+      <li><code>GameDesign_Agent /ux</code> → FTUE 플로우 검증</li>
+      <li><code>GameDesign_Agent /monetize</code> → IAP 상품 구성 + 배틀패스 설계</li>
+      <li><code>GameDesign_Agent /liveops</code> → 런칭 1개월 이벤트 캘린더</li>
+    </ol>
+  </div>
+
+  <div class="scenario">
+    <h4>시나리오 2: D7 리텐션 개선 (현재 15% → 목표 25%)</h4>
+    <ol>
+      <li><code>GameDesign_Agent /balance</code> → D1~D7 성장 곡선 분석, 난이도 벽 진단</li>
+      <li><code>GameDesign_Agent /liveops</code> → 초반 7일 이벤트 강화 설계</li>
+      <li><code>GameDesign_Agent /ux</code> → D1~D7 이탈 구간 UX 개선</li>
+      <li><code>Income_Factory /idea-analyze</code> → 개선 전후 리텐션 추이 주간 모니터링</li>
+    </ol>
+  </div>
+
+  <div class="scenario">
+    <h4>시나리오 3: 수익화 최적화 (ARPDAU $0.10 → $0.30)</h4>
+    <ol>
+      <li><code>GameDesign_Agent /monetize</code> → 현재 수익 구조 진단 + IAP 피라미드 재설계</li>
+      <li><code>GameDesign_Agent /balance</code> → 상품 가성비 밸런싱, 인플레이션 관리</li>
+      <li><code>GameDesign_Agent /liveops</code> → 한정 상품, 시즌 상점, 배틀패스 도입</li>
+      <li><code>GameDesign_Agent /market</code> → 경쟁작 수익화 벤치마킹</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ==================== MASTER CHECKLIST ==================== -->
+<section class="section" id="master-checklist">
+  <h2 class="section-title">실전 체크리스트 종합</h2>
+
+  <h3>런칭 전 (D-30~D-1)</h3>
+  <ul class="checklist">
+    <li><input type="checkbox"> 타겟 Persona 정의 완료</li>
+    <li><input type="checkbox"> ASO 키워드 리서치 + 메타데이터 최적화</li>
+    <li><input type="checkbox"> 스토어 페이지 (아이콘, 스크린샷, 영상) 완성</li>
+    <li><input type="checkbox"> MMP 연동 + 이벤트 태깅 완료</li>
+    <li><input type="checkbox"> FTUE 완료율 70%+ 확인</li>
+    <li><input type="checkbox"> D1/D7/D30 리텐션 목표 설정</li>
+    <li><input type="checkbox"> IAP 상품 구성 + 가격 설정</li>
+    <li><input type="checkbox"> 런칭 마케팅 타임라인 수립</li>
+    <li><input type="checkbox"> 30일 LiveOps 이벤트 캘린더 작성</li>
+    <li><input type="checkbox"> 친구 초대 시스템 + Deep Link 구현</li>
+  </ul>
+
+  <h3>운영 중 (D+1~)</h3>
+  <ul class="checklist">
+    <li><input type="checkbox"> 일일: ARPDAU, DAU, 세션 수, 크래시율 모니터링</li>
+    <li><input type="checkbox"> 주간: 코호트별 리텐션, ROAS, LTV 분석</li>
+    <li><input type="checkbox"> 격주: 광고 소재 갱신, A/B 테스트 결과 반영</li>
+    <li><input type="checkbox"> 월간: 시즌/배틀패스 갱신, 신규 콘텐츠 업데이트</li>
+    <li><input type="checkbox"> 분기: 수익화 모델 재검토, 경쟁작 벤치마킹</li>
+  </ul>
+
+  <h3>최적화 우선순위 가이드</h3>
+  <div class="box box-info">
+    <strong>문제 진단 → 우선순위 결정 플로우</strong>
+    1. D1 리텐션 < 35%? → <strong>Activation 먼저 개선</strong> (온보딩, FTUE)<br>
+    2. D7 리텐션 < 15%? → <strong>Retention 개선</strong> (핵심 루프, LiveOps)<br>
+    3. 과금 전환율 < 2%? → <strong>Revenue 개선</strong> (첫 과금 상품, 배틀패스)<br>
+    4. CPI > LTV/3? → <strong>Acquisition 최적화</strong> (스토어, 채널 효율)<br>
+    5. 자연 유입 < 30%? → <strong>Awareness/Referral 강화</strong> (ASO, 바이럴)
+  </div>
+</section>
+
+<!-- ==================== GLOSSARY ==================== -->
+<section class="section" id="glossary">
+  <h2 class="section-title">용어 사전</h2>
+
+  <dl class="glossary">
+    <dt>AAARRR</dt><dd>Awareness, Acquisition, Activation, Retention, Revenue, Referral (Pirate Metrics)</dd>
+
+    <dt>Aha Moment</dt><dd>유저가 제품의 핵심 가치를 깨닫는 결정적 순간</dd>
+
+    <dt>ARPDAU</dt><dd>Average Revenue Per Daily Active User. 일 활성 유저당 평균 수익</dd>
+
+    <dt>ARPPU</dt><dd>Average Revenue Per Paying User. 과금 유저당 평균 수익</dd>
+
+    <dt>ASO</dt><dd>App Store Optimization. 앱스토어 검색 최적화</dd>
+
+    <dt>Battle Pass</dt><dd>시즌 기간 동안 미션 완료로 보상을 획득하는 유료 패스</dd>
+
+    <dt>Churn Rate</dt><dd>특정 기간 동안 이탈한 유저 비율</dd>
+
+    <dt>Cohort</dt><dd>동일 시점에 유입된 유저 그룹 (코호트 분석에 사용)</dd>
+
+    <dt>Core Loop</dt><dd>유저가 반복하는 핵심 행동 순환 (행동→보상→강화→동기)</dd>
+
+    <dt>CPI</dt><dd>Cost Per Install. 앱 설치 한 건당 비용</dd>
+
+    <dt>CVR</dt><dd>Conversion Rate. 전환율 (방문→설치, 무료→과금 등)</dd>
+
+    <dt>D1/D7/D30</dt><dd>설치 후 1일/7일/30일 후 복귀율</dd>
+
+    <dt>DAU / MAU</dt><dd>Daily/Monthly Active Users. 일간/월간 활성 유저 수</dd>
+
+    <dt>Deep Link</dt><dd>앱 내 특정 화면으로 바로 이동하는 링크</dd>
+
+    <dt>eCPM</dt><dd>effective Cost Per Mille. 광고 1,000회 노출당 수익</dd>
+
+    <dt>FTUE</dt><dd>First Time User Experience. 신규 유저 첫 경험</dd>
+
+    <dt>Gacha</dt><dd>가챠. 확률 기반 아이템 뽑기 시스템</dd>
+
+    <dt>Hook Model</dt><dd>습관 형성 프레임워크: Trigger → Action → Variable Reward → Investment</dd>
+
+    <dt>IAP</dt><dd>In-App Purchase. 인앱 결제</dd>
+
+    <dt>K-Factor</dt><dd>바이럴 계수. K = 초대율(i) × 전환율(c). K≥1이면 자생 성장</dd>
+
+    <dt>KOL</dt><dd>Key Opinion Leader. 중국 시장의 인플루언서</dd>
+
+    <dt>LiveOps</dt><dd>라이브 서비스 운영. 이벤트, 시즌, 업데이트 등 지속적 콘텐츠 제공</dd>
+
+    <dt>LTV</dt><dd>Lifetime Value. 유저 생애 가치 (1명의 유저가 생애 동안 창출하는 수익)</dd>
+
+    <dt>MMP</dt><dd>Mobile Measurement Partner. 모바일 광고 성과 측정 도구 (Adjust, AppsFlyer 등)</dd>
+
+    <dt>NPS</dt><dd>Net Promoter Score. 순추천지수 (추천의향 9~10점 비율 - 0~6점 비율)</dd>
+
+    <dt>Onboarding</dt><dd>신규 유저를 제품에 적응시키는 과정</dd>
+
+    <dt>P2W</dt><dd>Pay-to-Win. 과금으로 경쟁 우위를 얻는 설계 (주의 필요)</dd>
+
+    <dt>Pity System</dt><dd>천장 시스템. 일정 횟수 이상 뽑으면 최고 등급 확정</dd>
+
+    <dt>ROAS</dt><dd>Return On Ad Spend. 광고비 대비 수익률</dd>
+
+    <dt>Stickiness</dt><dd>DAU/MAU 비율. 높을수록 유저가 자주 방문</dd>
+
+    <dt>UA</dt><dd>User Acquisition. 유저 획득 (주로 유료 마케팅)</dd>
+
+    <dt>UGC</dt><dd>User Generated Content. 유저 생성 콘텐츠</dd>
+
+    <dt>UTM</dt><dd>Urchin Tracking Module. 마케팅 채널 추적용 URL 파라미터</dd>
+
+    <dt>Viral Cycle Time</dt><dd>바이럴 순환 시간. 공유 → 설치까지 걸리는 시간</dd>
+
+    <dt>VIP</dt><dd>과금 누적액 기반 등급 시스템 (중국 시장에서 일반적)</dd>
+
+    <dt>Whale</dt><dd>고래. 대규모 과금 유저 (전체의 1~2%가 매출의 50%+ 기여)</dd>
+  </dl>
+</section>
+
+<!-- Footer -->
+<footer style="text-align:center;padding:48px 0 24px;color:var(--text-secondary);font-size:0.8rem;border-top:1px solid var(--border);margin-top:48px;">
+  <p><strong>HKD852 Studio</strong> — AI Agent-Based Game Studio</p>
+  <p>v1.0 | 2026-02-13 | 문의: CEO 직속 비서실장 (Secretary_Agent)</p>
+</footer>
+
+</div><!-- .main -->
+
+</body>
+</html>

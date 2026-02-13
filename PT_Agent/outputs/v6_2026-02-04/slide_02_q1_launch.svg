@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- Header Label -->
+  <text x="100" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#808080">Q1 PLAN</text>
+
+  <!-- Title -->
+  <text x="100" y="200" font-family="Space Mono, monospace" font-weight="700" font-size="64" fill="#FFFFFF">글로벌 런칭</text>
+  <text x="100" y="260" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="28" fill="#B0B0B0">SUPERSTAR THEBLACKLABEL</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="320" x2="1820" y2="320" stroke="#333333" stroke-width="1"/>
+
+  <!-- Content Area -->
+  <g transform="translate(100, 380)">
+    <!-- Goal Section -->
+    <text x="0" y="40" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#808080">GOALS</text>
+
+    <!-- Goal Items -->
+    <g transform="translate(0, 80)">
+      <rect x="0" y="0" width="800" height="80" fill="#111111" rx="8"/>
+      <text x="30" y="35" font-family="Space Mono, monospace" font-weight="700" font-size="18" fill="#FFFFFF">글로벌 동시 출시</text>
+      <text x="30" y="60" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#999999">주요 마켓 (글로벌) 동시 오픈</text>
+    </g>
+
+    <g transform="translate(0, 180)">
+      <rect x="0" y="0" width="800" height="80" fill="#111111" rx="8"/>
+      <text x="30" y="35" font-family="Space Mono, monospace" font-weight="700" font-size="18" fill="#FFFFFF">안정적 서비스</text>
+      <text x="30" y="60" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#999999">런칭 후 모니터링 체계 가동</text>
+    </g>
+
+    <g transform="translate(0, 280)">
+      <rect x="0" y="0" width="800" height="80" fill="#111111" rx="8"/>
+      <text x="30" y="35" font-family="Space Mono, monospace" font-weight="700" font-size="18" fill="#FFFFFF">품질 검증 완료</text>
+      <text x="30" y="60" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#999999">최종 QA 진행 중</text>
+    </g>
+  </g>
+
+  <!-- Right Side: D-Day -->
+  <g transform="translate(1100, 400)">
+    <text x="300" y="80" font-family="Space Mono, monospace" font-weight="700" font-size="180" fill="#FFFFFF" opacity="0.08" text-anchor="middle">Q1</text>
+    <rect x="100" y="150" width="400" height="120" fill="#1a1a2e" rx="12"/>
+    <text x="300" y="200" font-family="Space Mono, monospace" font-weight="400" font-size="16" fill="#808080" text-anchor="middle">TARGET</text>
+    <text x="300" y="245" font-family="Space Mono, monospace" font-weight="700" font-size="36" fill="#FFFFFF" text-anchor="middle">2026년 3월</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="980" x2="1820" y2="980" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080">MONTHLY REPORT · 2026 H1</text>
+  <text x="1820" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="end">2 / 5</text>
+</svg>

@@ -1,0 +1,107 @@
+프로젝트: "proj-20260207-gumroad"
+이름: "AI Product Photo Prompt Collection — 이커머스 셀러를 위한 AI 상품사진 프롬프트 200+"
+원본_아이디어: "idea-20260207-02"
+시작일: "2026-02-07"
+마감일: "2026-02-13"
+상태: "planned"
+
+제품_정의:
+  이름: "AI Product Photo Prompt Master Pack"
+  카테고리: "digital-product"
+  플랫폼: "Gumroad (메인) + Etsy (보조)"
+  가격: "$19.99"
+  타겟_고객: "이커머스 셀러 (Etsy/Amazon/Shopify), 소규모 비즈니스, 1인 창업자"
+  핵심가치: "전문 스튜디오 촬영 없이 AI로 상품사진급 이미지 생성"
+  MVP_범위: "10개 카테고리 × 20개 프롬프트 = 200개 프롬프트 + 사용 가이드"
+
+  카테고리_목록:
+    - "의류/패션 (Clothing & Fashion)"
+    - "주얼리/액세서리 (Jewelry & Accessories)"
+    - "식품/음료 (Food & Beverage)"
+    - "화장품/스킨케어 (Cosmetics & Skincare)"
+    - "전자기기 (Electronics & Gadgets)"
+    - "가구/인테리어 (Furniture & Home Decor)"
+    - "핸드메이드/공예 (Handmade & Crafts)"
+    - "반려동물 용품 (Pet Products)"
+    - "문구/사무용품 (Stationery & Office)"
+    - "스포츠/아웃도어 (Sports & Outdoor)"
+
+일정:
+  Day1:
+    날짜: "2026-02-07"
+    작업: "프로젝트 구조 + 카테고리 1~3 프롬프트 작성 (60개)"
+    산출물: "프롬프트 파일 (의류, 주얼리, 식품)"
+    도구: "Claude Code"
+
+  Day2:
+    날짜: "2026-02-08"
+    작업: "카테고리 4~7 프롬프트 작성 (80개)"
+    산출물: "프롬프트 파일 (화장품, 전자기기, 가구, 핸드메이드)"
+    도구: "Claude Code"
+
+  Day3:
+    날짜: "2026-02-09"
+    작업: "카테고리 8~10 프롬프트 작성 (60개) + 사용 가이드"
+    산출물: "프롬프트 파일 (반려동물, 문구, 스포츠) + 가이드 문서"
+    도구: "Claude Code"
+
+  Day4:
+    날짜: "2026-02-10"
+    작업: "PDF 패키징 + 표지 디자인 + 상품 설명 작성"
+    산출물: "최종 PDF 파일 + 커버 이미지 + Gumroad 상품 설명"
+    도구: "Claude Code (HTML→PDF)"
+
+  Day5:
+    날짜: "2026-02-11"
+    작업: "품질 검증 (/idea-review)"
+    산출물: "검증 리포트"
+    도구: "Opus"
+
+  Day6:
+    날짜: "2026-02-12"
+    작업: "수정 반영 (있을 경우) + Etsy 상품 설명 작성"
+    산출물: "최종 수정본 + 멀티플랫폼 상품 설명"
+    도구: "Claude Code"
+
+  Day7:
+    날짜: "2026-02-13"
+    작업: "런칭 (/idea-launch)"
+    산출물: "런칭 가이드 + 사용자가 배포 실행"
+    도구: "Haiku"
+
+기술_명세:
+  언어: "Markdown → PDF"
+  프레임워크: "없음"
+  빌드: "Markdown 작성 → HTML 변환 → PDF 패키징"
+  배포: "Gumroad 상품 업로드 (수동), Etsy 리스팅 (수동)"
+  필요_API: "없음"
+  비용: "0원 (Gumroad은 판매 시에만 수수료)"
+  수수료: "Gumroad 10% + 결제수수료"
+
+리스크_대응:
+  - 약점: "유사 프롬프트팩 존재"
+    대응: "'상품사진 전용' 니치 강조. 10개 카테고리 세분화로 범용 팩과 차별화."
+
+  - 약점: "AI 이미지 품질 기대치"
+    대응: "면책 조항 + '결과는 AI 플랫폼 구독 등급에 따라 다름' 명시. 프롬프트 자체의 가치에 집중."
+
+  - 약점: "가격 저항 ($19.99)"
+    대응: "런칭 1주일 $9.99 특가 → $19.99 정상가. 200개 프롬프트 = 개당 $0.10 가치 강조."
+
+  - 약점: "Etsy AI 공시 정책"
+    대응: "프롬프트팩은 '도구'이지 AI 생성 '콘텐츠'가 아님. Etsy 정책 확인 후 적절히 분류."
+
+마케팅_전략:
+  런칭일:
+    - "Reddit r/ecommerce, r/Etsy, r/AmazonSeller에 무료 샘플 5개 + 구매 링크"
+    - "Twitter/X에서 Before/After (AI 생성 상품사진) 비교 이미지 공유"
+  지속:
+    - "매주 1개 카테고리 무료 프롬프트 공개 → 풀버전 구매 유도"
+    - "이커머스 관련 뉴스레터/커뮤니티에 게스트 포스트"
+
+산출물:
+  - "pipeline/products/proj-20260207-gumroad/ (제품 파일)"
+  - "pipeline/products/proj-20260207-gumroad/AI-Product-Photo-Prompts.pdf (메인 제품)"
+  - "pipeline/products/proj-20260207-gumroad/cover.html (커버 이미지)"
+  - "pipeline/products/proj-20260207-gumroad/gumroad-listing.md (상품 설명)"
+  - "pipeline/launches/proj-20260207-gumroad/launch-guide.md"
