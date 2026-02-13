@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 06</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">브랜치 전략</text>
+  <text x="100" y="235" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="22" fill="#C4B5FD" opacity="0.7">Task Branch — 안전하고 빠른 개발의 핵심</text>
+
+  <!-- Branch diagram -->
+  <text x="100" y="310" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">Task Branch 워크플로우</text>
+
+  <!-- Main branch line -->
+  <line x1="200" y1="420" x2="1750" y2="420" stroke="#8B5CF6" stroke-width="4" opacity="0.8"/>
+  <text x="150" y="425" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="18" fill="#8B5CF6" text-anchor="end">main</text>
+
+  <!-- Commits on main -->
+  <circle cx="300" cy="420" r="10" fill="#8B5CF6"/>
+  <circle cx="700" cy="420" r="10" fill="#8B5CF6"/>
+  <circle cx="1200" cy="420" r="10" fill="#8B5CF6"/>
+  <circle cx="1700" cy="420" r="10" fill="#8B5CF6"/>
+
+  <!-- Task branch 1 -->
+  <line x1="300" y1="420" x2="400" y2="540" stroke="#A78BFA" stroke-width="2" opacity="0.6"/>
+  <line x1="400" y1="540" x2="600" y2="540" stroke="#A78BFA" stroke-width="3"/>
+  <line x1="600" y1="540" x2="700" y2="420" stroke="#A78BFA" stroke-width="2" opacity="0.6"/>
+  <circle cx="400" cy="540" r="8" fill="#A78BFA"/>
+  <circle cx="500" cy="540" r="8" fill="#A78BFA"/>
+  <circle cx="600" cy="540" r="8" fill="#A78BFA"/>
+  <text x="500" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="16" fill="#A78BFA" text-anchor="middle">task/login-fix</text>
+
+  <!-- Task branch 2 -->
+  <line x1="700" y1="420" x2="800" y2="540" stroke="#C4B5FD" stroke-width="2" opacity="0.6"/>
+  <line x1="800" y1="540" x2="1100" y2="540" stroke="#C4B5FD" stroke-width="3"/>
+  <line x1="1100" y1="540" x2="1200" y2="420" stroke="#C4B5FD" stroke-width="2" opacity="0.6"/>
+  <circle cx="800" cy="540" r="8" fill="#C4B5FD"/>
+  <circle cx="950" cy="540" r="8" fill="#C4B5FD"/>
+  <circle cx="1100" cy="540" r="8" fill="#C4B5FD"/>
+  <text x="950" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="16" fill="#C4B5FD" text-anchor="middle">task/new-ui-panel</text>
+
+  <!-- Task branch 3 (in progress) -->
+  <line x1="1200" y1="420" x2="1300" y2="540" stroke="#6D28D9" stroke-width="2" opacity="0.6"/>
+  <line x1="1300" y1="540" x2="1550" y2="540" stroke="#6D28D9" stroke-width="3" stroke-dasharray="8,4"/>
+  <circle cx="1300" cy="540" r="8" fill="#6D28D9"/>
+  <circle cx="1400" cy="540" r="8" fill="#6D28D9"/>
+  <text x="1420" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="16" fill="#6D28D9" text-anchor="middle">task/inventory-system (진행 중)</text>
+
+  <!-- Merge arrows -->
+  <text x="650" y="475" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#10B981">merge ✓</text>
+  <text x="1150" y="475" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#10B981">merge ✓</text>
+
+  <!-- Rules section -->
+  <text x="100" y="660" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">브랜치 규칙</text>
+
+  <!-- Rule cards -->
+  <rect x="100" y="690" width="400" height="140" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="300" y="730" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#8B5CF6" text-anchor="middle">Short</text>
+  <text x="300" y="765" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF" text-anchor="middle">짧게 유지</text>
+  <text x="300" y="795" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">최대한 빨리 머지</text>
+  <text x="300" y="818" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">오래될수록 충돌 위험 ↑</text>
+
+  <rect x="540" y="690" width="400" height="140" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="740" y="730" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#8B5CF6" text-anchor="middle">1 Task</text>
+  <text x="740" y="765" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF" text-anchor="middle">= 1 Branch</text>
+  <text x="740" y="795" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">하나의 작업 단위로 분리</text>
+  <text x="740" y="818" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">JIRA 티켓과 연동 권장</text>
+
+  <rect x="980" y="690" width="400" height="140" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="1180" y="730" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#8B5CF6" text-anchor="middle">Review</text>
+  <text x="1180" y="765" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF" text-anchor="middle">머지 전 필수</text>
+  <text x="1180" y="795" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">코드 리뷰 / Pull Request</text>
+  <text x="1180" y="818" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">Mergebot 자동 머지 가능</text>
+
+  <rect x="1420" y="690" width="400" height="140" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <text x="1620" y="730" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="40" fill="#8B5CF6" text-anchor="middle">Naming</text>
+  <text x="1620" y="765" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF" text-anchor="middle">네이밍 컨벤션</text>
+  <text x="1620" y="795" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">task/기능명 또는</text>
+  <text x="1620" y="818" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.7" text-anchor="middle">fix/이슈번호-설명</text>
+
+  <!-- Tip -->
+  <rect x="100" y="860" width="1720" height="50" rx="12" fill="#8B5CF6" opacity="0.08"/>
+  <text x="960" y="892" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#A78BFA" text-anchor="middle">Branch Explorer에서 드래그 &amp; 드롭으로 브랜치를 시각적으로 생성하고 머지할 수 있습니다</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">8 / 13</text>
+</svg>

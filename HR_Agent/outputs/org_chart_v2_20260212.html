@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKD852 Agent Organization Chart v2</title>
+<style>
+:root {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-tertiary: #21262d;
+    --text-primary: #f0f6fc;
+    --text-secondary: #8b949e;
+    --text-muted: #6e7681;
+    --accent-blue: #58a6ff;
+    --accent-green: #3fb950;
+    --accent-yellow: #d29922;
+    --accent-red: #f85149;
+    --accent-purple: #a371f7;
+    --accent-orange: #d18616;
+    --border-color: #30363d;
+    --team-game: #f85149;
+    --team-content: #a371f7;
+    --team-business: #3fb950;
+    --team-art: #d29922;
+    --team-infra: #58a6ff;
+    --model-opus: #a371f7;
+    --model-sonnet: #58a6ff;
+    --model-haiku: #3fb950;
+    --node-radius: 12px;
+    --transition: 0.3s ease;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans KR', 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+    border-bottom: 1px solid var(--border-color);
+    padding: 24px 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* Search Bar */
+.search-bar {
+    margin-top: 16px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 8px 16px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: border-color var(--transition);
+}
+
+.search-input:focus {
+    border-color: var(--accent-blue);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.filter-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+}
+
+.filter-btn:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+.filter-btn.active { background: var(--accent-blue); border-color: var(--accent-blue); color: #fff; }
+.filter-btn[data-model="opus"].active { background: var(--model-opus); border-color: var(--model-opus); }
+.filter-btn[data-model="sonnet"].active { background: var(--model-sonnet); border-color: var(--model-sonnet); }
+.filter-btn[data-model="haiku"].active { background: var(--model-haiku); border-color: var(--model-haiku); }
+
+/* View Tabs */
+.view-tabs {
+    display: flex;
+    gap: 4px;
+    margin-top: 16px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0;
+}
+
+.view-tab {
+    padding: 8px 20px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all var(--transition);
+    font-weight: 500;
+}
+
+.view-tab:hover { color: var(--text-primary); }
+.view-tab.active {
+    color: var(--accent-blue);
+    border-bottom-color: var(--accent-blue);
+}
+
+/* Main Content */
+.main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px 32px;
+}
+
+/* Stats Dashboard */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--node-radius);
+    padding: 20px;
+    text-align: center;
+    transition: transform var(--transition), border-color var(--transition);
+}
+
+.stat-card:hover { transform: translateY(-2px); border-color: var(--accent-blue); }
+
+.stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.stat-card.agents .stat-value { color: var(--accent-blue); }
+.stat-card.skills .stat-value { color: var(--accent-purple); }
+.stat-card.hubs .stat-value { color: var(--accent-green); }
+.stat-card.workflows .stat-value { color: var(--accent-yellow); }
+.stat-card.services .stat-value { color: var(--accent-orange); }
+
+/* Model Distribution */
+.model-dist {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--node-radius);
+    padding: 20px;
+    margin-bottom: 32px;
+}
+
+.model-dist h3 {
+    font-size: 15px;
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+}
+
+.model-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.model-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.model-bar-label {
+    width: 70px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.model-bar-track {
+    flex: 1;
+    height: 24px;
+    background: var(--bg-tertiary);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.model-bar-fill {
+    height: 100%;
+    border-radius: 12px;
+    transition: width 0.6s ease;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.model-bar-fill.opus { background: linear-gradient(90deg, var(--model-opus), #8b5cf6); }
+.model-bar-fill.sonnet { background: linear-gradient(90deg, var(--model-sonnet), #3b82f6); }
+.model-bar-fill.haiku { background: linear-gradient(90deg, var(--model-haiku), #22c55e); }
+.model-bar-fill.mixed { background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange)); }
+
+/* View Sections */
+.view-section { display: none; }
+.view-section.active { display: block; }
+
+/* Tree View */
+.team-group {
+    margin-bottom: 24px;
+}
+
+.team-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--node-radius);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.team-header:hover { border-color: var(--accent-blue); }
+
+.team-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.team-name {
+    font-size: 16px;
+    font-weight: 700;
+    flex: 1;
+}
+
+.team-badge {
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+.team-chevron {
+    font-size: 12px;
+    color: var(--text-muted);
+    transition: transform var(--transition);
+}
+
+.team-group.expanded .team-chevron { transform: rotate(90deg); }
+
+.team-agents {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding-left: 24px;
+}
+
+.team-group.expanded .team-agents {
+    max-height: 5000px;
+}
+
+/* Service Header - gradient left border instead of dot */
+.service-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid transparent;
+    border-image: linear-gradient(180deg, var(--accent-purple), var(--accent-blue)) 1;
+    border-image-slice: 1;
+    border-radius: 0 var(--node-radius) var(--node-radius) 0;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.service-header:hover { border-right-color: var(--accent-purple); }
+
+.service-header .team-name {
+    background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.service-label {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    background: rgba(163, 113, 247, 0.15);
+    color: var(--accent-purple);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
+/* Cross-Hub Badge */
+.cross-hub-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 8px;
+    border-radius: 10px;
+    background: rgba(209, 134, 22, 0.2);
+    color: var(--accent-orange);
+    font-weight: 700;
+    border: 1px solid rgba(209, 134, 22, 0.3);
+    white-space: nowrap;
+    margin-left: 4px;
+}
+
+/* New skill indicator */
+.new-skill-indicator {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    margin-right: 6px;
+    flex-shrink: 0;
+    box-shadow: 0 0 6px rgba(63, 185, 80, 0.5);
+}
+
+/* Compact service card */
+.service-compact-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--accent-purple);
+    border-radius: 0 var(--node-radius) var(--node-radius) 0;
+    padding: 14px 20px;
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: border-color var(--transition);
+}
+
+.service-compact-card:hover { border-color: var(--accent-purple); }
+
+.service-compact-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    background: rgba(163, 113, 247, 0.15);
+}
+
+.service-compact-info { flex: 1; min-width: 0; }
+
+.service-compact-name {
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.service-compact-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+/* Agent Card */
+.agent-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--node-radius);
+    margin: 8px 0;
+    overflow: hidden;
+    transition: border-color var(--transition);
+}
+
+.agent-card:hover { border-color: var(--text-muted); }
+
+.agent-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background var(--transition);
+}
+
+.agent-header:hover { background: var(--bg-tertiary); }
+
+.agent-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.agent-info { flex: 1; min-width: 0; }
+
+.agent-name {
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.agent-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.agent-meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.skill-count-badge {
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.maturity {
+    font-size: 12px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.maturity .filled { color: var(--accent-yellow); }
+.maturity .empty { color: var(--border-color); }
+
+.agent-chevron {
+    font-size: 12px;
+    color: var(--text-muted);
+    transition: transform var(--transition);
+    flex-shrink: 0;
+}
+
+.agent-card.expanded .agent-chevron { transform: rotate(90deg); }
+
+/* Skills List */
+.skills-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    border-top: 1px solid transparent;
+}
+
+.agent-card.expanded .skills-list {
+    max-height: 3000px;
+    border-top-color: var(--border-color);
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px 10px 72px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background var(--transition);
+}
+
+.skill-item:last-child { border-bottom: none; }
+.skill-item:hover { background: rgba(88, 166, 255, 0.04); }
+
+.skill-cmd {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--accent-blue);
+    min-width: 140px;
+    flex-shrink: 0;
+}
+
+.skill-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.model-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.model-badge.opus { background: rgba(163, 113, 247, 0.15); color: var(--model-opus); }
+.model-badge.sonnet { background: rgba(88, 166, 255, 0.15); color: var(--model-sonnet); }
+.model-badge.haiku { background: rgba(63, 185, 80, 0.15); color: var(--model-haiku); }
+.model-badge.mixed { background: rgba(210, 153, 34, 0.15); color: var(--accent-yellow); }
+.model-badge.none { background: rgba(110, 118, 129, 0.15); color: var(--text-muted); }
+
+/* Pipeline View */
+.pipeline-section {
+    margin-bottom: 32px;
+}
+
+.pipeline-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pipeline-flow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 16px 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.pipeline-node {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px 16px;
+    min-width: 130px;
+    text-align: center;
+    flex-shrink: 0;
+    transition: all var(--transition);
+}
+
+.pipeline-node:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+}
+
+.pipeline-node-name {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    color: var(--accent-blue);
+    margin-bottom: 4px;
+}
+
+.pipeline-node-role {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.pipeline-arrow {
+    color: var(--text-muted);
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.pipeline-node-model {
+    margin-top: 6px;
+}
+
+.pipeline-node-agent {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* Color-coded pipeline nodes by hub */
+.pipeline-node.hub-game { border-left: 3px solid var(--team-game); }
+.pipeline-node.hub-game .pipeline-node-name { color: var(--team-game); }
+
+.pipeline-node.hub-business { border-left: 3px solid var(--team-business); }
+.pipeline-node.hub-business .pipeline-node-name { color: var(--team-business); }
+
+.pipeline-node.hub-infra { border-left: 3px solid var(--team-infra); }
+.pipeline-node.hub-infra .pipeline-node-name { color: var(--team-infra); }
+
+.pipeline-node.hub-service { border-left: 3px solid var(--accent-purple); }
+.pipeline-node.hub-service .pipeline-node-name { color: var(--accent-purple); }
+
+/* Workflow Section (Cross-Hub) */
+.workflow-section {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 2px dashed var(--border-color);
+}
+
+.workflow-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.workflow-section-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.workflow-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 10px 16px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+/* Team Comparison View */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.comparison-column h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.comparison-column h3.current { border-bottom-color: var(--accent-red); }
+.comparison-column h3.proposed { border-bottom-color: var(--accent-green); }
+
+.comp-team {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--node-radius);
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.comp-team-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comp-team-agents {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.comp-agent-chip {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    background: var(--bg-tertiary);
+}
+
+/* Service layer in comparison */
+.comp-service-layer {
+    background: linear-gradient(135deg, rgba(163, 113, 247, 0.05), rgba(88, 166, 255, 0.05));
+    border: 1px solid rgba(163, 113, 247, 0.3);
+    border-radius: var(--node-radius);
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.comp-service-header {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-purple);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(163, 113, 247, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Collaboration Lines */
+.collab-section {
+    margin-top: 24px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--node-radius);
+    padding: 20px;
+}
+
+.collab-section h3 {
+    font-size: 15px;
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+}
+
+.collab-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 13px;
+}
+
+.collab-line:last-child { border-bottom: none; }
+
+.collab-from, .collab-to {
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.collab-arrow {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.collab-reason {
+    color: var(--text-secondary);
+    flex: 1;
+}
+
+.collab-skill-tag {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 11px;
+    color: var(--accent-blue);
+    background: rgba(88, 166, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+/* Keyboard Hints */
+.kbd-hint {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    z-index: 50;
+}
+
+kbd {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    font-family: 'SF Mono', monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+/* No Results */
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+    font-size: 15px;
+    display: none;
+}
+
+/* Highlight */
+mark {
+    background: rgba(210, 153, 34, 0.3);
+    color: var(--text-primary);
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header { padding: 16px; }
+    .main { padding: 16px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .skill-item { padding-left: 20px; }
+    .agent-meta { flex-direction: column; gap: 4px; }
+    .pipeline-flow { gap: 2px; }
+    .pipeline-node { min-width: 100px; padding: 8px 10px; }
+}
+
+@media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .search-bar { flex-direction: column; }
+    .filter-group { justify-content: center; }
+    .agent-header { flex-direction: column; align-items: flex-start; }
+    .agent-meta { flex-direction: row; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-top">
+        <div>
+            <h1>HKD852 Agent Organization</h1>
+            <div class="header-meta">Hub &amp; Service Architecture &mdash; 8 Agents &middot; 46 Skills &middot; 3 Hubs &middot; 3 Services &mdash; Updated 2026-02-12</div>
+        </div>
+    </div>
+    <div class="search-bar">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search agents, skills, descriptions... ( / )">
+        <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-model="opus">Opus</button>
+            <button class="filter-btn" data-model="sonnet">Sonnet</button>
+            <button class="filter-btn" data-model="haiku">Haiku</button>
+        </div>
+    </div>
+    <div class="view-tabs">
+        <button class="view-tab active" data-view="tree">Organization</button>
+        <button class="view-tab" data-view="pipeline">Pipelines</button>
+        <button class="view-tab" data-view="workflows">Workflows</button>
+        <button class="view-tab" data-view="teams">Teams</button>
+    </div>
+</div>
+
+<div class="main">
+    <!-- Stats Dashboard -->
+    <div class="stats-grid">
+        <div class="stat-card agents">
+            <div class="stat-value">8</div>
+            <div class="stat-label">Agents</div>
+        </div>
+        <div class="stat-card skills">
+            <div class="stat-value">46</div>
+            <div class="stat-label">Skills</div>
+        </div>
+        <div class="stat-card hubs">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Hubs</div>
+        </div>
+        <div class="stat-card workflows">
+            <div class="stat-value">6</div>
+            <div class="stat-label">Workflows</div>
+        </div>
+        <div class="stat-card services">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Shared Services</div>
+        </div>
+    </div>
+
+    <!-- Model Distribution -->
+    <div class="model-dist">
+        <h3>Model Distribution</h3>
+        <div class="model-bars">
+            <div class="model-bar-row">
+                <div class="model-bar-label" style="color:var(--model-opus)">Opus</div>
+                <div class="model-bar-track">
+                    <div class="model-bar-fill opus" style="width: 20%">9</div>
+                </div>
+            </div>
+            <div class="model-bar-row">
+                <div class="model-bar-label" style="color:var(--model-sonnet)">Sonnet</div>
+                <div class="model-bar-track">
+                    <div class="model-bar-fill sonnet" style="width: 46%">21</div>
+                </div>
+            </div>
+            <div class="model-bar-row">
+                <div class="model-bar-label" style="color:var(--model-haiku)">Haiku</div>
+                <div class="model-bar-track">
+                    <div class="model-bar-fill haiku" style="width: 20%">9</div>
+                </div>
+            </div>
+            <div class="model-bar-row">
+                <div class="model-bar-label" style="color:var(--accent-yellow)">Mixed</div>
+                <div class="model-bar-track">
+                    <div class="model-bar-fill mixed" style="width: 13%">6</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TREE VIEW -->
+    <div class="view-section active" id="view-tree">
+        <div class="no-results" id="noResults">No matching agents or skills found.</div>
+
+        <!-- ======================================== -->
+        <!-- LAYER 1: SHARED SERVICES                 -->
+        <!-- ======================================== -->
+
+        <!-- Shared Service: PT_Agent -->
+        <div class="team-group expanded" data-team="service-pt">
+            <div class="service-header" onclick="toggleTeam(this)">
+                <span class="service-label">Service</span>
+                <div class="team-name">Shared Service: PT_Agent</div>
+                <div class="team-badge">10 skills</div>
+                <div class="team-chevron">&#9654;</div>
+            </div>
+            <div class="team-agents">
+                <div class="agent-card" data-agent="pt-agent">
+                    <div class="agent-header" onclick="toggleAgent(this)">
+                        <div class="agent-icon" style="background:rgba(163,113,247,0.15)">&#128218;</div>
+                        <div class="agent-info">
+                            <div class="agent-name">PT_Agent</div>
+                            <div class="agent-desc">7-Stage SVG Presentation Pipeline &mdash; Available to all hubs</div>
+                        </div>
+                        <div class="agent-meta">
+                            <span class="skill-count-badge">10 skills</span>
+                            <span class="maturity"><span class="filled">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span>
+                        </div>
+                        <div class="agent-chevron">&#9654;</div>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/pt</span>
+                            <span class="skill-desc">전체 파이프라인 오케스트레이터</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="haiku">
+                            <span class="skill-cmd">/pt-reception</span>
+                            <span class="skill-desc">5W1H 분석, 팔레트 자동 선택</span>
+                            <span class="model-badge haiku">Haiku</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/pt-research</span>
+                            <span class="skill-desc">웹 리서치 (필요 시 자동 실행)</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/pt-content</span>
+                            <span class="skill-desc">피라미드 원칙 + SCQA 구조 설계</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/pt-visual</span>
+                            <span class="skill-desc">SVG 슬라이드 생성 (1920x1080)</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="opus">
+                            <span class="skill-cmd">/pt-redteam</span>
+                            <span class="skill-desc">CRISP 매트릭스 품질 검증</span>
+                            <span class="model-badge opus">Opus</span>
+                        </div>
+                        <div class="skill-item" data-model="haiku">
+                            <span class="skill-cmd">/pt-manager</span>
+                            <span class="skill-desc">최종 승인/반려 (B등급 80점 이상)</span>
+                            <span class="model-badge haiku">Haiku</span>
+                        </div>
+                        <div class="skill-item" data-model="haiku">
+                            <span class="skill-cmd">/pt-export</span>
+                            <span class="skill-desc">HTML/PDF 단일 파일 출력</span>
+                            <span class="model-badge haiku">Haiku</span>
+                        </div>
+                        <div class="skill-item" data-model="none">
+                            <span class="skill-cmd">/pt-update-check</span>
+                            <span class="skill-desc">파이프라인 업데이트 확인</span>
+                            <span class="model-badge none">N/A</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="new-skill-indicator"></span>
+                            <span class="skill-cmd">/pt-from-design</span>
+                            <span class="skill-desc">GameDesign 분석 결과 &rarr; 발표자료 자동 변환</span>
+                            <span class="cross-hub-badge">Cross-Hub</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shared Service: Translate_Agent -->
+        <div class="team-group expanded" data-team="service-translate">
+            <div class="service-header" onclick="toggleTeam(this)">
+                <span class="service-label">Service</span>
+                <div class="team-name">Shared Service: Translate_Agent</div>
+                <div class="team-badge">1 skill</div>
+                <div class="team-chevron">&#9654;</div>
+            </div>
+            <div class="team-agents">
+                <div class="agent-card" data-agent="translate-agent">
+                    <div class="agent-header" onclick="toggleAgent(this)">
+                        <div class="agent-icon" style="background:rgba(163,113,247,0.15)">&#127760;</div>
+                        <div class="agent-info">
+                            <div class="agent-name">Translate_Agent</div>
+                            <div class="agent-desc">Excel/CSV 기반 한영일 번역 &mdash; Available to all hubs</div>
+                        </div>
+                        <div class="agent-meta">
+                            <span class="skill-count-badge">1 skill</span>
+                            <span class="maturity"><span class="filled">&#9733;&#9733;&#9733;</span><span class="empty">&#9733;&#9733;</span></span>
+                        </div>
+                        <div class="agent-chevron">&#9654;</div>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item" data-model="mixed">
+                            <span class="skill-cmd">/translate</span>
+                            <span class="skill-desc">Excel/CSV 한글 &rarr; 영문/일본어 번역 (30행 배치)</span>
+                            <span class="model-badge mixed">Sonnet+Haiku</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shared Service: Quality Gate -->
+        <div class="team-group expanded" data-team="service-qgate">
+            <div class="service-header" onclick="toggleTeam(this)">
+                <span class="service-label">Service</span>
+                <div class="team-name">Shared Service: Quality Gate</div>
+                <div class="team-badge">1 skill</div>
+                <div class="team-chevron">&#9654;</div>
+            </div>
+            <div class="team-agents">
+                <div class="service-compact-card" data-agent="quality-gate">
+                    <div class="service-compact-icon">&#9989;</div>
+                    <div class="service-compact-info">
+                        <div class="service-compact-name">
+                            <span class="new-skill-indicator"></span>
+                            <span style="font-family:'SF Mono','Fira Code',monospace;color:var(--accent-blue);">/quality-gate</span>
+                            <span class="model-badge opus">Opus</span>
+                            <span class="cross-hub-badge">Cross-Hub</span>
+                        </div>
+                        <div class="service-compact-desc">CFMC 매트릭스 &mdash; 모든 에이전트 산출물 통합 품질 검증</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================== -->
+        <!-- LAYER 2: DOMAIN HUBS                     -->
+        <!-- ======================================== -->
+
+        <!-- Game Hub -->
+        <div class="team-group expanded" data-team="game">
+            <div class="team-header" onclick="toggleTeam(this)">
+                <div class="team-dot" style="background:var(--team-game)"></div>
+                <div class="team-name">Game Hub</div>
+                <div class="team-badge">3 agents</div>
+                <div class="team-chevron">&#9654;</div>
+            </div>
+            <div class="team-agents">
+
+                <!-- GameDesign_Agent -->
+                <div class="agent-card" data-agent="gamedesign-agent">
+                    <div class="agent-header" onclick="toggleAgent(this)">
+                        <div class="agent-icon" style="background:rgba(248,81,73,0.15)">&#127918;</div>
+                        <div class="agent-info">
+                            <div class="agent-name">GameDesign_Agent</div>
+                            <div class="agent-desc">모바일 온라인 게임 서비스 전문가 의사결정 지원</div>
+                        </div>
+                        <div class="agent-meta">
+                            <span class="skill-count-badge">12 skills</span>
+                            <span class="maturity"><span class="filled">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span>
+                        </div>
+                        <div class="agent-chevron">&#9654;</div>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/requirement</span>
+                            <span class="skill-desc">요구사항 분석, 핵심 니즈 파악</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/coordinate</span>
+                            <span class="skill-desc">스킬 분배 및 연계 작업 검토</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/proposal</span>
+                            <span class="skill-desc">기획서 작성</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/concept</span>
+                            <span class="skill-desc">콘텐츠 핵심 설계 요약</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="opus">
+                            <span class="skill-cmd">/pd-review</span>
+                            <span class="skill-desc">PD 관점 최종 평가</span>
+                            <span class="model-badge opus">Opus</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/monetize</span>
+                            <span class="skill-desc">수익 모델 설계 (F2P/IAP/광고)</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/liveops</span>
+                            <span class="skill-desc">라이브 서비스 운영, 이벤트 설계</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/balance</span>
+                            <span class="skill-desc">경제 밸런싱, 성장 곡선, 확률 시스템</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/market</span>
+                            <span class="skill-desc">북미/중국 시장 분석, 벤치마킹</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/ux</span>
+                            <span class="skill-desc">모바일 UX 최적화, 리텐션 개선</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/report</span>
+                            <span class="skill-desc">HTML 분석 보고서 생성 (다크모드, 목차, 색상 코딩)</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="haiku">
+                            <span class="new-skill-indicator"></span>
+                            <span class="skill-cmd">/art-status</span>
+                            <span class="skill-desc">team-kowloon 아트 리소스 완성도 조회 &rarr; PD 판정 반영</span>
+                            <span class="cross-hub-badge">Cross-Hub</span>
+                            <span class="model-badge haiku">Haiku</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hwatu_Roguelike -->
+                <div class="agent-card" data-agent="hwatu-roguelike">
+                    <div class="agent-header" onclick="toggleAgent(this)">
+                        <div class="agent-icon" style="background:rgba(248,81,73,0.15)">&#127924;</div>
+                        <div class="agent-info">
+                            <div class="agent-name">Hwatu_Roguelike</div>
+                            <div class="agent-desc">Balatro 스타일 화투 로그라이크 덱빌더</div>
+                        </div>
+                        <div class="agent-meta">
+                            <span class="skill-count-badge">3 skills</span>
+                            <span class="maturity"><span class="filled">&#9733;&#9733;</span><span class="empty">&#9733;&#9733;&#9733;</span></span>
+                        </div>
+                        <div class="agent-chevron">&#9654;</div>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/dokkaebi-gen</span>
+                            <span class="skill-desc">도깨비 아이디어 생성 + 밸런스 검증</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/balance-sim</span>
+                            <span class="skill-desc">점수/난이도 몬테카를로 시뮬레이션</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="haiku">
+                            <span class="skill-cmd">/card-art</span>
+                            <span class="skill-desc">Midjourney/DALL-E 카드 아트 프롬프트 생성</span>
+                            <span class="model-badge haiku">Haiku</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- team-kowloon (MOVED from Art Production) -->
+                <div class="agent-card" data-agent="team-kowloon">
+                    <div class="agent-header" onclick="toggleAgent(this)">
+                        <div class="agent-icon" style="background:rgba(210,153,34,0.15)">&#127912;</div>
+                        <div class="agent-info">
+                            <div class="agent-name">team-kowloon <span class="model-badge none" style="font-size:10px;">Moved from Art</span></div>
+                            <div class="agent-desc">SSBL 아트 리소스 파이프라인 &mdash; 4계층 구조</div>
+                        </div>
+                        <div class="agent-meta">
+                            <span class="skill-count-badge">4 sub-agents</span>
+                            <span class="maturity"><span class="filled">&#9733;&#9733;&#9733;&#9733;</span><span class="empty">&#9733;</span></span>
+                        </div>
+                        <div class="agent-chevron">&#9654;</div>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/ssbl-cto</span>
+                            <span class="skill-desc">전체 파이프라인 분석 및 개선 제안</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/ssbl-art-lead</span>
+                            <span class="skill-desc">17개 카테고리별 아트 스펙 자동 생성</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="haiku">
+                            <span class="skill-cmd">/ssbl-qa-lead</span>
+                            <span class="skill-desc">이미지 크기/포맷/색상모드 검증</span>
+                            <span class="model-badge haiku">Haiku</span>
+                        </div>
+                        <div class="skill-item" data-model="haiku">
+                            <span class="skill-cmd">/ssbl-data-manager</span>
+                            <span class="skill-desc">Google Sheets 연동, 데이터 관리</span>
+                            <span class="model-badge haiku">Haiku</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Business Hub -->
+        <div class="team-group expanded" data-team="business">
+            <div class="team-header" onclick="toggleTeam(this)">
+                <div class="team-dot" style="background:var(--team-business)"></div>
+                <div class="team-name">Business Hub</div>
+                <div class="team-badge">1 agent</div>
+                <div class="team-chevron">&#9654;</div>
+            </div>
+            <div class="team-agents">
+
+                <!-- Income_Factory -->
+                <div class="agent-card" data-agent="income-factory">
+                    <div class="agent-header" onclick="toggleAgent(this)">
+                        <div class="agent-icon" style="background:rgba(63,185,80,0.15)">&#128176;</div>
+                        <div class="agent-info">
+                            <div class="agent-name">Income_Factory</div>
+                            <div class="agent-desc">AI 기반 패시브 인컴 자동화 &mdash; 아이디어 &rarr; 런칭 &rarr; 분석</div>
+                        </div>
+                        <div class="agent-meta">
+                            <span class="skill-count-badge">9 skills</span>
+                            <span class="maturity"><span class="filled">&#9733;&#9733;&#9733;&#9733;</span><span class="empty">&#9733;</span></span>
+                        </div>
+                        <div class="agent-chevron">&#9654;</div>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/factory</span>
+                            <span class="skill-desc">일일 파이프라인 오케스트레이터</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="haiku">
+                            <span class="skill-cmd">/idea-scan</span>
+                            <span class="skill-desc">트렌드 스캔 + 수익 아이디어 10개 생성</span>
+                            <span class="model-badge haiku">Haiku</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/idea-eval</span>
+                            <span class="skill-desc">5기준 점수화 &rarr; Top 3 선별</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="opus">
+                            <span class="skill-cmd">/idea-critic</span>
+                            <span class="skill-desc">악마의 변호인 &mdash; Kill or Proceed</span>
+                            <span class="model-badge opus">Opus</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/idea-plan</span>
+                            <span class="skill-desc">7일 타임박스 실행 계획 수립</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/idea-build</span>
+                            <span class="skill-desc">실행 계획에 따라 실제 제품 제작</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="opus">
+                            <span class="skill-cmd">/idea-review</span>
+                            <span class="skill-desc">제품 품질 검증 &mdash; Pass/Revise/Kill</span>
+                            <span class="model-badge opus">Opus</span>
+                        </div>
+                        <div class="skill-item" data-model="haiku">
+                            <span class="skill-cmd">/idea-launch</span>
+                            <span class="skill-desc">플랫폼별 배포 가이드 생성</span>
+                            <span class="model-badge haiku">Haiku</span>
+                        </div>
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/idea-analyze</span>
+                            <span class="skill-desc">주간 성과 분석 및 학습 축적</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Infra Hub -->
+        <div class="team-group expanded" data-team="infra">
+            <div class="team-header" onclick="toggleTeam(this)">
+                <div class="team-dot" style="background:var(--team-infra)"></div>
+                <div class="team-name">Infra Hub</div>
+                <div class="team-badge">3 agents</div>
+                <div class="team-chevron">&#9654;</div>
+            </div>
+            <div class="team-agents">
+
+                <!-- Root Skills -->
+                <div class="agent-card expanded" data-agent="root">
+                    <div class="agent-header" onclick="toggleAgent(this)">
+                        <div class="agent-icon" style="background:rgba(88,166,255,0.15)">&#9881;</div>
+                        <div class="agent-info">
+                            <div class="agent-name">Root Skills <span class="model-badge none">System</span></div>
+                            <div class="agent-desc">HKD852 루트 레벨 거버넌스 및 오케스트레이션</div>
+                        </div>
+                        <div class="agent-meta">
+                            <span class="skill-count-badge">3 skills</span>
+                            <span class="maturity"><span class="filled">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span>
+                        </div>
+                        <div class="agent-chevron">&#9654;</div>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/orchestrator</span>
+                            <span class="skill-desc">작업 분석 &rarr; Agent Teams / 스킬 파이프라인 / 단독 실행 자동 판단</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="none">
+                            <span class="skill-cmd">/guide-update-check</span>
+                            <span class="skill-desc">Claude Code 공식 가이드 최신 버전 확인 및 동기화</span>
+                            <span class="model-badge none">N/A</span>
+                        </div>
+                        <div class="skill-item" data-model="opus">
+                            <span class="new-skill-indicator"></span>
+                            <span class="skill-cmd">/quality-gate</span>
+                            <span class="skill-desc">CFMC 매트릭스 &mdash; 통합 품질 검증 (Shared Service 참조)</span>
+                            <span class="cross-hub-badge">Cross-Hub</span>
+                            <span class="model-badge opus">Opus</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HR_Agent -->
+                <div class="agent-card" data-agent="hr-agent">
+                    <div class="agent-header" onclick="toggleAgent(this)">
+                        <div class="agent-icon" style="background:rgba(88,166,255,0.15)">&#128101;</div>
+                        <div class="agent-info">
+                            <div class="agent-name">HR_Agent <span class="model-badge sonnet">New</span></div>
+                            <div class="agent-desc">AI 에이전트 조직도 관리 및 시각화</div>
+                        </div>
+                        <div class="agent-meta">
+                            <span class="skill-count-badge">2 skills</span>
+                            <span class="maturity"><span class="filled">&#9733;&#9733;</span><span class="empty">&#9733;&#9733;&#9733;</span></span>
+                        </div>
+                        <div class="agent-chevron">&#9654;</div>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/org-chart</span>
+                            <span class="skill-desc">프로젝트 스캔 &rarr; 인터랙티브 HTML 조직도 생성</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                        <div class="skill-item" data-model="opus">
+                            <span class="skill-cmd">/reorg</span>
+                            <span class="skill-desc">에이전트 팀 재조직 분석 및 효율적 업무 분담 제안</span>
+                            <span class="model-badge opus">Opus</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video_Analyzer -->
+                <div class="agent-card" data-agent="video-analyzer">
+                    <div class="agent-header" onclick="toggleAgent(this)">
+                        <div class="agent-icon" style="background:rgba(88,166,255,0.15)">&#127909;</div>
+                        <div class="agent-info">
+                            <div class="agent-name">Video_Analyzer</div>
+                            <div class="agent-desc">영상 파일 인코딩 정보 분석 및 ffmpeg 명령어 생성</div>
+                        </div>
+                        <div class="agent-meta">
+                            <span class="skill-count-badge">1 skill</span>
+                            <span class="maturity"><span class="filled">&#9733;</span><span class="empty">&#9733;&#9733;&#9733;&#9733;</span></span>
+                        </div>
+                        <div class="agent-chevron">&#9654;</div>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item" data-model="sonnet">
+                            <span class="skill-cmd">/analyze-video</span>
+                            <span class="skill-desc">영상 코덱/해상도/비트레이트/FPS 분석 + ffmpeg 명령어</span>
+                            <span class="model-badge sonnet">Sonnet</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PIPELINE VIEW -->
+    <div class="view-section" id="view-pipeline">
+
+        <!-- PT_Agent Pipeline -->
+        <div class="pipeline-section">
+            <div class="pipeline-title">
+                <span style="color:var(--accent-purple)">&#9654;</span>
+                PT_Agent &mdash; 7-Stage Presentation Pipeline
+            </div>
+            <div class="pipeline-flow">
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/pt-reception</div>
+                    <div class="pipeline-node-role">5W1H 분석</div>
+                    <div class="pipeline-node-model"><span class="model-badge haiku">Haiku</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/pt-research</div>
+                    <div class="pipeline-node-role">웹 리서치</div>
+                    <div class="pipeline-node-model"><span class="model-badge sonnet">Sonnet</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/pt-content</div>
+                    <div class="pipeline-node-role">구조 설계</div>
+                    <div class="pipeline-node-model"><span class="model-badge sonnet">Sonnet</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/pt-visual</div>
+                    <div class="pipeline-node-role">SVG 생성</div>
+                    <div class="pipeline-node-model"><span class="model-badge sonnet">Sonnet</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/pt-redteam</div>
+                    <div class="pipeline-node-role">품질 검증</div>
+                    <div class="pipeline-node-model"><span class="model-badge opus">Opus</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/pt-manager</div>
+                    <div class="pipeline-node-role">승인/반려</div>
+                    <div class="pipeline-node-model"><span class="model-badge haiku">Haiku</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/pt-export</div>
+                    <div class="pipeline-node-role">HTML/PDF</div>
+                    <div class="pipeline-node-model"><span class="model-badge haiku">Haiku</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Income_Factory Pipeline -->
+        <div class="pipeline-section">
+            <div class="pipeline-title">
+                <span style="color:var(--team-business)">&#9654;</span>
+                Income_Factory &mdash; Daily Revenue Pipeline
+            </div>
+            <div class="pipeline-flow">
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/idea-scan</div>
+                    <div class="pipeline-node-role">10 Ideas</div>
+                    <div class="pipeline-node-model"><span class="model-badge haiku">Haiku</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/idea-eval</div>
+                    <div class="pipeline-node-role">Top 3</div>
+                    <div class="pipeline-node-model"><span class="model-badge sonnet">Sonnet</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/idea-critic</div>
+                    <div class="pipeline-node-role">Kill/Go</div>
+                    <div class="pipeline-node-model"><span class="model-badge opus">Opus</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/idea-plan</div>
+                    <div class="pipeline-node-role">7-Day Plan</div>
+                    <div class="pipeline-node-model"><span class="model-badge sonnet">Sonnet</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/idea-build</div>
+                    <div class="pipeline-node-role">Build D1-4</div>
+                    <div class="pipeline-node-model"><span class="model-badge sonnet">Sonnet</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/idea-review</div>
+                    <div class="pipeline-node-role">QA D5</div>
+                    <div class="pipeline-node-model"><span class="model-badge opus">Opus</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/idea-launch</div>
+                    <div class="pipeline-node-role">Deploy D7</div>
+                    <div class="pipeline-node-model"><span class="model-badge haiku">Haiku</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/idea-analyze</div>
+                    <div class="pipeline-node-role">Weekly</div>
+                    <div class="pipeline-node-model"><span class="model-badge sonnet">Sonnet</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GameDesign_Agent Presets -->
+        <div class="pipeline-section">
+            <div class="pipeline-title">
+                <span style="color:var(--team-game)">&#9654;</span>
+                GameDesign_Agent &mdash; Workflow Presets
+            </div>
+
+            <div style="margin-bottom:12px;font-size:13px;color:var(--text-secondary);font-weight:600;">Default</div>
+            <div class="pipeline-flow" style="margin-bottom:20px;">
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/requirement</div>
+                    <div class="pipeline-node-role">요구사항</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/coordinate</div>
+                    <div class="pipeline-node-role">조율</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/pd-review</div>
+                    <div class="pipeline-node-role">PD 평가</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom:12px;font-size:13px;color:var(--text-secondary);font-weight:600;">New Feature</div>
+            <div class="pipeline-flow" style="margin-bottom:20px;">
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/market</div>
+                    <div class="pipeline-node-role">시장분석</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/requirement</div>
+                    <div class="pipeline-node-role">요구사항</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/concept</div>
+                    <div class="pipeline-node-role">컨셉</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/balance</div>
+                    <div class="pipeline-node-role">밸런스</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/monetize</div>
+                    <div class="pipeline-node-role">수익화</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/pd-review</div>
+                    <div class="pipeline-node-role">PD 평가</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom:12px;font-size:13px;color:var(--text-secondary);font-weight:600;">Monetization</div>
+            <div class="pipeline-flow" style="margin-bottom:20px;">
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/requirement</div>
+                    <div class="pipeline-node-role">요구사항</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/monetize</div>
+                    <div class="pipeline-node-role">수익화</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/balance</div>
+                    <div class="pipeline-node-role">밸런스</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/pd-review</div>
+                    <div class="pipeline-node-role">PD 평가</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom:12px;font-size:13px;color:var(--text-secondary);font-weight:600;">Retention</div>
+            <div class="pipeline-flow">
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/requirement</div>
+                    <div class="pipeline-node-role">요구사항</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/ux</div>
+                    <div class="pipeline-node-role">UX</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/liveops</div>
+                    <div class="pipeline-node-role">라이브옵스</div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/pd-review</div>
+                    <div class="pipeline-node-role">PD 평가</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- team-kowloon Pipeline -->
+        <div class="pipeline-section">
+            <div class="pipeline-title">
+                <span style="color:var(--team-art)">&#9654;</span>
+                team-kowloon &mdash; Art Resource Pipeline
+            </div>
+            <div class="pipeline-flow">
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/ssbl-cto</div>
+                    <div class="pipeline-node-role">분석/지시</div>
+                    <div class="pipeline-node-model"><span class="model-badge sonnet">Sonnet</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/ssbl-art-lead</div>
+                    <div class="pipeline-node-role">스펙 생성</div>
+                    <div class="pipeline-node-model"><span class="model-badge sonnet">Sonnet</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/ssbl-qa-lead</div>
+                    <div class="pipeline-node-role">품질 검증</div>
+                    <div class="pipeline-node-model"><span class="model-badge haiku">Haiku</span></div>
+                </div>
+                <div class="pipeline-arrow">&#8594;</div>
+                <div class="pipeline-node">
+                    <div class="pipeline-node-name">/ssbl-data-manager</div>
+                    <div class="pipeline-node-role">데이터 관리</div>
+                    <div class="pipeline-node-model"><span class="model-badge haiku">Haiku</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WORKFLOWS VIEW -->
+    <div class="view-section" id="view-workflows">
+
+        <div class="workflow-section" style="border-top:none;margin-top:0;padding-top:0;">
+            <div class="workflow-section-title">
+                <span style="color:var(--accent-orange)">&#9670;</span>
+                Cross-Hub Workflows
+            </div>
+            <div class="workflow-section-subtitle">
+                Workflows that span multiple hubs and shared services, showing how agents collaborate across organizational boundaries.
+            </div>
+
+            <!-- Legend -->
+            <div class="workflow-legend">
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:var(--team-game)"></div>
+                    Game Hub
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:var(--team-business)"></div>
+                    Business Hub
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:var(--team-infra)"></div>
+                    Infra Hub
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:var(--accent-purple)"></div>
+                    Shared Service
+                </div>
+            </div>
+
+            <!-- Workflow 1: Feature Pitch -->
+            <div class="pipeline-section">
+                <div class="pipeline-title">
+                    <span style="color:var(--accent-orange)">&#9671;</span>
+                    Workflow 1: Feature Pitch
+                    <span style="font-size:12px;color:var(--text-muted);font-weight:400;margin-left:8px;">Game Hub &rarr; Service</span>
+                </div>
+                <div class="pipeline-flow">
+                    <div class="pipeline-node hub-game">
+                        <div class="pipeline-node-name">/requirement</div>
+                        <div class="pipeline-node-role">요구사항</div>
+                        <div class="pipeline-node-agent">GameDesign</div>
+                    </div>
+                    <div class="pipeline-arrow">&#8594;</div>
+                    <div class="pipeline-node hub-game">
+                        <div class="pipeline-node-name">/market</div>
+                        <div class="pipeline-node-role">시장분석</div>
+                        <div class="pipeline-node-agent">GameDesign</div>
+                    </div>
+                    <div class="pipeline-arrow">&#8594;</div>
+                    <div class="pipeline-node hub-game">
+                        <div class="pipeline-node-name">/pd-review</div>
+                        <div class="pipeline-node-role">PD 평가</div>
+                        <div class="pipeline-node-agent">GameDesign</div>
+                    </div>
+                    <div class="pipeline-arrow">&#8594;</div>
+                    <div class="pipeline-node hub-service">
+                        <div class="pipeline-node-name">/pt-from-design</div>
+                        <div class="pipeline-node-role">발표자료 변환</div>
+                        <div class="pipeline-node-agent">PT_Agent</div>
+                        <div class="pipeline-node-model"><span class="cross-hub-badge" style="font-size:9px;">NEW</span></div>
+                    </div>
+                    <div class="pipeline-arrow">&#8594;</div>
+                    <div class="pipeline-node hub-infra">
+                        <div class="pipeline-node-name">/quality-gate</div>
+                        <div class="pipeline-node-role">품질 검증</div>
+                        <div class="pipeline-node-agent">Root</div>
+                        <div class="pipeline-node-model"><span class="cross-hub-badge" style="font-size:9px;">NEW</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow 2: Art-Aware Design -->
+            <div class="pipeline-section">
+                <div class="pipeline-title">
+                    <span style="color:var(--accent-orange)">&#9671;</span>
+                    Workflow 2: Art-Aware Design
+                    <span style="font-size:12px;color:var(--text-muted);font-weight:400;margin-left:8px;">Game Hub internal</span>
+                </div>
+                <div class="pipeline-flow">
+                    <div class="pipeline-node hub-game">
+                        <div class="pipeline-node-name">/requirement</div>
+                        <div class="pipeline-node-role">요구사항</div>
+                        <div class="pipeline-node-agent">GameDesign</div>
+                    </div>
+                    <div class="pipeline-arrow">&#8594;</div>
+                    <div class="pipeline-node hub-game">
+                        <div class="pipeline-node-name">/concept</div>
+                        <div class="pipeline-node-role">컨셉 설계</div>
+                        <div class="pipeline-node-agent">GameDesign</div>
+                    </div>
+                    <div class="pipeline-arrow">&#8594;</div>
+                    <div class="pipeline-node hub-game" style="border-left-color:var(--team-art);">
+                        <div class="pipeline-node-name" style="color:var(--team-game);">/art-status</div>
+                        <div class="pipeline-node-role">아트 완성도</div>
+                        <div class="pipeline-node-agent">GameDesign &rarr; kowloon</div>
+                        <div class="pipeline-node-model"><span class="cross-hub-badge" style="font-size:9px;">NEW</span></div>
+                    </div>
+                    <div class="pipeline-arrow">&#8594;</div>
+                    <div class="pipeline-node hub-game">
+                        <div class="pipeline-node-name">/pd-review</div>
+                        <div class="pipeline-node-role">PD 평가</div>
+                        <div class="pipeline-node-agent">GameDesign</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow 3: Revenue Validation -->
+            <div class="pipeline-section">
+                <div class="pipeline-title">
+                    <span style="color:var(--accent-orange)">&#9671;</span>
+                    Workflow 3: Revenue Validation
+                    <span style="font-size:12px;color:var(--text-muted);font-weight:400;margin-left:8px;">Business &harr; Game</span>
+                </div>
+                <div class="pipeline-flow">
+                    <div class="pipeline-node hub-business">
+                        <div class="pipeline-node-name">/idea-eval</div>
+                        <div class="pipeline-node-role">Top 3 선별</div>
+                        <div class="pipeline-node-agent">Income</div>
+                    </div>
+                    <div class="pipeline-arrow">&#8594;</div>
+                    <div class="pipeline-node hub-business">
+                        <div class="pipeline-node-name">/idea-critic</div>
+                        <div class="pipeline-node-role">Kill/Go</div>
+                        <div class="pipeline-node-agent">Income</div>
+                    </div>
+                    <div class="pipeline-arrow">&#8594;</div>
+                    <div class="pipeline-node hub-game">
+                        <div class="pipeline-node-name">/monetize</div>
+                        <div class="pipeline-node-role">수익화 설계</div>
+                        <div class="pipeline-node-agent">GameDesign</div>
+                    </div>
+                    <div class="pipeline-arrow">&#8594;</div>
+                    <div class="pipeline-node hub-game">
+                        <div class="pipeline-node-name">/balance</div>
+                        <div class="pipeline-node-role">밸런스 검증</div>
+                        <div class="pipeline-node-agent">GameDesign</div>
+                    </div>
+                    <div class="pipeline-arrow">&#8594;</div>
+                    <div class="pipeline-node hub-business">
+                        <div class="pipeline-node-name">/idea-plan</div>
+                        <div class="pipeline-node-role">실행 계획</div>
+                        <div class="pipeline-node-agent">Income</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEAMS COMPARISON VIEW -->
+    <div class="view-section" id="view-teams">
+        <div class="comparison-grid">
+            <!-- Left Column: Before (Flat Silos) -->
+            <div class="comparison-column">
+                <h3 class="current">Before: Flat Silos</h3>
+                <div class="comp-team">
+                    <div class="comp-team-name" style="color:var(--text-muted)">Root</div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip">orchestrator</span>
+                        <span class="comp-agent-chip">guide-update-check</span>
+                    </div>
+                </div>
+                <div class="comp-team">
+                    <div class="comp-team-name">GameDesign_Agent <span style="font-size:12px;color:var(--text-muted);">(11 skills)</span></div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip">requirement</span>
+                        <span class="comp-agent-chip">coordinate</span>
+                        <span class="comp-agent-chip">proposal</span>
+                        <span class="comp-agent-chip">concept</span>
+                        <span class="comp-agent-chip">pd-review</span>
+                        <span class="comp-agent-chip">+6 more</span>
+                    </div>
+                </div>
+                <div class="comp-team">
+                    <div class="comp-team-name">PT_Agent <span style="font-size:12px;color:var(--text-muted);">(9 skills)</span></div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip">pt</span>
+                        <span class="comp-agent-chip">reception</span>
+                        <span class="comp-agent-chip">research</span>
+                        <span class="comp-agent-chip">content</span>
+                        <span class="comp-agent-chip">visual</span>
+                        <span class="comp-agent-chip">+4 more</span>
+                    </div>
+                </div>
+                <div class="comp-team">
+                    <div class="comp-team-name">Income_Factory <span style="font-size:12px;color:var(--text-muted);">(9 skills)</span></div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip">factory</span>
+                        <span class="comp-agent-chip">scan</span>
+                        <span class="comp-agent-chip">eval</span>
+                        <span class="comp-agent-chip">critic</span>
+                        <span class="comp-agent-chip">+5 more</span>
+                    </div>
+                </div>
+                <div class="comp-team">
+                    <div class="comp-team-name">team-kowloon <span style="font-size:12px;color:var(--text-muted);">(4 sub-agents)</span></div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip">cto</span>
+                        <span class="comp-agent-chip">art-lead</span>
+                        <span class="comp-agent-chip">qa-lead</span>
+                        <span class="comp-agent-chip">data-mgr</span>
+                    </div>
+                </div>
+                <div class="comp-team">
+                    <div class="comp-team-name">Translate_Agent <span style="font-size:12px;color:var(--text-muted);">(1 skill)</span></div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip">translate</span>
+                    </div>
+                </div>
+                <div class="comp-team">
+                    <div class="comp-team-name">Video_Analyzer <span style="font-size:12px;color:var(--text-muted);">(1 skill)</span></div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip">analyze-video</span>
+                    </div>
+                </div>
+                <div class="comp-team">
+                    <div class="comp-team-name">Hwatu_Roguelike <span style="font-size:12px;color:var(--text-muted);">(3 skills)</span></div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip">dokkaebi-gen</span>
+                        <span class="comp-agent-chip">balance-sim</span>
+                        <span class="comp-agent-chip">card-art</span>
+                    </div>
+                </div>
+                <div class="comp-team">
+                    <div class="comp-team-name">HR_Agent <span style="font-size:12px;color:var(--text-muted);">(2 skills)</span></div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip">org-chart</span>
+                        <span class="comp-agent-chip">reorg</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: After (Hub & Service) -->
+            <div class="comparison-column">
+                <h3 class="proposed">After: Hub &amp; Service</h3>
+
+                <!-- Shared Services Layer -->
+                <div class="comp-service-layer">
+                    <div class="comp-service-header">Shared Services</div>
+                    <div class="comp-team" style="border-left:3px solid var(--accent-purple);margin-bottom:8px;">
+                        <div class="comp-team-name" style="color:var(--accent-purple);">PT_Agent (Service)</div>
+                        <div class="comp-team-agents">
+                            <span class="comp-agent-chip" style="border-color:var(--accent-purple);color:var(--accent-purple);">10 skills</span>
+                            <span class="comp-agent-chip" style="border-color:var(--accent-orange);color:var(--accent-orange);">+pt-from-design NEW</span>
+                        </div>
+                    </div>
+                    <div class="comp-team" style="border-left:3px solid var(--accent-purple);margin-bottom:8px;">
+                        <div class="comp-team-name" style="color:var(--accent-purple);">Translate_Agent (Service)</div>
+                        <div class="comp-team-agents">
+                            <span class="comp-agent-chip" style="border-color:var(--accent-purple);color:var(--accent-purple);">1 skill</span>
+                        </div>
+                    </div>
+                    <div class="comp-team" style="border-left:3px solid var(--accent-purple);margin-bottom:0;">
+                        <div class="comp-team-name" style="color:var(--accent-purple);">Quality Gate (Service)</div>
+                        <div class="comp-team-agents">
+                            <span class="comp-agent-chip" style="border-color:var(--accent-orange);color:var(--accent-orange);">quality-gate NEW</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Hub -->
+                <div class="comp-team" style="border-left: 3px solid var(--team-game);">
+                    <div class="comp-team-name" style="color:var(--team-game);">Game Hub</div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip" style="border-color:var(--team-game);color:var(--team-game);">GameDesign_Agent (12)</span>
+                        <span class="comp-agent-chip" style="border-color:var(--team-game);color:var(--team-game);">Hwatu_Roguelike (3)</span>
+                        <span class="comp-agent-chip" style="border-color:var(--team-art);color:var(--team-art);">team-kowloon (4)</span>
+                    </div>
+                </div>
+
+                <!-- Business Hub -->
+                <div class="comp-team" style="border-left: 3px solid var(--team-business);">
+                    <div class="comp-team-name" style="color:var(--team-business);">Business Hub</div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip" style="border-color:var(--team-business);color:var(--team-business);">Income_Factory (9)</span>
+                    </div>
+                </div>
+
+                <!-- Infra Hub -->
+                <div class="comp-team" style="border-left: 3px solid var(--team-infra);">
+                    <div class="comp-team-name" style="color:var(--team-infra);">Infra Hub</div>
+                    <div class="comp-team-agents">
+                        <span class="comp-agent-chip" style="border-color:var(--team-infra);color:var(--team-infra);">Root Skills (3)</span>
+                        <span class="comp-agent-chip" style="border-color:var(--team-infra);color:var(--team-infra);">HR_Agent (2)</span>
+                        <span class="comp-agent-chip" style="border-color:var(--team-infra);color:var(--team-infra);">Video_Analyzer (1)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cross-Hub Collaboration -->
+        <div class="collab-section">
+            <h3>Cross-Hub Workflows</h3>
+            <div class="collab-line">
+                <span class="collab-from" style="background:rgba(248,81,73,0.15);color:var(--team-game)">Game Hub</span>
+                <span class="collab-arrow">&#8594;</span>
+                <span class="collab-to" style="background:rgba(163,113,247,0.15);color:var(--accent-purple)">PT_Agent (Service)</span>
+                <span class="collab-skill-tag">/pt-from-design</span>
+                <span class="collab-reason">기획 &rarr; 발표 자동화</span>
+            </div>
+            <div class="collab-line">
+                <span class="collab-from" style="background:rgba(248,81,73,0.15);color:var(--team-game)">Game Hub</span>
+                <span class="collab-arrow">&#8596;</span>
+                <span class="collab-to" style="background:rgba(248,81,73,0.15);color:var(--team-game)">Game Hub (internal)</span>
+                <span class="collab-skill-tag">/art-status</span>
+                <span class="collab-reason">아트 완성도 연동</span>
+            </div>
+            <div class="collab-line">
+                <span class="collab-from" style="background:rgba(63,185,80,0.15);color:var(--team-business)">Business Hub</span>
+                <span class="collab-arrow">&#8596;</span>
+                <span class="collab-to" style="background:rgba(248,81,73,0.15);color:var(--team-game)">Game Hub</span>
+                <span class="collab-skill-tag">/monetize</span>
+                <span class="collab-reason">수익모델 교차검증</span>
+            </div>
+            <div class="collab-line">
+                <span class="collab-from" style="background:rgba(110,118,129,0.15);color:var(--text-secondary)">Any Hub</span>
+                <span class="collab-arrow">&#8594;</span>
+                <span class="collab-to" style="background:rgba(163,113,247,0.15);color:var(--accent-purple)">Quality Gate (Service)</span>
+                <span class="collab-skill-tag">/quality-gate</span>
+                <span class="collab-reason">통합 품질 게이트</span>
+            </div>
+            <div class="collab-line">
+                <span class="collab-from" style="background:rgba(110,118,129,0.15);color:var(--text-secondary)">Any Hub</span>
+                <span class="collab-arrow">&#8594;</span>
+                <span class="collab-to" style="background:rgba(163,113,247,0.15);color:var(--accent-purple)">Translate_Agent (Service)</span>
+                <span class="collab-skill-tag">/translate</span>
+                <span class="collab-reason">다국어 변환</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="kbd-hint">
+    <kbd>/</kbd> Search &nbsp; <kbd>Esc</kbd> Collapse All
+</div>
+
+<script>
+// Toggle team group
+function toggleTeam(header) {
+    const group = header.closest('.team-group');
+    group.classList.toggle('expanded');
+}
+
+// Toggle agent card
+function toggleAgent(header) {
+    const card = header.closest('.agent-card');
+    card.classList.toggle('expanded');
+}
+
+// View tabs
+document.querySelectorAll('.view-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('view-' + tab.dataset.view).classList.add('active');
+    });
+});
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const isAll = btn.dataset.filter === 'all';
+        const model = btn.dataset.model;
+
+        if (isAll) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        } else {
+            document.querySelector('.filter-btn[data-filter="all"]').classList.remove('active');
+            btn.classList.toggle('active');
+            const anyActive = document.querySelectorAll('.filter-btn[data-model].active').length > 0;
+            if (!anyActive) {
+                document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+            }
+        }
+
+        applyFilters();
+    });
+});
+
+// Search
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', applyFilters);
+
+function applyFilters() {
+    const query = searchInput.value.toLowerCase().trim();
+    const activeModels = Array.from(document.querySelectorAll('.filter-btn[data-model].active'))
+        .map(b => b.dataset.model);
+    const filterAll = document.querySelector('.filter-btn[data-filter="all"]').classList.contains('active');
+
+    let visibleCount = 0;
+
+    // Filter agent cards
+    document.querySelectorAll('.agent-card').forEach(card => {
+        const agentName = card.querySelector('.agent-name')?.textContent.toLowerCase() || '';
+        const agentDesc = card.querySelector('.agent-desc')?.textContent.toLowerCase() || '';
+        const skills = card.querySelectorAll('.skill-item');
+
+        let agentVisible = false;
+
+        const agentTextMatch = !query || agentName.includes(query) || agentDesc.includes(query);
+
+        skills.forEach(skill => {
+            const skillCmd = skill.querySelector('.skill-cmd')?.textContent.toLowerCase() || '';
+            const skillDesc = skill.querySelector('.skill-desc')?.textContent.toLowerCase() || '';
+            const skillModel = skill.dataset.model || '';
+
+            const textMatch = !query || skillCmd.includes(query) || skillDesc.includes(query) || agentTextMatch;
+            const modelMatch = filterAll || activeModels.includes(skillModel) || (activeModels.includes('mixed') && skillModel === 'mixed');
+
+            if (textMatch && modelMatch) {
+                skill.style.display = '';
+                agentVisible = true;
+            } else {
+                skill.style.display = 'none';
+            }
+        });
+
+        if (agentTextMatch && filterAll && !query) {
+            agentVisible = true;
+        }
+
+        card.style.display = agentVisible ? '' : 'none';
+        if (agentVisible) visibleCount++;
+    });
+
+    // Filter compact service cards (quality-gate)
+    document.querySelectorAll('.service-compact-card').forEach(card => {
+        const name = card.querySelector('.service-compact-name')?.textContent.toLowerCase() || '';
+        const desc = card.querySelector('.service-compact-desc')?.textContent.toLowerCase() || '';
+        const textMatch = !query || name.includes(query) || desc.includes(query);
+
+        // Check model match for compact cards
+        let modelMatch = filterAll;
+        if (!filterAll) {
+            // quality-gate is opus
+            modelMatch = activeModels.includes('opus');
+        }
+
+        if (textMatch && modelMatch) {
+            card.style.display = '';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    // Show/hide team groups
+    document.querySelectorAll('.team-group').forEach(group => {
+        const visibleAgents = group.querySelectorAll('.agent-card:not([style*="display: none"])');
+        const visibleCompact = group.querySelectorAll('.service-compact-card:not([style*="display: none"])');
+        group.style.display = (visibleAgents.length > 0 || visibleCompact.length > 0) ? '' : 'none';
+    });
+
+    document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+    }
+    if (e.key === 'Escape') {
+        searchInput.blur();
+        searchInput.value = '';
+        document.querySelectorAll('.agent-card').forEach(c => c.classList.remove('expanded'));
+        document.querySelectorAll('.team-group').forEach(g => g.classList.remove('expanded'));
+        applyFilters();
+    }
+});
+
+// Expand all teams on load
+document.querySelectorAll('.team-group').forEach(g => g.classList.add('expanded'));
+</script>
+</body>
+</html>

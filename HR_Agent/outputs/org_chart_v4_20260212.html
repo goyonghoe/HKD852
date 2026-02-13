@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HKD852 Studio Org Chart v4</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--bg-card:#161b22;--border:#30363d;--text:#e6edf3;--text-dim:#8b949e;--text-bright:#fff;--accent-purple:#a371f7;--accent-red:#f85149;--accent-green:#3fb950;--accent-blue:#58a6ff;--accent-yellow:#d29922}
+body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;scroll-behavior:smooth}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+section{padding:60px 0}
+h2{font-size:1.6rem;font-weight:700;margin-bottom:32px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+/* --- Header --- */
+.header{text-align:center;padding:48px 0 32px;border-bottom:1px solid var(--border)}
+.header h1{font-size:2.2rem;font-weight:700;color:var(--text-bright);margin-bottom:6px}
+.header .date{color:var(--text-dim);font-size:.9rem;margin-bottom:28px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+.stat{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.stat .num{font-size:2rem;font-weight:700;color:var(--text-bright)}
+.stat .label{font-size:.85rem;color:var(--text-dim);margin-top:4px}
+.stat:nth-child(1) .num{color:var(--accent-purple)}
+.stat:nth-child(2) .num{color:var(--accent-blue)}
+.stat:nth-child(3) .num{color:var(--accent-green)}
+.stat:nth-child(4) .num{color:var(--accent-yellow)}
+/* --- Org Chart Tree --- */
+.org-tree{display:flex;flex-direction:column;align-items:center;gap:0}
+.ceo-card{background:linear-gradient(135deg,#1a1e28,#161b22);border:2px solid var(--accent-yellow);border-radius:14px;padding:18px 36px;text-align:center;position:relative}
+.ceo-card .title{font-size:1.1rem;font-weight:700;color:var(--accent-yellow)}
+.ceo-card .name{font-size:.85rem;color:var(--text-dim)}
+.tree-connector{width:2px;height:32px;background:var(--border);margin:0 auto}
+.tree-h-line{width:75%;height:2px;background:var(--border);margin:0 auto;position:relative}
+.divisions{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;width:100%}
+.division{display:flex;flex-direction:column;align-items:center;gap:0}
+.div-header{width:100%;border-radius:10px 10px 0 0;padding:12px;text-align:center;font-weight:700;font-size:.95rem;color:var(--text-bright)}
+.div-header .sub{font-size:.75rem;font-weight:400;color:rgba(255,255,255,.65);margin-top:2px}
+.div-body{width:100%;background:var(--bg-card);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.div-member{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid transparent;transition:border-color .2s}
+.div-member:hover{border-color:var(--border)}
+.div-member .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.div-member .info .job{font-size:.85rem;font-weight:500;color:var(--text-bright)}
+.div-member .info .agent{font-size:.75rem;color:var(--text-dim)}
+.div-member .skills-badge{margin-left:auto;font-size:.7rem;background:rgba(255,255,255,.06);padding:2px 8px;border-radius:10px;color:var(--text-dim);white-space:nowrap}
+.c-purple{background:rgba(163,113,247,.15);border-color:rgba(163,113,247,.3)}
+.c-purple .div-header{background:linear-gradient(135deg,rgba(163,113,247,.25),rgba(163,113,247,.1))}
+.c-purple .dot{background:var(--accent-purple)}
+.c-red{background:rgba(248,81,73,.15);border-color:rgba(248,81,73,.3)}
+.c-red .div-header{background:linear-gradient(135deg,rgba(248,81,73,.25),rgba(248,81,73,.1))}
+.c-red .dot{background:var(--accent-red)}
+.c-green{background:rgba(63,185,80,.15);border-color:rgba(63,185,80,.3)}
+.c-green .div-header{background:linear-gradient(135deg,rgba(63,185,80,.25),rgba(63,185,80,.1))}
+.c-green .dot{background:var(--accent-green)}
+.c-blue{background:rgba(88,166,255,.15);border-color:rgba(88,166,255,.3)}
+.c-blue .div-header{background:linear-gradient(135deg,rgba(88,166,255,.25),rgba(88,166,255,.1))}
+.c-blue .dot{background:var(--accent-blue)}
+/* --- Employee Cards --- */
+.search-box{width:100%;max-width:400px;margin:0 auto 28px;display:block;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .2s}
+.search-box:focus{border-color:var(--accent-blue)}
+.search-box::placeholder{color:var(--text-dim)}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.emp-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s}
+.emp-card:hover{border-color:var(--text-dim)}
+.emp-card-top{padding:18px 18px 14px;cursor:pointer;user-select:none}
+.emp-card-top .row1{display:flex;align-items:center;justify-content:space-between}
+.emp-card-top .job{font-size:1.05rem;font-weight:700;color:var(--text-bright)}
+.emp-card-top .agent{font-size:.8rem;color:var(--text-dim);margin-top:2px}
+.emp-card-top .desc{font-size:.82rem;color:var(--text-dim);margin-top:8px;font-style:italic}
+.emp-card-top .badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}
+.badge{font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:500}
+.badge-skill{background:rgba(255,255,255,.07);color:var(--text-dim)}
+.badge-opus{background:rgba(163,113,247,.2);color:var(--accent-purple)}
+.badge-sonnet{background:rgba(88,166,255,.2);color:var(--accent-blue)}
+.badge-haiku{background:rgba(63,185,80,.2);color:var(--accent-green)}
+.stars{color:var(--accent-yellow);font-size:.85rem;letter-spacing:1px}
+.emp-card-expand{font-size:.75rem;color:var(--text-dim);float:right;margin-top:4px}
+.skill-list{max-height:0;overflow:hidden;transition:max-height .35s ease;border-top:1px solid transparent}
+.skill-list.open{max-height:600px;border-top-color:var(--border)}
+.skill-list ul{list-style:none;padding:12px 18px}
+.skill-list li{padding:5px 0;font-size:.82rem;display:flex;gap:8px;align-items:baseline}
+.skill-list li .sk-name{font-weight:500;color:var(--text-bright);white-space:nowrap}
+.skill-list li .sk-model{font-size:.7rem;padding:1px 6px;border-radius:8px;white-space:nowrap}
+.skill-list li .sk-desc{color:var(--text-dim)}
+/* --- Workflow --- */
+.workflow{margin-bottom:36px}
+.workflow h3{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--text-bright)}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:0}
+.flow-node{padding:8px 14px;border-radius:8px;font-size:.82rem;font-weight:500;white-space:nowrap;border:1px solid var(--border);background:var(--bg-card)}
+.flow-arrow{color:var(--text-dim);font-size:1.1rem;margin:0 6px}
+.flow-branch{font-size:.78rem;color:var(--text-dim);padding:6px 12px;border:1px dashed var(--border);border-radius:8px;margin:0 6px}
+.fn-yellow{border-color:rgba(210,153,34,.4);color:var(--accent-yellow)}
+.fn-purple{border-color:rgba(163,113,247,.3);color:var(--accent-purple)}
+.fn-red{border-color:rgba(248,81,73,.3);color:var(--accent-red)}
+.fn-green{border-color:rgba(63,185,80,.3);color:var(--accent-green)}
+.fn-blue{border-color:rgba(88,166,255,.3);color:var(--accent-blue)}
+/* --- Model Bar --- */
+.model-bar-wrap{margin-top:16px}
+.model-bar{display:flex;height:40px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.model-bar div{display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:500;color:var(--text-bright)}
+.model-legend{display:flex;gap:24px;margin-top:14px;flex-wrap:wrap}
+.model-legend span{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--text-dim)}
+.model-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+/* --- Footer --- */
+.footer{text-align:center;padding:32px 0;color:var(--text-dim);font-size:.8rem;border-top:1px solid var(--border)}
+/* --- Responsive --- */
+@media(max-width:768px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .divisions{grid-template-columns:repeat(2,1fr)}
+  .cards-grid{grid-template-columns:1fr}
+  .flow{gap:4px}
+  .flow-node{font-size:.75rem;padding:6px 10px}
+}
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr}
+  .divisions{grid-template-columns:1fr}
+  .header h1{font-size:1.6rem}
+  section{padding:40px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <h1>HKD852 스튜디오 조직도</h1>
+    <div class="date">2026-02-12 | v4 — Humanized Organization</div>
+    <div class="stats">
+      <div class="stat"><div class="num">11</div><div class="label">구성원</div></div>
+      <div class="stat"><div class="num">47</div><div class="label">스킬</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">본부</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">모델 (종)</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ORG CHART -->
+<section id="org">
+  <div class="container">
+    <h2>조직 구조</h2>
+    <div class="org-tree">
+      <div class="ceo-card">
+        <div class="title">대표이사 (CEO)</div>
+        <div class="name">사용자</div>
+      </div>
+      <div class="tree-connector"></div>
+      <div class="tree-h-line"></div>
+      <div style="height:16px"></div>
+      <div class="divisions">
+        <!-- 직속 -->
+        <div class="division c-purple">
+          <div class="div-header">대표 직속<div class="sub">핵심 참모진</div></div>
+          <div class="div-body">
+            <div class="div-member"><div class="dot"></div><div class="info"><div class="job">비서실장</div><div class="agent">Secretary_Agent</div></div><div class="skills-badge">2 스킬</div></div>
+            <div class="div-member"><div class="dot"></div><div class="info"><div class="job">운영총괄 (COO)</div><div class="agent">오케스트레이터</div></div><div class="skills-badge">1 스킬</div></div>
+            <div class="div-member"><div class="dot"></div><div class="info"><div class="job">품질관리 매니저</div><div class="agent">Quality Gate</div></div><div class="skills-badge">1 스킬</div></div>
+          </div>
+        </div>
+        <!-- 제작본부 -->
+        <div class="division c-red">
+          <div class="div-header">제작본부<div class="sub">게임을 만드는 사람들</div></div>
+          <div class="div-body">
+            <div class="div-member"><div class="dot"></div><div class="info"><div class="job">기획팀장</div><div class="agent">GameDesign_Agent</div></div><div class="skills-badge">12 스킬</div></div>
+            <div class="div-member"><div class="dot"></div><div class="info"><div class="job">아트디렉터</div><div class="agent">team-kowloon</div></div><div class="skills-badge">4 스킬</div></div>
+            <div class="div-member"><div class="dot"></div><div class="info"><div class="job">개발팀장</div><div class="agent">Hwatu_Roguelike</div></div><div class="skills-badge">3 스킬</div></div>
+          </div>
+        </div>
+        <!-- 사업본부 -->
+        <div class="division c-green">
+          <div class="div-header">사업본부<div class="sub">수익을 만드는 사람들</div></div>
+          <div class="div-body">
+            <div class="div-member"><div class="dot"></div><div class="info"><div class="job">사업개발 매니저</div><div class="agent">Income_Factory</div></div><div class="skills-badge">9 스킬</div></div>
+          </div>
+        </div>
+        <!-- 지원본부 -->
+        <div class="division c-blue">
+          <div class="div-header">지원본부<div class="sub">모두를 돕는 사람들</div></div>
+          <div class="div-body">
+            <div class="div-member"><div class="dot"></div><div class="info"><div class="job">커뮤니케이션 디렉터</div><div class="agent">PT_Agent</div></div><div class="skills-badge">10 스킬</div></div>
+            <div class="div-member"><div class="dot"></div><div class="info"><div class="job">현지화 매니저</div><div class="agent">Translate_Agent</div></div><div class="skills-badge">1 스킬</div></div>
+            <div class="div-member"><div class="dot"></div><div class="info"><div class="job">인사팀장</div><div class="agent">HR_Agent</div></div><div class="skills-badge">2 스킬</div></div>
+            <div class="div-member"><div class="dot"></div><div class="info"><div class="job">기술지원</div><div class="agent">Video_Analyzer</div></div><div class="skills-badge">1 스킬</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMPLOYEE CARDS -->
+<section id="members">
+  <div class="container">
+    <h2>구성원 명함</h2>
+    <input type="text" class="search-box" id="searchBox" placeholder="검색 (이름, 직책, 에이전트)  |  단축키: /">
+    <div class="cards-grid" id="cardsGrid"></div>
+  </div>
+</section>
+
+<!-- WORKFLOWS -->
+<section id="workflows">
+  <div class="container">
+    <h2>업무 흐름도</h2>
+
+    <div class="workflow">
+      <h3>흐름 A: 게임 기능 기획 &rarr; 발표</h3>
+      <div class="flow">
+        <div class="flow-node fn-yellow">대표</div><span class="flow-arrow">&rarr;</span>
+        <div class="flow-node fn-purple">COO</div><span class="flow-arrow">&rarr;</span>
+        <div class="flow-node fn-red">기획팀장</div><span class="flow-arrow">&rarr;</span>
+        <div class="flow-branch">아트디렉터 확인</div><span class="flow-arrow">&rarr;</span>
+        <div class="flow-node fn-purple">QA매니저</div><span class="flow-arrow">&rarr;</span>
+        <div class="flow-node fn-blue">커뮤니케이션</div><span class="flow-arrow">&rarr;</span>
+        <div class="flow-node fn-blue">현지화</div><span class="flow-arrow">&rarr;</span>
+        <div class="flow-node fn-purple">비서실장</div>
+      </div>
+    </div>
+
+    <div class="workflow">
+      <h3>흐름 B: 수익 사업</h3>
+      <div class="flow">
+        <div class="flow-node fn-yellow">대표</div><span class="flow-arrow">&rarr;</span>
+        <div class="flow-node fn-green">사업개발</div><span class="flow-arrow">&rarr;</span>
+        <div class="flow-branch">커뮤니케이션</div><span class="flow-arrow">&rarr;</span>
+        <div class="flow-node fn-purple">비서실장</div>
+      </div>
+    </div>
+
+    <div class="workflow">
+      <h3>흐름 C: 일상 운영</h3>
+      <div class="flow">
+        <span style="font-size:.82rem;color:var(--text-dim);margin-right:8px">매일:</span>
+        <div class="flow-node fn-purple">비서실장</div><span class="flow-arrow">&rarr;</span>
+        <div class="flow-node" style="border-color:var(--accent-yellow);color:var(--accent-yellow)">브리핑</div>
+        <span style="margin:0 16px;color:var(--border)">|</span>
+        <span style="font-size:.82rem;color:var(--text-dim);margin-right:8px">수시:</span>
+        <div class="flow-node fn-blue">인사팀장</div>
+        <span style="margin:0 4px;color:var(--text-dim)">,</span>
+        <div class="flow-node fn-blue">기술지원</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODEL DISTRIBUTION -->
+<section id="models">
+  <div class="container">
+    <h2>모델 분포</h2>
+    <div class="model-bar-wrap">
+      <div class="model-bar">
+        <div style="width:17.02%;background:rgba(163,113,247,.5)">Opus 8</div>
+        <div style="width:59.57%;background:rgba(88,166,255,.4)">Sonnet 28</div>
+        <div style="width:19.15%;background:rgba(63,185,80,.35)">Haiku 9</div>
+        <div style="width:4.26%;background:rgba(139,148,158,.3)" title="미사용 2"></div>
+      </div>
+      <div class="model-legend">
+        <span><i class="dot" style="background:var(--accent-purple)"></i>Opus &mdash; 8 (17%)</span>
+        <span><i class="dot" style="background:var(--accent-blue)"></i>Sonnet &mdash; 28 (60%)</span>
+        <span><i class="dot" style="background:var(--accent-green)"></i>Haiku &mdash; 9 (19%)</span>
+        <span><i class="dot" style="background:var(--text-dim)"></i>미사용 &mdash; 2 (4%)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">HKD852 Studio &copy; 2026 &mdash; Generated by HR_Agent /org-chart</footer>
+
+<script>
+const DATA=[
+{job:"비서실장",agent:"Secretary_Agent",desc:"오늘 뭘 했고 내일 뭘 할지 정리합니다",skills:2,stars:1,models:["Sonnet","Haiku"],
+ list:[{n:"/daily-brief",m:"Sonnet",d:"일일 브리핑 생성"},{n:"/work-log",m:"Haiku",d:"작업 일지 정리"}]},
+{job:"운영총괄 (COO)",agent:"오케스트레이터",desc:"전체 업무를 파악하고 적재적소에 배치합니다",skills:1,stars:4,models:["Sonnet"],
+ list:[{n:"/orchestrator",m:"Sonnet",d:"업무 자동 판단 및 배치"}]},
+{job:"품질관리 매니저",agent:"Quality Gate",desc:"모든 산출물을 100점 기준으로 검증합니다",skills:1,stars:3,models:["Opus"],
+ list:[{n:"/quality-gate",m:"Opus",d:"CFMC 100점 매트릭스 검증"}]},
+{job:"기획팀장",agent:"GameDesign_Agent",desc:"게임의 재미와 수익을 동시에 설계합니다",skills:12,stars:5,models:["Opus","Sonnet","Haiku"],
+ list:[{n:"/requirement",m:"Sonnet",d:"요구사항 분석"},{n:"/coordinate",m:"Haiku",d:"스킬 분배 조율"},{n:"/proposal",m:"Sonnet",d:"기획서 작성"},{n:"/concept",m:"Sonnet",d:"콘텐츠 핵심 설계"},{n:"/pd-review",m:"Opus",d:"PD 관점 최종 평가"},{n:"/monetize",m:"Sonnet",d:"수익 모델 설계"},{n:"/liveops",m:"Sonnet",d:"라이브 서비스 운영"},{n:"/balance",m:"Sonnet",d:"경제 밸런싱"},{n:"/market",m:"Sonnet",d:"시장 분석"},{n:"/ux",m:"Sonnet",d:"UX 최적화"},{n:"/report",m:"Sonnet",d:"HTML 보고서 생성"},{n:"/art-status",m:"Haiku",d:"아트 완성도 조회"}]},
+{job:"아트디렉터",agent:"team-kowloon",desc:"모든 시각 자산의 품질과 일관성을 관리합니다",skills:4,stars:4,models:["Opus","Sonnet","Haiku"],
+ list:[{n:"/ssbl-cto",m:"Opus",d:"파이프라인 분석"},{n:"/ssbl-art-lead",m:"Sonnet",d:"아트 스펙 생성"},{n:"/ssbl-qa-lead",m:"Sonnet",d:"이미지 검증"},{n:"/ssbl-data-manager",m:"Haiku",d:"데이터 관리"}]},
+{job:"개발팀장",agent:"Hwatu_Roguelike",desc:"코드로 게임을 실체화합니다",skills:3,stars:2,models:["Sonnet","Haiku"],
+ list:[{n:"/dokkaebi-gen",m:"Sonnet",d:"도깨비 아이디어 생성"},{n:"/balance-sim",m:"Sonnet",d:"몬테카를로 시뮬레이션"},{n:"/card-art",m:"Haiku",d:"카드 아트 프롬프트"}]},
+{job:"사업개발 매니저",agent:"Income_Factory",desc:"매일 수익 기회를 발굴하고 7일 안에 출시합니다",skills:9,stars:4,models:["Opus","Sonnet","Haiku"],
+ list:[{n:"/factory",m:"Sonnet",d:"일일 파이프라인 오케스트레이터"},{n:"/idea-scan",m:"Haiku",d:"트렌드 스캔 + 아이디어 10개"},{n:"/idea-eval",m:"Sonnet",d:"5기준 점수화"},{n:"/idea-critic",m:"Opus",d:"악마의 변호인"},{n:"/idea-plan",m:"Sonnet",d:"7일 실행 계획"},{n:"/idea-build",m:"Sonnet",d:"제품 제작"},{n:"/idea-review",m:"Opus",d:"품질 검증"},{n:"/idea-launch",m:"Haiku",d:"배포 가이드"},{n:"/idea-analyze",m:"Sonnet",d:"주간 성과 분석"}]},
+{job:"커뮤니케이션 디렉터",agent:"PT_Agent",desc:"모든 것을 설득력 있는 이야기로 만듭니다",skills:10,stars:5,models:["Opus","Sonnet","Haiku"],
+ list:[{n:"/pt-reception",m:"Haiku",d:"5W1H 분석"},{n:"/pt-research",m:"Sonnet",d:"웹 리서치"},{n:"/pt-content",m:"Sonnet",d:"구조 설계"},{n:"/pt-visual",m:"Sonnet",d:"SVG 슬라이드 생성"},{n:"/pt-redteam",m:"Opus",d:"품질 검증"},{n:"/pt-manager",m:"Haiku",d:"최종 승인"},{n:"/pt-export",m:"Haiku",d:"HTML/PDF 출력"},{n:"/pt",m:"Sonnet",d:"전체 파이프라인"},{n:"/pt-from-design",m:"Sonnet",d:"기획에서 발표 변환"},{n:"/pt-update-check",m:"\u2014",d:"업데이트 확인"}]},
+{job:"현지화 매니저",agent:"Translate_Agent",desc:"한국어를 영어와 일본어로 바꿉니다",skills:1,stars:3,models:["Sonnet","Haiku"],
+ list:[{n:"/translate",m:"Sonnet+Haiku",d:"한영일 배치 번역"}]},
+{job:"인사팀장",agent:"HR_Agent",desc:"조직 구조를 시각화하고 최적화합니다",skills:2,stars:2,models:["Opus","Sonnet"],
+ list:[{n:"/org-chart",m:"Sonnet",d:"HTML 조직도 생성"},{n:"/reorg",m:"Opus",d:"재조직 분석"}]},
+{job:"기술지원",agent:"Video_Analyzer",desc:"영상 파일을 분석하고 변환 명령을 생성합니다",skills:1,stars:1,models:[],
+ list:[{n:"(스킬 미구성)",m:"\u2014",d:""}]}
+];
+
+function starStr(n){return "\u2605".repeat(n)+"\u2606".repeat(5-n)}
+function modelBadge(m){
+  if(m==="Opus") return '<span class="badge badge-opus">Opus</span>';
+  if(m==="Sonnet") return '<span class="badge badge-sonnet">Sonnet</span>';
+  if(m==="Haiku") return '<span class="badge badge-haiku">Haiku</span>';
+  return '';
+}
+function skillModelBadge(m){
+  let c="background:rgba(139,148,158,.2);color:var(--text-dim)";
+  if(m.includes("Opus")) c="background:rgba(163,113,247,.2);color:var(--accent-purple)";
+  else if(m.includes("Sonnet")) c="background:rgba(88,166,255,.2);color:var(--accent-blue)";
+  else if(m.includes("Haiku")) c="background:rgba(63,185,80,.2);color:var(--accent-green)";
+  return `<span class="sk-model" style="${c}">${m}</span>`;
+}
+
+const grid=document.getElementById("cardsGrid");
+DATA.forEach((d,i)=>{
+  const card=document.createElement("div");
+  card.className="emp-card";
+  card.dataset.search=(d.job+" "+d.agent+" "+d.desc).toLowerCase();
+  const modelsHtml=d.models.map(modelBadge).join("");
+  const skillItems=d.list.map(s=>`<li>${skillModelBadge(s.m)} <span class="sk-name">${s.n}</span> <span class="sk-desc">${s.d}</span></li>`).join("");
+  card.innerHTML=`
+    <div class="emp-card-top" onclick="toggleSkills(${i})">
+      <div class="row1"><span class="job">${d.job}</span><span class="stars">${starStr(d.stars)}</span></div>
+      <div class="agent">${d.agent}</div>
+      <div class="desc">"${d.desc}"</div>
+      <div class="badges">
+        <span class="badge badge-skill">${d.skills} 스킬</span>${modelsHtml}
+        <span class="emp-card-expand" id="exp${i}">&#9660; 스킬 목록</span>
+      </div>
+    </div>
+    <div class="skill-list" id="sl${i}"><ul>${skillItems}</ul></div>`;
+  grid.appendChild(card);
+});
+
+function toggleSkills(i){
+  const el=document.getElementById("sl"+i);
+  const exp=document.getElementById("exp"+i);
+  const open=el.classList.toggle("open");
+  exp.innerHTML=open?"&#9650; 접기":"&#9660; 스킬 목록";
+}
+
+// Search
+const searchBox=document.getElementById("searchBox");
+searchBox.addEventListener("input",()=>{
+  const q=searchBox.value.toLowerCase();
+  document.querySelectorAll(".emp-card").forEach(c=>{
+    c.style.display=c.dataset.search.includes(q)?"":"none";
+  });
+});
+
+// Keyboard shortcuts
+document.addEventListener("keydown",e=>{
+  if(e.key==="/"&&document.activeElement!==searchBox){e.preventDefault();searchBox.focus()}
+  if(e.key==="Escape"){
+    searchBox.blur();searchBox.value="";
+    document.querySelectorAll(".emp-card").forEach(c=>c.style.display="");
+    document.querySelectorAll(".skill-list").forEach(s=>s.classList.remove("open"));
+    DATA.forEach((_,i)=>{document.getElementById("exp"+i).innerHTML="&#9660; 스킬 목록"});
+  }
+});
+</script>
+</body>
+</html>

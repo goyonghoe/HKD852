@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- #04 TECH VIOLET - Market Growth -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F0720"/>
+      <stop offset="100%" style="stop-color:#1A1033;stop-opacity:0.5"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A1033"/>
+      <stop offset="100%" style="stop-color:#0F0720"/>
+    </linearGradient>
+    <linearGradient id="barGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8B5CF6"/>
+      <stop offset="100%" style="stop-color:#A855F7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+
+  <!-- Section Label -->
+  <text x="100" y="80" font-family="Inter, sans-serif" font-weight="500" font-size="13" fill="#A78BFA" letter-spacing="0.15em">MARKET DATA</text>
+
+  <!-- Title -->
+  <text x="100" y="180" font-family="Inter, sans-serif" font-weight="700" font-size="56" fill="#FAF5FF">AI 게임 시장 성장</text>
+  <text x="100" y="230" font-family="Pretendard, sans-serif" font-weight="400" font-size="24" fill="#C4B5FD">10년 내 6.5배 성장 전망</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="270" x2="1820" y2="270" stroke="#4C1D95" stroke-width="1"/>
+
+  <!-- Growth Chart Area -->
+  <g transform="translate(100, 320)">
+    <rect width="1720" height="480" fill="url(#cardGrad)" rx="20"/>
+
+    <!-- Chart Title -->
+    <text x="50" y="50" font-family="Inter, sans-serif" font-weight="600" font-size="14" fill="#A78BFA" letter-spacing="0.1em">AI IN GAMING MARKET SIZE (USD BILLION)</text>
+
+    <!-- Y Axis Labels -->
+    <text x="50" y="120" font-family="Inter, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD">$40B</text>
+    <text x="50" y="200" font-family="Inter, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD">$30B</text>
+    <text x="50" y="280" font-family="Inter, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD">$20B</text>
+    <text x="50" y="360" font-family="Inter, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD">$10B</text>
+    <text x="50" y="420" font-family="Inter, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD">$0</text>
+
+    <!-- Grid Lines -->
+    <line x1="100" y1="115" x2="1650" y2="115" stroke="#2E1A47" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="100" y1="195" x2="1650" y2="195" stroke="#2E1A47" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="100" y1="275" x2="1650" y2="275" stroke="#2E1A47" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="100" y1="355" x2="1650" y2="355" stroke="#2E1A47" stroke-width="1" stroke-dasharray="5,5"/>
+
+    <!-- Bars -->
+    <!-- 2024: $5.85B -->
+    <rect x="200" y="375" width="120" height="40" fill="url(#barGrad)" rx="4"/>
+    <text x="260" y="400" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#0F0720" text-anchor="middle">$5.85B</text>
+    <text x="260" y="450" font-family="Inter, sans-serif" font-weight="500" font-size="14" fill="#C4B5FD" text-anchor="middle">2024</text>
+
+    <!-- 2026: $8.5B (estimated) -->
+    <rect x="400" y="350" width="120" height="65" fill="url(#barGrad)" rx="4"/>
+    <text x="460" y="390" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#0F0720" text-anchor="middle">$8.5B</text>
+    <text x="460" y="450" font-family="Inter, sans-serif" font-weight="500" font-size="14" fill="#C4B5FD" text-anchor="middle">2026</text>
+
+    <!-- 2028: $12B (estimated) -->
+    <rect x="600" y="310" width="120" height="105" fill="url(#barGrad)" rx="4"/>
+    <text x="660" y="370" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#0F0720" text-anchor="middle">$12B</text>
+    <text x="660" y="450" font-family="Inter, sans-serif" font-weight="500" font-size="14" fill="#C4B5FD" text-anchor="middle">2028</text>
+
+    <!-- 2030: $18B (estimated) -->
+    <rect x="800" y="250" width="120" height="165" fill="url(#barGrad)" rx="4"/>
+    <text x="860" y="340" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#0F0720" text-anchor="middle">$18B</text>
+    <text x="860" y="450" font-family="Inter, sans-serif" font-weight="500" font-size="14" fill="#C4B5FD" text-anchor="middle">2030</text>
+
+    <!-- 2032: $27B (estimated) -->
+    <rect x="1000" y="180" width="120" height="235" fill="url(#barGrad)" rx="4"/>
+    <text x="1060" y="300" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#0F0720" text-anchor="middle">$27B</text>
+    <text x="1060" y="450" font-family="Inter, sans-serif" font-weight="500" font-size="14" fill="#C4B5FD" text-anchor="middle">2032</text>
+
+    <!-- 2034: $37.89B -->
+    <rect x="1200" y="100" width="120" height="315" fill="#8B5CF6" rx="4" stroke="#FAF5FF" stroke-width="2"/>
+    <text x="1260" y="260" font-family="Inter, sans-serif" font-weight="700" font-size="18" fill="#FAF5FF" text-anchor="middle">$37.89B</text>
+    <text x="1260" y="450" font-family="Inter, sans-serif" font-weight="700" font-size="14" fill="#8B5CF6" text-anchor="middle">2034</text>
+
+    <!-- Growth Arrow -->
+    <path d="M 1400 380 Q 1500 250 1600 150" stroke="#8B5CF6" stroke-width="3" fill="none" stroke-dasharray="10,5"/>
+    <polygon points="1600,150 1590,175 1615,165" fill="#8B5CF6"/>
+
+    <!-- CAGR Badge -->
+    <rect x="1450" y="100" width="180" height="80" fill="#8B5CF6" rx="12"/>
+    <text x="1540" y="135" font-family="Inter, sans-serif" font-weight="700" font-size="14" fill="#0F0720" text-anchor="middle">CAGR</text>
+    <text x="1540" y="165" font-family="Inter, sans-serif" font-weight="800" font-size="28" fill="#0F0720" text-anchor="middle">20.54%</text>
+  </g>
+
+  <!-- Source -->
+  <text x="100" y="850" font-family="Inter, sans-serif" font-weight="400" font-size="14" fill="#A78BFA">Source: Precedence Research, 2025</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#1A1033" stroke-width="1"/>
+  <text x="100" y="1040" font-family="Inter, sans-serif" font-weight="400" font-size="12" fill="#A78BFA">AI × MOBILE GAMING</text>
+  <text x="1820" y="1040" font-family="Inter, sans-serif" font-weight="400" font-size="12" fill="#A78BFA" text-anchor="end">5 / 8</text>
+</svg>

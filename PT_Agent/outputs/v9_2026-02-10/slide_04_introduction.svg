@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  <circle cx="1600" cy="200" r="250" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 02</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">Plastic SCM 소개</text>
+  <text x="100" y="235" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="22" fill="#C4B5FD" opacity="0.7">현재 공식 명칭: Unity Version Control (UVCS)</text>
+
+  <!-- Key features - 3 column cards -->
+  <text x="100" y="300" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">핵심 특징</text>
+
+  <!-- Feature 1 -->
+  <rect x="100" y="330" width="540" height="180" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <rect x="100" y="330" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="140" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">대용량 파일 최적화</text>
+  <text x="140" y="415" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">수 GB 바이너리도 빠르게 처리</text>
+  <text x="140" y="445" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Git LFS 없이도 네이티브 지원</text>
+  <text x="140" y="475" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">텍스처·모델·오디오 에셋에 최적</text>
+
+  <!-- Feature 2 -->
+  <rect x="690" y="330" width="540" height="180" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <rect x="690" y="330" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="730" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">시각적 브랜치 관리</text>
+  <text x="730" y="415" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Branch Explorer로 한눈에 파악</text>
+  <text x="730" y="445" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">드래그 &amp; 드롭으로 머지 가능</text>
+  <text x="730" y="475" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Git보다 직관적인 브랜치 시각화</text>
+
+  <!-- Feature 3 -->
+  <rect x="1280" y="330" width="540" height="180" rx="16" fill="#2D1B4E" opacity="0.5"/>
+  <rect x="1280" y="330" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="1320" y="380" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">Unity 네이티브 통합</text>
+  <text x="1320" y="415" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Unity 에디터 내 직접 사용 가능</text>
+  <text x="1320" y="445" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">Unity Cloud와 완전 통합</text>
+  <text x="1320" y="475" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">에셋 잠금(Lock) 기능 내장</text>
+
+  <!-- Comparison table: Plastic vs Git -->
+  <text x="100" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">Plastic SCM vs Git 비교</text>
+
+  <!-- Table header -->
+  <rect x="100" y="610" width="1720" height="50" rx="8" fill="#8B5CF6" opacity="0.2"/>
+  <text x="440" y="642" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#FAF5FF" text-anchor="middle">항목</text>
+  <text x="860" y="642" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#FAF5FF" text-anchor="middle">Plastic SCM</text>
+  <text x="1380" y="642" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#FAF5FF" text-anchor="middle">Git</text>
+
+  <!-- Row 1 -->
+  <rect x="100" y="665" width="1720" height="45" rx="0" fill="#2D1B4E" opacity="0.2"/>
+  <text x="440" y="694" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" text-anchor="middle">대용량 바이너리</text>
+  <text x="860" y="694" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">네이티브 지원 (빠름)</text>
+  <text x="1380" y="694" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#EF4444" opacity="0.8" text-anchor="middle">LFS 필요 (느림)</text>
+
+  <!-- Row 2 -->
+  <rect x="100" y="715" width="1720" height="45" rx="0" fill="#2D1B4E" opacity="0.1"/>
+  <text x="440" y="744" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" text-anchor="middle">GUI</text>
+  <text x="860" y="744" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">풍부한 내장 GUI</text>
+  <text x="1380" y="744" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FBBF24" text-anchor="middle">서드파티 (SourceTree 등)</text>
+
+  <!-- Row 3 -->
+  <rect x="100" y="765" width="1720" height="45" rx="0" fill="#2D1B4E" opacity="0.2"/>
+  <text x="440" y="794" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" text-anchor="middle">파일 잠금</text>
+  <text x="860" y="794" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">내장 Lock 시스템</text>
+  <text x="1380" y="794" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#EF4444" opacity="0.8" text-anchor="middle">미지원</text>
+
+  <!-- Row 4 -->
+  <rect x="100" y="815" width="1720" height="45" rx="0" fill="#2D1B4E" opacity="0.1"/>
+  <text x="440" y="844" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" text-anchor="middle">학습 난이도</text>
+  <text x="860" y="844" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">낮음 (GUI 중심)</text>
+  <text x="1380" y="844" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FBBF24" text-anchor="middle">높음 (CLI 중심)</text>
+
+  <!-- Row 5 -->
+  <rect x="100" y="865" width="1720" height="45" rx="0" fill="#2D1B4E" opacity="0.2"/>
+  <text x="440" y="894" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" text-anchor="middle">아티스트 친화</text>
+  <text x="860" y="894" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">Gluon 인터페이스 제공</text>
+  <text x="1380" y="894" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#EF4444" opacity="0.8" text-anchor="middle">비개발자에게 어려움</text>
+
+  <!-- Key takeaway -->
+  <rect x="100" y="930" width="1720" height="50" rx="12" fill="#8B5CF6" opacity="0.1"/>
+  <text x="960" y="962" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#A78BFA" text-anchor="middle">Plastic SCM = 게임 개발에 최적화된 버전 관리 → 대용량 에셋 + 비개발자 친화 + Unity 완전 통합</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">4 / 13</text>
+</svg>

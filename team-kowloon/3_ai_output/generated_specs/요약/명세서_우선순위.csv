@@ -1,0 +1,62 @@
+﻿우선순위,ID,아티스트,리소스 타입,상태,마감일,완성도,다음 액션
+HIGH,1,TAEYANG,일반 테마 포토카드 초상,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,2,TAEYANG,엠블럼 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,3,TAEYANG,프로필 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,4,TAEYANG,앨범 커버 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,5,TAEYANG,배경 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,6,JEON SOMI,일반 테마 포토카드 초상,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,7,JEON SOMI,엠블럼 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,8,JEON SOMI,프로필 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,9,JEON SOMI,앨범 커버 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,10,JEON SOMI,배경 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,11,MEOVV,일반 테마 포토카드 초상,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,12,MEOVV,엠블럼 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,13,MEOVV,프로필 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,14,MEOVV,앨범 커버 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,15,MEOVV,배경 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,16,ADP,일반 테마 포토카드 초상,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,17,ADP,엠블럼 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,18,ADP,프로필 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,19,ADP,앨범 커버 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,20,ADP,배경 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+HIGH,41,TAEYANG,이벤트 패스 상품 이미지,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+HIGH,42,TAEYANG,이벤트 패스 배너,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+HIGH,43,JEON SOMI,이벤트 패스 상품 이미지,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+HIGH,44,JEON SOMI,이벤트 패스 배너,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+HIGH,45,MEOVV,이벤트 패스 상품 이미지,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+HIGH,46,MEOVV,이벤트 패스 배너,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+HIGH,47,ADP,이벤트 패스 상품 이미지,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+HIGH,48,ADP,이벤트 패스 배너,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+HIGH,61,-,오픈 기념 신규 유저 300회 뽑기 배너,pending,-,21%,🔴 필수: 아티스트 입력
+MEDIUM,21,TAEYANG,한정 테마 포토카드 초상,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,22,TAEYANG,프로필 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,23,TAEYANG,한정 테마 포토카드 프레임 (라지),pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,24,TAEYANG,한정 테마 포토카드 프레임 (스몰),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,25,TAEYANG,배경 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,26,JEON SOMI,한정 테마 포토카드 초상,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,27,JEON SOMI,프로필 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,28,JEON SOMI,한정 테마 포토카드 프레임 (라지),pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,29,JEON SOMI,한정 테마 포토카드 프레임 (스몰),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,30,JEON SOMI,배경 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,31,MEOVV,한정 테마 포토카드 초상,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,32,MEOVV,프로필 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,33,MEOVV,한정 테마 포토카드 프레임 (라지),pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,34,MEOVV,한정 테마 포토카드 프레임 (스몰),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,35,MEOVV,배경 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,36,ADP,한정 테마 포토카드 초상,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,37,ADP,프로필 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,38,ADP,한정 테마 포토카드 프레임 (라지),pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,39,ADP,한정 테마 포토카드 프레임 (스몰),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,40,ADP,배경 이미지,pending,-,85%,🟡 권장: 아트 담당자 입력
+MEDIUM,49,TAEYANG,픽업 뽑기 상점 배경,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,50,TAEYANG,픽업 뽑기 로비 배너 (라지),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,51,TAEYANG,픽업 뽑기 로비 배너 (스몰),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,52,JEON SOMI,픽업 뽑기 상점 배경,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,53,JEON SOMI,픽업 뽑기 로비 배너 (라지),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,54,JEON SOMI,픽업 뽑기 로비 배너 (스몰),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,55,MEOVV,픽업 뽑기 상점 배경,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,56,MEOVV,픽업 뽑기 로비 배너 (라지),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,57,MEOVV,픽업 뽑기 로비 배너 (스몰),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,58,ADP,픽업 뽑기 상점 배경,pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,59,ADP,픽업 뽑기 로비 배너 (라지),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"
+MEDIUM,60,ADP,픽업 뽑기 로비 배너 (스몰),pending,-,57%,"🟡 권장: 이미지 너비, 이미지 높이, 아트 담당자 입력"

@@ -1,0 +1,63 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-02-01",
+  "artists": [
+    {
+      "name": "TAEYANG",
+      "name_kr": "태양",
+      "type": "solo",
+      "member_count": 1,
+      "members": [],
+      "debut_year": null,
+      "agency": "THEBLACKLABEL"
+    },
+    {
+      "name": "JEON SOMI",
+      "name_kr": "전소미",
+      "type": "solo",
+      "member_count": 1,
+      "members": [],
+      "debut_year": 2019,
+      "agency": "THEBLACKLABEL"
+    },
+    {
+      "name": "MEOVV",
+      "name_kr": "미야오",
+      "type": "group",
+      "member_count": 5,
+      "members": [
+        "SOOIN",
+        "GAWON",
+        "ANNA",
+        "NARIN",
+        "ELLA"
+      ],
+      "member_order_fixed": true,
+      "debut_year": 2024,
+      "agency": "THEBLACKLABEL"
+    },
+    {
+      "name": "ALLDAY PROJECT",
+      "name_kr": "올데이프로젝트",
+      "alias": ["ADP"],
+      "type": "group",
+      "gender": "mixed",
+      "member_count": 5,
+      "members": [
+        "ANNIE",
+        "TARZZAN",
+        "BAILEY",
+        "WOOCHAN",
+        "YOUNGSEO"
+      ],
+      "member_order_fixed": true,
+      "debut_year": null,
+      "agency": "THEBLACKLABEL"
+    }
+  ],
+  "notes": [
+    "멤버 순서는 member_order_fixed가 true인 경우 반드시 지켜야 함",
+    "ADP는 더 이상 사용하지 않음. ALLDAY PROJECT 풀네임 사용",
+    "새 아티스트 추가 시 이 파일 업데이트 필요"
+  ]
+}

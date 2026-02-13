@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 04</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">핵심 워크플로우</text>
+
+  <!-- Workflow diagram - horizontal flow -->
+  <text x="100" y="270" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">일상 작업 흐름</text>
+
+  <!-- Step boxes in flow -->
+  <!-- 1. Update -->
+  <rect x="100" y="300" width="300" height="120" rx="16" fill="#8B5CF6" opacity="0.15" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="250" y="350" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="28" fill="#FAF5FF" text-anchor="middle">1. Update</text>
+  <text x="250" y="385" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" text-anchor="middle">최신 변경사항 받기</text>
+
+  <line x1="400" y1="360" x2="470" y2="360" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="465,353 480,360 465,367" fill="#8B5CF6" opacity="0.5"/>
+
+  <!-- 2. 작업 -->
+  <rect x="480" y="300" width="300" height="120" rx="16" fill="#A78BFA" opacity="0.15" stroke="#A78BFA" stroke-width="2"/>
+  <text x="630" y="350" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="28" fill="#FAF5FF" text-anchor="middle">2. 작업</text>
+  <text x="630" y="385" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" text-anchor="middle">코드·에셋 수정</text>
+
+  <line x1="780" y1="360" x2="850" y2="360" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="845,353 860,360 845,367" fill="#8B5CF6" opacity="0.5"/>
+
+  <!-- 3. 변경 확인 -->
+  <rect x="860" y="300" width="300" height="120" rx="16" fill="#A78BFA" opacity="0.15" stroke="#A78BFA" stroke-width="2"/>
+  <text x="1010" y="350" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="28" fill="#FAF5FF" text-anchor="middle">3. 변경 확인</text>
+  <text x="1010" y="385" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" text-anchor="middle">Pending Changes 확인</text>
+
+  <line x1="1160" y1="360" x2="1230" y2="360" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="1225,353 1240,360 1225,367" fill="#8B5CF6" opacity="0.5"/>
+
+  <!-- 4. Checkin -->
+  <rect x="1240" y="300" width="300" height="120" rx="16" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="1390" y="350" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="28" fill="#FAF5FF" text-anchor="middle">4. Checkin</text>
+  <text x="1390" y="385" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" text-anchor="middle">변경사항 저장(커밋)</text>
+
+  <line x1="1540" y1="360" x2="1610" y2="360" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+  <polygon points="1605,353 1620,360 1605,367" fill="#8B5CF6" opacity="0.5"/>
+
+  <!-- 5. 반복 -->
+  <rect x="1620" y="300" width="200" height="120" rx="16" fill="#6D28D9" opacity="0.2" stroke="#6D28D9" stroke-width="1"/>
+  <text x="1720" y="355" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#A78BFA" text-anchor="middle">반복</text>
+  <text x="1720" y="385" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" text-anchor="middle">→ Step 1</text>
+
+  <!-- Detailed explanation cards -->
+  <text x="100" y="500" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">주요 동작 상세</text>
+
+  <!-- Update card -->
+  <rect x="100" y="530" width="550" height="200" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="530" width="550" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="140" y="575" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">Update (업데이트)</text>
+  <text x="140" y="610" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FAF5FF">서버의 최신 변경사항을 내 워크스페이스에 반영</text>
+  <text x="140" y="645" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 작업 시작 전 반드시 실행</text>
+  <text x="140" y="675" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 충돌 가능성을 미리 줄여줌</text>
+  <text x="140" y="705" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Git의 'pull'과 유사한 개념</text>
+
+  <!-- Checkin card -->
+  <rect x="690" y="530" width="550" height="200" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="690" y="530" width="550" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="730" y="575" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">Checkin (체크인)</text>
+  <text x="730" y="610" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FAF5FF">내 변경사항을 서버에 저장</text>
+  <text x="730" y="645" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 코멘트 필수 작성 (무엇을, 왜 변경했는지)</text>
+  <text x="730" y="675" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 새로운 Changeset(변경셋)이 생성됨</text>
+  <text x="730" y="705" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Git의 'commit + push'와 유사</text>
+
+  <!-- Pending Changes card -->
+  <rect x="1280" y="530" width="540" height="200" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="1280" y="530" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="1320" y="575" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#8B5CF6">Pending Changes</text>
+  <text x="1320" y="610" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#FAF5FF">현재 변경된 파일 목록 확인</text>
+  <text x="1320" y="645" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 추가 / 수정 / 삭제된 파일 한눈에</text>
+  <text x="1320" y="675" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Diff 뷰로 변경 내용 비교 가능</text>
+  <text x="1320" y="705" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 체크인 전 반드시 확인!</text>
+
+  <!-- Important note -->
+  <rect x="100" y="770" width="1720" height="70" rx="12" fill="#8B5CF6" opacity="0.08"/>
+  <rect x="100" y="770" width="6" height="70" rx="3" fill="#FBBF24"/>
+  <text x="140" y="800" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="20" fill="#FBBF24">주의</text>
+  <text x="200" y="800" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#FAF5FF">Plastic SCM은 Git과 달리 Checkin = Commit + Push 를 동시에 수행합니다.</text>
+  <text x="140" y="825" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.7">로컬에만 저장하는 단계가 없으므로, Checkin하면 즉시 서버에 반영됩니다. (분산 모드 제외)</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">6 / 13</text>
+</svg>

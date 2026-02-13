@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>카드팩 확률 정보 — 그룹별 표기</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #242836;
+    --border: #2e3348;
+    --text: #e4e6f0;
+    --text-dim: #8b8fa8;
+    --accent: #6c7bff;
+    --legendary: #ff9f1a;
+    --epic: #c466ff;
+    --rare: #4da6ff;
+    --common: #8b8fa8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0 0 60px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1a1d27 0%, #242836 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 20px;
+    text-align: center;
+  }
+  .header h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+  .header p { color: var(--text-dim); font-size: 14px; }
+  .header .version-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-top: 8px;
+  }
+
+  .container { max-width: 720px; margin: 0 auto; padding: 20px 16px; }
+
+  .pack-selector {
+    display: flex; gap: 10px; overflow-x: auto;
+    padding: 4px 0 16px; -webkit-overflow-scrolling: touch;
+  }
+  .pack-btn {
+    flex-shrink: 0; background: var(--surface); border: 2px solid var(--border);
+    color: var(--text); padding: 12px 20px; border-radius: 12px;
+    cursor: pointer; font-size: 14px; font-weight: 600; transition: all .2s;
+  }
+  .pack-btn:hover { border-color: var(--accent); }
+  .pack-btn.active {
+    border-color: var(--accent); background: rgba(108,123,255,.12); color: #fff;
+  }
+
+  .pack-info {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px; margin-bottom: 16px;
+  }
+  .pack-title { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  .pack-meta { display: flex; gap: 16px; flex-wrap: wrap; }
+  .meta-chip {
+    background: var(--surface2); border-radius: 8px; padding: 8px 14px; font-size: 13px;
+  }
+  .meta-chip span { color: var(--text-dim); }
+  .meta-chip strong { color: var(--accent); margin-left: 4px; }
+
+  .draw-structure {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px; margin-bottom: 16px;
+  }
+  .draw-structure h3 { font-size: 15px; margin-bottom: 14px; color: var(--text-dim); font-weight: 600; }
+  .draw-slots { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .draw-slot {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 60px;
+  }
+  .draw-slot .slot-num { font-size: 11px; color: var(--text-dim); margin-bottom: 2px; }
+  .draw-slot .slot-group { font-size: 14px; font-weight: 700; color: var(--accent); }
+  .draw-arrow { color: var(--text-dim); font-size: 18px; }
+
+  .grade-summary {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px; margin-bottom: 16px;
+  }
+  .grade-summary h3 { font-size: 15px; margin-bottom: 14px; color: var(--text-dim); font-weight: 600; }
+  .grade-bars { display: flex; flex-direction: column; gap: 10px; }
+  .grade-row { display: flex; align-items: center; gap: 12px; }
+  .grade-label { width: 70px; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .grade-label.legendary { color: var(--legendary); }
+  .grade-label.epic { color: var(--epic); }
+  .grade-label.rare { color: var(--rare); }
+  .grade-label.common { color: var(--common); }
+  .grade-bar-bg {
+    flex: 1; height: 28px; background: var(--surface2); border-radius: 6px;
+    overflow: hidden; position: relative;
+  }
+  .grade-bar-fill { height: 100%; border-radius: 6px; transition: width .6s ease; }
+  .grade-bar-fill.legendary { background: linear-gradient(90deg, #ff9f1a, #ffb84d); }
+  .grade-bar-fill.epic { background: linear-gradient(90deg, #c466ff, #d98fff); }
+  .grade-bar-fill.rare { background: linear-gradient(90deg, #4da6ff, #7dbfff); }
+  .grade-bar-fill.common { background: linear-gradient(90deg, #6b6f85, #8b8fa8); }
+  .grade-pct { width: 68px; text-align: right; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+
+  .detail-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; margin-bottom: 16px;
+  }
+  .detail-header {
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; user-select: none;
+  }
+  .detail-header h3 { font-size: 15px; font-weight: 600; }
+  .detail-header .toggle { color: var(--text-dim); font-size: 13px; }
+  .detail-body { display: block; }
+  .detail-body.collapsed { display: none; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    background: var(--surface2); padding: 10px 16px; font-size: 12px;
+    color: var(--text-dim); font-weight: 600; text-align: left;
+    text-transform: uppercase; letter-spacing: .5px;
+  }
+  td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(108,123,255,.04); }
+
+  .card-grade-dot {
+    display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+    margin-right: 6px; vertical-align: middle;
+  }
+  .card-grade-dot.legendary { background: var(--legendary); }
+  .card-grade-dot.epic { background: var(--epic); }
+  .card-grade-dot.rare { background: var(--rare); }
+  .card-grade-dot.common { background: var(--common); }
+
+  .pct-cell { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .footer {
+    text-align: center; padding: 24px 16px;
+    color: var(--text-dim); font-size: 12px; line-height: 1.8;
+  }
+
+  .notice {
+    background: rgba(108,123,255,.08); border: 1px solid rgba(108,123,255,.2);
+    border-radius: 12px; padding: 16px 20px; margin-bottom: 16px;
+    font-size: 13px; color: var(--text-dim); line-height: 1.7;
+  }
+  .notice strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>카드팩 확률 정보</h1>
+  <p>각 카드팩의 아이템 획득 확률을 안내합니다</p>
+  <span class="version-tag">V1 — 뽑기 그룹별 표기</span>
+</div>
+
+<div class="container">
+
+  <div class="notice">
+    <strong>확률 안내</strong><br>
+    · 표기된 확률은 각 뽑기 그룹 내에서 1회 뽑기당 해당 아이템이 등장할 확률입니다.<br>
+    · 등급별 확률은 해당 등급에 속하는 모든 아이템의 확률을 합산한 값입니다.<br>
+    · 소수점 이하 반올림으로 인해 합계가 100%와 미세하게 다를 수 있습니다.
+  </div>
+
+  <div class="pack-selector" id="packSelector"></div>
+  <div id="packContent"></div>
+
+</div>
+
+<div class="footer">
+  본 확률 정보는 「게임산업진흥에 관한 법률」 제33조의2에 따라 공개됩니다.<br>
+  확률형 아이템의 구성 및 확률은 업데이트에 따라 변경될 수 있습니다.<br>
+  최종 갱신: <span id="updateDate"></span>
+</div>
+
+<script>
+const GRADE_META = {
+  LEGENDARY: { label: '전설', cls: 'legendary' },
+  EPIC:      { label: '영웅', cls: 'epic' },
+  RARE:      { label: '희귀', cls: 'rare' },
+  COMMON:    { label: '일반', cls: 'common' },
+};
+
+const cardDrawData = [
+  { code: 1, cardDrawGroupCode: 1, cardCode: 'CARD_001', cardName: '불의 전사',    cardGrade: 'LEGENDARY', weight: 10 },
+  { code: 2, cardDrawGroupCode: 1, cardCode: 'CARD_002', cardName: '얼음 마법사',  cardGrade: 'LEGENDARY', weight: 15 },
+  { code: 3, cardDrawGroupCode: 1, cardCode: 'CARD_003', cardName: '숲의 수호자',  cardGrade: 'EPIC',      weight: 50 },
+  { code: 4, cardDrawGroupCode: 1, cardCode: 'CARD_004', cardName: '바람의 궁수',  cardGrade: 'EPIC',      weight: 50 },
+  { code: 5, cardDrawGroupCode: 1, cardCode: 'CARD_005', cardName: '대지의 기사',  cardGrade: 'EPIC',      weight: 75 },
+  { code: 6, cardDrawGroupCode: 1, cardCode: 'CARD_006', cardName: '돌격 병사',    cardGrade: 'RARE',      weight: 150 },
+  { code: 7, cardDrawGroupCode: 1, cardCode: 'CARD_007', cardName: '방패 수비수',  cardGrade: 'RARE',      weight: 150 },
+  { code: 8, cardDrawGroupCode: 1, cardCode: 'CARD_008', cardName: '치유의 사제',  cardGrade: 'RARE',      weight: 150 },
+  { code: 9, cardDrawGroupCode: 1, cardCode: 'CARD_009', cardName: '수련생',       cardGrade: 'COMMON',    weight: 175 },
+  { code:10, cardDrawGroupCode: 1, cardCode: 'CARD_010', cardName: '민병대원',     cardGrade: 'COMMON',    weight: 175 },
+
+  { code: 11, cardDrawGroupCode: 2, cardCode: 'CARD_001', cardName: '불의 전사',    cardGrade: 'LEGENDARY', weight: 100 },
+  { code: 12, cardDrawGroupCode: 2, cardCode: 'CARD_002', cardName: '얼음 마법사',  cardGrade: 'LEGENDARY', weight: 100 },
+  { code: 13, cardDrawGroupCode: 2, cardCode: 'CARD_003', cardName: '숲의 수호자',  cardGrade: 'EPIC',      weight: 200 },
+  { code: 14, cardDrawGroupCode: 2, cardCode: 'CARD_004', cardName: '바람의 궁수',  cardGrade: 'EPIC',      weight: 200 },
+  { code: 15, cardDrawGroupCode: 2, cardCode: 'CARD_005', cardName: '대지의 기사',  cardGrade: 'EPIC',      weight: 200 },
+  { code: 16, cardDrawGroupCode: 2, cardCode: 'CARD_006', cardName: '돌격 병사',    cardGrade: 'RARE',      weight: 100 },
+  { code: 17, cardDrawGroupCode: 2, cardCode: 'CARD_007', cardName: '방패 수비수',  cardGrade: 'RARE',      weight: 100 },
+
+  { code: 18, cardDrawGroupCode: 3, cardCode: 'CARD_EV1', cardName: '설날 용',      cardGrade: 'LEGENDARY', weight: 30 },
+  { code: 19, cardDrawGroupCode: 3, cardCode: 'CARD_EV2', cardName: '설날 호랑이',  cardGrade: 'EPIC',      weight: 120 },
+  { code: 20, cardDrawGroupCode: 3, cardCode: 'CARD_EV3', cardName: '설날 토끼',    cardGrade: 'RARE',      weight: 350 },
+  { code: 21, cardDrawGroupCode: 3, cardCode: 'CARD_EV4', cardName: '세뱃돈',       cardGrade: 'COMMON',    weight: 500 },
+];
+
+const cardPackData = [
+  { code: 'PACK_NORMAL_10',  name: '일반 카드팩 (10연차)',    cardDrawGroup: [1,1,1,1,1,1,1,1,1,2], description: '9회 일반 뽑기 + 마지막 1회 고급 보장 뽑기' },
+  { code: 'PACK_PREMIUM_5',  name: '프리미엄 카드팩 (5연차)', cardDrawGroup: [2,2,2,2,2],           description: '5회 모두 고급 뽑기 풀 적용' },
+  { code: 'PACK_EVENT_LUNAR', name: '설날 이벤트 카드팩',     cardDrawGroup: [1,1,1,3,3],           description: '3회 일반 뽑기 + 2회 이벤트 한정 뽑기' },
+];
+
+// ═══════════════════════════════════════════════
+// V1 — 뽑기 그룹별 분리 렌더링
+// ═══════════════════════════════════════════════
+
+function gradeOrder(g) { return { LEGENDARY:0, EPIC:1, RARE:2, COMMON:3 }[g] ?? 99; }
+
+function pctStr(p) {
+  return p >= 0.01 ? (p*100).toFixed(2)+'%' : (p*100).toFixed(4)+'%';
+}
+
+function renderPackSelector() {
+  const el = document.getElementById('packSelector');
+  el.innerHTML = cardPackData.map((p, i) =>
+    `<button class="pack-btn${i===0?' active':''}" data-idx="${i}">${p.name}</button>`
+  ).join('');
+  el.addEventListener('click', e => {
+    const btn = e.target.closest('.pack-btn');
+    if (!btn) return;
+    el.querySelectorAll('.pack-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPack(cardPackData[+btn.dataset.idx]);
+  });
+}
+
+function renderPack(pack) {
+  const container = document.getElementById('packContent');
+  const drawGroups = [...new Set(pack.cardDrawGroup)];
+  const groupCounts = {};
+  pack.cardDrawGroup.forEach(g => { groupCounts[g] = (groupCounts[g]||0)+1; });
+
+  let html = '';
+
+  // 팩 정보
+  html += `
+    <div class="pack-info">
+      <div class="pack-title">${pack.name}</div>
+      <p style="color:var(--text-dim);font-size:13px;margin-bottom:14px">${pack.description}</p>
+      <div class="pack-meta">
+        <div class="meta-chip"><span>팩 코드</span><strong>${pack.code}</strong></div>
+        <div class="meta-chip"><span>총 뽑기 횟수</span><strong>${pack.cardDrawGroup.length}회</strong></div>
+        <div class="meta-chip"><span>사용 뽑기 그룹</span><strong>${drawGroups.join(', ')}</strong></div>
+      </div>
+    </div>`;
+
+  // 뽑기 구조 슬롯
+  html += `
+    <div class="draw-structure">
+      <h3>뽑기 구조 — [${pack.cardDrawGroup.join(', ')}]</h3>
+      <div class="draw-slots">`;
+  pack.cardDrawGroup.forEach((g, i) => {
+    if (i > 0) html += `<span class="draw-arrow">\u2192</span>`;
+    html += `<div class="draw-slot"><div class="slot-num">${i+1}번째</div><div class="slot-group">그룹 ${g}</div></div>`;
+  });
+  html += `</div></div>`;
+
+  // 그룹별 등급 확률 + 상세 테이블
+  drawGroups.forEach(groupCode => {
+    const items = cardDrawData.filter(d => d.cardDrawGroupCode === groupCode);
+    const totalW = items.reduce((s, d) => s + d.weight, 0);
+    const withProb = items.map(i => ({ ...i, probability: i.weight / totalW }))
+      .sort((a, b) => gradeOrder(a.cardGrade) - gradeOrder(b.cardGrade) || b.weight - a.weight);
+
+    const gradeMap = {};
+    withProb.forEach(i => { gradeMap[i.cardGrade] = (gradeMap[i.cardGrade]||0) + i.probability; });
+    const grades = Object.entries(gradeMap).sort((a,b) => gradeOrder(a[0]) - gradeOrder(b[0]));
+    const maxP = Math.max(...grades.map(([,p]) => p));
+
+    html += `
+    <div class="grade-summary">
+      <h3>뽑기 그룹 ${groupCode} — 등급별 확률 (${groupCounts[groupCode]}회 적용)</h3>
+      <div class="grade-bars">`;
+    grades.forEach(([grade, prob]) => {
+      const m = GRADE_META[grade] || { label: grade, cls: 'common' };
+      html += `
+        <div class="grade-row">
+          <div class="grade-label ${m.cls}">${m.label}</div>
+          <div class="grade-bar-bg"><div class="grade-bar-fill ${m.cls}" style="width:${(prob/maxP)*100}%"></div></div>
+          <div class="grade-pct">${pctStr(prob)}</div>
+        </div>`;
+    });
+    html += `</div></div>`;
+
+    html += `
+    <div class="detail-section">
+      <div class="detail-header" onclick="this.nextElementSibling.classList.toggle('collapsed')">
+        <h3>뽑기 그룹 ${groupCode} — 개별 아이템 확률</h3>
+        <span class="toggle">접기/펼치기 ▾</span>
+      </div>
+      <div class="detail-body"><table><thead><tr>
+        <th>등급</th><th>카드</th><th>카드코드</th>
+        <th style="text-align:right">가중치</th><th style="text-align:right">확률</th>
+      </tr></thead><tbody>`;
+    withProb.forEach(item => {
+      const m = GRADE_META[item.cardGrade] || { label: item.cardGrade, cls: 'common' };
+      html += `<tr>
+        <td><span class="card-grade-dot ${m.cls}"></span>${m.label}</td>
+        <td>${item.cardName}</td>
+        <td style="color:var(--text-dim)">${item.cardCode}</td>
+        <td style="text-align:right;color:var(--text-dim)">${item.weight}</td>
+        <td class="pct-cell" style="text-align:right">${pctStr(item.probability)}</td>
+      </tr>`;
+    });
+    html += `</tbody></table></div></div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+document.getElementById('updateDate').textContent = new Date().toISOString().slice(0, 10);
+renderPackSelector();
+renderPack(cardPackData[0]);
+</script>
+</body>
+</html>

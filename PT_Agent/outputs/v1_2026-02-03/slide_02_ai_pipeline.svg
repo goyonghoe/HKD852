@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&amp;family=Space+Mono:wght@400;700&amp;display=swap');
+      .title { font-family: 'Space Mono', monospace; font-weight: 700; fill: #FFFFFF; }
+      .subtitle { font-family: 'Noto Sans KR', sans-serif; font-weight: 500; fill: #B0B0B0; }
+      .heading { font-family: 'Space Mono', monospace; font-weight: 700; fill: #FFFFFF; }
+      .body { font-family: 'Noto Sans KR', sans-serif; font-weight: 400; fill: #CCCCCC; }
+      .label { font-family: 'Space Mono', monospace; font-weight: 400; fill: #999999; }
+      .accent { fill: #FFFFFF; }
+      .muted { fill: #A0A0A0; }
+      .icon { font-family: 'Noto Sans KR', sans-serif; fill: #FFFFFF; }
+      .small { font-family: 'Noto Sans KR', sans-serif; font-weight: 400; fill: #A0A0A0; font-size: 12px; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- Header Section -->
+  <text x="100" y="100" class="label" font-size="14">AI AGENT PIPELINE</text>
+
+  <!-- Main Title -->
+  <text x="100" y="170" class="title" font-size="40">Human Initiates, AI Executes, Human Confirms</text>
+
+  <!-- Divider Line -->
+  <line x1="100" y1="200" x2="1820" y2="200" stroke="#333333" stroke-width="1"/>
+
+  <!-- Human-in-the-loop Flow (Top Bar) -->
+  <g transform="translate(100, 240)">
+    <rect x="0" y="0" width="1720" height="70" fill="#111111" rx="8" stroke="#333333" stroke-width="1"/>
+
+    <!-- Flow Steps -->
+    <g transform="translate(60, 20)">
+      <rect x="0" y="0" width="160" height="32" fill="#1A1A1A" rx="16"/>
+      <text x="80" y="22" class="accent" font-size="13" text-anchor="middle">● 인간 지시</text>
+    </g>
+
+    <text x="280" y="38" class="subtitle" font-size="24">→</text>
+
+    <g transform="translate(320, 20)">
+      <rect x="0" y="0" width="160" height="32" fill="#222222" rx="16"/>
+      <text x="80" y="22" class="body" font-size="13" text-anchor="middle">◈ AI 실행</text>
+    </g>
+
+    <text x="540" y="38" class="subtitle" font-size="24">→</text>
+
+    <g transform="translate(580, 20)">
+      <rect x="0" y="0" width="160" height="32" fill="#1A1A1A" rx="16"/>
+      <text x="80" y="22" class="accent" font-size="13" text-anchor="middle">● 인간 컨펌</text>
+    </g>
+
+    <text x="800" y="38" class="subtitle" font-size="24">→</text>
+
+    <g transform="translate(840, 20)">
+      <rect x="0" y="0" width="160" height="32" fill="#333333" rx="16"/>
+      <text x="80" y="22" class="accent" font-size="13" text-anchor="middle">◎ 산출물 배포</text>
+    </g>
+
+    <!-- Label -->
+    <text x="1580" y="38" class="label" font-size="12" text-anchor="end">HUMAN-IN-THE-LOOP</text>
+  </g>
+
+  <!-- 5 Agent Pipeline -->
+  <g transform="translate(100, 360)">
+    <text x="0" y="0" class="label" font-size="12">5 SPECIALIZED AGENTS</text>
+
+    <!-- Agent Cards Container -->
+    <g transform="translate(0, 30)">
+
+      <!-- Agent 1: Game Design -->
+      <g transform="translate(0, 0)">
+        <rect x="0" y="0" width="320" height="200" fill="#111111" rx="8" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="40" class="icon" font-size="24">◇</text>
+        <text x="60" y="40" class="heading" font-size="16">Game Design Agent</text>
+        <line x1="24" y1="60" x2="296" y2="60" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="90" class="body" font-size="14">게임 디자인 의사결정</text>
+        <text x="24" y="115" class="muted" font-size="13">→ 문서 작성</text>
+        <rect x="24" y="140" width="80" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="64" y="157" class="label" font-size="11" text-anchor="middle">DESIGN</text>
+        <rect x="114" y="140" width="60" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="144" y="157" class="label" font-size="11" text-anchor="middle">DOCS</text>
+      </g>
+
+      <!-- Arrow -->
+      <text x="340" y="100" class="subtitle" font-size="24">→</text>
+
+      <!-- Agent 2: Data Mgmt -->
+      <g transform="translate(380, 0)">
+        <rect x="0" y="0" width="320" height="200" fill="#111111" rx="8" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="40" class="icon" font-size="24">◈</text>
+        <text x="60" y="40" class="heading" font-size="16">Data Mgmt Agent</text>
+        <line x1="24" y1="60" x2="296" y2="60" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="90" class="body" font-size="14">데이터 구조 생성</text>
+        <text x="24" y="115" class="muted" font-size="13">→ 테스트 데이터</text>
+        <rect x="24" y="140" width="80" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="64" y="157" class="label" font-size="11" text-anchor="middle">SCHEMA</text>
+        <rect x="114" y="140" width="60" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="144" y="157" class="label" font-size="11" text-anchor="middle">TEST</text>
+      </g>
+
+      <!-- Arrow -->
+      <text x="720" y="100" class="subtitle" font-size="24">→</text>
+
+      <!-- Agent 3: Balancing -->
+      <g transform="translate(760, 0)">
+        <rect x="0" y="0" width="320" height="200" fill="#111111" rx="8" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="40" class="icon" font-size="24">◎</text>
+        <text x="60" y="40" class="heading" font-size="16">Balancing Agent</text>
+        <line x1="24" y1="60" x2="296" y2="60" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="90" class="body" font-size="14">디자인 의도 + 라이브 데이터</text>
+        <text x="24" y="115" class="muted" font-size="13">→ 밸런싱 최적화</text>
+        <rect x="24" y="140" width="80" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="64" y="157" class="label" font-size="11" text-anchor="middle">INTENT</text>
+        <rect x="114" y="140" width="60" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="144" y="157" class="label" font-size="11" text-anchor="middle">LIVE</text>
+      </g>
+
+      <!-- Arrow -->
+      <text x="1100" y="100" class="subtitle" font-size="24">→</text>
+
+      <!-- Agent 4: Validation -->
+      <g transform="translate(1140, 0)">
+        <rect x="0" y="0" width="320" height="200" fill="#111111" rx="8" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="40" class="icon" font-size="24">◆</text>
+        <text x="60" y="40" class="heading" font-size="16">Validation Agent</text>
+        <line x1="24" y1="60" x2="296" y2="60" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="90" class="body" font-size="14">데이터 오류 검증</text>
+        <text x="24" y="115" class="muted" font-size="13">→ 무결성 보장</text>
+        <rect x="24" y="140" width="80" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="64" y="157" class="label" font-size="11" text-anchor="middle">CHECK</text>
+        <rect x="114" y="140" width="80" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="154" y="157" class="label" font-size="11" text-anchor="middle">VERIFY</text>
+      </g>
+
+      <!-- Arrow -->
+      <text x="1480" y="100" class="subtitle" font-size="24">→</text>
+
+      <!-- Agent 5: Dept Liaison -->
+      <g transform="translate(1520, 0)">
+        <rect x="0" y="0" width="300" height="200" fill="#111111" rx="8" stroke="#333333" stroke-width="2"/>
+        <text x="24" y="40" class="icon" font-size="24">★</text>
+        <text x="60" y="40" class="heading" font-size="14">Dept. Liaison Agents</text>
+        <line x1="24" y1="60" x2="276" y2="60" stroke="#333333" stroke-width="1"/>
+        <text x="24" y="90" class="body" font-size="14">부서별 맞춤 소통</text>
+
+        <!-- Department Tags -->
+        <g transform="translate(24, 110)">
+          <rect x="0" y="0" width="50" height="22" fill="#1A1A1A" rx="4"/>
+          <text x="25" y="15" class="label" font-size="10" text-anchor="middle">IP</text>
+
+          <rect x="58" y="0" width="50" height="22" fill="#1A1A1A" rx="4"/>
+          <text x="83" y="15" class="label" font-size="10" text-anchor="middle">UI</text>
+
+          <rect x="116" y="0" width="50" height="22" fill="#1A1A1A" rx="4"/>
+          <text x="141" y="15" class="label" font-size="10" text-anchor="middle">QA</text>
+
+          <rect x="174" y="0" width="50" height="22" fill="#1A1A1A" rx="4"/>
+          <text x="199" y="15" class="label" font-size="10" text-anchor="middle">Art</text>
+        </g>
+      </g>
+
+    </g>
+  </g>
+
+  <!-- Bottom Two Cards -->
+  <g transform="translate(100, 680)">
+
+    <!-- Card 1: AI 중단 시 -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="840" height="200" fill="#111111" rx="12" stroke="#222222" stroke-width="1"/>
+
+      <!-- Header -->
+      <rect x="0" y="0" width="840" height="50" fill="#1A1A1A" rx="12"/>
+      <rect x="0" y="25" width="840" height="25" fill="#1A1A1A"/>
+      <text x="30" y="34" class="label" font-size="14">○ AI 중단 시</text>
+      <rect x="720" y="12" width="100" height="26" fill="#222222" rx="13"/>
+      <text x="770" y="30" class="muted" font-size="11" text-anchor="middle">FALLBACK</text>
+
+      <!-- Content -->
+      <text x="30" y="100" class="heading" font-size="22">기존 인력 운영 유지</text>
+      <text x="30" y="140" class="body" font-size="16">모든 프로세스는 인간 기준 설계</text>
+      <text x="30" y="170" class="muted" font-size="14">AI는 속도 레버리지 · 핵심 역량 대체 아님</text>
+    </g>
+
+    <!-- Card 2: AI 작동 시 -->
+    <g transform="translate(880, 0)">
+      <rect x="0" y="0" width="840" height="200" fill="#111111" rx="12" stroke="#444444" stroke-width="2"/>
+
+      <!-- Header -->
+      <rect x="0" y="0" width="840" height="50" fill="#1A1A1A" rx="12"/>
+      <rect x="0" y="25" width="840" height="25" fill="#1A1A1A"/>
+      <text x="30" y="34" class="label" font-size="14">◉ AI 작동 시</text>
+      <rect x="700" y="12" width="120" height="26" fill="#333333" rx="13"/>
+      <text x="760" y="30" class="accent" font-size="11" text-anchor="middle">LEVERAGE</text>
+
+      <!-- Content -->
+      <text x="30" y="100" class="heading" font-size="22">5~10배 퍼포먼스 확장</text>
+      <text x="30" y="140" class="body" font-size="16">Anthropic 내부 60% AI 활용</text>
+      <text x="30" y="170" class="muted" font-size="14">비기술직도 도구 자체 제작 가능</text>
+    </g>
+
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="940" x2="1820" y2="940" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="980" class="label" font-size="12">MONTHLY REPORT · AI OPERATIONS PIPELINE</text>
+  <text x="1820" y="980" class="label" font-size="12" text-anchor="end">2 / 2</text>
+</svg>

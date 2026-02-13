@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  <circle cx="1700" cy="500" r="300" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 05</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">Classic vs Gluon</text>
+  <text x="100" y="235" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="22" fill="#C4B5FD" opacity="0.7">직군에 따라 최적화된 두 가지 인터페이스</text>
+
+  <!-- Two column comparison -->
+  <!-- Classic (Left) -->
+  <rect x="100" y="280" width="830" height="580" rx="20" fill="#2D1B4E" opacity="0.3" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <rect x="100" y="280" width="830" height="70" rx="20" fill="#8B5CF6" opacity="0.15"/>
+  <rect x="100" y="330" width="830" height="20" fill="#2D1B4E" opacity="0.3"/>
+  <text x="515" y="325" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="30" fill="#FAF5FF" text-anchor="middle">Plastic (Classic)</text>
+
+  <text x="140" y="400" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6">대상</text>
+  <text x="140" y="435" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#FAF5FF">프로그래머 · 기술 직군</text>
+
+  <text x="140" y="485" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6">특징</text>
+  <text x="140" y="520" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 전체 프로젝트 파일을 다운로드</text>
+  <text x="140" y="550" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 자유로운 파일 수정 (자동 감지)</text>
+  <text x="140" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 브랜치 &amp; 머지 풀 기능</text>
+  <text x="140" y="610" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• Branch Explorer 시각화</text>
+  <text x="140" y="640" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• CLI 지원</text>
+
+  <text x="140" y="690" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6">Git과 유사한 점</text>
+  <text x="140" y="725" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 분산 개발 지원</text>
+  <text x="140" y="755" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 변경 자동 감지</text>
+  <text x="140" y="785" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 코드 리뷰 / PR 지원</text>
+
+  <rect x="140" y="810" width="750" height="36" rx="8" fill="#8B5CF6" opacity="0.1"/>
+  <text x="160" y="834" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="16" fill="#A78BFA">추천: 코드를 작성하는 모든 팀원</text>
+
+  <!-- Gluon (Right) -->
+  <rect x="990" y="280" width="830" height="580" rx="20" fill="#2D1B4E" opacity="0.3" stroke="#A78BFA" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <rect x="990" y="280" width="830" height="70" rx="20" fill="#A78BFA" opacity="0.15"/>
+  <rect x="990" y="330" width="830" height="20" fill="#2D1B4E" opacity="0.3"/>
+  <text x="1405" y="325" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="30" fill="#FAF5FF" text-anchor="middle">Gluon</text>
+
+  <text x="1030" y="400" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#A78BFA">대상</text>
+  <text x="1030" y="435" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#FAF5FF">아티스트 · 디자이너 · 비개발 직군</text>
+
+  <text x="1030" y="485" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#A78BFA">특징</text>
+  <text x="1030" y="520" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 필요한 파일만 선택 다운로드</text>
+  <text x="1030" y="550" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 명시적 Checkout → 편집 → Checkin</text>
+  <text x="1030" y="580" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 파일 Lock으로 충돌 원천 차단</text>
+  <text x="1030" y="610" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 간결한 UI (복잡한 기능 숨김)</text>
+  <text x="1030" y="640" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 브랜치 없이 /main에서 직접 작업</text>
+
+  <text x="1030" y="690" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#A78BFA">핵심 장점</text>
+  <text x="1030" y="725" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 버전 관리 경험 없어도 쉽게 사용</text>
+  <text x="1030" y="755" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• Lock = "이 파일 내가 작업 중" 선언</text>
+  <text x="1030" y="785" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">• 대용량 에셋 부분 다운로드</text>
+
+  <rect x="1030" y="810" width="750" height="36" rx="8" fill="#A78BFA" opacity="0.1"/>
+  <text x="1050" y="834" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="16" fill="#A78BFA">추천: 3D 모델러, 텍스처 아티스트, 사운드 디자이너, 기획자</text>
+
+  <!-- Bottom note -->
+  <rect x="100" y="890" width="1720" height="60" rx="12" fill="#8B5CF6" opacity="0.08"/>
+  <text x="960" y="925" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF" text-anchor="middle">같은 Repository를 공유하므로, 프로그래머(Classic)와 아티스트(Gluon)가 동시에 작업 가능!</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">7 / 13</text>
+</svg>

@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- Header Label -->
+  <text x="100" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999">AI OPERATIONS FRAMEWORK</text>
+
+  <!-- Main Title -->
+  <text x="100" y="180" font-family="Space Mono, monospace" font-weight="700" font-size="56" fill="#FFFFFF">Human-in-the-Loop</text>
+  <text x="100" y="250" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="24" fill="#B0B0B0">인간이 시작하고, AI가 실행하고, 인간이 확인한다</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="300" x2="1820" y2="300" stroke="#333333" stroke-width="1"/>
+
+  <!-- Main Flow Visualization -->
+  <!-- 4 Steps: 인간 지시 → AI 실행 → 인간 컨펌 → 산출물 배포 -->
+  <!-- 카드 폭 340px, 간격 80px (화살표 포함) -->
+  <!-- 총 폭: 340×4 + 80×3 = 1600px, 좌측 160px 시작 -->
+
+  <g transform="translate(160, 380)">
+
+    <!-- Step 1: 인간 지시 -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="340" height="400" fill="#111111" rx="16" stroke="#444444" stroke-width="2"/>
+
+      <!-- Icon Circle -->
+      <circle cx="170" cy="80" r="50" fill="#1A1A1A" stroke="#444444" stroke-width="2"/>
+      <text x="170" y="95" font-family="Noto Sans KR, sans-serif" font-size="40" fill="#FFFFFF" text-anchor="middle">●</text>
+
+      <!-- Label -->
+      <text x="170" y="170" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">HUMAN</text>
+      <text x="170" y="200" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999" text-anchor="middle">INITIATES</text>
+
+      <!-- Content -->
+      <text x="170" y="260" font-family="Noto Sans KR, sans-serif" font-weight="700" font-size="24" fill="#FFFFFF" text-anchor="middle">인간 지시</text>
+
+      <text x="170" y="310" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">목표 설정</text>
+      <text x="170" y="335" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">방향 제시</text>
+      <text x="170" y="360" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">의사결정</text>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(360, 180)">
+      <text x="0" y="0" font-family="Space Mono, monospace" font-weight="400" font-size="48" fill="#B0B0B0">→</text>
+    </g>
+
+    <!-- Step 2: AI 실행 -->
+    <g transform="translate(420, 0)">
+      <rect x="0" y="0" width="340" height="400" fill="#111111" rx="16" stroke="#222222" stroke-width="1"/>
+
+      <!-- Icon Circle -->
+      <circle cx="170" cy="80" r="50" fill="#222222" stroke="#333333" stroke-width="2"/>
+      <text x="170" y="95" font-family="Noto Sans KR, sans-serif" font-size="40" fill="#CCCCCC" text-anchor="middle">◈</text>
+
+      <!-- Label -->
+      <text x="170" y="170" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">AI</text>
+      <text x="170" y="200" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999" text-anchor="middle">EXECUTES</text>
+
+      <!-- Content -->
+      <text x="170" y="260" font-family="Noto Sans KR, sans-serif" font-weight="700" font-size="24" fill="#FFFFFF" text-anchor="middle">AI 실행</text>
+
+      <text x="170" y="310" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">작업 수행</text>
+      <text x="170" y="335" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">초안 생성</text>
+      <text x="170" y="360" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">반복 작업</text>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(780, 180)">
+      <text x="0" y="0" font-family="Space Mono, monospace" font-weight="400" font-size="48" fill="#B0B0B0">→</text>
+    </g>
+
+    <!-- Step 3: 인간 컨펌 -->
+    <g transform="translate(840, 0)">
+      <rect x="0" y="0" width="340" height="400" fill="#111111" rx="16" stroke="#444444" stroke-width="2"/>
+
+      <!-- Icon Circle -->
+      <circle cx="170" cy="80" r="50" fill="#1A1A1A" stroke="#444444" stroke-width="2"/>
+      <text x="170" y="95" font-family="Noto Sans KR, sans-serif" font-size="40" fill="#FFFFFF" text-anchor="middle">●</text>
+
+      <!-- Label -->
+      <text x="170" y="170" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">HUMAN</text>
+      <text x="170" y="200" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999" text-anchor="middle">CONFIRMS</text>
+
+      <!-- Content -->
+      <text x="170" y="260" font-family="Noto Sans KR, sans-serif" font-weight="700" font-size="24" fill="#FFFFFF" text-anchor="middle">인간 컨펌</text>
+
+      <text x="170" y="310" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">품질 검토</text>
+      <text x="170" y="335" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">수정 피드백</text>
+      <text x="170" y="360" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">최종 승인</text>
+    </g>
+
+    <!-- Arrow 3 -->
+    <g transform="translate(1200, 180)">
+      <text x="0" y="0" font-family="Space Mono, monospace" font-weight="400" font-size="48" fill="#B0B0B0">→</text>
+    </g>
+
+    <!-- Step 4: 산출물 배포 -->
+    <g transform="translate(1260, 0)">
+      <rect x="0" y="0" width="340" height="400" fill="#111111" rx="16" stroke="#333333" stroke-width="2"/>
+
+      <!-- Icon Circle -->
+      <circle cx="170" cy="80" r="50" fill="#333333" stroke="#444444" stroke-width="2"/>
+      <text x="170" y="95" font-family="Noto Sans KR, sans-serif" font-size="40" fill="#FFFFFF" text-anchor="middle">◎</text>
+
+      <!-- Label -->
+      <text x="170" y="170" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">OUTPUT</text>
+      <text x="170" y="200" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999" text-anchor="middle">DEPLOY</text>
+
+      <!-- Content -->
+      <text x="170" y="260" font-family="Noto Sans KR, sans-serif" font-weight="700" font-size="24" fill="#FFFFFF" text-anchor="middle">산출물 배포</text>
+
+      <text x="170" y="310" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">결과물 전달</text>
+      <text x="170" y="335" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">시스템 반영</text>
+      <text x="170" y="360" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0" text-anchor="middle">실서비스 적용</text>
+    </g>
+
+  </g>
+
+  <!-- Bottom Key Message -->
+  <g transform="translate(100, 860)">
+    <rect x="0" y="0" width="1720" height="80" fill="#111111" rx="8" stroke="#222222" stroke-width="1"/>
+    <text x="860" y="50" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="20" fill="#CCCCCC" text-anchor="middle">AI는 실행 도구 · 의사결정과 최종 책임은 항상 인간</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="980" x2="1820" y2="980" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#999999">MONTHLY REPORT · AI OPERATIONS</text>
+  <text x="1820" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#999999" text-anchor="end">3 / 5</text>
+</svg>

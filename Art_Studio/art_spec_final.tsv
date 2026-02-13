@@ -1,0 +1,24 @@
+asset_id	category	asset_name	location	description	priority	deadline	reference_needed	status
+LOC_ALLEY_001	배경	을지로 네온골목	골목	구 을지로 3가, 사이버네틱 수리점 거리	높음	1주차	O	대기
+PROP_ALLEY_BOX_001	소품	플라스틱 상자 더미	골목		중간	2주차	X	대기
+PROP_ALLEY_CYBER_001	소품	녹슨 사이버네틱 팔 폐기물	골목		중간	2주차	X	대기
+PROP_ALLEY_TENT_001	소품	포장마차 비닐	골목	김 서림	중간	2주차	X	대기
+PROP_ALLEY_DRONE_001	소품	소형 감시 드론	골목	고양이 눈처럼 빛나는 렌즈	중간	2주차	O	대기
+LIGHT_ALLEY_NEON_001	조명	neon_sign (red)	골목	입구	중간	2주차	O	대기
+LIGHT_ALLEY_FLUO_001	조명	fluorescent ()	골목	중간	중간	2주차	X	대기
+LIGHT_ALLEY_LED_001	조명	led_cross (blue)	골목	불법 클리닉 표시	중간	2주차	X	대기
+LOC_HIDEOUT_001	배경	삼청동 한옥 세이프하우스	아지트	북촌 한옥마을, 폐가로 위장된 2층 한옥	높음	1주차	O	대기
+LIGHT_HIDE_HANJI_001	조명	한지등 (warm_amber)	아지트		중간	2주차	X	대기
+LIGHT_HIDE_SERVER_001	조명	서버 LED (neon_blue)	아지트		중간	2주차	X	대기
+LOC_PLAZA_001	배경	세빛둥둥섬 블랙마켓	광장	한강 위 인공섬, 야쿠자 점령 암시장	높음	1주차	O	대기
+PROP_PLAZA_PUDDLE_001	소품	물웅덩이	광장		중간	2주차	X	대기
+LIGHT_PLAZA_WATER_001	조명	수면 반사광 ()	광장		중간	2주차	X	대기
+LIGHT_PLAZA_DRONE_001	조명	경찰 드론 탐조등 ()	광장		중간	2주차	X	대기
+LOC_PLAZA_A	구조물	무기상 구조물	광장	{'wall': '깨진 유리 + 철판 땜질', 'signage': {'text': '武器', 'type': '일본어 네온', 'color': 'red'}, 'decoration': '야쿠자 문신 패턴 홀로그램'}	높음	1주차	O	대기
+LOC_PLAZA_B	구조물	정보상 구조물	광장	{'atmosphere': '연기 자욱', 'wall_feature': '구형 브라운관 모니터 벽면', 'display': 'CCTV 다중 화면', 'center': {'id': 'PROP_PLAZA_TABLE_001', 'name': '원형 테이블', 'activity': '데이터칩 거래'}}	높음	1주차	O	대기
+LOC_PLAZA_C	구조물	유흥시설 구조물	광장		높음	1주차	O	대기
+FX_RAIN_001	이펙트	빗줄기	공통	타입: particle	낮음	3주차	O	대기
+FX_PUDDLE_REFLECT_001	이펙트	물웅덩이 반사	공통	타입: shader	낮음	3주차	X	대기
+FX_NEON_GLOW_001	이펙트	네온 글로우	공통	타입: post_process	낮음	3주차	X	대기
+FX_FOG_001	이펙트	저층 안개	공통	타입: volumetric	낮음	3주차	O	대기
+FX_HOLOGRAM_001	이펙트	홀로그램 노이즈	공통	타입: shader	낮음	3주차	X	대기

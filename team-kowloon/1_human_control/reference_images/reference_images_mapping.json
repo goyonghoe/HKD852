@@ -1,0 +1,141 @@
+{
+  "description": "카테고리별 참고 이미지 매핑 설정",
+  "note": "각 카테고리에 필요한 참고 이미지와 설명을 정의합니다. 실제 이미지 파일은 해당 카테고리 폴더에 저장하고, Google Drive에 업로드한 후 공유 링크를 image_url에 입력하세요.",
+
+  "categories": {
+    "신규앨범업데이트": {
+      "display_name": "신규 앨범 업데이트",
+      "reference_images": [
+        {
+          "name": "앨범 커버 화면",
+          "description": "음악 재생 화면에서 앨범 커버가 표시되는 위치",
+          "image_filename": "album_cover_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "high"
+        },
+        {
+          "name": "프로필 이미지 화면",
+          "description": "메인 화면 상단에 프로필 이미지가 표시되는 위치",
+          "image_filename": "profile_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "high"
+        },
+        {
+          "name": "포토카드 수집 화면",
+          "description": "일반 테마 포토카드 수집 화면",
+          "image_filename": "photocard_collection_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "high"
+        },
+        {
+          "name": "엠블럼 화면",
+          "description": "그룹 소개 화면에 엠블럼이 표시되는 위치",
+          "image_filename": "emblem_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "medium"
+        }
+      ]
+    },
+
+    "한정테마포토카드업데이트": {
+      "display_name": "한정 테마 포토카드 업데이트",
+      "reference_images": [
+        {
+          "name": "한정 테마 포토카드 화면",
+          "description": "한정 테마 포토카드 수집 화면",
+          "image_filename": "limited_photocard_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "high"
+        },
+        {
+          "name": "프레임 (라지) 화면",
+          "description": "포토카드 상세 화면에서 큰 프레임이 적용된 모습",
+          "image_filename": "frame_large_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "high"
+        },
+        {
+          "name": "프레임 (스몰) 화면",
+          "description": "포토카드 목록 화면에서 작은 프레임이 적용된 모습",
+          "image_filename": "frame_small_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "medium"
+        }
+      ]
+    },
+
+    "이벤트패스": {
+      "display_name": "이벤트 패스",
+      "reference_images": [
+        {
+          "name": "이벤트 패스 메인 화면",
+          "description": "이벤트 패스 진행 상황 화면",
+          "image_filename": "event_pass_main.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "high"
+        },
+        {
+          "name": "이벤트 배너",
+          "description": "메인 화면에 표시되는 이벤트 홍보 배너",
+          "image_filename": "event_banner_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "medium"
+        }
+      ]
+    },
+
+    "픽업뽑기상점": {
+      "display_name": "픽업 뽑기 상점",
+      "reference_images": [
+        {
+          "name": "뽑기 로비 화면",
+          "description": "뽑기 이벤트 로비 메인 화면",
+          "image_filename": "gacha_lobby_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "high"
+        },
+        {
+          "name": "뽑기 배너",
+          "description": "뽑기 이벤트 홍보 배너",
+          "image_filename": "gacha_banner_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "high"
+        },
+        {
+          "name": "상품 썸네일",
+          "description": "상점에서 판매되는 아이템 썸네일",
+          "image_filename": "product_thumbnail_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "medium"
+        }
+      ]
+    },
+
+    "신규유저뽑기이벤트": {
+      "display_name": "신규 유저 뽑기 이벤트",
+      "reference_images": [
+        {
+          "name": "신규 유저 이벤트 화면",
+          "description": "신규 유저 300회 뽑기 이벤트 화면",
+          "image_filename": "newbie_event_main.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "high"
+        },
+        {
+          "name": "뽑기 결과 화면",
+          "description": "뽑기 결과 표시 화면",
+          "image_filename": "gacha_result_example.png",
+          "image_url": "(Google Drive 공유 링크 입력)",
+          "priority": "medium"
+        }
+      ]
+    }
+  },
+
+  "usage_instructions": [
+    "1. 각 카테고리 폴더에 해당하는 스크린샷 이미지를 저장하세요",
+    "2. 이미지를 Google Drive에 업로드하고 '링크가 있는 모든 사용자' 공유 설정을 하세요",
+    "3. 공유 링크를 복사하여 위 image_url 필드에 입력하세요",
+    "4. 명세서 생성 시 자동으로 [시각 참고 자료] 섹션이 포함됩니다"
+  ]
+}

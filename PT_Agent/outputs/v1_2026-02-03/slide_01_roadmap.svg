@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&amp;family=Space+Mono:wght@400;700&amp;display=swap');
+      .title { font-family: 'Space Mono', monospace; font-weight: 700; fill: #FFFFFF; }
+      .subtitle { font-family: 'Noto Sans KR', sans-serif; font-weight: 500; fill: #B0B0B0; }
+      .heading { font-family: 'Space Mono', monospace; font-weight: 700; fill: #FFFFFF; }
+      .body { font-family: 'Noto Sans KR', sans-serif; font-weight: 400; fill: #CCCCCC; }
+      .label { font-family: 'Space Mono', monospace; font-weight: 400; fill: #999999; }
+      .accent { fill: #FFFFFF; }
+      .muted { fill: #A0A0A0; }
+      .icon { font-family: 'Noto Sans KR', sans-serif; fill: #FFFFFF; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- Header Section -->
+  <text x="100" y="100" class="label" font-size="14">2026 H1 ROADMAP</text>
+
+  <!-- Main Title -->
+  <text x="100" y="180" class="title" font-size="48">App Launch</text>
+  <text x="480" y="180" class="subtitle" font-size="48">→</text>
+  <text x="540" y="180" class="title" font-size="48">AI Operations Pipeline</text>
+
+  <!-- Divider Line -->
+  <line x1="100" y1="220" x2="1820" y2="220" stroke="#333333" stroke-width="1"/>
+
+  <!-- Two Column Layout -->
+
+  <!-- Q1 Column -->
+  <g transform="translate(100, 280)">
+    <!-- Q1 Header -->
+    <rect x="0" y="0" width="800" height="60" fill="#1A1A1A" rx="4"/>
+    <text x="30" y="40" class="heading" font-size="24">Q1</text>
+    <text x="100" y="40" class="subtitle" font-size="18">3월 말 목표</text>
+    <text x="280" y="40" class="label" font-size="14">SERVICE LAUNCH</text>
+
+    <!-- Q1 Content Box -->
+    <rect x="0" y="80" width="800" height="580" fill="#111111" rx="8" stroke="#222222" stroke-width="1"/>
+
+    <!-- Item 1: SUPERSTAR -->
+    <g transform="translate(40, 120)">
+      <text x="0" y="0" class="icon" font-size="28">▶</text>
+      <text x="50" y="0" class="heading" font-size="20">SUPERSTAR THEBLACKLABEL</text>
+      <text x="50" y="30" class="body" font-size="16">글로벌 런칭</text>
+      <text x="50" y="55" class="muted" font-size="14">K-Pop 리듬게임 · 글로벌 동시 출시</text>
+    </g>
+
+    <!-- Item 2: Live Ops -->
+    <g transform="translate(40, 240)">
+      <text x="0" y="0" class="icon" font-size="28">⚙</text>
+      <text x="50" y="0" class="heading" font-size="20">라이브 운영 인프라 안정화</text>
+      <text x="50" y="30" class="body" font-size="16">서버 · 모니터링 · CS</text>
+      <text x="50" y="55" class="muted" font-size="14">24/7 안정적 서비스 운영 체계 구축</text>
+    </g>
+
+    <!-- Item 3: IP Pipeline -->
+    <g transform="translate(40, 360)">
+      <text x="0" y="0" class="icon" font-size="28">★</text>
+      <text x="50" y="0" class="heading" font-size="20">아티스트 IP 콘텐츠 파이프라인</text>
+      <text x="50" y="30" class="body" font-size="16">콘텐츠 제작 체계 가동</text>
+
+      <!-- Artist Tags -->
+      <g transform="translate(50, 60)">
+        <rect x="0" y="0" width="100" height="28" fill="#1A1A1A" rx="4"/>
+        <text x="50" y="19" class="label" font-size="12" text-anchor="middle">TAEYANG</text>
+
+        <rect x="110" y="0" width="110" height="28" fill="#1A1A1A" rx="4"/>
+        <text x="165" y="19" class="label" font-size="12" text-anchor="middle">JEON SOMI</text>
+
+        <rect x="230" y="0" width="80" height="28" fill="#1A1A1A" rx="4"/>
+        <text x="270" y="19" class="label" font-size="12" text-anchor="middle">MEOVV</text>
+
+        <rect x="320" y="0" width="60" height="28" fill="#1A1A1A" rx="4"/>
+        <text x="350" y="19" class="label" font-size="12" text-anchor="middle">ADP</text>
+      </g>
+    </g>
+
+    <!-- Q1 Status Badge -->
+    <g transform="translate(600, 500)">
+      <rect x="0" y="0" width="160" height="40" fill="#222222" rx="20"/>
+      <text x="80" y="26" class="label" font-size="14" text-anchor="middle">● EXECUTION</text>
+    </g>
+  </g>
+
+  <!-- Arrow between columns -->
+  <g transform="translate(930, 500)">
+    <text x="0" y="0" class="subtitle" font-size="48">→</text>
+  </g>
+
+  <!-- Q2 Column -->
+  <g transform="translate(1020, 280)">
+    <!-- Q2 Header -->
+    <rect x="0" y="0" width="800" height="60" fill="#1A1A1A" rx="4"/>
+    <text x="30" y="40" class="heading" font-size="24">Q2</text>
+    <text x="100" y="40" class="subtitle" font-size="18">6월 목표</text>
+    <text x="280" y="40" class="label" font-size="14">AI OPERATIONS</text>
+
+    <!-- Q2 Content Box -->
+    <rect x="0" y="80" width="800" height="580" fill="#111111" rx="8" stroke="#333333" stroke-width="2"/>
+
+    <!-- Item 1: AI Agent Org -->
+    <g transform="translate(40, 120)">
+      <text x="0" y="0" class="icon" font-size="28">◈</text>
+      <text x="50" y="0" class="heading" font-size="20">AI Agent 조직 운영 모델 구축</text>
+      <text x="50" y="30" class="body" font-size="16">Claude Code 기반 멀티 에이전트</text>
+      <text x="50" y="55" class="muted" font-size="14">업무별 특화 에이전트 시스템 도입</text>
+    </g>
+
+    <!-- Item 2: Human-in-the-loop -->
+    <g transform="translate(40, 240)">
+      <text x="0" y="0" class="icon" font-size="28">◎</text>
+      <text x="50" y="0" class="heading" font-size="20">인간 중심 감독 + AI 실행 체계</text>
+      <text x="50" y="30" class="body" font-size="16">Human-in-the-loop</text>
+      <text x="50" y="55" class="muted" font-size="14">의사결정은 인간, 실행은 AI</text>
+    </g>
+
+    <!-- Item 3: Risk Zero -->
+    <g transform="translate(40, 360)">
+      <text x="0" y="0" class="icon" font-size="28">◆</text>
+      <text x="50" y="0" class="heading" font-size="20">AI 중단 시에도 운영 연속성 확보</text>
+      <text x="50" y="30" class="body" font-size="16">리스크 제로 설계</text>
+      <text x="50" y="55" class="muted" font-size="14">기존 인력 기반 프로세스 유지</text>
+    </g>
+
+    <!-- Q2 Status Badge -->
+    <g transform="translate(600, 500)">
+      <rect x="0" y="0" width="160" height="40" fill="#333333" rx="20"/>
+      <text x="80" y="26" class="accent" font-size="14" text-anchor="middle">◉ PLANNING</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="980" x2="1820" y2="980" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="1020" class="label" font-size="12">MONTHLY REPORT · 2026 H1 ROADMAP</text>
+  <text x="1820" y="1020" class="label" font-size="12" text-anchor="end">1 / 2</text>
+</svg>

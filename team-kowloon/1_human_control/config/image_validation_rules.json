@@ -1,0 +1,104 @@
+{
+  "description": "이미지 검증 규칙 설정",
+  "version": "1.0",
+
+  "allowed_formats": ["PNG", "JPG", "JPEG"],
+  "allowed_color_modes": ["RGB", "RGBA"],
+
+  "max_file_size_mb": 10,
+  "min_file_size_kb": 1,
+
+  "strict_size_matching": true,
+
+  "resource_type_rules": {
+    "포토카드": {
+      "expected_format": "PNG",
+      "required_color_mode": "RGBA",
+      "max_file_size_mb": 5,
+      "recommended_dpi": 300,
+      "description": "포토카드는 투명도가 필요하므로 RGBA PNG 필수"
+    },
+    "초상": {
+      "expected_format": "PNG",
+      "required_color_mode": "RGBA",
+      "max_file_size_mb": 5,
+      "recommended_dpi": 300,
+      "description": "초상 이미지는 투명도가 필요하므로 RGBA PNG 필수"
+    },
+    "프로필": {
+      "expected_format": "PNG",
+      "required_color_mode": "RGBA",
+      "max_file_size_mb": 3,
+      "recommended_dpi": 150,
+      "description": "프로필 이미지는 작은 사이즈이므로 파일 크기 제한"
+    },
+    "앨범 커버": {
+      "expected_format": "PNG",
+      "required_color_mode": "RGB",
+      "max_file_size_mb": 5,
+      "recommended_dpi": 300,
+      "description": "앨범 커버는 배경이 있으므로 RGB 가능"
+    },
+    "앨범": {
+      "expected_format": "PNG",
+      "required_color_mode": "RGB",
+      "max_file_size_mb": 5,
+      "recommended_dpi": 300
+    },
+    "엠블럼": {
+      "expected_format": "PNG",
+      "required_color_mode": "RGBA",
+      "max_file_size_mb": 2,
+      "recommended_dpi": 150,
+      "description": "엠블럼/로고는 투명 배경 필요"
+    },
+    "배경": {
+      "expected_format": "PNG",
+      "required_color_mode": "RGB",
+      "max_file_size_mb": 10,
+      "recommended_dpi": 150,
+      "description": "배경 이미지는 큰 사이즈이므로 파일 크기 주의"
+    },
+    "프레임": {
+      "expected_format": "PNG",
+      "required_color_mode": "RGBA",
+      "max_file_size_mb": 3,
+      "recommended_dpi": 300,
+      "description": "프레임은 투명도 필수"
+    },
+    "배너": {
+      "expected_format": "PNG",
+      "required_color_mode": "RGB",
+      "max_file_size_mb": 8,
+      "recommended_dpi": 150,
+      "description": "배너는 RGB 가능, 파일 크기 주의"
+    },
+    "상품": {
+      "expected_format": "PNG",
+      "required_color_mode": "RGBA",
+      "max_file_size_mb": 3,
+      "recommended_dpi": 150,
+      "description": "상품 썸네일은 투명 배경 권장"
+    }
+  },
+
+  "size_tolerance": {
+    "enabled": false,
+    "tolerance_pixels": 0,
+    "description": "사이즈 허용 오차 (픽셀). enabled=true 시 ±tolerance_pixels 범위 허용"
+  },
+
+  "auto_fix_suggestions": {
+    "wrong_format": "이미지 포맷 변환 필요",
+    "wrong_color_mode": "색상 모드 변환 필요 (RGB ↔ RGBA)",
+    "size_mismatch": "이미지 리사이징 필요",
+    "file_too_large": "이미지 압축 또는 품질 조정 필요"
+  },
+
+  "notes": [
+    "포토카드, 초상, 엠블럼, 프레임은 반드시 투명도(RGBA) 필요",
+    "배경, 앨범 커버, 배너는 RGB 사용 가능",
+    "파일 크기는 게임 로딩 속도에 영향을 주므로 규격 준수 필요",
+    "DPI는 참고 값이며, 실제 픽셀 사이즈가 우선"
+  ]
+}
