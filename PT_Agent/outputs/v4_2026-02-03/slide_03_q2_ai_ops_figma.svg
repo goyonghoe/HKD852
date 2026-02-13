@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- v4: SCQA Framework 적용 -->
+  <!-- S: 런칭 후 운영 필요 / C: 인력 부족 / Q: 어떻게? / A: AI Agent -->
+  <!-- Glance Test: "AI로 효율화, 인간이 결정" 즉시 파악 -->
+
+  <!-- Header -->
+  <text x="100" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#808080">Q2 2026 · AI OPERATIONS</text>
+
+  <!-- Q2 Badge -->
+  <g transform="translate(100, 150)">
+    <rect x="0" y="0" width="120" height="60" fill="#333333" rx="8"/>
+    <text x="60" y="44" font-family="Space Mono, monospace" font-weight="700" font-size="36" fill="#FFFFFF" text-anchor="middle">Q2</text>
+  </g>
+
+  <!-- 핵심 메시지 (Answer First) - Pyramid Top -->
+  <text x="250" y="200" font-family="Space Mono, monospace" font-weight="700" font-size="56" fill="#FFFFFF">AI가 실행, 인간이 결정</text>
+
+  <!-- SCQA 요약 (한 줄) -->
+  <text x="100" y="280" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="24" fill="#B0B0B0">런칭 후 운영 확장 필요 → 인력 한계 → AI Agent 조직 모델로 해결</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="340" x2="1820" y2="340" stroke="#333333" stroke-width="1"/>
+
+  <!-- Visual: Human-in-the-Loop 간단 다이어그램 -->
+  <!-- 3단계로 단순화 (6x6 원칙) -->
+
+  <g transform="translate(100, 400)">
+    <!-- Step 1: 인간 -->
+    <g transform="translate(0, 0)">
+      <circle cx="200" cy="120" r="100" fill="#111111" stroke="#FFFFFF" stroke-width="3"/>
+      <text x="200" y="100" font-family="Space Mono, monospace" font-size="48" fill="#FFFFFF" text-anchor="middle">●</text>
+      <text x="200" y="145" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">HUMAN</text>
+      <text x="200" y="280" font-family="Noto Sans KR, sans-serif" font-weight="700" font-size="24" fill="#FFFFFF" text-anchor="middle">방향 설정</text>
+      <text x="200" y="320" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#999999" text-anchor="middle">목표 · 의사결정</text>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(400, 100)">
+      <text x="80" y="30" font-family="Space Mono, monospace" font-size="48" fill="#444444">→</text>
+    </g>
+
+    <!-- Step 2: AI -->
+    <g transform="translate(560, 0)">
+      <circle cx="200" cy="120" r="100" fill="#222222" stroke="#808080" stroke-width="2"/>
+      <text x="200" y="100" font-family="Space Mono, monospace" font-size="48" fill="#CCCCCC" text-anchor="middle">◈</text>
+      <text x="200" y="145" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#CCCCCC" text-anchor="middle">AI</text>
+      <text x="200" y="280" font-family="Noto Sans KR, sans-serif" font-weight="700" font-size="24" fill="#FFFFFF" text-anchor="middle">작업 실행</text>
+      <text x="200" y="320" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#999999" text-anchor="middle">초안 · 반복 작업</text>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(960, 100)">
+      <text x="80" y="30" font-family="Space Mono, monospace" font-size="48" fill="#444444">→</text>
+    </g>
+
+    <!-- Step 3: 인간 (검토) -->
+    <g transform="translate(1120, 0)">
+      <circle cx="200" cy="120" r="100" fill="#111111" stroke="#FFFFFF" stroke-width="3"/>
+      <text x="200" y="100" font-family="Space Mono, monospace" font-size="48" fill="#FFFFFF" text-anchor="middle">●</text>
+      <text x="200" y="145" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">HUMAN</text>
+      <text x="200" y="280" font-family="Noto Sans KR, sans-serif" font-weight="700" font-size="24" fill="#FFFFFF" text-anchor="middle">최종 승인</text>
+      <text x="200" y="320" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#999999" text-anchor="middle">검토 · 책임</text>
+    </g>
+  </g>
+
+  <!-- Bottom Key Message -->
+  <g transform="translate(100, 800)">
+    <rect x="0" y="0" width="1720" height="80" fill="#111111" rx="8"/>
+    <text x="860" y="52" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="22" fill="#CCCCCC" text-anchor="middle">AI는 실행 도구 · 의사결정과 최종 책임은 항상 인간</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="980" x2="1820" y2="980" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080">MONTHLY REPORT · AI OPERATIONS</text>
+  <text x="1820" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="end">3 / 5</text>
+</svg>

@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  <circle cx="1750" cy="150" r="250" fill="#8B5CF6" opacity="0.03"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 07</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">머지와 충돌 해결</text>
+
+  <!-- Merge types -->
+  <text x="100" y="280" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">Plastic SCM의 강력한 머지 기능</text>
+
+  <!-- 3 merge cards -->
+  <rect x="100" y="310" width="540" height="280" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="310" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="370" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="26" fill="#FAF5FF" text-anchor="middle">3-Way Merge</text>
+  <text x="140" y="400" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">기본 머지 방식</text>
+  <text x="140" y="435" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 공통 조상(Base) 기준으로 비교</text>
+  <text x="140" y="465" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Source와 Destination 변경 분석</text>
+  <text x="140" y="495" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 충돌이 없으면 자동 머지 완료</text>
+
+  <!-- Diagram -->
+  <circle cx="250" cy="540" r="6" fill="#C4B5FD" opacity="0.5"/>
+  <text x="270" y="545" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.5">Base</text>
+  <line x1="256" y1="536" x2="380" y2="540" stroke="#8B5CF6" stroke-width="1.5" opacity="0.4"/>
+  <line x1="256" y1="544" x2="380" y2="570" stroke="#A78BFA" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="380" cy="540" r="6" fill="#8B5CF6"/>
+  <circle cx="380" cy="570" r="6" fill="#A78BFA"/>
+  <text x="400" y="545" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#8B5CF6">Src</text>
+  <text x="400" y="575" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#A78BFA">Dst</text>
+  <line x1="386" y1="540" x2="500" y2="555" stroke="#8B5CF6" stroke-width="1.5" opacity="0.4"/>
+  <line x1="386" y1="570" x2="500" y2="555" stroke="#A78BFA" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="500" cy="555" r="8" fill="#10B981"/>
+  <text x="520" y="560" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="14" fill="#10B981">Merge</text>
+
+  <!-- Xmerge -->
+  <rect x="690" y="310" width="540" height="280" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="690" y="310" width="540" height="4" rx="2" fill="#A78BFA"/>
+  <text x="960" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="26" fill="#FAF5FF" text-anchor="middle">Xmerge (자동 해결)</text>
+  <text x="730" y="400" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">같은 파일 내 다른 영역 수정 시</text>
+  <text x="730" y="435" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 블록 단위로 변경 영역 분석</text>
+  <text x="730" y="465" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 겹치지 않으면 자동으로 합침</text>
+  <text x="730" y="495" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• Git보다 높은 자동 해결 성공률</text>
+
+  <rect x="730" y="520" width="460" height="50" rx="10" fill="#10B981" opacity="0.1"/>
+  <text x="960" y="550" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#10B981" text-anchor="middle">대부분의 충돌을 자동으로 해결!</text>
+
+  <!-- Semantic Merge -->
+  <rect x="1280" y="310" width="540" height="280" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="1280" y="310" width="540" height="4" rx="2" fill="#6D28D9"/>
+  <text x="1550" y="360" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="26" fill="#FAF5FF" text-anchor="middle">Semantic Merge</text>
+  <text x="1320" y="400" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD">코드 구조를 이해하는 스마트 머지</text>
+  <text x="1320" y="435" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 함수/클래스 단위로 분석</text>
+  <text x="1320" y="465" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• 메서드 이동/이름 변경도 추적</text>
+  <text x="1320" y="495" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="18" fill="#C4B5FD" opacity="0.8">• C#, Java, C++ 등 지원</text>
+
+  <rect x="1320" y="520" width="460" height="50" rx="10" fill="#8B5CF6" opacity="0.1"/>
+  <text x="1550" y="550" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#A78BFA" text-anchor="middle">Unity C# 코드에 특히 유용</text>
+
+  <!-- Manual conflict resolution steps -->
+  <text x="100" y="650" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">수동 충돌 해결이 필요한 경우</text>
+
+  <!-- Steps -->
+  <rect x="100" y="680" width="1720" height="240" rx="16" fill="#2D1B4E" opacity="0.3"/>
+
+  <!-- Step 1 -->
+  <circle cx="250" cy="760" r="30" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="250" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6" text-anchor="middle">1</text>
+  <text x="250" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">충돌 감지</text>
+  <text x="250" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">머지 시 자동 알림</text>
+  <text x="250" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">충돌 파일 목록 표시</text>
+
+  <line x1="350" y1="760" x2="430" y2="760" stroke="#8B5CF6" stroke-width="1.5" opacity="0.3"/>
+  <polygon points="425,753 440,760 425,767" fill="#8B5CF6" opacity="0.3"/>
+
+  <!-- Step 2 -->
+  <circle cx="530" cy="760" r="30" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="530" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6" text-anchor="middle">2</text>
+  <text x="530" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">머지 도구 실행</text>
+  <text x="530" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">내장 Merge Tool 또는</text>
+  <text x="530" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">외부 도구 (VS Code 등)</text>
+
+  <line x1="630" y1="760" x2="710" y2="760" stroke="#8B5CF6" stroke-width="1.5" opacity="0.3"/>
+  <polygon points="705,753 720,760 705,767" fill="#8B5CF6" opacity="0.3"/>
+
+  <!-- Step 3 -->
+  <circle cx="810" cy="760" r="30" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="810" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6" text-anchor="middle">3</text>
+  <text x="810" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">3개 패널 비교</text>
+  <text x="810" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">Base | Source | Destination</text>
+  <text x="810" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">차이를 색상으로 표시</text>
+
+  <line x1="910" y1="760" x2="990" y2="760" stroke="#8B5CF6" stroke-width="1.5" opacity="0.3"/>
+  <polygon points="985,753 1000,760 985,767" fill="#8B5CF6" opacity="0.3"/>
+
+  <!-- Step 4 -->
+  <circle cx="1090" cy="760" r="30" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="1090" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6" text-anchor="middle">4</text>
+  <text x="1090" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">선택 &amp; 편집</text>
+  <text x="1090" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">어느 쪽 변경을 사용할지</text>
+  <text x="1090" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">클릭으로 선택 또는 직접 수정</text>
+
+  <line x1="1190" y1="760" x2="1270" y2="760" stroke="#8B5CF6" stroke-width="1.5" opacity="0.3"/>
+  <polygon points="1265,753 1280,760 1265,767" fill="#8B5CF6" opacity="0.3"/>
+
+  <!-- Step 5 -->
+  <circle cx="1370" cy="760" r="30" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="1370" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#8B5CF6" text-anchor="middle">5</text>
+  <text x="1370" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">테스트</text>
+  <text x="1370" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">머지 결과 빌드 &amp; 실행</text>
+  <text x="1370" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">문제 없는지 확인</text>
+
+  <line x1="1470" y1="760" x2="1550" y2="760" stroke="#8B5CF6" stroke-width="1.5" opacity="0.3"/>
+  <polygon points="1545,753 1560,760 1545,767" fill="#8B5CF6" opacity="0.3"/>
+
+  <!-- Step 6 -->
+  <circle cx="1650" cy="760" r="30" fill="#10B981" opacity="0.2" stroke="#10B981" stroke-width="2"/>
+  <text x="1650" y="768" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="22" fill="#10B981" text-anchor="middle">6</text>
+  <text x="1650" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#FAF5FF" text-anchor="middle">Checkin</text>
+  <text x="1650" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#C4B5FD" opacity="0.7" text-anchor="middle">머지 결과를 서버에 저장</text>
+  <text x="1650" y="862" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="14" fill="#10B981" opacity="0.7" text-anchor="middle">완료!</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">9 / 13</text>
+</svg>

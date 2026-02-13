@@ -1,0 +1,2627 @@
+{
+  "451": {
+    "english": "日本語",
+    "japanese": "日本語",
+    "skipped": true
+  },
+  "452": {
+    "english": "Português",
+    "japanese": "Português",
+    "skipped": true
+  },
+  "453": {
+    "english": "اللغة العربية",
+    "japanese": "اللغة العربية",
+    "skipped": true
+  },
+  "456": {
+    "english": "ไทย",
+    "japanese": "ไทย",
+    "skipped": true
+  },
+  "457": {
+    "english": "Türkçe",
+    "japanese": "Türkçe",
+    "skipped": true
+  },
+  "458": {
+    "english": "简体中文",
+    "japanese": "简体中文",
+    "skipped": true
+  },
+  "459": {
+    "english": "繁体中文",
+    "japanese": "繁体中文",
+    "skipped": true
+  },
+  "7": {
+    "english": "Ult. Photo Card\nOdds Up",
+    "japanese": "推し写真\n確率UP",
+    "skipped": false
+  },
+  "16": {
+    "english": "Purchase Recovery",
+    "japanese": "購入復旧",
+    "skipped": false
+  },
+  "18": {
+    "english": "Buy Now {PriceAmount:N0}",
+    "japanese": "{PriceAmount:N0} で今すぐ購入",
+    "skipped": false
+  },
+  "19": {
+    "english": "Equip Theme Set",
+    "japanese": "テーマセット装備",
+    "skipped": false
+  },
+  "23": {
+    "english": "{AlbumName} Album Exclusive Card",
+    "japanese": "{AlbumName} アルバム専用カード",
+    "skipped": false
+  },
+  "24": {
+    "english": "Buy Now & Equip",
+    "japanese": "購入して装備する",
+    "skipped": false
+  },
+  "25": {
+    "english": "Insufficient Funds",
+    "japanese": "残高不足です",
+    "skipped": false
+  },
+  "26": {
+    "english": "Equip for Score",
+    "japanese": "スコア優先装備",
+    "skipped": false
+  },
+  "27": {
+    "english": "High Grade",
+    "japanese": "高レア度",
+    "skipped": false
+  },
+  "28": {
+    "english": "Low Grade",
+    "japanese": "低レア度",
+    "skipped": false
+  },
+  "29": {
+    "english": "Latest",
+    "japanese": "最新",
+    "skipped": false
+  },
+  "30": {
+    "english": "Equippable",
+    "japanese": "装備可能",
+    "skipped": false
+  },
+  "31": {
+    "english": "Collected Cards",
+    "japanese": "コレクションカード",
+    "skipped": false
+  },
+  "32": {
+    "english": "Lv.1 Only",
+    "japanese": "Lv.1のみ",
+    "skipped": false
+  },
+  "33": {
+    "english": "Locked Cards",
+    "japanese": "ロック中",
+    "skipped": false
+  },
+  "34": {
+    "english": "Level Up",
+    "japanese": "レベル強化",
+    "skipped": false
+  },
+  "35": {
+    "english": "Rank Up",
+    "japanese": "ランク強化",
+    "skipped": false
+  },
+  "36": {
+    "english": "Limit Break",
+    "japanese": "リミットブレイク",
+    "skipped": false
+  },
+  "37": {
+    "english": "Equip",
+    "japanese": "装備",
+    "skipped": false
+  },
+  "38": {
+    "english": "Unequip",
+    "japanese": "解除",
+    "skipped": false
+  },
+  "39": {
+    "english": "Score Bonus",
+    "japanese": "スコアボーナス",
+    "skipped": false
+  },
+  "40": {
+    "english": "Rave Bonus",
+    "japanese": "レーヴボーナス",
+    "skipped": false
+  },
+  "41": {
+    "english": "View Equip Slots",
+    "japanese": "装備スロット確認",
+    "skipped": false
+  },
+  "42": {
+    "english": "Album Exclusive Card",
+    "japanese": "アルバム専用カードです",
+    "skipped": false
+  },
+  "43": {
+    "english": "Sell All",
+    "japanese": "一括売却",
+    "skipped": false
+  },
+  "44": {
+    "english": "{Count} Cards",
+    "japanese": "{Count} 枚",
+    "skipped": false
+  },
+  "45": {
+    "english": "{Count} Cards",
+    "japanese": "{Count} 枚",
+    "skipped": false
+  },
+  "46": {
+    "english": "Sell {PriceAmount:N0}",
+    "japanese": "{PriceAmount:N0} で売却",
+    "skipped": false
+  },
+  "47": {
+    "english": "No cards match the conditions",
+    "japanese": "条件に合う写真がありません",
+    "skipped": false
+  },
+  "48": {
+    "english": "Buy Starter Pack",
+    "japanese": "スターターパック購入",
+    "skipped": false
+  },
+  "49": {
+    "english": "Welcome Package",
+    "japanese": "ウェルカムパッケージ",
+    "skipped": false
+  },
+  "52": {
+    "english": "C and Below",
+    "japanese": "C以下",
+    "skipped": false
+  },
+  "53": {
+    "english": "B and Below",
+    "japanese": "B以下",
+    "skipped": false
+  },
+  "54": {
+    "english": "A and Below",
+    "japanese": "A以下",
+    "skipped": false
+  },
+  "55": {
+    "english": "S and Below",
+    "japanese": "S以下",
+    "skipped": false
+  },
+  "56": {
+    "english": "Not Included",
+    "japanese": "未包含",
+    "skipped": false
+  },
+  "57": {
+    "english": "Included",
+    "japanese": "包含",
+    "skipped": false
+  },
+  "58": {
+    "english": "Select Grade",
+    "japanese": "等級選択",
+    "skipped": false
+  },
+  "59": {
+    "english": "Limited Theme",
+    "japanese": "限定テーマ",
+    "skipped": false
+  },
+  "60": {
+    "english": "Card Level",
+    "japanese": "カードレベル",
+    "skipped": false
+  },
+  "61": {
+    "english": "Album Collection Card",
+    "japanese": "アルバムコレクションカード",
+    "skipped": false
+  },
+  "62": {
+    "english": "Level 1 Only",
+    "japanese": "レベル1のみ",
+    "skipped": false
+  },
+  "63": {
+    "english": "All",
+    "japanese": "すべて",
+    "skipped": false
+  },
+  "64": {
+    "english": "{Count} card(s) selected",
+    "japanese": "{Count}枚のカードが選択されました",
+    "skipped": false
+  },
+  "65": {
+    "english": "You have cards available to equip in your inventory",
+    "japanese": "インベントリに装備可能なカードがあります",
+    "skipped": false
+  },
+  "71": {
+    "english": "Music Master Points",
+    "japanese": "ミュージックマスターポイント",
+    "skipped": false
+  },
+  "72": {
+    "english": "Photocard Collection Points",
+    "japanese": "フォトカードコレクションポイント",
+    "skipped": false
+  },
+  "73": {
+    "english": "Background Image Collection Points",
+    "japanese": "背景イメージコレクションポイント",
+    "skipped": false
+  },
+  "74": {
+    "english": "Higher collection levels increase rewards probability",
+    "japanese": "コレクションレベルが高いほど、より良い報酬を獲得する確率が上がります",
+    "skipped": false
+  },
+  "75": {
+    "english": "Play harder difficulties to earn more points",
+    "japanese": "難易度を上げてプレイするとより多くのポイントが獲得できます",
+    "skipped": false
+  },
+  "78": {
+    "english": "Background Image Settings",
+    "japanese": "背景イメージ設定",
+    "skipped": false
+  },
+  "79": {
+    "english": "Please select material card(s)",
+    "japanese": "素材カードを選択してください",
+    "skipped": false
+  },
+  "80": {
+    "english": "Enhance {PriceAmount:N0}",
+    "japanese": "{PriceAmount:N0}で強化",
+    "skipped": false
+  },
+  "82": {
+    "english": "Maximum level reached",
+    "japanese": "最大レベルに到達しました",
+    "skipped": false
+  },
+  "83": {
+    "english": "Insufficient enhancement cost",
+    "japanese": "強化コストが不足しています",
+    "skipped": false
+  },
+  "84": {
+    "english": "Confirm Photocard Level Enhancement",
+    "japanese": "フォトカードレベル強化確認",
+    "skipped": false
+  },
+  "85": {
+    "english": "This includes photocards in collection or equipped on album cards. Selling collection photocards will reset their collection status.\n(You can exclude \"collection cards\" in inventory filter options.)\n\nContinue with level enhancement?",
+    "japanese": "これはコレクション中またはアルバムカードに装備中のフォトカードを含んでいます。コレクション用フォトカードを売却するとコレクション状態がリセットされます。\n(インベントリフィルターオプションで「コレクションカード」を除外できます。)\n\nレベル強化を続けますか?",
+    "skipped": false
+  },
+  "86": {
+    "english": "Enhance Level",
+    "japanese": "レベルを強化",
+    "skipped": false
+  },
+  "87": {
+    "english": "Please select material card(s)",
+    "japanese": "素材カードを選択してください",
+    "skipped": false
+  },
+  "88": {
+    "english": "Insufficient enhancement cost",
+    "japanese": "強化コストが不足しています",
+    "skipped": false
+  },
+  "89": {
+    "english": "Try enhancing your rank now!",
+    "japanese": "今からランクを強化してみましょう!",
+    "skipped": false
+  },
+  "90": {
+    "english": "Insufficient rank enhancement cost",
+    "japanese": "ランク強化コストが不足しています",
+    "skipped": false
+  },
+  "91": {
+    "english": "You have no cards.\nTry purchasing cards at the shop.",
+    "japanese": "カードを保有していません。\nショップでカードを購入してみてください。",
+    "skipped": false
+  },
+  "92": {
+    "english": "No cards match the \"{FilterName}\" filter results",
+    "japanese": "\"{FilterName}\"フィルタリング結果に適合するカードがありません",
+    "skipped": false
+  },
+  "93": {
+    "english": "No cards available to sell",
+    "japanese": "売却可能なカードがありません",
+    "skipped": false
+  },
+  "94": {
+    "english": "Available after exiting sell mode",
+    "japanese": "売却モード終了後に使用できます",
+    "skipped": false
+  },
+  "95": {
+    "english": "Available after purchasing the music",
+    "japanese": "音楽購入後にプレイできます",
+    "skipped": false
+  },
+  "97": {
+    "english": "Confirm",
+    "japanese": "確認",
+    "skipped": false
+  },
+  "98": {
+    "english": "Cancel",
+    "japanese": "キャンセル",
+    "skipped": false
+  },
+  "99": {
+    "english": "Return to Menu",
+    "japanese": "メニューへ",
+    "skipped": false
+  },
+  "100": {
+    "english": "Quick Play",
+    "japanese": "クイックプレイ",
+    "skipped": false
+  },
+  "101": {
+    "english": "All",
+    "japanese": "すべて",
+    "skipped": false
+  },
+  "102": {
+    "english": "Owned",
+    "japanese": "保有中",
+    "skipped": false
+  },
+  "103": {
+    "english": "Not Owned",
+    "japanese": "未保有",
+    "skipped": false
+  },
+  "104": {
+    "english": "Equipped",
+    "japanese": "使用中",
+    "skipped": false
+  },
+  "105": {
+    "english": "Equip Background Image",
+    "japanese": "背景イメージを装備",
+    "skipped": false
+  },
+  "106": {
+    "english": "Unequip Background Image",
+    "japanese": "背景イメージを解除",
+    "skipped": false
+  },
+  "107": {
+    "english": "Select Background Image",
+    "japanese": "背景イメージを選択",
+    "skipped": false
+  },
+  "108": {
+    "english": "Collection complete background image",
+    "japanese": "コレクション完了した背景イメージです",
+    "skipped": false
+  },
+  "109": {
+    "english": "Collecting background image pieces ({Current:N0} / {Max:N0})",
+    "japanese": "背景イメージの断片を集めています ({Current:N0} / {Max:N0})",
+    "skipped": false
+  },
+  "110": {
+    "english": "Complete previous activity photos first to collect pieces.",
+    "japanese": "ピースを集めるには、以前のアクティビティ写真を先に完成させてください。",
+    "skipped": false
+  },
+  "112": {
+    "english": "Total ({OwnedCount} / {Count})",
+    "japanese": "全て ({OwnedCount} / {Count})",
+    "skipped": false
+  },
+  "113": {
+    "english": "Owned ({OwnedCount})",
+    "japanese": "保有中 ({OwnedCount})",
+    "skipped": false
+  },
+  "114": {
+    "english": "Not Owned ({UnownedCount})",
+    "japanese": "未保有 ({UnownedCount})",
+    "skipped": false
+  },
+  "115": {
+    "english": "In Use ({UsingCount})",
+    "japanese": "使用中 ({UsingCount})",
+    "skipped": false
+  },
+  "116": {
+    "english": "Collect background image pieces earned as album play rewards to complete this item.",
+    "japanese": "アルバムプレイ報酬で取得した背景画像ピースを集めて完成させます。",
+    "skipped": false
+  },
+  "117": {
+    "english": "Currently equipped background image.",
+    "japanese": "現在装備している背景画像です。",
+    "skipped": false
+  },
+  "118": {
+    "english": "Available background image to equip.",
+    "japanese": "装備可能な背景画像です。",
+    "skipped": false
+  },
+  "119": {
+    "english": "Equipped ({Current}/{Max})",
+    "japanese": "装備中 ({Current}/{Max})",
+    "skipped": false
+  },
+  "120": {
+    "english": "{global.user.CardGradeUpPoint:N0} / {PriceAmount:N0} Evolve",
+    "japanese": "{global.user.CardGradeUpPoint:N0} / {PriceAmount:N0} 進化",
+    "skipped": false
+  },
+  "121": {
+    "english": "Please try after reaching max level.",
+    "japanese": "最大レベル成長後に試してください。",
+    "skipped": false
+  },
+  "122": {
+    "english": "Max grade reached.",
+    "japanese": "最大等級です。",
+    "skipped": false
+  },
+  "123": {
+    "english": "Rank upgrade required.",
+    "japanese": "ランク強化が必要です。",
+    "skipped": false
+  },
+  "124": {
+    "english": "Max level reached.",
+    "japanese": "最大レベルです。",
+    "skipped": false
+  },
+  "125": {
+    "english": "Change album after equipping.",
+    "japanese": "装備後にアルバムを変更。",
+    "skipped": false
+  },
+  "126": {
+    "english": "Locked or profile representative cards cannot be sold.",
+    "japanese": "「ロック」または「プロフィール代表カード」は販売できません。",
+    "skipped": false
+  },
+  "127": {
+    "english": "Locked or profile representative cards cannot be used as enhancement materials.",
+    "japanese": "「ロック」または「プロフィール代表カード」は強化材料として使用できません。",
+    "skipped": false
+  },
+  "128": {
+    "english": "Max level reached.",
+    "japanese": "最大レベルです。",
+    "skipped": false
+  },
+  "129": {
+    "english": "Recommended Selection",
+    "japanese": "推奨選択",
+    "skipped": false
+  },
+  "130": {
+    "english": "No cards available for recommended selection.",
+    "japanese": "推奨選択で選択できるカードがありません。",
+    "skipped": false
+  },
+  "131": {
+    "english": "No score-priority cards available in inventory.",
+    "japanese": "インベントリに点数優先で装備できるカードがありません。",
+    "skipped": false
+  },
+  "132": {
+    "english": "Photo cards equipped with score priority.",
+    "japanese": "フォトカードが点数優先で装備されました。",
+    "skipped": false
+  },
+  "133": {
+    "english": "Inventory has reached max capacity.",
+    "japanese": "インベントリが最大サイズに到達しました。",
+    "skipped": false
+  },
+  "134": {
+    "english": "Confirm Photo Card Sale",
+    "japanese": "フォトカード販売の再確認",
+    "skipped": false
+  },
+  "135": {
+    "english": "The following cards are selected.{EquipCount:cond:>0?\nEquipped: {EquipCount}|}{LimitedThemeCount:cond:>0?\nLimited Theme Cards: {LimitedThemeCount}|}{GradeCount:cond:>0?\nR Grade Cards: {GradeCount}|}{CollectionCount:cond:>0?\nCards in Collection: {CollectionCount}|}\n\nContinue with the sale?",
+    "japanese": "以下のカードが選択されています。{EquipCount:cond:>0?\n装備中: {EquipCount}枚|}{LimitedThemeCount:cond:>0?\n限定テーマカード: {LimitedThemeCount}枚|}{GradeCount:cond:>0?\nR等級カード: {GradeCount}枚|}{CollectionCount:cond:>0?\n収集中のカード: {CollectionCount}枚|}\n\n販売を続けますか？",
+    "skipped": false
+  },
+  "136": {
+    "english": "Sell Photo Cards",
+    "japanese": "フォトカードを販売",
+    "skipped": false
+  },
+  "137": {
+    "english": "Sell {Count} cards?",
+    "japanese": "{Count}枚のカードを販売しますか？",
+    "skipped": false
+  },
+  "138": {
+    "english": "Gain {SellPrice}",
+    "japanese": "{SellPrice}を獲得",
+    "skipped": false
+  },
+  "139": {
+    "english": "Sell Photo Cards",
+    "japanese": "フォトカードを販売",
+    "skipped": false
+  },
+  "140": {
+    "english": "Obtained {SellPrice}.",
+    "japanese": "{SellPrice}を獲得しました。",
+    "skipped": false
+  },
+  "141": {
+    "english": "Sell",
+    "japanese": "販売",
+    "skipped": false
+  },
+  "144": {
+    "english": "Equip Theme Set",
+    "japanese": "テーマセットを装備",
+    "skipped": false
+  },
+  "145": {
+    "english": "No theme cards selected. Collect theme cards!",
+    "japanese": "テーマカードが選択されていません。テーマカードを集めましょう！",
+    "skipped": false
+  },
+  "146": {
+    "english": "Open Card Pack",
+    "japanese": "カードパックを開く",
+    "skipped": false
+  },
+  "147": {
+    "english": "Tap to open!",
+    "japanese": "タップしてオープン！",
+    "skipped": false
+  },
+  "148": {
+    "english": "Auto-Equip",
+    "japanese": "自動装備",
+    "skipped": false
+  },
+  "149": {
+    "english": "Next",
+    "japanese": "次へ",
+    "skipped": false
+  },
+  "150": {
+    "english": "Skip",
+    "japanese": "スキップ",
+    "skipped": false
+  },
+  "156": {
+    "english": "Limited theme photo cards are available for purchase in the shop during event periods.",
+    "japanese": "限定テーマフォトカードはイベント期間中、ショップで購入できます。",
+    "skipped": false
+  },
+  "157": {
+    "english": "Success Rate",
+    "japanese": "成功確率",
+    "skipped": false
+  },
+  "159": {
+    "english": "<color=#FFC100>{ThemeName}</color>\nHigher theme completion\nincreases your chances.",
+    "japanese": "<color=#FFC100>{ThemeName}</color>\nテーマ完成度が高いほど\n確率がアップします。",
+    "skipped": false
+  },
+  "160": {
+    "english": "Confirm",
+    "japanese": "確定",
+    "skipped": false
+  },
+  "161": {
+    "english": "{global.user.CardGradeUpPoint:N0} / {PriceAmount:N0} Limit Break",
+    "japanese": "{global.user.CardGradeUpPoint:N0} / {PriceAmount:N0} リミットブレイク",
+    "skipped": false
+  },
+  "179": {
+    "english": "Locked.",
+    "japanese": "ロック設定されました。",
+    "skipped": false
+  },
+  "180": {
+    "english": "Lock removed.",
+    "japanese": "ロック設定が解除されました。",
+    "skipped": false
+  },
+  "181": {
+    "english": "A card is selected. Unlock it and try again.",
+    "japanese": "選択されたカードがあります。解除してからもう一度お試しください。",
+    "skipped": false
+  },
+  "182": {
+    "english": "No more selections available.",
+    "japanese": "これ以上選択できません。",
+    "skipped": false
+  },
+  "183": {
+    "english": "Max level reached!",
+    "japanese": "最大レベルに到達しました！",
+    "skipped": false
+  },
+  "184": {
+    "english": "You can now try <color=#01FFAE>{ContentName}</color>.\nGo to {ButtonText}?",
+    "japanese": "<color=#01FFAE>{ContentName}</color>を試すことができます。\n{ButtonText}に移動しますか？",
+    "skipped": false
+  },
+  "185": {
+    "english": "{ContentName} Screen",
+    "japanese": "{ContentName} 画面",
+    "skipped": false
+  },
+  "186": {
+    "english": "No more selections available.",
+    "japanese": "これ以上選択できません。",
+    "skipped": false
+  },
+  "187": {
+    "english": "Daily Mission",
+    "japanese": "デイリーミッション",
+    "skipped": false
+  },
+  "188": {
+    "english": "Buy Pass",
+    "japanese": "パスを購入",
+    "skipped": false
+  },
+  "189": {
+    "english": "Buy Tier",
+    "japanese": "ティアを購入",
+    "skipped": false
+  },
+  "190": {
+    "english": "Applying pass benefits...",
+    "japanese": "パス特典を適用中...",
+    "skipped": false
+  },
+  "195": {
+    "english": "Coming soon. Please wait for the next season pass.",
+    "japanese": "準備中です。次のシーズンパスをお待ちください。",
+    "skipped": false
+  },
+  "196": {
+    "english": "Coming soon. Please wait for the next event pass.",
+    "japanese": "準備中です。次のイベントパスをお待ちください。",
+    "skipped": false
+  },
+  "197": {
+    "english": "Free",
+    "japanese": "無料",
+    "skipped": false
+  },
+  "199": {
+    "english": "Free",
+    "japanese": "無料",
+    "skipped": false
+  },
+  "202": {
+    "english": "Daily {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "japanese": "毎日 {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "skipped": false
+  },
+  "203": {
+    "english": "Weekly {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "japanese": "毎週 {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "skipped": false
+  },
+  "204": {
+    "english": "Monthly {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "japanese": "毎月 {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "skipped": false
+  },
+  "205": {
+    "english": "Per Account {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "japanese": "アカウント当たり {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "skipped": false
+  },
+  "206": {
+    "english": "Unlimited purchases",
+    "japanese": "購入回数無制限",
+    "skipped": false
+  },
+  "207": {
+    "english": "{RemainingTime} remaining",
+    "japanese": "{RemainingTime} 残り",
+    "skipped": false
+  },
+  "208": {
+    "english": "Confirm Purchase",
+    "japanese": "商品購入確認",
+    "skipped": false
+  },
+  "209": {
+    "english": "Product Details",
+    "japanese": "商品構成詳細",
+    "skipped": false
+  },
+  "211": {
+    "english": "Withdrawal of subscription is available within 7 days of purchase. (However, if used, withdrawal is not possible.)\nIf payment was made through a payment method in the name of a minor without consent from a legal representative, it can be cancelled. [Learn more]",
+    "japanese": "青約の撤回は購入日から7日以内に可能です。（ただし、使用した場合、撤回は不可）\n法定代理人の同意なしに未成年者名義の決済手段で決済した場合、キャンセルできます。[詳しく見る]",
+    "skipped": false
+  },
+  "212": {
+    "english": "Not enough Rhythm Points!",
+    "japanese": "リズムポイントが足りません！",
+    "skipped": false
+  },
+  "213": {
+    "english": "Not enough Diamonds!",
+    "japanese": "ダイヤモンドが足りません！",
+    "skipped": false
+  },
+  "214": {
+    "english": "Not enough Star Coins!",
+    "japanese": "スターコインが足りません！",
+    "skipped": false
+  },
+  "215": {
+    "english": "Charge Rhythm Points now!",
+    "japanese": "リズムポイントをチャージしましょう！",
+    "skipped": false
+  },
+  "216": {
+    "english": "Charge Diamonds now!",
+    "japanese": "ダイヤモンドをチャージしましょう！",
+    "skipped": false
+  },
+  "217": {
+    "english": "Charge Star Coins now!",
+    "japanese": "スターコインをチャージしましょう！",
+    "skipped": false
+  },
+  "218": {
+    "english": "Pause",
+    "japanese": "一時停止",
+    "skipped": false
+  },
+  "219": {
+    "english": "Note Speed",
+    "japanese": "ノート配速設定",
+    "skipped": false
+  },
+  "220": {
+    "english": "Fine-tune Note Speed",
+    "japanese": "詳細ノート配速調整",
+    "skipped": false
+  },
+  "222": {
+    "english": "Retry",
+    "japanese": "もう一度",
+    "skipped": false
+  },
+  "223": {
+    "english": "Exit",
+    "japanese": "終了",
+    "skipped": false
+  },
+  "224": {
+    "english": "Resume",
+    "japanese": "続ける",
+    "skipped": false
+  },
+  "227": {
+    "english": "Season Premium Pass",
+    "japanese": "シーズンプレミアムパス",
+    "skipped": false
+  },
+  "228": {
+    "english": "Available",
+    "japanese": "購入可能",
+    "skipped": false
+  },
+  "229": {
+    "english": "Pass Active",
+    "japanese": "パス適用中",
+    "skipped": false
+  },
+  "230": {
+    "english": "Notification",
+    "japanese": "お知らせ",
+    "skipped": false
+  },
+  "236": {
+    "english": "Day",
+    "japanese": "日",
+    "skipped": false
+  },
+  "237": {
+    "english": "Hour",
+    "japanese": "時間",
+    "skipped": false
+  },
+  "238": {
+    "english": "Minute",
+    "japanese": "分",
+    "skipped": false
+  },
+  "239": {
+    "english": "Second",
+    "japanese": "秒",
+    "skipped": false
+  },
+  "240": {
+    "english": "Season Pass",
+    "japanese": "シーズンパス",
+    "skipped": false
+  },
+  "241": {
+    "english": "Event Pass",
+    "japanese": "イベントパス",
+    "skipped": false
+  },
+  "244": {
+    "english": "Exit Game",
+    "japanese": "ゲームを終了",
+    "skipped": false
+  },
+  "245": {
+    "english": "Exit to Lobby?",
+    "japanese": "ゲームを終了してロビーに戻りますか？",
+    "skipped": false
+  },
+  "248": {
+    "english": "Resets daily at midnight (KST)",
+    "japanese": "毎日午前0時にリセット（KST）",
+    "skipped": false
+  },
+  "249": {
+    "english": "Resets every Monday",
+    "japanese": "毎週月曜日にリセット",
+    "skipped": false
+  },
+  "250": {
+    "english": "Resets on 1st of each month",
+    "japanese": "毎月1日にリセット",
+    "skipped": false
+  },
+  "251": {
+    "english": "{PurchaseLimitValue} purchase(s) per account",
+    "japanese": "アカウント当たり{PurchaseLimitValue}回購入可能",
+    "skipped": false
+  },
+  "252": {
+    "english": "Unlimited purchases",
+    "japanese": "購入回数無制限",
+    "skipped": false
+  },
+  "254": {
+    "english": "Remaining: {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "japanese": "残り購入回数：{PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "skipped": false
+  },
+  "255": {
+    "english": "Rewards",
+    "japanese": "報酬",
+    "skipped": false
+  },
+  "257": {
+    "english": "Tap to claim rewards",
+    "japanese": "タップして報酬を獲得",
+    "skipped": false
+  },
+  "258": {
+    "english": "Profiles can be viewed in My Info > Profile.",
+    "japanese": "獲得したプロフィールはマイ情報→プロフィールで確認できます。",
+    "skipped": false
+  },
+  "259": {
+    "english": "Background images can be viewed in Collection > Background Images.",
+    "japanese": "獲得した背景画像はコレクション→背景イメージ収集タブで確認できます。",
+    "skipped": false
+  },
+  "260": {
+    "english": "Duplicate item reward has been given.",
+    "japanese": "重複したアイテムの報酬が支給されました。",
+    "skipped": false
+  },
+  "262": {
+    "english": "Bonus Rewards",
+    "japanese": "ボーナス報酬",
+    "skipped": false
+  },
+  "263": {
+    "english": "Progress: {Value}%",
+    "japanese": "達成率：{Value}%",
+    "skipped": false
+  },
+  "264": {
+    "english": "Event Pass List",
+    "japanese": "イベントパスリスト",
+    "skipped": false
+  },
+  "267": {
+    "english": "All purchases used. Try again next time!",
+    "japanese": "購入可能回数をすべて使用しました。次回もお試しください！",
+    "skipped": false
+  },
+  "268": {
+    "english": "Daily limit reached. Try again tomorrow!",
+    "japanese": "本日の購入可能回数をすべて使用しました。明日もう一度お試しください！",
+    "skipped": false
+  },
+  "269": {
+    "english": "Weekly limit reached. Try again next week!",
+    "japanese": "今週の購入可能回数をすべて使用しました。来週もう一度お試しください！",
+    "skipped": false
+  },
+  "270": {
+    "english": "Monthly limit reached. Try again next month!",
+    "japanese": "今月の購入可能回数をすべて使用しました。来月もう一度お試しください！",
+    "skipped": false
+  },
+  "271": {
+    "english": "Purchase limit reached. Check other items!",
+    "japanese": "この商品の購入可能回数をすべて使用しました。他の商品も確認してみてください！",
+    "skipped": false
+  },
+  "272": {
+    "english": "Insufficient currency.",
+    "japanese": "資金が不足しています。",
+    "skipped": false
+  },
+  "273": {
+    "english": "Tier Up 1x",
+    "japanese": "1x ティアアップ",
+    "skipped": false
+  },
+  "274": {
+    "english": "Max Tier Up",
+    "japanese": "ティア最大アップ",
+    "skipped": false
+  },
+  "275": {
+    "english": "Purchase Tier Points?",
+    "japanese": "ティアポイントを購入しますか？",
+    "skipped": false
+  },
+  "290": {
+    "english": "Change Album",
+    "japanese": "アルバム変更",
+    "skipped": false
+  },
+  "291": {
+    "english": "Select Starting Album",
+    "japanese": "開始アルバムを選択",
+    "skipped": false
+  },
+  "292": {
+    "english": "Change Inventory Album",
+    "japanese": "インベントリアルバム変更",
+    "skipped": false
+  },
+  "293": {
+    "english": "Change Collection Album",
+    "japanese": "コレクションアルバム変更",
+    "skipped": false
+  },
+  "294": {
+    "english": "Change Play Album",
+    "japanese": "プレイアルバム変更",
+    "skipped": false
+  },
+  "295": {
+    "english": "Change League Album",
+    "japanese": "リーグアルバムを変更",
+    "skipped": false
+  },
+  "296": {
+    "english": "All Albums",
+    "japanese": "全アルバム",
+    "skipped": false
+  },
+  "297": {
+    "english": "Recently Played",
+    "japanese": "最近プレイした曲",
+    "skipped": false
+  },
+  "298": {
+    "english": "Pass Benefits Active",
+    "japanese": "パス特典が有効です",
+    "skipped": false
+  },
+  "299": {
+    "english": "No reward available. Complete missions and raise your tier level.",
+    "japanese": "報酬を獲得できません。ミッションを完了してティアレベルを上げてください。",
+    "skipped": false
+  },
+  "300": {
+    "english": "No reward available. Raise your tier to Max to claim bonus rewards.",
+    "japanese": "報酬を獲得できません。ティアレベルをMaxまで上げてボーナス報酬を獲得してください。",
+    "skipped": false
+  },
+  "301": {
+    "english": "No reward available. Complete missions to earn tier experience.",
+    "japanese": "報酬を獲得できません。ミッションを完了してティア経験値を獲得してください。",
+    "skipped": false
+  },
+  "302": {
+    "english": "No active pass.\nReturning to lobby.",
+    "japanese": "有効なパスがありません。\nロビーに戻ります。",
+    "skipped": false
+  },
+  "303": {
+    "english": "{0} Pass has expired.\nReturning to lobby.",
+    "japanese": "{0}パスの有効期限が切れました。\nロビーに戻ります。",
+    "skipped": false
+  },
+  "304": {
+    "english": "Exit Game",
+    "japanese": "ゲームを終了",
+    "skipped": false
+  },
+  "305": {
+    "english": "Are you sure you want to exit?",
+    "japanese": "ゲームを終了しますか？",
+    "skipped": false
+  },
+  "311": {
+    "english": "A-Z",
+    "japanese": "あ行",
+    "skipped": false
+  },
+  "312": {
+    "english": "This content doesn't support shortcuts.",
+    "japanese": "このコンテンツはショートカットに対応していません。",
+    "skipped": false
+  },
+  "313": {
+    "english": "My Profile",
+    "japanese": "マイプロフィール",
+    "skipped": false
+  },
+  "314": {
+    "english": "User Info",
+    "japanese": "ユーザー情報",
+    "skipped": false
+  },
+  "315": {
+    "english": "Background & Card",
+    "japanese": "背景とカード",
+    "skipped": false
+  },
+  "316": {
+    "english": "History",
+    "japanese": "履歴",
+    "skipped": false
+  },
+  "317": {
+    "english": "Score Records",
+    "japanese": "スコア記録",
+    "skipped": false
+  },
+  "318": {
+    "english": "Change Nickname",
+    "japanese": "ニックネームを変更",
+    "skipped": false
+  },
+  "319": {
+    "english": "Change Profile Picture",
+    "japanese": "プロフィール写真を変更",
+    "skipped": false
+  },
+  "320": {
+    "english": "Edit Greeting",
+    "japanese": "ご挨拶を編集",
+    "skipped": false
+  },
+  "321": {
+    "english": "Write any message you'd like.\n※ My Profile > Edit Greeting",
+    "japanese": "好きなメッセージを入力できます。\n※ マイプロフィール > ご挨拶を編集",
+    "skipped": false
+  },
+  "322": {
+    "english": "Equip any card you own.\n※ Inventory > Card Info > Set Representative Card",
+    "japanese": "所有しているカードを装備できます。\n※ インベントリ > カード情報 > 代表カードを設定",
+    "skipped": false
+  },
+  "323": {
+    "english": "Equip any background you own.\n※ Collection > Background Images > Set Representative Background",
+    "japanese": "所有している背景を装備できます。\n※ コレクション > 背景画像 > 代表背景を設定",
+    "skipped": false
+  },
+  "324": {
+    "english": "Equip all cards from any theme you own.\n※ Inventory > Equip Theme > Set Representative Theme",
+    "japanese": "所有しているテーマのすべてのカードを装備できます。\n※ インベントリ > テーマ装備 > 代表テーマを設定",
+    "skipped": false
+  },
+  "325": {
+    "english": "Most Collected Album",
+    "japanese": "最多収集アルバム",
+    "skipped": false
+  },
+  "326": {
+    "english": "Weekly Superstar",
+    "japanese": "週間スーパースター",
+    "skipped": false
+  },
+  "327": {
+    "english": "Weekly Top Score Song",
+    "japanese": "週間最高スコア曲",
+    "skipped": false
+  },
+  "328": {
+    "english": "Weekly Most Played Song",
+    "japanese": "週間最も多くプレイした曲",
+    "skipped": false
+  },
+  "329": {
+    "english": "Monthly All SUPER PERFECT Songs",
+    "japanese": "月間ALL SUPER PERFECT達成曲数",
+    "skipped": false
+  },
+  "330": {
+    "english": "Monthly Play Count",
+    "japanese": "月間プレイ回数",
+    "skipped": false
+  },
+  "331": {
+    "english": "Monthly Personal Record Achievements",
+    "japanese": "月間マイレコード達成数",
+    "skipped": false
+  },
+  "332": {
+    "english": "Monthly Attendance Days",
+    "japanese": "月間出席日数",
+    "skipped": false
+  },
+  "334": {
+    "english": "Weekly League Cumulative Score",
+    "japanese": "週間リーグ累積スコア",
+    "skipped": false
+  },
+  "335": {
+    "english": "Equip Profile Image",
+    "japanese": "プロフィール画像を装備",
+    "skipped": false
+  },
+  "336": {
+    "english": "Not Acquired",
+    "japanese": "未獲得",
+    "skipped": false
+  },
+  "337": {
+    "english": "Equipped",
+    "japanese": "装備中",
+    "skipped": false
+  },
+  "339": {
+    "english": "*When you purchase an item with tier points, your tier level increases instantly.",
+    "japanese": "*ティアポイント付き商品を購入するとティアレベルが即座に上昇します。",
+    "skipped": false
+  },
+  "344": {
+    "english": "Select Profile Image",
+    "japanese": "プロフィール画像を選択",
+    "skipped": false
+  },
+  "345": {
+    "english": "+ Tier Points {Value}",
+    "japanese": "+ ティアポイント {Value}",
+    "skipped": false
+  },
+  "346": {
+    "english": "Obtain {Value}",
+    "japanese": "{Value}を獲得しました",
+    "skipped": false
+  },
+  "347": {
+    "english": "Maximum 40 characters can be saved.",
+    "japanese": "最大40文字まで保存できます。",
+    "skipped": false
+  },
+  "349": {
+    "english": "Set the status message to change.",
+    "japanese": "変更するステータスメッセージを設定してください。",
+    "skipped": false
+  },
+  "350": {
+    "english": "Status message is identical.",
+    "japanese": "ステータスメッセージが同じです。",
+    "skipped": false
+  },
+  "351": {
+    "english": "Cannot use this status message.",
+    "japanese": "このステータスメッセージは使用できません。",
+    "skipped": false
+  },
+  "352": {
+    "english": "Set the nickname to change.",
+    "japanese": "変更するニックネームを設定してください。",
+    "skipped": false
+  },
+  "353": {
+    "english": "Nickname length is invalid.",
+    "japanese": "ニックネームの長さが正しくありません。",
+    "skipped": false
+  },
+  "354": {
+    "english": "Cannot use this nickname.",
+    "japanese": "このニックネームは使用できません。",
+    "skipped": false
+  },
+  "355": {
+    "english": "Reward x2",
+    "japanese": "報酬 x2",
+    "skipped": false
+  },
+  "356": {
+    "english": "Download Resources",
+    "japanese": "リソースをダウンロード",
+    "skipped": false
+  },
+  "357": {
+    "english": "Download {DownloadSize:F1}MB",
+    "japanese": "{DownloadSize:F1}MBをダウンロード",
+    "skipped": false
+  },
+  "358": {
+    "english": "Downloading...",
+    "japanese": "ダウンロード中です。",
+    "skipped": false
+  },
+  "359": {
+    "english": "Download cancelled.",
+    "japanese": "ダウンロードをキャンセルしました。",
+    "skipped": false
+  },
+  "360": {
+    "english": "Check Network",
+    "japanese": "ネットワークを確認",
+    "skipped": false
+  },
+  "361": {
+    "english": "Network connection is unstable.\nPlease check your network settings and try again.",
+    "japanese": "ネットワークが不安定です。\nネットワーク設定を確認して再度お試しください。",
+    "skipped": false
+  },
+  "383": {
+    "english": "Mail Reward",
+    "japanese": "メール報酬",
+    "skipped": false
+  },
+  "384": {
+    "english": "Season Pass Reward",
+    "japanese": "シーズンパス報酬",
+    "skipped": false
+  },
+  "385": {
+    "english": "Event Pass Reward",
+    "japanese": "イベントパス報酬",
+    "skipped": false
+  },
+  "386": {
+    "english": "Purchase Complete",
+    "japanese": "購入完了",
+    "skipped": false
+  },
+  "387": {
+    "english": "League Reward",
+    "japanese": "リーグ報酬",
+    "skipped": false
+  },
+  "388": {
+    "english": "Collection Reward",
+    "japanese": "コレクション報酬",
+    "skipped": false
+  },
+  "389": {
+    "english": "Daily Check-in Reward",
+    "japanese": "毎日出席報酬",
+    "skipped": false
+  },
+  "390": {
+    "english": "Play Time Event Reward",
+    "japanese": "プレイタイムイベント報酬",
+    "skipped": false
+  },
+  "391": {
+    "english": "Song Clear",
+    "japanese": "曲クリア",
+    "skipped": false
+  },
+  "393": {
+    "english": "Weekly League",
+    "japanese": "週間リーグ",
+    "skipped": false
+  },
+  "394": {
+    "english": "Burning Ticket",
+    "japanese": "バーニングチケット",
+    "skipped": false
+  },
+  "395": {
+    "english": "Notification",
+    "japanese": "通知",
+    "skipped": false
+  },
+  "397": {
+    "english": "Inventory is full. Cannot claim reward.\nPlease organize or expand your inventory.",
+    "japanese": "インベントリがいっぱいです。報酬を受け取れません。\nインベントリを整理または拡張してください。",
+    "skipped": false
+  },
+  "398": {
+    "english": "Tap to close",
+    "japanese": "タップして閉じる",
+    "skipped": false
+  },
+  "400": {
+    "english": "Settings",
+    "japanese": "設定",
+    "skipped": false
+  },
+  "401": {
+    "english": "Account Settings",
+    "japanese": "アカウント設定",
+    "skipped": false
+  },
+  "402": {
+    "english": "General Settings",
+    "japanese": "一般設定",
+    "skipped": false
+  },
+  "403": {
+    "english": "Sound Settings",
+    "japanese": "サウンド設定",
+    "skipped": false
+  },
+  "404": {
+    "english": "Display Settings",
+    "japanese": "画面設定",
+    "skipped": false
+  },
+  "405": {
+    "english": "Customer Support",
+    "japanese": "カスタマーサポート",
+    "skipped": false
+  },
+  "406": {
+    "english": "On",
+    "japanese": "オン",
+    "skipped": false
+  },
+  "407": {
+    "english": "Off",
+    "japanese": "オフ",
+    "skipped": false
+  },
+  "408": {
+    "english": "Settings",
+    "japanese": "設定",
+    "skipped": false
+  },
+  "409": {
+    "english": "Shortcut",
+    "japanese": "ショートカット",
+    "skipped": false
+  },
+  "410": {
+    "english": "Show Game Notifications",
+    "japanese": "ゲーム通知を表示",
+    "skipped": false
+  },
+  "411": {
+    "english": "Please enable notifications in device settings.",
+    "japanese": "デバイス設定で通知を有効にしてください。",
+    "skipped": false
+  },
+  "412": {
+    "english": "Language",
+    "japanese": "言語",
+    "skipped": false
+  },
+  "413": {
+    "english": "Clear Unused Data",
+    "japanese": "未使用データをクリア",
+    "skipped": false
+  },
+  "415": {
+    "english": "Clear",
+    "japanese": "クリア",
+    "skipped": false
+  },
+  "416": {
+    "english": "No data to clear.",
+    "japanese": "クリアするデータがありません。",
+    "skipped": false
+  },
+  "417": {
+    "english": "Haptic Feedback",
+    "japanese": "ハプティックフィードバック",
+    "skipped": false
+  },
+  "418": {
+    "english": "Background Music",
+    "japanese": "背景音",
+    "skipped": false
+  },
+  "419": {
+    "english": "Song Preview",
+    "japanese": "曲プレビュー",
+    "skipped": false
+  },
+  "420": {
+    "english": "UI Sound Effects",
+    "japanese": "UI効果音",
+    "skipped": false
+  },
+  "421": {
+    "english": "Artist Voice",
+    "japanese": "アーティストボイス",
+    "skipped": false
+  },
+  "422": {
+    "english": "Note Hit Effects",
+    "japanese": "ノートヒット効果音",
+    "skipped": false
+  },
+  "423": {
+    "english": "Max",
+    "japanese": "最大",
+    "skipped": false
+  },
+  "425": {
+    "english": "Mute",
+    "japanese": "ミュート",
+    "skipped": false
+  },
+  "426": {
+    "english": "Adjust Background Music Timing",
+    "japanese": "背景音の再生タイミングを調整",
+    "skipped": false
+  },
+  "427": {
+    "english": "Play {Seconds:G} seconds faster",
+    "japanese": "{Seconds:G}秒先行再生",
+    "skipped": false
+  },
+  "428": {
+    "english": "No timing adjustment",
+    "japanese": "タイミング調整なし",
+    "skipped": false
+  },
+  "429": {
+    "english": "Bluetooth Latency Offset",
+    "japanese": "Bluetoothレイテンシ設定",
+    "skipped": false
+  },
+  "430": {
+    "english": "Play {Seconds:G} seconds later",
+    "japanese": "{Seconds:G}秒遅延再生",
+    "skipped": false
+  },
+  "431": {
+    "english": "No latency adjustment",
+    "japanese": "レイテンシ調整なし",
+    "skipped": false
+  },
+  "432": {
+    "english": "Low Graphics Mode",
+    "japanese": "低グラフィック設定",
+    "skipped": false
+  },
+  "433": {
+    "english": "Live Theme Lobby Display",
+    "japanese": "ライブテーマロビー配置",
+    "skipped": false
+  },
+  "434": {
+    "english": "*Only the featured Live Theme is displayed in the lobby.",
+    "japanese": "*代表に設定されたライブテーマのみロビーに表示されます。",
+    "skipped": false
+  },
+  "435": {
+    "english": "Artist Handwriting",
+    "japanese": "アーティスト手書き",
+    "skipped": false
+  },
+  "436": {
+    "english": "Note Size",
+    "japanese": "ノートサイズ",
+    "skipped": false
+  },
+  "437": {
+    "english": "Small",
+    "japanese": "小",
+    "skipped": false
+  },
+  "438": {
+    "english": "Medium",
+    "japanese": "中",
+    "skipped": false
+  },
+  "439": {
+    "english": "Large",
+    "japanese": "大",
+    "skipped": false
+  },
+  "440": {
+    "english": "Touch Sensitivity",
+    "japanese": "タッチ感度",
+    "skipped": false
+  },
+  "441": {
+    "english": "Adjust Touch Sensitivity",
+    "japanese": "タッチ感度を調整",
+    "skipped": false
+  },
+  "442": {
+    "english": "Adjust background shading",
+    "japanese": "背景シェーディングを調整",
+    "skipped": false
+  },
+  "443": {
+    "english": "Note Speed",
+    "japanese": "ノートスピード",
+    "skipped": false
+  },
+  "444": {
+    "english": "Customer Support",
+    "japanese": "カスタマーサポート",
+    "skipped": false
+  },
+  "445": {
+    "english": "Terms & Policy",
+    "japanese": "利用約款・運営方針",
+    "skipped": false
+  },
+  "446": {
+    "english": "Select Language",
+    "japanese": "言語を選択",
+    "skipped": false
+  },
+  "447": {
+    "english": "Change to Selected Language",
+    "japanese": "選択した言語に変更",
+    "skipped": false
+  },
+  "448": {
+    "english": "Language already selected.",
+    "japanese": "既に選択されている言語です。",
+    "skipped": false
+  },
+  "450": {
+    "english": "English",
+    "japanese": "日本語",
+    "skipped": false
+  },
+  "460": {
+    "english": "Clear Data",
+    "japanese": "データをクリア",
+    "skipped": false
+  },
+  "461": {
+    "english": "Clears music data except recent albums. Cleared music can be re-downloaded when played.\n\n<b><size=35>{CacheSize:F1}</size></b>MB to clear",
+    "japanese": "最近プレイしたアルバム以外の音楽データをクリアします。\nクリアされた音楽は再度ダウンロードできます。\n\n<b><size=35>{CacheSize:F1}</size></b>MB をクリア",
+    "skipped": false
+  },
+  "462": {
+    "english": "Clear Data",
+    "japanese": "データをクリア",
+    "skipped": false
+  },
+  "463": {
+    "english": "Bluetooth Settings",
+    "japanese": "Bluetooth設定",
+    "skipped": false
+  },
+  "464": {
+    "english": "Change",
+    "japanese": "変更",
+    "skipped": false
+  },
+  "465": {
+    "english": "<b><size=35>{Seconds:G}</size></b>s Faster",
+    "japanese": "<b><size=35>{Seconds:G}</size></b>秒 高速化",
+    "skipped": false
+  },
+  "466": {
+    "english": "Starter Pack Rewards",
+    "japanese": "スターターパック報酬",
+    "skipped": false
+  },
+  "467": {
+    "english": "Claim Rewards",
+    "japanese": "報酬を受け取る",
+    "skipped": false
+  },
+  "468": {
+    "english": "Play Rewards",
+    "japanese": "プレイ報酬",
+    "skipped": false
+  },
+  "469": {
+    "english": "Purchase Rewards",
+    "japanese": "購入報酬",
+    "skipped": false
+  },
+  "470": {
+    "english": "Rewards",
+    "japanese": "報酬",
+    "skipped": false
+  },
+  "487": {
+    "english": "Mailbox",
+    "japanese": "メールボックス",
+    "skipped": false
+  },
+  "488": {
+    "english": "Claim All",
+    "japanese": "すべて受け取る",
+    "skipped": false
+  },
+  "489": {
+    "english": "No new messages.",
+    "japanese": "新しいメッセージはありません。",
+    "skipped": false
+  },
+  "490": {
+    "english": "View All",
+    "japanese": "すべて表示",
+    "skipped": false
+  },
+  "491": {
+    "english": "View Options",
+    "japanese": "オプションを表示",
+    "skipped": false
+  },
+  "492": {
+    "english": "Card inventory space is required.",
+    "japanese": "カードインベントリに空きが必要です。",
+    "skipped": false
+  },
+  "493": {
+    "english": "No rewards available to claim.",
+    "japanese": "受け取り可能な報酬はありません。",
+    "skipped": false
+  },
+  "494": {
+    "english": "Delete",
+    "japanese": "削除",
+    "skipped": false
+  },
+  "495": {
+    "english": "Claim",
+    "japanese": "受け取る",
+    "skipped": false
+  },
+  "496": {
+    "english": "Watch Ad",
+    "japanese": "広告を見る",
+    "skipped": false
+  },
+  "497": {
+    "english": "Items Sent via Mailbox",
+    "japanese": "メールで送信されたアイテム",
+    "skipped": false
+  },
+  "498": {
+    "english": "Your inventory is full. Items have been sent to your mailbox.\nPlease check the expiration date and claim your rewards.",
+    "japanese": "インベントリがいっぱいです。アイテムはメールボックスに送信されました。\n有効期限を確認して報酬を受け取ってください。",
+    "skipped": false
+  },
+  "499": {
+    "english": "{PassName} Pass {PassTier} Tier Rewards",
+    "japanese": "{PassName}パス {PassTier}ティア報酬",
+    "skipped": false
+  },
+  "500": {
+    "english": "{PassName} has ended. Here are your tier rewards.",
+    "japanese": "{PassName}の期間が終了しました。ティア報酬をお送りします。",
+    "skipped": false
+  },
+  "501": {
+    "english": "{PassName} Pass Repeat Rewards",
+    "japanese": "{PassName}パス リピート報酬",
+    "skipped": false
+  },
+  "502": {
+    "english": "{PassName} has ended. Here are your repeat rewards.",
+    "japanese": "{PassName}の期間が終了しました。リピート報酬をお送りします。",
+    "skipped": false
+  },
+  "503": {
+    "english": "Ad Viewing Rewards",
+    "japanese": "広告視聴報酬",
+    "skipped": false
+  },
+  "504": {
+    "english": "Watch ads to earn rewards in your mailbox.\nDon't miss this opportunity!",
+    "japanese": "広告を視聴すると、メールボックスに報酬が届きます。\nこの機会をお見逃しなく！",
+    "skipped": false
+  },
+  "508": {
+    "english": "Ad",
+    "japanese": "広告",
+    "skipped": false
+  },
+  "509": {
+    "english": "Failed to load ad.\n\n{Reason}\n\n※ If the problem persists, contact Support in the menu.",
+    "japanese": "広告の読み込みに失敗しました。\n\n{Reason}\n\n※ 問題が続く場合は、メニューの「サポート」にお問い合わせください。",
+    "skipped": false
+  },
+  "510": {
+    "english": "Invalid ad unit information.",
+    "japanese": "無効な広告ユニット情報です。",
+    "skipped": false
+  },
+  "511": {
+    "english": "Failed to display ad.",
+    "japanese": "広告の表示に失敗しました。",
+    "skipped": false
+  },
+  "512": {
+    "english": "Ad was cancelled.",
+    "japanese": "広告はキャンセルされました。",
+    "skipped": false
+  },
+  "513": {
+    "english": "Unsupported ad type.",
+    "japanese": "サポートされていない広告タイプです。",
+    "skipped": false
+  },
+  "514": {
+    "english": "No ads available right now.\n(Error code: 100)",
+    "japanese": "現在ご利用可能な広告はありません。\n(エラーコード: 100)",
+    "skipped": false
+  },
+  "515": {
+    "english": "Invalid ad request.\n(Error code: 101)",
+    "japanese": "無効な広告リクエストです。\n(エラーコード: 101)",
+    "skipped": false
+  },
+  "516": {
+    "english": "Network error occurred.\nCheck your internet connection and try again.\n(Error code: 102)",
+    "japanese": "ネットワークエラーが発生しました。\nインターネット接続を確認して、もう一度お試しください。\n(エラーコード: 102)",
+    "skipped": false
+  },
+  "517": {
+    "english": "Not connected to the internet.\nCheck your Wi-Fi or mobile data.\n(Error code: 103)",
+    "japanese": "インターネットに接続していません。\nWi-Fiまたはモバイルデータを確認してください。\n(エラーコード: 103)",
+    "skipped": false
+  },
+  "518": {
+    "english": "Temporary error occurred.\nPlease try again later.\n(Error code: 104)",
+    "japanese": "一時的なエラーが発生しました。\nしばらく後にもう一度お試しください。\n(エラーコード: 104)",
+    "skipped": false
+  },
+  "519": {
+    "english": "Ad system initialization incomplete.\nRestart the game and try again.\n(Error code: 105)",
+    "japanese": "広告システムの初期化が完了していません。\nゲームを再起動してもう一度お試しください。\n(エラーコード: 105)",
+    "skipped": false
+  },
+  "520": {
+    "english": "Already loading an ad.\nPlease try again later.\n(Error code: 106)",
+    "japanese": "すでに広告を読み込み中です。\nしばらく後にもう一度お試しください。\n(エラーコード: 106)",
+    "skipped": false
+  },
+  "521": {
+    "english": "Failed to load ad content.\nPlease try again later.\n(Error code: 107)",
+    "japanese": "広告コンテンツの読み込みに失敗しました。\nしばらく後にもう一度お試しください。\n(エラーコード: 107)",
+    "skipped": false
+  },
+  "522": {
+    "english": "Ad server error.\nPlease try again later.\n(Error code: 108)",
+    "japanese": "広告サーバーでエラーが発生しました。\nしばらく後にもう一度お試しください。\n(エラーコード: 108)",
+    "skipped": false
+  },
+  "523": {
+    "english": "Ad layout configuration error.\n(Error code: 109)",
+    "japanese": "広告レイアウト設定に問題があります。\n(エラーコード: 109)",
+    "skipped": false
+  },
+  "524": {
+    "english": "Ad viewing time has expired.\nPlease try again later.\n(Error code: 110)",
+    "japanese": "広告の視聴可能時間が終了しました。\nしばらく後にもう一度お試しください。\n(エラーコード: 110)",
+    "skipped": false
+  },
+  "525": {
+    "english": "Ad broker information unavailable.\nPlease try again later.\n(Error code: 111)",
+    "japanese": "広告ブローカー情報がありません。\nしばらく後にもう一度お試しください。\n(エラーコード: 111)",
+    "skipped": false
+  },
+  "526": {
+    "english": "Purchase Successful",
+    "japanese": "購入完了",
+    "skipped": false
+  },
+  "527": {
+    "english": "Purchase successful.\n\nTap OK to claim your reward.",
+    "japanese": "購入が完了しました。\n\n「OK」をタップして報酬を受け取ってください。",
+    "skipped": false
+  },
+  "528": {
+    "english": "Purchase Pending",
+    "japanese": "購入待機中",
+    "skipped": false
+  },
+  "529": {
+    "english": "Purchase confirmation is pending.\n\nThis usually takes a few minutes.\nPlease restart the game later or tap\n'Restore Purchases' in the menu.\n\n※ If the problem persists, contact\nCustomer Support from the menu.",
+    "japanese": "購入の承認が処理中です。\n\nこれは通常数分で完了します。\nしばらく後にゲームを再起動するか、\nメニューの「購入を復元」をタップしてください。\n\n※ 問題が解決しない場合は、\nメニューの「カスタマーサポート」にお問い合わせください。",
+    "skipped": false
+  },
+  "530": {
+    "english": "Purchase Failed",
+    "japanese": "購入失敗",
+    "skipped": false
+  },
+  "531": {
+    "english": "Purchase failed.\n\n{Reason}\n\n※ If the problem persists, contact\nCustomer Support from the menu.",
+    "japanese": "購入に失敗しました。\n\n{Reason}\n\n※ 問題が解決しない場合は、\nメニューの「カスタマーサポート」にお問い合わせください。",
+    "skipped": false
+  },
+  "532": {
+    "english": "(Reason: Purchase not available)",
+    "japanese": "(理由: 購入できません)",
+    "skipped": false
+  },
+  "533": {
+    "english": "(Reason: Purchase in progress)",
+    "japanese": "(理由: 購入処理中)",
+    "skipped": false
+  },
+  "534": {
+    "english": "(Reason: Item not available for sale)",
+    "japanese": "(理由: 商品は販売できません)",
+    "skipped": false
+  },
+  "535": {
+    "english": "(Reason: Security verification failed)",
+    "japanese": "(理由: セキュリティ認証に失敗)",
+    "skipped": false
+  },
+  "536": {
+    "english": "(Reason: Purchase cancelled)",
+    "japanese": "(理由: 購入がキャンセルされました)",
+    "skipped": false
+  },
+  "537": {
+    "english": "(Reason: Payment declined)",
+    "japanese": "(理由: 決済が拒否されました)",
+    "skipped": false
+  },
+  "538": {
+    "english": "(Reason: Duplicate purchase attempt)",
+    "japanese": "(理由: 重複購入試行)",
+    "skipped": false
+  },
+  "539": {
+    "english": "(Reason: Validation failed)",
+    "japanese": "(理由: 検証に失敗しました)",
+    "skipped": false
+  },
+  "540": {
+    "english": "(Reason: Store connection lost)",
+    "japanese": "(理由: ストア接続が切断されました)",
+    "skipped": false
+  },
+  "541": {
+    "english": "(Reason: Purchase information unavailable)",
+    "japanese": "(理由: 購入情報がありません)",
+    "skipped": false
+  },
+  "542": {
+    "english": "(Reason: Platform error)",
+    "japanese": "(理由: プラットフォームエラー)",
+    "skipped": false
+  },
+  "543": {
+    "english": "(Reason: Payment approval pending)",
+    "japanese": "(理由: 支払い承認待機中)",
+    "skipped": false
+  },
+  "544": {
+    "english": "Purchase recovery attempted for {Nickname}.\n\nIf this isn't your account, please contact\nCustomer Support from the menu.",
+    "japanese": "{Nickname}さんの購入復元が試行されました。\n\nこれがあなたのアカウントでない場合は、\nメニューの「カスタマーサポート」にお問い合わせください。",
+    "skipped": false
+  },
+  "545": {
+    "english": "(Reason: System error)",
+    "japanese": "(理由: システムエラー)",
+    "skipped": false
+  },
+  "546": {
+    "english": "Purchase Delayed",
+    "japanese": "購入待機中",
+    "skipped": false
+  },
+  "547": {
+    "english": "{ProductName}\n\nA purchase is pending confirmation.\n\nThis usually takes a few minutes.\nPlease restart the game later or tap\n'Restore Purchases' in the menu.\n\n※ If the problem persists, contact\nCustomer Support from the menu.",
+    "japanese": "{ProductName}\n\n購入の確認が待機中です。\n\nこれは通常数分で完了します。\nしばらく後にゲームを再起動するか、\nメニューの「購入を復元」をタップしてください。\n\n※ 問題が解決しない場合は、\nメニューの「カスタマーサポート」にお問い合わせください。",
+    "skipped": false
+  },
+  "548": {
+    "english": "Restore Purchases",
+    "japanese": "購入を復元",
+    "skipped": false
+  },
+  "549": {
+    "english": "{ProductName}\n\nPurchase restored successfully.\n\nTap OK to claim your reward.",
+    "japanese": "{ProductName}\n\n購入の復元に成功しました。\n\n「OK」をタップして報酬を受け取ってください。",
+    "skipped": false
+  },
+  "550": {
+    "english": "No purchases requiring recovery found.\n\nIf you made a purchase but didn't receive\nthe item, please contact Customer Support\nfrom the menu.",
+    "japanese": "復元が必要な購入はありません。\n\n購入したのに商品を受け取っていない場合は、\nメニューの「カスタマーサポート」にお問い合わせください。",
+    "skipped": false
+  },
+  "551": {
+    "english": "Pull Odds",
+    "japanese": "確率情報",
+    "skipped": false
+  },
+  "552": {
+    "english": "Pull History",
+    "japanese": "ガチャ履歴",
+    "skipped": false
+  },
+  "553": {
+    "english": "{DrawCount} Pulls",
+    "japanese": "{DrawCount}回ガチャ",
+    "skipped": false
+  },
+  "554": {
+    "english": "Limited theme guaranteed in <size=21><b><color=#02FFA9>{RemainCount}</b></color></size> more pulls",
+    "japanese": "あと<size=21><b><color=#02FFA9>{RemainCount}</b></color></size>回で限定テーマ確定",
+    "skipped": false
+  },
+  "555": {
+    "english": "Limited Theme Guaranteed",
+    "japanese": "限定テーマ確定",
+    "skipped": false
+  },
+  "556": {
+    "english": "Event Ended",
+    "japanese": "期間終了",
+    "skipped": false
+  },
+  "557": {
+    "english": "Artist pull ended.\nSee you on the next stage!",
+    "japanese": "アーティストガチャが終了しました。\n次のステージでお会いしましょう!",
+    "skipped": false
+  },
+  "558": {
+    "english": "Notice",
+    "japanese": "お知らせ",
+    "skipped": false
+  },
+  "559": {
+    "english": "Not enough pull tickets.\nBuy the remaining amount with diamonds to continue?",
+    "japanese": "ガチャチケットが不足しています。\n不足分をダイヤで購入してガチャを続行しますか?",
+    "skipped": false
+  },
+  "560": {
+    "english": "Link additional accounts to protect your data.",
+    "japanese": "追加アカウントをリンクしてデータを保護してください。",
+    "skipped": false
+  },
+  "561": {
+    "english": "Linked",
+    "japanese": "連携済み",
+    "skipped": false
+  },
+  "562": {
+    "english": "Disconnect Account",
+    "japanese": "アカウント連携を解除",
+    "skipped": false
+  },
+  "563": {
+    "english": "At least one account must remain connected.",
+    "japanese": "1つ以上のアカウント連携を保持する必要があります。",
+    "skipped": false
+  },
+  "564": {
+    "english": "You will no longer be able to access this login with the account you're disconnecting.\n\nDisconnect this account?",
+    "japanese": "このログイン情報でのアクセスがなくなります。\n\n連携を解除しますか？",
+    "skipped": false
+  },
+  "565": {
+    "english": "Disconnect",
+    "japanese": "解除",
+    "skipped": false
+  },
+  "566": {
+    "english": "Cancel",
+    "japanese": "キャンセル",
+    "skipped": false
+  },
+  "567": {
+    "english": "Account Connection Failed",
+    "japanese": "アカウント連携に失敗しました",
+    "skipped": false
+  },
+  "568": {
+    "english": "This login is already connected to another account.\n\nPlease try with a different login.",
+    "japanese": "このログイン情報は既に別のアカウントに連携しています。\n\n別のログイン情報でお試しください。",
+    "skipped": false
+  },
+  "569": {
+    "english": "Delete Account",
+    "japanese": "アカウント削除",
+    "skipped": false
+  },
+  "570": {
+    "english": "Select",
+    "japanese": "選択",
+    "skipped": false
+  },
+  "571": {
+    "english": "Please select an artist.",
+    "japanese": "アーティストを選択してください。",
+    "skipped": false
+  },
+  "573": {
+    "english": "Complete all missions to earn rewards.",
+    "japanese": "すべてのミッションを完了してご褒美をゲット。",
+    "skipped": false
+  },
+  "574": {
+    "english": "Claim Now",
+    "japanese": "今すぐ獲得",
+    "skipped": false
+  },
+  "575": {
+    "english": "Quick shortcuts are not available for this content.",
+    "japanese": "このコンテンツでは高速スキップは対応していません。",
+    "skipped": false
+  },
+  "576": {
+    "english": "Collect all mission rewards!",
+    "japanese": "全てのミッション報酬をゲットしよう！",
+    "skipped": false
+  },
+  "577": {
+    "english": "You have unclaimed rewards. Please collect them now.",
+    "japanese": "受け取っていない報酬があります。今すぐゲットしてください！",
+    "skipped": false
+  },
+  "578": {
+    "english": "Favorite Artist Growth Support Package",
+    "japanese": "推し成長応援パッケージ",
+    "skipped": false
+  },
+  "579": {
+    "english": "A special gift just for you",
+    "japanese": "あなただけのスペシャルギフト",
+    "skipped": false
+  },
+  "580": {
+    "english": "Tomorrow too, it's a secret promise, right?",
+    "japanese": "明日も秘密の約束、知ってるよね？",
+    "skipped": false
+  },
+  "581": {
+    "english": "Check the remaining time to earn your reward.",
+    "japanese": "時間経過で報酬がゲットできます。残り時間を確認してください！",
+    "skipped": false
+  },
+  "582": {
+    "english": "Claim Now",
+    "japanese": "今すぐ獲得",
+    "skipped": false
+  },
+  "583": {
+    "english": "Grand Opening: 300 free pulls",
+    "japanese": "オープン記念 300回無料ガチャ",
+    "skipped": false
+  },
+  "584": {
+    "english": "Your chance to get ultra-rare theme cards.\nLog in daily to collect.",
+    "japanese": "超レアテーマカードをゲットするチャンス。\n毎日出席して獲得しましょう。",
+    "skipped": false
+  },
+  "585": {
+    "english": "Day {Day}",
+    "japanese": "{Day}日目",
+    "skipped": false
+  },
+  "586": {
+    "english": "Collect",
+    "japanese": "獲得",
+    "skipped": false
+  },
+  "587": {
+    "english": "Recently used account",
+    "japanese": "最近使用したアカウント",
+    "skipped": false
+  },
+  "588": {
+    "english": "My Info",
+    "japanese": "マイ情報",
+    "skipped": false
+  },
+  "589": {
+    "english": "Enter a new nickname.",
+    "japanese": "新しいニックネームを入力してください。",
+    "skipped": false
+  },
+  "590": {
+    "english": "{PriceAmount:cond:>1?{PriceAmount} |}Use",
+    "japanese": "{PriceAmount:cond:>1?{PriceAmount} |}使用",
+    "skipped": false
+  },
+  "591": {
+    "english": "Please set a new nickname.",
+    "japanese": "新しいニックネームを設定してください。",
+    "skipped": false
+  },
+  "592": {
+    "english": "That nickname cannot be used.",
+    "japanese": "使用できないニックネームです。",
+    "skipped": false
+  },
+  "593": {
+    "english": "Nickname length is invalid.",
+    "japanese": "ニックネームの長さが正しくありません。",
+    "skipped": false
+  },
+  "594": {
+    "english": "This nickname is already in use.",
+    "japanese": "そのニックネームは既に使用されています。",
+    "skipped": false
+  },
+  "595": {
+    "english": "Nickname",
+    "japanese": "ニックネーム",
+    "skipped": false
+  },
+  "596": {
+    "english": "That nickname cannot be used.\nPlease choose a different one.",
+    "japanese": "使用できないニックネームです。\n別のニックネームを使用してください。",
+    "skipped": false
+  },
+  "597": {
+    "english": "Nickname",
+    "japanese": "ニックネーム",
+    "skipped": false
+  },
+  "598": {
+    "english": "\"{Nickname}\" is already taken.\nPlease choose a different nickname.",
+    "japanese": "「{Nickname}」は既に登録されています。別のニックネームを使用してください。",
+    "skipped": false
+  },
+  "599": {
+    "english": "Nickname changed successfully.",
+    "japanese": "ニックネームの変更が完了しました。",
+    "skipped": false
+  },
+  "600": {
+    "english": "League placement pending",
+    "japanese": "リーグ配置待ち中",
+    "skipped": false
+  },
+  "601": {
+    "english": "Album not owned",
+    "japanese": "アルバム未保有",
+    "skipped": false
+  },
+  "602": {
+    "english": "Group Ranking #1 Achievement Reward",
+    "japanese": "グループランキング1位達成報酬",
+    "skipped": false
+  },
+  "603": {
+    "english": "Album Group Ranking",
+    "japanese": "アルバムグループランキング",
+    "skipped": false
+  },
+  "604": {
+    "english": "This Week's Hall of Fame",
+    "japanese": "今週の殿堂入り",
+    "skipped": false
+  },
+  "605": {
+    "english": "Play songs to earn points and you'll be automatically placed in the league.",
+    "japanese": "曲をプレイしてポイントを獲得すると、自動的にリーグに配置されます。",
+    "skipped": false
+  },
+  "606": {
+    "english": "Join the league by purchasing albums.",
+    "japanese": "アルバムを購入してリーグに参加できます。",
+    "skipped": false
+  },
+  "607": {
+    "english": "My {AlbumName} Album Play Score",
+    "japanese": "私の{AlbumName}アルバムプレイスコア",
+    "skipped": false
+  },
+  "608": {
+    "english": "Fill Records",
+    "japanese": "記録を埋める",
+    "skipped": false
+  },
+  "609": {
+    "english": "Song Name",
+    "japanese": "曲名",
+    "skipped": false
+  },
+  "610": {
+    "english": "Best Record",
+    "japanese": "ベストスコア",
+    "skipped": false
+  },
+  "611": {
+    "english": "This Week's Record",
+    "japanese": "今週の記録",
+    "skipped": false
+  },
+  "612": {
+    "english": "Records are saved on this device only. They will be lost if you delete the app or change devices.",
+    "japanese": "記録はこのデバイスにのみ保存されます。アプリを削除またはデバイスを変更すると失われます。",
+    "skipped": false
+  },
+  "613": {
+    "english": "Shop",
+    "japanese": "ショップ",
+    "skipped": false
+  },
+  "614": {
+    "english": "{Nickname}'s Profile",
+    "japanese": "{Nickname}のプロフィール",
+    "skipped": false
+  },
+  "616": {
+    "english": "Album Level",
+    "japanese": "アルバムレベル",
+    "skipped": false
+  },
+  "617": {
+    "english": "Hall of Fame Best Record",
+    "japanese": "殿堂入り最高スコア",
+    "skipped": false
+  },
+  "618": {
+    "english": "All-Time Best Score",
+    "japanese": "歴代最高スコア",
+    "skipped": false
+  },
+  "619": {
+    "english": "Rank {0}",
+    "japanese": "{0}位",
+    "skipped": false
+  },
+  "621": {
+    "english": "Equipped Photo Card",
+    "japanese": "装着中のフォトカード",
+    "skipped": false
+  },
+  "622": {
+    "english": "Album League Rewards",
+    "japanese": "アルバムリーグ報酬",
+    "skipped": false
+  },
+  "623": {
+    "english": "Rewards from last week's album league group ranking have been combined and granted.",
+    "japanese": "先週のアルバムリーググループランキングの結果に基づいた報酬が合算されて付与されました。",
+    "skipped": false
+  },
+  "625": {
+    "english": "Group Ranking Settlement Reward",
+    "japanese": "グループランキング結算報酬",
+    "skipped": false
+  },
+  "626": {
+    "english": "Rank {0}",
+    "japanese": "{0}位",
+    "skipped": false
+  },
+  "627": {
+    "english": "Ranks {rankMin}~{rankMax}",
+    "japanese": "{rankMin}~{rankMax}位",
+    "skipped": false
+  },
+  "628": {
+    "english": "My Current Rank",
+    "japanese": "現在の私の順位",
+    "skipped": false
+  },
+  "629": {
+    "english": "League Period Ended",
+    "japanese": "リーグ期間終了のお知らせ",
+    "skipped": false
+  },
+  "630": {
+    "english": "The album league period has ended. Returning to lobby.",
+    "japanese": "アルバムリーグの期間が終了しました。ロビーに移動します。",
+    "skipped": false
+  },
+  "631": {
+    "english": "Album league rewards have been sent to your mailbox.",
+    "japanese": "アルバムリーグの報酬がメールボックスに送付されました。",
+    "skipped": false
+  },
+  "632": {
+    "english": "Weekly Album League Settlement",
+    "japanese": "週間アルバムリーグ結算",
+    "skipped": false
+  },
+  "633": {
+    "english": "Reward Settlement",
+    "japanese": "報酬結算",
+    "skipped": false
+  },
+  "634": {
+    "english": "Bio not written yet.",
+    "japanese": "自己紹介は作成されていません。",
+    "skipped": false
+  },
+  "635": {
+    "english": "Achieved Rank {0}",
+    "japanese": "{0}位を達成しました",
+    "skipped": false
+  },
+  "636": {
+    "english": "Play songs to earn points and you'll be automatically placed in the league.",
+    "japanese": "曲をプレイしてポイントを獲得すると、自動的にリーグに配置されます。",
+    "skipped": false
+  },
+  "637": {
+    "english": "Join the league by purchasing albums.",
+    "japanese": "アルバムを購入してリーグに参加できます。",
+    "skipped": false
+  },
+  "638": {
+    "english": "Rank {0}",
+    "japanese": "{0}位",
+    "skipped": false
+  },
+  "639": {
+    "english": "Search by song, artist, group, or album name",
+    "japanese": "曲名、アーティスト名、グループ名、またはアルバム名で検索",
+    "skipped": false
+  },
+  "640": {
+    "english": "No search results found.\nPlease verify the song, artist, group, or album name.",
+    "japanese": "検索結果がありません。\n曲名、アーティスト名、グループ名、またはアルバム名をご確認ください。",
+    "skipped": false
+  },
+  "641": {
+    "english": "My Rank",
+    "japanese": "私の順位",
+    "skipped": false
+  },
+  "642": {
+    "english": "{0}% difference",
+    "japanese": "{0}%の差",
+    "skipped": false
+  },
+  "643": {
+    "english": "Tied",
+    "japanese": "同点",
+    "skipped": false
+  },
+  "644": {
+    "english": "A little more effort and your rewards will shine even brighter!",
+    "japanese": "あと少し頑張れば、報酬がもっと輝きます！",
+    "skipped": false
+  },
+  "645": {
+    "english": "Don't lose 1st place! Show the dignity of the throne!",
+    "japanese": "惜しい1位を失わないで。王座の威厳を見せてください！",
+    "skipped": false
+  },
+  "646": {
+    "english": "In case of a tie, ranking is determined by album level.",
+    "japanese": "同じスコアの場合、ランキングはアルバムレベルで決定されます。",
+    "skipped": false
+  },
+  "647": {
+    "english": "You ranked 1st last week! Perfect your performance this week to keep your spot.",
+    "japanese": "先週1位でした！今週も完璧なプレイでその座を守りましょう。",
+    "skipped": false
+  },
+  "648": {
+    "english": "You were Top 5 last week. Let's aim higher and take the 1st place this week!",
+    "japanese": "先週はトップ5でした。今週は1位を目指してチャレンジしましょう！",
+    "skipped": false
+  },
+  "649": {
+    "english": "Your last week's score was great. Let's climb higher this week for better rewards!",
+    "japanese": "先週の成績は良かったです。今週はもっと高い報酬ゾーンを目指しましょう！",
+    "skipped": false
+  },
+  "650": {
+    "english": "You didn't earn Album League Coins last week. Let's set a goal to earn them this time!",
+    "japanese": "先週はアルバムリーグコインを獲得できませんでした。今回は獲得を目指しましょう！",
+    "skipped": false
+  },
+  "651": {
+    "english": "No record from last week. Ready to dive into the Album League?",
+    "japanese": "先週の記録がありません。アルバムリーグに本格参加してみませんか？",
+    "skipped": false
+  },
+  "652": {
+    "english": "My {AlbumName} Album Group Ranking Last Week",
+    "japanese": "先週の{AlbumName}アルバムグループランキング",
+    "skipped": false
+  },
+  "653": {
+    "english": "Rank {0}",
+    "japanese": "{0}位",
+    "skipped": false
+  },
+  "655": {
+    "english": "League Guide",
+    "japanese": "リーグ参加案内",
+    "skipped": false
+  },
+  "656": {
+    "english": "You've joined the {AlbumName} Album League.\nCheck your current ranking and rewards!",
+    "japanese": "{AlbumName}アルバムリーグへの参加が完了しました。\n現在の順位と報酬を確認しましょう！",
+    "skipped": false
+  },
+  "657": {
+    "english": "Go to League",
+    "japanese": "リーグへ移動",
+    "skipped": false
+  },
+  "658": {
+    "english": "Rank up successful!",
+    "japanese": "ランクアップ成功！",
+    "skipped": false
+  },
+  "659": {
+    "english": "Awesome! You've left 2nd place behind!",
+    "japanese": "素晴らしい！2位との差を広げました！",
+    "skipped": false
+  },
+  "664": {
+    "english": "Pass Shortcut",
+    "japanese": "パスショートカット",
+    "skipped": false
+  },
+  "665": {
+    "english": "Shop Shortcut",
+    "japanese": "ショップショートカット",
+    "skipped": false
+  },
+  "666": {
+    "english": "Pass Period Ended",
+    "japanese": "パス期間終了",
+    "skipped": false
+  },
+  "667": {
+    "english": "Sale Period Ended",
+    "japanese": "販売期間終了",
+    "skipped": false
+  },
+  "668": {
+    "english": "Collect background image pieces through gameplay to unlock.",
+    "japanese": "ゲームプレイで背景画像ピースを集めて獲得します。",
+    "skipped": false
+  },
+  "669": {
+    "english": "Obtainable through Event Pass rewards.",
+    "japanese": "イベントパス報酬で獲得可能です。",
+    "skipped": false
+  },
+  "670": {
+    "english": "Available for purchase in the Shop.",
+    "japanese": "ショップで購入可能です。",
+    "skipped": false
+  },
+  "671": {
+    "english": "({Current}/{Max}) Equipped",
+    "japanese": "({Current}/{Max}) 装着中",
+    "skipped": false
+  },
+  "672": {
+    "english": "({Current}/{Max}) Locked",
+    "japanese": "({Current}/{Max}) ロック解除",
+    "skipped": false
+  },
+  "673": {
+    "english": "Background image completed from pieces.",
+    "japanese": "背景画像ピースで完成した画像です。",
+    "skipped": false
+  },
+  "674": {
+    "english": "Background image obtained from Event Pass rewards.",
+    "japanese": "イベントパス報酬で獲得した画像です。",
+    "skipped": false
+  },
+  "675": {
+    "english": "Background image purchased from the Shop.",
+    "japanese": "ショップで購入した画像です。",
+    "skipped": false
+  },
+  "676": {
+    "english": "Obtain through Album gameplay.",
+    "japanese": "アルバムプレイで獲得します。",
+    "skipped": false
+  },
+  "677": {
+    "english": "After completing the previous background image,\ncollect pieces through gameplay to unlock the next one.",
+    "japanese": "前の背景画像を完成後、\nゲームプレイでピースを集めて獲得可能です。",
+    "skipped": false
+  },
+  "678": {
+    "english": "Background Image Selection Ticket",
+    "japanese": "背景画像選択チケット",
+    "skipped": false
+  },
+  "679": {
+    "english": "You've obtained all available background images from selection tickets.",
+    "japanese": "選択チケットで獲得可能な背景画像をすべて獲得しました。",
+    "skipped": false
+  },
+  "680": {
+    "english": "Includes Event Pass backgrounds from 4 weeks ago that have ended.",
+    "japanese": "終了から4週間経過したイベントパス背景が含まれます。",
+    "skipped": false
+  },
+  "681": {
+    "english": "All Background Images Obtained",
+    "japanese": "すべての背景画像獲得完了",
+    "skipped": false
+  },
+  "682": {
+    "english": "You've obtained all available background images from selection tickets.",
+    "japanese": "選択チケットで獲得可能な背景画像をすべて獲得しました。",
+    "skipped": false
+  },
+  "683": {
+    "english": "{0} {ItemName} will be awarded.",
+    "japanese": "{0} {ItemName}が付与されます。",
+    "skipped": false
+  },
+  "684": {
+    "english": "Obtain through gameplay after purchasing an Album.",
+    "japanese": "アルバム購入後、プレイで獲得します。",
+    "skipped": false
+  },
+  "685": {
+    "english": "Pass has ended.",
+    "japanese": "パスが終了しました。",
+    "skipped": false
+  },
+  "686": {
+    "english": "Product sale has ended.",
+    "japanese": "商品販売が終了しました。",
+    "skipped": false
+  },
+  "687": {
+    "english": "You must purchase the Starter Pack first.",
+    "japanese": "スターターパックを先に購入する必要があります。",
+    "skipped": false
+  },
+  "688": {
+    "english": "Purchase",
+    "japanese": "購入する",
+    "skipped": false
+  }
+}

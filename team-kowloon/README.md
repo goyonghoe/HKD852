@@ -16,7 +16,7 @@ THEBLACKLABEL 소속 아티스트(ALLDAY PROJECT, MEOVV, JEON SOMI, TAEYANG)의 
 - ⚡ **자동화**: 수작업 명세서 작성 시간 70% 절감
 - 🎯 **품질 관리**: 이미지 규격 검증으로 품질 이슈 90% 사전 차단
 - 📊 **표준화**: 일관된 포맷의 명세서 생성
-- 🤖 **AI 기반**: Claude Sonnet 4.5 활용 지능형 처리
+- 🤖 **AI 기반**: Claude (최신 모델) 활용 지능형 처리
 
 ---
 
@@ -205,7 +205,7 @@ team-kowloon/
 - **pandas** - 데이터 처리 (옵션)
 
 ### AI & 자동화
-- **Claude Sonnet 4.5** - AI 에이전트
+- **Claude (최신 모델)** - AI 에이전트
 - **MCP Servers** - Slack, Jira 연동
 
 ### 클라우드 서비스

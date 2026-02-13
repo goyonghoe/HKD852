@@ -1,0 +1,4727 @@
+[
+  {
+    "row": 7,
+    "key": "LobbyWidget/PickupGacha",
+    "ko": "최애 포카\n확률업",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 16,
+    "key": "TopView_Btn_Restore",
+    "ko": "구매복구",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 18,
+    "key": "CommonPurchaseImmediatelyPrice",
+    "ko": "{PriceAmount:N0} 즉시 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 19,
+    "key": "InvenThemeSetEquip\n",
+    "ko": "테마 세트 장착",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 23,
+    "key": "CardInfoItem/WarningAlbumOnly",
+    "ko": "{AlbumName} 앨범 전용 카드입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 24,
+    "key": "CardInfoItem/WarningCanPurchase",
+    "ko": "즉시 구매후 장착 해보세요",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 25,
+    "key": "CardInfoItem/WarningNeedMoreMoney",
+    "ko": "구매비용이 부족합니다",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 26,
+    "key": "InvenScorePrioEquip\n",
+    "ko": "점수 우선 장착",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 27,
+    "key": "InvenSortHighGrade\n",
+    "ko": "높은등급",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 28,
+    "key": "InvenSortLowGrade\n",
+    "ko": "낮은등급",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 29,
+    "key": "InvenSortNewest",
+    "ko": "최신",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 30,
+    "key": "InvenSortGroup",
+    "ko": "장착가능",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 31,
+    "key": "InvenSortCollectionCard",
+    "ko": "수집카드",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 32,
+    "key": "InvenSortOnlyLv1",
+    "ko": "레벨1만",
+    "en": "레벨1카드",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 33,
+    "key": "InvenSortLock",
+    "ko": "잠근카드",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 34,
+    "key": "CommonCardLevelUpgrade",
+    "ko": "레벨강화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 35,
+    "key": "CommonCardRankUpgrade",
+    "ko": "랭크강화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 36,
+    "key": "CommonCardLimitBreak",
+    "ko": "리미트 브레이크",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 37,
+    "key": "CardEquip",
+    "ko": "장착",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 38,
+    "key": "CardUnequip",
+    "ko": "해제",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 39,
+    "key": "CardScoreBonus",
+    "ko": "스코어보너스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 40,
+    "key": "CardWaveBonus",
+    "ko": "레이브보너스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 41,
+    "key": "CardShowEquipSlot",
+    "ko": "장착슬롯보기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 42,
+    "key": "CardWarnOnlyAlbum",
+    "ko": "앨범전용카드입니다",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 43,
+    "key": "InvenSellBundle",
+    "ko": "일괄판매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 44,
+    "key": "InvenSellItemCount",
+    "ko": "{Count} 개",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 45,
+    "key": "InvenSellectItemCount",
+    "ko": "{Count} 개",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 46,
+    "key": "Common_Sell_Price",
+    "ko": "{PriceAmount:N0} 판매",
+    "en": "{PriceAmount:N0} Sell",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 47,
+    "key": "Menu/CardSellBundle/Condition",
+    "ko": "조건에 알맞은 포토카드가 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 48,
+    "key": "PurchaseAlbumStarterPack",
+    "ko": "스타터 팩 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 49,
+    "key": "StarterAlbumPopup/Title",
+    "ko": "웰컴 패키지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 52,
+    "key": "Menu/CardSellBundle/PhotoCardUnderC",
+    "ko": "C 이하",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 53,
+    "key": "Menu/CardSellBundle/PhotoCardUnderB",
+    "ko": "B 이하",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 54,
+    "key": "Menu/CardSellBundle/PhotoCardUnderA",
+    "ko": "A 이하",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 55,
+    "key": "Menu/CardSellBundle/PhotoCardUnderS",
+    "ko": "S 이하",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 56,
+    "key": "Menu/CardSellBundle/Excloude",
+    "ko": "미포함",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 57,
+    "key": "Menu/CardSellBundle/Incloude",
+    "ko": "포함",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 58,
+    "key": "Menu/CardSellBundle/SelectGrade",
+    "ko": "등급선택",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 59,
+    "key": "Menu/CardSellBundle/LimitTheme",
+    "ko": "한정테마",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 60,
+    "key": "Menu/CardSellBundle/CardLevel",
+    "ko": "카드레벨",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 61,
+    "key": "Menu/CardSellBundle/CollectCard",
+    "ko": "앨범 수집 카드",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 62,
+    "key": "Menu/CardSellBundle/Level1",
+    "ko": "레벨1만",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 63,
+    "key": "Menu/CardSellBundle/All",
+    "ko": "모두",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 64,
+    "key": "Menu/CardSellBundle/CardCount",
+    "ko": "{Count} 개 카드가 선택되었습니다",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 65,
+    "key": "CardInfoItem/CanEquip",
+    "ko": "인벤토리에 장착할 수 있는 카드가 있습니다",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 71,
+    "key": "CollectionPointViewMusic/Desc",
+    "ko": "음악 마스터 포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 72,
+    "key": "CollectionPointViewCard/Desc",
+    "ko": "포토카드 수집 포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 73,
+    "key": "CollectionPointVewLobbyBackground/Desc",
+    "ko": "배경이미지 수집 포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 74,
+    "key": "CollectionRewardView/Tip",
+    "ko": "수집 레벨이 높을수록 더 좋은 보상을 받을 확률이 증가합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 75,
+    "key": "MusicCollectionView/Tip",
+    "ko": "난이도를 높여서 플레이하면 더 많은 포인트를 획득할 수 있습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 78,
+    "key": "WallpaperCollectionView/WallpaperSettingButton",
+    "ko": "배경이미지 설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 79,
+    "key": "CardInfoLevelUpView/AddMaterialCard",
+    "ko": "재료 카드를 선택해주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 80,
+    "key": "CardInfoLevelUpView/LevelUpPrice",
+    "ko": "{PriceAmount:N0} 강화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 82,
+    "key": "CardInfoLevelUpView/CardMaxLevel",
+    "ko": "최대 레벨에 도달했습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 83,
+    "key": "CardInfoLevelUpView/NeedMoreMoney",
+    "ko": "강화 비용이 부족합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 84,
+    "key": "CardInfoLevelUpView/Popup/ConfirmTitle",
+    "ko": "포토카드 레벨 강화 재확인",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 85,
+    "key": "CardInfoLevelUpView/Popup/ConfirmMessage",
+    "ko": "앨범 카드로 수집 중이거나 앨범에 장착 중인 포토카드가 포함되어 있습니다.\n수집 용 포토카드를 판매하면 수집 상태가 초기화 됩니다.\n(인벤토리 필터 옵션에서 \"수집카드\"를 제외 할 수 있습니다.)\n\n계속해서 레벨 강화를 진행 할까요?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 86,
+    "key": "CardInfoLevelUpView/Popup/ConfirmOk",
+    "ko": "레벨 강화하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 87,
+    "key": "CardInfoLevelUpView/ButtonDisabledReasonSelectMaterial",
+    "ko": "재료 카드를 선택해주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 88,
+    "key": "CardInfoLevelUpView/ButtonDisabledReasonNeedMoreMoney",
+    "ko": "강화 비용이 부족합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 89,
+    "key": "CardInfoGradeUpView/CanRankUp",
+    "ko": "지금 랭크를 강화해 보세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 90,
+    "key": "CardInfoGradeUpView/NeedMoreMoney",
+    "ko": "랭크 강화할 비용이 부족합니다",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 91,
+    "key": "InventoryView/Inven/EmptyInventory",
+    "ko": "보유한 카드가 없습니다.\n상점에서 카드를 구매해보세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 92,
+    "key": "InventoryView/Inven/FilteredEmptyInventory",
+    "ko": "\"{FilterName}\" 필터링 결과에\n알맞은 카드가 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 93,
+    "key": "InventoryView/Inven/EmptyInventoryInSellMode",
+    "ko": "판매할 수 있는 카드가 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 94,
+    "key": "InventoryView/ButtonDisableReasonInSellMode",
+    "ko": "판매모드 해제 후 사용할 수 있습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 95,
+    "key": "GameReadyView/ButtonDisabledReasonNotAcquiredMusic",
+    "ko": "음악 구매 후 플레이 할 수 있습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 97,
+    "key": "CommonOK",
+    "ko": "확인",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 98,
+    "key": "CommonCancel",
+    "ko": "취소",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 99,
+    "key": "CommonGotoHome",
+    "ko": "메뉴로 이동",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 100,
+    "key": "CommonGotoPlay",
+    "ko": "플레이 바로가기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 101,
+    "key": "CommonFilterNone",
+    "ko": "모두",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 102,
+    "key": "CommonFilterOwned",
+    "ko": "보유중",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 103,
+    "key": "CommonFilterUnowned",
+    "ko": "미보유",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 104,
+    "key": "CommonFilterUsing",
+    "ko": "사용중",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 105,
+    "key": "WallpaperEquipButton",
+    "ko": "배경 이미지 장착",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 106,
+    "key": "WallpaperUnequipButton",
+    "ko": "배경 이미지 해제",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 107,
+    "key": "WallpaperPopup/Title",
+    "ko": "배경 이미지 선택",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 108,
+    "key": "WallpaperPopup/CompleteMessage",
+    "ko": "수집 완료한 배경 이미지 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 109,
+    "key": "WallpaperPopup/CollectingMessage",
+    "ko": "배경 이미지 조각 모으는 중 ({Current:N0} / {Max:N0})",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 110,
+    "key": "WallpaperPopup/LockedMessage",
+    "ko": "조각을 모으려면 이전 활동 사진을 먼저 완성해야 합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 112,
+    "key": "WallpaperSettingPopup/Filter/None",
+    "ko": "모두 ({OwnedCount} / {Count})",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 113,
+    "key": "WallpaperSettingPopup/Filter/Owned",
+    "ko": "보유중 ({OwnedCount})",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 114,
+    "key": "WallpaperSettingPopup/Filter/Unowned",
+    "ko": "미보유 ({UnownedCount})",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 115,
+    "key": "WallpaperSettingPopup/Filter/Using",
+    "ko": "사용중 ({UsingCount})",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 116,
+    "key": "WallpaperSettingPopup/DescUnowned",
+    "ko": "해당 상품은 앨범 플레이 보상으로 지급되는 배경 이미지 조각을 모아서 완성할 수 있습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 117,
+    "key": "WallpaperSettingPopup/DescEquipped",
+    "ko": "현재 장착 중인 배경이미지 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 118,
+    "key": "WallpaperSettingPopup/DescUnequipped",
+    "ko": "장착 가능한 배경이미지 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 119,
+    "key": "WallpaperPopup/Equipped",
+    "ko": "장착중 ({Current}/{Max})",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 120,
+    "key": "CardInfoGradeUpView/RankUpButton",
+    "ko": "{global.user.CardGradeUpPoint:N0} / {PriceAmount:N0} 진화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 121,
+    "key": "CardInfoItem/GradeUpNeedLevelReason",
+    "ko": "최대 레벨 성장 후 시도해주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 122,
+    "key": "CardInfoItem/GradeUpMaxGradeReason",
+    "ko": "최대 등급입니다",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 123,
+    "key": "CardInfoItem/LevelUpNeedGradeUpReason",
+    "ko": "랭크강화가 필요합니다",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 124,
+    "key": "CardInfoItem/LevelUpMaxLevelReason",
+    "ko": "최대 레벨입니다",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 125,
+    "key": "CardInfoItem/ChangeAlbumAfterEquip",
+    "ko": "장착 후 앨범 변경",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 126,
+    "key": "InventoryView/ButtonDisabledReasonSellCondition",
+    "ko": "\"잠금\" 또는 \"프로필 대표 카드\"는 판매할 수 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 127,
+    "key": "InventoryView/ButtonDisabledReasonMaterialCondition",
+    "ko": "\"잠금\" 또는 \"프로필 대표 카드\"는 강화재료로 사용할 수 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 128,
+    "key": "InventoryView/ButtonDisabledReasonMaxLevel",
+    "ko": "최대 레벨입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 129,
+    "key": "InventoryView/RecommendSelect",
+    "ko": "추천선택",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 130,
+    "key": "InventoryView/RecommendSelectFailed",
+    "ko": "추천 선택으로 선택할 수 있는 카드가 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 131,
+    "key": "InventoryView/ScoreEquipFailure",
+    "ko": "인벤토리에 점수 우선으로 장착할 수 있는 카드가 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 132,
+    "key": "InventoryView/ScoreEquipSuccess",
+    "ko": "점수 우선으로 포토카드가 장착 되었습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 133,
+    "key": "InventoryView/MaxInventorySize",
+    "ko": "인벤토리가 최대 크기에 도달 했습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 134,
+    "key": "SellWarningPopup/Title",
+    "ko": "포토 카드 판매 재확인",
+    "en": "포토카드 판매 재확인",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 135,
+    "key": "SellWarningPopup/Message",
+    "ko": "다음과 같은 카드가 선택되었습니다.{EquipCount:cond:>0?\\n장착 중 : {EquipCount}개|}{LimitedThemeCount:cond:>0?\\n한정 테마 카드 : {LimitedThemeCount}개|}{GradeCount:cond:>0?\\nR등급 카드 : {GradeCount}개|}{CollectionCount:cond:>0?\\n수집 중인 카드 : {CollectionCount}개|}\n\n계속해서 판매를 진행 할까요?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 136,
+    "key": "SellConfirmPopup/Title",
+    "ko": "포토 카드 판매하기",
+    "en": "포토카드 판매하기",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 137,
+    "key": "SellConfirmPopup/Message",
+    "ko": "{Count}개의 카드를 판매하시겠습니까?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 138,
+    "key": "SellConfirmPopup/SellPrice",
+    "ko": "{SellPrice} 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 139,
+    "key": "SellResultPopup/Title",
+    "ko": "포토카드 판매하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 140,
+    "key": "SellResultPopup/Message",
+    "ko": "{SellPrice}를 획득했습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 141,
+    "key": "CommonSell",
+    "ko": "판매하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 144,
+    "key": "ThemeSelectPopup/Title",
+    "ko": "테마 세트 장착하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 145,
+    "key": "ThemeSelectPopup/EquipButton/DisabledReason",
+    "ko": "선택한 테마 카드가 없습니다. 테마 카드를 모아보세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 146,
+    "key": "Popup_Card_Get_New/Title",
+    "ko": "카드팩 열기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 147,
+    "key": "Popup_Card_Get_New/Touch",
+    "ko": "터치하고 오픈하세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 148,
+    "key": "Popup_Card_Get_New/AutoEquip",
+    "ko": "자동 장착",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 149,
+    "key": "CommonNext",
+    "ko": "다음",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 150,
+    "key": "CommonSkip",
+    "ko": "스킵",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 156,
+    "key": "CardInfoPopup/UnpurchasableDescription",
+    "ko": "한정 테마 포토카드는 이벤트 기간동안 상점에서 구매할 수 있습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 157,
+    "key": "CardLimitBreakView/LimitBreakRate",
+    "ko": "성공 확률",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 159,
+    "key": "CardLimitBreakView/LimitBreakDescription",
+    "ko": "<color=#FFC100>{ThemeName}</color>\\n테마 완성도가 높을수록\\n확률이 증가합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 160,
+    "key": "CardLimitBreakView/Guaranteed",
+    "ko": "확정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 161,
+    "key": "CardLimitBreakView/LimitBreakButton",
+    "ko": "{global.user.CardGradeUpPoint:N0} / {PriceAmount:N0} 리미트 브레이크",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 179,
+    "key": "CardInfoPresenter/CardLockSet",
+    "ko": "잠금 설정 되었습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 180,
+    "key": "CardInfoPresenter/CardLockRelease",
+    "ko": "잠금 설정이 해제 되었습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 181,
+    "key": "InventoryPanelSellPresenter/BundleSellDisabledReason",
+    "ko": "선택된 카드가 있습니다. 해제 후 다시 시도해 주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 182,
+    "key": "InventoryPanelSellPresenter/MaxSelectCountReached",
+    "ko": "더 이상 선택할 수 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 183,
+    "key": "CardLevelUpgradePresenter/NavigationTitle",
+    "ko": "최대 레벨 도달!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 184,
+    "key": "CardLevelUpgradePresenter/NavigationMessage",
+    "ko": "<color=#01FFAE>{ContentName}</color>를 시도할 수 있습니다.\\n{ButtonText}으로 이동하겠습니까?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 185,
+    "key": "CardLevelUpgradePresenter/NavigationButtonText",
+    "ko": "{ContentName} 화면",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 186,
+    "key": "CardLevelUpgradePresenter/MaxSelectCountReached",
+    "ko": "더 이상 선택할 수 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 187,
+    "key": "PassMissionType_DailyMission",
+    "ko": "데일리미션",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 188,
+    "key": "PassMission_NotPass",
+    "ko": "패스 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 189,
+    "key": "PassMission_OnePass",
+    "ko": "티어 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 190,
+    "key": "PassMission_AllPass ",
+    "ko": "패스 혜택 적용 중",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 195,
+    "key": "PassMission_NoSeasonStarPass",
+    "ko": "준비중입니다 다음 시즌패스를 기다려 주세요",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 196,
+    "key": "PassMission_NoEventStarPass",
+    "ko": "준비중입니다 다음 이벤트패스를 기다려 주세요",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 197,
+    "key": "ShopPriceText_Advertisement",
+    "ko": "무료",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 199,
+    "key": "ShopPriceText_Free",
+    "ko": "무료",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 202,
+    "key": "DAILY_RESET_LimitCountText",
+    "ko": "일일 {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 203,
+    "key": "WEEKLY_RESET_LimitCountText",
+    "ko": "주간 {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 204,
+    "key": "MONTHLY_RESET_LimitCountText",
+    "ko": "매월 {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 205,
+    "key": "ONCE_PER_ACCOUNT_LimitCountText",
+    "ko": "계정 당 {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 206,
+    "key": "UNLIMITED_LimitCountText",
+    "ko": "구매 횟수 무제한",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 207,
+    "key": "ProductTimeLeft",
+    "ko": "{RemainingTime} 남음",
+    "en": "{RemainingTime} LEFT",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 208,
+    "key": "Popup_PurchaseConfirm_Title",
+    "ko": "상품 구매 확인",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 209,
+    "key": "Popup_PurchaseConfirm_RewardList_Title",
+    "ko": "상품 구성 상세",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 211,
+    "key": "Withdrawal_Guidance_Message_Desc",
+    "ko": "청약 철회는 구매일로부터 7일 이내 가능합니다. (단, 사용했을 경우 청약철회 불가)\\n법정대리인 동의 없이 미성년자 명의의 결제수단을 통해 결제한 경우 취소할수 있습니다. [자세히 보기]",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 212,
+    "key": "Popup_Alarm_NotEnough_SoftCurrency_Title",
+    "ko": "리듬 포인트가 부족합니다!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 213,
+    "key": "Popup_Alarm_NotEnough_HardCurrency_Title",
+    "ko": "다이아몬드가 부족합니다!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 214,
+    "key": "Popup_Alarm_NotEnough_StarCoin_Title",
+    "ko": "스타코인이 부족합니다!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 215,
+    "key": "Popup_Alarm_NotEnough_SoftCurrency_Desc",
+    "ko": "지금 바로 리듬 포인트를 충전해보세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 216,
+    "key": "Popup_Alarm_NotEnough_HardCurrency_Desc",
+    "ko": "지금 바로 다이아몬드를 충전해보세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 217,
+    "key": "Popup_Alarm_NotEnough_StarCoin_Desc",
+    "ko": "지금 바로 스타코인을 충전해보세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 218,
+    "key": "Popup_InGamePopup_Title",
+    "ko": "일시 정지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 219,
+    "key": "Popup_InGamePopup_NoteSpeed_Title",
+    "ko": "노트 배속 설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 220,
+    "key": "Popup_InGamePopup_NoteSpeed_Desc",
+    "ko": "세부 노트 배속 조정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 222,
+    "key": "Popup_InGamePopup_Btn_Retry",
+    "ko": "다시하기",
+    "en": "RETRY",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 223,
+    "key": "Popup_InGamePopup_Btn_Quit",
+    "ko": "나가기",
+    "en": "QUIT",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 224,
+    "key": "Popup_IngamePause_Btn_Resume",
+    "ko": "계속하기",
+    "en": "RESUME",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 227,
+    "key": "PassMission_Desc1",
+    "ko": "시즌 프리미엄 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 228,
+    "key": "PassMission_Desc2",
+    "ko": "구매 가능",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 229,
+    "key": "PassMission_Desc3",
+    "ko": "패스 적용 중",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 230,
+    "key": "Popup_Common_Title",
+    "ko": "알림",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 236,
+    "key": "CommoDay",
+    "ko": "일",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 237,
+    "key": "CommoHour",
+    "ko": "시간",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 238,
+    "key": "CommoMinute",
+    "ko": "분",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 239,
+    "key": "CommoSecond",
+    "ko": "초",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 240,
+    "key": "LobbyScene/LobbyScene/Canvas/SafeArea/Buttons/BtnSeasonPass/Text (TMP)",
+    "ko": "시즌 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 241,
+    "key": "LobbyScene/LobbyScene/Canvas/SafeArea/Buttons/BtnEventPass/Text (TMP)",
+    "ko": "이벤트 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 244,
+    "key": "Popup_IngamePause_Exit_Title",
+    "ko": "게임종료",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 245,
+    "key": "Popup_IngamePause_Exit_Desc",
+    "ko": "게임을 종료하고 로비로 돌아가시겠습니까?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 248,
+    "key": "PurchaseLimitType_Text_DAILY_RESET",
+    "ko": "매일 자정 초기화 (KST)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 249,
+    "key": "PurchaseLimitType_Text_WEEKLY_RESET",
+    "ko": "매주 월요일 초기화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 250,
+    "key": "PurchaseLimitType_Text_MONTHLY_RESET",
+    "ko": "매월 1일 초기화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 251,
+    "key": "PurchaseLimitType_Text_ONCE_PER_ACCOUNT",
+    "ko": "계정 당 {PurchaseLimitValue}회 구매 가능",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 252,
+    "key": "PurchaseLimitType_Text_UNLIMITED",
+    "ko": "구매 횟수 무제한",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 254,
+    "key": "ShopPopup_LimitCountText",
+    "ko": "남은 구매 횟수 {PurchaseRemainingCount}/{PurchaseLimitValue}",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 255,
+    "key": "Common_Popup_Title",
+    "ko": "보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 257,
+    "key": "Common_Popup_TouchToClaim",
+    "ko": "터치하여 보상 수령",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 258,
+    "key": "Common_Popup_Desc_Profile",
+    "ko": "획득한 프로필은 내정보 -> 프로필에서 확인 가능합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 259,
+    "key": "Common_Popup_Desc_Wallpaper",
+    "ko": "획득한 배경 이미지는 컬렉션 -> 배경이미지 수집 탭에서 확인 가능합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 260,
+    "key": "Common_Popup_Desc_Duplicates",
+    "ko": "중복한 아이템에 대한 보상이 지급 되었습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 262,
+    "key": "PassMission_RewardTitle",
+    "ko": "보너스 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 263,
+    "key": "PassMission_Progress_Text",
+    "ko": "달성율 : {Value}%",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 264,
+    "key": "PassMission_EventList_Title",
+    "ko": "이벤트 패스 리스트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 267,
+    "key": "ShopProductView/PurchaseLimitExceeded",
+    "ko": "구매 가능 횟수를 모두 사용하셨습니다. 다음에 다시 시도해 주세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 268,
+    "key": "ShopProductView/PurchaseLimitExceeded_DAILY_RESET",
+    "ko": "오늘의 구매 가능 횟수를 모두 사용하셨습니다. 내일 다시 시도해 주세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 269,
+    "key": "ShopProductView/PurchaseLimitExceeded_WEEKLY_RESET",
+    "ko": "이번 주의 구매 가능 횟수를 모두 사용하셨습니다. 다음 주에 다시 시도해 주세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 270,
+    "key": "ShopProductView/PurchaseLimitExceeded_MONTHLY_RESET",
+    "ko": "이번 달의 구매 가능 횟수를 모두 사용하셨습니다. 다음 달에 다시 시도해 주세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 271,
+    "key": "ShopProductView/PurchaseLimitExceeded_ONCE_PER_ACCOUNT",
+    "ko": "이 상품의 구매 가능 횟수를 모두 사용하셨습니다. 다른 상품도 확인해보세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 272,
+    "key": "MaxShopPopupCountReached",
+    "ko": "재화가 부족하여 구매할 수 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 273,
+    "key": "StarPassTierBuy_One",
+    "ko": "1x 티어 Up",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 274,
+    "key": "StarPassTierBuy_Max",
+    "ko": "티어 Max Up",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 275,
+    "key": "StarPassTierBuy_Desc",
+    "ko": "티어 포인트를 구매 하시겠습니까?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 290,
+    "key": "AlbumSelectPopup/Title",
+    "ko": "앨범 변경하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 291,
+    "key": "AlbumSelectPopup/Title/StarterAlbumPopup",
+    "ko": "시작 앨범 선택하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 292,
+    "key": "AlbumSelectPopup/Title/InventoryView",
+    "ko": "인벤토리 앨범 변경하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 293,
+    "key": "AlbumSelectPopup/Title/CollectionView",
+    "ko": "수집 앨범 변경하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 294,
+    "key": "AlbumSelectPopup/Title/GameReadyView",
+    "ko": "플레이 앨범 변경하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 295,
+    "key": "AlbumSelectPopup/Title/AlbumLeagueView",
+    "ko": "리그 앨범 변경하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 296,
+    "key": "FullAlbum",
+    "ko": "전체 앨범",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 297,
+    "key": "RecentlyPlay",
+    "ko": "최근 플레이",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 298,
+    "key": "PassMission_PurchaseComplete",
+    "ko": "패스 혜택 적용 중",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 299,
+    "key": "PassMission_Toast",
+    "ko": "보상을 획득할 수 없습니다. 미션을 완료하고 티어 레벨을 올려보세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 300,
+    "key": "PassMission_Toast2",
+    "ko": "보상을 획득할 수 없습니다. 티어레벨을 Max로 올려 보너스 보상을 받아보세요",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 301,
+    "key": "PassMission_Toast3",
+    "ko": "보상을 획득할 수 없습니다. 미션을 완료하여 티어 겸험치를 획득 하세요",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 302,
+    "key": "Popup_PassMission_Desc0",
+    "ko": "활성화된 패스가 없습니다.\n로비로 이동합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 303,
+    "key": "Popup_PassMission_Desc1",
+    "ko": "{0} 패스가 종료 되었습니다. \n로비로 이동합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 304,
+    "key": "QuitPopup/Title",
+    "ko": "게임 종료",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 305,
+    "key": "QuitPopup/Desc",
+    "ko": "게임을 종료하시겠습니까?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 311,
+    "key": "BugTest6",
+    "ko": "가나다",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 312,
+    "key": "PassMission_Toast4",
+    "ko": "바로가기를 지원하지 않는 컨텐츠입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 313,
+    "key": "ProfilePopup/Title/Player",
+    "ko": "내 정보",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 314,
+    "key": "ProfilePopup/Title/Other",
+    "ko": "유저 정보",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 315,
+    "key": "ProfilePopup/Tab/Leader",
+    "ko": "배경과 카드",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 316,
+    "key": "ProfilePopup/Tab/Statistics",
+    "ko": "히스토리",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 317,
+    "key": "ProfilePopup/Tab/Score",
+    "ko": "점수기록",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 318,
+    "key": "ProfilePopup/ChangeNickName",
+    "ko": "닉네임 변경",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 319,
+    "key": "ProfilePopup/ChangeProfile",
+    "ko": "프로필 사진 변경",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 320,
+    "key": "ProfilePopup/ChangeStatusMessage",
+    "ko": "인사말 편집",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 321,
+    "key": "ProfilePopup/StatusMessageDescription",
+    "ko": "원하는 글 작성 가능\n※ 내 정보 변경 > 인사말 편집",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 322,
+    "key": "ProfilePopup/LeaderCardDescrition",
+    "ko": "보유한 카드 장착 가능\n※ 인벤토리 > 카드 정보 > 대표 카드 지정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 323,
+    "key": "ProfilePopup/LeaderWallpaperDescrition",
+    "ko": "보유한 배경 장착 가능\n※ 컬렉션 > 배경이미지 수집 > 대표 배경 지정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 324,
+    "key": "ProfilePopup/LeaderThemeDescrition",
+    "ko": "보유한 카드의 테마 전체 장착 가능\n※ 인벤토리 > 테마 장착 > 대표 테마 지정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 325,
+    "key": "ProfilePopup/HighestCollectedAlbum",
+    "ko": "최다 수집 앨범",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 326,
+    "key": "ProfilePopup/WeeklySuperStar",
+    "ko": "주간 슈퍼스타",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 327,
+    "key": "ProfilePopup/WeeklyBestMusic",
+    "ko": "주간 최고 점수 곡",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 328,
+    "key": "ProfilePopup/WeeklyMostPlayedMusic",
+    "ko": "주간 가장 많이\n플레이한 곡",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 329,
+    "key": "ProfilePopup/MonthlyAllSuperPerfectMusicCount",
+    "ko": "월간 ALL SUPER PERFECT 달성 곡 수",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 330,
+    "key": "ProfilePopup/MonthlyPlayedCount",
+    "ko": "월간 플레이 횟수",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 331,
+    "key": "ProfilePopup/MonthlyMyRecordCount",
+    "ko": "월간 마이 레코드\n달성 수",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 332,
+    "key": "ProfilePopup/MonthlyAttendanceCount",
+    "ko": "월간 출석일 수",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 334,
+    "key": "ProfilePopup/WeeklyTotalScore",
+    "ko": "주간리그 누적 점수",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 335,
+    "key": "ProfileImageSelectPopup/EquippButtonText",
+    "ko": "프로필 이미지 장착",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 336,
+    "key": "ProfileImageSelectPopup/UnownedDescriptionText",
+    "ko": "미획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 337,
+    "key": "ProfileImageSelectPopup/EquippedDescriptionText",
+    "ko": "장착중",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 339,
+    "key": "Popup_ShopStarPass_Desc",
+    "ko": "*티어 포인트가 포함된 상품을 구매하면, 티어 레벨이 즉시 상승합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 344,
+    "key": "ProfileImageSelectPopup/Title",
+    "ko": "프로필 이미지 선택",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 345,
+    "key": "Description_ShopStarPass_premiumTierProduct",
+    "ko": "+ 티어포인트 {Value}",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 346,
+    "key": "Description_ShopStarPass_tierPointProduct",
+    "ko": "{Value} 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 347,
+    "key": "Popup_Info_ChangeStatusMsg/CharacterLimitDescription",
+    "ko": "최대 40 글자만 저장됩니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 349,
+    "key": "Popup_Info_ChangeStatusMsg/StatusMessageEmpty",
+    "ko": "변경할 상태 메세지를 설정해주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 350,
+    "key": "Popup_Info_ChangeStatusMsg/StatusMessageUnchanged",
+    "ko": "상태 메세지가 동일합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 351,
+    "key": "Popup_Info_ChangeStatusMsg/StatusMessageNotValid",
+    "ko": "사용할 수 없는 상태 메세지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 352,
+    "key": "Popup_Input_2Btn/NickNameEmpty",
+    "ko": "변경할 닉네임을 설정해주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 353,
+    "key": "Popup_Input_2Btn/NickNameLengthNotValid",
+    "ko": "닉네임의 길이가 맞지 않습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 354,
+    "key": "Popup_Input_2Btn/NickNameNotValid",
+    "ko": "사용할 수 없는 닉네임입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 355,
+    "key": "Common_RewardPopup_Text_Reward",
+    "ko": "보상 x2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 356,
+    "key": "ResourceDownloadPopup/Title",
+    "ko": "리소스 다운로드",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 357,
+    "key": "ResourceDownloadPopup/DownloadSize",
+    "ko": "{DownloadSize:F1}MB 다운로드",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 358,
+    "key": "ResourceDownloadPopup/Downloading",
+    "ko": "다운로드 중입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 359,
+    "key": "ResourceDownloadPopup/DownloadCancel",
+    "ko": "다운로드를 취소했습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 360,
+    "key": "NetworkNotConnected/Title",
+    "ko": "네트워크 확인",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 361,
+    "key": "NetworkNotConnected/Message",
+    "ko": "네트워크가 불안정합니다.\n네트워크 환경 설정 후 재시도 해주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 383,
+    "key": "Common_RewardPopup_Title_Mail",
+    "ko": "우편 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 384,
+    "key": "Common_RewardPopup_Title_SeasonPass",
+    "ko": "시즌 패스 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 385,
+    "key": "Common_RewardPopup_Title_EventPass",
+    "ko": "이벤트 패스 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 386,
+    "key": "Common_RewardPopup_Title_Shop",
+    "ko": "구매 완료",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 387,
+    "key": "Common_RewardPopup_Title_WeeklyLeague",
+    "ko": "리그 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 388,
+    "key": "Common_RewardPopup_Title_Collection",
+    "ko": "컬렉션 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 389,
+    "key": "Common_RewardPopup_Title_Attendance",
+    "ko": "매일 출석 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 390,
+    "key": "Common_RewardPopup_Title_DurationReward",
+    "ko": "플레이 타임 이벤트 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 391,
+    "key": "Common_RewardPopup_Desc_bonus1",
+    "ko": "곡 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 393,
+    "key": "Common_RewardPopup_Desc_bonus2",
+    "ko": "주간 리그",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 394,
+    "key": "Common_RewardPopup_Desc_bonus3",
+    "ko": "버닝 티켓",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 395,
+    "key": "Common_NotificationPopup_Title",
+    "ko": "알림",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 397,
+    "key": "Common_NotificationPopup_Desc2",
+    "ko": "인벤토리가 가득 차 보상을 수령 할 수 없습니다.\n인벤토리를 정리하거나 확장 후 다시 수령 해 주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 398,
+    "key": "Common_NotificationPopup_TouchToClose",
+    "ko": "터치하여 팝업 닫기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 400,
+    "key": "SettingPopup/Title",
+    "ko": "설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 401,
+    "key": "SettingPopup/Account",
+    "ko": "계정 설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 402,
+    "key": "SettingPopup/Default",
+    "ko": "일반 설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 403,
+    "key": "SettingPopup/Sound",
+    "ko": "사운드 설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 404,
+    "key": "SettingPopup/Display",
+    "ko": "화면 설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 405,
+    "key": "SettingPopup/Support",
+    "ko": "고객센터",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 406,
+    "key": "SettingPopup/TurnedOn",
+    "ko": "켜짐",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 407,
+    "key": "SettingPopup/TurnedOff",
+    "ko": "꺼짐",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 408,
+    "key": "SettingPopup/Setting",
+    "ko": "설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 409,
+    "key": "SettingPopup/Shortcut",
+    "ko": "바로가기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 410,
+    "key": "SettingPopup/Default/Notification",
+    "ko": "게임 알람 표시",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 411,
+    "key": "SettingPopup/Default/DeviceNotificationSetting",
+    "ko": "기기 설정에서 알람 확인이 필요합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 412,
+    "key": "SettingPopup/Default/Language",
+    "ko": "언어 설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 413,
+    "key": "SettingPopup/Default/CacheClear",
+    "ko": "미사용 데이터 정리",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 415,
+    "key": "SettingPopup/Default/ClearData",
+    "ko": "정리하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 416,
+    "key": "SettingPopup/Default/EmptyCache",
+    "ko": "정리할 데이터가 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 417,
+    "key": "SettingPopup/Default/Haptic",
+    "ko": "진동 피드백",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 418,
+    "key": "SettingPopup/Sound/BGM",
+    "ko": "배경음",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 419,
+    "key": "SettingPopup/Sound/MusicPreview",
+    "ko": "음악 선택 미리 듣기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 420,
+    "key": "SettingPopup/Sound/Effect",
+    "ko": "UI 효과음",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 421,
+    "key": "SettingPopup/Sound/ArtistVoice",
+    "ko": "아티스트 보이스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 422,
+    "key": "SettingPopup/Sound/NoteHit",
+    "ko": "노트 히트 효과음",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 423,
+    "key": "SettingPopup/Sound/Max",
+    "ko": "최대",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 425,
+    "key": "SettingPopup/Sound/Mute",
+    "ko": "음소거",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 426,
+    "key": "SettingPopup/Sound/BGMSync",
+    "ko": "배경음 재생 시점 조정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 427,
+    "key": "SettingPopup/Sound/BGMSyncDescription",
+    "ko": "{Seconds:G}초 빠르게 재생",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 428,
+    "key": "SettingPopup/Sound/BGMSyncNotSet",
+    "ko": "시점 조정 없음",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 429,
+    "key": "SettingPopup/Sound/BluetoothSync",
+    "ko": "블루투스 음향기기 사용 시 지연 설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 430,
+    "key": "SettingPopup/Sound/BluetoothSyncDescription",
+    "ko": "{Seconds:G}초 지연 재생",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 431,
+    "key": "SettingPopup/Sound/BluetoothSyncNotSet",
+    "ko": "지연 설정 없음",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 432,
+    "key": "SettingPopup/Display/GraphicOption",
+    "ko": "그래픽 저사양 설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 433,
+    "key": "SettingPopup/Display/LiveThemeLobbyAssignment",
+    "ko": "라이브 테마 로비 배치",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 434,
+    "key": "SettingPopup/Display/LiveThemeDescription",
+    "ko": "*대표로 설정된 라이브 테마만 로비에 표시됩니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 435,
+    "key": "SettingPopup/Display/ArtistLettering",
+    "ko": "아티스트 손글씨",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 436,
+    "key": "SettingPopup/Display/NoteScale",
+    "ko": "노트 크기 조정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 437,
+    "key": "SettingPopup/Display/NoteScaleMin",
+    "ko": "노트 크기 최소",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 438,
+    "key": "SettingPopup/Display/NoteScaleDefault",
+    "ko": "노트 크기 중간",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 439,
+    "key": "SettingPopup/Display/NoteScaleMax",
+    "ko": "노트 크기 최대",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 440,
+    "key": "SettingPopup/Display/TouchSync",
+    "ko": "터치 감도",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 441,
+    "key": "SettingPopup/Display/TouchSyncCheck",
+    "ko": "터치 감도 조정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 442,
+    "key": "SettingPopup/Display/BackgroundShading",
+    "ko": "Adjust background shading (미연결)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 443,
+    "key": "SettingPopup/Display/NoteSpeed",
+    "ko": "게임 플레이 노트 배속",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 444,
+    "key": "SettingPopup/Support/SupportCenter",
+    "ko": "고객센터",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 445,
+    "key": "SettingPopup/Support/Policy",
+    "ko": "이용약관 & 운영정책",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 446,
+    "key": "LanguagePopup/Title",
+    "ko": "언어 선택",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 447,
+    "key": "LanguagePopup/Apply",
+    "ko": "선택 언어로 변경",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 448,
+    "key": "LanguagePopup/UnchangedLanguage",
+    "ko": "선택된 언어가 동일합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 450,
+    "key": "LanguagePopup/ko",
+    "ko": "한   국   어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 451,
+    "key": "LanguagePopup/ja",
+    "ko": "日本語",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 452,
+    "key": "LanguagePopup/pt",
+    "ko": "Português",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 453,
+    "key": "LanguagePopup/ar",
+    "ko": "اللغة العربية",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 456,
+    "key": "LanguagePopup/th",
+    "ko": "ไทย",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 457,
+    "key": "LanguagePopup/tr",
+    "ko": "Türkçe",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 458,
+    "key": "LanguagePopup/zh-Hans",
+    "ko": "简体中文",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 459,
+    "key": "LanguagePopup/zh-Hant",
+    "ko": "繁体中文",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 460,
+    "key": "DataClearPopup/Title",
+    "ko": "데이터 정리",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 461,
+    "key": "DataClearPopup/Message",
+    "ko": "최근 플레이 앨범 수록곡을 제외한 음악 데이터를 정리합니다.\n정리된 음악은 플레이할 때 다시 다운로드 할 수 있습니다.\n\n<b><size=35>{CacheSize:F1}</size></b>MB 정리하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 462,
+    "key": "DataClearPopup/Clear",
+    "ko": "데이터 정리",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 463,
+    "key": "BluetoothSyncPopup/Title",
+    "ko": "블루투스 설정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 464,
+    "key": "BluetoothSyncPopup/Change",
+    "ko": "변경 하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 465,
+    "key": "BluetoothSyncPopup/SyncDescription",
+    "ko": "<b><size=35>{Seconds:G}</size></b>초 빠르게",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 466,
+    "key": "Common_RewardPopup_Title_StarterPack",
+    "ko": "스타터 팩 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 467,
+    "key": "Common_RewardPopup_Title_MainLobby",
+    "ko": "보상 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 468,
+    "key": "Common_RewardPopup_Title_GameResult",
+    "ko": "플레이 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 469,
+    "key": "Common_RewardPopup_Title_QuickShop",
+    "ko": "구매 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 470,
+    "key": "Common_RewardPopup_Common",
+    "ko": "보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 487,
+    "key": "PostBoxPopup/Title",
+    "ko": "우편함",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 488,
+    "key": "PostBoxPopup/ClaimAll",
+    "ko": "모두 받기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 489,
+    "key": "PostBoxPopup/Empty",
+    "ko": "도착한 메시지가 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 490,
+    "key": "PostBoxPopup/Filter/All",
+    "ko": "모두 보기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 491,
+    "key": "PostBoxPopup/Filter/Choice",
+    "ko": "선택권 보기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 492,
+    "key": "PostBoxPopup/InventoryFull",
+    "ko": "카드 인벤토리의 여유 공간이 필요합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 493,
+    "key": "PostBoxPopup/NoReward",
+    "ko": "모두 받기로 수령할 수 있는 보상이 없습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 494,
+    "key": "PostCellView/Delete",
+    "ko": "삭제",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 495,
+    "key": "PostCellView/Claim",
+    "ko": "받기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 496,
+    "key": "PostCellView/Advertisement",
+    "ko": "광고보기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 497,
+    "key": "Post/Title/STORAGE",
+    "ko": "우편으로 지급된 상품",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 498,
+    "key": "Post/Description/STORAGE",
+    "ko": "인벤토리가 가득 차 상품이 우편으로 전달되었습니다.\n메시지 만료 기간을 확인하시고, 상품을 수령해 주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 499,
+    "key": "Post/Title/STARPASS",
+    "ko": "{PassName} 패스 {PassTier} 티어 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 500,
+    "key": "Post/Description/STARPASS",
+    "ko": "{PassName} 기간이 종료되어 티어 보상을 보내드립니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 501,
+    "key": "Post/Title/REPEATREWARD",
+    "ko": "{PassName} 패스 반복 보상",
+    "en": "{PassName} 반복 보상",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 502,
+    "key": "Post/Description/REPEATREWARD",
+    "ko": "{PassName} 기간이 종료되어 반복 보상을 보내드립니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 503,
+    "key": "Post/Title/AD",
+    "ko": "광고 시청 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 504,
+    "key": "Post/Description/AD",
+    "ko": "광고를 시청하면 우편에 첨부된 보상이 지급됩니다.\n기회를 놓치지 말고 보상을 받아가세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 508,
+    "key": "Advertisement/Failure/Title",
+    "ko": "광고",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 509,
+    "key": "Advertisement/Failure/Message",
+    "ko": "광고 불러오지 못했습니다.\n\n{Reason}\n\n※ 문제가 계속되면 메뉴의 '고객센터'로 문의해 주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 510,
+    "key": "Advertisement/Failure/Reason/InvalidUnitId",
+    "ko": "잘못된 광고 Unit 정보입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 511,
+    "key": "Advertisement/Failure/Reason/FailedToShow",
+    "ko": "광고를 표시하는데 실패했습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 512,
+    "key": "Advertisement/Failure/Reason/Canceled",
+    "ko": "광고가 취소되었습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 513,
+    "key": "Advertisement/Failure/Reason/InvalidType",
+    "ko": "지원하지 않는 광고 유형입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 514,
+    "key": "Advertisement/Failure/Reason/None",
+    "ko": "현재 시청 가능한 광고가 없습니다.\n(에러코드: 100)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 515,
+    "key": "Advertisement/Failure/Reason/InvalidRequest",
+    "ko": "잘못된 광고 요청입니다.\n(에러코드: 101)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 516,
+    "key": "Advertisement/Failure/Reason/NetworkError",
+    "ko": "네트워크 오류가 발생했습니다.\n인터넷 연결을 확인하고 다시 시도해 주세요.\n(에러코드: 102)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 517,
+    "key": "Advertisement/Failure/Reason/NoInternet",
+    "ko": "인터넷에 연결되어 있지 않습니다.\nWi-Fi 또는 모바일 데이터를 확인해 주세요.\n(에러코드: 103)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 518,
+    "key": "Advertisement/Failure/Reason/InternalError",
+    "ko": "일시적인 오류가 발생했습니다.\n잠시 후 다시 시도해 주세요.\n(에러코드: 104)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 519,
+    "key": "Advertisement/Failure/Reason/SdkNotInitialized",
+    "ko": "광고 시스템 초기화가 완료되지 않았습니다.\n게임을 재시작한 후 다시 시도해 주세요.\n(에러코드: 105)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 520,
+    "key": "Advertisement/Failure/Reason/RequestInProgress",
+    "ko": "이미 광고를 불러오는 중입니다.\n잠시 후 다시 시도해 주세요.\n(에러코드: 106)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 521,
+    "key": "Advertisement/Failure/Reason/ContentLoadError",
+    "ko": "광고 콘텐츠를 불러올 수 없습니다.\n잠시 후 다시 시도해 주세요.\n(에러코드: 107)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 522,
+    "key": "Advertisement/Failure/Reason/ServerDataError",
+    "ko": "광고 서버에 문제가 발생했습니다.\n잠시 후 다시 시도해 주세요.\n(에러코드: 108)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 523,
+    "key": "Advertisement/Failure/Reason/InvalidLayout",
+    "ko": "광고 레이아웃 설정에 문제가 있습니다.\n(에러코드: 109)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 524,
+    "key": "Advertisement/Failure/Reason/TimeLimitBlocked",
+    "ko": "광고 시청 가능 시간이 지났습니다.\n잠시 후 다시 시도해 주세요.\n(에러코드: 110)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 525,
+    "key": "Advertisement/Failure/Reason/NoMediationInfo",
+    "ko": "광고 중개 정보가 없습니다.\n잠시 후 다시 시도해 주세요.\n(에러코드: 111)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 526,
+    "key": "Shop/Purchase/Success/Title",
+    "ko": "결제 성공",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 527,
+    "key": "Shop/Purchase/Success/Message",
+    "ko": "결제에 성공했습니다.\n\n확인 버튼을 누르면 보상을 받을 수 있습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 528,
+    "key": "Shop/Purchase/Deferred/Title",
+    "ko": "결제 지연",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 529,
+    "key": "Shop/Purchase/Deferred/Message",
+    "ko": "결제 승인이 지연되고 있습니다.\n\n결제 지연 처리는 보통 몇 분 정도 소요됩니다.\n잠시 후 게임을 재시작하시거나,\n메뉴의 '구매 복구' 버튼을 눌러주세요.\n\n※ 문제가 계속되면 메뉴의 '고객센터'로 문의해 주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 530,
+    "key": "Shop/Purchase/Failure/Title",
+    "ko": "결제 실패",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 531,
+    "key": "Shop/Purchase/Failure/Message",
+    "ko": "결제에 실패했습니다.\n\n{Reason}\n\n※ 문제가 계속되면 메뉴의 '고객센터'로 문의해 주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 532,
+    "key": "Shop/Purchase/Failure/Reason/PurchasingUnavailable",
+    "ko": "(실패 사유: 구매 불가)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 533,
+    "key": "Shop/Purchase/Failure/Reason/ExistingPurchasePending",
+    "ko": "(실패 사유: 처리 중인 구매 존재)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 534,
+    "key": "Shop/Purchase/Failure/Reason/ProductUnavailable",
+    "ko": "(실패 사유: 상품 판매 불가)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 535,
+    "key": "Shop/Purchase/Failure/Reason/SignatureInvalid",
+    "ko": "(실패 사유: 보안 검증 실패)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 536,
+    "key": "Shop/Purchase/Failure/Reason/UserCancelled",
+    "ko": "(실패 사유: 구매 취소)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 537,
+    "key": "Shop/Purchase/Failure/Reason/PaymentDeclined",
+    "ko": "(실패 사유: 결제 거부)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 538,
+    "key": "Shop/Purchase/Failure/Reason/DuplicateTransaction",
+    "ko": "(실패 사유: 중복 결제 시도)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 539,
+    "key": "Shop/Purchase/Failure/Reason/ValidationFailure",
+    "ko": "(실패 사유: 유효성 검증 실패)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 540,
+    "key": "Shop/Purchase/Failure/Reason/StoreNotConnected",
+    "ko": "(실패 사유: 스토어 연결 끊김)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 541,
+    "key": "Shop/Purchase/Failure/Reason/PurchaseMissing",
+    "ko": "(실패 사유: 구매 정보 없음)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 542,
+    "key": "Shop/Purchase/Failure/Reason/Unknown",
+    "ko": "(실패 사유: 플랫폼 오류)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 543,
+    "key": "Shop/Purchase/Failure/Reason/Deferred",
+    "ko": "(실패 사유: 결제 승인 대기 중)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 544,
+    "key": "Shop/Purchase/Failure/Reason/DIFFERENT_RECEIPT_OWNER",
+    "ko": "{Nickname}님의 구매 복구가 시도되었습니다.\n본인 소유 계정이 아니라면 메뉴의 '고객센터'로 문의해 주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 545,
+    "key": "Shop/Purchase/Failure/Reason/EXCEPT",
+    "ko": "(실패 사유: 시스템 오류)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 546,
+    "key": "Restore/Deferred/Title",
+    "ko": "결제 지연 안내",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 547,
+    "key": "Restore/Deferred/Message",
+    "ko": "{ProductName}\n\n결제 지연 중인 상품이 있습니다.\n\n복구는 보통 몇 분 정도 소요됩니다.\n잠시 후 게임을 재시작하시거나,\n메뉴의 '구매 복구' 버튼을 눌러주세요.\n\n※ 문제가 계속되면 메뉴의 '고객센터'로 문의해 주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 548,
+    "key": "Restore/Pending/Title",
+    "ko": "구매 복구 안내",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 549,
+    "key": "Restore/Pending/Message/Success",
+    "ko": "{ProductName}\n\n구매 복구에 성공한 상품이 있습니다.\n\n확인 버튼을 누르면 보상을 받을 수 있습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 550,
+    "key": "Restore/Pending/Message/Failure",
+    "ko": "현재 복구가 필요한 결제 내역이 없습니다.\n\n결제했는데 상품을 받지 못하셨다면 메뉴의 '고객센터'로 문의해 주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 551,
+    "key": "Shop/PickupGachaView/Prob",
+    "ko": "확률 정보",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 552,
+    "key": "Shop/PickupGachaView/History",
+    "ko": "뽑기 기록",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 553,
+    "key": "Shop/PickupGachaView/DrawCount",
+    "ko": "뽑기 {DrawCount}회",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 554,
+    "key": "Shop/PickupGachaView/PityRemainCount",
+    "ko": "앞으로 <size=21><b><color=#02FFA9>{RemainCount}</b></color></size>회 뽑기 시 한정 테마 확정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 555,
+    "key": "Shop/PickUpGachaView/PityGuideMessage",
+    "ko": "한정 테마 확정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 556,
+    "key": "PickupGachaPopup/End/Title",
+    "ko": "기간 종료",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 557,
+    "key": "PickupGachaPopup/End/Message",
+    "ko": "아티스트 뽑기가 종료되었습니다.\n다음 무대에서 꼭 다시 만나요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 558,
+    "key": "PickupGachaConfirmPopup/Title",
+    "ko": "알림",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 559,
+    "key": "PickupGachaConfirmPopup/Message",
+    "ko": "픽업 뽑기권이 부족합니다.\n부족한 수량만큼 다이아로 구매하여 뽑기를 진행하시겠습니까?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 560,
+    "key": "SettingPopup/Account/GuideMessage",
+    "ko": "추가 계정을 연결해서 데이터를 보호해주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 561,
+    "key": "SettingPopup/Account/Connection",
+    "ko": "연결됨",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 562,
+    "key": "SettingPopup/Account/Unlink/Title",
+    "ko": "계정 연결 해제",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 563,
+    "key": "SettingPopup/Account/Unlink/ErrorMessage",
+    "ko": "1개의 계정은 연결을 유지하고 있어야 합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 564,
+    "key": "SettingPopup/Account/Unlink/SelectMessage",
+    "ko": "연결 해제 요청 계정으로 로그인 정보에 접속할 수 없게 됩니다.\n\n계정 연결을 해제 하시겠습니까?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 565,
+    "key": "SettingPopup/Account/Unlink/BtnOk",
+    "ko": "해제하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 566,
+    "key": "SettingPopup/Account/Unlink/BtnCancel",
+    "ko": "해제하기 취소",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 567,
+    "key": "SettingPopup/Account/Link/FailTitle",
+    "ko": "계정 연결 실패",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 568,
+    "key": "SettingPopup/Account/Link/FailMessage",
+    "ko": "이미 다른 계정과 연결되어 있는 로그인 정보 입니다.\n\n다른 로그인 정보로 다시 시도해주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 569,
+    "key": "SettingPopup/Account/Delete/BtnText",
+    "ko": "계정 삭제하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 570,
+    "key": "FavoriteSelectView/Select",
+    "ko": "선택",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 571,
+    "key": "FavoriteSelectView/ArtistSelect",
+    "ko": "아티스트를 선택 해 주세요",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 573,
+    "key": "TutorialMissionEventPopup/Message",
+    "ko": "모든 미션을 완료 하여 보상을 획득하세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 574,
+    "key": "TutorialMissionEventPopup/LastReward",
+    "ko": "바로 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 575,
+    "key": "TutorialMissionEventPopup/NotSupportedShortcut",
+    "ko": "바로가기를 지원하지 않는 컨텐츠입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 576,
+    "key": "TutorialMissionEventPopup/NotRewardableLast",
+    "ko": "모든 미션 보상을 획득 하세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 577,
+    "key": "TutorialMissionEventPopup/RewardableLast",
+    "ko": "아직 받지 않은 보상이 있습니다. 보상을 획득해 주세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 578,
+    "key": "TutorialTimeEventPopup/Title",
+    "ko": "최애 아티스트 성장 지원 패키지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 579,
+    "key": "TutorialTimeEventPopup/SpecialReward",
+    "ko": "너에게만 주는 특별한 선물",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 580,
+    "key": "TutorialTimeEventPopup/Promise",
+    "ko": "내일도 비밀 약속, 알지?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 581,
+    "key": "TutorialTimeEventPopup/Wait",
+    "ko": "시간이 지나면 보상을 받을 수 있어요. 남은 시간을 확인해 주세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 582,
+    "key": "TutorialTimeEventPopup/Reward",
+    "ko": "바로 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 583,
+    "key": "TutorialDailyEventPopup/Title",
+    "ko": "오픈 기념 300 뽑기 증정",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 584,
+    "key": "TutorialDailyEventPopup/Message",
+    "ko": "초희귀 테마 카드를 얻을 기회\n매일 매일 출석하여 획득 하세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 585,
+    "key": "TutorialDailyEventPopup/Day",
+    "ko": "{Day}일차",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 586,
+    "key": "TutorialDailyEventPopup/Claim",
+    "ko": "획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 587,
+    "key": "TitleLoginPopup/RecentLoginMessage",
+    "ko": "최근 사용한 계정입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 588,
+    "key": "NicknameChangePopup/Title",
+    "ko": "내 정보",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 589,
+    "key": "NicknameChangePopup/Message",
+    "ko": "변경할 닉네임을 입력하세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 590,
+    "key": "NicknameChangePopup/Price",
+    "ko": "{PriceAmount:cond:>1?{PriceAmount} |}사용",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 591,
+    "key": "NicknameChangePopup/Empty",
+    "ko": "변경할 닉네임을 설정해주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 592,
+    "key": "NicknameChangePopup/Invalid",
+    "ko": "사용할 수 없는 닉네임입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 593,
+    "key": "NicknameChangePopup/InvalidLength",
+    "ko": "닉네임의 길이가 맞지 않습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 594,
+    "key": "NicknameChangePopup/Unchanged",
+    "ko": "닉네임이 동일합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 595,
+    "key": "NicknameChangePopup/BadNickname/Title",
+    "ko": "닉네임",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 596,
+    "key": "NicknameChangePopup/BadNickname/Message",
+    "ko": "사용할 수 없는 닉네임입니다.\n다른 닉네임을 사용해 주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 597,
+    "key": "NicknameChangePopup/Duplicated/Title",
+    "ko": "닉네임",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 598,
+    "key": "NicknameChangePopup/Duplicated/Message",
+    "ko": "{Nickname}는(은) 이미 등록된 닉네임입니다. 다른 닉네임을 사용해 주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 599,
+    "key": "NicknameChangePopup/ChangedNickname",
+    "ko": "닉네임 변경이 완료 되었습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 600,
+    "key": "AlbumLeagueView/Reward/UnplacedStatus",
+    "ko": "리그 미배치 상태",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 601,
+    "key": "AlbumLeagueView/Reward/AlbumNone",
+    "ko": "앨범 미보유 상태",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 602,
+    "key": "AlbumLeagueView/Reward/RewardSummaryInfo",
+    "ko": "그룹 랭킹 1위 달성 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 603,
+    "key": "AlbumLeagueView/Tab/GroupRanking",
+    "ko": "앨범 그룹 랭킹",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 604,
+    "key": "AlbumLeagueView/Tab/GlobalRank",
+    "ko": "이번주 명예의 전당",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 605,
+    "key": "AlbumLeagueView/GroupLeaderboard/UnplacedStatus",
+    "ko": "플레이를 통해 점수를 획득하면\n자동으로 리그에 배치됩니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 606,
+    "key": "AlbumLeagueView/GroupLeaderboard/AlbumNone",
+    "ko": "앨범 구매를 통해 리그에 참여할 수 있습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 607,
+    "key": "AlbumLeagueView/MyScore/Title",
+    "ko": "나의 {AlbumName} 앨범 플레이 점수",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 608,
+    "key": "AlbumLeagueView/MyScore/SubScore/None",
+    "ko": "기록 채우기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 609,
+    "key": "AlbumLeagueView/MyScore/ColumnName/Music",
+    "ko": "곡 명",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 610,
+    "key": "AlbumLeagueView/MyScore/ColumnName/HighestRecord",
+    "ko": "최고 기록",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 611,
+    "key": "AlbumLeagueView/MyScore/ColumnName/WeeklyRecord",
+    "ko": "이번 주 기록",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 612,
+    "key": "AlbumLeagueView/MyScore/RecordGuide",
+    "ko": "기록은 기기에만 저장되어 앱 삭제나 기기 변경 시 사라집니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 613,
+    "key": "AlbumLeagueView/LeagueCurrency/ShopButton",
+    "ko": "상점",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 614,
+    "key": "AlbumLeagueView/Popup/Profile",
+    "ko": "{Nickname}의 프로필",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 616,
+    "key": "AlbumLeagueView/Popup/AlbumLevel",
+    "ko": "앨범 레벨",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 617,
+    "key": "AlbumLeagueView/Popup/HighestRanking",
+    "ko": "명예의 전당 최고 기록",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 618,
+    "key": "AlbumLeagueView/Popup/HighestScore",
+    "ko": "역대 최고 점수",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 619,
+    "key": "AlbumLeagueView/Popup/HighestRankingInfo",
+    "ko": "{0}위",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 621,
+    "key": "AlbumLeagueView/Popup/PhotoCardList",
+    "ko": "장착 포토카드",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 622,
+    "key": "Post/Title/ALBUM_LEAGUE",
+    "ko": "앨범 리그 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 623,
+    "key": "Post/Description/ALBUM_LEAGUE",
+    "ko": "지난주 앨범 리그 그룹 랭킹 결과에 따른 보상이 합산되어 지급되었습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 625,
+    "key": "AlbumLeagueRewardInfoPopup/SubTitle",
+    "ko": "그룹 랭킹 결산 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 626,
+    "key": "AlbumLeagueRewardInfoPopup/SingleRank",
+    "ko": "{0}위",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 627,
+    "key": "AlbumLeagueRewardInfoPopup/MultiRank",
+    "ko": "{rankMin}~{rankMax}위",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 628,
+    "key": "AlbumLeagueRewardInfoPopup/MyRankReward",
+    "ko": "현재 내 순위",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 629,
+    "key": "Common_Popup_Title_LeagueSeasonEnd",
+    "ko": "리그 기간 종료 안내",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 630,
+    "key": "Common_Popup_Desc_LeagueSeasonEnd",
+    "ko": "앨범 리그 기간이 종료되어 로비로 이동합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 631,
+    "key": "AlbumLeagueRewardPopup/Desc/RewardSentByMail",
+    "ko": "우편으로 앨범 리그 보상이 지급되었습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 632,
+    "key": "AlbumLeagueRewardPopup/Title",
+    "ko": "주간 앨범 리그 결산",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 633,
+    "key": "AlbumLeagueRewardPopup/RewardList",
+    "ko": "보상 결산",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 634,
+    "key": "AlbumLeagueView/UserProfile/StatusMessage/Empty",
+    "ko": "자기소개를 작성하지 않았습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 635,
+    "key": "AlbumLeagueRewardPopup/LeagueRank",
+    "ko": "{0}위 달성",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 636,
+    "key": "AlbumLeagueView/GlobalLeaderboard/UnplacedStatus",
+    "ko": "플레이를 통해 점수를 획득하면 자동으로 리그에 배치됩니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 637,
+    "key": "AlbumLeagueView/GlobalLeaderboard/AlbumNone",
+    "ko": "앨범 구매를 통해 리그에 참여할 수 있습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 638,
+    "key": "AlbumSelectPopup/AlbumLeague/RankingStatus",
+    "ko": "{0}위",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 639,
+    "key": "AlbumSelectPopup/SearchFunction/GuideText",
+    "ko": "곡, 아티스트, 그룹, 앨범 이름으로 검색",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 640,
+    "key": "AlbumSelectPopup/SearchFunction/NoResults",
+    "ko": "검색 결과가 없어요.\n곡명, 아티스트명, 그룹명, 앨범명이 정확한지 확인해주세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 641,
+    "key": "Ingame/RoadingView/MyRank",
+    "ko": "내 순위",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 642,
+    "key": "Ingame/RoadingView/ScoreDifference",
+    "ko": "{0}% 차이",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 643,
+    "key": "Ingame/RoadingView/SameScore",
+    "ko": "동점",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 644,
+    "key": "Ingame/RoadingView/RivalCompare/Desc/Not1st",
+    "ko": "조금만 더 노력하면 보상이 더욱 눈부시게 빛날거예요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 645,
+    "key": "Ingame/RoadingView/RivalCompare/Desc/1st",
+    "ko": "뺏기기엔 아쉬운 1위, 왕좌의 위엄을 보여주세요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 646,
+    "key": "Ingame/RoadingView/RivalCompare/Desc/SameScore",
+    "ko": "점수가 동점일 경우 앨범 레벨로 순위가 결정됩니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 647,
+    "key": "Ingame/RoadingView/JoinLeague/Desc/1st",
+    "ko": "지난주 1위를 차지했네요! 이번주도 무결점 연주로 자리를 지켜보세요.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 648,
+    "key": "Ingame/RoadingView/JoinLeague/Desc/2to5",
+    "ko": "지난주는 Top 5였어요. 이번주는 한 걸음 더 나아가 1위를 뺏어볼까요?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 649,
+    "key": "Ingame/RoadingView/JoinLeague/Desc/6to10",
+    "ko": "지난주 기록도 좋았지마느 이번주는 더 풍성한 보상 구간으로 올라가 봐요!",
+    "en": "지난주 기록도 좋았지만 이번주는 더 풍성한 보상 구간으로 올라가 봐요!",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 650,
+    "key": "Ingame/RoadingView/JoinLeague/Desc/11to15",
+    "ko": "지난주는 앨범 리그 코인을 획득하지 못했어요... 이번에는 획득할 수 있도록 목표를 세워봐요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 651,
+    "key": "Ingame/RoadingView/JoinLeague/Desc/NoRecord",
+    "ko": "지난주 기록이 없어요. 앨범 리그에 본격적으로 참여해볼까요?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 652,
+    "key": "Ingame/RoadingView/JoinLeague/SubTitle",
+    "ko": "나의 지난주 {AlbumName} 앨범 그룹 랭킹",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 653,
+    "key": "Ingame/RoadingView/JoinLeague/Rank",
+    "ko": "{0}위",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 655,
+    "key": "LeaguePlacementPopup/Title",
+    "ko": "리그 참여 안내",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 656,
+    "key": "LeaguePlacementPopup/Desc",
+    "ko": "{AlbumName} 앨범 리그에 참가 완료되었습니다.\n현재 순위와 보상을 확인해볼까요?",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 657,
+    "key": "LeaguePlacementPopup/Button/GotoLeagueView",
+    "ko": "리그로 이동",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 658,
+    "key": "Ingame/ResultFlow/AlbumLeague/Not1st",
+    "ko": "순위 상승에 성공했어요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 659,
+    "key": "Ingame/ResultFlow/AlbumLeague/1st",
+    "ko": "대단해요! 2위의 추격을 따돌리는 성공했어요!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 664,
+    "key": "CommonGotoPass",
+    "ko": "패스 바로 가기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 665,
+    "key": "CommonGotoShop",
+    "ko": "상점 바로 가기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 666,
+    "key": "CommonPassEnd",
+    "ko": "패스 기간 종료",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 667,
+    "key": "CommonShopEnd",
+    "ko": "판매 기간 종료",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 668,
+    "key": "WallpaperPopup/Desc/GetAlbum",
+    "ko": "게임 플레이를 통해 배경 이미지 조각을 모아서 획득합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 669,
+    "key": "WallpaperPopup/Desc/GetEventPass",
+    "ko": "패스 보상으로 획득 할 수 있습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 670,
+    "key": "WallpaperPopup/Desc/GetShop",
+    "ko": "상점에서 구매 가능합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 671,
+    "key": "WallpaperPopup/Button/Equip",
+    "ko": "({Current}/{Max}) 착용",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 672,
+    "key": "WallpaperPopup/Button/Unequip",
+    "ko": "({Current}/{Max}) 해제",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 673,
+    "key": "WallpaperSettingPopup/Desc/GetAlbum",
+    "ko": "배경 이미지 조각으로 완성한 이미지입니다",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 674,
+    "key": "WallpaperSettingPopup/Desc/GetEventPass",
+    "ko": "이벤트 패스 보상으로 획득한 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 675,
+    "key": "WallpaperSettingPopup/Desc/GetShop",
+    "ko": "상점에서 구매하여 획득한 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 676,
+    "key": "WallpaperSettingPopup/Desc/GetStarterPack",
+    "ko": "앨범 플레이를 통해 획득합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 677,
+    "key": "WallpaperSettingPopup/Desc/GetAlbumBefore",
+    "ko": "이전 배경 이미지를 완성 후\n게임 플레이로 배경 이미지 조각을 모아 획득 할 수 있습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 678,
+    "key": "WallpaperSelectPopup/Title",
+    "ko": "배경 이미지 선택권",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 679,
+    "key": "WallpaperSelectPopup/Desc/CollectAll",
+    "ko": "선택권으로 획득 가능한 배경 이미지를 모두 획득하였습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 680,
+    "key": "WallpaperSelectPopup/Desc/includeItem",
+    "ko": "종료 4주가 지난 이벤트 패스 배경이 포함됩니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 681,
+    "key": "WallpaperCollectAllPopup/Title",
+    "ko": "모든 배경 이미지 획득 완료",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 682,
+    "key": "WallpaperCollectAllPopup/Desc/CollectAll",
+    "ko": "선택권으로 획득 가능한 배경 이미지를 모두 획득하였습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 683,
+    "key": "WallpaperCollectAllPopup/Desc/Reward",
+    "ko": "{0} {ItemName}가 지급됩니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 684,
+    "key": "WallpaperPopup/Desc/BeforeobtainAlbum",
+    "ko": "앨범 구매 후 플레이를 통해 획득합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 685,
+    "key": "WallpaperSettingPopup/ToastMessage/PassEnd",
+    "ko": "패스가 종료되었습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 686,
+    "key": "WallpaperSettingPopup/ToastMessage/ShopEnd",
+    "ko": "상품 판매가 종료되었습니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 687,
+    "key": "WallpaperPopup/ToastMessage/GetStarterPack",
+    "ko": "스타터 팩을 먼저 구매해야 합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 688,
+    "key": "PickupGachaConfirmPopup/Buy/Buttons",
+    "ko": "구매 하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  }
+]

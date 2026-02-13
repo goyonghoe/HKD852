@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- Header Section -->
+  <text x="100" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999">AI AGENT PIPELINE</text>
+
+  <!-- Main Title -->
+  <text x="100" y="170" font-family="Space Mono, monospace" font-weight="700" font-size="40" fill="#FFFFFF">Human Initiates, AI Executes, Human Confirms</text>
+
+  <!-- Divider Line -->
+  <line x1="100" y1="200" x2="1820" y2="200" stroke="#333333" stroke-width="1"/>
+
+  <!-- Human-in-the-loop Flow (Top Bar) -->
+  <g transform="translate(100, 240)">
+    <rect x="0" y="0" width="1720" height="70" fill="#111111" rx="8" stroke="#333333" stroke-width="1"/>
+
+    <!-- Flow Steps -->
+    <g transform="translate(60, 20)">
+      <rect x="0" y="0" width="160" height="32" fill="#1A1A1A" rx="16"/>
+      <text x="80" y="22" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="13" fill="#FFFFFF" text-anchor="middle">● 인간 지시</text>
+    </g>
+
+    <text x="280" y="38" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="24" fill="#B0B0B0">→</text>
+
+    <g transform="translate(320, 20)">
+      <rect x="0" y="0" width="160" height="32" fill="#222222" rx="16"/>
+      <text x="80" y="22" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="13" fill="#CCCCCC" text-anchor="middle">◈ AI 실행</text>
+    </g>
+
+    <text x="540" y="38" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="24" fill="#B0B0B0">→</text>
+
+    <g transform="translate(580, 20)">
+      <rect x="0" y="0" width="160" height="32" fill="#1A1A1A" rx="16"/>
+      <text x="80" y="22" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="13" fill="#FFFFFF" text-anchor="middle">● 인간 컨펌</text>
+    </g>
+
+    <text x="800" y="38" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="24" fill="#B0B0B0">→</text>
+
+    <g transform="translate(840, 20)">
+      <rect x="0" y="0" width="160" height="32" fill="#333333" rx="16"/>
+      <text x="80" y="22" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="13" fill="#FFFFFF" text-anchor="middle">◎ 산출물 배포</text>
+    </g>
+
+    <!-- Label -->
+    <text x="1580" y="38" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#999999" text-anchor="end">HUMAN-IN-THE-LOOP</text>
+  </g>
+
+  <!-- 5 Agent Pipeline - 균등 배치 (좌우 여백 100px 확보) -->
+  <!-- 총 폭 1720px = 카드 300px × 5 + 간격 55px × 4 -->
+  <g transform="translate(100, 360)">
+    <text x="0" y="0" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#999999">5 SPECIALIZED AGENTS</text>
+
+    <g transform="translate(0, 30)">
+
+      <!-- Agent 1: Game Design (x=0, 끝=300) -->
+      <g transform="translate(0, 0)">
+        <rect x="0" y="0" width="300" height="200" fill="#111111" rx="8" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="40" font-family="Noto Sans KR, sans-serif" font-size="24" fill="#FFFFFF">◇</text>
+        <text x="56" y="40" font-family="Space Mono, monospace" font-weight="700" font-size="15" fill="#FFFFFF">Game Design Agent</text>
+        <line x1="24" y1="60" x2="276" y2="60" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="90" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#CCCCCC">게임 디자인 의사결정</text>
+        <text x="24" y="115" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="13" fill="#A0A0A0">→ 문서 작성</text>
+        <rect x="24" y="145" width="70" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="59" y="162" font-family="Space Mono, monospace" font-weight="400" font-size="11" fill="#999999" text-anchor="middle">DESIGN</text>
+        <rect x="102" y="145" width="55" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="129" y="162" font-family="Space Mono, monospace" font-weight="400" font-size="11" fill="#999999" text-anchor="middle">DOCS</text>
+      </g>
+
+      <!-- Arrow 1 (x=318) -->
+      <text x="318" y="100" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="24" fill="#B0B0B0">→</text>
+
+      <!-- Agent 2: Data Mgmt (x=355, 끝=655) -->
+      <g transform="translate(355, 0)">
+        <rect x="0" y="0" width="300" height="200" fill="#111111" rx="8" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="40" font-family="Noto Sans KR, sans-serif" font-size="24" fill="#FFFFFF">◈</text>
+        <text x="56" y="40" font-family="Space Mono, monospace" font-weight="700" font-size="15" fill="#FFFFFF">Data Mgmt Agent</text>
+        <line x1="24" y1="60" x2="276" y2="60" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="90" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#CCCCCC">데이터 구조 생성</text>
+        <text x="24" y="115" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="13" fill="#A0A0A0">→ 테스트 데이터</text>
+        <rect x="24" y="145" width="70" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="59" y="162" font-family="Space Mono, monospace" font-weight="400" font-size="11" fill="#999999" text-anchor="middle">SCHEMA</text>
+        <rect x="102" y="145" width="55" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="129" y="162" font-family="Space Mono, monospace" font-weight="400" font-size="11" fill="#999999" text-anchor="middle">TEST</text>
+      </g>
+
+      <!-- Arrow 2 (x=673) -->
+      <text x="673" y="100" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="24" fill="#B0B0B0">→</text>
+
+      <!-- Agent 3: Balancing (x=710, 끝=1010) -->
+      <g transform="translate(710, 0)">
+        <rect x="0" y="0" width="300" height="200" fill="#111111" rx="8" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="40" font-family="Noto Sans KR, sans-serif" font-size="24" fill="#FFFFFF">◎</text>
+        <text x="56" y="40" font-family="Space Mono, monospace" font-weight="700" font-size="15" fill="#FFFFFF">Balancing Agent</text>
+        <line x1="24" y1="60" x2="276" y2="60" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="90" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#CCCCCC">디자인 의도 + 라이브 데이터</text>
+        <text x="24" y="115" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="13" fill="#A0A0A0">→ 밸런싱 최적화</text>
+        <rect x="24" y="145" width="70" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="59" y="162" font-family="Space Mono, monospace" font-weight="400" font-size="11" fill="#999999" text-anchor="middle">INTENT</text>
+        <rect x="102" y="145" width="55" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="129" y="162" font-family="Space Mono, monospace" font-weight="400" font-size="11" fill="#999999" text-anchor="middle">LIVE</text>
+      </g>
+
+      <!-- Arrow 3 (x=1028) -->
+      <text x="1028" y="100" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="24" fill="#B0B0B0">→</text>
+
+      <!-- Agent 4: Validation (x=1065, 끝=1365) -->
+      <g transform="translate(1065, 0)">
+        <rect x="0" y="0" width="300" height="200" fill="#111111" rx="8" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="40" font-family="Noto Sans KR, sans-serif" font-size="24" fill="#FFFFFF">◆</text>
+        <text x="56" y="40" font-family="Space Mono, monospace" font-weight="700" font-size="15" fill="#FFFFFF">Validation Agent</text>
+        <line x1="24" y1="60" x2="276" y2="60" stroke="#222222" stroke-width="1"/>
+        <text x="24" y="90" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#CCCCCC">데이터 오류 검증</text>
+        <text x="24" y="115" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="13" fill="#A0A0A0">→ 무결성 보장</text>
+        <rect x="24" y="145" width="70" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="59" y="162" font-family="Space Mono, monospace" font-weight="400" font-size="11" fill="#999999" text-anchor="middle">CHECK</text>
+        <rect x="102" y="145" width="70" height="24" fill="#1A1A1A" rx="4"/>
+        <text x="137" y="162" font-family="Space Mono, monospace" font-weight="400" font-size="11" fill="#999999" text-anchor="middle">VERIFY</text>
+      </g>
+
+      <!-- Arrow 4 (x=1383) -->
+      <text x="1383" y="100" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="24" fill="#B0B0B0">→</text>
+
+      <!-- Agent 5: Dept Liaison (x=1420, 끝=1720) - 우측 여백 100px 확보 -->
+      <g transform="translate(1420, 0)">
+        <rect x="0" y="0" width="300" height="200" fill="#111111" rx="8" stroke="#444444" stroke-width="2"/>
+        <text x="24" y="40" font-family="Noto Sans KR, sans-serif" font-size="24" fill="#FFFFFF">★</text>
+        <text x="56" y="40" font-family="Space Mono, monospace" font-weight="700" font-size="14" fill="#FFFFFF">Dept. Liaison Agents</text>
+        <line x1="24" y1="60" x2="276" y2="60" stroke="#444444" stroke-width="1"/>
+        <text x="24" y="90" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#CCCCCC">부서별 맞춤 소통</text>
+
+        <!-- Department Tags -->
+        <g transform="translate(24, 115)">
+          <rect x="0" y="0" width="56" height="24" fill="#1A1A1A" rx="4"/>
+          <text x="28" y="16" font-family="Space Mono, monospace" font-weight="400" font-size="10" fill="#999999" text-anchor="middle">IP</text>
+
+          <rect x="64" y="0" width="56" height="24" fill="#1A1A1A" rx="4"/>
+          <text x="92" y="16" font-family="Space Mono, monospace" font-weight="400" font-size="10" fill="#999999" text-anchor="middle">UI</text>
+
+          <rect x="128" y="0" width="56" height="24" fill="#1A1A1A" rx="4"/>
+          <text x="156" y="16" font-family="Space Mono, monospace" font-weight="400" font-size="10" fill="#999999" text-anchor="middle">QA</text>
+
+          <rect x="192" y="0" width="56" height="24" fill="#1A1A1A" rx="4"/>
+          <text x="220" y="16" font-family="Space Mono, monospace" font-weight="400" font-size="10" fill="#999999" text-anchor="middle">Art</text>
+        </g>
+      </g>
+
+    </g>
+  </g>
+
+  <!-- Bottom Two Cards -->
+  <g transform="translate(100, 680)">
+
+    <!-- Card 1: AI 중단 시 -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="840" height="200" fill="#111111" rx="12" stroke="#222222" stroke-width="1"/>
+
+      <!-- Header -->
+      <rect x="0" y="0" width="840" height="50" fill="#1A1A1A" rx="12"/>
+      <rect x="0" y="25" width="840" height="25" fill="#1A1A1A"/>
+      <text x="30" y="34" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999">○ AI 중단 시</text>
+      <rect x="720" y="12" width="100" height="26" fill="#222222" rx="13"/>
+      <text x="770" y="30" font-family="Space Mono, monospace" font-weight="400" font-size="11" fill="#A0A0A0" text-anchor="middle">FALLBACK</text>
+
+      <!-- Content -->
+      <text x="30" y="100" font-family="Space Mono, monospace" font-weight="700" font-size="22" fill="#FFFFFF">기존 인력 운영 유지</text>
+      <text x="30" y="140" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#CCCCCC">모든 프로세스는 인간 기준 설계</text>
+      <text x="30" y="170" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0">AI는 속도 레버리지 · 핵심 역량 대체 아님</text>
+    </g>
+
+    <!-- Card 2: AI 작동 시 -->
+    <g transform="translate(880, 0)">
+      <rect x="0" y="0" width="840" height="200" fill="#111111" rx="12" stroke="#444444" stroke-width="2"/>
+
+      <!-- Header -->
+      <rect x="0" y="0" width="840" height="50" fill="#1A1A1A" rx="12"/>
+      <rect x="0" y="25" width="840" height="25" fill="#1A1A1A"/>
+      <text x="30" y="34" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999">◉ AI 작동 시</text>
+      <rect x="700" y="12" width="120" height="26" fill="#333333" rx="13"/>
+      <text x="760" y="30" font-family="Space Mono, monospace" font-weight="400" font-size="11" fill="#FFFFFF" text-anchor="middle">LEVERAGE</text>
+
+      <!-- Content -->
+      <text x="30" y="100" font-family="Space Mono, monospace" font-weight="700" font-size="22" fill="#FFFFFF">5~10배 퍼포먼스 확장</text>
+      <text x="30" y="140" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#CCCCCC">Anthropic 내부 60% AI 활용</text>
+      <text x="30" y="170" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="14" fill="#A0A0A0">비기술직도 도구 자체 제작 가능</text>
+    </g>
+
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="940" x2="1820" y2="940" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="980" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#999999">MONTHLY REPORT · AI OPERATIONS PIPELINE</text>
+  <text x="1820" y="980" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#999999" text-anchor="end">2 / 2</text>
+</svg>

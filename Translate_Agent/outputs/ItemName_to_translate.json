@@ -1,0 +1,3494 @@
+[
+  {
+    "row": 18,
+    "key": "Album_5001",
+    "ko": "맨날",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 19,
+    "key": "Album_5002",
+    "ko": "비상사태",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 21,
+    "key": "Album_5004",
+    "ko": "차차차",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 31,
+    "key": "Artist_301",
+    "ko": "ROSÉ",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 32,
+    "key": "Artist_302",
+    "ko": "ROSÉ",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 33,
+    "key": "Artist_303",
+    "ko": "ROSÉ",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 115,
+    "key": "Group_3",
+    "ko": "ROSÉ",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 203,
+    "key": "Music_5",
+    "ko": "슝! (Shoong!) (feat. LISA of BLACKPINK)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 204,
+    "key": "Music_6",
+    "ko": "나의 마음에 (Seed)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 205,
+    "key": "Music_7",
+    "ko": "나는",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 208,
+    "key": "Music_10",
+    "ko": "어질어질 (Outta My Head) - Verse1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 209,
+    "key": "Music_11",
+    "ko": "어질어질 (Outta My Head) - Verse2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 210,
+    "key": "Music_12",
+    "ko": "어질어질 (Outta My Head) - Full",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 222,
+    "key": "Music_24",
+    "ko": "Don't Let Me Go (feat. 기리보이)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 227,
+    "key": "Music_29",
+    "ko": "어질어질 (Outta My Head)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 228,
+    "key": "Music_30",
+    "ko": "금금금",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 230,
+    "key": "Music_32",
+    "ko": "자두 (Pisces)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 275,
+    "key": "Music_77",
+    "ko": "맨날 (Feat. Okasian) - Verse1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 276,
+    "key": "Music_78",
+    "ko": "맨날 (Feat. Okasian) - Verse2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 277,
+    "key": "Music_79",
+    "ko": "맨날 (Feat. Okasian) - Full",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 278,
+    "key": "Music_80",
+    "ko": "비상사태 (Feat. Zion.T) - Verse1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 279,
+    "key": "Music_81",
+    "ko": "비상사태 (Feat. Zion.T) - Verse2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 280,
+    "key": "Music_82",
+    "ko": "비상사태 (Feat. Zion.T) - Full",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 282,
+    "key": "Music_84",
+    "ko": "나와",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 285,
+    "key": "Music_87",
+    "ko": "비상사태 (Feat. Zion.T)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 286,
+    "key": "Music_88",
+    "ko": "맨날 (Feat. 오케이션)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 287,
+    "key": "Music_89",
+    "ko": "차차차 (feat. G-DRAGON) - Verse1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 288,
+    "key": "Music_90",
+    "ko": "차차차 (feat. G-DRAGON) - Verse2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 289,
+    "key": "Music_91",
+    "ko": "차차차 (feat. G-DRAGON) - Full",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 325,
+    "key": "Theme_5001",
+    "ko": "맨날",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 326,
+    "key": "Theme_5002",
+    "ko": "비상사태",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 328,
+    "key": "Theme_5004",
+    "ko": "차차차",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 332,
+    "key": "ShopProduct_8",
+    "ko": "리듬포인트 1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 333,
+    "key": "ShopProduct_9",
+    "ko": "리듬포인트 2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 334,
+    "key": "ShopProduct_10",
+    "ko": "리듬포인트 3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 335,
+    "key": "ShopProduct_11",
+    "ko": "리듬포인트 4",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 336,
+    "key": "ShopProduct_12",
+    "ko": "리듬포인트 5",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 337,
+    "key": "ShopProduct_13",
+    "ko": "리듬포인트 6",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 338,
+    "key": "ShopProduct_14",
+    "ko": "다이아 1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 339,
+    "key": "ShopProduct_15",
+    "ko": "다이아 2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 340,
+    "key": "ShopProduct_16",
+    "ko": "다이아 3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 341,
+    "key": "ShopProduct_17",
+    "ko": "다이아 4",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 342,
+    "key": "ShopProduct_18",
+    "ko": "다이아 5",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 343,
+    "key": "ShopProduct_19",
+    "ko": "다이아 6",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 344,
+    "key": "ShopProduct_20",
+    "ko": "스타코인 1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 345,
+    "key": "ShopProduct_21",
+    "ko": "스타코인 2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 346,
+    "key": "ShopProduct_22",
+    "ko": "스타코인 3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 347,
+    "key": "ShopProduct_23",
+    "ko": "스타코인 4",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 348,
+    "key": "ShopProduct_24",
+    "ko": "스타코인 5",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 349,
+    "key": "ShopProduct_25",
+    "ko": "스타코인 6",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 350,
+    "key": "Description_ShopProduct_8",
+    "ko": "리듬포인트 1000",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 351,
+    "key": "Description_ShopProduct_9",
+    "ko": "리듬포인트 10000",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 352,
+    "key": "Description_ShopProduct_10",
+    "ko": "리듬포인트 25000",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 353,
+    "key": "Description_ShopProduct_11",
+    "ko": "리듬포인트 50000",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 354,
+    "key": "Description_ShopProduct_12",
+    "ko": "리듬포인트 150000",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 355,
+    "key": "Description_ShopProduct_13",
+    "ko": "리듬포인트 250000",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 356,
+    "key": "Description_ShopProduct_14",
+    "ko": "다이아몬드 10",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 357,
+    "key": "Description_ShopProduct_15",
+    "ko": "다이아몬드 50",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 358,
+    "key": "Description_ShopProduct_16",
+    "ko": "다이아몬드 100",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 359,
+    "key": "Description_ShopProduct_17",
+    "ko": "다이아몬드 300",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 360,
+    "key": "Description_ShopProduct_18",
+    "ko": "다이아몬드 500",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 361,
+    "key": "Description_ShopProduct_19",
+    "ko": "다이아몬드 1000",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 362,
+    "key": "Description_ShopProduct_20",
+    "ko": "스타코인 35",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 363,
+    "key": "Description_ShopProduct_21",
+    "ko": "스타코인 25",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 364,
+    "key": "Description_ShopProduct_22",
+    "ko": "스타코인 50",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 365,
+    "key": "Description_ShopProduct_23",
+    "ko": "스타코인 150",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 366,
+    "key": "Description_ShopProduct_24",
+    "ko": "스타코인 250",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 367,
+    "key": "Description_ShopProduct_25",
+    "ko": "스타코인 500",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 368,
+    "key": "ShopCustom_3",
+    "ko": "리듬 포인트 상점",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 369,
+    "key": "ShopCustom_4",
+    "ko": "다이아몬드 상점",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 370,
+    "key": "ShopCustom_5",
+    "ko": "스타코인 상점",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 371,
+    "key": "ShopMenu_1",
+    "ko": "카드팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 372,
+    "key": "ShopMenu_2",
+    "ko": "재화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 373,
+    "key": "ShopCustom_1",
+    "ko": "카드 팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 374,
+    "key": "ShopCustom_2",
+    "ko": "연도별 카드팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 375,
+    "key": "ShopProduct_1",
+    "ko": "카드 팩 30",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 376,
+    "key": "ShopProduct_2",
+    "ko": "카드 팩 10",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 377,
+    "key": "ShopProduct_3",
+    "ko": "카드 팩 5",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 378,
+    "key": "ShopProduct_4",
+    "ko": "프리미엄 팩 30",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 379,
+    "key": "ShopProduct_5",
+    "ko": "프리미엄 팩 10",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 380,
+    "key": "ShopProduct_6",
+    "ko": "프리미엄 팩 5",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 381,
+    "key": "ShopProduct_7",
+    "ko": "아이들 한정테마 카드팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 382,
+    "key": "Description_ShopProduct_1",
+    "ko": "C~S 등급",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 383,
+    "key": "Description_ShopProduct_2",
+    "ko": "C~S 등급",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 384,
+    "key": "Description_ShopProduct_3",
+    "ko": "C~S 등급",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 385,
+    "key": "Description_ShopProduct_4",
+    "ko": "B~R 등급",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 386,
+    "key": "Description_ShopProduct_5",
+    "ko": "B~R 등급",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 387,
+    "key": "Description_ShopProduct_6",
+    "ko": "B~R 등급",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 388,
+    "key": "Description_ShopProduct_7",
+    "ko": "다시 오지 않을 기회!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 389,
+    "key": "ShopPopup_1",
+    "ko": "리듬 포인트가 부족합니다!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 390,
+    "key": "ShopPopup_2",
+    "ko": "다이아몬드가 부족합니다!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 391,
+    "key": "ShopPopup_3",
+    "ko": "스타코인이 부족합니다!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 392,
+    "key": "ShopProduct_26",
+    "ko": "무제한 패키지 상품",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 393,
+    "key": "Description_ShopProduct_26",
+    "ko": "최고의 효율! 최고의 가성비! 최고의 선택!",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 394,
+    "key": "ShopMenu_3",
+    "ko": "테스트 상점",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 395,
+    "key": "ShopCustom_6",
+    "ko": "무료 상점 테스트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 396,
+    "key": "ShopCustom_7",
+    "ko": "다이아 상점 테스트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 397,
+    "key": "ShopProduct_27",
+    "ko": "무료 상품 테스트 1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 398,
+    "key": "ShopProduct_28",
+    "ko": "무료 상품 테스트 2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 399,
+    "key": "ShopProduct_29",
+    "ko": "무료 상품 테스트 3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 400,
+    "key": "ShopProduct_30",
+    "ko": "무료 상품 테스트 4",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 401,
+    "key": "ShopProduct_31",
+    "ko": "무료 상품 테스트 5",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 402,
+    "key": "ShopProduct_32",
+    "ko": "무료 상품 테스트 6",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 403,
+    "key": "ShopProduct_33",
+    "ko": "무료 상품 테스트 7",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 404,
+    "key": "ShopProduct_34",
+    "ko": "무료 상품 테스트 8",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 405,
+    "key": "ShopProduct_35",
+    "ko": "무료 상품 테스트 9",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 406,
+    "key": "ShopProduct_36",
+    "ko": "무료 상품 테스트 10",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 407,
+    "key": "ShopProduct_37",
+    "ko": "무료 상품 테스트 11",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 408,
+    "key": "ShopProduct_38",
+    "ko": "무료 상품 테스트 12",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 409,
+    "key": "ShopProduct_39",
+    "ko": "다이아 상품 테스트 1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 410,
+    "key": "ShopProduct_40",
+    "ko": "다이아 상품 테스트 2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 411,
+    "key": "ShopProduct_41",
+    "ko": "다이아 상품 테스트 3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 412,
+    "key": "ShopProduct_42",
+    "ko": "다이아 상품 테스트 4",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 413,
+    "key": "ShopProduct_43",
+    "ko": "다이아 상품 테스트 5",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 414,
+    "key": "ShopProduct_44",
+    "ko": "다이아 상품 테스트 6",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 415,
+    "key": "ShopProduct_45",
+    "ko": "다이아 상품 테스트 7",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 416,
+    "key": "ShopProduct_46",
+    "ko": "다이아 상품 테스트 8",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 417,
+    "key": "ShopProduct_47",
+    "ko": "다이아 상품 테스트 9",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 418,
+    "key": "ShopProduct_48",
+    "ko": "다이아 상품 테스트 10",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 419,
+    "key": "ShopProduct_49",
+    "ko": "다이아 상품 테스트 11",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 420,
+    "key": "ShopProduct_50",
+    "ko": "다이아 상품 테스트 12",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 421,
+    "key": "Description_ShopProduct_27",
+    "ko": "무료 상품 설명 테스트 1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 422,
+    "key": "Description_ShopProduct_28",
+    "ko": "무료 상품 설명 테스트 2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 423,
+    "key": "Description_ShopProduct_29",
+    "ko": "무료 상품 설명 테스트 3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 424,
+    "key": "Description_ShopProduct_30",
+    "ko": "무료 상품 설명 테스트 4",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 425,
+    "key": "Description_ShopProduct_31",
+    "ko": "무료 상품 설명 테스트 5",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 426,
+    "key": "Description_ShopProduct_32",
+    "ko": "무료 상품 설명 테스트 6",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 427,
+    "key": "Description_ShopProduct_33",
+    "ko": "무료 상품 설명 테스트 7",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 428,
+    "key": "Description_ShopProduct_34",
+    "ko": "무료 상품 설명 테스트 8",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 429,
+    "key": "Description_ShopProduct_35",
+    "ko": "무료 상품 설명 테스트 9",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 430,
+    "key": "Description_ShopProduct_36",
+    "ko": "무료 상품 설명 테스트 10",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 431,
+    "key": "Description_ShopProduct_37",
+    "ko": "무료 상품 설명 테스트 11",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 432,
+    "key": "Description_ShopProduct_38",
+    "ko": "무료 상품 설명 테스트 12",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 433,
+    "key": "Description_ShopProduct_39",
+    "ko": "다이아 상품 설명 테스트 1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 434,
+    "key": "Description_ShopProduct_40",
+    "ko": "다이아 상품 설명 테스트 2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 435,
+    "key": "Description_ShopProduct_41",
+    "ko": "다이아 상품 설명 테스트 3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 436,
+    "key": "Description_ShopProduct_42",
+    "ko": "다이아 상품 설명 테스트 4",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 437,
+    "key": "Description_ShopProduct_43",
+    "ko": "다이아 상품 설명 테스트 5",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 438,
+    "key": "Description_ShopProduct_44",
+    "ko": "다이아 상품 설명 테스트 6",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 439,
+    "key": "Description_ShopProduct_45",
+    "ko": "다이아 상품 설명 테스트 7",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 440,
+    "key": "Description_ShopProduct_46",
+    "ko": "다이아 상품 설명 테스트 8",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 441,
+    "key": "Description_ShopProduct_47",
+    "ko": "다이아 상품 설명 테스트 9",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 442,
+    "key": "Description_ShopProduct_48",
+    "ko": "다이아 상품 설명 테스트 10",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 443,
+    "key": "Description_ShopProduct_49",
+    "ko": "다이아 상품 설명 테스트 11",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 444,
+    "key": "Description_ShopProduct_50",
+    "ko": "다이아 상품 설명 테스트 12",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 445,
+    "key": "CardPack_20001",
+    "ko": "프리미엄 카드팩 1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 446,
+    "key": "CardPack_20002",
+    "ko": "프리미엄 카드팩 2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 447,
+    "key": "CardPack_20003",
+    "ko": "프리미엄 카드팩 3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 448,
+    "key": "CardPack_20004",
+    "ko": "일반 카드팩 1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 449,
+    "key": "CardPack_20005",
+    "ko": "일반 카드팩 2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 450,
+    "key": "CardPack_20006",
+    "ko": "일반 카드팩 3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 451,
+    "key": "CardPack_20007",
+    "ko": "앨범특별보상I 카드팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 452,
+    "key": "CardPack_20008",
+    "ko": "앨범특별보상II 카드팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 453,
+    "key": "CardPack_20009",
+    "ko": "앨범특별보상III 카드팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 454,
+    "key": "CardPack_20010",
+    "ko": "앨범특별보상IV 카드팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 455,
+    "key": "CardPack_20011",
+    "ko": "앨범특별보상V 카드팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 456,
+    "key": "CardPack_20012",
+    "ko": "(테스트) 한정테마 카드팩 5장",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 457,
+    "key": "CardPack_20013",
+    "ko": "(테스트) 한정테마 카드팩 5장",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 458,
+    "key": "CardPack_20014",
+    "ko": "(테스트) 한정테마 카드팩 5장",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 459,
+    "key": "CardPack_20015",
+    "ko": "(테스트) 스타패스 미션 보상",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 460,
+    "key": "ProvidableItemType_1",
+    "ko": "다이아몬드",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 461,
+    "key": "ProvidableItemType_Desc_1",
+    "ko": "상품 구매 시 필요한 고급 재화 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 463,
+    "key": "ProvidableItemType_2",
+    "ko": "다이아몬드",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 464,
+    "key": "ProvidableItemType_Desc_2",
+    "ko": "상품 구매 시 필요한 고급 재화 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 465,
+    "key": "ProvidableItemType_Guide_2",
+    "ko": "[테스트] 가이드 텍스트는 사용 안하는 아이템",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 466,
+    "key": "ProvidableItemType_3",
+    "ko": "리듬 포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 467,
+    "key": "ProvidableItemType_Desc_3",
+    "ko": "상품 구매, 카드 강화 시 필요한 일반 재화 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 469,
+    "key": "ProvidableItemType_4",
+    "ko": "리듬 포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 470,
+    "key": "ProvidableItemType_Desc_4",
+    "ko": "상품 구매, 카드 강화 시 필요한 일반 재화 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 471,
+    "key": "ProvidableItemType_Guide_4",
+    "ko": "[테스트] 가이드 텍스트는 사용 안하는 아이템",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 472,
+    "key": "ProvidableItemType_5",
+    "ko": "헤드폰",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 473,
+    "key": "ProvidableItemType_Desc_5",
+    "ko": "인게임 플레이 재화 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 475,
+    "key": "ProvidableItemType_6",
+    "ko": "헤드폰",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 476,
+    "key": "ProvidableItemType_Desc_6",
+    "ko": "인게임 플레이 재화 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 477,
+    "key": "ProvidableItemType_Guide_6",
+    "ko": "[테스트] 가이드 텍스트는 사용 안하는 아이템",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 478,
+    "key": "ProvidableItemType_7",
+    "ko": "닉네임 변경권",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 480,
+    "key": "ProvidableItemType_Desc_7",
+    "ko": "닉네임 변경 시 필요 한 티켓 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 481,
+    "key": "ProvidableItemType_12",
+    "ko": "배경 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 482,
+    "key": "ProvidableItemType_Desc_12",
+    "ko": "배경 이미지 수집 탭에서 사용 가능한 로비 배경 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 483,
+    "key": "ProvidableItemType_Guide_12",
+    "ko": "중복으로 획득 할 경우 다이아로 치환 되어 지급됩니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 484,
+    "key": "ProvidableItemType_13",
+    "ko": "프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 485,
+    "key": "ProvidableItemType_Desc_13",
+    "ko": "내정보에서 사용 가능 한 프로필 아이콘",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 486,
+    "key": "ProvidableItemType_Guide_13",
+    "ko": "중복으로 획득 할 경우 다이아로 치환 되어 지급됩니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 487,
+    "key": "ProvidableItemType_15",
+    "ko": "스타코인",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 488,
+    "key": "ProvidableItemType_Desc_15",
+    "ko": "포토 카드 등급업 재화 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 490,
+    "key": "ProvidableItemType_19",
+    "ko": "(테스트)앨범 리그 코인",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 491,
+    "key": "ProvidableItemType_Desc_19",
+    "ko": "(테스트)앨범 리그 상점에서 사용할 수 있는 재화입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 492,
+    "key": "ProvidableItemType_Guide_19",
+    "ko": "(테스트)지정된 기간이 종료되면 소멸하는 재화입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 493,
+    "key": "ShopCustom_8",
+    "ko": "기간제 상점 테스트 1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 494,
+    "key": "ShopCustom_9",
+    "ko": "기간제 상점 테스트 2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 495,
+    "key": "ShopCustom_10",
+    "ko": "기간제 상점 테스트 3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 496,
+    "key": "ShopProduct_51",
+    "ko": "리듬포인트 타겟 상품",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 497,
+    "key": "ShopProduct_52",
+    "ko": "다이아몬드 타겟 상품",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 498,
+    "key": "ShopProduct_53",
+    "ko": "스타코인 타겟 상품",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 499,
+    "key": "Description_ShopProduct_51",
+    "ko": "리듬포인트 타겟 상품 설명",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 500,
+    "key": "Description_ShopProduct_52",
+    "ko": "다이아몬드 타겟 상품 설명",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 501,
+    "key": "Description_ShopProduct_53",
+    "ko": "스타코인 타겟 상품 설명",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 502,
+    "key": "Popup_ShopStarPass_Title_1001",
+    "ko": "시즌1 프리미엄 스타패스 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 503,
+    "key": "ShopProduct_1001",
+    "ko": "프리미엄 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 504,
+    "key": "ShopProduct_1002",
+    "ko": "스페셜 프리미엄 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 505,
+    "key": "ShopProduct_1003",
+    "ko": "스타패스 티어 포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 506,
+    "key": "Description_ShopProduct_1001",
+    "ko": "프리미엄 패스 활성화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 507,
+    "key": "Description_ShopProduct_1002",
+    "ko": "프리미엄 패스 활성화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 508,
+    "key": "Description_ShopProduct_1003",
+    "ko": "티어포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 509,
+    "key": "Popup_ShopStarPass_Desc_1001",
+    "ko": "*스페셜 프리미엄 패스 구매 즉시 티어 레벨 1~30에 필요한 티어 포인트가 상승합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 510,
+    "key": "Popup_ShopStarPass_Title_1002",
+    "ko": "시즌2 프리미엄 스타패스 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 511,
+    "key": "Popup_ShopStarPass_Title_1003",
+    "ko": "시즌3 프리미엄 스타패스 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 512,
+    "key": "Popup_ShopStarPass_Title_1004",
+    "ko": "시즌4 프리미엄 스타패스 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 513,
+    "key": "Popup_ShopStarPass_Title_1005",
+    "ko": "시즌5 프리미엄 스타패스 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 514,
+    "key": "Popup_ShopStarPass_Desc_1002",
+    "ko": "*스페셜 프리미엄 패스 구매 즉시 티어 레벨 1~30에 필요한 티어 포인트가 상승합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 515,
+    "key": "Popup_ShopStarPass_Desc_1003",
+    "ko": "*스페셜 프리미엄 패스 구매 즉시 티어 레벨 1~30에 필요한 티어 포인트가 상승합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 516,
+    "key": "Popup_ShopStarPass_Desc_1004",
+    "ko": "*스페셜 프리미엄 패스 구매 즉시 티어 레벨 1~30에 필요한 티어 포인트가 상승합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 517,
+    "key": "Popup_ShopStarPass_Desc_1005",
+    "ko": "*스페셜 프리미엄 패스 구매 즉시 티어 레벨 1~30에 필요한 티어 포인트가 상승합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 518,
+    "key": "ShopProduct_2001",
+    "ko": "프리미엄 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 519,
+    "key": "ShopProduct_2002",
+    "ko": "스페셜 프리미엄 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 520,
+    "key": "ShopProduct_2003",
+    "ko": "스타패스 티어 포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 521,
+    "key": "ShopProduct_2004",
+    "ko": "프리미엄 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 522,
+    "key": "ShopProduct_2005",
+    "ko": "스페셜 프리미엄 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 523,
+    "key": "ShopProduct_2006",
+    "ko": "스타패스 티어 포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 524,
+    "key": "ShopProduct_2007",
+    "ko": "프리미엄 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 525,
+    "key": "ShopProduct_2008",
+    "ko": "스페셜 프리미엄 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 526,
+    "key": "ShopProduct_2009",
+    "ko": "스타패스 티어 포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 527,
+    "key": "ShopProduct_2010",
+    "ko": "프리미엄 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 528,
+    "key": "ShopProduct_2011",
+    "ko": "스페셜 프리미엄 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 529,
+    "key": "ShopProduct_2012",
+    "ko": "스타패스 티어 포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 530,
+    "key": "Description_ShopProduct_2001",
+    "ko": "프리미엄 패스 활성화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 531,
+    "key": "Description_ShopProduct_2002",
+    "ko": "프리미엄 패스 활성화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 532,
+    "key": "Description_ShopProduct_2003",
+    "ko": "티어포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 533,
+    "key": "Description_ShopProduct_2004",
+    "ko": "프리미엄 패스 활성화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 534,
+    "key": "Description_ShopProduct_2005",
+    "ko": "프리미엄 패스 활성화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 535,
+    "key": "Description_ShopProduct_2006",
+    "ko": "티어포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 536,
+    "key": "Description_ShopProduct_2007",
+    "ko": "프리미엄 패스 활성화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 537,
+    "key": "Description_ShopProduct_2008",
+    "ko": "프리미엄 패스 활성화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 538,
+    "key": "Description_ShopProduct_2009",
+    "ko": "티어포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 539,
+    "key": "Description_ShopProduct_2010",
+    "ko": "프리미엄 패스 활성화",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 540,
+    "key": "Description_ShopProduct_2011",
+    "ko": "프리미엄 패스 활성화",
+    "en": "프리미엄 패스 활성화\\n+ 티어포인트 1,250",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 541,
+    "key": "Description_ShopProduct_2012",
+    "ko": "티어포인트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 543,
+    "key": "PassMissionName_102",
+    "ko": "아무 카드나 강화 {count:N0}회 시도",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 544,
+    "key": "PassMissionName_103",
+    "ko": "헤드폰 {count:N0}개 사용",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 545,
+    "key": "PassMissionName_104",
+    "ko": "출석 하기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 547,
+    "key": "PassMissionName_106",
+    "ko": "배경 이미지 조각 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 548,
+    "key": "PassMissionName_107",
+    "ko": "판정 누적 개수",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 549,
+    "key": "PassMissionName_108",
+    "ko": "수집 포인트 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 550,
+    "key": "PassMissionName_201",
+    "ko": "{group} 그룹 곡 {count:N0}회 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 551,
+    "key": "PassMissionName_202",
+    "ko": "{music} 곡 {count:N0}회 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 552,
+    "key": "PassMissionName_203",
+    "ko": "아무 곡이나 이지모드로 {count:N0}회 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 553,
+    "key": "PassMissionName_204",
+    "ko": "아무 곡이나 노멀모드로 {count:N0}회 플레이",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 554,
+    "key": "PassMissionName_205",
+    "ko": "아무 곡이나 하드모드로 {count:N0}회 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 555,
+    "key": "PassMissionName_206",
+    "ko": "아무 곡이나 sperfect 100개 이상으로 {count:N0}회 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 556,
+    "key": "PassMissionName_207",
+    "ko": "아무 곡이나 perfect 10개 이상으로{count:N0}회 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 557,
+    "key": "PassMissionName_208",
+    "ko": "아무 곡이나 good 10개 이하로 {count:N0}회 플레이",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 558,
+    "key": "PassMissionName_209",
+    "ko": "별 3개로 곡 클리어 {count:N0}회 클리어",
+    "en": "무지개별로 곡 클리어 {count:N0}회 클리어",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 559,
+    "key": "PassMissionName_210",
+    "ko": "아무 곡이나 2,500,000점 이상으로 클리어{count:N0}회 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 560,
+    "key": "PassMissionName_211",
+    "ko": "NOWZ 그룹 곡 sperfect 130개 이상으로 {count:N0}회 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 561,
+    "key": "PassMissionName_212",
+    "ko": "{music} 곡 하드모드로 무지개별로 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 562,
+    "key": "PassMissionName_213",
+    "ko": "아무 곡이나 2,500,000점 이상 무지개 별로 클리어{count:N0}회 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 563,
+    "key": "PassMissionName_214",
+    "ko": "{music} 노멀 모드로sperfect 50 , perfect 10개 이상 good 5개 , miss  3개 1,200,000 이하로 클리어",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 564,
+    "key": "PassMissionName_215",
+    "ko": "POSE! (LIGHTSUM) 노멀 모드로sperfect 50 , perfect 10개 이상 good 5개 , miss  3개 130,000 이하로 플레이",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 565,
+    "key": "PassMissionName_301",
+    "ko": "{group} 그룹 포토 카드 강화 {count:N0}회 시도",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 566,
+    "key": "PassMissionName_302",
+    "ko": "{artist} 아티스트 포토 카드 강화 {count:N0}회 시도",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 567,
+    "key": "PassMissionName_303",
+    "ko": "I NEVER DIE (i-dle) 카드 강화 {count:N0}회 시도",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 568,
+    "key": "PassMissionName_304",
+    "ko": "아무 포토 카드 C등급 이상 강화 {count:N0}회 성공",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 569,
+    "key": "PassMissionName_305",
+    "ko": "아무 포토 카드 B등급 이상 강화 {count:N0}회 시도",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 570,
+    "key": "PassMissionName_306",
+    "ko": "아무 포토 카드 A등급 이상 강화 {count:N0}회 성공",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 571,
+    "key": "PassMissionName_307",
+    "ko": "아무 포토 카드 S등급 이상 강화 {count:N0}회 시도",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 572,
+    "key": "PassMissionName_308",
+    "ko": "아무 포토 카드 R등급 이상 강화 {count:N0}회 성공",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 573,
+    "key": "PassMissionName_309",
+    "ko": "{group} 그룹 포토 카드 C등급 이상 강화 {count:N0}회 시도",
+    "en": "{group} 그룹 포토 카드 S등급 이상 강화 {count:N0}회 시도",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 574,
+    "key": "PassMissionName_310",
+    "ko": "MIYEON 포토 카드 B등급 이상 강화 {count:N0}회 시도",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 575,
+    "key": "PassMissionName_311",
+    "ko": "{theme} 포토 카드 A등급 이상 강화 {count:N0}회 시도",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 576,
+    "key": "PassMissionName_312",
+    "ko": "포토 카드 S등급 이상 강화 {count:N0}회 성공",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 577,
+    "key": "PassMissionName_313",
+    "ko": "{artist} 포토 카드 R등급 이상 강화 {count:N0}회 성공",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 578,
+    "key": "PassMissionName_401",
+    "ko": "다이아 몬드 {count:N0}개 사용",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 579,
+    "key": "PassMissionName_402",
+    "ko": "리듬 포인트 {count:N0}개 사용",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 580,
+    "key": "PassMissionName_403",
+    "ko": "헤드폰 {count:N0}개 사용",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 581,
+    "key": "PassMissionName_404",
+    "ko": "스타코인 {count:N0}개 사용",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 582,
+    "key": "PassMissionName_405",
+    "ko": "유료 다이아 몬드 {count:N0}개 사용",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 583,
+    "key": "PassMissionName_501",
+    "ko": "{album} 앨범 곡 플레이{count:N0}회",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 584,
+    "key": "PassMissionName_502",
+    "ko": "{album} 앨범 곡 플레이{count:N0}회",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 585,
+    "key": "PassMissionName_503",
+    "ko": "NOWHERE 앨범 곡 플레이{count:N0}회",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 586,
+    "key": "PassMissionName_504",
+    "ko": "{album} 앨범 이지 모드로 곡 플레이{count:N0}회",
+    "en": "{album} 앨범 노멀 모드로 곡 플레이{count:N0}회",
+    "ja": "",
+    "need_en": false,
+    "need_ja": true
+  },
+  {
+    "row": 587,
+    "key": "PassMissionName_505",
+    "ko": "{album} 앨범 노멀 모드로 곡 플레이{count:N0}회",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 588,
+    "key": "PassMissionName_506",
+    "ko": "NOWHERE 하드 앨범 곡 플레이{count:N0}회",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 589,
+    "key": "PassMissionName_601",
+    "ko": "{album} 앨범 배경 이미지 조각 {count:N0}개 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 590,
+    "key": "PassMissionName_602",
+    "ko": "{album} 앨범 배경 이미지 조각 {count:N0}개 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 591,
+    "key": "PassMissionName_603",
+    "ko": "{album} 앨범 배경 이미지 조각 {count:N0}개 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 592,
+    "key": "PassMissionName_604",
+    "ko": "NOWHERE 앨범 배경 이미지 조각 {count:N0}개 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 593,
+    "key": "PassMissionName_605",
+    "ko": "렛츠기릿 앨범 배경 이미지 조각 {count:N0}개 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 594,
+    "key": "PassMissionName_701",
+    "ko": "GOOD 이상의 판정{count:N0}회 받기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 595,
+    "key": "PassMissionName_702",
+    "ko": "PERFECT  이상의 판정{count:N0}회 받기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 596,
+    "key": "PassMissionName_703",
+    "ko": "SPERFECT  이상의 판정{count:N0}회 받기",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 597,
+    "key": "PassMissionName_801",
+    "ko": "음악 수집 {count:N0}포인트 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 598,
+    "key": "PassMissionName_802",
+    "ko": "포토카드 수집 {count:N0}포인트 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 599,
+    "key": "PassMissionName_803",
+    "ko": "배경이미지 수집 {count:N0}포인트 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 600,
+    "key": "PassMissionTitle_1001",
+    "ko": "패스 미션 Season1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 601,
+    "key": "PassMissionTitle_1002",
+    "ko": "패스 미션 Season2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 602,
+    "key": "PassMissionTitle_1003",
+    "ko": "패스 미션 Season3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 603,
+    "key": "PassMissionTitle_1004",
+    "ko": "패스 미션 Season4",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 604,
+    "key": "PassMissionTitle_1005",
+    "ko": "패스 미션 Season5",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 605,
+    "key": "PassMissionTitle_2001",
+    "ko": "ALLDAY PROJECT 픽업 이벤트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 606,
+    "key": "PassMissionTitle_2002",
+    "ko": "Vince 픽업 이벤트",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 607,
+    "key": "PassMissionTitle_2003",
+    "ko": "성장 이벤트 !",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 608,
+    "key": "PassMissionTitle_2004",
+    "ko": "튜토리얼 패스",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 617,
+    "key": "PassMissionName_909",
+    "ko": "리미트 브레이크 카드 {count:N0}개 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 618,
+    "key": "PassMissionName_314",
+    "ko": "리미트 브레이크 강화 시도 {count:N0}회",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 619,
+    "key": "PassMissionName_315",
+    "ko": "MIYEON 포토 카드 B등급 이상 강화 {count:N0}회 시도",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 620,
+    "key": "PassMissionName_316",
+    "ko": "리미트 브레이크 강화 성공 {count:N0}회",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 621,
+    "key": "Popup_ShopStarPass_Desc_2001",
+    "ko": "*티어 포인트가 포함된 상품 구매 시 티어 레벨이 즉시 증가 합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 622,
+    "key": "Popup_ShopStarPass_Desc_2002",
+    "ko": "*티어 포인트가 포함된 상품 구매 시 티어 레벨이 즉시 증가 합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 623,
+    "key": "Popup_ShopStarPass_Desc_2003",
+    "ko": "*티어 포인트가 포함된 상품 구매 시 티어 레벨이 즉시 증가 합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 624,
+    "key": "Popup_ShopStarPass_Desc_2004",
+    "ko": "*티어 포인트가 포함된 상품 구매 시 티어 레벨이 즉시 증가 합니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 625,
+    "key": "Popup_ShopStarPass_Title_2001",
+    "ko": "시원한 여름 이벤트 프리미엄 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 626,
+    "key": "Popup_ShopStarPass_Title_2002",
+    "ko": "눈사람 만들기 이벤트 프리미엄 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 627,
+    "key": "Popup_ShopStarPass_Title_2003",
+    "ko": "나의 최애는? 이벤트 프리미엄 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 628,
+    "key": "Popup_ShopStarPass_Title_2004",
+    "ko": "최고의 스타 이벤트 프리미엄 구매",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 629,
+    "key": "Profile_101",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 630,
+    "key": "Profile_102",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 631,
+    "key": "Profile_103",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 632,
+    "key": "Profile_104",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 633,
+    "key": "Profile_105",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 634,
+    "key": "Profile_106",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 635,
+    "key": "Profile_107",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 636,
+    "key": "Profile_108",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 637,
+    "key": "Profile_109",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 638,
+    "key": "Profile_110",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 639,
+    "key": "Profile_111",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 640,
+    "key": "Profile_112",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 641,
+    "key": "Profile_113",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 642,
+    "key": "Profile_114",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 643,
+    "key": "Profile_115",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 644,
+    "key": "Profile_116",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 645,
+    "key": "Profile_117",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 646,
+    "key": "Profile_118",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 647,
+    "key": "Profile_119",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 648,
+    "key": "Profile_120",
+    "ko": "런칭 기념 프로필 이미지",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 649,
+    "key": "Description_Profile_101",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 650,
+    "key": "Description_Profile_102",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 651,
+    "key": "Description_Profile_103",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 652,
+    "key": "Description_Profile_104",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 653,
+    "key": "Description_Profile_105",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 654,
+    "key": "Description_Profile_106",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 655,
+    "key": "Description_Profile_107",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 656,
+    "key": "Description_Profile_108",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 657,
+    "key": "Description_Profile_109",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 658,
+    "key": "Description_Profile_110",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 659,
+    "key": "Description_Profile_111",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 660,
+    "key": "Description_Profile_112",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 661,
+    "key": "Description_Profile_113",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 662,
+    "key": "Description_Profile_114",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 663,
+    "key": "Description_Profile_115",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 664,
+    "key": "Description_Profile_116",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 665,
+    "key": "Description_Profile_117",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 666,
+    "key": "Description_Profile_118",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 667,
+    "key": "Description_Profile_119",
+    "ko": "이벤트 패키지에 포함된 프로필 이미지입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 668,
+    "key": "Item_Name_ProvidableItem_1_0",
+    "ko": "다이아몬드",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 669,
+    "key": "Item_Desc_ProvidableItem_13_0",
+    "ko": "내정보에서 사용 가능 한 프로필을 꾸밀 수 있는 아이콘 입니다.",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 670,
+    "key": "ShopProduct_54",
+    "ko": "헤드폰 1",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 671,
+    "key": "ShopProduct_55",
+    "ko": "헤드폰 2",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 672,
+    "key": "ShopProduct_56",
+    "ko": "헤드폰 3",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 673,
+    "key": "Description_ShopProduct_54",
+    "ko": "헤드폰 5개",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 674,
+    "key": "Description_ShopProduct_55",
+    "ko": "헤드폰 10개",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 675,
+    "key": "Description_ShopProduct_56",
+    "ko": "헤드폰 30개",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 676,
+    "key": "ShopCustom_11",
+    "ko": "헤드폰 상점",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 677,
+    "key": "PassMissionName_910",
+    "ko": "아무 카드나 {count:N0}개 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 678,
+    "key": "PassMissionName_911",
+    "ko": "아무 카드나 {count:N0}개 획득 (등급업 미포함)",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 679,
+    "key": "ShopProduct_61",
+    "ko": "i-dle 'I NEVER DIE' 카드팩 상품",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 680,
+    "key": "ShopProduct_62",
+    "ko": "i-dle 'Second' 카드팩 상품",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 681,
+    "key": "ShopProduct_63",
+    "ko": "i-dle 'I SWAY' 카드팩 상품",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 682,
+    "key": "ShopProduct_64",
+    "ko": "i-dle 'We Are' 카드팩 상품",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 683,
+    "key": "Description_ShopProduct_61",
+    "ko": "i-dle 'I NEVER DIE' 포토카드 골고루",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 684,
+    "key": "Description_ShopProduct_62",
+    "ko": "i-dle 'Second' 포토카드 골고루",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 685,
+    "key": "Description_ShopProduct_63",
+    "ko": "i-dle 'I SWAY' 포토카드 골고루",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 686,
+    "key": "Description_ShopProduct_64",
+    "ko": "i-dle 'We Are' 포토카드 골고루",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 687,
+    "key": "CardPack_20016",
+    "ko": "i-dle 'I NEVER DIE' 카드팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 688,
+    "key": "CardPack_20017",
+    "ko": "i-dle 'Second' 카드팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 689,
+    "key": "CardPack_20018",
+    "ko": "i-dle 'I SWAY' 카드팩",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 692,
+    "key": "PassMissionName_1001",
+    "ko": "포토 카드 {count:N0}개 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 693,
+    "key": "PassMissionName_1002",
+    "ko": "좋아하는 곡 {count:N0}회 플레이",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 694,
+    "key": "PassMissionName_1003",
+    "ko": "배경 이미지 조각 {count:N0}개 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 697,
+    "key": "PassMissionName_1006",
+    "ko": "음악 수집 포인트 {count:N0} 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 698,
+    "key": "PassMissionName_1007",
+    "ko": "포토카드 수집 포인트 {count:N0} 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 699,
+    "key": "PassMissionName_1008",
+    "ko": "배경이미지 수집 포인트 {count:N0} 획득",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 700,
+    "key": "PassMissionName_1009",
+    "ko": "리미트 브레이크 {count:N0}회 시도",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 701,
+    "key": "PassMissionName_1010",
+    "ko": "리미트 브레이크 {count:N0}회 성공",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 702,
+    "key": "PassMissionName_1011",
+    "ko": "닉네임 변경",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 715,
+    "key": "ProvidableItemType_20_101",
+    "ko": "TOXIC 테마 뽑기 티켓",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 716,
+    "key": "ProvidableItemType_20_102",
+    "ko": "FAMOUS 테마 뽑기 티켓",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 717,
+    "key": "ProvidableItemType_Desc_20_101",
+    "ko": "티켓을 이용하여 귀여운 고양이 MEOVV 테마 카드를 뽑아보세요",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  },
+  {
+    "row": 718,
+    "key": "ProvidableItemType_Desc_20_102",
+    "ko": "티켓을 이용하여 시크한  ALLDAY PROJECT 테마 카드를 뽑아보세요",
+    "en": "",
+    "ja": "",
+    "need_en": true,
+    "need_ja": true
+  }
+]

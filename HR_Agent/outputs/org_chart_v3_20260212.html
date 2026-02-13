@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKD852 에이전트 구조</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --bg-card: #161b22;
+  --bg-card-hover: #1c2333;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-dim: #8b949e;
+  --text-bright: #ffffff;
+  --accent-purple: #a371f7;
+  --accent-red: #f85149;
+  --accent-green: #3fb950;
+  --accent-blue: #58a6ff;
+  --accent-yellow: #d29922;
+  --accent-orange: #db6d28;
+  --badge-opus: #a371f7;
+  --badge-sonnet: #58a6ff;
+  --badge-haiku: #3fb950;
+  --hub-game: #f8514933;
+  --hub-game-border: #f85149;
+  --hub-biz: #3fb95033;
+  --hub-biz-border: #3fb950;
+  --hub-infra: #58a6ff33;
+  --hub-infra-border: #58a6ff;
+  --shared-bg: linear-gradient(135deg, #a371f722, #58a6ff22);
+  --shared-border: linear-gradient(135deg, #a371f7, #58a6ff);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* 헤더 */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+}
+header .container { display: flex; align-items: baseline; gap: 12px; }
+header h1 { font-size: 1.3rem; font-weight: 700; color: var(--text-bright); }
+header .date { font-size: 0.8rem; color: var(--text-dim); }
+
+/* 섹션 공통 */
+section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+section:last-child { border-bottom: none; }
+.section-title {
+  font-size: 1.1rem; font-weight: 700; color: var(--text-bright);
+  margin-bottom: 24px; padding-left: 12px;
+  border-left: 3px solid var(--accent-purple);
+}
+
+/* 통계 카드 */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  margin-bottom: 32px;
+}
+.stat-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 16px; text-align: center;
+}
+.stat-card .num {
+  font-size: 2rem; font-weight: 800; color: var(--accent-purple);
+  line-height: 1.2;
+}
+.stat-card .label { font-size: 0.8rem; color: var(--text-dim); margin-top: 4px; }
+
+/* 모델 분포 바 */
+.model-bar-wrap { margin-top: 8px; }
+.model-bar-label { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px; }
+.model-bar {
+  display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+  background: var(--bg-card); border: 1px solid var(--border);
+}
+.model-bar .seg {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 600; color: #fff; white-space: nowrap;
+}
+.model-bar .seg.opus { background: var(--badge-opus); }
+.model-bar .seg.sonnet { background: var(--badge-sonnet); }
+.model-bar .seg.haiku { background: var(--badge-haiku); }
+.model-bar .seg.none { background: #30363d; color: var(--text-dim); }
+.model-legend {
+  display: flex; gap: 16px; margin-top: 8px; font-size: 0.75rem;
+  color: var(--text-dim);
+}
+.model-legend span::before {
+  content: ''; display: inline-block; width: 10px; height: 10px;
+  border-radius: 3px; margin-right: 4px; vertical-align: middle;
+}
+.model-legend .l-opus::before { background: var(--badge-opus); }
+.model-legend .l-sonnet::before { background: var(--badge-sonnet); }
+.model-legend .l-haiku::before { background: var(--badge-haiku); }
+.model-legend .l-none::before { background: #30363d; }
+
+/* 구조도 */
+.shared-services {
+  background: var(--shared-bg);
+  border: 1px solid; border-image: var(--shared-border) 1;
+  border-radius: var(--radius); padding: 20px; margin-bottom: 20px;
+  position: relative;
+}
+.shared-services .tag {
+  position: absolute; top: -10px; left: 20px;
+  background: var(--accent-purple); color: #fff;
+  font-size: 0.7rem; font-weight: 700; padding: 2px 10px;
+  border-radius: 4px;
+}
+.shared-inner { display: flex; gap: 12px; flex-wrap: wrap; }
+.shared-inner .agent-chip {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 10px 16px;
+  font-size: 0.85rem; flex: 1; min-width: 140px; text-align: center;
+}
+.shared-inner .agent-chip .name { font-weight: 700; color: var(--text-bright); }
+.shared-inner .agent-chip .count { font-size: 0.75rem; color: var(--text-dim); }
+
+.arrow-down {
+  text-align: center; padding: 8px 0; color: var(--text-dim); font-size: 1.2rem;
+}
+
+.hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.hub-card {
+  border-radius: var(--radius); padding: 20px; position: relative;
+}
+.hub-card.game { background: var(--hub-game); border: 1px solid var(--hub-game-border); }
+.hub-card.biz { background: var(--hub-biz); border: 1px solid var(--hub-biz-border); }
+.hub-card.infra { background: var(--hub-infra); border: 1px solid var(--hub-infra-border); }
+.hub-card .hub-title {
+  font-size: 0.9rem; font-weight: 700; margin-bottom: 12px;
+}
+.hub-card.game .hub-title { color: var(--hub-game-border); }
+.hub-card.biz .hub-title { color: var(--hub-biz-border); }
+.hub-card.infra .hub-title { color: var(--hub-infra-border); }
+.hub-card .agent-item {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 8px 12px; margin-bottom: 8px;
+  font-size: 0.82rem;
+}
+.hub-card .agent-item:last-child { margin-bottom: 0; }
+.hub-card .agent-item .name { font-weight: 600; color: var(--text-bright); }
+.hub-card .agent-item .meta { color: var(--text-dim); font-size: 0.72rem; }
+
+/* 에이전트 상세 */
+.agent-detail {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); margin-bottom: 12px; overflow: hidden;
+}
+.agent-header {
+  padding: 14px 20px; cursor: pointer; display: flex;
+  align-items: center; justify-content: space-between;
+  transition: background 0.15s;
+}
+.agent-header:hover { background: var(--bg-card-hover); }
+.agent-header .left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.agent-header .aname { font-weight: 700; font-size: 0.95rem; color: var(--text-bright); }
+.agent-header .folder { font-size: 0.75rem; color: var(--text-dim); }
+.agent-header .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill {
+  font-size: 0.68rem; padding: 2px 8px; border-radius: 10px; font-weight: 600;
+}
+.pill.skill-count { background: #30363d; color: var(--text); }
+.pill.stars { background: transparent; color: var(--accent-yellow); letter-spacing: 1px; }
+.agent-header .chevron {
+  font-size: 0.9rem; color: var(--text-dim); transition: transform 0.2s;
+}
+.agent-detail.open .chevron { transform: rotate(180deg); }
+.agent-body { display: none; padding: 0 20px 16px; }
+.agent-detail.open .agent-body { display: block; }
+
+.skill-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.skill-table th {
+  text-align: left; padding: 6px 8px; color: var(--text-dim);
+  border-bottom: 1px solid var(--border); font-weight: 600; font-size: 0.72rem;
+}
+.skill-table td {
+  padding: 6px 8px; border-bottom: 1px solid #21262d;
+}
+.skill-table td:first-child { font-family: monospace; color: var(--accent-purple); font-weight: 600; }
+.skill-table .badge {
+  display: inline-block; font-size: 0.65rem; padding: 1px 7px;
+  border-radius: 8px; font-weight: 700; color: #fff;
+}
+.badge.opus { background: var(--badge-opus); }
+.badge.sonnet { background: var(--badge-sonnet); }
+.badge.haiku { background: var(--badge-haiku); }
+.badge.mixed { background: linear-gradient(90deg, var(--badge-sonnet), var(--badge-haiku)); }
+.badge.none { background: #30363d; color: var(--text-dim); }
+.skill-table .hub-link {
+  font-size: 0.65rem; color: var(--accent-orange); margin-left: 4px;
+}
+
+/* 루트 스킬 */
+.root-skills {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 20px; margin-top: 16px;
+}
+.root-skills .rtitle { font-weight: 700; font-size: 0.85rem; color: var(--accent-purple); margin-bottom: 10px; }
+
+/* 연결 테이블 */
+.conn-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.conn-table th {
+  text-align: left; padding: 10px 12px; color: var(--text-dim);
+  border-bottom: 1px solid var(--border); font-weight: 600; font-size: 0.75rem;
+}
+.conn-table td { padding: 10px 12px; border-bottom: 1px solid #21262d; }
+.conn-table tr:hover td { background: var(--bg-card-hover); }
+
+/* 오케스트레이터 흐름 */
+.flow-wrap { overflow-x: auto; }
+.flow {
+  display: flex; align-items: center; gap: 0; min-width: 700px;
+  padding: 20px 0;
+}
+.flow-step {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 14px 18px;
+  text-align: center; min-width: 120px; flex-shrink: 0;
+}
+.flow-step.start { border-color: var(--accent-purple); }
+.flow-step .ftitle { font-weight: 700; font-size: 0.85rem; color: var(--text-bright); }
+.flow-step .fdesc { font-size: 0.7rem; color: var(--text-dim); margin-top: 4px; }
+.flow-arrow {
+  color: var(--text-dim); font-size: 1.2rem; padding: 0 6px; flex-shrink: 0;
+}
+.flow-branch {
+  display: flex; flex-direction: column; gap: 8px; flex-shrink: 0;
+}
+.flow-branch .flow-step { min-width: 130px; }
+.flow-branch .flow-step:nth-child(1) { border-color: var(--accent-green); }
+.flow-branch .flow-step:nth-child(2) { border-color: var(--accent-blue); }
+.flow-branch .flow-step:nth-child(3) { border-color: var(--accent-orange); }
+.flow-branch .flow-step:nth-child(4) { border-color: var(--accent-red); }
+
+/* 푸터 */
+footer {
+  text-align: center; padding: 32px 0; color: var(--text-dim);
+  font-size: 0.72rem;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .hub-grid { grid-template-columns: 1fr; }
+  .flow { min-width: 500px; }
+  .flow-step { min-width: 90px; padding: 10px 12px; }
+  .flow-branch .flow-step { min-width: 100px; }
+}
+@media (max-width: 480px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  header h1 { font-size: 1.1rem; }
+  .section-title { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header>
+  <div class="container">
+    <h1>HKD852 에이전트 구조</h1>
+    <span class="date">2026-02-12</span>
+  </div>
+</header>
+
+<!-- 섹션 1: 요약 대시보드 -->
+<section>
+  <div class="container">
+    <h2 class="section-title">요약 대시보드</h2>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="num">8</div><div class="label">에이전트</div></div>
+      <div class="stat-card"><div class="num">45</div><div class="label">스킬</div></div>
+      <div class="stat-card"><div class="num">3</div><div class="label">허브</div></div>
+      <div class="stat-card"><div class="num">3</div><div class="label">공유 서비스</div></div>
+    </div>
+    <div class="model-bar-wrap">
+      <div class="model-bar-label">모델 분포 (전체 스킬 기준)</div>
+      <div class="model-bar">
+        <div class="seg opus" style="width:18%">Opus 8</div>
+        <div class="seg sonnet" style="width:58%">Sonnet 26</div>
+        <div class="seg haiku" style="width:20%">Haiku 9</div>
+        <div class="seg none" style="width:4%">2</div>
+      </div>
+      <div class="model-legend">
+        <span class="l-opus">Opus (깊은 추론)</span>
+        <span class="l-sonnet">Sonnet (균형)</span>
+        <span class="l-haiku">Haiku (빠른 처리)</span>
+        <span class="l-none">미사용</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 섹션 2: 전체 구조도 -->
+<section>
+  <div class="container">
+    <h2 class="section-title">전체 구조도</h2>
+
+    <!-- 공유 서비스 -->
+    <div class="shared-services">
+      <span class="tag">공유 서비스</span>
+      <div class="shared-inner">
+        <div class="agent-chip">
+          <div class="name">발표제작</div>
+          <div class="count">스킬 10개</div>
+        </div>
+        <div class="agent-chip">
+          <div class="name">번역</div>
+          <div class="count">스킬 1개</div>
+        </div>
+        <div class="agent-chip">
+          <div class="name">품질검증</div>
+          <div class="count">루트 스킬</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-down">&#9661; 서비스 제공 &#9661;</div>
+
+    <!-- 허브 3개 -->
+    <div class="hub-grid">
+      <div class="hub-card game">
+        <div class="hub-title">게임 허브</div>
+        <div class="agent-item">
+          <div class="name">게임기획</div>
+          <div class="meta">GameDesign_Agent &middot; 스킬 12개</div>
+        </div>
+        <div class="agent-item">
+          <div class="name">화투광</div>
+          <div class="meta">Hwatu_Roguelike &middot; 스킬 3개</div>
+        </div>
+        <div class="agent-item">
+          <div class="name">아트팀</div>
+          <div class="meta">team-kowloon &middot; 스킬 4개</div>
+        </div>
+      </div>
+      <div class="hub-card biz">
+        <div class="hub-title">사업 허브</div>
+        <div class="agent-item">
+          <div class="name">수익공장</div>
+          <div class="meta">Income_Factory &middot; 스킬 9개</div>
+        </div>
+      </div>
+      <div class="hub-card infra">
+        <div class="hub-title">인프라 허브</div>
+        <div class="agent-item">
+          <div class="name">오케스트레이터</div>
+          <div class="meta">루트 스킬</div>
+        </div>
+        <div class="agent-item">
+          <div class="name">조직관리</div>
+          <div class="meta">HR_Agent &middot; 스킬 2개</div>
+        </div>
+        <div class="agent-item">
+          <div class="name">영상분석</div>
+          <div class="meta">Video_Analyzer &middot; 스킬 1개</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 섹션 3: 에이전트 상세 -->
+<section>
+  <div class="container">
+    <h2 class="section-title">에이전트 상세</h2>
+
+    <!-- 1. 게임기획 -->
+    <div class="agent-detail">
+      <div class="agent-header" onclick="toggle(this)">
+        <div class="left">
+          <span class="aname">게임기획</span>
+          <span class="folder">GameDesign_Agent</span>
+          <div class="pills">
+            <span class="pill skill-count">스킬 12개</span>
+            <span class="pill stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+        </div>
+        <span class="chevron">&#9662;</span>
+      </div>
+      <div class="agent-body">
+        <table class="skill-table">
+          <thead><tr><th>명령어</th><th>역할</th><th>모델</th></tr></thead>
+          <tbody>
+            <tr><td>/requirement</td><td>요구사항 분석</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/coordinate</td><td>스킬 분배 검토</td><td><span class="badge haiku">Haiku</span></td></tr>
+            <tr><td>/proposal</td><td>기획서 작성</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/concept</td><td>핵심 설계 요약</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/pd-review</td><td>PD 관점 최종 평가</td><td><span class="badge opus">Opus</span></td></tr>
+            <tr><td>/monetize</td><td>수익 모델 설계</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/liveops</td><td>라이브 서비스 운영</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/balance</td><td>경제 밸런싱</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/market</td><td>시장 분석, 벤치마킹</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/ux</td><td>모바일 UX 최적화</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/report</td><td>HTML 분석 보고서 생성</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/art-status</td><td>아트팀 리소스 완성도 조회 <span class="hub-link">[허브연계]</span></td><td><span class="badge haiku">Haiku</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 2. 발표제작 -->
+    <div class="agent-detail">
+      <div class="agent-header" onclick="toggle(this)">
+        <div class="left">
+          <span class="aname">발표제작</span>
+          <span class="folder">PT_Agent</span>
+          <div class="pills">
+            <span class="pill skill-count">스킬 10개</span>
+            <span class="pill stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+        </div>
+        <span class="chevron">&#9662;</span>
+      </div>
+      <div class="agent-body">
+        <table class="skill-table">
+          <thead><tr><th>명령어</th><th>역할</th><th>모델</th></tr></thead>
+          <tbody>
+            <tr><td>/pt-reception</td><td>5W1H 분석, 팔레트 선택</td><td><span class="badge haiku">Haiku</span></td></tr>
+            <tr><td>/pt-research</td><td>웹 리서치</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/pt-content</td><td>구조 설계</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/pt-visual</td><td>SVG 슬라이드 생성</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/pt-redteam</td><td>품질 검증</td><td><span class="badge opus">Opus</span></td></tr>
+            <tr><td>/pt-manager</td><td>최종 승인/반려</td><td><span class="badge haiku">Haiku</span></td></tr>
+            <tr><td>/pt-export</td><td>HTML/PDF 출력</td><td><span class="badge haiku">Haiku</span></td></tr>
+            <tr><td>/pt</td><td>전체 파이프라인</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/pt-from-design</td><td>게임기획 &rarr; 발표 변환 <span class="hub-link">[허브연계]</span></td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/pt-update-check</td><td>업데이트 확인</td><td><span class="badge none">&mdash;</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3. 수익공장 -->
+    <div class="agent-detail">
+      <div class="agent-header" onclick="toggle(this)">
+        <div class="left">
+          <span class="aname">수익공장</span>
+          <span class="folder">Income_Factory</span>
+          <div class="pills">
+            <span class="pill skill-count">스킬 9개</span>
+            <span class="pill stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          </div>
+        </div>
+        <span class="chevron">&#9662;</span>
+      </div>
+      <div class="agent-body">
+        <table class="skill-table">
+          <thead><tr><th>명령어</th><th>역할</th><th>모델</th></tr></thead>
+          <tbody>
+            <tr><td>/factory</td><td>일일 파이프라인</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/idea-scan</td><td>트렌드 스캔</td><td><span class="badge haiku">Haiku</span></td></tr>
+            <tr><td>/idea-eval</td><td>5기준 점수화</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/idea-critic</td><td>악마의 변호인</td><td><span class="badge opus">Opus</span></td></tr>
+            <tr><td>/idea-plan</td><td>7일 실행 계획</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/idea-build</td><td>제품 제작</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/idea-review</td><td>품질 검증</td><td><span class="badge opus">Opus</span></td></tr>
+            <tr><td>/idea-launch</td><td>배포 가이드</td><td><span class="badge haiku">Haiku</span></td></tr>
+            <tr><td>/idea-analyze</td><td>성과 분석</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. 아트팀 -->
+    <div class="agent-detail">
+      <div class="agent-header" onclick="toggle(this)">
+        <div class="left">
+          <span class="aname">아트팀</span>
+          <span class="folder">team-kowloon</span>
+          <div class="pills">
+            <span class="pill skill-count">스킬 4개</span>
+            <span class="pill stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          </div>
+        </div>
+        <span class="chevron">&#9662;</span>
+      </div>
+      <div class="agent-body">
+        <table class="skill-table">
+          <thead><tr><th>명령어</th><th>역할</th><th>모델</th></tr></thead>
+          <tbody>
+            <tr><td>/ssbl-cto</td><td>파이프라인 분석</td><td><span class="badge opus">Opus</span></td></tr>
+            <tr><td>/ssbl-art-lead</td><td>아트 스펙 생성</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/ssbl-qa-lead</td><td>이미지 품질 검증</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/ssbl-data-manager</td><td>시트 연동</td><td><span class="badge haiku">Haiku</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 5. 화투광 -->
+    <div class="agent-detail">
+      <div class="agent-header" onclick="toggle(this)">
+        <div class="left">
+          <span class="aname">화투광</span>
+          <span class="folder">Hwatu_Roguelike</span>
+          <div class="pills">
+            <span class="pill skill-count">스킬 3개</span>
+            <span class="pill stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span>
+          </div>
+        </div>
+        <span class="chevron">&#9662;</span>
+      </div>
+      <div class="agent-body">
+        <table class="skill-table">
+          <thead><tr><th>명령어</th><th>역할</th><th>모델</th></tr></thead>
+          <tbody>
+            <tr><td>/dokkaebi-gen</td><td>도깨비 아이디어 생성</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/balance-sim</td><td>몬테카를로 시뮬레이션</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/card-art</td><td>카드 아트 프롬프트</td><td><span class="badge haiku">Haiku</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 6. 번역 -->
+    <div class="agent-detail">
+      <div class="agent-header" onclick="toggle(this)">
+        <div class="left">
+          <span class="aname">번역</span>
+          <span class="folder">Translate_Agent</span>
+          <div class="pills">
+            <span class="pill skill-count">스킬 1개</span>
+            <span class="pill stars">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
+          </div>
+        </div>
+        <span class="chevron">&#9662;</span>
+      </div>
+      <div class="agent-body">
+        <table class="skill-table">
+          <thead><tr><th>명령어</th><th>역할</th><th>모델</th></tr></thead>
+          <tbody>
+            <tr><td>/translate</td><td>한영일 배치 번역</td><td><span class="badge mixed">Sonnet+Haiku</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 7. 조직관리 -->
+    <div class="agent-detail">
+      <div class="agent-header" onclick="toggle(this)">
+        <div class="left">
+          <span class="aname">조직관리</span>
+          <span class="folder">HR_Agent</span>
+          <div class="pills">
+            <span class="pill skill-count">스킬 2개</span>
+            <span class="pill stars">&#9733;&#9733;&#9734;&#9734;&#9734;</span>
+          </div>
+        </div>
+        <span class="chevron">&#9662;</span>
+      </div>
+      <div class="agent-body">
+        <table class="skill-table">
+          <thead><tr><th>명령어</th><th>역할</th><th>모델</th></tr></thead>
+          <tbody>
+            <tr><td>/org-chart</td><td>HTML 조직도 생성</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+            <tr><td>/reorg</td><td>재조직 분석</td><td><span class="badge opus">Opus</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 8. 영상분석 -->
+    <div class="agent-detail">
+      <div class="agent-header" onclick="toggle(this)">
+        <div class="left">
+          <span class="aname">영상분석</span>
+          <span class="folder">Video_Analyzer</span>
+          <div class="pills">
+            <span class="pill skill-count">스킬 1개</span>
+            <span class="pill stars">&#9733;&#9734;&#9734;&#9734;&#9734;</span>
+          </div>
+        </div>
+        <span class="chevron">&#9662;</span>
+      </div>
+      <div class="agent-body">
+        <p style="color:var(--text-dim);font-size:0.82rem;padding:4px 0;">미구성 상태</p>
+      </div>
+    </div>
+
+    <!-- 루트 스킬 -->
+    <div class="root-skills">
+      <div class="rtitle">루트 스킬 (프로젝트 공통)</div>
+      <table class="skill-table">
+        <thead><tr><th>명령어</th><th>역할</th><th>모델</th></tr></thead>
+        <tbody>
+          <tr><td>/orchestrator</td><td>작업 분석 및 라우팅</td><td><span class="badge sonnet">Sonnet</span></td></tr>
+          <tr><td>/quality-gate</td><td>통합 품질 검증</td><td><span class="badge opus">Opus</span></td></tr>
+          <tr><td>/guide-update-check</td><td>가이드 업데이트 확인</td><td><span class="badge none">&mdash;</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 섹션 4: 허브 간 연결 -->
+<section>
+  <div class="container">
+    <h2 class="section-title">허브 간 연결</h2>
+    <div style="overflow-x:auto">
+      <table class="conn-table">
+        <thead>
+          <tr><th>연결</th><th>흐름</th><th>자동 실행 조건</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600">기획 &rarr; 발표</td>
+            <td>게임 허브 &rarr; 발표 서비스</td>
+            <td><span style="color:var(--accent-yellow)">"발표"</span>, <span style="color:var(--accent-yellow)">"PT"</span> 언급 시</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">기획 + 아트</td>
+            <td>게임 허브 내부</td>
+            <td><span style="color:var(--accent-yellow)">"런칭"</span>, <span style="color:var(--accent-yellow)">"리소스"</span> 언급 시</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">수익 &rarr; 게임</td>
+            <td>사업 허브 &rarr; 게임 허브</td>
+            <td><span style="color:var(--accent-yellow)">"수익"</span>, <span style="color:var(--accent-yellow)">"과금"</span> 언급 시</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">다국어</td>
+            <td>모든 허브 &rarr; 번역 서비스</td>
+            <td><span style="color:var(--accent-yellow)">"번역"</span>, <span style="color:var(--accent-yellow)">"다국어"</span> 언급 시</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">품질 검증</td>
+            <td>모든 허브 &rarr; 품질 게이트</td>
+            <td><span style="color:var(--accent-yellow)">"검증"</span>, <span style="color:var(--accent-yellow)">"품질"</span> 언급 시</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 섹션 5: 오케스트레이터 흐름 -->
+<section>
+  <div class="container">
+    <h2 class="section-title">오케스트레이터 흐름</h2>
+    <div class="flow-wrap">
+      <div class="flow">
+        <div class="flow-step start">
+          <div class="ftitle">사용자 요청</div>
+          <div class="fdesc">입력 분석</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step start">
+          <div class="ftitle">오케스트레이터</div>
+          <div class="fdesc">복잡도 판단</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-branch">
+          <div class="flow-step">
+            <div class="ftitle">단순</div>
+            <div class="fdesc">직접 처리</div>
+          </div>
+          <div class="flow-step">
+            <div class="ftitle">전문</div>
+            <div class="fdesc">파이프라인 실행</div>
+          </div>
+          <div class="flow-step">
+            <div class="ftitle">연계</div>
+            <div class="fdesc">허브 간 협업</div>
+          </div>
+          <div class="flow-step">
+            <div class="ftitle">복합</div>
+            <div class="fdesc">팀 구성</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">HKD852 &middot; HR_Agent 생성 &middot; v3 &middot; 2026-02-12</div>
+</footer>
+
+<script>
+function toggle(header) {
+  var card = header.parentElement;
+  card.classList.toggle('open');
+}
+</script>
+</body>
+</html>

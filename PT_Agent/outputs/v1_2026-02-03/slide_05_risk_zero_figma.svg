@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- Header Label -->
+  <text x="100" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999">AI OPERATIONS FRAMEWORK</text>
+
+  <!-- Main Title -->
+  <text x="100" y="180" font-family="Space Mono, monospace" font-weight="700" font-size="56" fill="#FFFFFF">Risk Zero Design</text>
+  <text x="100" y="250" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="24" fill="#B0B0B0">AI 없이도 운영 가능, AI 있으면 5~10배 성과</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="300" x2="1820" y2="300" stroke="#333333" stroke-width="1"/>
+
+  <!-- Two Card Layout -->
+  <!-- 카드 폭 800px, 간격 120px -->
+  <!-- 총 폭: 800×2 + 120 = 1720px (100px ~ 1820px) -->
+
+  <g transform="translate(100, 360)">
+
+    <!-- Card 1: AI 중단 시 (Fallback) -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="800" height="520" fill="#111111" rx="16" stroke="#222222" stroke-width="1"/>
+
+      <!-- Header -->
+      <rect x="0" y="0" width="800" height="80" fill="#1A1A1A" rx="16"/>
+      <rect x="0" y="40" width="800" height="40" fill="#1A1A1A"/>
+
+      <!-- Header Content -->
+      <text x="40" y="52" font-family="Noto Sans KR, sans-serif" font-size="32" fill="#FFFFFF">○</text>
+      <text x="90" y="52" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF">AI 중단 시</text>
+
+      <rect x="660" y="20" width="120" height="40" fill="#222222" rx="20"/>
+      <text x="720" y="46" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#A0A0A0" text-anchor="middle">FALLBACK</text>
+
+      <!-- Main Message -->
+      <text x="400" y="180" font-family="Space Mono, monospace" font-weight="700" font-size="36" fill="#FFFFFF" text-anchor="middle">기존 인력 운영 유지</text>
+
+      <!-- Sub Message -->
+      <text x="400" y="240" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#CCCCCC" text-anchor="middle">모든 프로세스는 인간 기준 설계</text>
+
+      <!-- Divider -->
+      <line x1="60" y1="290" x2="740" y2="290" stroke="#222222" stroke-width="1"/>
+
+      <!-- Key Points -->
+      <g transform="translate(60, 330)">
+        <text x="0" y="0" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#A0A0A0">•  AI는 속도 레버리지</text>
+        <text x="0" y="40" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#A0A0A0">•  핵심 역량 대체 아님</text>
+        <text x="0" y="80" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#A0A0A0">•  기존 워크플로우 100% 유지</text>
+        <text x="0" y="120" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#A0A0A0">•  인력 의존도 변화 없음</text>
+      </g>
+
+      <!-- Visual Element -->
+      <g transform="translate(550, 330)">
+        <rect x="0" y="0" width="180" height="140" fill="#1A1A1A" rx="8"/>
+        <text x="90" y="60" font-family="Noto Sans KR, sans-serif" font-size="40" fill="#CCCCCC" text-anchor="middle">👤</text>
+        <text x="90" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999" text-anchor="middle">HUMAN</text>
+        <text x="90" y="120" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999" text-anchor="middle">OPERATED</text>
+      </g>
+    </g>
+
+    <!-- VS Indicator -->
+    <g transform="translate(830, 220)">
+      <rect x="0" y="0" width="60" height="60" fill="#1A1A1A" rx="30"/>
+      <text x="30" y="40" font-family="Space Mono, monospace" font-weight="700" font-size="16" fill="#FFFFFF" text-anchor="middle">VS</text>
+    </g>
+
+    <!-- Card 2: AI 작동 시 (Leverage) -->
+    <g transform="translate(920, 0)">
+      <rect x="0" y="0" width="800" height="520" fill="#111111" rx="16" stroke="#444444" stroke-width="2"/>
+
+      <!-- Header -->
+      <rect x="0" y="0" width="800" height="80" fill="#1A1A1A" rx="16"/>
+      <rect x="0" y="40" width="800" height="40" fill="#1A1A1A"/>
+
+      <!-- Header Content -->
+      <text x="40" y="52" font-family="Noto Sans KR, sans-serif" font-size="32" fill="#FFFFFF">◉</text>
+      <text x="90" y="52" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF">AI 작동 시</text>
+
+      <rect x="650" y="20" width="130" height="40" fill="#333333" rx="20"/>
+      <text x="715" y="46" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#FFFFFF" text-anchor="middle">LEVERAGE</text>
+
+      <!-- Main Message -->
+      <text x="400" y="180" font-family="Space Mono, monospace" font-weight="700" font-size="36" fill="#FFFFFF" text-anchor="middle">5~10배 퍼포먼스</text>
+
+      <!-- Sub Message -->
+      <text x="400" y="240" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="20" fill="#CCCCCC" text-anchor="middle">Anthropic 내부 60% AI 활용</text>
+
+      <!-- Divider -->
+      <line x1="60" y1="290" x2="740" y2="290" stroke="#333333" stroke-width="1"/>
+
+      <!-- Key Points -->
+      <g transform="translate(60, 330)">
+        <text x="0" y="0" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#A0A0A0">•  비기술직도 도구 자체 제작 가능</text>
+        <text x="0" y="40" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#A0A0A0">•  반복 작업 자동화</text>
+        <text x="0" y="80" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#A0A0A0">•  24시간 병렬 실행</text>
+        <text x="0" y="120" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#A0A0A0">•  품질 일관성 유지</text>
+      </g>
+
+      <!-- Visual Element -->
+      <g transform="translate(550, 330)">
+        <rect x="0" y="0" width="180" height="140" fill="#222222" rx="8" stroke="#333333" stroke-width="1"/>
+        <text x="90" y="60" font-family="Noto Sans KR, sans-serif" font-size="40" fill="#FFFFFF" text-anchor="middle">🚀</text>
+        <text x="90" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#CCCCCC" text-anchor="middle">AI</text>
+        <text x="90" y="120" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#CCCCCC" text-anchor="middle">ENHANCED</text>
+      </g>
+    </g>
+
+  </g>
+
+  <!-- Bottom Key Message -->
+  <g transform="translate(100, 920)">
+    <rect x="0" y="0" width="1720" height="40" fill="transparent"/>
+    <text x="860" y="28" font-family="Noto Sans KR, sans-serif" font-weight="500" font-size="18" fill="#B0B0B0" text-anchor="middle">AI 도입은 선택지 확장 · 기존 역량 손실 없음</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="980" x2="1820" y2="980" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#999999">MONTHLY REPORT · AI OPERATIONS</text>
+  <text x="1820" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#999999" text-anchor="end">5 / 5</text>
+</svg>

@@ -354,7 +354,7 @@ mindmap
       Pillow
       pandas
     AI/Automation
-      Claude Sonnet 4.5
+      Claude (최신 모델)
       MCP Servers
         Slack
         Jira

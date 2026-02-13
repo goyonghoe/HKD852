@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- Header Label -->
+  <text x="100" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#808080">Q2 PLAN</text>
+
+  <!-- Title -->
+  <text x="100" y="200" font-family="Space Mono, monospace" font-weight="700" font-size="64" fill="#FFFFFF">AI 운영 체계</text>
+  <text x="100" y="260" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="28" fill="#B0B0B0">AI Agent 조직 모델 도입</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="320" x2="1820" y2="320" stroke="#333333" stroke-width="1"/>
+
+  <!-- Content Area - 3 Column Layout -->
+  <g transform="translate(100, 400)">
+    <!-- Column 1: Automation -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="520" height="320" fill="#111111" rx="12"/>
+      <text x="40" y="50" font-family="Space Mono, monospace" font-weight="700" font-size="16" fill="#808080">AUTOMATION</text>
+      <text x="40" y="100" font-family="Space Mono, monospace" font-weight="700" font-size="28" fill="#FFFFFF">자동화 영역</text>
+      <text x="40" y="150" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#CCCCCC">반복 운영 업무</text>
+      <text x="40" y="180" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#CCCCCC">데이터 수집/분석</text>
+      <text x="40" y="210" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#CCCCCC">리포트 생성</text>
+      <rect x="40" y="260" width="120" height="36" fill="#333333" rx="18"/>
+      <text x="100" y="284" font-family="Space Mono, monospace" font-weight="700" font-size="14" fill="#FFFFFF" text-anchor="middle">AI 담당</text>
+    </g>
+
+    <!-- Arrow 1 -->
+    <text x="580" y="160" font-family="Space Mono, monospace" font-size="40" fill="#444444">→</text>
+
+    <!-- Column 2: Efficiency -->
+    <g transform="translate(640, 0)">
+      <rect x="0" y="0" width="520" height="320" fill="#111111" rx="12"/>
+      <text x="40" y="50" font-family="Space Mono, monospace" font-weight="700" font-size="16" fill="#808080">EFFICIENCY</text>
+      <text x="40" y="100" font-family="Space Mono, monospace" font-weight="700" font-size="28" fill="#FFFFFF">효율화 목표</text>
+      <text x="40" y="150" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#CCCCCC">팀 역량을</text>
+      <text x="40" y="180" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#CCCCCC">창의적 의사결정에 집중</text>
+      <text x="40" y="230" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#CCCCCC">운영 부담 감소</text>
+      <rect x="40" y="260" width="120" height="36" fill="#1a1a2e" rx="18"/>
+      <text x="100" y="284" font-family="Space Mono, monospace" font-weight="700" font-size="14" fill="#FFFFFF" text-anchor="middle">팀 집중</text>
+    </g>
+
+    <!-- Arrow 2 -->
+    <text x="1220" y="160" font-family="Space Mono, monospace" font-size="40" fill="#444444">→</text>
+
+    <!-- Column 3: Timeline -->
+    <g transform="translate(1280, 0)">
+      <rect x="0" y="0" width="440" height="320" fill="#111111" rx="12"/>
+      <text x="40" y="50" font-family="Space Mono, monospace" font-weight="700" font-size="16" fill="#808080">TIMELINE</text>
+      <text x="40" y="100" font-family="Space Mono, monospace" font-weight="700" font-size="28" fill="#FFFFFF">6월 완료</text>
+      <text x="40" y="150" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#CCCCCC">체계 구축</text>
+      <text x="40" y="180" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#CCCCCC">안정화 기간 포함</text>
+      <rect x="40" y="260" width="120" height="36" fill="#222222" rx="18"/>
+      <text x="100" y="284" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#999999" text-anchor="middle">6월 목표</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="980" x2="1820" y2="980" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080">MONTHLY REPORT · 2026 H1</text>
+  <text x="1820" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="end">3 / 5</text>
+</svg>

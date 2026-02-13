@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A0F2E;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#0F0720;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#0F0720"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  <circle cx="200" cy="850" r="200" fill="#8B5CF6" opacity="0.03"/>
+  <circle cx="1700" cy="200" r="250" fill="#A78BFA" opacity="0.02"/>
+
+  <!-- Section header -->
+  <rect x="100" y="80" width="80" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="100" y="130" font-family="Inter, Pretendard, sans-serif" font-weight="500" font-size="20" fill="#A78BFA" letter-spacing="3">SECTION 10</text>
+  <text x="100" y="190" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="48" fill="#FAF5FF">마이그레이션 가이드</text>
+  <text x="100" y="235" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="22" fill="#C4B5FD" opacity="0.7">Git / SVN에서 Plastic SCM으로 전환하기</text>
+
+  <!-- What is Migration -->
+  <rect x="100" y="280" width="1720" height="90" rx="16" fill="#8B5CF6" opacity="0.1"/>
+  <rect x="100" y="280" width="6" height="90" rx="3" fill="#8B5CF6"/>
+  <text x="140" y="320" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">마이그레이션(Migration)이란?</text>
+  <text x="140" y="352" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="20" fill="#C4B5FD">기존 버전 관리 시스템의 프로젝트 · 이력 · 브랜치를 새로운 시스템으로 옮기는 작업</text>
+
+  <!-- Migration paths - 3 cards -->
+  <text x="100" y="420" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">주요 마이그레이션 경로</text>
+
+  <!-- Git → Plastic -->
+  <rect x="100" y="450" width="540" height="240" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="100" y="450" width="540" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="140" y="500" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">Git → Plastic SCM</text>
+
+  <text x="140" y="540" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#8B5CF6">방법</text>
+  <text x="140" y="568" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• GitSync 기능으로 양방향 동기화 가능</text>
+  <text x="140" y="596" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• Git 이력을 완전히 보존하여 가져오기</text>
+  <text x="140" y="624" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• Git 팀원과 Plastic 팀원이 동시 작업 가능</text>
+  <text x="140" y="660" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#10B981">점진적 전환에 최적 — 팀 전체가 한꺼번에 바꿀 필요 없음</text>
+
+  <!-- SVN → Plastic -->
+  <rect x="690" y="450" width="540" height="240" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="690" y="450" width="540" height="4" rx="2" fill="#A78BFA"/>
+  <text x="730" y="500" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">SVN → Plastic SCM</text>
+
+  <text x="730" y="540" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#A78BFA">방법</text>
+  <text x="730" y="568" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• SVN Import 도구로 이력 포함 마이그레이션</text>
+  <text x="730" y="596" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• trunk/branches/tags 구조 자동 매핑</text>
+  <text x="730" y="624" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• 대용량 바이너리도 문제없이 이전</text>
+  <text x="730" y="660" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#10B981">레거시 SVN 프로젝트 현대화에 적합</text>
+
+  <!-- Perforce → Plastic -->
+  <rect x="1280" y="450" width="540" height="240" rx="16" fill="#2D1B4E" opacity="0.4"/>
+  <rect x="1280" y="450" width="540" height="4" rx="2" fill="#6D28D9"/>
+  <text x="1320" y="500" font-family="Inter, Pretendard, sans-serif" font-weight="700" font-size="24" fill="#FAF5FF">Perforce → Plastic SCM</text>
+
+  <text x="1320" y="540" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="18" fill="#6D28D9">방법</text>
+  <text x="1320" y="568" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• 전용 마이그레이션 도구 제공</text>
+  <text x="1320" y="596" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• 유사한 Lock/Checkout 워크플로우</text>
+  <text x="1320" y="624" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">• 전환 학습 비용이 낮음</text>
+  <text x="1320" y="660" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="15" fill="#10B981">라이선스 비용 절감 효과</text>
+
+  <!-- Migration checklist -->
+  <text x="100" y="740" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="22" fill="#C4B5FD">마이그레이션 체크리스트</text>
+
+  <rect x="100" y="770" width="1720" height="170" rx="16" fill="#2D1B4E" opacity="0.3"/>
+
+  <!-- Checklist items in 2 columns -->
+  <text x="160" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">준비 단계</text>
+  <text x="160" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">1. 기존 이력 보존 필요 여부 결정</text>
+  <text x="160" y="868" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">2. ignore 규칙 재설정 (ignore.conf)</text>
+  <text x="160" y="896" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">3. 테스트 리포지토리에서 먼저 시범 마이그레이션</text>
+  <text x="160" y="924" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">4. 팀원 교육 일정 확보 (이 교육!)</text>
+
+  <text x="960" y="810" font-family="Inter, Pretendard, sans-serif" font-weight="600" font-size="20" fill="#FAF5FF">실행 단계</text>
+  <text x="960" y="840" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">5. 마이그레이션 실행 (이력 포함 / 스냅샷만)</text>
+  <text x="960" y="868" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">6. 빌드 검증 — Smoke Test 필수!</text>
+  <text x="960" y="896" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">7. Regression Test로 기존 기능 확인</text>
+  <text x="960" y="924" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="17" fill="#C4B5FD" opacity="0.8">8. 기존 VCS 읽기 전용으로 전환 → 완전 이전</text>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#7C3AED" stroke-width="1" opacity="0.3"/>
+  <text x="100" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5">Plastic SCM 입사자 교육</text>
+  <text x="1820" y="1040" font-family="Inter, Pretendard, sans-serif" font-weight="400" font-size="16" fill="#C4B5FD" opacity="0.5" text-anchor="end">11 / 13</text>
+</svg>

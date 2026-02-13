@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0A0A0A"/>
+
+  <!-- v4: Visual Hierarchy 강화 - 5개 에이전트 시스템 -->
+  <!-- Glance Test: "5개 전문 에이전트가 협업" 즉시 파악 -->
+  <!-- Data-Ink: 상세 설명 제거, 역할만 표시 -->
+
+  <!-- Header -->
+  <text x="100" y="100" font-family="Space Mono, monospace" font-weight="400" font-size="14" fill="#808080">AI AGENT ORGANIZATION</text>
+
+  <!-- Main Title -->
+  <text x="100" y="200" font-family="Space Mono, monospace" font-weight="700" font-size="56" fill="#FFFFFF">5 Agent System</text>
+  <text x="100" y="260" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="24" fill="#B0B0B0">전문 에이전트 협업으로 프레젠테이션 자동화</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="320" x2="1820" y2="320" stroke="#333333" stroke-width="1"/>
+
+  <!-- 5 Agents in a Row - 심플하게 -->
+  <!-- 각 에이전트: 아이콘 + 이름 + 한 줄 역할 -->
+
+  <g transform="translate(100, 380)">
+    <!-- Agent 1: 접수 -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="310" height="360" fill="#111111" rx="16" stroke="#333333" stroke-width="1"/>
+      <circle cx="155" cy="100" r="50" fill="#1A1A1A"/>
+      <text x="155" y="115" font-family="Space Mono, monospace" font-size="36" fill="#FFFFFF" text-anchor="middle">📋</text>
+      <text x="155" y="200" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">접수</text>
+      <text x="155" y="240" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#999999" text-anchor="middle">요구사항 분석</text>
+      <text x="155" y="320" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="middle">RECEPTION</text>
+    </g>
+
+    <!-- Agent 2: 콘텐츠 -->
+    <g transform="translate(340, 0)">
+      <rect x="0" y="0" width="310" height="360" fill="#111111" rx="16" stroke="#333333" stroke-width="1"/>
+      <circle cx="155" cy="100" r="50" fill="#1A1A1A"/>
+      <text x="155" y="115" font-family="Space Mono, monospace" font-size="36" fill="#FFFFFF" text-anchor="middle">📝</text>
+      <text x="155" y="200" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">콘텐츠</text>
+      <text x="155" y="240" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#999999" text-anchor="middle">구조 설계</text>
+      <text x="155" y="320" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="middle">CONTENT</text>
+    </g>
+
+    <!-- Agent 3: 시각화 -->
+    <g transform="translate(680, 0)">
+      <rect x="0" y="0" width="310" height="360" fill="#111111" rx="16" stroke="#333333" stroke-width="1"/>
+      <circle cx="155" cy="100" r="50" fill="#1A1A1A"/>
+      <text x="155" y="115" font-family="Space Mono, monospace" font-size="36" fill="#FFFFFF" text-anchor="middle">🎨</text>
+      <text x="155" y="200" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">시각화</text>
+      <text x="155" y="240" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#999999" text-anchor="middle">디자인 실행</text>
+      <text x="155" y="320" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="middle">VISUAL</text>
+    </g>
+
+    <!-- Agent 4: 레드팀 -->
+    <g transform="translate(1020, 0)">
+      <rect x="0" y="0" width="310" height="360" fill="#111111" rx="16" stroke="#444444" stroke-width="2"/>
+      <circle cx="155" cy="100" r="50" fill="#1A1A1A"/>
+      <text x="155" y="115" font-family="Space Mono, monospace" font-size="36" fill="#FFFFFF" text-anchor="middle">🔍</text>
+      <text x="155" y="200" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">레드팀</text>
+      <text x="155" y="240" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#999999" text-anchor="middle">품질 검토</text>
+      <text x="155" y="320" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="middle">REVIEW</text>
+    </g>
+
+    <!-- Agent 5: 관리자 -->
+    <g transform="translate(1360, 0)">
+      <rect x="0" y="0" width="310" height="360" fill="#111111" rx="16" stroke="#FFFFFF" stroke-width="2"/>
+      <circle cx="155" cy="100" r="50" fill="#222222"/>
+      <text x="155" y="115" font-family="Space Mono, monospace" font-size="36" fill="#FFFFFF" text-anchor="middle">👔</text>
+      <text x="155" y="200" font-family="Space Mono, monospace" font-weight="700" font-size="20" fill="#FFFFFF" text-anchor="middle">관리자</text>
+      <text x="155" y="240" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="16" fill="#999999" text-anchor="middle">최종 승인</text>
+      <text x="155" y="320" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="middle">MANAGER</text>
+    </g>
+  </g>
+
+  <!-- Flow Arrows -->
+  <g transform="translate(100, 780)">
+    <text x="860" y="30" font-family="Space Mono, monospace" font-weight="400" font-size="24" fill="#444444" text-anchor="middle">접수 → 콘텐츠 → 시각화 → 레드팀 → 관리자 승인</text>
+  </g>
+
+  <!-- Bottom Message -->
+  <g transform="translate(100, 840)">
+    <text x="0" y="30" font-family="Noto Sans KR, sans-serif" font-weight="400" font-size="18" fill="#808080">Maker-Checker 패턴: 제작(Maker) → 검토(Checker) → 수정 반복으로 품질 확보</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="980" x2="1820" y2="980" stroke="#222222" stroke-width="1"/>
+  <text x="100" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080">MONTHLY REPORT · AI OPERATIONS</text>
+  <text x="1820" y="1020" font-family="Space Mono, monospace" font-weight="400" font-size="12" fill="#808080" text-anchor="end">4 / 5</text>
+</svg>

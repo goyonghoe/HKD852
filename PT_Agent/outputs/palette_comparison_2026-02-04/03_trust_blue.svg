@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- #03 TRUST BLUE -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0C1929"/>
+      <stop offset="100%" style="stop-color:#162033;stop-opacity:0.3"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#162033"/>
+      <stop offset="100%" style="stop-color:#0C1929"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0C1929"/>
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+
+  <!-- Palette Label -->
+  <rect x="100" y="40" width="200" height="36" fill="#162033" rx="18"/>
+  <text x="200" y="64" font-family="Inter, sans-serif" font-weight="600" font-size="14" fill="#0EA5E9" text-anchor="middle">#03 TRUST BLUE</text>
+
+  <!-- Section Label -->
+  <text x="100" y="130" font-family="Inter, sans-serif" font-weight="500" font-size="13" fill="#38BDF8" letter-spacing="0.15em">2026 H1 EXECUTIVE SUMMARY</text>
+
+  <!-- Title -->
+  <text x="100" y="240" font-family="Inter, sans-serif" font-weight="700" font-size="72" fill="#F0F9FF">런칭</text>
+  <text x="280" y="240" font-family="Inter, sans-serif" font-weight="700" font-size="72" fill="#0EA5E9">→</text>
+  <text x="360" y="240" font-family="Inter, sans-serif" font-weight="700" font-size="72" fill="#F0F9FF">운영 체계 구축</text>
+
+  <!-- Subtitle -->
+  <text x="100" y="310" font-family="Pretendard, sans-serif" font-weight="400" font-size="26" fill="#7DD3FC">Q1 글로벌 서비스 출시 · Q2 AI 기반 효율화</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="360" x2="1820" y2="360" stroke="#2563EB" stroke-width="1" opacity="0.4"/>
+
+  <!-- Bento Grid -->
+  <g transform="translate(100, 410)">
+    <!-- Q1 Card -->
+    <g transform="translate(0, 0)">
+      <rect width="820" height="340" fill="url(#cardGrad)" rx="20"/>
+      <text x="40" y="110" font-family="Inter, sans-serif" font-weight="800" font-size="140" fill="#162033">Q1</text>
+      <text x="50" y="55" font-family="Inter, sans-serif" font-weight="600" font-size="14" fill="#38BDF8" letter-spacing="0.1em">QUARTER 1</text>
+      <text x="50" y="150" font-family="Inter, sans-serif" font-weight="700" font-size="44" fill="#F0F9FF">서비스 런칭</text>
+      <text x="50" y="205" font-family="Pretendard, sans-serif" font-weight="400" font-size="22" fill="#BAE6FD">SUPERSTAR THEBLACKLABEL</text>
+      <text x="50" y="240" font-family="Pretendard, sans-serif" font-weight="400" font-size="20" fill="#7DD3FC">글로벌 동시 출시</text>
+      <rect x="50" y="275" width="130" height="44" fill="#0EA5E9" rx="22"/>
+      <text x="115" y="303" font-family="Inter, sans-serif" font-weight="600" font-size="16" fill="#0C1929" text-anchor="middle">3월 목표</text>
+    </g>
+
+    <!-- Arrow -->
+    <text x="860" y="190" font-family="Inter, sans-serif" font-weight="300" font-size="48" fill="#2563EB">→</text>
+
+    <!-- Q2 Card -->
+    <g transform="translate(900, 0)">
+      <rect width="820" height="340" fill="url(#cardGrad)" rx="20"/>
+      <text x="40" y="110" font-family="Inter, sans-serif" font-weight="800" font-size="140" fill="#162033">Q2</text>
+      <text x="50" y="55" font-family="Inter, sans-serif" font-weight="600" font-size="14" fill="#38BDF8" letter-spacing="0.1em">QUARTER 2</text>
+      <text x="50" y="150" font-family="Inter, sans-serif" font-weight="700" font-size="44" fill="#F0F9FF">AI 운영 체계</text>
+      <text x="50" y="205" font-family="Pretendard, sans-serif" font-weight="400" font-size="22" fill="#BAE6FD">AI Agent 조직 모델</text>
+      <text x="50" y="240" font-family="Pretendard, sans-serif" font-weight="400" font-size="20" fill="#7DD3FC">Human-in-the-Loop</text>
+      <rect x="50" y="275" width="130" height="44" fill="#1E3A5F" rx="22"/>
+      <text x="115" y="303" font-family="Inter, sans-serif" font-weight="500" font-size="16" fill="#7DD3FC" text-anchor="middle">6월 목표</text>
+    </g>
+  </g>
+
+  <!-- Bottom Key Message -->
+  <g transform="translate(100, 800)">
+    <rect width="1720" height="100" fill="#162033" rx="16" stroke="#2563EB" stroke-width="1" opacity="0.4"/>
+    <text x="860" y="40" font-family="Inter, sans-serif" font-weight="500" font-size="14" fill="#38BDF8" text-anchor="middle" letter-spacing="0.1em">KEY MESSAGE</text>
+    <text x="860" y="75" font-family="Pretendard, sans-serif" font-weight="400" font-size="22" fill="#BAE6FD" text-anchor="middle">런칭 성공 → AI로 운영 효율화 → 인간 중심 의사결정 유지</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="100" y1="1000" x2="1820" y2="1000" stroke="#162033" stroke-width="1"/>
+  <text x="100" y="1040" font-family="Inter, sans-serif" font-weight="400" font-size="12" fill="#38BDF8">MONTHLY REPORT · 2026 H1</text>
+  <text x="1820" y="1040" font-family="Inter, sans-serif" font-weight="400" font-size="12" fill="#38BDF8" text-anchor="end">PALETTE COMPARISON</text>
+</svg>
