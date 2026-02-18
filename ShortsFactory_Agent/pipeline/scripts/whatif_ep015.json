@@ -1,0 +1,91 @@
+{
+  "episode_id": "whatif_ep015",
+  "series": "만약에~",
+  "topic_id": "no-lies",
+  "language": "ko",
+  "script": {
+    "hook": "내일부터 거짓말하면 이마에 빨간 불이 켜진다면?",
+    "body": [
+      "아침에 거울을 보는데, 이마에 동그란 센서가 생겼다.",
+      "출근길에 동료가 '어제 야근했어' 하는 순간, 이마가 번쩍.",
+      "뉴스 앵커가 방송 중에 이마가 빨개지자 전국이 뒤집힌다.",
+      "정치인들은 기자회견을 취소하기 시작한다.",
+      "커플들 사이에서 이별 폭풍이 분다.",
+      "면접관이 '합격입니다'라고 하는데 이마가 안 켜지면 진짜다.",
+      "1주일 후, 사람들은 말 대신 행동으로 보여주기 시작한다.",
+      "진실은 불편하지만, 거짓 없는 세상은 의외로 따뜻했다."
+    ],
+    "cta": "다음 만약에가 더 충격적이다. 구독 눌러."
+  },
+  "full_text": "내일부터 거짓말하면 이마에 빨간 불이 켜진다면? 아침에 거울을 보는데, 이마에 동그란 센서가 생겼다. 출근길에 동료가 '어제 야근했어' 하는 순간, 이마가 번쩍. 뉴스 앵커가 방송 중에 이마가 빨개지자 전국이 뒤집힌다. 정치인들은 기자회견을 취소하기 시작한다. 커플들 사이에서 이별 폭풍이 분다. 면접관이 '합격입니다'라고 하는데 이마가 안 켜지면 진짜다. 1주일 후, 사람들은 말 대신 행동으로 보여주기 시작한다. 진실은 불편하지만, 거짓 없는 세상은 의외로 따뜻했다.",
+  "display_text": "내일부터 거짓말하면 이마에 빨간 불이 켜진다면? 아침에 거울을 보는데, 이마에 동그란 센서가 생겼다. 출근길에 동료가 '어제 야근했어' 하는 순간, 이마가 번쩍. 뉴스 앵커가 방송 중에 이마가 빨개지자 전국이 뒤집힌다. 정치인들은 기자회견을 취소하기 시작한다. 커플들 사이에서 이별 폭풍이 분다. 면접관이 '합격입니다'라고 하는데 이마가 안 켜지면 진짜다. 1주일 후, 사람들은 말 대신 행동으로 보여주기 시작한다. 진실은 불편하지만, 거짓 없는 세상은 의외로 따뜻했다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "내일부터 거짓말하면 이마에 빨간 불이 켜진다면?",
+      "image_prompt": "Anime dramatic close-up of a young woman touching her forehead where a small glowing red circle is pulsing, eyes wide with shock and curiosity, dark background with dramatic red light casting shadows on her face, mysterious sci-fi atmosphere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "아침에 거울을 보는데, 이마에 동그란 센서가 생겼다.",
+      "image_prompt": "Manga bathroom mirror scene with a person leaning close to their reflection, examining a small round sensor embedded in their forehead with fascinated horror, toothbrush hanging from mouth, bright bathroom lighting, comedic yet eerie atmosphere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "출근길에 동료가 '어제 야근했어' 하는 순간, 이마가 번쩍.",
+      "image_prompt": "Anime office hallway scene with a male coworker mid-sentence whose forehead is flashing bright red like an alarm, nearby colleagues gasping and pointing with shocked amused expressions, fluorescent office lighting, comedic dramatic moment",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "뉴스 앵커가 방송 중에 이마가 빨개지자 전국이 뒤집힌다.",
+      "image_prompt": "Manga split panel showing a news anchor on a TV screen with forehead glowing bright red while reading news, and a living room full of family members with jaws dropped in absolute shock, TV screen dominating the composition, dramatic lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "정치인들은 기자회견을 취소하기 시작한다.",
+      "image_prompt": "Anime political satire scene of politicians frantically running away from a press conference podium, covering their foreheads with papers and hands, reporters chasing them with cameras, chaotic comedic atmosphere, motion blur speed lines",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "커플들 사이에서 이별 폭풍이 분다.",
+      "image_prompt": "Emotional anime scene of a couple sitting across from each other at a cafe, the man's forehead glowing red while saying something, the woman's eyes filling with tears of betrayal, coffee cups between them, melancholic rainy window background",
+      "duration_hint": "body"
+    },
+    {
+      "id": 7,
+      "text": "면접관이 '합격입니다'라고 하는데 이마가 안 켜지면 진짜다.",
+      "image_prompt": "Anime job interview scene with a smiling interviewer whose forehead is completely normal and clear while shaking hands with an ecstatic job candidate, both with genuine happy expressions, bright hopeful office atmosphere with sunlight streaming in",
+      "duration_hint": "body"
+    },
+    {
+      "id": 8,
+      "text": "1주일 후, 사람들은 말 대신 행동으로 보여주기 시작한다.",
+      "image_prompt": "Warm anime montage-style illustration showing multiple small acts of kindness: someone helping an elderly person cross the street, a friend bringing homemade food, a handwritten note on a desk, all with genuine warm smiles, golden hour lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 9,
+      "text": "진실은 불편하지만, 거짓 없는 세상은 의외로 따뜻했다.",
+      "image_prompt": "Beautiful anime wide shot of people in a park genuinely laughing and talking together, all foreheads clear and dark, warm sunset light bathing the scene in gold, cherry blossoms floating, feeling of genuine human connection and peace",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "거짓말하면 이마에 빨간불 켜지는 세상 #만약에",
+    "thumbnail_text": "거짓말=빨간불",
+    "description": "만약 내일부터 거짓말하면 이마에 빨간 불이 켜진다면? 세상이 완전히 뒤집힌다.\nAI-assisted production.\n#만약에 #거짓말 #진실 #쇼츠",
+    "hashtags": ["#만약에", "#거짓말", "#진실", "#쇼츠", "#WhatIf", "#Shorts", "#라이디텍터", "#사회실험", "#신기한사실", "#인간관계"]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

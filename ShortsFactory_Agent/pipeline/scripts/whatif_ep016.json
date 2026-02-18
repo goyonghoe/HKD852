@@ -1,0 +1,91 @@
+{
+  "episode_id": "whatif_ep016",
+  "series": "만약에~",
+  "topic_id": "earth-stops-rotating",
+  "language": "ko",
+  "script": {
+    "hook": "지구의 자전이 갑자기 멈춘다면?",
+    "body": [
+      "지구 표면은 시속 1,670km로 회전 중이다.",
+      "자전이 멈추면, 모든 것이 옆으로 날아간다.",
+      "건물은 뿌리째 뽑히고, 바다는 거대한 쓰나미가 된다.",
+      "대기만 시속 1,670km로 계속 이동한다. 초음속 바람이다.",
+      "한쪽은 6개월 동안 낮, 반대쪽은 6개월 동안 밤이다.",
+      "낮 쪽은 섭씨 100도, 밤 쪽은 영하 70도.",
+      "결국 생존 가능한 곳은 낮과 밤의 경계선 한 줄뿐이다.",
+      "지구의 회전이 우리의 24시간을 만들고 있었다."
+    ],
+    "cta": "다음 만약에가 더 무섭다. 구독 눌러."
+  },
+  "full_text": "지구의 자전이 갑자기 멈춘다면? 지구 표면은 시속 1,670km로 회전 중이다. 자전이 멈추면, 모든 것이 옆으로 날아간다. 건물은 뿌리째 뽑히고, 바다는 거대한 쓰나미가 된다. 대기만 시속 1,670km로 계속 이동한다. 초음속 바람이다. 한쪽은 6개월 동안 낮, 반대쪽은 6개월 동안 밤이다. 낮 쪽은 섭씨 100도, 밤 쪽은 영하 70도. 결국 생존 가능한 곳은 낮과 밤의 경계선 한 줄뿐이다. 지구의 회전이 우리의 24시간을 만들고 있었다.",
+  "display_text": "지구의 자전이 갑자기 멈춘다면? 지구 표면은 시속 1,670km로 회전 중이다. 자전이 멈추면, 모든 것이 옆으로 날아간다. 건물은 뿌리째 뽑히고, 바다는 거대한 쓰나미가 된다. 대기만 시속 1,670km로 계속 이동한다. 초음속 바람이다. 한쪽은 6개월 동안 낮, 반대쪽은 6개월 동안 밤이다. 낮 쪽은 섭씨 100도, 밤 쪽은 영하 70도. 결국 생존 가능한 곳은 낮과 밤의 경계선 한 줄뿐이다. 지구의 회전이 우리의 24시간을 만들고 있었다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "지구의 자전이 갑자기 멈춘다면?",
+      "image_prompt": "Epic anime shot of planet Earth viewed from space with visible rotation arrows suddenly stopping, cracks of light appearing along the equator, dramatic cosmic lighting with stars and nebula in background, ominous and beautiful",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "지구 표면은 시속 1,670km로 회전 중이다.",
+      "image_prompt": "Anime infographic-style illustration of Earth cross-section showing surface moving at high speed with motion lines and speed indicators, a tiny human figure standing on the surface for scale, educational yet dramatic cinematic style",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "자전이 멈추면, 모든 것이 옆으로 날아간다.",
+      "image_prompt": "Intense manga action panel of people cars trees and objects being flung sideways through the air at incredible speed, motion blur and speed lines everywhere, a person with terrified screaming expression being swept off their feet, extreme fisheye perspective",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "건물은 뿌리째 뽑히고, 바다는 거대한 쓰나미가 된다.",
+      "image_prompt": "Devastating anime wide shot of a city being torn apart, skyscrapers toppling like dominoes, an impossibly massive tsunami wall hundreds of meters high approaching from the ocean, debris flying everywhere, apocalyptic orange sky",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "대기만 시속 1,670km로 계속 이동한다. 초음속 바람이다.",
+      "image_prompt": "Dark dramatic anime illustration of supersonic winds tearing across a landscape, visible shockwaves in the air, trees bent completely flat, a lone figure bracing against impossible wind behind a mountain, dust and debris forming spiral patterns",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "한쪽은 6개월 동안 낮, 반대쪽은 6개월 동안 밤이다.",
+      "image_prompt": "Anime split-screen illustration with one half showing a scorching bright sun over cracked desert landscape and the other half showing pitch black darkness with frozen tundra, sharp dividing line between day and night sides, striking visual contrast",
+      "duration_hint": "body"
+    },
+    {
+      "id": 7,
+      "text": "낮 쪽은 섭씨 100도, 밤 쪽은 영하 70도.",
+      "image_prompt": "Manga contrasting panels showing a person collapsing from extreme heat on the day side with boiling water puddles, and another person frozen solid on the night side surrounded by ice crystals, extreme temperature visualization with heat waves and frost effects",
+      "duration_hint": "body"
+    },
+    {
+      "id": 8,
+      "text": "결국 생존 가능한 곳은 낮과 밤의 경계선 한 줄뿐이다.",
+      "image_prompt": "Breathtaking anime aerial view of a thin twilight zone strip between scorching day and frozen night, tiny settlements and lights clustered along this narrow band, eternal sunset colors of orange purple and gold, hauntingly beautiful and lonely",
+      "duration_hint": "body"
+    },
+    {
+      "id": 9,
+      "text": "지구의 회전이 우리의 24시간을 만들고 있었다.",
+      "image_prompt": "Warm peaceful anime scene of a person watching a normal beautiful sunrise from a hilltop, golden morning light on their grateful peaceful face, gentle wind in their hair, Earth gently spinning in a small thought bubble above, feeling of deep appreciation",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "지구 자전이 멈추면 24시간 안에 멸망한다 #만약에",
+    "thumbnail_text": "자전 멈춤=초음속 바람",
+    "description": "만약 지구의 자전이 갑자기 멈춘다면? 시속 1,670km의 초음속 바람이 불고, 생존 가능한 곳은 경계선 한 줄뿐.\nAI-assisted production.\n#만약에 #지구자전 #과학 #쇼츠",
+    "hashtags": ["#만약에", "#지구자전", "#과학", "#쇼츠", "#WhatIf", "#Shorts", "#지구멸망", "#물리학", "#신기한사실", "#우주"]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

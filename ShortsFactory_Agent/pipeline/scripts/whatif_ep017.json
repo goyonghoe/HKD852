@@ -1,0 +1,91 @@
+{
+  "episode_id": "whatif_ep017",
+  "series": "만약에~",
+  "topic_id": "shrinking-body",
+  "language": "ko",
+  "script": {
+    "hook": "내일부터 매일 키가 1cm씩 줄어든다면?",
+    "body": [
+      "처음 일주일은 아무도 모른다. 고작 7cm.",
+      "한 달 후, 30cm 줄었다. 옷이 전부 안 맞는다.",
+      "두 달 후, 키 1미터. 초등학생한테 올려다본다.",
+      "100일 차, 키 50cm. 고양이가 나보다 크다.",
+      "반년 후, 키 10cm. 세상이 거인의 나라가 된다.",
+      "밥 한 톨이 내 머리만 하다. 빗방울은 폭탄이다.",
+      "1년 후, 현미경으로만 보이는 크기가 된다.",
+      "우리가 당연하게 여긴 '크기'가 사실은 기적이었다."
+    ],
+    "cta": "다음 만약에도 기대해. 구독 눌러."
+  },
+  "full_text": "내일부터 매일 키가 1cm씩 줄어든다면? 처음 일주일은 아무도 모른다. 고작 7cm. 한 달 후, 30cm 줄었다. 옷이 전부 안 맞는다. 두 달 후, 키 1미터. 초등학생한테 올려다본다. 100일 차, 키 50cm. 고양이가 나보다 크다. 반년 후, 키 10cm. 세상이 거인의 나라가 된다. 밥 한 톨이 내 머리만 하다. 빗방울은 폭탄이다. 1년 후, 현미경으로만 보이는 크기가 된다. 우리가 당연하게 여긴 '크기'가 사실은 기적이었다.",
+  "display_text": "내일부터 매일 키가 1cm씩 줄어든다면? 처음 일주일은 아무도 모른다. 고작 7cm. 한 달 후, 30cm 줄었다. 옷이 전부 안 맞는다. 두 달 후, 키 1미터. 초등학생한테 올려다본다. 100일 차, 키 50cm. 고양이가 나보다 크다. 반년 후, 키 10cm. 세상이 거인의 나라가 된다. 밥 한 톨이 내 머리만 하다. 빗방울은 폭탄이다. 1년 후, 현미경으로만 보이는 크기가 된다. 우리가 당연하게 여긴 '크기'가 사실은 기적이었다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "내일부터 매일 키가 1cm씩 줄어든다면?",
+      "image_prompt": "Anime dramatic shot of a young woman measuring herself against a wall height chart, looking confused as the mark is slightly lower than yesterday, morning bathroom light, subtle creepy atmosphere of something being slightly wrong",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "처음 일주일은 아무도 모른다. 고작 7cm.",
+      "image_prompt": "Manga slice-of-life panel of a person at work looking slightly shorter than their coworkers but nobody notices, subtle visual comparison with desk height and chair, comedic oblivious expressions on everyone, normal office day atmosphere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "한 달 후, 30cm 줄었다. 옷이 전부 안 맞는다.",
+      "image_prompt": "Comedic anime scene of a person drowning in their own oversized clothes, sleeves hanging past their hands, pants pooling on the floor, standing in front of a mirror with shocked dismayed expression, wardrobe chaos behind them",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "두 달 후, 키 1미터. 초등학생한테 올려다본다.",
+      "image_prompt": "Anime perspective shot from below of a tiny adult looking up at elementary school children who tower over them, the children looking down with curious innocent expressions, playground setting, dramatic low angle emphasizing the size difference",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "100일 차, 키 50cm. 고양이가 나보다 크다.",
+      "image_prompt": "Anime scene of a tiny person barely half the size of a house cat, the cat looking down at them with huge curious saucer eyes, the person backed against a wall with terrified expression, dramatic size comparison, living room setting from tiny person perspective",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "반년 후, 키 10cm. 세상이 거인의 나라가 된다.",
+      "image_prompt": "Epic anime wide shot from the perspective of a 10cm tall person looking up at a normal kitchen that appears like a massive cathedral, table legs like skyscrapers, a coffee mug the size of a swimming pool, overwhelming sense of scale and wonder",
+      "duration_hint": "body"
+    },
+    {
+      "id": 7,
+      "text": "밥 한 톨이 내 머리만 하다. 빗방울은 폭탄이다.",
+      "image_prompt": "Intense manga action panel of a microscopic person dodging a single raindrop that appears like a massive water bomb exploding on impact, a single grain of rice nearby that is head-sized, dramatic rain scene with each drop creating enormous splashes",
+      "duration_hint": "body"
+    },
+    {
+      "id": 8,
+      "text": "1년 후, 현미경으로만 보이는 크기가 된다.",
+      "image_prompt": "Surreal anime illustration of a person standing on what appears to be the surface of a cell, surrounded by enormous bacteria and molecular structures, viewed through a circular microscope lens frame, beautiful bioluminescent colors, awe-inspiring micro-world",
+      "duration_hint": "body"
+    },
+    {
+      "id": 9,
+      "text": "우리가 당연하게 여긴 '크기'가 사실은 기적이었다.",
+      "image_prompt": "Warm emotional anime close-up of a normal-sized person looking at their own hands with wonder and gratitude, standing in a field of flowers at golden hour, gentle wind, peaceful grateful smile, feeling of appreciating the miracle of existing at human scale",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "매일 1cm씩 줄어들면 1년 후 사라진다 #만약에",
+    "thumbnail_text": "매일 1cm 축소",
+    "description": "만약 내일부터 매일 키가 1cm씩 줄어든다면? 100일이면 고양이보다 작고, 1년이면 현미경 속으로.\nAI-assisted production.\n#만약에 #축소 #과학 #쇼츠",
+    "hashtags": ["#만약에", "#축소", "#과학", "#쇼츠", "#WhatIf", "#Shorts", "#미니어처", "#크기", "#신기한사실", "#상상력"]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

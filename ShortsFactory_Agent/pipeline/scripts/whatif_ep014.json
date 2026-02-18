@@ -1,0 +1,91 @@
+{
+  "episode_id": "whatif_ep014",
+  "series": "만약에~",
+  "topic_id": "internet-disappears",
+  "language": "ko",
+  "script": {
+    "hook": "내일 아침 인터넷이 영원히 사라진다면?",
+    "body": [
+      "알람이 안 울린다. 스마트폰은 그냥 비싼 벽돌이다.",
+      "카카오톡, 인스타, 유튜브 전부 먹통이다.",
+      "은행 앱이 안 되니까 현금을 찾으러 뛰어간다.",
+      "배달앱이 없으니까 직접 식당에 가야 한다.",
+      "회사는 이메일도, 줌도 안 돼서 올스톱이다.",
+      "병원 예약, 기차 예매, 전부 전화로만 가능하다.",
+      "3일 후, 사람들은 다시 편지를 쓰기 시작한다.",
+      "인터넷은 사치가 아니라, 현대 문명의 심장이었다."
+    ],
+    "cta": "다음 만약에도 소름이다. 구독 눌러."
+  },
+  "full_text": "내일 아침 인터넷이 영원히 사라진다면? 알람이 안 울린다. 스마트폰은 그냥 비싼 벽돌이다. 카카오톡, 인스타, 유튜브 전부 먹통이다. 은행 앱이 안 되니까 현금을 찾으러 뛰어간다. 배달앱이 없으니까 직접 식당에 가야 한다. 회사는 이메일도, 줌도 안 돼서 올스톱이다. 병원 예약, 기차 예매, 전부 전화로만 가능하다. 3일 후, 사람들은 다시 편지를 쓰기 시작한다. 인터넷은 사치가 아니라, 현대 문명의 심장이었다.",
+  "display_text": "내일 아침 인터넷이 영원히 사라진다면? 알람이 안 울린다. 스마트폰은 그냥 비싼 벽돌이다. 카카오톡, 인스타, 유튜브 전부 먹통이다. 은행 앱이 안 되니까 현금을 찾으러 뛰어간다. 배달앱이 없으니까 직접 식당에 가야 한다. 회사는 이메일도, 줌도 안 돼서 올스톱이다. 병원 예약, 기차 예매, 전부 전화로만 가능하다. 3일 후, 사람들은 다시 편지를 쓰기 시작한다. 인터넷은 사치가 아니라, 현대 문명의 심장이었다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "내일 아침 인터넷이 영원히 사라진다면?",
+      "image_prompt": "Anime style dramatic close-up of a young woman staring at her smartphone screen showing 'No Connection' error, face illuminated by the dim screen glow in a dark room, expression of pure disbelief and growing panic, morning light barely visible through curtains",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "알람이 안 울린다. 스마트폰은 그냥 비싼 벽돌이다.",
+      "image_prompt": "Manga panel of a person oversleeping in bed with multiple dead smartphones scattered on the nightstand, all showing black screens, comedic frustrated expression as sunlight floods the room indicating they are very late",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "카카오톡, 인스타, 유튜브 전부 먹통이다.",
+      "image_prompt": "Anime illustration of a person desperately tapping their phone screen showing multiple app icons all grayed out with X marks, surrounded by floating broken social media symbols dissolving into particles, anxious sweating expression",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "은행 앱이 안 되니까 현금을 찾으러 뛰어간다.",
+      "image_prompt": "Dynamic manga action shot of people sprinting toward a bank in a chaotic street scene, long queue already formed outside ATMs, someone clutching an empty wallet with desperate determined expression, urban morning atmosphere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "배달앱이 없으니까 직접 식당에 가야 한다.",
+      "image_prompt": "Anime wide shot of a confused young person standing in front of a traditional Korean restaurant looking bewildered, holding a useless phone, busy street with people actually walking to shops instead of ordering delivery, warm nostalgic atmosphere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "회사는 이메일도, 줌도 안 돼서 올스톱이다.",
+      "image_prompt": "Manga office scene with workers staring blankly at dark computer monitors, someone holding a disconnected ethernet cable in confusion, papers scattered everywhere as people try to work analog, fluorescent lighting casting harsh shadows",
+      "duration_hint": "body"
+    },
+    {
+      "id": 7,
+      "text": "병원 예약, 기차 예매, 전부 전화로만 가능하다.",
+      "image_prompt": "Anime illustration of an enormous snaking queue of people waiting at a phone booth and ticket counter, everyone holding old rotary phones and paper tickets, overwhelmed expressions, retro 1990s atmosphere blending with modern clothing",
+      "duration_hint": "body"
+    },
+    {
+      "id": 8,
+      "text": "3일 후, 사람들은 다시 편지를 쓰기 시작한다.",
+      "image_prompt": "Warm emotional anime scene of a person sitting at a wooden desk writing a handwritten letter by candlelight, gentle smile on their face, stack of envelopes beside them, golden warm lighting, peaceful and nostalgic atmosphere with cherry blossom petals drifting through an open window",
+      "duration_hint": "body"
+    },
+    {
+      "id": 9,
+      "text": "인터넷은 사치가 아니라, 현대 문명의 심장이었다.",
+      "image_prompt": "Epic anime aerial view of a modern city at night with all screens and lights flickering back on, a massive glowing network of light connecting buildings like a heartbeat pulse, one person looking up at the sky with grateful tearful expression, breathtaking cinematic composition",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "인터넷이 영원히 사라지면 벌어지는 일 #만약에",
+    "thumbnail_text": "인터넷 소멸=문명 붕괴",
+    "description": "만약 내일 아침 인터넷이 영원히 사라진다면? 스마트폰은 벽돌이 되고, 현대 문명이 멈춘다.\nAI-assisted production.\n#만약에 #인터넷 #디지털 #쇼츠",
+    "hashtags": ["#만약에", "#인터넷", "#디지털", "#쇼츠", "#WhatIf", "#Shorts", "#문명붕괴", "#스마트폰", "#신기한사실", "#기술"]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}
