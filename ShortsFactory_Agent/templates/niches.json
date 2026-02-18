@@ -1,0 +1,91 @@
+{
+  "niches": [
+    {
+      "id": "ai-tech",
+      "name": "AI/Tech Tools",
+      "language": "en",
+      "estimated_rpm_range": [8, 15],
+      "keywords": ["AI tools", "productivity apps", "automation", "ChatGPT", "tech review", "AI news"],
+      "formats": ["dark-bg-text", "list-countdown"],
+      "tts_voice": "en-US-AndrewMultilingualNeural",
+      "tts_preset": "en-male-multilingual",
+      "priority": 1,
+      "performance_score": 0,
+      "notes": "HKD852 도메인 전문성 활용 가능, 제작 난이도 최저"
+    },
+    {
+      "id": "personal-finance",
+      "name": "Money/Finance Tips",
+      "language": "en",
+      "estimated_rpm_range": [12, 25],
+      "keywords": ["investing", "saving money", "passive income", "budget", "financial freedom", "money tips"],
+      "formats": ["dark-bg-text", "list-countdown"],
+      "tts_voice": "en-US-ChristopherNeural",
+      "tts_preset": "en-male-trust",
+      "priority": 2,
+      "performance_score": 0,
+      "notes": "최고 RPM, 금융 광고주 풍부"
+    },
+    {
+      "id": "productivity",
+      "name": "Productivity Hacks",
+      "language": "en",
+      "estimated_rpm_range": [6, 10],
+      "keywords": ["productivity", "life hacks", "workflow", "efficiency", "time management", "work smarter"],
+      "formats": ["dark-bg-text", "gradient-bg"],
+      "tts_voice": "en-US-JennyNeural",
+      "tts_preset": "en-female-bright",
+      "priority": 3,
+      "performance_score": 0,
+      "notes": "범용성 높음, 빠른 구독자 확보"
+    },
+    {
+      "id": "psychology",
+      "name": "Psychology/Mind Facts",
+      "language": "en",
+      "estimated_rpm_range": [5, 10],
+      "keywords": ["psychology", "brain", "mind tricks", "cognitive bias", "human behavior", "fascinating facts"],
+      "formats": ["dark-bg-text"],
+      "tts_voice": "en-US-AriaNeural",
+      "tts_preset": "en-female-natural",
+      "priority": 4,
+      "performance_score": 0,
+      "notes": "높은 바이럴 잠재력, 호기심 유발 용이"
+    },
+    {
+      "id": "science",
+      "name": "Science/Space Facts",
+      "language": "en",
+      "estimated_rpm_range": [4, 8],
+      "keywords": ["science", "space", "universe", "physics", "NASA", "amazing facts"],
+      "formats": ["dark-bg-text", "gradient-bg"],
+      "tts_voice": "en-US-GuyNeural",
+      "tts_preset": "en-male-casual",
+      "priority": 5,
+      "performance_score": 0,
+      "notes": "에버그린 콘텐츠, 높은 리플레이 가치"
+    },
+    {
+      "id": "health-wellness",
+      "name": "Health & Wellness",
+      "language": "en",
+      "estimated_rpm_range": [4, 8],
+      "keywords": ["health tips", "wellness", "nutrition", "sleep", "exercise", "mental health"],
+      "formats": ["dark-bg-text", "list-countdown"],
+      "tts_voice": "en-US-AvaMultilingualNeural",
+      "tts_preset": "en-female-multilingual",
+      "priority": 6,
+      "performance_score": 0,
+      "notes": "실용 정보 수요 높음, 의료 주장 주의 필요"
+    }
+  ],
+  "scoring_weights": {
+    "rpm": 0.40,
+    "volume": 0.35,
+    "difficulty_inverse": 0.25
+  },
+  "performance_bonus": 15,
+  "performance_penalty": -10,
+  "exploration_bonus": 5,
+  "competition_penalty": -20
+}

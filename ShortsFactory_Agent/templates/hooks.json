@@ -1,0 +1,107 @@
+{
+  "hook_patterns": [
+    {
+      "id": "shock-stat",
+      "name": "충격 수치",
+      "template": "{percentage}% of people don't know {fact}.",
+      "examples": [
+        "99% of people use ChatGPT wrong.",
+        "Only 3% of people know this free AI tool.",
+        "87% of your monthly subscriptions are wasted."
+      ],
+      "effectiveness_score": 90,
+      "best_for": ["ai-tech", "personal-finance", "psychology"]
+    },
+    {
+      "id": "stop-command",
+      "name": "금지/경고",
+      "template": "Stop {action} right now.",
+      "examples": [
+        "Stop paying for apps you don't need.",
+        "Stop saving money in a savings account.",
+        "Stop using Google Search for everything."
+      ],
+      "effectiveness_score": 88,
+      "best_for": ["personal-finance", "productivity", "ai-tech"]
+    },
+    {
+      "id": "reversal",
+      "name": "반전",
+      "template": "Everyone says {common_belief}. They're wrong.",
+      "examples": [
+        "Everyone says you need 8 hours of sleep. They're wrong.",
+        "Everyone says AI will take your job. Here's the truth.",
+        "Everyone thinks saving money makes you rich. It doesn't."
+      ],
+      "effectiveness_score": 92,
+      "best_for": ["psychology", "science", "health-wellness"]
+    },
+    {
+      "id": "delete-command",
+      "name": "도발",
+      "template": "Delete your {thing} right now.",
+      "examples": [
+        "Delete your ChatGPT subscription right now.",
+        "Delete all your productivity apps. You only need this one.",
+        "Cancel your gym membership. This works better."
+      ],
+      "effectiveness_score": 85,
+      "best_for": ["ai-tech", "productivity", "health-wellness"]
+    },
+    {
+      "id": "what-if",
+      "name": "가정/질문",
+      "template": "What if I told you {surprising_claim}?",
+      "examples": [
+        "What if I told you your brain lies to you every day?",
+        "What if I told you you're already using AI wrong?",
+        "What if I told you you could retire 10 years earlier?"
+      ],
+      "effectiveness_score": 80,
+      "best_for": ["psychology", "science", "personal-finance"]
+    },
+    {
+      "id": "nobody-knows",
+      "name": "비밀",
+      "template": "Nobody talks about {hidden_fact}.",
+      "examples": [
+        "Nobody talks about this free AI tool.",
+        "Nobody tells you this about compound interest.",
+        "NASA never showed you this sound from space."
+      ],
+      "effectiveness_score": 86,
+      "best_for": ["ai-tech", "science", "personal-finance"]
+    },
+    {
+      "id": "cost-reveal",
+      "name": "비용 공개",
+      "template": "You're wasting ${amount} every month on {thing}.",
+      "examples": [
+        "You're wasting $200 every month on apps.",
+        "You're losing $500 a year on subscriptions you forgot about.",
+        "This free tool does what you pay $50/month for."
+      ],
+      "effectiveness_score": 87,
+      "best_for": ["personal-finance", "ai-tech", "productivity"]
+    },
+    {
+      "id": "time-pressure",
+      "name": "시간 압박",
+      "template": "In {time}, {transformation}.",
+      "examples": [
+        "In 30 seconds, I'll change how you use AI forever.",
+        "In the next 20 seconds, you'll learn a $10,000 lesson.",
+        "In 15 seconds, I'll show you something NASA hid for decades."
+      ],
+      "effectiveness_score": 83,
+      "best_for": ["ai-tech", "science", "personal-finance"]
+    }
+  ],
+  "cta_patterns": [
+    "Follow for more {niche_topic} tips.",
+    "Save this for later. Follow for more.",
+    "Share this with someone who needs it.",
+    "If this blew your mind, follow for daily {niche_topic}.",
+    "Comment '{keyword}' if you want part 2."
+  ]
+}

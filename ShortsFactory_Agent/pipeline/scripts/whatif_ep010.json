@@ -1,0 +1,64 @@
+{
+  "episode_id": "whatif_ep010",
+  "series": "만약에~",
+  "topic_id": "humans-photosynthesis",
+  "language": "ko",
+  "script": {
+    "hook": "내일부터 밥 안 먹어도 된다면?",
+    "body": [
+      "식물처럼 광합성으로 에너지를 만들 수 있다면, 식비 제로의 삶이 시작되는 거다.",
+      "근데 과학자들이 계산해봤더니, 온몸으로 하루 종일 햇빛을 받아도 겨우 60킬로칼로리, 사탕 두 알이다.",
+      "하루에 필요한 2,000킬로칼로리의 겨우 3%.",
+      "결국 피부만 초록색이 되고, 여전히 배달앱을 켜게 된다."
+    ],
+    "cta": "다음엔 더 황당한 만약에가 온다. 팔로우 해둬."
+  },
+  "full_text": "내일부터 밥 안 먹어도 된다면? 식물처럼 광합성으로 에너지를 만들 수 있다면, 식비 제로의 삶이 시작되는 거다. 근데 과학자들이 계산해봤더니, 온몸으로 하루 종일 햇빛을 받아도 겨우 60킬로칼로리, 사탕 두 알이다. 하루에 필요한 2,000킬로칼로리의 겨우 3%. 결국 피부만 초록색이 되고, 여전히 배달앱을 켜게 된다.",
+  "display_text": "내일부터 밥 안 먹어도 된다면? 식물처럼 광합성으로 에너지를 만들 수 있다면, 식비 제로의 삶이 시작되는 거다. 근데 과학자들이 계산해봤더니, 온몸으로 하루 종일 햇빛을 받아도 겨우 60kcal, 사탕 두 알이다. 하루에 필요한 2,000kcal의 겨우 3%. 결국 피부만 초록색이 되고, 여전히 배달앱을 켜게 된다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "내일부터 밥 안 먹어도 된다면?",
+      "image_prompt": "Cartoon illustration style, a person looking excited holding up an empty plate proudly, a big red X over a pile of food (rice, chicken, pizza), dreamy sparkle background suggesting freedom from eating, hopeful expression, vibrant colorful cartoon art, 9:16 vertical",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "식물처럼 광합성으로 에너지를 만들 수 있다면, 식비 제로의 삶이 시작되는 거다.",
+      "image_prompt": "Cartoon illustration style, a happy green-skinned person standing in bright sunlight with arms wide open like a tree, glowing energy particles flowing from the sun into their skin, floating zero-dollar signs around them, utopian paradise background, joyful expression, clean colorful cartoon art, 9:16 vertical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데 과학자들이 계산해봤더니, 온몸으로 하루 종일 햇빛을 받아도 겨우 60kcal, 사탕 두 알이다.",
+      "image_prompt": "Cartoon illustration style, dramatic reveal scene, a scientist in a white coat holding a calculator showing a sad face, next to the scientist two tiny wrapped candies on a plate looking pathetically small, the green-skinned person in the background looking shocked and devastated, comic contrast style, 9:16 vertical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "하루에 필요한 2,000kcal의 겨우 3%.",
+      "image_prompt": "Cartoon illustration style, a giant pie chart where 97% is dark gray and only 3% is glowing green, a tiny stick figure standing on the tiny green slice looking down at the massive gray area in despair, dramatic perspective from above, minimal clean design, 9:16 vertical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "결국 피부만 초록색이 되고, 여전히 배달앱을 켜게 된다.",
+      "image_prompt": "Cartoon illustration style, a disappointed green-skinned person sitting on a couch in a dark room, the glow of a food delivery app on their phone screen illuminating their sad green face, empty pizza boxes around them, a small leaf sprouting from their head as ironic decoration, humorous and slightly melancholic mood, 9:16 vertical",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "밥 안 먹어도 된다면? 결과가 충격 #만약에",
+    "thumbnail_text": "사탕2알=하루치?",
+    "description": "인간이 식물처럼 광합성을 할 수 있다면 밥을 안 먹어도 될까? 과학적 계산 결과가 충격적입니다.\nAI-assisted production.\n#만약에 #광합성 #과학 #쇼츠",
+    "hashtags": ["#만약에", "#광합성", "#과학", "#쇼츠", "#WhatIf", "#식비제로", "#Shorts", "#신기한사실", "#사탕두알", "#상상"],
+    "source_urls": ["https://en.wikipedia.org/wiki/Photosynthesis#Energy_efficiency"]
+  },
+  "render_config": {
+    "voice_preset": "bright-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}
