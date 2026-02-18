@@ -19,31 +19,31 @@
     {
       "id": 1,
       "text": "내일부터 밥 안 먹어도 된다면?",
-      "image_prompt": "Cartoon illustration style, a person looking excited holding up an empty plate proudly, a big red X over a pile of food (rice, chicken, pizza), dreamy sparkle background suggesting freedom from eating, hopeful expression, vibrant colorful cartoon art, 9:16 vertical",
+      "image_prompt": "Anime style close-up of a confident young woman pushing away a lavish dinner table with a bold smirk, food dishes scattering dramatically, golden backlight streaming in, exhilarated liberating expression, dynamic manga speed lines",
       "duration_hint": "hook"
     },
     {
       "id": 2,
       "text": "식물처럼 광합성으로 에너지를 만들 수 있다면, 식비 제로의 삶이 시작되는 거다.",
-      "image_prompt": "Cartoon illustration style, a happy green-skinned person standing in bright sunlight with arms wide open like a tree, glowing energy particles flowing from the sun into their skin, floating zero-dollar signs around them, utopian paradise background, joyful expression, clean colorful cartoon art, 9:16 vertical",
+      "image_prompt": "Beautiful anime illustration of a girl standing in a sunlit meadow with arms spread wide, skin glowing faintly green with leaf patterns, warm golden sunbeams, blissful peaceful expression with closed eyes and gentle smile, Studio Ghibli inspired nature",
       "duration_hint": "body"
     },
     {
       "id": 3,
       "text": "근데 과학자들이 계산해봤더니, 온몸으로 하루 종일 햇빛을 받아도 겨우 60kcal, 사탕 두 알이다.",
-      "image_prompt": "Cartoon illustration style, dramatic reveal scene, a scientist in a white coat holding a calculator showing a sad face, next to the scientist two tiny wrapped candies on a plate looking pathetically small, the green-skinned person in the background looking shocked and devastated, comic contrast style, 9:16 vertical",
+      "image_prompt": "Manga style close-up of a devastated character staring at two tiny candies in their open palm with an expression of absolute betrayal and disbelief, comically exaggerated shocked face, dramatic dark background with spotlight on palm",
       "duration_hint": "body"
     },
     {
       "id": 4,
       "text": "하루에 필요한 2,000kcal의 겨우 3%.",
-      "image_prompt": "Cartoon illustration style, a giant pie chart where 97% is dark gray and only 3% is glowing green, a tiny stick figure standing on the tiny green slice looking down at the massive gray area in despair, dramatic perspective from above, minimal clean design, 9:16 vertical",
+      "image_prompt": "Dark manga panel of a character sitting alone at a huge empty dining table, face resting on hand with hollow disappointed eyes, single tiny crumb on an enormous plate, dramatic overhead angle, comedic despair atmosphere",
       "duration_hint": "body"
     },
     {
       "id": 5,
       "text": "결국 피부만 초록색이 되고, 여전히 배달앱을 켜게 된다.",
-      "image_prompt": "Cartoon illustration style, a disappointed green-skinned person sitting on a couch in a dark room, the glow of a food delivery app on their phone screen illuminating their sad green face, empty pizza boxes around them, a small leaf sprouting from their head as ironic decoration, humorous and slightly melancholic mood, 9:16 vertical",
+      "image_prompt": "Funny anime close-up of a green-skinned character slouched on a couch scrolling a phone with a defeated resigned smile, takeout boxes scattered around, a tiny leaf sprouting from messy hair, warm dim room lighting, ironic comedy manga style",
       "duration_hint": "body"
     }
   ],
@@ -55,7 +55,7 @@
     "source_urls": ["https://en.wikipedia.org/wiki/Photosynthesis#Energy_efficiency"]
   },
   "render_config": {
-    "voice_preset": "bright-female",
+    "voice_preset": "whatif-female",
     "voice_instruct": null,
     "speed": 1.0,
     "format": "dark-bg-text",

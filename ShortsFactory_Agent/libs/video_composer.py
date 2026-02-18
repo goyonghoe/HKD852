@@ -18,10 +18,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 try:
-    from moviepy import ColorClip, AudioFileClip, ImageClip, CompositeVideoClip, vfx
+    from moviepy import ColorClip, AudioFileClip, ImageClip, VideoFileClip, VideoClip, CompositeVideoClip, vfx
 except ImportError:
     subprocess.run([sys.executable, "-m", "pip", "install", "moviepy", "-q"])
-    from moviepy import ColorClip, AudioFileClip, ImageClip, CompositeVideoClip, vfx
+    from moviepy import ColorClip, AudioFileClip, ImageClip, VideoFileClip, VideoClip, CompositeVideoClip, vfx
 
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
@@ -1034,28 +1034,139 @@ def _resize_image_for_shorts(image_path: str, target_size=(1080, 1920)) -> np.nd
     return np.array(img)
 
 
+# ── DepthFlow 2.5D 패럴랙스 ──────────────────────────────────────
+
+# DepthFlow 애니메이션 프리셋 (씬별 다른 움직임)
+DEPTHFLOW_PRESETS = [
+    {"name": "orbital",    "intensity": 0.5},   # 궤도 회전 (hook 기본)
+    {"name": "horizontal", "intensity": 0.4},   # 좌우 패닝
+    {"name": "circle",     "intensity": 0.4},   # 원형 경로
+    {"name": "vertical",   "intensity": 0.3},   # 상하 패닝
+    {"name": "dolly",      "intensity": 0.3},   # 돌리 줌
+    {"name": "zoom",       "intensity": 0.2},   # 줌 인/아웃
+]
+
+# 씬 전환 플래시 효과
+FLASH_DURATION = 0.12  # 플래시 지속시간 (초)
+
+
+def _assign_depthflow_presets(n_scenes: int) -> list[dict]:
+    """씬 개수에 맞게 DepthFlow 프리셋 할당.
+
+    규칙:
+    - 첫 씬 (hook): orbital (시선 집중)
+    - 중간 씬: 순환 (horizontal → circle → vertical → dolly → ...)
+    - 마지막 씬 (cta): zoom (행동 유도 집중)
+    """
+    if n_scenes == 0:
+        return []
+    if n_scenes == 1:
+        return [DEPTHFLOW_PRESETS[0]]
+
+    body_cycle = DEPTHFLOW_PRESETS[1:5]  # horizontal, circle, vertical, dolly
+    presets = [DEPTHFLOW_PRESETS[0]]  # 첫 씬: orbital
+
+    for i in range(1, n_scenes - 1):
+        presets.append(body_cycle[(i - 1) % len(body_cycle)])
+
+    presets.append(DEPTHFLOW_PRESETS[5])  # 마지막: zoom
+    return presets
+
+
+def _render_depthflow_clips(
+    scene_images: list[str],
+    scene_durations: list[float],
+    target_size: tuple = (1080, 1920),
+    depthflow_override: dict = None,
+) -> list[str]:
+    """DepthFlow로 씬 이미지를 2.5D 패럴랙스 비디오로 렌더링.
+
+    Args:
+        depthflow_override: 무드별 프리셋 오버라이드 (예: {"name": "orbital", "intensity": 0.3})
+                           None이면 기존 자동 할당 사용.
+
+    Returns: 렌더링된 임시 MP4 파일 경로 리스트
+    """
+    import tempfile
+
+    os.environ["BROKEN_TORCH"] = "0"
+    from depthflow.scene import DepthScene
+
+    tw, th = target_size
+    if depthflow_override:
+        # 무드 오버라이드: 전체 씬에 동일 프리셋 적용
+        presets = [depthflow_override] * len(scene_images)
+    else:
+        presets = _assign_depthflow_presets(len(scene_images))
+    rendered_paths = []
+
+    # DepthScene 인스턴스 재사용 (OpenGL 컨텍스트 + 모델 1회 로드)
+    scene = DepthScene(backend="headless")
+    scene.ffmpeg.h264(preset="veryfast")
+
+    for idx, (img_path, duration) in enumerate(zip(scene_images, scene_durations)):
+        preset = presets[idx] if idx < len(presets) else DEPTHFLOW_PRESETS[0]
+
+        # 이미지를 정확히 9:16으로 리사이즈 후 temp 저장
+        img = Image.open(img_path).convert("RGB")
+        iw, ih = img.size
+        target_ratio = tw / th
+
+        img_ratio = iw / ih
+        if img_ratio > target_ratio:
+            new_w = int(ih * target_ratio)
+            left = (iw - new_w) // 2
+            img = img.crop((left, 0, left + new_w, ih))
+        else:
+            new_h = int(iw / target_ratio)
+            top = (ih - new_h) // 2
+            img = img.crop((0, top, iw, top + new_h))
+
+        img = img.resize((tw, th), Image.LANCZOS)
+
+        temp_img = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
+        temp_img_path = temp_img.name
+        temp_img.close()  # PIL이 올바르게 쓸 수 있도록 먼저 닫기
+        img.save(temp_img_path)
+
+        # DepthFlow 렌더링
+        temp_out = tempfile.NamedTemporaryFile(suffix=".mp4", delete=False)
+        temp_out_path = temp_out.name
+        temp_out.close()
+        try:
+            scene.input(image=temp_img_path)
+            scene.config.animation.clear()
+
+            # 프리셋 적용
+            getattr(scene, preset["name"])(intensity=preset["intensity"])
+
+            scene.main(output=temp_out_path, fps=30, time=duration, width=tw, height=th)
+            rendered_paths.append(temp_out_path)
+            print(f"        씬 {idx+1}: DepthFlow [{preset['name']}] {duration:.1f}s → OK")
+        except Exception as e:
+            print(f"        씬 {idx+1}: DepthFlow 실패 ({e}) → 정적 폴백")
+            rendered_paths.append(None)
+        finally:
+            os.unlink(temp_img_path)
+
+    return rendered_paths
+
+
 def _create_scene_bg_clips(
     scene_images: list,
     timings: list,
     total_duration: float,
     format_config: dict,
-    fade_duration: float = 0.6,
+    fade_duration: float = 0.3,
+    depthflow_override: dict = None,
 ) -> list:
-    """씬 이미지를 문장 타이밍에 맞춰 크로스페이드 전환으로 배경 클립 생성"""
+    """씬 이미지를 DepthFlow 2.5D 패럴랙스 + flash transition으로 배경 클립 생성."""
+
     n_images = len(scene_images)
     n_sentences = len(timings)
 
     if n_images == 0:
         return [ColorClip(size=(1080, 1920), color=format_config["bg_color"], duration=total_duration)]
-
-    # 이미지 배열 미리 로드
-    loaded_images = []
-    for idx, path in enumerate(scene_images):
-        try:
-            loaded_images.append(_resize_image_for_shorts(path))
-        except Exception as e:
-            print(f"      씬 이미지 로드 실패 [{idx}]: {e}")
-            loaded_images.append(None)
 
     # 씬 구간 계산: 각 문장에 이미지 1:1 매핑
     segments = []
@@ -1068,42 +1179,82 @@ def _create_scene_bg_clips(
         last_idx = min(n_sentences - 1, n_images - 1)
         segments.append((last_idx, timings[-1][2], total_duration))
 
-    # 클립 생성: 크로스페이드 전환 (이전 이미지 연장으로 검은 화면 방지)
-    bg_clips = []
-    for seg_i, (img_idx, start, end) in enumerate(segments):
-        img_array = loaded_images[img_idx] if img_idx < len(loaded_images) else None
-
-        if img_array is None:
-            clip = ColorClip(size=(1080, 1920), color=format_config["bg_color"])
-            clip = clip.with_start(start).with_end(end)
-            bg_clips.append(clip)
-            continue
-
-        # 이전 씬과 다른 이미지일 때만 크로스페이드
-        prev_img_idx = segments[seg_i - 1][0] if seg_i > 0 else -1
-        is_new_image = (img_idx != prev_img_idx)
-
-        # 이전 이미지 연장: 다음 씬이 크로스페이드하는 동안 배경으로 유지
-        # → 검은 화면 방지
-        if seg_i < len(segments) - 1:
-            next_start = segments[seg_i + 1][1]  # 다음 씬 시작
-            clip_end = max(end, next_start)  # 다음 씬 시작까지 연장
+    # 고유 이미지별 구간 병합 (같은 이미지 연속 시 하나의 클립으로)
+    merged = []  # [(img_idx, start, end), ...]
+    for img_idx, start, end in segments:
+        if merged and merged[-1][0] == img_idx:
+            merged[-1] = (img_idx, merged[-1][1], end)
         else:
-            clip_end = max(end, total_duration)
+            merged.append((img_idx, start, end))
 
-        # 새 씬 시작: 약간 앞당겨서 크로스페이드 겹침
-        clip_start = max(0, start - fade_duration) if (seg_i > 0 and is_new_image) else start
-        clip = ImageClip(img_array).with_start(clip_start).with_end(clip_end)
+    # 마지막 씬을 total_duration까지 연장
+    if merged:
+        merged[-1] = (merged[-1][0], merged[-1][1], total_duration)
 
-        # 첫 씬 → 페이드인, 이후 씬 → 크로스페이드인
-        if seg_i == 0:
-            clip = clip.with_effects([vfx.CrossFadeIn(fade_duration)])
-        elif is_new_image:
-            clip = clip.with_effects([vfx.CrossFadeIn(fade_duration)])
+    # DepthFlow 렌더링: 고유 이미지별 패럴랙스 비디오 생성
+    unique_imgs = []
+    unique_durations = []
+    for img_idx, start, end in merged:
+        unique_imgs.append(scene_images[img_idx] if img_idx < n_images else scene_images[-1])
+        unique_durations.append(end - start)
+
+    print(f"      DepthFlow 렌더링 시작: {len(unique_imgs)}개 씬...")
+    try:
+        rendered_paths = _render_depthflow_clips(unique_imgs, unique_durations, depthflow_override=depthflow_override)
+    except Exception as e:
+        print(f"      DepthFlow 실패 ({e}) → 정적 이미지 폴백")
+        rendered_paths = [None] * len(unique_imgs)
+
+    # 클립 생성: DepthFlow 비디오 + flash transition
+    bg_clips = []
+    temp_files = []  # 나중에 정리할 임시 파일
+
+    for seg_i, (img_idx, start, end) in enumerate(merged):
+        video_path = rendered_paths[seg_i] if seg_i < len(rendered_paths) else None
+
+        if video_path and os.path.exists(video_path):
+            # DepthFlow 패럴랙스 비디오 클립
+            try:
+                clip = VideoFileClip(video_path)
+                clip = clip.with_start(start)
+                temp_files.append(video_path)
+            except Exception as e:
+                print(f"        씬 {seg_i+1}: 비디오 로드 실패 ({e})")
+                clip = None
+
+        if not video_path or not os.path.exists(video_path) or clip is None:
+            # 정적 이미지 폴백
+            img_path = unique_imgs[seg_i] if seg_i < len(unique_imgs) else unique_imgs[-1]
+            try:
+                img_array = _resize_image_for_shorts(img_path)
+                clip = ImageClip(img_array, duration=end - start).with_start(start)
+            except Exception:
+                clip = ColorClip(size=(1080, 1920), color=format_config["bg_color"])
+                clip = clip.with_start(start).with_end(end)
+
+        # Flash transition (씬 전환 시 짧은 흰색 플래시)
+        if seg_i > 0:
+            flash_start = start - FLASH_DURATION / 2
+            flash = ColorClip(
+                size=(1080, 1920), color=(255, 255, 255),
+                duration=FLASH_DURATION,
+            ).with_start(max(0, flash_start))
+            flash = flash.with_effects([
+                vfx.CrossFadeIn(FLASH_DURATION / 2),
+                vfx.CrossFadeOut(FLASH_DURATION / 2),
+            ])
+            bg_clips.append(flash)
 
         bg_clips.append(clip)
+        preset_name = _assign_depthflow_presets(len(merged))[seg_i]["name"] if seg_i < len(merged) else "?"
+        print(f"        씬 {seg_i+1}: {start:.1f}~{end:.1f}s [{preset_name}]")
 
-    print(f"      씬 이미지 {n_images}장 → 배경 {len(bg_clips)}개 클립 (크로스페이드 {fade_duration}초)")
+    print(f"      씬 이미지 {n_images}장 → 배경 {len(bg_clips)}개 클립 (DepthFlow 2.5D + flash)")
+
+    # 임시 파일 정리는 render 완료 후 수행 (클립이 읽기 중이므로)
+    # _create_scene_bg_clips._temp_files에 저장
+    _create_scene_bg_clips._temp_files = temp_files
+
     return bg_clips
 
 
@@ -1138,7 +1289,8 @@ def render_from_script(script_path: str, output_path: str = None) -> dict:
             scene_images.append(img_path)
 
     if output_path is None:
-        output_path = str(RENDERED_DIR / f"{episode_id}.mp4")
+        ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+        output_path = str(RENDERED_DIR / f"{episode_id}_{ts}.mp4")
 
     return render_video(
         text=full_text,
@@ -1165,6 +1317,7 @@ def render_video(
     font_size: int = 52,
     scene_images: list = None,
     display_text: str = None,
+    depthflow_override: dict = None,
 ) -> dict:
     """텍스트 → 최종 MP4 영상 (Qwen3-TTS + PIL 자막 + moviepy 합성)"""
     if episode_id is None:
@@ -1363,7 +1516,7 @@ def render_video(
 
     # 씬 이미지가 있으면 배경으로 사용, 없으면 단색 배경
     if scene_images:
-        bg_clips = _create_scene_bg_clips(scene_images, timings, duration, format_config)
+        bg_clips = _create_scene_bg_clips(scene_images, timings, duration, format_config, depthflow_override=depthflow_override)
     else:
         bg_clips = [ColorClip(size=(1080, 1920), color=format_config["bg_color"], duration=duration)]
 
@@ -1385,6 +1538,16 @@ def render_video(
         os.remove(audio_path)
 
     # 결과 검증
+    # DepthFlow 임시 파일 정리
+    if hasattr(_create_scene_bg_clips, "_temp_files"):
+        for tf in _create_scene_bg_clips._temp_files:
+            try:
+                if tf and os.path.exists(tf):
+                    os.unlink(tf)
+            except OSError:
+                pass
+        _create_scene_bg_clips._temp_files = []
+
     if os.path.exists(output_path):
         file_size = os.path.getsize(output_path) / (1024 * 1024)
         print(f"      완료: {output_path}")

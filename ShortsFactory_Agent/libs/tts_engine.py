@@ -98,23 +98,27 @@ QWEN3_VOICE_PRESETS = {
     },
     "bright-female": {
         "instruct": (
-            "A young Korean female voice with a cool, nonchalant baseline tone — "
-            "she sounds effortlessly chic and unbothered, like she already knows the answer. "
-            "Playful and mischievous energy underneath, with a bright vocal color. "
-            "On questions, raise pitch with genuine curiosity and teasing anticipation. "
-            "On exclamations, deliver with punchy surprise or sarcastic amusement, not shouting. "
-            "On dramatic reveals, slow down slightly with a smirk in the voice. "
-            "On facts and numbers, shift to deadpan delivery for comedic contrast. "
-            "Think: a witty Gen-Z Korean female YouTuber who makes science fun — "
-            "half nonchalant, half barely containing excitement."
+            "A bright and energetic young Korean female voice, naturally upbeat and cheerful. "
+            "Speaks with genuine enthusiasm, not forced or robotic excitement. "
+            "Clear and crisp pronunciation with a smile in her voice. "
+            "Natural breathing and rhythm, varies pace organically — "
+            "speeds up when excited, slows down for emphasis. "
+            "Think: a popular Korean female podcast host who naturally makes everything sound interesting."
         ),
         "speed": 1.0,
-        "desc": "심드렁+시크+개구진+밝은톤, 만약에 시리즈 메인",
+        "desc": "밝고 자연스러운 여성, 에너지+친근함",
     },
     "whatif-female": {
-        "instruct": "A young Korean female YouTuber voice with expressive emotional range. Start curious and excited, then shift to dramatic surprise when revealing facts, use playful sarcasm for punchlines. High energy, slightly exaggerated reactions, warm and relatable like talking to a friend. Think popular Korean science YouTube host.",
+        "instruct": (
+            "A young Korean female voice speaking naturally like a real person, not a robot. "
+            "Warm and conversational, like she is telling a friend an amazing story over coffee. "
+            "Genuine curiosity when asking questions, real surprise when revealing shocking facts. "
+            "Slightly breathy and intimate, with natural pauses and rhythm. "
+            "Not overly dramatic or exaggerated — just authentically expressive. "
+            "Think: a smart Korean woman in her late 20s casually explaining something mind-blowing."
+        ),
         "speed": 1.0,
-        "desc": "만약에 시리즈 전용, 감정 풍부한 한국 유튜버 스타일",
+        "desc": "만약에 시리즈 전용, 자연스러운 한국 유튜버 스타일",
     },
     "whatif-male": {
         "instruct": "A young Korean male voice with charismatic storytelling energy. Builds tension with rising intonation, delivers surprising facts with dramatic emphasis, ends with witty dry humor. Confident but approachable, like a popular Korean podcast host who makes science fun.",
@@ -122,9 +126,15 @@ QWEN3_VOICE_PRESETS = {
         "desc": "만약에 시리즈 남성, 카리스마 스토리텔러",
     },
     "storyteller-female": {
-        "instruct": "A warm storytelling female voice with rich emotion, dramatic pauses, captivating and mysterious tone",
+        "instruct": (
+            "A warm and gentle Korean female voice with a soothing, storytelling quality. "
+            "Speaks softly but clearly, like reading a picture book to someone you care about. "
+            "Natural and unhurried rhythm with thoughtful pauses. "
+            "Genuine warmth and empathy in every word, never mechanical. "
+            "Think: a kind Korean teacher explaining something fascinating to curious students."
+        ),
         "speed": 1.0,
-        "desc": "스토리텔러 여성, 미스터리/역사 콘텐츠 적합",
+        "desc": "따뜻한 스토리텔러 여성, 교육/감성 콘텐츠 적합",
     },
     "cool-female": {
         "instruct": "A cool and confident female voice with slightly low pitch, modern and edgy, like a tech podcast host",

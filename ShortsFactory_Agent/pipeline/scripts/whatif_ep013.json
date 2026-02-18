@@ -1,0 +1,92 @@
+{
+  "episode_id": "whatif_ep013",
+  "series": "만약에~",
+  "topic_id": "gravity-disappears",
+  "language": "ko",
+  "script": {
+    "hook": "내일 아침 중력이 사라진다면?",
+    "body": [
+      "일어나자마자 몸이 천장에 부딪힌다.",
+      "커피는 컵에서 둥둥 떠다니고, 고양이는 완전 패닉이다.",
+      "밖에 나가면 사람들이 하늘로 떠오르고 있다.",
+      "5분이면 건물 높이, 30분이면 구름까지 올라간다.",
+      "대기가 우주로 흩어지기 시작한다.",
+      "1시간 후, 숨 쉴 공기가 사라진다.",
+      "결국 지구는 부서지고, 인류는 우주의 먼지가 된다.",
+      "중력은 자유가 아니라, 우리를 지켜주는 힘이었다."
+    ],
+    "cta": "다음 만약에도 충격이다. 구독 눌러."
+  },
+  "full_text": "내일 아침 중력이 사라진다면? 일어나자마자 몸이 천장에 부딪힌다. 커피는 컵에서 둥둥 떠다니고, 고양이는 완전 패닉이다. 밖에 나가면 사람들이 하늘로 떠오르고 있다. 5분이면 건물 높이, 30분이면 구름까지 올라간다. 대기가 우주로 흩어지기 시작한다. 1시간 후, 숨 쉴 공기가 사라진다. 결국 지구는 부서지고, 인류는 우주의 먼지가 된다. 중력은 자유가 아니라, 우리를 지켜주는 힘이었다.",
+  "display_text": "내일 아침 중력이 사라진다면? 일어나자마자 몸이 천장에 부딪힌다. 커피는 컵에서 둥둥 떠다니고, 고양이는 완전 패닉이다. 밖에 나가면 사람들이 하늘로 떠오르고 있다. 5분이면 건물 높이, 30분이면 구름까지 올라간다. 대기가 우주로 흩어지기 시작한다. 1시간 후, 숨 쉴 공기가 사라진다. 결국 지구는 부서지고, 인류는 우주의 먼지가 된다. 중력은 자유가 아니라, 우리를 지켜주는 힘이었다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "내일 아침 중력이 사라진다면?",
+      "image_prompt": "Anime style dramatic close-up of a young woman waking up in bed, hair floating upward defying gravity, eyes wide with shock and confusion, blankets and pillows drifting in mid-air, morning sunlight streaming through window",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "일어나자마자 몸이 천장에 부딪힌다.",
+      "image_prompt": "Manga action panel of a person slamming into their bedroom ceiling with a comical painful grimace, arms flailing, furniture floating below, impact speed lines radiating outward, dramatic fisheye perspective from below",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "커피는 컵에서 둥둥 떠다니고, 고양이는 완전 패닉이다.",
+      "image_prompt": "Anime kitchen scene with coffee floating as perfect brown spheres in mid-air, a cat with hilariously terrified wide saucer eyes clawing at nothing, fur puffed up in pure panic, items floating everywhere, warm morning light",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "밖에 나가면 사람들이 하늘로 떠오르고 있다.",
+      "image_prompt": "Breathtaking anime wide shot of a city street with dozens of people floating upward into the sky, some grabbing lampposts desperately, others with terrified screaming faces, cars lifting off the ground, surreal and beautiful yet terrifying atmosphere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "5분이면 건물 높이, 30분이면 구름까지 올라간다.",
+      "image_prompt": "Vertigo-inducing anime shot looking down from cloud level, tiny buildings far below, a person floating helplessly at cloud height with a stunned awestruck expression, wind whipping their hair, vast sky stretching endlessly",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "대기가 우주로 흩어지기 시작한다.",
+      "image_prompt": "Dark dramatic anime illustration of Earth seen from low orbit, the atmosphere visibly peeling away into space like wisps of smoke, eerie blue glow fading, stars becoming visible through thinning air, hauntingly beautiful and terrifying",
+      "duration_hint": "body"
+    },
+    {
+      "id": 7,
+      "text": "1시간 후, 숨 쉴 공기가 사라진다.",
+      "image_prompt": "Intense manga close-up of a person gasping for breath, hand clutching their throat, face turning blue with desperate suffocating expression, the background fading to the darkness of space, last particles of air visible as tiny glowing dots",
+      "duration_hint": "body"
+    },
+    {
+      "id": 8,
+      "text": "결국 지구는 부서지고, 인류는 우주의 먼지가 된다.",
+      "image_prompt": "Epic anime cosmic scene of Earth crumbling apart into massive fragments drifting into space, molten core glowing orange between the cracks, billions of tiny lights scattering like fireflies into the dark void, devastatingly beautiful destruction",
+      "duration_hint": "body"
+    },
+    {
+      "id": 9,
+      "text": "중력은 자유가 아니라, 우리를 지켜주는 힘이었다.",
+      "image_prompt": "Warm emotional anime close-up of a person standing firmly on solid ground, feet planted on green grass, looking up at a starry night sky with a grateful peaceful smile, gentle wind in their hair, golden warm lighting, feeling of safety and belonging",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "중력이 사라지면 1시간 안에 멸망한다 #만약에",
+    "thumbnail_text": "중력 소멸=인류 멸망",
+    "description": "만약 내일 아침 중력이 사라진다면? 1시간 안에 벌어지는 충격적 결말. 중력의 소중함을 깨닫게 됩니다.\nAI-assisted production.\n#만약에 #중력 #과학 #쇼츠",
+    "hashtags": ["#만약에", "#중력", "#과학", "#쇼츠", "#WhatIf", "#Shorts", "#지구멸망", "#물리학", "#신기한사실", "#우주"],
+    "source_urls": ["https://en.wikipedia.org/wiki/Gravity"]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

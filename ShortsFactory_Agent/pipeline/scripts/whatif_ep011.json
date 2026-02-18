@@ -1,0 +1,64 @@
+{
+  "episode_id": "whatif_ep011",
+  "series": "만약에~",
+  "topic_id": "no-sleep-needed",
+  "language": "ko",
+  "script": {
+    "hook": "오늘부터 잠을 안 자도 된다면?",
+    "body": [
+      "하루 8시간 수면을 안 해도 되면, 인생에서 무려 25년이 추가된다.",
+      "근데 뇌과학자들에 따르면, 잠은 뇌의 쓰레기 청소 시간이다. 잠을 안 자면 뇌에 독성 단백질이 쌓여서 3일 만에 환각이 시작된다.",
+      "역사상 가장 오래 안 잔 사람은 11일. 5일째부터 자기 그림자한테 말을 걸었다.",
+      "결국 25년을 벌어도, 미쳐버리면 쓸 수가 없다."
+    ],
+    "cta": "다음엔 더 황당한 만약에가 온다. 구독 눌러."
+  },
+  "full_text": "오늘부터 잠을 안 자도 된다면? 하루 8시간 수면을 안 해도 되면, 인생에서 무려 25년이 추가된다. 근데 뇌과학자들에 따르면, 잠은 뇌의 쓰레기 청소 시간이다. 잠을 안 자면 뇌에 독성 단백질이 쌓여서 3일 만에 환각이 시작된다. 역사상 가장 오래 안 잔 사람은 11일. 5일째부터 자기 그림자한테 말을 걸었다. 결국 25년을 벌어도, 미쳐버리면 쓸 수가 없다.",
+  "display_text": "오늘부터 잠을 안 자도 된다면? 하루 8시간 수면을 안 해도 되면, 인생에서 무려 25년이 추가된다. 근데 뇌과학자들에 따르면, 잠은 뇌의 쓰레기 청소 시간이다. 잠을 안 자면 뇌에 독성 단백질이 쌓여서 3일 만에 환각이 시작된다. 역사상 가장 오래 안 잔 사람은 11일. 5일째부터 자기 그림자한테 말을 걸었다. 결국 25년을 벌어도, 미쳐버리면 쓸 수가 없다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "오늘부터 잠을 안 자도 된다면?",
+      "image_prompt": "Anime style close-up of a young woman slamming her alarm clock with an exhilarated fierce grin, eyes wide with excitement, messy bed hair flying dramatically, dynamic speed lines in background, warm sunrise glow through window",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "하루 8시간 수면을 안 해도 되면, 인생에서 무려 25년이 추가된다.",
+      "image_prompt": "Manga style split panel showing a character joyfully multitasking at night — reading books, painting, exercising — city lights sparkling behind, euphoric determined facial expression, stars and moon in background",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "잠은 뇌의 쓰레기 청소 시간이다. 잠을 안 자면 뇌에 독성 단백질이 쌓여서 3일 만에 환각이 시작된다.",
+      "image_prompt": "Dark anime style close-up of a character with bloodshot exhausted eyes, dark circles deepening, eerie shadowy figures forming in the darkness behind them, horror manga atmosphere, cold blue-purple lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "역사상 가장 오래 안 잔 사람은 11일. 5일째부터 자기 그림자한테 말을 걸었다.",
+      "image_prompt": "Creepy manga illustration of a haunted-looking person reaching toward their own distorted shadow on the wall, the shadow has a different expression grinning back, dim yellow hallway lighting, psychological horror manga style",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "결국 25년을 벌어도, 미쳐버리면 쓸 수가 없다.",
+      "image_prompt": "Bittersweet anime close-up of a character tucking into bed with a relieved peaceful smile, soft warm blanket wrapped around them, gentle moonlight through curtain, cozy warm color palette, slice-of-life manga warmth",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "잠을 안 자도 된다면? 결말이 소름 #만약에",
+    "thumbnail_text": "25년 추가?!",
+    "description": "만약 잠을 안 자도 된다면 인생에 25년이 추가된다. 하지만 뇌과학이 밝힌 충격적 진실은...\nAI-assisted production.\n#만약에 #수면 #뇌과학 #쇼츠",
+    "hashtags": ["#만약에", "#수면과학", "#뇌과학", "#쇼츠", "#WhatIf", "#Shorts", "#불면", "#환각", "#신기한사실", "#잠"],
+    "source_urls": ["https://en.wikipedia.org/wiki/Sleep_deprivation"]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

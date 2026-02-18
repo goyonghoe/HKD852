@@ -1,0 +1,64 @@
+{
+  "episode_id": "whatif_ep012",
+  "series": "만약에~",
+  "topic_id": "talk-to-animals",
+  "language": "ko",
+  "script": {
+    "hook": "동물이랑 대화할 수 있으면 어떻게 될까?",
+    "body": [
+      "강아지한테 산책 어땠냐고 물어보면, 아마 30분 동안 냄새 리뷰를 해줄 거다.",
+      "근데 진짜 문제는 고양이다. 과학자들에 따르면 고양이는 주인을 동등한 존재로 인식하지 않는다. 대화가 가능해지면 아마 첫마디가 밥이 늦었다 일 거다.",
+      "축산업은 하루 만에 붕괴된다. 소가 도축장 가기 싫다고 말하는 순간 스테이크가 사라진다.",
+      "결국 전 인류가 채식주의자가 되고, 반려동물은 월급을 요구하기 시작한다."
+    ],
+    "cta": "다음 만약에도 미쳤다. 팔로우 해둬."
+  },
+  "full_text": "동물이랑 대화할 수 있으면 어떻게 될까? 강아지한테 산책 어땠냐고 물어보면, 아마 30분 동안 냄새 리뷰를 해줄 거다. 근데 진짜 문제는 고양이다. 과학자들에 따르면 고양이는 주인을 동등한 존재로 인식하지 않는다. 대화가 가능해지면 아마 첫마디가 밥이 늦었다 일 거다. 축산업은 하루 만에 붕괴된다. 소가 도축장 가기 싫다고 말하는 순간 스테이크가 사라진다. 결국 전 인류가 채식주의자가 되고, 반려동물은 월급을 요구하기 시작한다.",
+  "display_text": "동물이랑 대화할 수 있으면 어떻게 될까? 강아지한테 산책 어땠냐고 물어보면, 아마 30분 동안 냄새 리뷰를 해줄 거다. 근데 진짜 문제는 고양이다. 과학자들에 따르면 고양이는 주인을 동등한 존재로 인식하지 않는다. 대화가 가능해지면 아마 첫마디가 밥이 늦었다 일 거다. 축산업은 하루 만에 붕괴된다. 소가 도축장 가기 싫다고 말하는 순간 스테이크가 사라진다. 결국 전 인류가 채식주의자가 되고, 반려동물은 월급을 요구하기 시작한다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "동물이랑 대화할 수 있으면 어떻게 될까?",
+      "image_prompt": "Colorful anime style close-up of a surprised young woman face-to-face with a golden retriever who has an intelligent knowing expression, both staring at each other with wide eyes, sparkly magical atmosphere, warm sunset lighting",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "강아지한테 산책 어땠냐고 물어보면, 아마 30분 동안 냄새 리뷰를 해줄 거다.",
+      "image_prompt": "Funny manga style illustration of a shiba inu with an exaggerated proud connoisseur expression sniffing a fire hydrant intensely, eyes closed in bliss like a wine sommelier, comedic sparkle effects around nose, park background",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "고양이는 주인을 동등한 존재로 인식하지 않는다. 대화가 가능해지면 아마 첫마디가 밥이 늦었다 일 거다.",
+      "image_prompt": "Manga style close-up of an arrogant cat with half-lidded judgmental eyes looking down at the viewer with absolute contempt, sitting on a throne-like cat tower, dramatic backlighting, royal disdainful expression",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "소가 도축장 가기 싫다고 말하는 순간 스테이크가 사라진다.",
+      "image_prompt": "Emotional anime style close-up of a cow with big teary pleading eyes, single dramatic tear rolling down, gentle innocent expression that breaks your heart, soft golden meadow background, Studio Ghibli inspired warmth",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "결국 전 인류가 채식주의자가 되고, 반려동물은 월급을 요구하기 시작한다.",
+      "image_prompt": "Hilarious manga style scene of a cat in a tiny business suit sitting at a desk with arms crossed and a smug demanding expression, a confused human standing across looking flustered, office setting, comedic anime exaggeration",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "동물과 대화하면 생기는 일 #만약에",
+    "thumbnail_text": "고양이 첫마디는?",
+    "description": "만약 동물과 대화할 수 있다면? 강아지의 냄새 리뷰부터 고양이의 첫마디까지, 세상이 완전히 뒤집힌다.\nAI-assisted production.\n#만약에 #동물 #고양이 #강아지 #쇼츠",
+    "hashtags": ["#만약에", "#동물대화", "#고양이", "#강아지", "#쇼츠", "#WhatIf", "#Shorts", "#채식주의", "#신기한사실", "#반려동물"],
+    "source_urls": ["https://en.wikipedia.org/wiki/Animal_communication"]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}
