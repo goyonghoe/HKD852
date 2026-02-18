@@ -9,6 +9,8 @@ YouTube Shorts 시각자료 생성용
   3차: HuggingFace Spaces FLUX.1-merged (무료, API키 불필요)
 """
 
+import hashlib
+import json as _json
 import os
 import random
 import ssl
@@ -48,6 +50,45 @@ HF_API_NAME = "/infer"
 GEMINI_MODEL = "gemini-2.5-flash-image"
 GEMINI_MODEL_FALLBACK = "gemini-2.0-flash-exp-image-generation"
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+
+
+# ── 프롬프트 해시 기반 로컬 캐시 ─────────────────────────
+CACHE_DIR = Path(__file__).parent.parent / "pipeline" / "images" / "_cache"
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+CACHE_INDEX = CACHE_DIR / "index.json"
+
+
+def _prompt_hash(prompt: str, width: int, height: int) -> str:
+    """프롬프트+해상도 → SHA-256 해시 (앞 16자)"""
+    key = f"{prompt}|{width}x{height}"
+    return hashlib.sha256(key.encode()).hexdigest()[:16]
+
+
+def _cache_lookup(prompt: str, width: int, height: int, output_path: str) -> dict | None:
+    """캐시에 동일 프롬프트 이미지가 있으면 복사 후 결과 반환."""
+    import shutil
+    h = _prompt_hash(prompt, width, height)
+    cached_file = CACHE_DIR / f"{h}.png"
+    if cached_file.exists():
+        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(str(cached_file), output_path)
+        size_kb = round(os.path.getsize(output_path) / 1024, 1)
+        return {
+            "success": True, "path": output_path,
+            "size_kb": size_kb, "elapsed": 0.0,
+            "width": width, "height": height,
+            "model": "cache", "engine": "local_cache",
+        }
+    return None
+
+
+def _cache_store(prompt: str, width: int, height: int, source_path: str):
+    """생성된 이미지를 캐시에 저장."""
+    import shutil
+    h = _prompt_hash(prompt, width, height)
+    cached_file = CACHE_DIR / f"{h}.png"
+    if not cached_file.exists():
+        shutil.copy2(source_path, str(cached_file))
 
 
 # ── Pollinations 엔진 ────────────────────────────────────
@@ -288,13 +329,20 @@ def generate_image(
     nologo: bool = True,
     enhance: bool = True,
 ) -> dict:
-    """이미지 생성 (트리플 엔진: Gemini Nano Banana → Pollinations → HF Spaces 자동 폴백)"""
+    """이미지 생성 (캐시 → Gemini Nano Banana → Pollinations → HF Spaces 자동 폴백)"""
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+
+    # 0차: 로컬 캐시 조회
+    cached = _cache_lookup(prompt, width, height, output_path)
+    if cached:
+        return cached
+
     errors = {}
 
     # 1차: Google Gemini Nano Banana (최고 퀄리티)
     result = _gemini_generate(prompt, output_path, width, height)
     if result.get("success"):
+        _cache_store(prompt, width, height, output_path)
         return result
     errors["gemini"] = result.get("error", "?")
 
@@ -302,6 +350,7 @@ def generate_image(
     print(f"        Gemini 실패 ({errors['gemini']}) → Pollinations 폴백")
     result = _pollinations_generate(prompt, output_path, width, height, model, seed)
     if result.get("success"):
+        _cache_store(prompt, width, height, output_path)
         return result
     errors["pollinations"] = result.get("error", "?")
 
@@ -309,6 +358,7 @@ def generate_image(
     print(f"        Pollinations 실패 ({errors['pollinations']}) → HF Spaces 폴백")
     result = _hf_spaces_generate(prompt, output_path, width, height)
     if result.get("success"):
+        _cache_store(prompt, width, height, output_path)
         return result
     errors["hf_spaces"] = result.get("error", "?")
 

@@ -38,6 +38,90 @@ RENDERED_DIR = PIPELINE_DIR / "rendered"
 for d in [TEMP_DIR, RENDERED_DIR]:
     d.mkdir(parents=True, exist_ok=True)
 
+
+# ── VideoToolbox HW 인코딩 감지 ───────────────────────────
+_HAS_VIDEOTOOLBOX = None  # 런타임 캐시
+
+
+def _check_videotoolbox() -> bool:
+    """Apple VideoToolbox h264_videotoolbox 인코더 사용 가능 여부."""
+    global _HAS_VIDEOTOOLBOX
+    if _HAS_VIDEOTOOLBOX is not None:
+        return _HAS_VIDEOTOOLBOX
+    try:
+        r = subprocess.run(
+            ["ffmpeg", "-hide_banner", "-encoders"],
+            capture_output=True, text=True, timeout=5,
+        )
+        _HAS_VIDEOTOOLBOX = "h264_videotoolbox" in r.stdout
+    except Exception:
+        _HAS_VIDEOTOOLBOX = False
+    return _HAS_VIDEOTOOLBOX
+
+
+def _ffmpeg_mux(video_clip, audio_path: str, output_path: str, fps: int = 30):
+    """moviepy CompositeVideoClip → FFmpeg 다이렉트 파이프로 최종 인코딩.
+
+    VideoToolbox HW 인코더가 있으면 h264_videotoolbox,
+    없으면 libx264 veryfast 소프트웨어 인코딩.
+    """
+    import tempfile
+
+    width, height = int(video_clip.w), int(video_clip.h)
+    duration = video_clip.duration
+
+    # VideoToolbox 사용 여부 결정
+    use_hw = _check_videotoolbox()
+    if use_hw:
+        codec_args = ["-c:v", "h264_videotoolbox",
+                      "-b:v", "2M",  # 2Mbps (약 10-15MB for 60초)
+                      "-profile:v", "high"]
+        enc_label = "VideoToolbox HW"
+    else:
+        codec_args = ["-c:v", "libx264", "-preset", "veryfast", "-crf", "23"]
+        enc_label = "libx264 SW"
+    print(f"      인코딩: {enc_label} ({width}x{height} @ {fps}fps)")
+
+    cmd = [
+        "ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
+        # 비디오 입력: rawvideo pipe
+        "-f", "rawvideo", "-vcodec", "rawvideo",
+        "-s", f"{width}x{height}", "-pix_fmt", "rgb24",
+        "-r", str(fps), "-i", "-",
+        # 오디오 입력
+        "-i", audio_path,
+        # 인코딩 설정
+        *codec_args,
+        "-pix_fmt", "yuv420p",
+        "-c:a", "aac", "-b:a", "128k",
+        "-movflags", "+faststart",
+        "-shortest",
+        output_path,
+    ]
+
+    proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    try:
+        total_frames = int(duration * fps)
+        for t_idx in range(total_frames):
+            t = t_idx / fps
+            frame = video_clip.get_frame(t)
+            frame_bytes = frame.astype(np.uint8).tobytes()
+            proc.stdin.write(frame_bytes)
+        proc.stdin.close()
+        proc.wait(timeout=120)
+        if proc.returncode != 0:
+            err_msg = proc.stderr.read().decode(errors="replace")[:500] if proc.stderr else ""
+            raise RuntimeError(f"FFmpeg 인코딩 실패 (rc={proc.returncode}): {err_msg}")
+    except Exception:
+        try:
+            proc.kill()
+            proc.wait(timeout=5)
+        except Exception:
+            pass
+        raise
+
+
 # 영상 포맷 프리셋
 FORMAT_PRESETS = {
     "dark-bg-text": {
@@ -818,7 +902,7 @@ def get_word_timestamps(audio_path: str) -> dict | None:
         ssl._create_default_https_context = ssl._create_unverified_context
         import whisper
         if _whisper_model is None:
-            _whisper_model = whisper.load_model("base")
+            _whisper_model = whisper.load_model("tiny")
         result = _whisper_model.transcribe(audio_path, word_timestamps=True, language="ko")
         words = []
         for seg in result.get("segments", []):
@@ -1527,7 +1611,6 @@ def render_video(
 
     # 3. 영상 합성
     print("[3/3] 영상 렌더링 중...")
-    audio = AudioFileClip(audio_path)
 
     # 씬 이미지가 있으면 배경으로 사용, 없으면 단색 배경
     if scene_images:
@@ -1536,21 +1619,11 @@ def render_video(
         bg_clips = [ColorClip(size=(1080, 1920), color=format_config["bg_color"], duration=duration)]
 
     video = CompositeVideoClip(bg_clips + subtitle_clips)
-    video = video.with_audio(audio)
 
-    video.write_videofile(
-        output_path,
-        fps=30,
-        codec="libx264",
-        audio_codec="aac",
-        preset="veryfast",
-        threads=4,
-        ffmpeg_params=["-crf", "23"],
-        logger=None,
-    )
+    # FFmpeg 다이렉트 파이프 인코딩 (VideoToolbox HW 자동 감지)
+    _ffmpeg_mux(video, audio_path, output_path, fps=30)
 
     # 정리
-    audio.close()
     video.close()
     if os.path.exists(audio_path):
         os.remove(audio_path)
