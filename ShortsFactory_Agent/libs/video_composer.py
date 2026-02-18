@@ -396,16 +396,20 @@ def _insert_silence_at_boundaries(
 
     boundary_times: 문장 경계 시점(초) 리스트 (n-1개)
     각 경계에 silence_sec 만큼의 무음이 삽입됨.
+    경계 컷 지점에 20ms 페이드아웃/페이드인을 적용하여 끊김 방지.
     """
+    FADE_MS = 20  # 페이드 길이 (밀리초)
+
     with wave.open(audio_path, "r") as wf:
         sample_rate = wf.getframerate()
         n_channels = wf.getnchannels()
         sample_width = wf.getsampwidth()
         frames = wf.readframes(wf.getnframes())
-    audio = np.frombuffer(frames, dtype=np.int16)
+    audio = np.frombuffer(frames, dtype=np.int16).astype(np.float32)
 
     n_silence_samples = int(silence_sec * sample_rate * n_channels)
-    silence_block = np.zeros(n_silence_samples, dtype=np.int16)
+    silence_block = np.zeros(n_silence_samples, dtype=np.float32)
+    fade_samples = int(FADE_MS / 1000 * sample_rate * n_channels)
 
     sorted_boundaries = sorted(boundary_times)
     parts = []
@@ -416,15 +420,38 @@ def _insert_silence_at_boundaries(
     for bt in sorted_boundaries:
         sample_idx = int(bt * sample_rate * n_channels)
         sample_idx = min(sample_idx, len(audio))
-        parts.append(audio[prev_sample:sample_idx])
-        parts.append(silence_block)
+        segment = audio[prev_sample:sample_idx].copy()
+
+        # 페이드아웃: 세그먼트 끝 20ms
+        if len(segment) > fade_samples and fade_samples > 0:
+            fade_out = np.linspace(1.0, 0.0, fade_samples)
+            segment[-fade_samples:] *= fade_out
+
+        parts.append(segment)
+        parts.append(silence_block.copy())
         cumulative_silence += silence_sec
         new_boundary_times.append(bt + cumulative_silence)
         prev_sample = sample_idx
 
-    parts.append(audio[prev_sample:])
+    # 나머지 오디오
+    tail = audio[prev_sample:].copy()
+    # 페이드인: 마지막 세그먼트 시작 20ms
+    if len(tail) > fade_samples and fade_samples > 0:
+        fade_in = np.linspace(0.0, 1.0, fade_samples)
+        tail[:fade_samples] *= fade_in
+    parts.append(tail)
+
+    # 각 무음 뒤 세그먼트에도 페이드인 적용 (두 번째 세그먼트부터)
+    # parts 구조: [seg0, silence, seg1, silence, seg2, ..., tail]
+    for pi in range(2, len(parts), 2):  # seg1, seg2, ... (무음 다음 세그먼트)
+        seg = parts[pi]
+        if len(seg) > fade_samples and fade_samples > 0:
+            fade_in = np.linspace(0.0, 1.0, fade_samples)
+            seg[:fade_samples] *= fade_in
 
     combined = np.concatenate(parts)
+    combined = np.clip(combined, -32768, 32767).astype(np.int16)
+
     with wave.open(output_path, "w") as wf:
         wf.setnchannels(n_channels)
         wf.setsampwidth(sample_width)
@@ -433,6 +460,273 @@ def _insert_silence_at_boundaries(
 
     total_duration = len(combined) / (sample_rate * n_channels)
     return total_duration, new_boundary_times
+
+
+def _group_words_into_sentences(
+    sentences: list[str],
+    whisper_words: list[dict],
+    total_duration: float,
+) -> list[tuple[float, float]]:
+    """Whisper 워드를 문장별로 그룹핑하여 문장 범위(시작, 종료) 산출.
+
+    오디오를 자르지 않고, Whisper 워드 위치만으로 각 문장의
+    실제 발화 구간을 결정합니다.
+
+    전략:
+    1. 각 문장의 글자수 비례로 예상 워드 개수 산출
+    2. Whisper 워드를 순서대로 문장에 할당
+    3. 각 문장의 첫 워드 start ~ 마지막 워드 end = 문장 범위
+    4. 문장 사이 갭은 중간점에서 분할 (겹침/빈틈 없이)
+    """
+    n = len(sentences)
+    if n == 0:
+        return []
+    if not whisper_words:
+        # fallback: 글자수 비례
+        char_total = sum(len(s) for s in sentences) or 1
+        ranges = []
+        t = 0.0
+        for s in sentences:
+            d = total_duration * (len(s) / char_total)
+            ranges.append((t, t + d))
+            t += d
+        return ranges
+
+    # 문장별 정규화 텍스트 길이
+    sent_norms = [_normalize_for_match(s) for s in sentences]
+    sent_chars = [max(len(sn), 1) for sn in sent_norms]
+    total_chars = sum(sent_chars)
+
+    # Whisper 워드를 글자수 비례로 문장에 할당
+    n_words = len(whisper_words)
+    word_idx = 0
+    sent_word_groups = []
+
+    for si in range(n):
+        if si < n - 1:
+            # 이 문장에 할당할 워드 수 (비례)
+            alloc = max(1, round(n_words * sent_chars[si] / total_chars))
+            end_idx = min(word_idx + alloc, n_words)
+        else:
+            # 마지막 문장: 나머지 전부
+            end_idx = n_words
+
+        group = whisper_words[word_idx:end_idx]
+        sent_word_groups.append(group)
+        word_idx = end_idx
+
+    # 문장 범위: 각 그룹의 첫 워드 start ~ 마지막 워드 end
+    raw_ranges = []
+    for group in sent_word_groups:
+        if group:
+            raw_ranges.append((group[0]["start"], group[-1]["end"]))
+        elif raw_ranges:
+            # 빈 그룹: 이전 문장 끝에서 시작
+            raw_ranges.append((raw_ranges[-1][1], raw_ranges[-1][1]))
+        else:
+            raw_ranges.append((0.0, 0.0))
+
+    # 문장 사이 갭 처리: 겹침/빈틈 없이 중간점에서 분할
+    ranges = []
+    for si in range(n):
+        s_start = raw_ranges[si][0]
+        s_end = raw_ranges[si][1]
+
+        # 시작점: 이전 문장 끝과의 중간
+        if si > 0:
+            prev_end = raw_ranges[si - 1][1]
+            if s_start > prev_end:
+                s_start = prev_end + (s_start - prev_end) / 2
+            else:
+                s_start = ranges[-1][1]  # 겹치면 이전 끝에서 바로 시작
+
+        # 종료점: 다음 문장 시작과의 중간
+        if si < n - 1:
+            next_start = raw_ranges[si + 1][0]
+            if next_start > s_end:
+                s_end = s_end + (next_start - s_end) / 2
+
+        # 첫 문장은 0부터, 마지막 문장은 끝까지
+        if si == 0:
+            s_start = 0.0
+        if si == n - 1:
+            s_end = total_duration
+
+        ranges.append((s_start, s_end))
+
+    return ranges
+
+
+def _normalize_for_match(text: str) -> str:
+    """Whisper 매칭용 텍스트 정규화 — 숫자/특수문자/공백 제거."""
+    t = text.lower()
+    t = t.replace("kcal", "킬로칼로리").replace("%", "퍼센트")
+    t = re.sub(r"[^가-힣a-z]", "", t)
+    return t
+
+
+def _align_phrases_to_whisper(
+    phrases: list[str],
+    whisper_words: list[dict],
+    range_start: float,
+    range_end: float,
+) -> list[tuple[float, float]]:
+    """구절을 Whisper 워드 타임스탬프에 직접 정렬 — 1단계 전역 매칭.
+
+    이전 방식(문장 그룹핑 → 구절 정렬 2단계)의 누적 오차 문제를 근본 해결.
+    문장 단위 그룹핑 없이, 전체 구절 시퀀스를 Whisper 워드 스트림에 직접 매핑.
+
+    1단계: Whisper 문자열 스트림에서 각 구절의 시작점 순차 매칭 (3~5글자 키)
+    2단계: 미매칭 구절은 전후 앵커 사이를 글자수 비례 보간
+    3단계: 연속 타이밍 (각 구절 end = 다음 구절 start) + 최소 표시시간 보장
+    """
+    MIN_DISPLAY_SEC = 0.5
+    n = len(phrases)
+    if n == 0:
+        return []
+
+    if not whisper_words:
+        return _charlen_distribute(phrases, range_start, range_end)
+
+    # 1단계: Whisper 문자→시간 매핑 구축
+    w_entries = []  # (char, time)
+    for w in whisper_words:
+        norm = _normalize_for_match(w["text"])
+        if not norm:
+            continue
+        w_dur = max(w["end"] - w["start"], 0.001)
+        for ci, ch in enumerate(norm):
+            t = w["start"] + w_dur * (ci / len(norm))
+            w_entries.append((ch, t))
+
+    if not w_entries:
+        return _charlen_distribute(phrases, range_start, range_end)
+
+    # 2단계: 구절별 시작 시점 순차 매칭 (3~5글자 키 + 2글자 퍼지 폴백)
+    phrase_anchors = []
+    search_from = 0
+
+    for phrase in phrases:
+        norm_phrase = _normalize_for_match(phrase)
+        if not norm_phrase or len(norm_phrase) < 2:
+            phrase_anchors.append(None)
+            continue
+
+        # 검색 키: 3~5글자 (고유성 확보)
+        key_len = min(5, len(norm_phrase))
+        search_key = norm_phrase[:key_len]
+
+        found = False
+        for si in range(search_from, len(w_entries) - len(search_key) + 1):
+            candidate = "".join(e[0] for e in w_entries[si:si + len(search_key)])
+            if candidate == search_key:
+                phrase_anchors.append(w_entries[si][1])
+                search_from = si + 1
+                found = True
+                break
+
+        # 퍼지 폴백: 2글자 프리픽스
+        if not found and len(norm_phrase) >= 2:
+            short_key = norm_phrase[:2]
+            for si in range(search_from, len(w_entries) - 1):
+                candidate = w_entries[si][0] + w_entries[si + 1][0]
+                if candidate == short_key:
+                    phrase_anchors.append(w_entries[si][1])
+                    search_from = si + 1
+                    found = True
+                    break
+
+        if not found:
+            phrase_anchors.append(None)
+
+    # 매칭 통계
+    matched = sum(1 for a in phrase_anchors if a is not None)
+    print(f"      구절 정렬: {matched}/{n} 직접 매칭, {n - matched} 보간")
+
+    # 3단계: 미매칭 구절을 전후 앵커 사이에서 글자수 비례 보간
+    timings = list(phrase_anchors)
+
+    i = 0
+    while i < n:
+        if timings[i] is not None:
+            i += 1
+            continue
+        group_start = i
+        while i < n and timings[i] is None:
+            i += 1
+        group_end = i  # exclusive
+
+        anchor_s = timings[group_start - 1] if group_start > 0 else range_start
+        anchor_e = timings[group_end] if group_end < n else range_end
+
+        group_chars = [max(len(_normalize_for_match(phrases[gi])), 1)
+                       for gi in range(group_start, group_end)]
+        total_c = sum(group_chars) or 1
+        t = anchor_s
+        span = anchor_e - anchor_s
+        for gi, chars in enumerate(group_chars):
+            timings[group_start + gi] = t
+            t += span * (chars / total_c)
+
+    # 4단계: start times → 연속 (start, end) 구간
+    # 각 구절의 end = 다음 구절의 start (갭 제로)
+    result = []
+    for pi in range(n):
+        p_start = timings[pi]
+        p_end = timings[pi + 1] if pi < n - 1 else range_end
+        result.append((max(p_start, range_start), min(p_end, range_end)))
+
+    # 첫 구절은 0부터, 마지막 구절은 끝까지 (빈틈 없는 커버리지)
+    if result:
+        result[0] = (range_start, result[0][1])
+        result[-1] = (result[-1][0], range_end)
+
+    # 5단계: 최소 표시 시간 보장 (인접에서 재분배)
+    for _pass in range(3):
+        adjusted = False
+        for pi in range(n):
+            s, e = result[pi]
+            dur = e - s
+            if dur >= MIN_DISPLAY_SEC:
+                continue
+            need = MIN_DISPLAY_SEC - dur
+            if pi < n - 1:
+                ns, ne = result[pi + 1]
+                borrow = min(need, max(ne - ns - MIN_DISPLAY_SEC, 0))
+                if borrow > 0:
+                    result[pi] = (s, e + borrow)
+                    result[pi + 1] = (ns + borrow, ne)
+                    need -= borrow
+                    adjusted = True
+            if need > 0.01 and pi > 0:
+                ps, pe = result[pi - 1]
+                borrow = min(need, max(pe - ps - MIN_DISPLAY_SEC, 0))
+                if borrow > 0:
+                    result[pi - 1] = (ps, pe - borrow)
+                    result[pi] = (result[pi][0] - borrow, result[pi][1])
+                    adjusted = True
+        if not adjusted:
+            break
+
+    return result
+
+
+def _charlen_distribute(
+    phrases: list[str],
+    start: float,
+    end: float,
+) -> list[tuple[float, float]]:
+    """글자수 비례 구절 타이밍 분배 (fallback)."""
+    dur = max(end - start, 0.1)
+    p_chars = [len(p) for p in phrases]
+    tc = sum(p_chars) or 1
+    timings = []
+    pt = start
+    for chars in p_chars:
+        pd = dur * (chars / tc)
+        timings.append((pt, min(pt + pd, end)))
+        pt += pd
+    return timings
 
 
 def _master_audio(input_path: str, output_path: str) -> str:
@@ -903,53 +1197,57 @@ def render_video(
     whisper_words_raw = whisper_data["words"] if whisper_data else []
     print(f"      Whisper 워드 {len(whisper_words_raw)}개 감지")
 
-    # 문장 경계 탐지: 글자수 비례 + Whisper 갭 스냅 (하이브리드)
-    SILENCE_GAP = 0.35
-    sentence_ranges = []
-
-    boundary_times_original = _find_sentence_boundaries(
-        tts_sentences, whisper_words_raw, raw_duration,
-    )
-
-    if boundary_times_original:
-        # 문장 경계에 무음 삽입
-        duration, new_boundaries = _insert_silence_at_boundaries(
-            raw_audio_path, boundary_times_original, SILENCE_GAP, audio_path,
-        )
-        # Whisper 워드 타임스탬프 시프트
-        shifted_words = _shift_whisper_words(
-            whisper_words_raw, boundary_times_original, SILENCE_GAP,
-        )
-        # 문장 범위: new_boundaries로 직접 구분 (빈틈 없음)
-        prev_t = 0.0
-        for nb in new_boundaries:
-            sentence_ranges.append((prev_t, nb))
-            prev_t = nb
-        sentence_ranges.append((prev_t, duration))
-
-        print(f"      무음 삽입 완료: {raw_duration:.1f}초 → {duration:.1f}초")
-    else:
-        # 문장 1개이거나 경계 탐지 실패
-        import shutil
-        shutil.copy2(raw_audio_path, audio_path)
-        duration = raw_duration
-        shifted_words = whisper_words_raw
-        if n_sent == 1:
-            sentence_ranges = [(0.0, duration)]
-        else:
-            char_total = sum(len(s) for s in tts_sentences) or 1
-            t = 0.0
-            for s in tts_sentences:
-                sd = duration * (len(s) / char_total)
-                sentence_ranges.append((t, t + sd))
-                t += sd
+    # 오디오를 그대로 사용 (자르지 않음)
+    import shutil
+    shutil.copy2(raw_audio_path, audio_path)
+    duration = raw_duration
+    shifted_words = whisper_words_raw
 
     # 원본 오디오 정리
     if os.path.exists(raw_audio_path):
         os.remove(raw_audio_path)
 
+    # Whisper 워드 덤프 (디버그)
+    if shifted_words:
+        print(f"      Whisper 워드 덤프:")
+        for wi, w in enumerate(shifted_words):
+            print(f"        [{wi:2d}] {w['start']:5.2f}~{w['end']:5.2f}s \"{w['text']}\"")
+
+    # 2. 자막 생성 — 1단계 전역 정렬 (문장 그룹핑 없이 직접 매핑)
+    print("[2/3] 자막 생성 중...")
+
+    format_config = FORMAT_PRESETS.get(video_format, FORMAT_PRESETS["dark-bg-text"])
+    subtitle_y = format_config["subtitle_y"]
+
+    # 전체 구절 생성 (문장 소속 추적)
+    all_phrases = []
+    phrase_to_sent = []
+    for i in range(n_sent):
+        disp_sent = display_sentences[i] if i < len(display_sentences) else tts_sentences[i]
+        phrases = split_korean_phrases(disp_sent, max_chars=16) if language == "ko" \
+            else split_into_chunks(disp_sent, max_chars=16)
+        for phrase in phrases:
+            all_phrases.append(phrase)
+            phrase_to_sent.append(i)
+
+    # 전체 구절을 Whisper 워드에 직접 정렬 (1단계, 문장 그룹핑 없음)
+    all_timings = _align_phrases_to_whisper(
+        all_phrases, shifted_words, 0.0, duration,
+    )
+
+    # 문장 범위 = 소속 구절들의 범위 합산 (씬 이미지 전환용)
+    sentence_ranges = []
+    for si in range(n_sent):
+        indices = [j for j in range(len(all_phrases)) if phrase_to_sent[j] == si]
+        if indices:
+            sentence_ranges.append((all_timings[indices[0]][0], all_timings[indices[-1]][1]))
+        elif sentence_ranges:
+            sentence_ranges.append((sentence_ranges[-1][1], sentence_ranges[-1][1]))
+        else:
+            sentence_ranges.append((0.0, 0.0))
+
     # 문장별 타이밍 출력
-    print(f"      최종: {duration:.1f}초 (문장 {n_sent}개, 간격 {SILENCE_GAP}초)")
+    print(f"      최종: {duration:.1f}초 (문장 {n_sent}개, 구절 {len(all_phrases)}개, 무편집 원본)")
     for i, (s, e) in enumerate(sentence_ranges):
         disp = display_sentences[i][:25] if i < len(display_sentences) else "?"
         print(f"      문장 {i+1}: {s:.2f}~{e:.2f}초 ({e-s:.1f}s) | {disp}")
@@ -960,71 +1258,43 @@ def render_video(
         for i in range(n_sent)
     ]
 
-    # 2. 자막 생성 (글자수 비례 + Whisper 검증)
-    print("[2/3] 자막 생성 중...")
+    # 구절별 타이밍 결과
+    for j, (phrase, (ps, pe)) in enumerate(zip(all_phrases, all_timings)):
+        si = phrase_to_sent[j]
+        print(f"        [{j+1:2d}] 문장{si+1} {ps:5.2f}~{pe:5.2f}s ({pe-ps:.1f}s) \"{phrase}\"")
 
-    format_config = FORMAT_PRESETS.get(video_format, FORMAT_PRESETS["dark-bg-text"])
-    subtitle_y = format_config["subtitle_y"]
-
+    # 자막 클립 생성
     subtitle_clips = []
     chunk_count = 0
-    all_subtitle_info = []  # 검증용
+    all_subtitle_info = []
 
-    for i in range(n_sent):
-        disp_sent = display_sentences[i] if i < len(display_sentences) else tts_sentences[i]
-        s_start, s_end = sentence_ranges[i]
-        s_dur = s_end - s_start
-
-        phrases = split_korean_phrases(disp_sent, max_chars=16) if language == "ko" \
-            else split_into_chunks(disp_sent, max_chars=16)
-
-        # Whisper 워드 기반 실제 음성 구간 탐지 → 구절 시간 분배
-        sent_words = [w for w in shifted_words
-                      if w["start"] < s_end and w["end"] > s_start]
-        if sent_words:
-            speech_start = max(sent_words[0]["start"], s_start)
-            speech_end = min(sent_words[-1]["end"], s_end)
-        else:
-            speech_start = s_start
-            speech_end = s_end
-        speech_dur = max(speech_end - speech_start, 0.1)
-
-        p_chars = [len(p) for p in phrases]
-        tc = sum(p_chars) or 1
-        phrase_timings = []
-        pt = speech_start
-        for chars in p_chars:
-            pd = speech_dur * (chars / tc)
-            phrase_timings.append((pt, min(pt + pd, speech_end)))
-            pt += pd
-
-        for j, phrase in enumerate(phrases):
-            p_start, p_end = phrase_timings[j]
-            all_subtitle_info.append((phrase, p_start, p_end))
-            try:
-                text_img = create_subtitle_image(phrase, font_size=font_size, language=language)
-                clip = (
-                    ImageClip(text_img)
-                    .with_start(p_start)
-                    .with_end(p_end)
-                    .with_position(("center", subtitle_y))
-                )
-                subtitle_clips.append(clip)
-                chunk_count += 1
-            except Exception as e:
-                print(f"      자막 경고: {e}")
+    for j, phrase in enumerate(all_phrases):
+        p_start, p_end = all_timings[j]
+        all_subtitle_info.append((phrase, p_start, p_end))
+        try:
+            text_img = create_subtitle_image(phrase, font_size=font_size, language=language)
+            clip = (
+                ImageClip(text_img)
+                .with_start(p_start)
+                .with_end(p_end)
+                .with_position(("center", subtitle_y))
+            )
+            subtitle_clips.append(clip)
+            chunk_count += 1
+        except Exception as e:
+            print(f"      자막 경고: {e}")
 
     # 자막-음성 싱크 자동 검증 (3단계)
     print(f"      자막 {chunk_count}개 청크 생성")
     warnings = []
 
-    # 검증 1: 청크 품질 (너무 짧거나 긴 자막)
+    # 검증 1: 청크 품질 (표시 시간 검증)
+    display_fails = 0
     for idx, (phrase, p_start, p_end) in enumerate(all_subtitle_info):
         dur = p_end - p_start
-        if len(phrase) <= 2 and dur < 0.3:
-            warnings.append(f"WARN 청크[{idx+1}] \"{phrase}\" 너무 짧음 ({len(phrase)}자, {dur:.2f}s)")
-        if dur < 0.2:
-            warnings.append(f"WARN 청크[{idx+1}] \"{phrase}\" 표시시간 부족 ({dur:.2f}s < 0.2s)")
+        if dur < 0.4:
+            warnings.append(f"FAIL 청크[{idx+1}] \"{phrase}\" 표시시간 {dur:.2f}s < 0.4s (안 보임)")
+            display_fails += 1
 
     # 검증 2: Whisper 워드 매칭 + 타이밍 오프셋
     print("      [싱크 검증]")
@@ -1064,11 +1334,15 @@ def render_video(
     # 검증 3: 종합 판정
     total = sync_ok + sync_warn
     sync_rate = (sync_ok / total * 100) if total else 0
-    print(f"      [검증 결과] {sync_ok}/{total} OK ({sync_rate:.0f}%)")
+    print(f"      [검증 결과] 싱크 {sync_ok}/{total} OK ({sync_rate:.0f}%)"
+          f" | 표시시간 FAIL {display_fails}건")
     if warnings:
         for w in warnings:
             print(f"      ⚠ {w}")
-    if sync_rate >= 80:
+    if display_fails > 0:
+        print(f"      → FAIL: 자막 {display_fails}개가 0.4초 미만 (시청자에게 안 보임)")
+        print("      → 재렌더링 필수")
+    elif sync_rate >= 80:
         print("      → PASS: 싱크 품질 양호")
     else:
         print(f"      → WARN: 싱크 품질 미달 ({sync_rate:.0f}% < 80%)")
