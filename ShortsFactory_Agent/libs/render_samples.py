@@ -145,7 +145,10 @@ def render_batch(
     script_paths: list[str],
     skip_images: bool = False,
 ) -> dict:
-    """여러 에피소드를 일괄 렌더링.
+    """여러 에피소드를 일괄 렌더링 (2단계: 이미지 병렬 → 영상 순차).
+
+    Phase 1: 모든 에피소드 이미지를 병렬 생성 (API I/O 바운드)
+    Phase 2: 영상 렌더링 순차 실행 (GPU/CPU 바운드)
 
     Args:
         script_paths: 스크립트 JSON 경로 리스트
@@ -154,21 +157,66 @@ def render_batch(
     Returns:
         {"episodes": [...], "summary_path": "..."}
     """
+    from concurrent.futures import ThreadPoolExecutor
+
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+    style = RENDER_STYLE
 
     print(f"{'='*60}")
     print(f"배치 렌더링: {len(script_paths)}개 에피소드")
     print(f"스타일: 만화 (일본/한국 애니메이션)")
     print(f"{'='*60}")
 
-    results = []
     total_start = time.time()
 
-    for idx, script_path in enumerate(script_paths):
-        print(f"\n[{idx+1}/{len(script_paths)}] {Path(script_path).stem}")
+    # ── Phase 1: 이미지 병렬 생성 ──────────────────────────
+    scripts = []
+    for sp in script_paths:
+        with open(sp, "r", encoding="utf-8") as f:
+            scripts.append(json.load(f))
+
+    if not skip_images:
+        print(f"\n[Phase 1] 이미지 병렬 생성 ({len(scripts)}개 에피소드)...")
+        img_start = time.time()
+
+        def _gen_images_for(script_data):
+            ep_id = script_data.get("episode_id", "ep_unknown")
+            scenes = script_data.get("scenes", [])
+            if not scenes:
+                return ep_id, []
+            results = generate_mood_images(
+                scenes=scenes,
+                output_dir=str(IMAGE_DIR),
+                episode_id=ep_id,
+                mood_key="manga",
+                image_prompt_prefix=style["image_prompt_prefix"],
+            )
+            paths = [r["path"] for r in results if r.get("success") and r.get("path")]
+            return ep_id, paths
+
+        # 에피소드별 이미지를 동시 생성 (각 에피소드 내부도 ThreadPool)
+        ep_images = {}
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            futures = {executor.submit(_gen_images_for, s): s for s in scripts}
+            for future in futures:
+                ep_id, paths = future.result()
+                ep_images[ep_id] = paths
+
+        img_elapsed = time.time() - img_start
+        total_imgs = sum(len(v) for v in ep_images.values())
+        print(f"  이미지 생성 완료: {total_imgs}장 ({img_elapsed:.0f}초)")
+    else:
+        ep_images = {}
+
+    # ── Phase 2: 영상 순차 렌더링 (GPU/CPU 집약) ──────────
+    print(f"\n[Phase 2] 영상 렌더링 ({len(scripts)}개 에피소드)...")
+    results = []
+    for idx, (script_path, script_data) in enumerate(zip(script_paths, scripts)):
+        ep_id = script_data.get("episode_id", "ep_unknown")
+        print(f"\n[{idx+1}/{len(scripts)}] {ep_id}")
         result = render_episode(
             script_path=script_path,
-            skip_images=skip_images,
+            skip_images=True,  # Phase 1에서 이미 생성됨
         )
         results.append(result)
 

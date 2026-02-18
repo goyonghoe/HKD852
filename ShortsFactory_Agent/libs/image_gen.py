@@ -354,9 +354,9 @@ def generate_scene_images(
         result["prompt"] = prompt[:80] + "..." if len(prompt) > 80 else prompt
         results.append(result)
 
-        # rate limit 대기 (Pollinations 5초, HF는 제한 느슨하지만 예의상 3초)
+        # Gemini 1순위이므로 rate limit 최소화 (1초)
         if scene != scenes[-1]:
-            time.sleep(3)
+            time.sleep(1)
 
     return results
 
@@ -371,36 +371,52 @@ def generate_mood_images(
     height: int = DEFAULT_HEIGHT,
 ) -> list:
     """무드별 이미지 일괄 생성 — 원본 프롬프트 앞에 스타일 프리픽스 결합."""
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     mood_dir = Path(output_dir) / mood_key
     mood_dir.mkdir(parents=True, exist_ok=True)
-    results = []
 
-    print(f"  [{mood_key}] 이미지 생성 시작 ({len(scenes)}장)...")
+    # 작업 목록 준비
+    tasks = []
     for scene in scenes:
-        scene_id = scene.get("id", len(results) + 1)
+        scene_id = scene.get("id", len(tasks) + 1)
         original_prompt = scene.get("image_prompt", "")
         if not original_prompt:
             continue
-
         mood_prompt = image_prompt_prefix + original_prompt
         output_path = str(mood_dir / f"{episode_id}_scene{scene_id:02d}.png")
-        print(f"    [Scene {scene_id}] {mood_key} 생성 중...")
+        tasks.append((scene_id, mood_prompt, output_path))
 
-        result = generate_image(prompt=mood_prompt, output_path=output_path, width=width, height=height)
+    print(f"  [{mood_key}] 이미지 병렬 생성 시작 ({len(tasks)}장, max_workers=3)...")
 
-        if result["success"]:
-            engine = result.get("engine", "?")
-            print(f"      완료: {result['size_kb']}KB ({result['elapsed']}초) [{engine}]")
-        else:
-            print(f"      실패: {result['error']}")
+    results = [None] * len(tasks)
 
-        result["scene_id"] = scene_id
-        result["mood_key"] = mood_key
-        results.append(result)
+    def _gen_one(idx, scene_id, prompt, out_path):
+        """단일 이미지 생성 (ThreadPool 워커)"""
+        r = generate_image(prompt=prompt, output_path=out_path, width=width, height=height)
+        r["scene_id"] = scene_id
+        r["mood_key"] = mood_key
+        return idx, r
 
-        if scene != scenes[-1]:
-            time.sleep(3)
+    # 최대 3개 동시 생성 (API rate limit 고려)
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        futures = []
+        for i, (sid, prompt, out_path) in enumerate(tasks):
+            f = executor.submit(_gen_one, i, sid, prompt, out_path)
+            futures.append(f)
+            time.sleep(1)  # API rate limit: 1초 간격 제출
 
+        for future in as_completed(futures):
+            idx, r = future.result()
+            results[idx] = r
+            sid = r.get("scene_id", "?")
+            if r.get("success"):
+                engine = r.get("engine", "?")
+                print(f"    [Scene {sid}] 완료: {r['size_kb']}KB ({r['elapsed']}초) [{engine}]")
+            else:
+                print(f"    [Scene {sid}] 실패: {r.get('error', '?')}")
+
+    results = [r for r in results if r is not None]
     success = sum(1 for r in results if r["success"])
     print(f"  [{mood_key}] 완료: {success}/{len(results)}장")
     return results

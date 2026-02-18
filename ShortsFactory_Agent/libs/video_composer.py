@@ -75,8 +75,15 @@ def detect_language(text: str) -> str:
     return "en"
 
 
+_font_cache: dict = {}  # (language, size) → ImageFont 캐시
+
+
 def get_font(language: str, size: int) -> ImageFont.FreeTypeFont:
-    """언어에 맞는 Bold 폰트 로드"""
+    """언어에 맞는 Bold 폰트 로드 (캐시 적용)"""
+    cache_key = (language, size)
+    if cache_key in _font_cache:
+        return _font_cache[cache_key]
+
     # .ttc 파일 내 Bold weight 인덱스
     BOLD_INDEX = {"ko": 6, "ja": 0, "en": 0}
 
@@ -88,8 +95,11 @@ def get_font(language: str, size: int) -> ImageFont.FreeTypeFont:
             try:
                 if path.endswith(".ttc"):
                     idx = BOLD_INDEX.get(language, 0)
-                    return ImageFont.truetype(path, size, index=idx)
-                return ImageFont.truetype(path, size)
+                    font = ImageFont.truetype(path, size, index=idx)
+                else:
+                    font = ImageFont.truetype(path, size)
+                _font_cache[cache_key] = font
+                return font
             except Exception:
                 continue
     return ImageFont.load_default()
@@ -796,15 +806,20 @@ def _shift_whisper_words(
     return shifted
 
 
+_whisper_model = None  # Whisper 싱글톤 캐시
+
+
 def get_word_timestamps(audio_path: str) -> dict | None:
     """Whisper로 워드 레벨 + 세그먼트 레벨 타임스탬프 추출.
     반환: {"words": [...], "segments": [...]} 또는 None
     """
+    global _whisper_model
     try:
         ssl._create_default_https_context = ssl._create_unverified_context
         import whisper
-        model = whisper.load_model("base")
-        result = model.transcribe(audio_path, word_timestamps=True, language="ko")
+        if _whisper_model is None:
+            _whisper_model = whisper.load_model("base")
+        result = _whisper_model.transcribe(audio_path, word_timestamps=True, language="ko")
         words = []
         for seg in result.get("segments", []):
             for w in seg.get("words", []):
@@ -1528,6 +1543,9 @@ def render_video(
         fps=30,
         codec="libx264",
         audio_codec="aac",
+        preset="veryfast",
+        threads=4,
+        ffmpeg_params=["-crf", "23"],
         logger=None,
     )
 

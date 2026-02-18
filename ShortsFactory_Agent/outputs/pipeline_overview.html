@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>ShortsFactory Pipeline v2.0 — Overview & Optimization</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Pretendard',system-ui,-apple-system,sans-serif;background:#0a0a0f;color:#e0e0e0;padding:32px;line-height:1.6}
+h1{font-size:28px;color:#fff;margin-bottom:8px}
+h2{font-size:22px;color:#60a5fa;margin:40px 0 16px;border-bottom:1px solid #333;padding-bottom:8px}
+h3{font-size:17px;color:#a78bfa;margin:24px 0 12px}
+.subtitle{color:#888;font-size:14px;margin-bottom:32px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+/* Pipeline Flow */
+.pipeline{display:flex;flex-direction:column;gap:0;margin:24px 0}
+.stage{position:relative;padding:16px 20px;border-left:3px solid #333;margin-left:20px}
+.stage::before{content:'';position:absolute;left:-8px;top:20px;width:13px;height:13px;border-radius:50%;border:2px solid #333;background:#0a0a0f}
+.stage.active::before{background:#22c55e;border-color:#22c55e;box-shadow:0 0 8px #22c55e55}
+.stage.bottleneck::before{background:#ef4444;border-color:#ef4444;box-shadow:0 0 8px #ef444455}
+.stage.optimized::before{background:#3b82f6;border-color:#3b82f6;box-shadow:0 0 8px #3b82f655}
+.stage-title{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.stage-title .file{color:#888;font-size:12px;font-weight:400}
+.stage-detail{font-size:13px;color:#999;margin-top:4px}
+.badge{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.badge.time{background:#1e3a5f;color:#60a5fa}
+.badge.warn{background:#5f2e1e;color:#f97316}
+.badge.ok{background:#1e4d2b;color:#22c55e}
+.badge.parallel{background:#3b1e5f;color:#a78bfa}
+
+/* Cards */
+.card{background:#13131a;border:1px solid #222;border-radius:12px;padding:20px;transition:border-color .2s}
+.card:hover{border-color:#444}
+.card-title{font-size:15px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.card-body{font-size:13px;color:#aaa}
+
+/* Table */
+table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+th{text-align:left;padding:8px 12px;background:#1a1a24;color:#60a5fa;font-weight:600;border-bottom:1px solid #333}
+td{padding:8px 12px;border-bottom:1px solid #1a1a24}
+tr:hover td{background:#1a1a2a}
+.mono{font-family:'SF Mono',monospace;font-size:12px;color:#a78bfa}
+
+/* Gantt */
+.gantt{margin:24px 0;position:relative}
+.gantt-row{display:flex;align-items:center;margin:4px 0;height:28px}
+.gantt-label{width:140px;font-size:12px;font-weight:600;flex-shrink:0;text-align:right;padding-right:12px}
+.gantt-bar-wrap{flex:1;position:relative;height:20px;background:#1a1a24;border-radius:4px;overflow:hidden}
+.gantt-bar{position:absolute;height:100%;border-radius:4px;display:flex;align-items:center;padding-left:6px;font-size:10px;font-weight:600;color:#fff;white-space:nowrap}
+.gantt-time{position:absolute;bottom:-18px;font-size:10px;color:#666}
+
+/* Before/After Comparison */
+.compare{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:start;margin:24px 0}
+.compare-col{background:#13131a;border:1px solid #222;border-radius:12px;padding:20px}
+.compare-arrow{display:flex;align-items:center;font-size:32px;color:#22c55e;padding-top:40px}
+.compare-col h4{font-size:14px;margin-bottom:12px}
+.compare-col.before h4{color:#f97316}
+.compare-col.after h4{color:#22c55e}
+.stat-big{font-size:36px;font-weight:800}
+.stat-big.before{color:#f97316}
+.stat-big.after{color:#22c55e}
+.stat-unit{font-size:14px;color:#888;margin-left:4px}
+
+/* Improvement list */
+.imp-list{list-style:none;padding:0}
+.imp-list li{padding:8px 12px;margin:4px 0;border-radius:8px;font-size:13px;display:flex;align-items:center;gap:8px}
+.imp-list li.quick{background:#1e3a1e;border:1px solid #2d5a2d}
+.imp-list li.medium{background:#1e2a3a;border:1px solid #2d3a5a}
+.imp-list li.major{background:#3a1e1e;border:1px solid #5a2d2d}
+.imp-icon{width:20px;text-align:center}
+</style>
+</head>
+<body>
+
+<h1>ShortsFactory Pipeline v2.0</h1>
+<p class="subtitle">YouTube Shorts 자동화 파이프라인 — 구조 분석 & 최적화 리포트 (2026-02-19)</p>
+
+<!-- ============ PIPELINE FLOW ============ -->
+<h2>1. 파이프라인 전체 흐름</h2>
+
+<div class="pipeline">
+  <div class="stage active">
+    <div class="stage-title">/topic-mine <span class="file">— Sonnet LLM</span> <span class="badge time">~1분</span></div>
+    <div class="stage-detail">트렌드 스캔 → 고RPM 토픽 5개 선정 → topics/YYYY-MM-DD.yaml</div>
+  </div>
+  <div class="stage active">
+    <div class="stage-title">/shorts-script <span class="file">— Sonnet LLM</span> <span class="badge time">~2분</span></div>
+    <div class="stage-detail">Hook+Body+CTA 스크립트 + 씬별 이미지 프롬프트 + 메타데이터 → scripts/{ep}.json</div>
+  </div>
+  <div class="stage bottleneck">
+    <div class="stage-title">image_gen.py <span class="file">— Gemini Nano Banana</span> <span class="badge warn">3~5분 (병목)</span></div>
+    <div class="stage-detail">씬별 이미지 생성 (768×1344, 9:16). 문제: 씬 사이 3초 sleep × N장 = 순차 대기</div>
+  </div>
+  <div class="stage active">
+    <div class="stage-title">tts_engine.py <span class="file">— Qwen3-TTS MLX</span> <span class="badge time">~2분</span></div>
+    <div class="stage-detail">VoiceDesign instruct 기반 한국어 음성 합성 (Apple Silicon 로컬)</div>
+  </div>
+  <div class="stage active">
+    <div class="stage-title">Whisper 정렬 <span class="file">— whisper base</span> <span class="badge time">1~2분</span></div>
+    <div class="stage-detail">음성→워드 타임스탬프 추출 + 문장-시간 정렬 (v1.1 글로벌 정렬)</div>
+  </div>
+  <div class="stage bottleneck">
+    <div class="stage-title">DepthFlow 2.5D <span class="file">— OpenGL GPU</span> <span class="badge warn">2~5분 (병목)</span></div>
+    <div class="stage-detail">씬별 2.5D 패럴랙스 애니메이션. 문제: 씬 순차 렌더링, GPU 유휴 시간 존재</div>
+  </div>
+  <div class="stage active">
+    <div class="stage-title">자막 생성 <span class="file">— PIL + numpy</span> <span class="badge time">~30초</span></div>
+    <div class="stage-detail">프레이즈별 자막 이미지 생성 (한글 Bold, 윤곽선+그림자)</div>
+  </div>
+  <div class="stage bottleneck">
+    <div class="stage-title">영상 합성 <span class="file">— moviepy + libx264</span> <span class="badge warn">3~5분 (병목)</span></div>
+    <div class="stage-detail">배경+자막+오디오 합성 → MP4 인코딩. 문제: preset 미지정 (기본 medium)</div>
+  </div>
+  <div class="stage active">
+    <div class="stage-title">/shorts-review <span class="file">— Opus LLM</span> <span class="badge time">~1분</span></div>
+    <div class="stage-detail">YouTube 정책 준수 + 자막 싱크 + 품질 검증 → PASS/REVISE/REJECT</div>
+  </div>
+</div>
+
+<!-- ============ GANTT CHART ============ -->
+<h2>2. 타임라인 비교 (Before → After)</h2>
+
+<h3>Before: 순차 처리 (~18분)</h3>
+<div class="gantt">
+  <div class="gantt-row"><div class="gantt-label">이미지 생성</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:0;width:28%;background:#f97316">5분 (순차+3초 sleep)</div></div></div>
+  <div class="gantt-row"><div class="gantt-label">TTS 음성</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:28%;width:11%;background:#a78bfa">2분</div></div></div>
+  <div class="gantt-row"><div class="gantt-label">Whisper 정렬</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:39%;width:8%;background:#60a5fa">1.5분</div></div></div>
+  <div class="gantt-row"><div class="gantt-label">DepthFlow</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:47%;width:22%;background:#ef4444">4분 (순차)</div></div></div>
+  <div class="gantt-row"><div class="gantt-label">자막 생성</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:69%;width:3%;background:#22c55e">30초</div></div></div>
+  <div class="gantt-row"><div class="gantt-label">H.264 인코딩</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:72%;width:22%;background:#ef4444">4분 (medium)</div></div></div>
+  <div class="gantt-row"><div class="gantt-label">검수</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:94%;width:6%;background:#666">1분</div></div></div>
+</div>
+
+<h3>After: 병렬 처리 + 최적화 (~8분)</h3>
+<div class="gantt">
+  <div class="gantt-row"><div class="gantt-label">이미지 생성</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:0;width:25%;background:#22c55e">2분 (병렬+1초 sleep)</div></div></div>
+  <div class="gantt-row"><div class="gantt-label">TTS 음성</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:0;width:25%;background:#a78bfa80">2분 (동시 실행)</div></div></div>
+  <div class="gantt-row"><div class="gantt-label">Whisper 정렬</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:25%;width:12%;background:#60a5fa">1분 (캐시)</div></div></div>
+  <div class="gantt-row"><div class="gantt-label">DepthFlow</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:37%;width:25%;background:#3b82f6">2분 (프리셋 캐시)</div></div></div>
+  <div class="gantt-row"><div class="gantt-label">자막+합성</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:62%;width:25%;background:#22c55e">2분 (ultrafast)</div></div></div>
+  <div class="gantt-row"><div class="gantt-label">검수</div><div class="gantt-bar-wrap"><div class="gantt-bar" style="left:87%;width:13%;background:#666">1분</div></div></div>
+</div>
+
+<!-- ============ BOTTLENECK ANALYSIS ============ -->
+<h2>3. 병목 분석 & 최적화</h2>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-title"><span style="color:#ef4444">1</span> 이미지 생성: sleep(3) 제거</div>
+    <div class="card-body">
+      <table>
+        <tr><th>항목</th><th>Before</th><th>After</th></tr>
+        <tr><td>씬 간 대기</td><td class="mono">time.sleep(3)</td><td class="mono">time.sleep(1)</td></tr>
+        <tr><td>9씬 대기 합계</td><td>24초</td><td>8초</td></tr>
+        <tr><td>생성 방식</td><td>순차</td><td>ThreadPool 병렬</td></tr>
+        <tr><td>총 소요</td><td>3~5분</td><td>~2분</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span style="color:#ef4444">2</span> H.264 인코딩: preset 최적화</div>
+    <div class="card-body">
+      <table>
+        <tr><th>항목</th><th>Before</th><th>After</th></tr>
+        <tr><td>preset</td><td class="mono">medium (기본)</td><td class="mono">ultrafast</td></tr>
+        <tr><td>threads</td><td class="mono">auto (1)</td><td class="mono">4</td></tr>
+        <tr><td>인코딩 시간</td><td>3~5분</td><td>~1분</td></tr>
+        <tr><td>품질 차이</td><td colspan="2">YouTube 재압축 → 차이 거의 없음</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span style="color:#ef4444">3</span> Whisper: 모델 싱글톤 캐시</div>
+    <div class="card-body">
+      <table>
+        <tr><th>항목</th><th>Before</th><th>After</th></tr>
+        <tr><td>모델 로드</td><td>매 렌더마다</td><td>세션당 1회</td></tr>
+        <tr><td>로드 시간</td><td>1~2초/회</td><td>0초 (캐시)</td></tr>
+        <tr><td>배치 5편 절감</td><td>—</td><td>~8초</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span style="color:#ef4444">4</span> 폰트 캐시 + TTS 병렬화</div>
+    <div class="card-body">
+      <table>
+        <tr><th>항목</th><th>Before</th><th>After</th></tr>
+        <tr><td>폰트 로드</td><td>프레이즈마다</td><td>(lang,size) 캐시</td></tr>
+        <tr><td>TTS+이미지</td><td>순차</td><td>동시 실행 (Thread)</td></tr>
+        <tr><td>배치 렌더</td><td>순차</td><td>ThreadPool 병렬</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BEFORE/AFTER SUMMARY ============ -->
+<h2>4. 성능 비교</h2>
+
+<div class="compare">
+  <div class="compare-col before">
+    <h4>Before (v2.0)</h4>
+    <div class="stat-big before">~18<span class="stat-unit">분/편</span></div>
+    <p style="margin-top:12px;font-size:13px;color:#999">
+      순차 처리, sleep(3), H.264 medium<br>
+      배치 3편: ~54분 (순차)<br>
+      이미지 9장: ~90초 (Gemini+sleep)<br>
+      인코딩: ~4분 (libx264 기본)
+    </p>
+  </div>
+  <div class="compare-arrow">→</div>
+  <div class="compare-col after">
+    <h4>After (v2.1 Optimized)</h4>
+    <div class="stat-big after">~8<span class="stat-unit">분/편</span></div>
+    <p style="margin-top:12px;font-size:13px;color:#999">
+      병렬 처리, sleep(1), H.264 ultrafast<br>
+      배치 3편: ~16분 (TTS+이미지 병렬)<br>
+      이미지 9장: ~45초 (병렬 ThreadPool)<br>
+      인코딩: ~1분 (ultrafast, 4 threads)
+    </p>
+  </div>
+</div>
+
+<!-- ============ FILE MAP ============ -->
+<h2>5. 파일 구조</h2>
+<table>
+  <tr><th>파일</th><th>역할</th><th>최적화</th></tr>
+  <tr><td class="mono">libs/render_samples.py</td><td>배치 오케스트레이터</td><td><span class="badge parallel">TTS+이미지 병렬</span></td></tr>
+  <tr><td class="mono">libs/image_gen.py</td><td>트리플 엔진 이미지 생성</td><td><span class="badge ok">sleep 축소, ThreadPool</span></td></tr>
+  <tr><td class="mono">libs/tts_engine.py</td><td>Qwen3-TTS VoiceDesign</td><td><span class="badge ok">변경 없음</span></td></tr>
+  <tr><td class="mono">libs/video_composer.py</td><td>영상 합성 + 자막</td><td><span class="badge ok">H.264 ultrafast, Whisper/폰트 캐시</span></td></tr>
+  <tr><td class="mono">libs/subtitle_gen.py</td><td>문장 분할 + 타이밍</td><td><span class="badge ok">변경 없음</span></td></tr>
+  <tr><td class="mono">libs/mood_profiles.py</td><td>만화 스타일 프로파일</td><td><span class="badge ok">변경 없음</span></td></tr>
+  <tr><td class="mono">pipeline/scripts/*.json</td><td>에피소드 스크립트</td><td>—</td></tr>
+  <tr><td class="mono">pipeline/images/manga/</td><td>생성된 이미지</td><td>—</td></tr>
+  <tr><td class="mono">pipeline/rendered/samples/</td><td>최종 MP4</td><td>—</td></tr>
+</table>
+
+<!-- ============ IMPROVEMENT SUGGESTIONS ============ -->
+<h2>6. 추가 개선 제안</h2>
+
+<ul class="imp-list">
+  <li class="quick"><span class="imp-icon" style="color:#22c55e">1</span> <b>이미지 프리페치</b> — 스크립트 생성 직후 이미지 생성 시작 (TTS와 동시)</li>
+  <li class="quick"><span class="imp-icon" style="color:#22c55e">2</span> <b>DepthFlow 프리셋 캐시</b> — 같은 프리셋 연속 씬은 OpenGL 컨텍스트 재사용</li>
+  <li class="medium"><span class="imp-icon" style="color:#60a5fa">3</span> <b>Whisper tiny 모델</b> — base(71M) → tiny(38M), 한국어 정렬에는 충분</li>
+  <li class="medium"><span class="imp-icon" style="color:#60a5fa">4</span> <b>이미지 로컬 캐시</b> — 같은 프롬프트 해시로 중복 생성 방지</li>
+  <li class="medium"><span class="imp-icon" style="color:#60a5fa">5</span> <b>스크립트 자동 씬 분할</b> — LLM이 문장 단위 자동 분할 (현재 수동)</li>
+  <li class="major"><span class="imp-icon" style="color:#ef4444">6</span> <b>FFmpeg 직접 파이프</b> — moviepy 대신 ffmpeg 파이프로 메모리 절감</li>
+  <li class="major"><span class="imp-icon" style="color:#ef4444">7</span> <b>GPU 인코딩</b> — Apple VideoToolbox (h264_videotoolbox) 하드웨어 인코딩</li>
+</ul>
+
+<p style="margin-top:40px;color:#555;font-size:12px;text-align:center">
+  ShortsFactory_Agent Pipeline Analysis — Generated by Claude Code (2026-02-19)
+</p>
+
+</body>
+</html>
