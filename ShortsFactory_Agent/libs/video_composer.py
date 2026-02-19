@@ -924,6 +924,9 @@ def get_word_timestamps(audio_path: str) -> dict | None:
         return None
 
 
+IMAGE_OFFSET_SEC = 0.35  # 이미지 전환을 음성보다 약간 뒤로 (체감 싱크 보정)
+
+
 def _compute_scene_timings(
     scenes: list[dict],
     whisper_words: list[dict],
@@ -933,6 +936,7 @@ def _compute_scene_timings(
 
     원리: 각 씬의 text를 어절(띄어쓰기) 단위로 나누고,
           Whisper 워드와 비례 매핑하여 해당 씬의 시작/끝 Whisper 시간을 결정.
+    보정: IMAGE_OFFSET_SEC만큼 이미지 전환을 지연시켜 '음성→이미지' 순서 체감.
 
     Returns: [(scene_id, start_sec, end_sec), ...]
     """
@@ -990,6 +994,18 @@ def _compute_scene_timings(
     if result:
         last = result[-1]
         result[-1] = (last[0], last[1], total_duration)
+
+    # 이미지 전환 오프셋 적용: 첫 씬 제외, 나머지 씬의 시작을 뒤로 밀어
+    # 이전 씬 이미지가 0.35초 더 머물도록 → "음성 먼저, 이미지 뒤따라" 체감
+    offset = IMAGE_OFFSET_SEC
+    if offset > 0 and len(result) > 1:
+        for i in range(len(result) - 1, 0, -1):  # 뒤에서부터 (첫 씬 제외)
+            sid, st, et = result[i]
+            new_start = min(st + offset, et - 0.3)  # 최소 0.3초 확보
+            result[i] = (sid, new_start, et)
+            # 이전 씬의 끝을 새 시작에 맞춤
+            prev_sid, prev_st, prev_et = result[i - 1]
+            result[i - 1] = (prev_sid, prev_st, new_start)
 
     return result
 

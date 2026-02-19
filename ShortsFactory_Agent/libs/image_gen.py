@@ -91,6 +91,53 @@ def _cache_store(prompt: str, width: int, height: int, source_path: str):
         shutil.copy2(source_path, str(cached_file))
 
 
+# ── 프롬프트 정제 (non-LLM 엔진용) ───────────────────────
+import re as _re
+
+_ARTIFACT_PATTERNS = [
+    # 손에 뭔가를 들고 있는 표현 제거 (AI가 가장 못하는 것)
+    _re.compile(r"\b(holding|clutching|gripping|grasping|carrying)\s+(a\s+)?(phone|smartphone|cable|pen|ticket|wallet|envelope|letter|paper|card|device|cup|mug)\b", _re.IGNORECASE),
+    # 화면에 특정 내용 표시 표현 제거
+    _re.compile(r"\b(showing|displaying|reading)\s+['\"]?[^,]{3,30}['\"]?\s+(on\s+(the\s+)?screen|error|message)\b", _re.IGNORECASE),
+    # 특정 앱 아이콘/UI 묘사 제거
+    _re.compile(r"\b(app\s+icons?\s+(all\s+)?grayed\s+out|X\s+marks|broken\s+social\s+media\s+symbols)\b", _re.IGNORECASE),
+    # 상세한 손가락/손 동작 제거
+    _re.compile(r"\b(tapping|swiping|typing\s+on|pressing|pointing\s+at)\s+(the\s+)?(screen|phone|keyboard|button)\b", _re.IGNORECASE),
+]
+
+# 아티팩트 유발 표현 → 무드 대체어
+_REPLACEMENTS = [
+    (_re.compile(r"staring at (her|his|their) smartphone screen", _re.IGNORECASE), "silhouetted against a glowing screen"),
+    (_re.compile(r"dead smartphones? scattered", _re.IGNORECASE), "dark empty screens around them"),
+    (_re.compile(r"disconnected ethernet cable", _re.IGNORECASE), "unplugged glowing cables"),
+    (_re.compile(r"holding (a |an )?empty wallet", _re.IGNORECASE), "with desperate expression"),
+    (_re.compile(r"holding (a |an )?(old )?rotary phone", _re.IGNORECASE), "surrounded by vintage phone silhouettes"),
+    (_re.compile(r"writing a handwritten letter", _re.IGNORECASE), "in a warm contemplative moment"),
+    (_re.compile(r"multiple dead smartphones", _re.IGNORECASE), "dark silent devices"),
+]
+
+_ANTI_ARTIFACT_SUFFIX = (
+    ", avoid drawing fingers or hands holding small objects, "
+    "no text or letters on any surface, symbolic mood-focused composition"
+)
+
+
+def _sanitize_prompt(prompt: str) -> str:
+    """non-LLM 엔진용 프롬프트 정제: 아티팩트 유발 표현 제거/대체."""
+    for pattern, replacement in _REPLACEMENTS:
+        prompt = pattern.sub(replacement, prompt)
+    for pattern in _ARTIFACT_PATTERNS:
+        prompt = pattern.sub("", prompt)
+    # 연속 공백/쉼표 정리
+    prompt = _re.sub(r",\s*,", ",", prompt)
+    prompt = _re.sub(r"\s{2,}", " ", prompt).strip()
+    if not prompt.rstrip().endswith((".", ",")):
+        prompt += _ANTI_ARTIFACT_SUFFIX
+    else:
+        prompt = prompt.rstrip(",. ") + _ANTI_ARTIFACT_SUFFIX
+    return prompt
+
+
 # ── Pollinations 엔진 ────────────────────────────────────
 
 def _pollinations_generate(
@@ -240,11 +287,25 @@ def _gemini_generate(
     start = time.time()
     models_to_try = [GEMINI_MODEL, GEMINI_MODEL_FALLBACK]
 
+    # 프롬프트에서 따옴표로 감싼 텍스트 제거 (AI가 화면에 텍스트를 렌더링하는 원인)
+    cleaned = _re.sub(r"""['"][^'"]{2,40}['"]""", "something", prompt)
+    # "showing X error/message" 패턴 제거
+    cleaned = _re.sub(r"\bshowing\s+\w+\s+(error|message|content|text)\b", "with emotional reaction", cleaned, flags=_re.IGNORECASE)
+
     gen_prompt = (
-        "Generate a vertical portrait-oriented image (9:16 aspect ratio). "
-        "IMPORTANT: Do NOT include any text, letters, numbers, words, labels, "
-        "captions, watermarks, or UI elements in the image. Pure visual only. "
-        f"Scene: {prompt}"
+        "Generate a vertical portrait-oriented image (9:16 aspect ratio).\n\n"
+        "CRITICAL RULES:\n"
+        "1. Focus on the OVERALL MOOD and CORE CONCEPT — not fine physical details.\n"
+        "2. Use SIMPLE, BOLD compositions with 1-2 main visual elements only.\n"
+        "3. NEVER draw hands holding small objects (phones, cables, pens, tickets).\n"
+        "4. ABSOLUTELY NO text, letters, numbers, labels, screen content, or UI anywhere in the image. This is the #1 priority rule.\n"
+        "5. Show technology/objects SYMBOLICALLY (glowing silhouettes, abstract shapes, light effects) — NOT literally.\n"
+        "6. Prefer wide or medium environmental mood shots over character close-ups with props.\n"
+        "7. Use dramatic lighting and bold color palette to convey emotion — NOT detailed facial muscle expressions.\n"
+        "8. If the prompt describes someone using a device or holding something, show the EMOTIONAL ATMOSPHERE instead.\n"
+        "9. Avoid rendering fingers, phone screens, written text, or small mechanical details.\n"
+        "10. Think like a movie poster or album cover — one powerful image that captures the FEELING.\n\n"
+        f"Scene to visualize: {cleaned}"
     )
 
     for model_id in models_to_try:
@@ -346,17 +407,18 @@ def generate_image(
         return result
     errors["gemini"] = result.get("error", "?")
 
-    # 2차: Pollinations.ai
+    # 2차: Pollinations.ai (non-LLM → 정제된 프롬프트 사용)
+    sanitized = _sanitize_prompt(prompt)
     print(f"        Gemini 실패 ({errors['gemini']}) → Pollinations 폴백")
-    result = _pollinations_generate(prompt, output_path, width, height, model, seed)
+    result = _pollinations_generate(sanitized, output_path, width, height, model, seed)
     if result.get("success"):
-        _cache_store(prompt, width, height, output_path)
+        _cache_store(prompt, width, height, output_path)  # 원본 프롬프트로 캐시
         return result
     errors["pollinations"] = result.get("error", "?")
 
-    # 3차: HuggingFace Spaces FLUX
+    # 3차: HuggingFace Spaces FLUX (non-LLM → 정제된 프롬프트 사용)
     print(f"        Pollinations 실패 ({errors['pollinations']}) → HF Spaces 폴백")
-    result = _hf_spaces_generate(prompt, output_path, width, height)
+    result = _hf_spaces_generate(sanitized, output_path, width, height)
     if result.get("success"):
         _cache_store(prompt, width, height, output_path)
         return result

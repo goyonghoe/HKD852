@@ -10,10 +10,11 @@ v2: 3-Mood(같은 이야기×3무드) → 3-Script(다른 이야기×1스타일)
 RENDER_STYLE = {
     "image_prompt_prefix": (
         "Japanese anime manga style illustration, "
-        "expressive character close-up with detailed facial expression, "
-        "showing strong emotion, vibrant colors, clean bold line art, "
-        "dramatic cinematic lighting, Korean webtoon influence, "
-        "no text no numbers no letters no words, "
+        "bold simple composition with single clear focal point, "
+        "symbolic visual storytelling, vibrant colors, clean line art, "
+        "dramatic cinematic lighting, wide or medium shot preferred, "
+        "Korean webtoon influence, mood and atmosphere over fine details, "
+        "no hands holding objects, no text no numbers no letters no words, "
     ),
     "voice_preset": "whatif-female",
     "speed": 1.0,
