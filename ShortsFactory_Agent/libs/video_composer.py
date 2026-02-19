@@ -12,6 +12,7 @@ import ssl
 import subprocess
 import sys
 import wave
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
@@ -26,7 +27,7 @@ except ImportError:
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 
-from tts_engine import Qwen3TTSEngine, QWEN3_VOICE_PRESETS, QWEN3_DEFAULT_VOICE
+from tts_engine import Qwen3TTSEngine, QWEN3_VOICE_PRESETS, QWEN3_DEFAULT_VOICE, _get_duration
 from subtitle_gen import split_sentences, calc_sentence_timings
 
 # 디렉토리 설정
@@ -37,6 +38,35 @@ RENDERED_DIR = PIPELINE_DIR / "rendered"
 
 for d in [TEMP_DIR, RENDERED_DIR]:
     d.mkdir(parents=True, exist_ok=True)
+
+
+# ── Per-Scene TTS 아키텍처 (v3.0) ────────────────────────
+
+INTER_SCENE_SILENCE = 0.15  # 씬 간 자연스러운 숨 쉬기 무음 (초)
+
+
+@dataclass
+class SceneAudioSegment:
+    """씬별 통합 타이밍 데이터 — 단일 타이밍 소스 (Per-Scene TTS).
+
+    audio_start/end: 결합 오디오 기준 정확한 오프셋 (산술 계산, 오차 0)
+    whisper_words: 씬 내 Whisper 워드 (로컬 → 글로벌 시프트 완료)
+    phrases: 자막용 구절 리스트
+    phrase_timings: 구절별 (start, end) 리스트
+    """
+    scene_id: int
+    scene_text: str
+    audio_start: float          # 결합 WAV 기준 시작 시점
+    audio_end: float            # 결합 WAV 기준 종료 시점
+    wav_path: str = ""          # 개별 씬 WAV 경로
+    whisper_words: list = field(default_factory=list)
+    phrases: list = field(default_factory=list)
+    phrase_timings: list = field(default_factory=list)
+    image_path: str = ""
+
+    @property
+    def duration(self) -> float:
+        return self.audio_end - self.audio_start
 
 
 # ── VideoToolbox HW 인코딩 감지 ───────────────────────────
@@ -107,8 +137,25 @@ def _ffmpeg_mux(video_clip, audio_path: str, output_path: str, fps: int = 30):
             t = t_idx / fps
             frame = video_clip.get_frame(t)
             frame_bytes = frame.astype(np.uint8).tobytes()
-            proc.stdin.write(frame_bytes)
-        proc.stdin.close()
+            try:
+                proc.stdin.write(frame_bytes)
+            except BrokenPipeError:
+                # -shortest 플래그로 인해 FFmpeg가 오디오 종료 후 파이프를 닫을 수 있음
+                break
+        try:
+            proc.stdin.close()
+        except BrokenPipeError:
+            pass
+        proc.wait(timeout=120)
+        if proc.returncode != 0:
+            err_msg = proc.stderr.read().decode(errors="replace")[:500] if proc.stderr else ""
+            raise RuntimeError(f"FFmpeg 인코딩 실패 (rc={proc.returncode}): {err_msg}")
+    except BrokenPipeError:
+        # FFmpeg가 정상 종료한 경우 (오디오 기준 -shortest)
+        try:
+            proc.stdin.close()
+        except Exception:
+            pass
         proc.wait(timeout=120)
         if proc.returncode != 0:
             err_msg = proc.stderr.read().decode(errors="replace")[:500] if proc.stderr else ""
@@ -208,9 +255,121 @@ def split_into_chunks(text: str, max_chars: int = 16) -> list[str]:
     return parts if parts else [text]
 
 
+def _number_to_sino_korean(n: int) -> str:
+    """아라비아 숫자 → 한국어 한자어 수사 (일이삼...)."""
+    if n == 0:
+        return "영"
+    units = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"]
+    bigs = ["", "십", "백", "천"]
+    mans = ["", "만", "억", "조"]
+
+    result = ""
+    # 만 단위로 분할
+    groups = []
+    while n > 0:
+        groups.append(n % 10000)
+        n //= 10000
+
+    for gi, g in enumerate(groups):
+        if g == 0:
+            continue
+        part = ""
+        for di in range(4):
+            d = g % 10
+            g //= 10
+            if d == 0:
+                continue
+            prefix = units[d] if not (d == 1 and di > 0) else ""
+            part = prefix + bigs[di] + part
+        result = part + mans[gi] + result
+
+    return result
+
+
+def _number_to_native_korean(n: int) -> str:
+    """아라비아 숫자 → 한국어 고유어 수사 (하나둘셋..., 관형형: 한두세...)."""
+    native = {
+        1: "한", 2: "두", 3: "세", 4: "네", 5: "다섯",
+        6: "여섯", 7: "일곱", 8: "여덟", 9: "아홉", 10: "열",
+        20: "스무", 30: "서른", 40: "마흔", 50: "쉰",
+    }
+    if n in native:
+        return native[n]
+    if 11 <= n <= 59:
+        tens = (n // 10) * 10
+        ones = n % 10
+        t = native.get(tens, "")
+        o = native.get(ones, "")
+        return t + o
+    # 60 이상은 한자어로 폴백
+    return _number_to_sino_korean(n)
+
+
+def _convert_korean_numbers(text: str) -> str:
+    """한국어 텍스트 내 숫자를 한국식으로 변환.
+
+    규칙:
+    - 한자어 수사: 일/월/년/분/초/원/호/위/배/%, km, kg, kcal 등
+    - 고유어 수사 (관형형): 개/명/마리/번/살/시/잔/병/장/권/대/벌/그루/채
+    - 단위 없는 큰 숫자: 한자어 (100만→백만)
+    - 소수점: 점 (3.14→삼점일사)
+    """
+    # 소수점 숫자 (3.14 → 삼점일사)
+    def _decimal_to_kr(m):
+        integer_part = int(m.group(1))
+        decimal_part = m.group(2)
+        kr_int = _number_to_sino_korean(integer_part)
+        kr_dec = "".join(
+            ["영", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"][int(d)]
+            for d in decimal_part
+        )
+        return kr_int + "점" + kr_dec
+    text = re.sub(r'(\d+)\.(\d+)', _decimal_to_kr, text)
+
+    # 복합 숫자 (100만명→백만명, 10억원→십억원): 숫자+만/억/조 → 한자어로 합산
+    def _compound_number(m):
+        n = int(m.group(1))
+        multiplier = m.group(2)
+        suffix = m.group(3) or ""
+        mult_map = {"만": 10000, "억": 100000000, "조": 1000000000000}
+        total = n * mult_map[multiplier]
+        return _number_to_sino_korean(total) + suffix
+    text = re.sub(r'(\d+)(만|억|조)(\w*)', _compound_number, text)
+
+    # 고유어 수사 단위 (관형형): 1개→한 개, 3명→세 명
+    native_counters = r'(개|명|마리|번|살|시|잔|병|장|권|대|벌|그루|채|가지|곳|줄)'
+    def _native_counter(m):
+        n = int(m.group(1))
+        counter = m.group(2)
+        if n > 59:
+            return _number_to_sino_korean(n) + counter
+        return _number_to_native_korean(n) + " " + counter
+    text = re.sub(rf'(\d+)\s*{native_counters}', _native_counter, text)
+
+    # 한자어 수사 단위: 3일→삼일, 100원→백원
+    sino_counters = r'(일|월|년|분|초|원|호|위|배|퍼센트|프로|층|번째|세기|km|kg|kcal|cm|mm|m|g|ml|L|도)'
+    def _sino_counter(m):
+        n = int(m.group(1))
+        counter = m.group(2)
+        return _number_to_sino_korean(n) + counter
+    text = re.sub(rf'(\d+)\s*{sino_counters}', _sino_counter, text)
+
+    # 남은 독립 숫자 (단위 없음): 한자어로
+    def _standalone_num(m):
+        n = int(m.group(0))
+        if n > 99999999:
+            return m.group(0)  # 너무 큰 숫자는 그대로
+        return _number_to_sino_korean(n)
+    text = re.sub(r'(?<![.\d])\d+(?![.\d\w])', _standalone_num, text)
+
+    return text
+
+
 def preprocess_korean_for_tts(text: str) -> str:
-    """한국어 텍스트에 자연스러운 끊어읽기 쉼표 삽입 (TTS 프로소디 개선)."""
-    result = text
+    """한국어 텍스트 전처리: 숫자 한국식 변환 + 자연스러운 끊어읽기 쉼표 삽입."""
+    # 1단계: 숫자 → 한국어
+    result = _convert_korean_numbers(text)
+    # 2단계: 프로소디 개선 쉼표
     for adv in ["만약에", "그래서", "결국", "하지만", "그러나", "그런데", "따라서", "물론", "사실"]:
         result = re.sub(rf'({re.escape(adv)})\s+(?!,)', rf'\1, ', result)
     for ending in [r'인데', r'는데', r'지만', r'니까']:
@@ -342,82 +501,20 @@ def _split_to_fit(text: str, max_chars: int) -> list[str]:
     return [left] + _split_to_fit(right, max_chars)
 
 
-def _find_sentence_boundaries(
-    sentences: list[str],
-    whisper_words: list[dict],
-    total_duration: float,
-) -> list[float]:
-    """문장 경계 시점을 하이브리드 방식으로 탐지.
 
-    1. 글자수 비례로 예상 경계 시점 계산
-    2. 각 예상 시점 ±2초 범위 내에서 가장 큰 Whisper 워드 갭으로 스냅
-    3. 갭이 없으면 예상 시점 사용
+def _concat_wav_with_silence(
+    wav_paths: list[str], silence_sec: float, output_path: str,
+) -> tuple[float, list[tuple[float, float]]]:
+    """WAV 파일들을 무음 간격으로 이어붙여 합성.
 
-    반환: n-1개 경계 시점 리스트 (오름차순)
+    Returns:
+        (total_duration, segment_offsets)
+        segment_offsets: [(start, end), ...] 각 WAV의 결합 오디오 기준 시작/끝 시점
     """
-    n = len(sentences)
-    if n <= 1:
-        return []
-
-    # 글자수 비례 예상 경계
-    char_lens = [len(s) for s in sentences]
-    total_chars = sum(char_lens) or 1
-    expected = []
-    cum = 0
-    for i in range(n - 1):
-        cum += char_lens[i]
-        expected.append(total_duration * cum / total_chars)
-
-    if not whisper_words or len(whisper_words) < 2:
-        print(f"      경계 탐지: Whisper 워드 부족, 글자수 비례 사용")
-        return expected
-
-    # Whisper 워드 간 갭 (50ms 이상만 유효)
-    MIN_GAP = 0.05  # 50ms — 이 미만은 경계로 간주하지 않음
-    gaps = []
-    for i in range(1, len(whisper_words)):
-        size = whisper_words[i]["start"] - whisper_words[i - 1]["end"]
-        if size >= MIN_GAP:
-            mid = (whisper_words[i - 1]["end"] + whisper_words[i]["start"]) / 2
-            gaps.append({"mid": mid, "size": size, "idx": i})
-
-    if gaps:
-        top_gaps = sorted(gaps, key=lambda g: -g["size"])[:6]
-        print(f"      유효 갭 {len(gaps)}개 (≥{MIN_GAP*1000:.0f}ms), 상위: " +
-              ", ".join(f"{g['mid']:.1f}s({g['size']*1000:.0f}ms)" for g in top_gaps))
-    else:
-        print(f"      유효 갭 없음 (모든 갭 < {MIN_GAP*1000:.0f}ms) → 글자수 비례 사용")
-        return expected
-
-    # 각 예상 경계를 ±2초 내 가장 큰 갭으로 스냅
-    SNAP_RANGE = 2.0
-    boundaries = []
-    used = set()
-
-    for bi, et in enumerate(expected):
-        best = None
-        for g in gaps:
-            if g["idx"] in used:
-                continue
-            if abs(g["mid"] - et) <= SNAP_RANGE:
-                if best is None or g["size"] > best["size"]:
-                    best = g
-
-        if best:
-            boundaries.append(best["mid"])
-            used.add(best["idx"])
-            print(f"      경계 {bi+1}: 예상 {et:.2f}초 → 스냅 {best['mid']:.2f}초 (갭 {best['size']*1000:.0f}ms)")
-        else:
-            boundaries.append(et)
-            print(f"      경계 {bi+1}: 예상 {et:.2f}초 (글자수 비례)")
-
-    return sorted(boundaries)
-
-
-def _concat_wav_with_silence(wav_paths: list[str], silence_sec: float, output_path: str) -> float:
-    """WAV 파일들을 무음 간격으로 이어붙여 합성. 총 길이(초) 반환."""
     all_samples = []
+    segment_offsets = []
     sample_rate = n_channels = sample_width = None
+    current_offset = 0.0
 
     for i, path in enumerate(wav_paths):
         with wave.open(path, "r") as wf:
@@ -425,11 +522,18 @@ def _concat_wav_with_silence(wav_paths: list[str], silence_sec: float, output_pa
                 sample_rate = wf.getframerate()
                 n_channels = wf.getnchannels()
                 sample_width = wf.getsampwidth()
-            frames = wf.readframes(wf.getnframes())
-            all_samples.append(np.frombuffer(frames, dtype=np.int16))
-            if i < len(wav_paths) - 1:
-                n_silence = int(silence_sec * sample_rate * n_channels)
-                all_samples.append(np.zeros(n_silence, dtype=np.int16))
+            n_frames = wf.getnframes()
+            frames = wf.readframes(n_frames)
+            seg_duration = n_frames / wf.getframerate()
+
+        all_samples.append(np.frombuffer(frames, dtype=np.int16))
+        segment_offsets.append((current_offset, current_offset + seg_duration))
+        current_offset += seg_duration
+
+        if i < len(wav_paths) - 1:
+            n_silence = int(silence_sec * sample_rate * n_channels)
+            all_samples.append(np.zeros(n_silence, dtype=np.int16))
+            current_offset += silence_sec
 
     combined = np.concatenate(all_samples)
     with wave.open(output_path, "w") as wf:
@@ -437,218 +541,12 @@ def _concat_wav_with_silence(wav_paths: list[str], silence_sec: float, output_pa
         wf.setsampwidth(sample_width)
         wf.setframerate(sample_rate)
         wf.writeframes(combined.tobytes())
-    return len(combined) / (sample_rate * n_channels)
-
-
-def _map_phrases_to_whisper_words(
-    phrases: list[str],
-    whisper_words: list[dict],
-    sent_offset: float,
-) -> list[tuple[float, float]] | None:
-    """구절을 Whisper 워드에 글자수 비례로 매핑 (문장 내).
-    오버랩 방지: 각 구절의 끝은 다음 구절의 시작을 초과하지 않음.
-    """
-    if not whisper_words or not phrases:
-        return None
-    n_w = len(whisper_words)
-    p_chars = [len(p) for p in phrases]
-    total = sum(p_chars)
-    if total == 0:
-        return None
-    timings = []
-    pos = 0
-    for chars in p_chars:
-        r0 = pos / total
-        r1 = (pos + chars) / total
-        wi = min(int(r0 * n_w), n_w - 1)
-        wj = min(max(round(r1 * n_w) - 1, wi), n_w - 1)
-        t0 = whisper_words[wi]["start"] + sent_offset
-        t1 = whisper_words[wj]["end"] + sent_offset
-        if t1 <= t0:
-            t1 = t0 + 0.1
-        timings.append((t0, t1))
-        pos += chars
-
-    # 오버랩 방지: phrase[i].end <= phrase[i+1].start
-    for j in range(len(timings) - 1):
-        if timings[j][1] > timings[j + 1][0]:
-            timings[j] = (timings[j][0], timings[j + 1][0])
-        # 최소 표시 시간 보장 (0.1초)
-        if timings[j][1] - timings[j][0] < 0.1:
-            timings[j] = (timings[j][0], timings[j][0] + 0.1)
-
-    return timings
-
-
-def _insert_silence_at_boundaries(
-    audio_path: str,
-    boundary_times: list[float],
-    silence_sec: float,
-    output_path: str,
-) -> tuple[float, list[float]]:
-    """오디오 파일의 지정 시점들에 무음을 삽입. (총 길이, 새 경계 시점들) 반환.
-
-    boundary_times: 문장 경계 시점(초) 리스트 (n-1개)
-    각 경계에 silence_sec 만큼의 무음이 삽입됨.
-    경계 컷 지점에 20ms 페이드아웃/페이드인을 적용하여 끊김 방지.
-    """
-    FADE_MS = 20  # 페이드 길이 (밀리초)
-
-    with wave.open(audio_path, "r") as wf:
-        sample_rate = wf.getframerate()
-        n_channels = wf.getnchannels()
-        sample_width = wf.getsampwidth()
-        frames = wf.readframes(wf.getnframes())
-    audio = np.frombuffer(frames, dtype=np.int16).astype(np.float32)
-
-    n_silence_samples = int(silence_sec * sample_rate * n_channels)
-    silence_block = np.zeros(n_silence_samples, dtype=np.float32)
-    fade_samples = int(FADE_MS / 1000 * sample_rate * n_channels)
-
-    sorted_boundaries = sorted(boundary_times)
-    parts = []
-    new_boundary_times = []
-    cumulative_silence = 0.0
-
-    prev_sample = 0
-    for bt in sorted_boundaries:
-        sample_idx = int(bt * sample_rate * n_channels)
-        sample_idx = min(sample_idx, len(audio))
-        segment = audio[prev_sample:sample_idx].copy()
-
-        # 페이드아웃: 세그먼트 끝 20ms
-        if len(segment) > fade_samples and fade_samples > 0:
-            fade_out = np.linspace(1.0, 0.0, fade_samples)
-            segment[-fade_samples:] *= fade_out
-
-        parts.append(segment)
-        parts.append(silence_block.copy())
-        cumulative_silence += silence_sec
-        new_boundary_times.append(bt + cumulative_silence)
-        prev_sample = sample_idx
-
-    # 나머지 오디오
-    tail = audio[prev_sample:].copy()
-    # 페이드인: 마지막 세그먼트 시작 20ms
-    if len(tail) > fade_samples and fade_samples > 0:
-        fade_in = np.linspace(0.0, 1.0, fade_samples)
-        tail[:fade_samples] *= fade_in
-    parts.append(tail)
-
-    # 각 무음 뒤 세그먼트에도 페이드인 적용 (두 번째 세그먼트부터)
-    # parts 구조: [seg0, silence, seg1, silence, seg2, ..., tail]
-    for pi in range(2, len(parts), 2):  # seg1, seg2, ... (무음 다음 세그먼트)
-        seg = parts[pi]
-        if len(seg) > fade_samples and fade_samples > 0:
-            fade_in = np.linspace(0.0, 1.0, fade_samples)
-            seg[:fade_samples] *= fade_in
-
-    combined = np.concatenate(parts)
-    combined = np.clip(combined, -32768, 32767).astype(np.int16)
-
-    with wave.open(output_path, "w") as wf:
-        wf.setnchannels(n_channels)
-        wf.setsampwidth(sample_width)
-        wf.setframerate(sample_rate)
-        wf.writeframes(combined.tobytes())
 
     total_duration = len(combined) / (sample_rate * n_channels)
-    return total_duration, new_boundary_times
+    return total_duration, segment_offsets
 
 
-def _group_words_into_sentences(
-    sentences: list[str],
-    whisper_words: list[dict],
-    total_duration: float,
-) -> list[tuple[float, float]]:
-    """Whisper 워드를 문장별로 그룹핑하여 문장 범위(시작, 종료) 산출.
 
-    오디오를 자르지 않고, Whisper 워드 위치만으로 각 문장의
-    실제 발화 구간을 결정합니다.
-
-    전략:
-    1. 각 문장의 글자수 비례로 예상 워드 개수 산출
-    2. Whisper 워드를 순서대로 문장에 할당
-    3. 각 문장의 첫 워드 start ~ 마지막 워드 end = 문장 범위
-    4. 문장 사이 갭은 중간점에서 분할 (겹침/빈틈 없이)
-    """
-    n = len(sentences)
-    if n == 0:
-        return []
-    if not whisper_words:
-        # fallback: 글자수 비례
-        char_total = sum(len(s) for s in sentences) or 1
-        ranges = []
-        t = 0.0
-        for s in sentences:
-            d = total_duration * (len(s) / char_total)
-            ranges.append((t, t + d))
-            t += d
-        return ranges
-
-    # 문장별 정규화 텍스트 길이
-    sent_norms = [_normalize_for_match(s) for s in sentences]
-    sent_chars = [max(len(sn), 1) for sn in sent_norms]
-    total_chars = sum(sent_chars)
-
-    # Whisper 워드를 글자수 비례로 문장에 할당
-    n_words = len(whisper_words)
-    word_idx = 0
-    sent_word_groups = []
-
-    for si in range(n):
-        if si < n - 1:
-            # 이 문장에 할당할 워드 수 (비례)
-            alloc = max(1, round(n_words * sent_chars[si] / total_chars))
-            end_idx = min(word_idx + alloc, n_words)
-        else:
-            # 마지막 문장: 나머지 전부
-            end_idx = n_words
-
-        group = whisper_words[word_idx:end_idx]
-        sent_word_groups.append(group)
-        word_idx = end_idx
-
-    # 문장 범위: 각 그룹의 첫 워드 start ~ 마지막 워드 end
-    raw_ranges = []
-    for group in sent_word_groups:
-        if group:
-            raw_ranges.append((group[0]["start"], group[-1]["end"]))
-        elif raw_ranges:
-            # 빈 그룹: 이전 문장 끝에서 시작
-            raw_ranges.append((raw_ranges[-1][1], raw_ranges[-1][1]))
-        else:
-            raw_ranges.append((0.0, 0.0))
-
-    # 문장 사이 갭 처리: 겹침/빈틈 없이 중간점에서 분할
-    ranges = []
-    for si in range(n):
-        s_start = raw_ranges[si][0]
-        s_end = raw_ranges[si][1]
-
-        # 시작점: 이전 문장 끝과의 중간
-        if si > 0:
-            prev_end = raw_ranges[si - 1][1]
-            if s_start > prev_end:
-                s_start = prev_end + (s_start - prev_end) / 2
-            else:
-                s_start = ranges[-1][1]  # 겹치면 이전 끝에서 바로 시작
-
-        # 종료점: 다음 문장 시작과의 중간
-        if si < n - 1:
-            next_start = raw_ranges[si + 1][0]
-            if next_start > s_end:
-                s_end = s_end + (next_start - s_end) / 2
-
-        # 첫 문장은 0부터, 마지막 문장은 끝까지
-        if si == 0:
-            s_start = 0.0
-        if si == n - 1:
-            s_end = total_duration
-
-        ranges.append((s_start, s_end))
-
-    return ranges
 
 
 def _normalize_for_match(text: str) -> str:
@@ -863,32 +761,6 @@ def _master_audio(input_path: str, output_path: str) -> str:
     return output_path
 
 
-def _shift_whisper_words(
-    words: list[dict],
-    boundary_times_original: list[float],
-    silence_sec: float,
-) -> list[dict]:
-    """무음 삽입으로 인한 Whisper 워드 타임스탬프 시프트.
-
-    boundary_times_original: 원본 오디오 기준 문장 경계 시점 리스트
-    각 경계 이후의 워드는 누적 무음만큼 시프트.
-    """
-    sorted_boundaries = sorted(boundary_times_original)
-    shifted = []
-    for w in words:
-        offset = 0.0
-        for bt in sorted_boundaries:
-            if w["start"] >= bt:
-                offset += silence_sec
-            else:
-                break
-        shifted.append({
-            "text": w["text"],
-            "start": w["start"] + offset,
-            "end": w["end"] + offset,
-        })
-    return shifted
-
 
 _whisper_model = None  # Whisper 싱글톤 캐시
 
@@ -924,90 +796,301 @@ def get_word_timestamps(audio_path: str) -> dict | None:
         return None
 
 
-IMAGE_OFFSET_SEC = 0.35  # 이미지 전환을 음성보다 약간 뒤로 (체감 싱크 보정)
+def _trim_wav_at_time(wav_path: str, end_sec: float):
+    """WAV 파일을 지정 시간에서 자른다."""
+    with wave.open(wav_path, "rb") as wf:
+        sr = wf.getframerate()
+        n_ch = wf.getnchannels()
+        sw = wf.getsampwidth()
+        raw = wf.readframes(wf.getnframes())
+    data = np.frombuffer(raw, dtype=np.int16)
+    keep = min(int(sr * end_sec), len(data))
+    with wave.open(wav_path, "wb") as wf:
+        wf.setnchannels(n_ch)
+        wf.setsampwidth(sw)
+        wf.setframerate(sr)
+        wf.writeframes(data[:keep].tobytes())
 
 
-def _compute_scene_timings(
-    scenes: list[dict],
-    whisper_words: list[dict],
-    total_duration: float,
-) -> list[tuple[int, float, float]]:
-    """스크립트 scenes 배열의 각 씬 텍스트를 Whisper 워드에 매핑하여 정확한 시작/끝 시간 계산.
+def _detect_hallucination(original_text: str, whisper_words: list, wav_duration: float = 0.0) -> float | None:
+    """TTS hallucination 감지 — 스크립트에 없는 소리를 생성한 경우 트림 시점 반환.
 
-    원리: 각 씬의 text를 어절(띄어쓰기) 단위로 나누고,
-          Whisper 워드와 비례 매핑하여 해당 씬의 시작/끝 Whisper 시간을 결정.
-    보정: IMAGE_OFFSET_SEC만큼 이미지 전환을 지연시켜 '음성→이미지' 순서 체감.
+    두 가지 기준 중 하나라도 해당하면 hallucination:
+      1) 글자수 비율: Whisper 전사 글자수 > 원본 * 1.15
+      2) 시간 비율: 실제 오디오 길이 > 예상 길이 * 1.5 (한국어 ~3.5자/초)
 
-    Returns: [(scene_id, start_sec, end_sec), ...]
+    Returns:
+        트림 시점(초) 또는 None (hallucination 없음)
     """
-    if not scenes or not whisper_words:
-        # 씬이 없으면 균등 분할
-        n = max(len(scenes), 1)
-        seg = total_duration / n
-        return [(i, i * seg, (i + 1) * seg) for i in range(n)]
+    if not whisper_words:
+        return None
 
-    # 전체 씬 텍스트를 이어붙여 어절 리스트 생성 + 씬 소속 추적
-    scene_word_counts = []
-    for sc in scenes:
-        words = sc.get("text", "").split()
-        scene_word_counts.append(len(words))
+    strip_re = re.compile(r'[,.\s!?…·\-"\'()（）「」]')
+    orig_clean = strip_re.sub("", original_text)
 
-    total_scene_words = sum(scene_word_counts)
-    n_whisper = len(whisper_words)
+    if len(orig_clean) == 0:
+        return None
 
-    if total_scene_words == 0:
-        n = len(scenes)
-        seg = total_duration / n
-        return [(i, i * seg, (i + 1) * seg) for i in range(n)]
+    # 기준 1: 글자수 비율 (Whisper 전사 vs 원본)
+    whisper_text = "".join(w["text"] for w in whisper_words)
+    whisper_clean = strip_re.sub("", whisper_text)
+    char_ratio = len(whisper_clean) / len(orig_clean)
+    char_triggered = char_ratio > 1.15
 
-    # 씬별 Whisper 워드 범위 비례 매핑
-    result = []
-    word_offset = 0
-    for i, wc in enumerate(scene_word_counts):
-        # 이 씬에 대응하는 Whisper 워드 인덱스 범위
-        w_start_idx = min(int(word_offset * n_whisper / total_scene_words), n_whisper - 1)
-        w_end_idx = min(int((word_offset + wc) * n_whisper / total_scene_words) - 1, n_whisper - 1)
-        w_end_idx = max(w_end_idx, w_start_idx)
+    # 기준 2: 시간 비율 (실제 길이 vs 예상 길이)
+    expected_dur = len(orig_clean) / 3.5 + 0.5  # 한국어 ~3.5자/초 + 여백
+    dur_triggered = wav_duration > 0 and wav_duration > expected_dur * 1.5
 
-        start_t = whisper_words[w_start_idx]["start"]
-        end_t = whisper_words[w_end_idx]["end"]
+    if not char_triggered and not dur_triggered:
+        return None  # 정상 범위
 
-        # 최소 0.5초 보장
-        if end_t - start_t < 0.5:
-            end_t = start_t + 0.5
+    trigger = []
+    if char_triggered:
+        trigger.append(f"글자수 {char_ratio:.2f}x")
+    if dur_triggered:
+        trigger.append(f"시간 {wav_duration:.1f}s>예상{expected_dur:.1f}s")
+    print(f"      ⚠ hallucination 감지: {', '.join(trigger)}")
 
-        result.append((i, start_t, end_t))
-        word_offset += wc
+    # 원본 텍스트에 해당하는 Whisper 워드 끝점 찾기
+    matched_chars = 0
+    target = len(orig_clean)
+    trim_time = whisper_words[-1]["end"]
 
-    # 씬 간 갭 제거: 다음 씬의 시작을 이전 씬의 끝에 맞춤
-    for i in range(1, len(result)):
-        prev_end = result[i - 1][2]
-        cur_start = result[i][1]
-        if cur_start > prev_end:
-            # 갭이 있으면 이전 씬을 연장
-            result[i - 1] = (result[i - 1][0], result[i - 1][1], cur_start)
-        elif cur_start < prev_end:
-            # 겹치면 현재 씬을 이전 끝에서 시작
-            result[i] = (result[i][0], prev_end, result[i][2])
+    for w in whisper_words:
+        w_clean = strip_re.sub("", w["text"])
+        matched_chars += len(w_clean)
+        if matched_chars >= target * 0.85:
+            trim_time = w["end"]
+            break
 
-    # 마지막 씬을 total_duration까지 연장
-    if result:
-        last = result[-1]
-        result[-1] = (last[0], last[1], total_duration)
+    return trim_time
 
-    # 이미지 전환 오프셋 적용: 첫 씬 제외, 나머지 씬의 시작을 뒤로 밀어
-    # 이전 씬 이미지가 0.35초 더 머물도록 → "음성 먼저, 이미지 뒤따라" 체감
-    offset = IMAGE_OFFSET_SEC
-    if offset > 0 and len(result) > 1:
-        for i in range(len(result) - 1, 0, -1):  # 뒤에서부터 (첫 씬 제외)
-            sid, st, et = result[i]
-            new_start = min(st + offset, et - 0.3)  # 최소 0.3초 확보
-            result[i] = (sid, new_start, et)
-            # 이전 씬의 끝을 새 시작에 맞춤
-            prev_sid, prev_st, prev_et = result[i - 1]
-            result[i - 1] = (prev_sid, prev_st, new_start)
 
-    return result
+def _trim_wav_silence(wav_path: str, tail_threshold: float = 0.015, tail_pad_ms: int = 200):
+    """WAV 파일의 후행 무음을 트리밍 (TTS가 생성하는 불필요한 꼬리 무음 제거).
+
+    Args:
+        tail_threshold: 무음 판정 진폭 임계값 (0~1, 16-bit 정규화)
+        tail_pad_ms: 마지막 소리 이후 남길 여백 (ms)
+    """
+    with wave.open(wav_path, "rb") as wf:
+        sr = wf.getframerate()
+        n_ch = wf.getnchannels()
+        sw = wf.getsampwidth()
+        raw = wf.readframes(wf.getnframes())
+
+    data = np.frombuffer(raw, dtype=np.int16)
+    if len(data) == 0:
+        return
+
+    amplitude = np.abs(data).astype(np.float32) / 32768.0
+
+    # 50ms 윈도우 롤링 평균으로 스무딩
+    win = max(int(sr * 0.05), 1)
+    if len(amplitude) > win:
+        kernel = np.ones(win, dtype=np.float32) / win
+        smooth = np.convolve(amplitude, kernel, mode="same")
+    else:
+        smooth = amplitude
+
+    above = np.where(smooth > tail_threshold)[0]
+    if len(above) == 0:
+        return
+
+    last_sound = above[-1]
+    pad_frames = int(sr * tail_pad_ms / 1000)
+    keep = min(last_sound + pad_frames, len(data))
+
+    trimmed_ms = (len(data) - keep) / sr * 1000
+    if trimmed_ms < 100:
+        return  # 100ms 미만이면 트리밍 불필요
+
+    with wave.open(wav_path, "wb") as wf:
+        wf.setnchannels(n_ch)
+        wf.setsampwidth(sw)
+        wf.setframerate(sr)
+        wf.writeframes(data[:keep].tobytes())
+
+
+# CTA(구독 유도) 텍스트 패턴 — 자동 필터링 대상
+_CTA_PATTERNS = [
+    r"구독\s*(눌러|부탁|해줘|해주세요|하고)",
+    r"좋아요\s*(눌러|부탁|와\s*구독|구독)",
+    r"알림\s*(설정|까지|눌러)",
+    r"구독\s*눌러[.!?]*$",
+    r"^구독[.!?\s]*$",
+]
+_CTA_RE = re.compile("|".join(_CTA_PATTERNS))
+
+
+def _filter_cta_scenes(scenes: list[dict]) -> list[dict]:
+    """마지막 씬이 CTA(구독 유도) 전용이면 제거. 혼합이면 CTA 부분만 제거."""
+    if not scenes:
+        return scenes
+
+    filtered = list(scenes)
+    last = filtered[-1]
+    text = last.get("text", "")
+
+    # 마침표/문장 단위로 분리
+    sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', text) if s.strip()]
+    kept = [s for s in sentences if not _CTA_RE.search(s)]
+
+    if not kept:
+        # 마지막 씬 전체가 CTA → 제거
+        filtered.pop()
+        print(f"    [CTA 필터] 마지막 씬 제거: \"{text[:40]}\"")
+    elif len(kept) < len(sentences):
+        # CTA 부분만 제거
+        filtered[-1] = {**last, "text": " ".join(kept)}
+        removed = [s for s in sentences if _CTA_RE.search(s)]
+        print(f"    [CTA 필터] CTA 문구 제거: {removed}")
+
+    return filtered
+
+
+def _generate_per_scene_audio(
+    scenes: list[dict],
+    engine,
+    language: str,
+    scene_images: list[str] | None,
+    display_text: str | None,
+    ts: str,
+) -> tuple[list[SceneAudioSegment], str, float]:
+    """씬별 TTS → 씬별 Whisper → concat → SceneAudioSegment 리스트.
+
+    핵심: 각 씬에 대해 독립적으로 TTS + Whisper를 수행하고,
+    WAV를 INTER_SCENE_SILENCE 간격으로 이어붙여 정확한 타이밍을 산출.
+
+    Args:
+        scenes: 스크립트 scenes 배열
+        engine: Qwen3TTSEngine 인스턴스
+        language: 언어 코드
+        scene_images: 씬 이미지 경로 리스트
+        display_text: 자막용 display_text (full_text 대체)
+        ts: 타임스탬프 문자열 (파일명용)
+
+    Returns:
+        (segments, combined_audio_path, total_duration)
+    """
+    # CTA(구독 유도) 필터링
+    scenes = _filter_cta_scenes(scenes)
+
+    # 씬별 TTS 생성 + Whisper 분석
+    # 음색 일관성: 모델 캐싱 + 고정 시드 + 낮은 temperature (엔진 내부)
+    scene_wavs = []
+    scene_whisper_data = []
+
+    for i, scene in enumerate(scenes):
+        scene_text = scene.get("text", "")
+        if not scene_text:
+            continue
+
+        tts_text = preprocess_korean_for_tts(scene_text) if language == "ko" else scene_text
+        wav_path = str(TEMP_DIR / f"scene_{ts}_{i:02d}.wav")
+
+        print(f"    씬 {i+1}/{len(scenes)}: TTS 생성 중...")
+        tts_result = engine.generate(tts_text, wav_path)
+
+        # 후행 무음 트리밍 (TTS가 생성하는 불필요한 꼬리 무음 제거)
+        orig_dur = tts_result["duration"]
+        _trim_wav_silence(wav_path)
+        trimmed_dur = _get_duration(wav_path)
+        scene_dur = trimmed_dur
+
+        # 씬별 Whisper 분석 (짧은 오디오 → 높은 정확도)
+        whisper_data = get_word_timestamps(wav_path)
+        words = whisper_data["words"] if whisper_data else []
+
+        # TTS hallucination 감지 — 스크립트에 없는 소리를 생성한 경우 자동 트림
+        hall_trim = _detect_hallucination(scene_text, words, wav_duration=scene_dur)
+        hall_info = ""
+        if hall_trim is not None:
+            pre_dur = scene_dur
+            _trim_wav_at_time(wav_path, hall_trim + 0.3)  # +300ms 여백
+            scene_dur = _get_duration(wav_path)
+            # Whisper 재분석
+            whisper_data = get_word_timestamps(wav_path)
+            words = whisper_data["words"] if whisper_data else []
+            hall_info = f" [hallucination 제거: -{pre_dur - scene_dur:.1f}s]"
+
+        trim_info = f" (trimmed {orig_dur - scene_dur:.1f}s)" if orig_dur - scene_dur > 0.1 else ""
+        print(f"      → {scene_dur:.1f}s{trim_info}{hall_info}, Whisper {len(words)}개 워드")
+
+        scene_wavs.append(wav_path)
+        scene_whisper_data.append(words)
+
+    if not scene_wavs:
+        return [], "", 0.0
+
+    # WAV concat (INTER_SCENE_SILENCE 간격)
+    combined_path = str(TEMP_DIR / f"combined_{ts}.wav")
+    total_duration, segment_offsets = _concat_wav_with_silence(
+        scene_wavs, INTER_SCENE_SILENCE, combined_path,
+    )
+
+    print(f"    결합 오디오: {total_duration:.1f}s ({len(scene_wavs)}개 씬, "
+          f"무음 {INTER_SCENE_SILENCE}s × {len(scene_wavs)-1})")
+
+    # SceneAudioSegment 조립
+    segments = []
+    scene_idx = 0
+    for i, scene in enumerate(scenes):
+        scene_text = scene.get("text", "")
+        if not scene_text:
+            continue
+
+        audio_start, audio_end = segment_offsets[scene_idx]
+        local_words = scene_whisper_data[scene_idx]
+
+        # 로컬 Whisper 워드 → 글로벌 오프셋 시프트
+        global_words = [
+            {"text": w["text"], "start": w["start"] + audio_start, "end": w["end"] + audio_start}
+            for w in local_words
+        ]
+
+        # 자막 구절 분할
+        if language == "ko":
+            phrases = split_korean_phrases(scene_text, max_chars=16)
+        else:
+            phrases = split_into_chunks(scene_text, max_chars=16)
+
+        # 구절을 씬 내 Whisper에 정렬
+        phrase_timings = _align_phrases_to_whisper(
+            phrases, global_words, audio_start, audio_end,
+        )
+
+        # 이미지 경로 매핑
+        img_path = ""
+        if scene_images and scene_idx < len(scene_images):
+            img_path = scene_images[scene_idx]
+
+        seg = SceneAudioSegment(
+            scene_id=scene.get("id", i + 1),
+            scene_text=scene_text,
+            audio_start=audio_start,
+            audio_end=audio_end,
+            wav_path=scene_wavs[scene_idx],
+            whisper_words=global_words,
+            phrases=phrases,
+            phrase_timings=phrase_timings,
+            image_path=img_path,
+        )
+        segments.append(seg)
+        scene_idx += 1
+
+    # 씬별 타이밍 요약
+    print(f"    Per-Scene 타이밍:")
+    for seg in segments:
+        n_words = len(seg.whisper_words)
+        n_phrases = len(seg.phrases)
+        text_preview = seg.scene_text[:30]
+        print(f"      씬 {seg.scene_id}: {seg.audio_start:.2f}~{seg.audio_end:.2f}s "
+              f"({seg.duration:.1f}s) W:{n_words} P:{n_phrases} | {text_preview}")
+
+    return segments, combined_path, total_duration
+
+
 
 
 def align_display_to_whisper(
@@ -1051,63 +1134,6 @@ def align_display_to_whisper(
 
     return chunks
 
-
-def detect_sentence_boundaries(audio_path: str, n_sentences: int) -> list[float] | None:
-    """오디오 무음 구간 감지로 문장 경계 시점(초) 반환. 실패 시 None."""
-    if not os.path.exists(audio_path):
-        print(f"      [무음감지] 파일 없음: {audio_path}")
-        return None
-    try:
-        with wave.open(audio_path, "r") as wf:
-            frames = wf.readframes(wf.getnframes())
-            sample_rate = wf.getframerate()
-            n_channels = wf.getnchannels()
-    except Exception as e:
-        print(f"      [무음감지] WAV 읽기 실패: {e}")
-        return None
-
-    audio = np.frombuffer(frames, dtype=np.int16).astype(np.float32)
-    if n_channels == 2:
-        audio = audio[::2]
-    if len(audio) == 0:
-        return None
-
-    # 20ms 윈도우 RMS 에너지
-    win = int(sample_rate * 0.02)
-    energy = []
-    for i in range(0, len(audio), win):
-        chunk = audio[i : i + win]
-        energy.append(np.sqrt(np.mean(chunk**2)) if len(chunk) > 0 else 0)
-
-    if not energy:
-        return None
-
-    # 무음 임계값 (하위 20%)
-    threshold = np.percentile(energy, 20)
-
-    # 무음 구간 탐지 (100ms+ = 5윈도우+)
-    min_gap = 5
-    gaps = []
-    silent_start = None
-    for i, e in enumerate(energy):
-        if e <= threshold:
-            if silent_start is None:
-                silent_start = i
-        else:
-            if silent_start is not None and (i - silent_start) >= min_gap:
-                mid_sec = ((silent_start + i) / 2) * 0.02
-                gap_len = i - silent_start
-                gaps.append((mid_sec, gap_len))
-            silent_start = None
-
-    # 가장 긴 무음 n-1개를 문장 경계로
-    need = n_sentences - 1
-    if len(gaps) < need:
-        print(f"      [무음감지] 무음 구간 부족: {len(gaps)}개 < 필요 {need}개")
-        return None
-
-    gaps.sort(key=lambda x: -x[1])
-    return sorted(g[0] for g in gaps[:need])
 
 
 def create_subtitle_image(
@@ -1231,8 +1257,30 @@ DEPTHFLOW_PRESETS = [
     {"name": "zoom",       "intensity": 0.2},   # 줌 인/아웃
 ]
 
-# 씬 전환 플래시 효과
-FLASH_DURATION = 0.12  # 플래시 지속시간 (초)
+# 씬 전환 효과 설정
+TRANSITION_DURATION = 0.4  # 전환 효과 지속시간 (초)
+
+# 맥락 기반 전환 효과 키워드 매핑
+_TRANSITION_KEYWORDS = {
+    "zoom_in": ["갑자기", "폭발", "충격", "순간", "발견", "깨닫", "놀라", "점프", "뛰어"],
+    "push_left": ["시작", "변화", "전환", "바뀌", "달라", "새로"],
+    "push_up": ["높이", "올라", "상승", "건물", "하늘", "위로", "성장", "증가"],
+    "push_down": ["떨어", "추락", "감소", "줄어", "내려", "가라앉", "무너"],
+}
+
+
+def _choose_transition(scene_text: str, prev_text: str) -> str:
+    """씬 텍스트 맥락에 따라 전환 효과 선택.
+
+    기본: crossfade (페이드 인/아웃)
+    맥락 매칭 시: zoom_in, push_left, push_up, push_down
+    """
+    combined = scene_text + " " + prev_text
+    for effect, keywords in _TRANSITION_KEYWORDS.items():
+        for kw in keywords:
+            if kw in combined:
+                return effect
+    return "crossfade"
 
 
 def _assign_depthflow_presets(n_scenes: int) -> list[dict]:
@@ -1337,6 +1385,122 @@ def _render_depthflow_clips(
     return rendered_paths
 
 
+def _create_scene_bg_clips_v3(
+    segments: list,
+    total_duration: float,
+    format_config: dict,
+    depthflow_override: dict = None,
+) -> list:
+    """Per-Scene TTS 기반 배경 클립 생성 (v3.0).
+
+    SceneAudioSegment의 정확한 audio_start/end를 사용하여
+    이미지 전환과 음성/자막이 완벽하게 싱크.
+
+    CrossFade 중간점 = 오디오 씬 경계 → 시각적 전환이 음성 전환과 동시 발생.
+    """
+    if not segments:
+        return [ColorClip(size=(1080, 1920), color=format_config["bg_color"], duration=total_duration)]
+
+    # 씬별 이미지/구간 수집
+    scene_imgs = []
+    scene_durations = []
+    td = TRANSITION_DURATION
+    half_td = td / 2
+
+    for seg in segments:
+        # 비주얼 확장: CrossFade 중간점이 오디오 경계에 오도록
+        visual_start = seg.audio_start
+        visual_end = seg.audio_end
+        scene_imgs.append(seg.image_path)
+        scene_durations.append(visual_end - visual_start + td)  # CrossFade 여유분
+
+    # 이미지 없는 씬 필터링
+    valid_imgs = [p for p in scene_imgs if p and os.path.exists(p)]
+    if not valid_imgs:
+        return [ColorClip(size=(1080, 1920), color=format_config["bg_color"], duration=total_duration)]
+
+    # DepthFlow 렌더링
+    print(f"      DepthFlow 렌더링 시작: {len(segments)}개 씬...")
+    depthflow_durations = [seg.audio_end - seg.audio_start + td for seg in segments]
+    depthflow_imgs = []
+    for seg in segments:
+        if seg.image_path and os.path.exists(seg.image_path):
+            depthflow_imgs.append(seg.image_path)
+        else:
+            depthflow_imgs.append(valid_imgs[-1])  # fallback
+
+    try:
+        rendered_paths = _render_depthflow_clips(
+            depthflow_imgs, depthflow_durations, depthflow_override=depthflow_override,
+        )
+    except Exception as e:
+        print(f"      DepthFlow 실패 ({e}) → 정적 이미지 폴백")
+        rendered_paths = [None] * len(segments)
+
+    # 클립 생성
+    bg_clips = []
+    temp_files = []
+    n = len(segments)
+
+    for i, seg in enumerate(segments):
+        # 비주얼 타이밍: CrossFade 중간점 = 오디오 경계
+        visual_start = seg.audio_start - half_td if i > 0 else 0.0
+        visual_end = seg.audio_end + half_td if i < n - 1 else total_duration
+        visual_start = max(visual_start, 0.0)
+        visual_end = min(visual_end, total_duration)
+
+        video_path = rendered_paths[i] if i < len(rendered_paths) else None
+        clip = None
+
+        if video_path and os.path.exists(video_path):
+            try:
+                clip = VideoFileClip(video_path)
+                clip = clip.with_start(visual_start)
+                temp_files.append(video_path)
+            except Exception as e:
+                print(f"        씬 {i+1}: 비디오 로드 실패 ({e})")
+                clip = None
+
+        if clip is None:
+            img_path = depthflow_imgs[i]
+            try:
+                img_array = _resize_image_for_shorts(img_path)
+                clip = ImageClip(img_array, duration=visual_end - visual_start).with_start(visual_start)
+            except Exception:
+                clip = ColorClip(size=(1080, 1920), color=format_config["bg_color"])
+                clip = clip.with_start(visual_start).with_end(visual_end)
+
+        # 전환 효과
+        if i > 0:
+            prev_text = segments[i - 1].scene_text
+            effect = _choose_transition(seg.scene_text, prev_text)
+        else:
+            effect = "fade_in"
+
+        effects_list = []
+        if i > 0:
+            effects_list.append(vfx.CrossFadeIn(td))
+        elif i == 0:
+            effects_list.append(vfx.CrossFadeIn(td * 0.5))
+
+        if i < n - 1:
+            effects_list.append(vfx.CrossFadeOut(td))
+
+        if effects_list:
+            clip = clip.with_effects(effects_list)
+
+        bg_clips.append(clip)
+        presets = _assign_depthflow_presets(n)
+        preset_name = presets[i]["name"] if i < len(presets) else "?"
+        print(f"        씬 {i+1}: {visual_start:.2f}~{visual_end:.2f}s "
+              f"(audio {seg.audio_start:.2f}~{seg.audio_end:.2f}s) [{preset_name}] 전환={effect}")
+
+    print(f"      씬 {n}개 → 배경 {len(bg_clips)}개 클립 (DepthFlow 2.5D + fade 전환)")
+
+    _create_scene_bg_clips_v3._temp_files = temp_files
+    return bg_clips
+
+
 def _create_scene_bg_clips(
     scene_images: list,
     timings: list,
@@ -1345,7 +1509,7 @@ def _create_scene_bg_clips(
     fade_duration: float = 0.3,
     depthflow_override: dict = None,
 ) -> list:
-    """씬 이미지를 DepthFlow 2.5D 패럴랙스 + flash transition으로 배경 클립 생성."""
+    """레거시: 씬 이미지를 DepthFlow 2.5D 패럴랙스 + 전환 효과로 배경 클립 생성."""
 
     n_images = len(scene_images)
     n_sentences = len(timings)
@@ -1376,7 +1540,7 @@ def _create_scene_bg_clips(
     if merged:
         merged[-1] = (merged[-1][0], merged[-1][1], total_duration)
 
-    # DepthFlow 렌더링: 고유 이미지별 패럴랙스 비디오 생성
+    # DepthFlow 렌더링
     unique_imgs = []
     unique_durations = []
     for img_idx, start, end in merged:
@@ -1390,15 +1554,20 @@ def _create_scene_bg_clips(
         print(f"      DepthFlow 실패 ({e}) → 정적 이미지 폴백")
         rendered_paths = [None] * len(unique_imgs)
 
-    # 클립 생성: DepthFlow 비디오 + flash transition
+    scene_texts = []
+    for img_idx, start, end in merged:
+        texts_in_range = [t[0] for t in timings if t[1] >= start - 0.5 and t[2] <= end + 0.5]
+        scene_texts.append(" ".join(texts_in_range) if texts_in_range else "")
+
     bg_clips = []
-    temp_files = []  # 나중에 정리할 임시 파일
+    temp_files = []
+    td = TRANSITION_DURATION
 
     for seg_i, (img_idx, start, end) in enumerate(merged):
         video_path = rendered_paths[seg_i] if seg_i < len(rendered_paths) else None
+        clip = None
 
         if video_path and os.path.exists(video_path):
-            # DepthFlow 패럴랙스 비디오 클립
             try:
                 clip = VideoFileClip(video_path)
                 clip = clip.with_start(start)
@@ -1407,8 +1576,7 @@ def _create_scene_bg_clips(
                 print(f"        씬 {seg_i+1}: 비디오 로드 실패 ({e})")
                 clip = None
 
-        if not video_path or not os.path.exists(video_path) or clip is None:
-            # 정적 이미지 폴백
+        if clip is None:
             img_path = unique_imgs[seg_i] if seg_i < len(unique_imgs) else unique_imgs[-1]
             try:
                 img_array = _resize_image_for_shorts(img_path)
@@ -1417,29 +1585,32 @@ def _create_scene_bg_clips(
                 clip = ColorClip(size=(1080, 1920), color=format_config["bg_color"])
                 clip = clip.with_start(start).with_end(end)
 
-        # Flash transition (씬 전환 시 짧은 흰색 플래시)
         if seg_i > 0:
-            flash_start = start - FLASH_DURATION / 2
-            flash = ColorClip(
-                size=(1080, 1920), color=(255, 255, 255),
-                duration=FLASH_DURATION,
-            ).with_start(max(0, flash_start))
-            flash = flash.with_effects([
-                vfx.CrossFadeIn(FLASH_DURATION / 2),
-                vfx.CrossFadeOut(FLASH_DURATION / 2),
-            ])
-            bg_clips.append(flash)
+            cur_text = scene_texts[seg_i] if seg_i < len(scene_texts) else ""
+            prev_text = scene_texts[seg_i - 1] if seg_i - 1 < len(scene_texts) else ""
+            effect = _choose_transition(cur_text, prev_text)
+        else:
+            effect = "fade_in"
+
+        effects_list = []
+        if seg_i > 0:
+            effects_list.append(vfx.CrossFadeIn(td))
+        elif seg_i == 0:
+            effects_list.append(vfx.CrossFadeIn(td * 0.5))
+
+        if seg_i < len(merged) - 1:
+            effects_list.append(vfx.CrossFadeOut(td))
+
+        if effects_list:
+            clip = clip.with_effects(effects_list)
 
         bg_clips.append(clip)
         preset_name = _assign_depthflow_presets(len(merged))[seg_i]["name"] if seg_i < len(merged) else "?"
-        print(f"        씬 {seg_i+1}: {start:.1f}~{end:.1f}s [{preset_name}]")
+        print(f"        씬 {seg_i+1}: {start:.1f}~{end:.1f}s [{preset_name}] 전환={effect}")
 
-    print(f"      씬 이미지 {n_images}장 → 배경 {len(bg_clips)}개 클립 (DepthFlow 2.5D + flash)")
+    print(f"      씬 이미지 {n_images}장 → 배경 {len(bg_clips)}개 클립 (DepthFlow 2.5D + fade 전환)")
 
-    # 임시 파일 정리는 render 완료 후 수행 (클립이 읽기 중이므로)
-    # _create_scene_bg_clips._temp_files에 저장
     _create_scene_bg_clips._temp_files = temp_files
-
     return bg_clips
 
 
@@ -1492,177 +1663,28 @@ def render_from_script(script_path: str, output_path: str = None) -> dict:
     )
 
 
-def render_video(
-    text: str,
-    output_path: str,
-    episode_id: str = None,
-    voice_preset: str = QWEN3_DEFAULT_VOICE,
-    voice_instruct: str = None,
-    speed: float = None,
-    video_format: str = "dark-bg-text",
-    font_size: int = 52,
-    scene_images: list = None,
-    display_text: str = None,
-    depthflow_override: dict = None,
-    scenes: list = None,
-) -> dict:
-    """텍스트 → 최종 MP4 영상 (Qwen3-TTS + PIL 자막 + moviepy 합성)"""
-    if episode_id is None:
-        episode_id = datetime.now().strftime("ep_%Y%m%d_%H%M%S")
-
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    audio_path = str(TEMP_DIR / f"audio_{ts}.wav")
-
-    language = detect_language(text)
-
-    # 1. 단일 TTS 생성 → Whisper → 문장 경계에 무음 삽입 (음성 톤 일관성)
-    tts_text = preprocess_korean_for_tts(text) if language == "ko" else text
-    tts_sentences = split_sentences(tts_text)
-    subtitle_text = display_text if display_text else text
-    display_sentences = split_sentences(subtitle_text)
-    n_sent = len(tts_sentences)
-
-    desc = QWEN3_VOICE_PRESETS.get(voice_preset, {}).get("desc", voice_preset)
-    print(f"[1/3] Qwen3-TTS 단일 생성 중... (voice: {voice_preset} — {desc})")
-    engine = Qwen3TTSEngine(preset=voice_preset, instruct=voice_instruct, speed=speed)
-
-    raw_audio_path = str(TEMP_DIR / f"raw_audio_{ts}.wav")
-    tts_result = engine.generate(tts_text, raw_audio_path)
-    raw_duration = tts_result["duration"]
-    print(f"      TTS 완료: {raw_duration:.1f}초")
-
-    # Whisper로 워드 타임스탬프 추출 (원본 오디오 기준)
-    print("      Whisper 분석 중...")
-    whisper_data = get_word_timestamps(raw_audio_path)
-    whisper_words_raw = whisper_data["words"] if whisper_data else []
-    print(f"      Whisper 워드 {len(whisper_words_raw)}개 감지")
-
-    # 오디오를 그대로 사용 (자르지 않음)
-    import shutil
-    shutil.copy2(raw_audio_path, audio_path)
-    duration = raw_duration
-    shifted_words = whisper_words_raw
-
-    # 원본 오디오 정리
-    if os.path.exists(raw_audio_path):
-        os.remove(raw_audio_path)
-
-    # Whisper 워드 덤프 (디버그)
-    if shifted_words:
-        print(f"      Whisper 워드 덤프:")
-        for wi, w in enumerate(shifted_words):
-            print(f"        [{wi:2d}] {w['start']:5.2f}~{w['end']:5.2f}s \"{w['text']}\"")
-
-    # 2. 자막 생성 — 1단계 전역 정렬 (문장 그룹핑 없이 직접 매핑)
-    print("[2/3] 자막 생성 중...")
-
-    format_config = FORMAT_PRESETS.get(video_format, FORMAT_PRESETS["dark-bg-text"])
-    subtitle_y = format_config["subtitle_y"]
-
-    # 전체 구절 생성 (문장 소속 추적)
-    all_phrases = []
-    phrase_to_sent = []
-    for i in range(n_sent):
-        disp_sent = display_sentences[i] if i < len(display_sentences) else tts_sentences[i]
-        phrases = split_korean_phrases(disp_sent, max_chars=16) if language == "ko" \
-            else split_into_chunks(disp_sent, max_chars=16)
-        for phrase in phrases:
-            all_phrases.append(phrase)
-            phrase_to_sent.append(i)
-
-    # 전체 구절을 Whisper 워드에 직접 정렬 (1단계, 문장 그룹핑 없음)
-    all_timings = _align_phrases_to_whisper(
-        all_phrases, shifted_words, 0.0, duration,
-    )
-
-    # 문장 범위 = 소속 구절들의 범위 합산 (자막 디버그용)
-    sentence_ranges = []
-    for si in range(n_sent):
-        indices = [j for j in range(len(all_phrases)) if phrase_to_sent[j] == si]
-        if indices:
-            sentence_ranges.append((all_timings[indices[0]][0], all_timings[indices[-1]][1]))
-        elif sentence_ranges:
-            sentence_ranges.append((sentence_ranges[-1][1], sentence_ranges[-1][1]))
-        else:
-            sentence_ranges.append((0.0, 0.0))
-
-    # 문장별 타이밍 출력
-    print(f"      최종: {duration:.1f}초 (문장 {n_sent}개, 구절 {len(all_phrases)}개, 무편집 원본)")
-    for i, (s, e) in enumerate(sentence_ranges):
-        disp = display_sentences[i][:25] if i < len(display_sentences) else "?"
-        print(f"      문장 {i+1}: {s:.2f}~{e:.2f}초 ({e-s:.1f}s) | {disp}")
-
-    # 씬 배경 전환용 timings — scenes 배열 기반 (이미지-음성 1:1 매핑)
-    if scenes and shifted_words:
-        scene_timings = _compute_scene_timings(scenes, shifted_words, duration)
-        timings = [
-            (scenes[sid]["text"] if sid < len(scenes) else "", st, et)
-            for sid, st, et in scene_timings
-        ]
-        print(f"      씬 타이밍 ({len(scene_timings)}개 씬 → 이미지 1:1 매핑):")
-        for sid, st, et in scene_timings:
-            sc_text = scenes[sid]["text"][:25] if sid < len(scenes) else "?"
-            print(f"        씬 {sid+1}: {st:.2f}~{et:.2f}초 ({et-st:.1f}s) | {sc_text}")
-    else:
-        # scenes 없으면 기존 문장 기반 폴백
-        timings = [
-            (tts_sentences[i], sentence_ranges[i][0], sentence_ranges[i][1])
-            for i in range(n_sent)
-        ]
-
-    # 구절별 타이밍 결과
-    for j, (phrase, (ps, pe)) in enumerate(zip(all_phrases, all_timings)):
-        si = phrase_to_sent[j]
-        print(f"        [{j+1:2d}] 문장{si+1} {ps:5.2f}~{pe:5.2f}s ({pe-ps:.1f}s) \"{phrase}\"")
-
-    # 자막 클립 생성
-    subtitle_clips = []
-    chunk_count = 0
-    all_subtitle_info = []
-
-    for j, phrase in enumerate(all_phrases):
-        p_start, p_end = all_timings[j]
-        all_subtitle_info.append((phrase, p_start, p_end))
-        try:
-            text_img = create_subtitle_image(phrase, font_size=font_size, language=language)
-            clip = (
-                ImageClip(text_img)
-                .with_start(p_start)
-                .with_end(p_end)
-                .with_position(("center", subtitle_y))
-            )
-            subtitle_clips.append(clip)
-            chunk_count += 1
-        except Exception as e:
-            print(f"      자막 경고: {e}")
-
-    # 자막-음성 싱크 자동 검증 (3단계)
-    print(f"      자막 {chunk_count}개 청크 생성")
+def _run_sync_validation(all_subtitle_info, whisper_words):
+    """자막-음성 싱크 자동 검증."""
+    print("      [싱크 검증]")
     warnings = []
-
-    # 검증 1: 청크 품질 (표시 시간 검증)
     display_fails = 0
+    sync_ok = 0
+    sync_warn = 0
+
     for idx, (phrase, p_start, p_end) in enumerate(all_subtitle_info):
         dur = p_end - p_start
         if dur < 0.4:
             warnings.append(f"FAIL 청크[{idx+1}] \"{phrase}\" 표시시간 {dur:.2f}s < 0.4s (안 보임)")
             display_fails += 1
 
-    # 검증 2: Whisper 워드 매칭 + 타이밍 오프셋
-    print("      [싱크 검증]")
-    sync_ok = 0
-    sync_warn = 0
-    for idx, (phrase, p_start, p_end) in enumerate(all_subtitle_info):
-        overlap_words = [w for w in shifted_words
+        overlap_words = [w for w in whisper_words
                          if w["start"] < p_end and w["end"] > p_start]
         overlap_texts = [w["text"] for w in overlap_words]
         w_text = " ".join(overlap_texts) if overlap_texts else "(없음)"
 
-        # 텍스트 매칭
         text_match = overlap_texts and any(
             phrase[:2] in w or w[:2] in phrase for w in overlap_texts
         )
-        # 타이밍 오프셋: 자막 시작 vs 첫 매칭 워드 시작
         offset_ms = 0
         if overlap_words:
             offset_ms = abs(p_start - overlap_words[0]["start"]) * 1000
@@ -1683,7 +1705,6 @@ def render_video(
 
         print(f"        [{idx+1}] {p_start:.2f}~{p_end:.2f}s \"{phrase}\" → W:\"{w_text}\" [{status}]")
 
-    # 검증 3: 종합 판정
     total = sync_ok + sync_warn
     sync_rate = (sync_ok / total * 100) if total else 0
     print(f"      [검증 결과] 싱크 {sync_ok}/{total} OK ({sync_rate:.0f}%)"
@@ -1693,43 +1714,304 @@ def render_video(
             print(f"      ⚠ {w}")
     if display_fails > 0:
         print(f"      → FAIL: 자막 {display_fails}개가 0.4초 미만 (시청자에게 안 보임)")
-        print("      → 재렌더링 필수")
     elif sync_rate >= 80:
         print("      → PASS: 싱크 품질 양호")
     else:
         print(f"      → WARN: 싱크 품질 미달 ({sync_rate:.0f}% < 80%)")
-        print("      → 재렌더링 권고")
 
-    # 2.5. 오디오 마스터링 (하이패스 + EQ + 컴프레서 + 리버브 + 라우드니스)
+
+def _run_dead_section_qa(all_timings, duration):
+    """Dead Section QA — 음성/자막 없는 구간이 2초 이상이면 경고."""
+    DEAD_THRESHOLD_SEC = 2.0
+    dead_sections = []
+    if all_timings:
+        if all_timings[0][0] > DEAD_THRESHOLD_SEC:
+            dead_sections.append((0.0, all_timings[0][0]))
+        for j in range(len(all_timings) - 1):
+            gap_start = all_timings[j][1]
+            gap_end = all_timings[j + 1][0]
+            if gap_end - gap_start > DEAD_THRESHOLD_SEC:
+                dead_sections.append((gap_start, gap_end))
+        if duration - all_timings[-1][1] > DEAD_THRESHOLD_SEC:
+            dead_sections.append((all_timings[-1][1], duration))
+
+    if dead_sections:
+        print(f"      [QA] DEAD SECTION 감지: {len(dead_sections)}건")
+        for ds_start, ds_end in dead_sections:
+            print(f"        {ds_start:.1f}~{ds_end:.1f}초 ({ds_end - ds_start:.1f}s 공백)")
+    else:
+        print(f"      [QA] Dead section 없음 — OK")
+
+
+def render_video(
+    text: str,
+    output_path: str,
+    episode_id: str = None,
+    voice_preset: str = QWEN3_DEFAULT_VOICE,
+    voice_instruct: str = None,
+    speed: float = None,
+    video_format: str = "dark-bg-text",
+    font_size: int = 52,
+    scene_images: list = None,
+    display_text: str = None,
+    depthflow_override: dict = None,
+    scenes: list = None,
+) -> dict:
+    """텍스트 → 최종 MP4 영상 (Qwen3-TTS + PIL 자막 + moviepy 합성)
+
+    v3.0: scenes 배열이 있으면 Per-Scene TTS 경로 사용 (근본 싱크 해결)
+    scenes 없으면 레거시 단일 TTS 경로 사용
+    """
+    if episode_id is None:
+        episode_id = datetime.now().strftime("ep_%Y%m%d_%H%M%S")
+
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    language = detect_language(text)
+    format_config = FORMAT_PRESETS.get(video_format, FORMAT_PRESETS["dark-bg-text"])
+    subtitle_y = format_config["subtitle_y"]
+
+    desc = QWEN3_VOICE_PRESETS.get(voice_preset, {}).get("desc", voice_preset)
+    lang_code = "ko" if language == "ko" else "auto"
+    engine = Qwen3TTSEngine(preset=voice_preset, instruct=voice_instruct, speed=speed, lang_code=lang_code)
+
+    # ══════════════════════════════════════════════════════════
+    # v3.0 Per-Scene TTS 경로 (scenes 배열이 있을 때)
+    # ══════════════════════════════════════════════════════════
+    if scenes:
+        print(f"[1/4] Per-Scene TTS 생성 중... (voice: {voice_preset} — {desc})")
+        print(f"      {len(scenes)}개 씬, Per-Scene 아키텍처 v3.0")
+
+        # 1. 씬별 TTS + Whisper + concat
+        audio_segments, audio_path, duration = _generate_per_scene_audio(
+            scenes=scenes,
+            engine=engine,
+            language=language,
+            scene_images=scene_images,
+            display_text=display_text,
+            ts=ts,
+        )
+
+        if not audio_segments:
+            return {"success": False, "episode_id": episode_id, "error": "Per-Scene TTS 실패"}
+
+        # 2. 오디오 마스터링
+        print(f"[2/4] 오디오 마스터링 중...")
+        mastered_path = audio_path.replace(".wav", "_mastered.wav")
+        _master_audio(audio_path, mastered_path)
+        if os.path.exists(mastered_path):
+            os.remove(audio_path)
+            audio_path = mastered_path
+            print("      마스터링 완료")
+
+        # 3. 자막 클립 생성 — 씬별 정확한 타이밍 사용
+        print(f"[3/4] 자막 생성 중...")
+        subtitle_clips = []
+        all_subtitle_info = []
+        all_whisper_words = []
+        all_phrase_timings = []
+        chunk_count = 0
+
+        for seg in audio_segments:
+            all_whisper_words.extend(seg.whisper_words)
+            for j, phrase in enumerate(seg.phrases):
+                if j < len(seg.phrase_timings):
+                    p_start, p_end = seg.phrase_timings[j]
+                else:
+                    continue
+                all_subtitle_info.append((phrase, p_start, p_end))
+                all_phrase_timings.append((p_start, p_end))
+                try:
+                    text_img = create_subtitle_image(phrase, font_size=font_size, language=language)
+                    clip = (
+                        ImageClip(text_img)
+                        .with_start(p_start)
+                        .with_end(p_end)
+                        .with_position(("center", subtitle_y))
+                    )
+                    subtitle_clips.append(clip)
+                    chunk_count += 1
+                except Exception as e:
+                    print(f"      자막 경고: {e}")
+
+        print(f"      자막 {chunk_count}개 청크 생성")
+
+        # 구절별 타이밍 출력
+        for j, (phrase, ps, pe) in enumerate(all_subtitle_info):
+            # 소속 씬 찾기
+            scene_id = "?"
+            for seg in audio_segments:
+                if ps >= seg.audio_start - 0.01 and pe <= seg.audio_end + 0.01:
+                    scene_id = seg.scene_id
+                    break
+            print(f"        [{j+1:2d}] 씬{scene_id} {ps:5.2f}~{pe:5.2f}s ({pe-ps:.1f}s) \"{phrase}\"")
+
+        # QA 검증
+        _run_dead_section_qa(all_phrase_timings, duration)
+        _run_sync_validation(all_subtitle_info, all_whisper_words)
+
+        # 4. 영상 합성
+        print(f"[4/4] 영상 렌더링 중...")
+        if scene_images:
+            bg_clips = _create_scene_bg_clips_v3(
+                audio_segments, duration, format_config,
+                depthflow_override=depthflow_override,
+            )
+        else:
+            bg_clips = [ColorClip(size=(1080, 1920), color=format_config["bg_color"], duration=duration)]
+
+        video = CompositeVideoClip(bg_clips + subtitle_clips)
+        _ffmpeg_mux(video, audio_path, output_path, fps=30)
+
+        # 정리
+        video.close()
+        if os.path.exists(audio_path):
+            os.remove(audio_path)
+        # 씬별 WAV 정리
+        for seg in audio_segments:
+            if seg.wav_path and os.path.exists(seg.wav_path):
+                try:
+                    os.remove(seg.wav_path)
+                except OSError:
+                    pass
+        # DepthFlow 임시 파일 정리
+        if hasattr(_create_scene_bg_clips_v3, "_temp_files"):
+            for tf in _create_scene_bg_clips_v3._temp_files:
+                try:
+                    if tf and os.path.exists(tf):
+                        os.unlink(tf)
+                except OSError:
+                    pass
+            _create_scene_bg_clips_v3._temp_files = []
+
+        if os.path.exists(output_path):
+            file_size = os.path.getsize(output_path) / (1024 * 1024)
+            print(f"      완료: {output_path}")
+            print(f"      길이: {duration:.1f}초 | 크기: {file_size:.1f}MB")
+            return {
+                "success": True,
+                "episode_id": episode_id,
+                "path": output_path,
+                "duration": duration,
+                "file_size_mb": round(file_size, 1),
+                "format": video_format,
+                "voice_preset": voice_preset,
+                "engine": "qwen3_tts",
+                "architecture": "per_scene_v3",
+                "scenes": len(audio_segments),
+                "subtitles": chunk_count,
+            }
+        return {"success": False, "episode_id": episode_id, "error": "렌더링 실패"}
+
+    # ══════════════════════════════════════════════════════════
+    # 레거시 경로 (scenes 없을 때 — 단일 TTS)
+    # ══════════════════════════════════════════════════════════
+    audio_path = str(TEMP_DIR / f"audio_{ts}.wav")
+
+    tts_text = preprocess_korean_for_tts(text) if language == "ko" else text
+    tts_sentences = split_sentences(tts_text)
+    subtitle_text = display_text if display_text else text
+    display_sentences = split_sentences(subtitle_text)
+    n_sent = len(tts_sentences)
+
+    print(f"[1/3] Qwen3-TTS 단일 생성 중... (voice: {voice_preset} — {desc})")
+
+    raw_audio_path = str(TEMP_DIR / f"raw_audio_{ts}.wav")
+    tts_result = engine.generate(tts_text, raw_audio_path)
+    raw_duration = tts_result["duration"]
+    print(f"      TTS 완료: {raw_duration:.1f}초")
+
+    print("      Whisper 분석 중...")
+    whisper_data = get_word_timestamps(raw_audio_path)
+    whisper_words_raw = whisper_data["words"] if whisper_data else []
+    print(f"      Whisper 워드 {len(whisper_words_raw)}개 감지")
+
+    import shutil
+    shutil.copy2(raw_audio_path, audio_path)
+    duration = raw_duration
+    shifted_words = whisper_words_raw
+
+    if os.path.exists(raw_audio_path):
+        os.remove(raw_audio_path)
+
+    print("[2/3] 자막 생성 중...")
+
+    all_phrases = []
+    phrase_to_sent = []
+    for i in range(n_sent):
+        disp_sent = display_sentences[i] if i < len(display_sentences) else tts_sentences[i]
+        phrases = split_korean_phrases(disp_sent, max_chars=16) if language == "ko" \
+            else split_into_chunks(disp_sent, max_chars=16)
+        for phrase in phrases:
+            all_phrases.append(phrase)
+            phrase_to_sent.append(i)
+
+    all_timings = _align_phrases_to_whisper(
+        all_phrases, shifted_words, 0.0, duration,
+    )
+
+    sentence_ranges = []
+    for si in range(n_sent):
+        indices = [j for j in range(len(all_phrases)) if phrase_to_sent[j] == si]
+        if indices:
+            sentence_ranges.append((all_timings[indices[0]][0], all_timings[indices[-1]][1]))
+        elif sentence_ranges:
+            sentence_ranges.append((sentence_ranges[-1][1], sentence_ranges[-1][1]))
+        else:
+            sentence_ranges.append((0.0, 0.0))
+
+    print(f"      최종: {duration:.1f}초 (문장 {n_sent}개, 구절 {len(all_phrases)}개)")
+
+    timings = [
+        (tts_sentences[i], sentence_ranges[i][0], sentence_ranges[i][1])
+        for i in range(n_sent)
+    ]
+
+    _run_dead_section_qa(all_timings, duration)
+
+    subtitle_clips = []
+    chunk_count = 0
+    all_subtitle_info = []
+
+    for j, phrase in enumerate(all_phrases):
+        p_start, p_end = all_timings[j]
+        all_subtitle_info.append((phrase, p_start, p_end))
+        try:
+            text_img = create_subtitle_image(phrase, font_size=font_size, language=language)
+            clip = (
+                ImageClip(text_img)
+                .with_start(p_start)
+                .with_end(p_end)
+                .with_position(("center", subtitle_y))
+            )
+            subtitle_clips.append(clip)
+            chunk_count += 1
+        except Exception as e:
+            print(f"      자막 경고: {e}")
+
+    print(f"      자막 {chunk_count}개 청크 생성")
+    _run_sync_validation(all_subtitle_info, shifted_words)
+
     mastered_path = audio_path.replace(".wav", "_mastered.wav")
-    print("      오디오 마스터링 적용 중... (EQ + 컴프레서 + 리버브 + 라우드니스)")
+    print("      오디오 마스터링 적용 중...")
     _master_audio(audio_path, mastered_path)
     if os.path.exists(mastered_path):
         os.remove(audio_path)
         audio_path = mastered_path
-        print("      마스터링 완료")
 
-    # 3. 영상 합성
     print("[3/3] 영상 렌더링 중...")
 
-    # 씬 이미지가 있으면 배경으로 사용, 없으면 단색 배경
     if scene_images:
         bg_clips = _create_scene_bg_clips(scene_images, timings, duration, format_config, depthflow_override=depthflow_override)
     else:
         bg_clips = [ColorClip(size=(1080, 1920), color=format_config["bg_color"], duration=duration)]
 
     video = CompositeVideoClip(bg_clips + subtitle_clips)
-
-    # FFmpeg 다이렉트 파이프 인코딩 (VideoToolbox HW 자동 감지)
     _ffmpeg_mux(video, audio_path, output_path, fps=30)
 
-    # 정리
     video.close()
     if os.path.exists(audio_path):
         os.remove(audio_path)
 
-    # 결과 검증
-    # DepthFlow 임시 파일 정리
     if hasattr(_create_scene_bg_clips, "_temp_files"):
         for tf in _create_scene_bg_clips._temp_files:
             try:
@@ -1743,7 +2025,6 @@ def render_video(
         file_size = os.path.getsize(output_path) / (1024 * 1024)
         print(f"      완료: {output_path}")
         print(f"      길이: {duration:.1f}초 | 크기: {file_size:.1f}MB")
-
         return {
             "success": True,
             "episode_id": episode_id,

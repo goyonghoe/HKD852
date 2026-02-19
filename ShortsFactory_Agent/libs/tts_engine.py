@@ -205,7 +205,14 @@ class TTSEngine:
 # Qwen3-TTS VoiceDesign 엔진
 # ──────────────────────────────────────
 class Qwen3TTSEngine:
-    """Qwen3-TTS VoiceDesign 기반 고품질 음성 합성 엔진 (Apple Silicon MLX)"""
+    """Qwen3-TTS VoiceDesign 기반 고품질 음성 합성 엔진 (Apple Silicon MLX)
+
+    모델 캐싱: 첫 generate() 호출 시 모델을 로드하고 이후 재사용.
+    Per-Scene TTS에서 씬 간 동일한 목소리를 유지하기 위해 필수.
+    """
+
+    _cached_model = None       # 클래스 레벨 모델 캐시
+    _cached_model_id = None    # 캐시된 모델의 ID
 
     def __init__(
         self,
@@ -213,31 +220,64 @@ class Qwen3TTSEngine:
         instruct: str = None,
         speed: float = None,
         model_id: str = None,
+        lang_code: str = "auto",
     ):
         config = QWEN3_VOICE_PRESETS.get(preset, QWEN3_VOICE_PRESETS[QWEN3_DEFAULT_VOICE])
         self.instruct = instruct if instruct is not None else config["instruct"]
         self.speed = speed if speed is not None else config["speed"]
         self.model_id = model_id or QWEN3_MODEL_ID
         self.preset = preset
+        self.lang_code = lang_code
         self.word_timings = []
 
+    def _get_model(self):
+        """모델을 로드하거나 캐시에서 반환 (목소리 일관성 보장)."""
+        if Qwen3TTSEngine._cached_model is not None and Qwen3TTSEngine._cached_model_id == self.model_id:
+            return Qwen3TTSEngine._cached_model
+
+        from mlx_audio.tts.utils import load_model
+        print(f"  [Qwen3] 모델 로딩: {self.model_id} (이후 캐시 재사용)")
+        model = load_model(model_path=self.model_id)
+        Qwen3TTSEngine._cached_model = model
+        Qwen3TTSEngine._cached_model_id = self.model_id
+        return model
+
+    # 음색 일관성을 위한 고정 시드 값
+    VOICE_SEED = 42
+
     def generate(self, text: str, output_path: str) -> dict:
-        """TTS 음성 생성 (동기 — mlx_audio는 동기 API)"""
+        """TTS 음성 생성 (동기 — mlx_audio는 동기 API).
+
+        음색 일관성 전략:
+        1. 모델 캐싱 (클래스 레벨) — 동일 가중치 사용
+        2. 고정 시드 (mx.random.seed) — 동일 랜덤 초기화
+        3. temperature 0.5 — 음색 일관성 유지하면서 자연스러운 리듬 보존
+        → 같은 instruct + 같은 시드 + 같은 모델 = 일관된 음색
+        """
         from mlx_audio.tts.generate import generate_audio
+        import mlx.core as mx
 
         Path(output_path).parent.mkdir(parents=True, exist_ok=True)
 
         output_dir = str(Path(output_path).parent)
         file_prefix = Path(output_path).stem
 
+        # 캐시된 모델 사용
+        model = self._get_model()
+
+        # 고정 시드 → 음색 결정론적 고정 (씬 간 동일한 목소리)
+        mx.random.seed(self.VOICE_SEED)
+
         generate_audio(
             text=text,
-            model=self.model_id,
+            model=model,
             output_path=output_dir + "/",
             file_prefix=file_prefix,
             audio_format="wav",
             instruct=self.instruct,
             speed=self.speed,
+            lang_code=self.lang_code,
+            temperature=0.5,
             verbose=False,
         )
 
@@ -296,6 +336,7 @@ def create_engine(engine_type: str = "qwen3", **kwargs):
             instruct=kwargs.get("instruct"),
             speed=kwargs.get("speed"),
             model_id=kwargs.get("model_id"),
+            lang_code=kwargs.get("lang_code", "auto"),
         )
 
 
