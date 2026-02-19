@@ -924,6 +924,76 @@ def get_word_timestamps(audio_path: str) -> dict | None:
         return None
 
 
+def _compute_scene_timings(
+    scenes: list[dict],
+    whisper_words: list[dict],
+    total_duration: float,
+) -> list[tuple[int, float, float]]:
+    """스크립트 scenes 배열의 각 씬 텍스트를 Whisper 워드에 매핑하여 정확한 시작/끝 시간 계산.
+
+    원리: 각 씬의 text를 어절(띄어쓰기) 단위로 나누고,
+          Whisper 워드와 비례 매핑하여 해당 씬의 시작/끝 Whisper 시간을 결정.
+
+    Returns: [(scene_id, start_sec, end_sec), ...]
+    """
+    if not scenes or not whisper_words:
+        # 씬이 없으면 균등 분할
+        n = max(len(scenes), 1)
+        seg = total_duration / n
+        return [(i, i * seg, (i + 1) * seg) for i in range(n)]
+
+    # 전체 씬 텍스트를 이어붙여 어절 리스트 생성 + 씬 소속 추적
+    scene_word_counts = []
+    for sc in scenes:
+        words = sc.get("text", "").split()
+        scene_word_counts.append(len(words))
+
+    total_scene_words = sum(scene_word_counts)
+    n_whisper = len(whisper_words)
+
+    if total_scene_words == 0:
+        n = len(scenes)
+        seg = total_duration / n
+        return [(i, i * seg, (i + 1) * seg) for i in range(n)]
+
+    # 씬별 Whisper 워드 범위 비례 매핑
+    result = []
+    word_offset = 0
+    for i, wc in enumerate(scene_word_counts):
+        # 이 씬에 대응하는 Whisper 워드 인덱스 범위
+        w_start_idx = min(int(word_offset * n_whisper / total_scene_words), n_whisper - 1)
+        w_end_idx = min(int((word_offset + wc) * n_whisper / total_scene_words) - 1, n_whisper - 1)
+        w_end_idx = max(w_end_idx, w_start_idx)
+
+        start_t = whisper_words[w_start_idx]["start"]
+        end_t = whisper_words[w_end_idx]["end"]
+
+        # 최소 0.5초 보장
+        if end_t - start_t < 0.5:
+            end_t = start_t + 0.5
+
+        result.append((i, start_t, end_t))
+        word_offset += wc
+
+    # 씬 간 갭 제거: 다음 씬의 시작을 이전 씬의 끝에 맞춤
+    for i in range(1, len(result)):
+        prev_end = result[i - 1][2]
+        cur_start = result[i][1]
+        if cur_start > prev_end:
+            # 갭이 있으면 이전 씬을 연장
+            result[i - 1] = (result[i - 1][0], result[i - 1][1], cur_start)
+        elif cur_start < prev_end:
+            # 겹치면 현재 씬을 이전 끝에서 시작
+            result[i] = (result[i][0], prev_end, result[i][2])
+
+    # 마지막 씬을 total_duration까지 연장
+    if result:
+        last = result[-1]
+        result[-1] = (last[0], last[1], total_duration)
+
+    return result
+
+
 def align_display_to_whisper(
     display_text: str,
     whisper_words: list[dict],
@@ -1402,6 +1472,7 @@ def render_from_script(script_path: str, output_path: str = None) -> dict:
         font_size=render_config.get("font_size", 52),
         scene_images=scene_images,
         display_text=display_text,
+        scenes=scenes,
     )
 
 
@@ -1417,6 +1488,7 @@ def render_video(
     scene_images: list = None,
     display_text: str = None,
     depthflow_override: dict = None,
+    scenes: list = None,
 ) -> dict:
     """텍스트 → 최종 MP4 영상 (Qwen3-TTS + PIL 자막 + moviepy 합성)"""
     if episode_id is None:
@@ -1487,7 +1559,7 @@ def render_video(
         all_phrases, shifted_words, 0.0, duration,
     )
 
-    # 문장 범위 = 소속 구절들의 범위 합산 (씬 이미지 전환용)
+    # 문장 범위 = 소속 구절들의 범위 합산 (자막 디버그용)
     sentence_ranges = []
     for si in range(n_sent):
         indices = [j for j in range(len(all_phrases)) if phrase_to_sent[j] == si]
@@ -1504,11 +1576,23 @@ def render_video(
         disp = display_sentences[i][:25] if i < len(display_sentences) else "?"
         print(f"      문장 {i+1}: {s:.2f}~{e:.2f}초 ({e-s:.1f}s) | {disp}")
 
-    # 씬 배경 전환용 timings
-    timings = [
-        (tts_sentences[i], sentence_ranges[i][0], sentence_ranges[i][1])
-        for i in range(n_sent)
-    ]
+    # 씬 배경 전환용 timings — scenes 배열 기반 (이미지-음성 1:1 매핑)
+    if scenes and shifted_words:
+        scene_timings = _compute_scene_timings(scenes, shifted_words, duration)
+        timings = [
+            (scenes[sid]["text"] if sid < len(scenes) else "", st, et)
+            for sid, st, et in scene_timings
+        ]
+        print(f"      씬 타이밍 ({len(scene_timings)}개 씬 → 이미지 1:1 매핑):")
+        for sid, st, et in scene_timings:
+            sc_text = scenes[sid]["text"][:25] if sid < len(scenes) else "?"
+            print(f"        씬 {sid+1}: {st:.2f}~{et:.2f}초 ({et-st:.1f}s) | {sc_text}")
+    else:
+        # scenes 없으면 기존 문장 기반 폴백
+        timings = [
+            (tts_sentences[i], sentence_ranges[i][0], sentence_ranges[i][1])
+            for i in range(n_sent)
+        ]
 
     # 구절별 타이밍 결과
     for j, (phrase, (ps, pe)) in enumerate(zip(all_phrases, all_timings)):

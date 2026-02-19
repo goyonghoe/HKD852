@@ -125,6 +125,7 @@ def render_episode(
         scene_images=scene_images,
         display_text=display_text,
         depthflow_override=style["depthflow_preset"],
+        scenes=scenes,
     )
 
     ep_elapsed = time.time() - ep_start
