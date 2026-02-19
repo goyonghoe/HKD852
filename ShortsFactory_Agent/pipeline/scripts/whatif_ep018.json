@@ -1,0 +1,91 @@
+{
+  "episode_id": "whatif_ep018",
+  "series": "만약에~",
+  "topic_id": "ai-reads-memories",
+  "language": "ko",
+  "visual_style": "cyberpunk dark atmosphere with neon blue and electric purple glow, silhouette-heavy compositions against glowing circuit-pattern backgrounds, consistent cool-tone palette of deep navy and violet, digital rain and data stream visual motifs throughout, ",
+  "script": {
+    "hook": "만약 AI가 당신의 기억을 전부 읽을 수 있다면?",
+    "body": [
+      "오늘 아침에 뭘 먹었는지, AI가 먼저 말해준다.",
+      "첫사랑의 이름, 비밀번호, 혼자 운 날까지 전부 알고 있다.",
+      "범죄자의 기억을 읽으면 완벽한 증거가 된다.",
+      "하지만 무고한 사람의 불쾌한 상상도 범죄가 될 수 있다.",
+      "기업은 직원의 충성심을 기억으로 검증하기 시작한다.",
+      "연인 사이에서 '기억 공유 동의서'가 등장한다.",
+      "사람들은 기억을 지우는 시술을 받기 시작한다."
+    ],
+    "cta": "기억은 나만의 것이어야 할까? 다음 만약에도 소름이다. 구독 눌러."
+  },
+  "full_text": "만약 AI가 당신의 기억을 전부 읽을 수 있다면? 오늘 아침에 뭘 먹었는지, AI가 먼저 말해준다. 첫사랑의 이름, 비밀번호, 혼자 운 날까지 전부 알고 있다. 범죄자의 기억을 읽으면 완벽한 증거가 된다. 하지만 무고한 사람의 불쾌한 상상도 범죄가 될 수 있다. 기업은 직원의 충성심을 기억으로 검증하기 시작한다. 연인 사이에서 '기억 공유 동의서'가 등장한다. 사람들은 기억을 지우는 시술을 받기 시작한다. 기억은 나만의 것이어야 할까? 다음 만약에도 소름이다. 구독 눌러.",
+  "display_text": "만약 AI가 당신의 기억을 전부 읽을 수 있다면? 오늘 아침에 뭘 먹었는지, AI가 먼저 말해준다. 첫사랑의 이름, 비밀번호, 혼자 운 날까지 전부 알고 있다. 범죄자의 기억을 읽으면 완벽한 증거가 된다. 하지만 무고한 사람의 불쾌한 상상도 범죄가 될 수 있다. 기업은 직원의 충성심을 기억으로 검증하기 시작한다. 연인 사이에서 기억 공유 동의서가 등장한다. 사람들은 기억을 지우는 시술을 받기 시작한다. 기억은 나만의 것이어야 할까?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 AI가 당신의 기억을 전부 읽을 수 있다면?",
+      "image_prompt": "A lone figure standing before a massive glowing digital brain made of circuit patterns, data streams flowing from the person's head into the machine, dramatic scale contrast between tiny human and enormous AI structure",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "오늘 아침에 뭘 먹었는지, AI가 먼저 말해준다.",
+      "image_prompt": "A breakfast table scene dissolving into floating holographic data fragments, morning light mixed with digital glow, everyday mundane moment being scanned and analyzed by invisible technology",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "첫사랑의 이름, 비밀번호, 혼자 운 날까지 전부 알고 있다.",
+      "image_prompt": "A person's silhouette with glowing memory fragments floating out like scattered photographs and diary pages dissolving into digital particles, private moments exposed to light, emotional vulnerability",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "범죄자의 기억을 읽으면 완벽한 증거가 된다.",
+      "image_prompt": "A dark courtroom scene with a massive holographic memory playback floating above, scales of justice glowing in neon, tension between surveillance and truth, dramatic courtroom lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "하지만 무고한 사람의 불쾌한 상상도 범죄가 될 수 있다.",
+      "image_prompt": "A frightened person trapped inside a transparent cage made of their own thought bubbles and memories, dark storm clouds of accusation swirling overhead, oppressive atmosphere of false judgment",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "기업은 직원의 충성심을 기억으로 검증하기 시작한다.",
+      "image_prompt": "Rows of office workers in identical poses being scanned by overhead beams of light, corporate dystopia environment, each person having a loyalty score floating above them, cold sterile atmosphere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 7,
+      "text": "연인 사이에서 기억 공유 동의서가 등장한다.",
+      "image_prompt": "Two people facing each other with a glowing contract floating between them, their memories visualized as intertwining light streams, romantic tension mixed with digital coldness, bittersweet mood",
+      "duration_hint": "body"
+    },
+    {
+      "id": 8,
+      "text": "사람들은 기억을 지우는 시술을 받기 시작한다.",
+      "image_prompt": "A person sitting in a futuristic chair with memories being extracted as glowing orbs floating upward and dissolving, peaceful yet deeply sad atmosphere, the cost of privacy in a transparent world",
+      "duration_hint": "body"
+    },
+    {
+      "id": 9,
+      "text": "기억은 나만의 것이어야 할까? 다음 만약에도 소름이다. 구독 눌러.",
+      "image_prompt": "Epic wide shot of a city at night where every building is connected by streams of flowing memory data, one person standing on a rooftop looking at the sky, contemplative mood, question about the boundary between self and technology",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "AI가 내 기억을 읽으면 벌어지는 일 #만약에",
+    "thumbnail_text": "AI=기억 해킹",
+    "description": "만약 AI가 당신의 모든 기억을 읽을 수 있다면? 프라이버시의 끝, 기억의 가치를 다시 생각하게 되는 이야기.\nAI-assisted production.\n#만약에 #AI #기억 #프라이버시 #쇼츠",
+    "hashtags": ["#만약에", "#AI", "#기억", "#프라이버시", "#WhatIf", "#Shorts", "#인공지능", "#미래", "#디스토피아", "#기술"]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

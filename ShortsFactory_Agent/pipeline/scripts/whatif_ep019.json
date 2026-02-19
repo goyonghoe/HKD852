@@ -1,0 +1,91 @@
+{
+  "episode_id": "whatif_ep019",
+  "series": "만약에~",
+  "topic_id": "anti-aging-pill",
+  "language": "ko",
+  "visual_style": "clean futuristic sci-fi aesthetic with white and warm gold color palette, bright luminous atmosphere, soft ethereal lighting like sunrise, consistent glass and chrome textures, medical-utopian visual motifs, ",
+  "script": {
+    "hook": "만약 100살까지 안 늙는 약이 나온다면?",
+    "body": [
+      "60대 할머니가 20대 외모로 출근한다.",
+      "나이를 물어보는 게 의미가 없어진다.",
+      "은퇴가 사라진다. 죽을 때까지 일해야 한다.",
+      "인구가 폭발한다. 지구가 감당할 수 없다.",
+      "약값은 한 알에 1억. 부자만 젊어진다.",
+      "가난한 사람은 늙고, 부자는 영원히 젊은 세상.",
+      "결국 나이는 없어졌지만, 불평등은 영원해졌다."
+    ],
+    "cta": "영원한 젊음, 정말 축복일까? 구독 눌러."
+  },
+  "full_text": "만약 100살까지 안 늙는 약이 나온다면? 60대 할머니가 20대 외모로 출근한다. 나이를 물어보는 게 의미가 없어진다. 은퇴가 사라진다. 죽을 때까지 일해야 한다. 인구가 폭발한다. 지구가 감당할 수 없다. 약값은 한 알에 1억. 부자만 젊어진다. 가난한 사람은 늙고, 부자는 영원히 젊은 세상. 결국 나이는 없어졌지만, 불평등은 영원해졌다. 영원한 젊음, 정말 축복일까? 구독 눌러.",
+  "display_text": "만약 100살까지 안 늙는 약이 나온다면? 60대 할머니가 20대 외모로 출근한다. 나이를 물어보는 게 의미가 없어진다. 은퇴가 사라진다. 죽을 때까지 일해야 한다. 인구가 폭발한다. 지구가 감당할 수 없다. 약값은 한 알에 1억. 부자만 젊어진다. 가난한 사람은 늙고, 부자는 영원히 젊은 세상. 결국 나이는 없어졌지만, 불평등은 영원해졌다. 영원한 젊음, 정말 축복일까?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 100살까지 안 늙는 약이 나온다면?",
+      "image_prompt": "A single glowing golden pill floating in mid-air, radiating warm light like a tiny sun, pristine laboratory environment with soft reflections, sense of wonder and possibility, the pill is the only colored element",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "60대 할머니가 20대 외모로 출근한다.",
+      "image_prompt": "A modern city morning scene with people of various apparent ages all looking youthful, bright sunrise atmosphere, a woman walking confidently among the crowd, blurred boundary between generations, optimistic yet surreal mood",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "나이를 물어보는 게 의미가 없어진다.",
+      "image_prompt": "Floating calendar pages and birthday candles dissolving into golden light particles, time becoming meaningless, a clock melting like Dali's paintings, ethereal and dreamlike atmosphere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "은퇴가 사라진다. 죽을 때까지 일해야 한다.",
+      "image_prompt": "An endless corridor of identical office desks stretching into infinity, workers at desks fading into the vanishing point, oppressive repetition, golden light turning colder as the corridor extends, hope fading into exhaustion",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "인구가 폭발한다. 지구가 감당할 수 없다.",
+      "image_prompt": "An overcrowded planet Earth seen from space, cities glowing and overflowing, cracks forming on the surface from overpopulation, beautiful yet alarming, the golden glow now feels like fever heat",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "약값은 한 알에 1억. 부자만 젊어진다.",
+      "image_prompt": "A golden pill displayed like a crown jewel in a luxury vault, surrounded by opulence and wealth symbols, dramatic contrast between the precious pill and the darkness beyond the vault, exclusivity and inequality",
+      "duration_hint": "body"
+    },
+    {
+      "id": 7,
+      "text": "가난한 사람은 늙고, 부자는 영원히 젊은 세상.",
+      "image_prompt": "A city divided by a massive glass wall, one side gleaming with youth and golden light, the other side dark and weathered, stark visual contrast between two worlds, the most powerful image of inequality",
+      "duration_hint": "body"
+    },
+    {
+      "id": 8,
+      "text": "결국 나이는 없어졌지만, 불평등은 영원해졌다.",
+      "image_prompt": "A broken hourglass with golden sand flowing upward on one side and dark sand falling on the other, symbolic duality of eternal youth and eternal inequality, contemplative mood, dramatic chiaroscuro lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 9,
+      "text": "영원한 젊음, 정말 축복일까? 구독 눌러.",
+      "image_prompt": "A person standing at a crossroads between a golden bright path and a dark fading path, looking up at a sky where stars form a question mark, the weight of choice, cinematic wide composition",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "안 늙는 약이 나오면 벌어지는 일 #만약에",
+    "thumbnail_text": "영원한 젊음=영원한 불평등",
+    "description": "만약 100살까지 안 늙는 약이 나온다면? 젊음의 가격은 1억, 불평등의 끝은 어디일까?\nAI-assisted production.\n#만약에 #영생 #노화방지 #불평등 #쇼츠",
+    "hashtags": ["#만약에", "#영생", "#노화방지", "#불평등", "#WhatIf", "#Shorts", "#미래", "#건강", "#과학", "#사회"]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

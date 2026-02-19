@@ -304,7 +304,8 @@ def _gemini_generate(
         "7. Use dramatic lighting and bold color palette to convey emotion — NOT detailed facial muscle expressions.\n"
         "8. If the prompt describes someone using a device or holding something, show the EMOTIONAL ATMOSPHERE instead.\n"
         "9. Avoid rendering fingers, phone screens, written text, or small mechanical details.\n"
-        "10. Think like a movie poster or album cover — one powerful image that captures the FEELING.\n\n"
+        "10. Think like a movie poster or album cover — one powerful image that captures the FEELING.\n"
+        "11. MAINTAIN VISUAL CONSISTENCY: If a color palette or art style is specified, follow it EXACTLY for every scene.\n\n"
         f"Scene to visualize: {cleaned}"
     )
 
@@ -481,8 +482,9 @@ def generate_mood_images(
     image_prompt_prefix: str,
     width: int = DEFAULT_WIDTH,
     height: int = DEFAULT_HEIGHT,
+    visual_style: str = "",
 ) -> list:
-    """무드별 이미지 일괄 생성 — 원본 프롬프트 앞에 스타일 프리픽스 결합."""
+    """무드별 이미지 일괄 생성 — 스타일 프리픽스 + 비주얼 앵커 + 원본 프롬프트 결합."""
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
     mood_dir = Path(output_dir) / mood_key
@@ -495,7 +497,8 @@ def generate_mood_images(
         original_prompt = scene.get("image_prompt", "")
         if not original_prompt:
             continue
-        mood_prompt = image_prompt_prefix + original_prompt
+        # 프리픽스 + 비주얼 스타일 앵커 + 씬 프롬프트
+        mood_prompt = image_prompt_prefix + visual_style + original_prompt
         output_path = str(mood_dir / f"{episode_id}_scene{scene_id:02d}.png")
         tasks.append((scene_id, mood_prompt, output_path))
 

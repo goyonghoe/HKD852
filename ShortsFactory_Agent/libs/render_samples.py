@@ -87,14 +87,22 @@ def render_episode(
     mood_key = "manga"
     scene_images = []
 
+    # 에피소드별 비주얼 스타일 앵커 (씬 간 톤 통일)
+    visual_style = script.get("visual_style", "")
+    if visual_style and not visual_style.endswith(", "):
+        visual_style = visual_style.rstrip(", ") + ", "
+
     if not skip_images and scenes:
         print(f"\n[Step 1] 이미지 생성...")
+        if visual_style:
+            print(f"  비주얼 앵커: {visual_style[:60]}...")
         img_results = generate_mood_images(
             scenes=scenes,
             output_dir=str(IMAGE_DIR),
             episode_id=episode_id,
             mood_key=mood_key,
             image_prompt_prefix=style["image_prompt_prefix"],
+            visual_style=visual_style,
         )
         for r in img_results:
             if r.get("success") and r.get("path"):
@@ -185,12 +193,16 @@ def render_batch(
             scenes = script_data.get("scenes", [])
             if not scenes:
                 return ep_id, []
+            vs = script_data.get("visual_style", "")
+            if vs and not vs.endswith(", "):
+                vs = vs.rstrip(", ") + ", "
             results = generate_mood_images(
                 scenes=scenes,
                 output_dir=str(IMAGE_DIR),
                 episode_id=ep_id,
                 mood_key="manga",
                 image_prompt_prefix=style["image_prompt_prefix"],
+                visual_style=vs,
             )
             paths = [r["path"] for r in results if r.get("success") and r.get("path")]
             return ep_id, paths

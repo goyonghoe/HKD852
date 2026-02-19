@@ -1,0 +1,91 @@
+{
+  "episode_id": "whatif_ep020",
+  "series": "만약에~",
+  "topic_id": "everything-free",
+  "language": "ko",
+  "visual_style": "bold pop art style with warm saturated colors in orange coral and teal, flat graphic design aesthetic, retro-futuristic vibe with geometric shapes, consistent use of warm sunset tones and playful visual energy, ",
+  "script": {
+    "hook": "만약 내일부터 세상의 모든 것이 무료가 된다면?",
+    "body": [
+      "마트에 가서 아무거나 담는다. 계산대가 없다.",
+      "명품 매장이 편의점처럼 붐빈다.",
+      "아무도 출근을 안 한다. 월급이 의미 없으니까.",
+      "3일 만에 마트 진열대가 텅 빈다.",
+      "의사, 소방관, 경찰 아무도 일하지 않는다.",
+      "전기가 끊기고, 수도가 멈춘다.",
+      "무료의 끝은 풍요가 아니라, 아무것도 없는 세상이었다."
+    ],
+    "cta": "공짜가 가장 비싼 거였다. 구독 눌러."
+  },
+  "full_text": "만약 내일부터 세상의 모든 것이 무료가 된다면? 마트에 가서 아무거나 담는다. 계산대가 없다. 명품 매장이 편의점처럼 붐빈다. 아무도 출근을 안 한다. 월급이 의미 없으니까. 3일 만에 마트 진열대가 텅 빈다. 의사, 소방관, 경찰 아무도 일하지 않는다. 전기가 끊기고, 수도가 멈춘다. 무료의 끝은 풍요가 아니라, 아무것도 없는 세상이었다. 공짜가 가장 비싼 거였다. 구독 눌러.",
+  "display_text": "만약 내일부터 세상의 모든 것이 무료가 된다면? 마트에 가서 아무거나 담는다. 계산대가 없다. 명품 매장이 편의점처럼 붐빈다. 아무도 출근을 안 한다. 월급이 의미 없으니까. 3일 만에 마트 진열대가 텅 빈다. 의사, 소방관, 경찰 아무도 일하지 않는다. 전기가 끊기고, 수도가 멈춘다. 무료의 끝은 풍요가 아니라, 아무것도 없는 세상이었다. 공짜가 가장 비싼 거였다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 내일부터 세상의 모든 것이 무료가 된다면?",
+      "image_prompt": "A vibrant cityscape where all price tags and signs show zero, everything glowing with warm coral and teal colors, festive atmosphere of unlimited abundance, confetti and celebration energy",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "마트에 가서 아무거나 담는다. 계산대가 없다.",
+      "image_prompt": "A supermarket overflowing with colorful goods, shopping carts piled impossibly high, the checkout counter area demolished and replaced with an open walkway, euphoric energy of limitless shopping",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "명품 매장이 편의점처럼 붐빈다.",
+      "image_prompt": "A luxury boutique storefront bursting with crowds like a rush hour subway, designer items scattered everywhere, chaotic energy of greed meeting opportunity, warm saturated colors",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "아무도 출근을 안 한다. 월급이 의미 없으니까.",
+      "image_prompt": "Empty streets with abandoned briefcases and work clothes scattered on the ground, office buildings dark and deserted, people lounging everywhere in casual clothes, lazy paradise atmosphere turning eerie",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "3일 만에 마트 진열대가 텅 빈다.",
+      "image_prompt": "A completely empty supermarket with bare metal shelves stretching into the distance, harsh fluorescent lighting on nothing, the warm colors fading to cold emptiness, stark contrast with earlier abundance",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "의사, 소방관, 경찰 아무도 일하지 않는다.",
+      "image_prompt": "An abandoned hospital and fire station with uniforms left on empty chairs, emergency vehicles sitting idle with doors open, society's safety net collapsed, eerie silence in places that should be busy",
+      "duration_hint": "body"
+    },
+    {
+      "id": 7,
+      "text": "전기가 끊기고, 수도가 멈춘다.",
+      "image_prompt": "A city at dusk going completely dark, streetlights dying one by one like dominoes, the last warm glow fading from windows, water fountains running dry, civilization powering down",
+      "duration_hint": "body"
+    },
+    {
+      "id": 8,
+      "text": "무료의 끝은 풍요가 아니라, 아무것도 없는 세상이었다.",
+      "image_prompt": "A barren landscape where a giant FREE sign stands cracked and falling apart, surrounded by empty wasteland, the warm colors completely drained to gray, powerful visual metaphor of false promises",
+      "duration_hint": "body"
+    },
+    {
+      "id": 9,
+      "text": "공짜가 가장 비싼 거였다. 구독 눌러.",
+      "image_prompt": "A single price tag floating in a dark void, glowing with warm golden light, showing the word VALUE, the importance of what things cost revealed through absence, contemplative final image",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "모든 게 무료가 되면 벌어지는 일 #만약에",
+    "thumbnail_text": "공짜=가장 비싼 것",
+    "description": "만약 내일부터 모든 것이 무료가 된다면? 풍요로운 천국이 될까, 아무것도 없는 지옥이 될까?\nAI-assisted production.\n#만약에 #무료 #경제 #자본주의 #쇼츠",
+    "hashtags": ["#만약에", "#무료", "#경제", "#자본주의", "#WhatIf", "#Shorts", "#돈", "#사회실험", "#가격", "#인간본성"]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

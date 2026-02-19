@@ -1,0 +1,91 @@
+{
+  "episode_id": "whatif_ep021",
+  "series": "만약에~",
+  "topic_id": "half-gravity",
+  "language": "ko",
+  "visual_style": "dreamy pastel sky tones with light blue lavender and soft pink gradient palette, floating ethereal atmosphere, everything weightless and gently drifting, Makoto Shinkai inspired cloud and sky backgrounds, consistent airy luminous mood, ",
+  "script": {
+    "hook": "만약 중력이 갑자기 반으로 줄어든다면?",
+    "body": [
+      "아침에 일어나는데, 이불이 둥둥 떠다닌다.",
+      "걸으면 한 발짝에 3미터를 날아간다.",
+      "농구 선수가 10미터를 점프한다. 스포츠가 완전히 바뀐다.",
+      "빗물이 천천히 떨어진다. 비 오는 날이 몽환적이다.",
+      "건물은 지금의 두 배 높이까지 지을 수 있다.",
+      "하지만 대기가 우주로 서서히 빠져나가기 시작한다.",
+      "100년 후, 지구의 공기가 화성처럼 얇아진다."
+    ],
+    "cta": "중력이 우리를 지켜주고 있었다. 구독 눌러."
+  },
+  "full_text": "만약 중력이 갑자기 반으로 줄어든다면? 아침에 일어나는데, 이불이 둥둥 떠다닌다. 걸으면 한 발짝에 3미터를 날아간다. 농구 선수가 10미터를 점프한다. 스포츠가 완전히 바뀐다. 빗물이 천천히 떨어진다. 비 오는 날이 몽환적이다. 건물은 지금의 두 배 높이까지 지을 수 있다. 하지만 대기가 우주로 서서히 빠져나가기 시작한다. 100년 후, 지구의 공기가 화성처럼 얇아진다. 중력이 우리를 지켜주고 있었다. 구독 눌러.",
+  "display_text": "만약 중력이 갑자기 반으로 줄어든다면? 아침에 일어나는데, 이불이 둥둥 떠다닌다. 걸으면 한 발짝에 3미터를 날아간다. 농구 선수가 10미터를 점프한다. 스포츠가 완전히 바뀐다. 빗물이 천천히 떨어진다. 비 오는 날이 몽환적이다. 건물은 지금의 두 배 높이까지 지을 수 있다. 하지만 대기가 우주로 서서히 빠져나가기 시작한다. 100년 후, 지구의 공기가 화성처럼 얇아진다. 중력이 우리를 지켜주고 있었다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 중력이 갑자기 반으로 줄어든다면?",
+      "image_prompt": "A person gently floating above the ground with everyday objects drifting around them, soft pastel sky gradient background, dreamy weightless atmosphere, hair and clothes floating upward gracefully, wonder and amazement",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "아침에 일어나는데, 이불이 둥둥 떠다닌다.",
+      "image_prompt": "A cozy bedroom scene where blankets pillows and furniture gently float in mid-air, morning sunlight streaming through curtains that billow upward, peaceful surreal domestic moment, pastel warm colors",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "걸으면 한 발짝에 3미터를 날아간다.",
+      "image_prompt": "A person mid-leap over a city street, floating gracefully between buildings, other pedestrians also bouncing along in long slow arcs, joyful liberated atmosphere, pastel cityscape with soft cloud backdrop",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "농구 선수가 10미터를 점프한다. 스포츠가 완전히 바뀐다.",
+      "image_prompt": "A massive outdoor arena with athletes soaring impossibly high against a pastel sky, the trajectory arcs visible as glowing trails, spectators floating in their seats, superhuman athletics reimagined",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "빗물이 천천히 떨어진다. 비 오는 날이 몽환적이다.",
+      "image_prompt": "Enormous raindrops falling in slow motion like floating crystals, a person walking through this dreamlike rain, each drop catching and refracting pastel light, the most beautiful rain scene imaginable, ethereal and magical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "건물은 지금의 두 배 높이까지 지을 수 있다.",
+      "image_prompt": "An impossibly tall city skyline reaching into the clouds, slender graceful towers twice normal height, connected by floating walkways, a gravity-defying architectural wonderland in soft pastel tones",
+      "duration_hint": "body"
+    },
+    {
+      "id": 7,
+      "text": "하지만 대기가 우주로 서서히 빠져나가기 시작한다.",
+      "image_prompt": "Earth's atmosphere visibly thinning, wisps of air streaming outward into the darkness of space, the pastel sky gradually fading to darker tones, beautiful but terrifying, the mood shifting from wonder to dread",
+      "duration_hint": "body"
+    },
+    {
+      "id": 8,
+      "text": "100년 후, 지구의 공기가 화성처럼 얇아진다.",
+      "image_prompt": "A desolate Earth landscape that looks like Mars, thin reddish atmosphere over barren terrain, the remains of those beautiful tall buildings now crumbling ruins, devastation where beauty once was, haunting contrast",
+      "duration_hint": "body"
+    },
+    {
+      "id": 9,
+      "text": "중력이 우리를 지켜주고 있었다. 구독 눌러.",
+      "image_prompt": "A cosmic view of Earth held gently by invisible gravitational hands made of light, the planet wrapped in a protective glowing atmosphere, gratitude for the unseen force that makes life possible, awe-inspiring scale",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "중력이 반으로 줄면 벌어지는 일 #만약에",
+    "thumbnail_text": "중력 50%=지구 종말",
+    "description": "만약 중력이 반으로 줄어든다면? 처음엔 날아다니는 천국, 결국은 공기를 잃는 지옥.\nAI-assisted production.\n#만약에 #중력 #물리학 #지구 #쇼츠",
+    "hashtags": ["#만약에", "#중력", "#물리학", "#지구", "#WhatIf", "#Shorts", "#과학", "#우주", "#환경", "#신기한사실"]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}
