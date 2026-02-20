@@ -51,11 +51,22 @@ def render_episode(
     Returns:
         {"success": bool, "episode_id": str, "path": str, ...}
     """
-    style = style or RENDER_STYLE
+    style = dict(style or RENDER_STYLE)  # copy to avoid mutating
 
     # 스크립트 로드
     with open(script_path, "r", encoding="utf-8") as f:
         script = json.load(f)
+
+    # 스크립트 JSON의 render_config가 있으면 style에 오버라이드
+    rc = script.get("render_config", {})
+    if rc.get("voice_preset"):
+        style["voice_preset"] = rc["voice_preset"]
+    if rc.get("speed") is not None:
+        style["speed"] = rc["speed"]
+    if rc.get("format"):
+        style["format"] = rc["format"]
+    if rc.get("font_size") is not None:
+        style["font_size"] = rc["font_size"]
 
     episode_id = script.get("episode_id", "ep_unknown")
     scenes = script.get("scenes", [])

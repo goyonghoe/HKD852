@@ -27,7 +27,10 @@ except ImportError:
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 
-from tts_engine import Qwen3TTSEngine, QWEN3_VOICE_PRESETS, QWEN3_DEFAULT_VOICE, _get_duration
+from tts_engine import (
+    Qwen3TTSEngine, Qwen3CustomVoiceEngine,
+    QWEN3_VOICE_PRESETS, QWEN3_CLONE_PRESETS, QWEN3_DEFAULT_VOICE, _get_duration,
+)
 from subtitle_gen import split_sentences, calc_sentence_timings
 
 # 디렉토리 설정
@@ -336,6 +339,13 @@ def _convert_korean_numbers(text: str) -> str:
         return _number_to_sino_korean(total) + suffix
     text = re.sub(r'(\d+)(만|억|조)(\w*)', _compound_number, text)
 
+    # 연령대: 10대→십대, 20대→이십대, 60대→육십대 (한자어, 고유어 아님)
+    # 10~90의 10배수 + "대"만 매칭 → 고유어 카운터보다 먼저 처리
+    def _age_group(m):
+        n = int(m.group(1))
+        return _number_to_sino_korean(n) + "대"
+    text = re.sub(r'(?<!\d)([1-9]0)대', _age_group, text)
+
     # 고유어 수사 단위 (관형형): 1개→한 개, 3명→세 명
     native_counters = r'(개|명|마리|번|살|시|잔|병|장|권|대|벌|그루|채|가지|곳|줄)'
     def _native_counter(m):
@@ -366,15 +376,49 @@ def _convert_korean_numbers(text: str) -> str:
 
 
 def preprocess_korean_for_tts(text: str) -> str:
-    """한국어 텍스트 전처리: 숫자 한국식 변환 + 자연스러운 끊어읽기 쉼표 삽입."""
+    """한국어 텍스트 전처리: 숫자 변환 + 호흡 유도 + 감탄/강조 마커 + 문장 끝 여운.
+
+    v3.2 인간화: TTS가 자연스러운 한국인 말투로 읽을 수 있도록 텍스트 레벨에서 유도.
+    """
     # 1단계: 숫자 → 한국어
     result = _convert_korean_numbers(text)
-    # 2단계: 프로소디 개선 쉼표
-    for adv in ["만약에", "그래서", "결국", "하지만", "그러나", "그런데", "따라서", "물론", "사실"]:
+
+    # 2단계: 호흡 유도 쉼표 — 접속사/부사 뒤
+    breath_adverbs = [
+        # 기존 접속사
+        "만약에", "그래서", "결국", "하지만", "그러나", "그런데", "따라서", "물론", "사실",
+        # 강조 부사
+        "정말", "진짜", "완전히", "절대로", "심지어",
+        # 대조 접속사
+        "반면에", "오히려", "그 대신",
+        # 시간 표현
+        "그때", "바로 그 순간", "마침내",
+    ]
+    for adv in breath_adverbs:
         result = re.sub(rf'({re.escape(adv)})\s+(?!,)', rf'\1, ', result)
     for ending in [r'인데', r'는데', r'지만', r'니까']:
         result = re.sub(rf'(\w+{ending})\s+(?![,?.!])', rf'\1, ', result)
+
+    # 3단계: 의문문 앞 미세 정지 — "...?" 유도
+    result = re.sub(r'(?<!\.)(\?)', r'...?', result)
+
+    # 4단계: 평서문 끝 여운 — 긴 문장 "다." → "다..."
+    # 짧은 문장(<10자)은 이미 자연스러우므로 처리하지 않음
+    def _add_trailing_pause(m):
+        sentence = m.group(0)
+        # 이미 "..." 가 있으면 건너뜀
+        if "..." in sentence:
+            return sentence
+        # 10자 이상 문장만 처리
+        if len(sentence) < 10:
+            return sentence
+        return sentence[:-1] + "..."
+    result = re.sub(r'[^.!?…]{10,}다\.', _add_trailing_pause, result)
+
+    # 정리: 중복 쉼표/말줄임 제거
     result = re.sub(r',\s*,', ',', result)
+    result = re.sub(r'\.{4,}', '...', result)
+
     return result
 
 
@@ -1119,8 +1163,9 @@ def _generate_single_tts_audio(
         tts_text = preprocess_korean_for_tts(text) if language == "ko" else text
         scene_texts_tts.append(tts_text)
 
-    # 전체 텍스트를 쉼표로 연결 (자연스러운 호흡 유도)
-    full_tts_text = ", ".join(scene_texts_tts)
+    # 전체 텍스트를 줄바꿈으로 연결 — 문장 종결 부호(. ? !) 뒤 자연스러운 호흡 간격 유도
+    # 쉼표 연결은 TTS가 이어 읽기 신호로 해석해 마침표 후 쉼이 사라지는 문제 발생
+    full_tts_text = "\n".join(scene_texts_tts)
 
     print(f"    단일 TTS 생성 중... (텍스트 길이: {len(full_tts_text)}자)")
 
@@ -1986,9 +2031,16 @@ def render_video(
     format_config = FORMAT_PRESETS.get(video_format, FORMAT_PRESETS["dark-bg-text"])
     subtitle_y = format_config["subtitle_y"]
 
-    desc = QWEN3_VOICE_PRESETS.get(voice_preset, {}).get("desc", voice_preset)
     lang_code = "ko" if language == "ko" else "auto"
-    engine = Qwen3TTSEngine(preset=voice_preset, instruct=voice_instruct, speed=speed, lang_code=lang_code)
+
+    # CustomVoice (Voice Cloning) vs VoiceDesign 자동 감지
+    if voice_preset in QWEN3_CLONE_PRESETS:
+        desc = QWEN3_CLONE_PRESETS[voice_preset].get("desc", voice_preset)
+        engine = Qwen3CustomVoiceEngine(preset=voice_preset, speed=speed, lang_code=lang_code)
+        print(f"  [Voice Clone] 레퍼런스: {engine.ref_audio}")
+    else:
+        desc = QWEN3_VOICE_PRESETS.get(voice_preset, {}).get("desc", voice_preset)
+        engine = Qwen3TTSEngine(preset=voice_preset, instruct=voice_instruct, speed=speed, lang_code=lang_code)
 
     # ══════════════════════════════════════════════════════════
     # v3.1 Single-TTS 경로 (scenes 배열이 있을 때)

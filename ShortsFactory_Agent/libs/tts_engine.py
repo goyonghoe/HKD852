@@ -77,22 +77,50 @@ DEFAULT_VOICE = "en-male-multilingual"
 # ──────────────────────────────────────
 QWEN3_VOICE_PRESETS = {
     "witty-male": {
-        "instruct": "A witty and confident young male voice with warm mid-range pitch, natural conversational tone, slightly playful with authority",
+        "instruct": (
+            "A witty and confident young Korean male voice, early 30s, with warm mid-range pitch. "
+            "Speaks with the casual authority of someone who genuinely finds this topic fascinating. "
+            "Natural micro-pauses before delivering punchlines or surprising facts. "
+            "Rhythm varies organically — quicker when building excitement, slower when emphasizing key points. "
+            "Subtle breath between sentences, occasional soft laugh in his voice. "
+            "Think: a clever Korean guy explaining a wild fact to his friend at a bar, leaning in with wide eyes."
+        ),
         "speed": 1.0,
         "desc": "위트+자신감 남성, 과학/호기심 콘텐츠 적합",
     },
     "trust-male": {
-        "instruct": "A trustworthy mature male voice with deep pitch, calm and steady pace, like a documentary narrator",
+        "instruct": (
+            "A trustworthy mature Korean male voice, late 30s, with deep resonant pitch. "
+            "Speaks with calm authority and unhurried pacing, like a seasoned documentary narrator. "
+            "Natural breath sounds between phrases, deliberate pauses for emphasis. "
+            "His tone conveys quiet confidence — never rushed, never monotone. "
+            "Slight vocal warmth when discussing human stories, measured gravity for serious topics. "
+            "Think: a respected Korean journalist delivering a late-night deep-dive story."
+        ),
         "speed": 1.0,
         "desc": "신뢰감 남성, 다큐멘터리/심층 분석 적합",
     },
     "energetic-male": {
-        "instruct": "An energetic young male voice with bright tone, engaging storytelling style, like a popular YouTube creator",
+        "instruct": (
+            "An energetic young Korean male voice, mid 20s, with bright and engaging tone. "
+            "Speaks with genuine infectious enthusiasm, not forced hype. "
+            "Rapid-fire delivery when listing exciting things, dramatic slowing for reveals. "
+            "Natural breath catches when excited, pitch rises with genuine amazement. "
+            "Conversational and approachable, with occasional playful emphasis on key words. "
+            "Think: a popular Korean YouTuber who just discovered something incredible and can't wait to share it."
+        ),
         "speed": 1.0,
         "desc": "에너지 남성, 트렌드/리스트 콘텐츠 적합",
     },
     "calm-female": {
-        "instruct": "A calm and intelligent female voice with warm tone, moderate pitch, trustworthy and engaging",
+        "instruct": (
+            "A calm and intelligent Korean female voice, early 30s, with warm moderate pitch. "
+            "Speaks with gentle authority and measured pacing, naturally trustworthy. "
+            "Soft breath sounds between thoughts, thoughtful micro-pauses before important points. "
+            "Her rhythm flows like a quiet conversation — unhurried but never boring. "
+            "Subtle vocal warmth when sharing insights, slight pitch rise for reflective questions. "
+            "Think: a kind Korean therapist gently explaining something profound over tea."
+        ),
         "speed": 1.0,
         "desc": "차분+지적 여성, 심리/건강 콘텐츠 적합",
     },
@@ -110,41 +138,75 @@ QWEN3_VOICE_PRESETS = {
     },
     "whatif-female": {
         "instruct": (
-            "A young Korean female voice speaking naturally like a real person, not a robot. "
-            "Warm and conversational, like she is telling a friend an amazing story over coffee. "
-            "Genuine curiosity when asking questions, real surprise when revealing shocking facts. "
-            "Slightly breathy and intimate, with natural pauses and rhythm. "
-            "Not overly dramatic or exaggerated — just authentically expressive. "
-            "Think: a smart Korean woman in her late 20s casually explaining something mind-blowing."
+            "A young Korean female voice, late 20s, speaking with the intimate, unscripted feel "
+            "of a real person — NOT a polished announcer or AI. Include natural micro-hesitations, "
+            "subtle breath sounds, and varied pacing. When asking questions, her pitch rises "
+            "naturally with genuine curiosity. When revealing surprising facts, she briefly pauses "
+            "before the reveal, then speaks with widened vocal energy. Her rhythm is irregular "
+            "like real conversation — sometimes faster when excited, sometimes slower for emphasis. "
+            "Think: a smart Korean woman telling her best friend something absolutely wild she "
+            "just discovered, in a quiet cafe late at night."
         ),
         "speed": 1.0,
         "desc": "만약에 시리즈 전용, 자연스러운 한국 유튜버 스타일",
     },
     "whatif-male": {
-        "instruct": "A young Korean male voice with charismatic storytelling energy. Builds tension with rising intonation, delivers surprising facts with dramatic emphasis, ends with witty dry humor. Confident but approachable, like a popular Korean podcast host who makes science fun.",
+        "instruct": (
+            "A young Korean male voice, late 20s, with charismatic storytelling energy. "
+            "Builds tension with rising intonation and strategic pauses before big reveals. "
+            "Delivers surprising facts with widened vocal energy, then drops to intimate near-whisper for emphasis. "
+            "Natural breath sounds, irregular conversational rhythm — not a polished announcer. "
+            "Occasional dry wit with subtle vocal smirk. Confident but approachable. "
+            "Think: a popular Korean podcast host making science absolutely thrilling at 2am."
+        ),
         "speed": 1.0,
         "desc": "만약에 시리즈 남성, 카리스마 스토리텔러",
     },
     "storyteller-female": {
         "instruct": (
-            "A warm and gentle Korean female voice with a soothing, storytelling quality. "
-            "Speaks softly but clearly, like reading a picture book to someone you care about. "
-            "Natural and unhurried rhythm with thoughtful pauses. "
-            "Genuine warmth and empathy in every word, never mechanical. "
-            "Think: a kind Korean teacher explaining something fascinating to curious students."
+            "A warm and gentle Korean female voice, early 30s, with a soothing storytelling quality. "
+            "Speaks softly but clearly, with natural breath between phrases and unhurried pacing. "
+            "Thoughtful micro-pauses before emotional or important moments. "
+            "Her voice carries genuine warmth and empathy — you can hear her smile. "
+            "Pitch gently rises with wonder, lowers with tenderness. Never mechanical or rushed. "
+            "Think: a kind Korean teacher sitting on the floor with students, sharing a magical story."
         ),
         "speed": 1.0,
         "desc": "따뜻한 스토리텔러 여성, 교육/감성 콘텐츠 적합",
     },
     "cool-female": {
-        "instruct": "A cool and confident female voice with slightly low pitch, modern and edgy, like a tech podcast host",
+        "instruct": (
+            "A cool and confident Korean female voice, late 20s, with slightly low pitch. "
+            "Modern and edgy delivery with crisp diction and deliberate pacing. "
+            "Natural pauses for emphasis, subtle breath sounds between key points. "
+            "Her rhythm is controlled but not robotic — measured confidence with occasional quick bursts. "
+            "Slight vocal smirk when delivering sharp observations. "
+            "Think: a sharp Korean tech journalist doing a late-night podcast deep-dive."
+        ),
         "speed": 1.0,
         "desc": "쿨한 여성, 테크/금융 콘텐츠 적합",
     },
 }
 
 QWEN3_MODEL_ID = "mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-6bit"
+QWEN3_CLONE_MODEL_ID = "mlx-community/Qwen3-TTS-12Hz-1.7B-CustomVoice-8bit"
 QWEN3_DEFAULT_VOICE = "witty-male"
+
+# Voice Cloning 레퍼런스 오디오 프리셋
+QWEN3_CLONE_PRESETS = {
+    "hangout-male": {
+        "ref_audio": "pipeline/voice_ref/reference_voice.wav",
+        "ref_text": (
+            "비코딩 그레이팅이슷 지금부터 소개해드리겠습니다. "
+            "우리는 모두 어떤 분야에서 성공하고 싶은 욕골을 갖고 있습니다. "
+            "초반에는 열심히 달리다가 어느 순간 벽을 만나고 좌절하여 "
+            "대부분 어느 수준에서 머물거나 포기하고 다른 일을 찾습니다."
+        ),
+        "voice": "sohee",  # CustomVoice 기본 한국어 스피커
+        "speed": 1.0,
+        "desc": "책봐서 뭐하니 — 자연스러운 한국 남성 내레이터",
+    },
+}
 
 
 # ──────────────────────────────────────
@@ -251,7 +313,7 @@ class Qwen3TTSEngine:
         음색 일관성 전략:
         1. 모델 캐싱 (클래스 레벨) — 동일 가중치 사용
         2. 고정 시드 (mx.random.seed) — 동일 랜덤 초기화
-        3. temperature 0.5 — 자연스러운 리듬과 운율
+        3. v3.2 인간화: temperature 0.75 + top_p 0.85 + repetition_penalty 1.2
         → v3.1 단일 TTS 아키텍처에서는 한 번만 호출하므로 음색 일관성 보장
         """
         from mlx_audio.tts.generate import generate_audio
@@ -277,7 +339,9 @@ class Qwen3TTSEngine:
             instruct=self.instruct,
             speed=self.speed,
             lang_code=self.lang_code,
-            temperature=0.5,
+            temperature=0.75,
+            top_p=0.85,
+            repetition_penalty=1.2,
             verbose=False,
         )
 
@@ -303,6 +367,109 @@ class Qwen3TTSEngine:
 
 
 # ──────────────────────────────────────
+# Qwen3-TTS CustomVoice 엔진 (Voice Cloning)
+# ──────────────────────────────────────
+class Qwen3CustomVoiceEngine:
+    """Qwen3-TTS CustomVoice — 레퍼런스 오디오 기반 음성 복제 (Apple Silicon MLX)
+
+    VoiceDesign과 동일 프레임워크(mlx-audio)를 사용하되,
+    instruct 대신 ref_audio로 목소리를 복제합니다.
+    """
+
+    _cached_model = None
+    _cached_model_id = None
+
+    VOICE_SEED = 42
+
+    def __init__(
+        self,
+        preset: str = None,
+        ref_audio: str = None,
+        ref_text: str = None,
+        speed: float = None,
+        model_id: str = None,
+        lang_code: str = "auto",
+    ):
+        config = QWEN3_CLONE_PRESETS.get(preset, {}) if preset else {}
+        self.ref_audio = ref_audio or config.get("ref_audio", "")
+        self.ref_text = ref_text or config.get("ref_text")
+        self.voice = config.get("voice", "sohee")
+        self.speed = speed if speed is not None else config.get("speed", 1.0)
+        self.model_id = model_id or QWEN3_CLONE_MODEL_ID
+        self.preset = preset or "custom"
+        self.lang_code = lang_code
+        self.word_timings = []
+
+        # ref_audio 경로가 상대경로면 ShortsFactory_Agent 기준으로 해석
+        if self.ref_audio and not os.path.isabs(self.ref_audio):
+            base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            self.ref_audio = os.path.join(base, self.ref_audio)
+
+    def _get_model(self):
+        """모델을 로드하거나 캐시에서 반환."""
+        if Qwen3CustomVoiceEngine._cached_model is not None and Qwen3CustomVoiceEngine._cached_model_id == self.model_id:
+            return Qwen3CustomVoiceEngine._cached_model
+
+        from mlx_audio.tts.utils import load_model
+        print(f"  [Qwen3-Clone] 모델 로딩: {self.model_id} (이후 캐시 재사용)")
+        model = load_model(model_path=self.model_id)
+        Qwen3CustomVoiceEngine._cached_model = model
+        Qwen3CustomVoiceEngine._cached_model_id = self.model_id
+        return model
+
+    def generate(self, text: str, output_path: str) -> dict:
+        """레퍼런스 오디오의 목소리로 텍스트를 읽는 음성 생성."""
+        from mlx_audio.tts.generate import generate_audio
+        import mlx.core as mx
+
+        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+
+        output_dir = str(Path(output_path).parent)
+        file_prefix = Path(output_path).stem
+
+        model = self._get_model()
+        mx.random.seed(self.VOICE_SEED)
+
+        kwargs = dict(
+            text=text,
+            model=model,
+            voice=self.voice,
+            output_path=output_dir + "/",
+            file_prefix=file_prefix,
+            audio_format="wav",
+            ref_audio=self.ref_audio,
+            speed=self.speed,
+            lang_code=self.lang_code,
+            temperature=0.75,
+            top_p=0.85,
+            repetition_penalty=1.2,
+            verbose=False,
+        )
+        if self.ref_text:
+            kwargs["ref_text"] = self.ref_text
+
+        generate_audio(**kwargs)
+
+        actual_path = os.path.join(output_dir, f"{file_prefix}_000.wav")
+        if os.path.exists(actual_path) and actual_path != output_path:
+            os.rename(actual_path, output_path)
+
+        duration = _get_duration(output_path)
+
+        return {
+            "path": output_path,
+            "duration": duration,
+            "word_count": 0,
+            "voice": f"qwen3-clone:{self.preset}",
+            "engine": "qwen3_custom_voice",
+            "ref_audio": self.ref_audio,
+        }
+
+    def get_word_timings(self) -> list:
+        return self.word_timings
+
+
+# ──────────────────────────────────────
 # 공통 유틸리티
 # ──────────────────────────────────────
 def _get_duration(audio_path: str) -> float:
@@ -323,12 +490,26 @@ def _get_duration(audio_path: str) -> float:
 
 
 def create_engine(engine_type: str = "qwen3", **kwargs):
-    """엔진 팩토리 — 스크립트 JSON에서 호출"""
+    """엔진 팩토리 — 스크립트 JSON에서 호출
+
+    engine_type:
+        "edge_tts" — Edge TTS (레거시)
+        "qwen3" — Qwen3-TTS VoiceDesign (instruct 기반)
+        "qwen3_clone" — Qwen3-TTS CustomVoice (레퍼런스 오디오 기반 클로닝)
+    """
     if engine_type == "edge_tts":
         return TTSEngine(
             preset=kwargs.get("preset", DEFAULT_VOICE),
             rate=kwargs.get("rate"),
             pitch=kwargs.get("pitch"),
+        )
+    elif engine_type == "qwen3_clone":
+        return Qwen3CustomVoiceEngine(
+            preset=kwargs.get("preset"),
+            ref_audio=kwargs.get("ref_audio"),
+            speed=kwargs.get("speed"),
+            model_id=kwargs.get("model_id"),
+            lang_code=kwargs.get("lang_code", "auto"),
         )
     else:
         return Qwen3TTSEngine(

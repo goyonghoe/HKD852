@@ -143,18 +143,31 @@ ShortsFactory_Agent/
 
 ## TTS 보이스 설정
 
-**메인 보이스 (Edge TTS, 무료):**
+### 메인 엔진: Qwen3-TTS 1.7B (로컬 MLX)
 
-| 보이스 ID | 언어 | 용도 |
-|----------|------|------|
-| `en-US-AndrewMultilingualNeural` | 영어 | 메인 (최신, 자연스러움) |
-| `en-US-AvaMultilingualNeural` | 영어 | 서브 (여성) |
-| `en-US-GuyNeural` | 영어 | 캐주얼 콘텐츠 |
-| `en-US-ChristopherNeural` | 영어 | 금융/교양 콘텐츠 |
+**VoiceDesign 엔진** — instruct 텍스트로 음색/톤/말투 디자인:
 
-**조정 파라미터:**
-- rate: `-3%` ~ `+5%` (속도)
-- pitch: `-2Hz` ~ `+2Hz` (음높이)
+| 프리셋 | 특성 | 용도 |
+|--------|------|------|
+| `whatif-female` | 20대 여성, 카페 수다 톤 | 만약에 시리즈 (기본) |
+| `whatif-male` | 30대 남성, 다큐 내레이터 | 만약에 시리즈 (남성) |
+| `witty-male` | 팟캐스트 호스트, 재치 | 테크/AI 콘텐츠 |
+| `trust-male` | 40대 남성, 신뢰감 | 금융/교양 |
+| `energetic-male` | 20대 남성, 에너지 | 엔터테인먼트 |
+| `calm-female` | 30대 여성, 차분 | 건강/웰니스 |
+| `storyteller-female` | 할머니 이야기꾼 | 역사/민담 |
+| `cool-female` | 30대 여성, 시크 | 뉴스/시사 |
+
+**CustomVoice 엔진** — 레퍼런스 음성 클로닝:
+
+| 프리셋 | 소스 | 베이스 | 용도 |
+|--------|------|--------|------|
+| `hangout-male` | 책봐서 뭐하니 채널 | `sohee` | 자연스러운 한국 남성 내레이터 |
+
+**Sampling 파라미터 (v3.2):**
+- temperature: `0.75` (자연스러운 운율 변동)
+- top_p: `0.85` (저확률 토큰 제거)
+- repetition_penalty: `1.2` (반복 패턴 방지)
 
 ---
 
@@ -244,7 +257,7 @@ Haiku  → 렌더링 트리거 (단순 실행)
 **확정된 파이프라인 스택:**
 | 컴포넌트 | 기술 | 설정 |
 |----------|------|------|
-| TTS 엔진 | Qwen3-TTS 1.7B VoiceDesign (6-bit MLX) | `bright-female` 프리셋 (심드렁+시크+개구진+밝은톤) |
+| TTS 엔진 | Qwen3-TTS 1.7B VoiceDesign (8-bit MLX) | 8개 VoiceDesign + 1개 CustomVoice 프리셋 |
 | 이미지 생성 | segmind/SSD-1B (로컬 MPS) | 1080x1920, 30 steps |
 | 영상 합성 | moviepy + PIL | 1080x1920, 30fps, libx264 |
 | 자막 싱크 | Whisper (base) + 1단계 전역 정렬 | 100% 임계값 자동 검증 |
@@ -288,8 +301,39 @@ Haiku  → 렌더링 트리거 (단순 실행)
 4. 연속 타이밍 (각 구절 end = 다음 구절 start, 갭 제로)
 5. 최소 표시시간 0.5초 보장 (인접 재분배)
 
+### v3.2 — "TTS 인간화 + Voice Clone + 한국어 전처리 고도화" (2026-02-20)
+
+**4대 개선:**
+
+| # | 개선 | 파일 | 효과 |
+|---|------|------|------|
+| 1 | Sampling 파라미터 최적화 | `tts_engine.py` | temp 0.75, top_p 0.85, rep_penalty 1.2 → 로봇 느낌 감소 |
+| 2 | Instruct 텍스트 고도화 | `tts_engine.py` | 8개 프리셋 전부 구체적 연기 디렉션으로 개선 |
+| 3 | CustomVoice 엔진 통합 | `tts_engine.py` | YouTube 레퍼런스 음성 → 보이스 클로닝 (Qwen3-TTS CustomVoice 8-bit) |
+| 4 | 한국어 전처리 고도화 | `video_composer.py` | 숫자 읽기 교정 + 호흡 유도 + 문장 간 쉼 개선 |
+
+**CustomVoice 파이프라인:**
+```
+YouTube 음원 (yt-dlp) → Demucs 보컬 분리 → FFmpeg 20s 클립 → 레퍼런스 WAV
+  → Qwen3-TTS CustomVoice (ref_audio + ref_text + base voice) → 클로닝 TTS
+```
+
+**한국어 전처리 수정 (`_convert_korean_numbers`):**
+- 연령대 한자어 교정: `20대` → `이십대` (기존: `스무 대` 오류)
+- 10~90 단위 연령대만 한자어 처리 (`[1-9]0대` 패턴)
+
+**씬 간 호흡 개선 (`_generate_single_tts_audio`):**
+- 씬 텍스트 연결자: `, ` → `\n` (줄바꿈)
+- 마침표 후 평균 0.8초 호흡 간격 확보 (기존 0.1초)
+
+**render_samples.py 수정:**
+- 스크립트 JSON의 `render_config` 오버라이드 지원 (기존: 항상 `RENDER_STYLE` 하드코딩)
+
+**검증 에피소드:**
+- EP.19 "만약 100살까지 안 늙는 약이 나온다면?" — 25.8초, 싱크 91%, CustomVoice `hangout-male`
+
 ---
 
 - 생성일: 2026-02-18
-- 최종 업데이트: 2026-02-18
+- 최종 업데이트: 2026-02-20
 - 벤치마크: 직업의온도 "젠스파크 달러 채굴 공장" 핵심 원리
