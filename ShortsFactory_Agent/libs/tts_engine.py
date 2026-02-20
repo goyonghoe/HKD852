@@ -251,8 +251,8 @@ class Qwen3TTSEngine:
         음색 일관성 전략:
         1. 모델 캐싱 (클래스 레벨) — 동일 가중치 사용
         2. 고정 시드 (mx.random.seed) — 동일 랜덤 초기화
-        3. temperature 0.5 — 음색 일관성 유지하면서 자연스러운 리듬 보존
-        → 같은 instruct + 같은 시드 + 같은 모델 = 일관된 음색
+        3. temperature 0.5 — 자연스러운 리듬과 운율
+        → v3.1 단일 TTS 아키텍처에서는 한 번만 호출하므로 음색 일관성 보장
         """
         from mlx_audio.tts.generate import generate_audio
         import mlx.core as mx

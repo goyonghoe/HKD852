@@ -1091,6 +1091,222 @@ def _generate_per_scene_audio(
     return segments, combined_path, total_duration
 
 
+def _generate_single_tts_audio(
+    scenes: list[dict],
+    engine,
+    language: str,
+    scene_images: list[str] | None,
+    display_text: str | None,
+    ts: str,
+) -> tuple[list[SceneAudioSegment], str, float]:
+    """단일 TTS로 전체 텍스트 생성 → Whisper → 씬별 경계 추출.
+
+    음색 100% 일관성 보장: 전체 텍스트를 한 번에 생성하므로
+    씬 간 목소리 변동이 원천적으로 불가능.
+
+    씬 경계: Whisper 워드의 누적 문자 위치를 씬 텍스트 문자 범위에 매핑.
+
+    Returns:
+        (segments, combined_audio_path, total_duration)
+    """
+    # CTA 필터링
+    scenes = _filter_cta_scenes(scenes)
+
+    # 씬별 텍스트 전처리 + 원본 보존
+    scene_texts_raw = [s.get("text", "") for s in scenes if s.get("text")]
+    scene_texts_tts = []
+    for text in scene_texts_raw:
+        tts_text = preprocess_korean_for_tts(text) if language == "ko" else text
+        scene_texts_tts.append(tts_text)
+
+    # 전체 텍스트를 쉼표로 연결 (자연스러운 호흡 유도)
+    full_tts_text = ", ".join(scene_texts_tts)
+
+    print(f"    단일 TTS 생성 중... (텍스트 길이: {len(full_tts_text)}자)")
+
+    # 1. 단일 TTS 호출
+    wav_path = str(TEMP_DIR / f"single_{ts}.wav")
+    tts_result = engine.generate(full_tts_text, wav_path)
+    orig_dur = tts_result["duration"]
+
+    # 후행 무음 트리밍
+    _trim_wav_silence(wav_path)
+    total_dur = _get_duration(wav_path)
+    trim_info = f" (trimmed {orig_dur - total_dur:.1f}s)" if orig_dur - total_dur > 0.1 else ""
+    print(f"      → {total_dur:.1f}s{trim_info}")
+
+    # 2. Whisper 분석 (전체)
+    whisper_data = get_word_timestamps(wav_path)
+    all_words = whisper_data["words"] if whisper_data else []
+    print(f"      Whisper: {len(all_words)}개 워드")
+
+    if not all_words:
+        return [], "", 0.0
+
+    # 3. Whisper hallucination 감지 (전체)
+    full_text_for_check = "".join(scene_texts_raw)
+    hall_trim = _detect_hallucination(full_text_for_check, all_words, wav_duration=total_dur)
+    if hall_trim is not None:
+        pre_dur = total_dur
+        _trim_wav_at_time(wav_path, hall_trim + 0.3)
+        total_dur = _get_duration(wav_path)
+        whisper_data = get_word_timestamps(wav_path)
+        all_words = whisper_data["words"] if whisper_data else []
+        print(f"      ⚠ hallucination 제거: {pre_dur:.1f}→{total_dur:.1f}s")
+
+    # 4. 누적 문자 매핑 — Whisper 워드를 씬별로 배분
+    strip_re = re.compile(r'[,.\s!?…·\-"\'()（）「」~]')
+
+    # 4a. 씬별 문자 경계 (원본 텍스트 기준)
+    scene_char_ranges = []
+    cumul = 0
+    for text in scene_texts_raw:
+        clean = strip_re.sub("", text)
+        scene_char_ranges.append((cumul, cumul + len(clean)))
+        cumul += len(clean)
+
+    # 4b. Whisper 워드별 누적 문자 위치
+    word_infos = []
+    word_cumul = 0
+    for w in all_words:
+        clean = strip_re.sub("", w["text"])
+        word_infos.append({
+            "char_start": word_cumul,
+            "char_end": word_cumul + len(clean),
+            "start": w["start"],
+            "end": w["end"],
+            "text": w["text"],
+        })
+        word_cumul += len(clean)
+
+    # 4c. 하이브리드 경계 탐지: 문자 비율 기대값 + Whisper 워드 gap
+    #     1) 씬별 문자 비율로 예상 경계 시점 계산
+    #     2) 각 예상 시점 ±2초 범위에서 가장 큰 워드 간 gap 선택
+    #     3) 선택된 gap 위치에서 씬 분할
+
+    total_chars_all = sum(ce - cs for cs, ce in scene_char_ranges)
+    n_scenes = len(scene_char_ranges)
+
+    # 예상 경계 시점 (N-1개)
+    expected_boundaries = []
+    cumul_chars = 0
+    for s_idx in range(n_scenes - 1):
+        cs, ce = scene_char_ranges[s_idx]
+        cumul_chars += (ce - cs)
+        expected_time = (cumul_chars / total_chars_all) * total_dur
+        expected_boundaries.append(expected_time)
+
+    # 워드 간 gap 계산
+    word_gaps = []  # (word_idx_after_gap, gap_midpoint, gap_size)
+    for k in range(1, len(word_infos)):
+        gap = word_infos[k]["start"] - word_infos[k - 1]["end"]
+        mid = (word_infos[k - 1]["end"] + word_infos[k]["start"]) / 2
+        word_gaps.append((k, mid, gap))
+
+    # 각 예상 경계에 대해 ±2초 범위에서 최적 gap 선택
+    SEARCH_WINDOW = 2.0
+    split_indices = []
+    used_indices = set()
+
+    for exp_t in expected_boundaries:
+        best_idx = None
+        best_score = -float("inf")
+        for k, mid, gap in word_gaps:
+            if k in used_indices:
+                continue
+            dist = abs(mid - exp_t)
+            if dist > SEARCH_WINDOW:
+                continue
+            # 점수: gap 크기 보너스 - 거리 페널티
+            score = gap * 5.0 - dist
+            if score > best_score:
+                best_score = score
+                best_idx = k
+
+        if best_idx is not None:
+            split_indices.append(best_idx)
+            used_indices.add(best_idx)
+        else:
+            # Fallback: 기대 시점에 가장 가까운 워드 경계
+            closest = min(range(1, len(word_infos)),
+                         key=lambda k: abs(word_infos[k]["start"] - exp_t))
+            split_indices.append(closest)
+
+    split_indices.sort()
+
+    # 분할 인덱스 → 씬별 워드 그룹
+    scene_word_groups = []
+    prev = 0
+    for si in split_indices:
+        scene_word_groups.append(list(range(prev, si)))
+        prev = si
+    scene_word_groups.append(list(range(prev, len(word_infos))))
+
+    # SceneAudioSegment 조립
+    segments = []
+    scene_idx = 0
+    for i, scene in enumerate(scenes):
+        scene_text = scene.get("text", "")
+        if not scene_text:
+            continue
+
+        matched_words = [word_infos[wi] for wi in scene_word_groups[scene_idx]]
+
+        if matched_words:
+            audio_start = matched_words[0]["start"]
+            audio_end = matched_words[-1]["end"]
+        else:
+            # Fallback: 균등 분할
+            dur_per = total_dur / len(scene_texts_raw)
+            audio_start = scene_idx * dur_per
+            audio_end = (scene_idx + 1) * dur_per
+
+        # Whisper 워드를 표준 형식으로 변환
+        scene_words = [
+            {"text": wi["text"], "start": wi["start"], "end": wi["end"]}
+            for wi in matched_words
+        ]
+
+        # 자막 구절 분할
+        if language == "ko":
+            phrases = split_korean_phrases(scene_text, max_chars=16)
+        else:
+            phrases = split_into_chunks(scene_text, max_chars=16)
+
+        # 구절 → Whisper 정렬
+        phrase_timings = _align_phrases_to_whisper(
+            phrases, scene_words, audio_start, audio_end,
+        )
+
+        # 이미지 경로
+        img_path = ""
+        if scene_images and scene_idx < len(scene_images):
+            img_path = scene_images[scene_idx]
+
+        seg = SceneAudioSegment(
+            scene_id=scene.get("id", i + 1),
+            scene_text=scene_text,
+            audio_start=audio_start,
+            audio_end=audio_end,
+            wav_path=wav_path,
+            whisper_words=scene_words,
+            phrases=phrases,
+            phrase_timings=phrase_timings,
+            image_path=img_path,
+        )
+        segments.append(seg)
+        scene_idx += 1
+
+    # 타이밍 요약
+    print(f"    Single-TTS 타이밍:")
+    for seg in segments:
+        n_words = len(seg.whisper_words)
+        n_phrases = len(seg.phrases)
+        text_preview = seg.scene_text[:30]
+        print(f"      씬 {seg.scene_id}: {seg.audio_start:.2f}~{seg.audio_end:.2f}s "
+              f"({seg.duration:.1f}s) W:{n_words} P:{n_phrases} | {text_preview}")
+
+    return segments, wav_path, total_dur
 
 
 def align_display_to_whisper(
@@ -1775,14 +1991,15 @@ def render_video(
     engine = Qwen3TTSEngine(preset=voice_preset, instruct=voice_instruct, speed=speed, lang_code=lang_code)
 
     # ══════════════════════════════════════════════════════════
-    # v3.0 Per-Scene TTS 경로 (scenes 배열이 있을 때)
+    # v3.1 Single-TTS 경로 (scenes 배열이 있을 때)
+    # 음색 100% 일관성: 전체 텍스트를 한 번에 TTS → 씬 경계 추출
     # ══════════════════════════════════════════════════════════
     if scenes:
-        print(f"[1/4] Per-Scene TTS 생성 중... (voice: {voice_preset} — {desc})")
-        print(f"      {len(scenes)}개 씬, Per-Scene 아키텍처 v3.0")
+        print(f"[1/4] Single-TTS 생성 중... (voice: {voice_preset} — {desc})")
+        print(f"      {len(scenes)}개 씬, Single-TTS 아키텍처 v3.1")
 
-        # 1. 씬별 TTS + Whisper + concat
-        audio_segments, audio_path, duration = _generate_per_scene_audio(
+        # 1. 단일 TTS + Whisper → 씬별 경계
+        audio_segments, audio_path, duration = _generate_single_tts_audio(
             scenes=scenes,
             engine=engine,
             language=language,
