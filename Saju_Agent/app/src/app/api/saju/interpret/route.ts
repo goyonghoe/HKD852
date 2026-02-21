@@ -287,17 +287,12 @@ ${nameInfo.koreanName}... ${nameInfo.selectedHanja ? "한자까지 골라온 성
   });
 
   const sections: FullReadingSection[] = [
-    { key: "personality", title: "타고난 성격", icon: "👹", preview: `${dominantGod}이 이끄는 ${animal}띠`, content: personalityContent },
-    { key: "wealth", title: "재물운", icon: "💰", preview: presentGods.includes("편재") ? "편재형 재물운" : presentGods.includes("정재") ? "정재형 안정 수입" : "노력형 재물운", content: wealthContent },
-    { key: "career", title: "직업·적성", icon: "🔥", preview: dominantGod === "식신" || dominantGod === "상관" ? "창작형 적성" : dominantGod === "편관" || dominantGod === "정관" ? "리더형 적성" : "전문가형 적성", content: careerContent },
-    { key: "love", title: "연애·결혼운", icon: "💀", preview: hasDohwa ? "도화살 매력 보유" : "은근한 매력형", content: loveContent },
-    { key: "relationships", title: "대인관계", icon: "🤝", preview: dominantGod === "비견" || dominantGod === "겁재" ? "경쟁적 사교형" : "신뢰 기반 관계형", content: relationshipsContent },
-    { key: "health", title: "건강 주의보", icon: "⚡", preview: el === "wood" ? "간·눈 주의" : el === "fire" ? "심장·혈관 주의" : el === "earth" ? "소화기 주의" : el === "metal" ? "폐·피부 주의" : "신장·냉기 주의", content: healthContent },
-    { key: "fortune2026", title: "2026 올해운", icon: "✨", preview: el === "fire" ? "에너지 폭발의 해" : el === "metal" ? "시련=성장의 해" : "기회의 해", content: fortune2026Content },
-    { key: "travel", title: "역마·변화운", icon: "🌀", preview: hasYeokma ? "역마살 활성화" : "안정 선호 체질", content: travelContent },
-    { key: "talent", title: "숨겨진 재능", icon: "🎭", preview: hasHwagae ? "화개살 학문·예술" : "잠재력 발굴 중", content: talentContent },
+    { key: "personality", title: "네 정체", icon: "👹", preview: `${dominantGod}이 이끄는 ${animal}띠`, content: personalityContent },
+    { key: "love", title: "연애 패턴", icon: "💀", preview: hasDohwa ? "도화살 매력 보유" : "은근한 매력형", content: loveContent },
+    { key: "career", title: "돈과 직업", icon: "🔥", preview: dominantGod === "식신" || dominantGod === "상관" ? "창작형 적성" : dominantGod === "편관" || dominantGod === "정관" ? "리더형 적성" : "전문가형 적성", content: careerContent },
+    { key: "fortune2026", title: "2026 올해", icon: "✨", preview: el === "fire" ? "에너지 폭발의 해" : el === "metal" ? "시련=성장의 해" : "기회의 해", content: fortune2026Content },
     ...(nameInfo && nameFortuneContent ? [{ key: "nameFortune" as const, title: "이름풀이", icon: "📛", preview: `${nameInfo.koreanName} 이름 분석`, content: nameFortuneContent }] : []),
-    { key: "dokkaebiAdvice", title: "도깨비 한마디", icon: "🔮", preview: `${dominantGod} 인생의 핵심`, content: dokkaebiAdviceContent },
+    { key: "dokkaebiAdvice", title: "도깨비의 한마디", icon: "🔮", preview: `${dominantGod} 인생의 핵심`, content: dokkaebiAdviceContent },
   ];
 
   return {
