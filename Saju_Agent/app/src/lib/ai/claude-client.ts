@@ -31,7 +31,7 @@ export async function generateFullReading(
   const prompt = buildFullReadingPrompt(sajuResult);
 
   const message = await anthropic.messages.create({
-    model: "claude-opus-4-6",
+    model: "claude-sonnet-4-6",
     max_tokens: 4000,
     system: DOKKAEBI_SYSTEM_FULL,
     messages: [{ role: "user", content: prompt }],

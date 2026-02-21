@@ -26,22 +26,17 @@ export function parseTeaserResponse(text: string): TeaserReading {
   }
 }
 
+// v2: 5 섹션 기본 (personality, love, career, fortune2026, dokkaebiAdvice)
 const SECTION_KEYS: ReadingSectionKey[] = [
-  "personality", "wealth", "career", "love", "relationships",
-  "health", "fortune2026", "travel", "talent", "dokkaebiAdvice",
+  "personality", "love", "career", "fortune2026", "dokkaebiAdvice",
 ];
 
 const DEFAULT_SECTIONS: FullReadingSection[] = [
-  { key: "personality", title: "타고난 성격", icon: "👹", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
-  { key: "wealth", title: "재물운", icon: "💰", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
-  { key: "career", title: "직업·적성", icon: "🔥", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
-  { key: "love", title: "연애·결혼운", icon: "💀", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
-  { key: "relationships", title: "대인관계", icon: "🤝", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
-  { key: "health", title: "건강 주의보", icon: "⚡", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
-  { key: "fortune2026", title: "2026 올해운", icon: "✨", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
-  { key: "travel", title: "역마·변화운", icon: "🌀", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
-  { key: "talent", title: "숨겨진 재능", icon: "🎭", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
-  { key: "dokkaebiAdvice", title: "도깨비 한마디", icon: "🔮", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "personality", title: "네 정체", icon: "👹", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "love", title: "연애 패턴", icon: "💀", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "career", title: "돈과 직업", icon: "🔥", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "fortune2026", title: "2026 올해", icon: "✨", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "dokkaebiAdvice", title: "도깨비의 한마디", icon: "🔮", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
 ];
 
 const DEFAULT_LUCKY = { color: "-", number: "-", direction: "-", season: "-" };
@@ -75,7 +70,6 @@ export function parseFullReadingResponse(text: string): FullReading {
       // nameFortune은 이름 입력 시에만 포함 (optional)
       const nameFortune = json.sections.find((s: FullReadingSection) => s.key === "nameFortune");
       if (nameFortune) {
-        // dokkaebiAdvice 앞에 삽입
         const adviceIdx = sections.findIndex(s => s.key === "dokkaebiAdvice");
         if (adviceIdx >= 0) {
           sections.splice(adviceIdx, 0, nameFortune);

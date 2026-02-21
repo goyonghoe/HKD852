@@ -93,7 +93,7 @@ function FullResultContent() {
   }
 
   const highlightKeys = new Set(["fortune2026", "nameFortune", "dokkaebiAdvice"]);
-  const defaultExpandedKeys = new Set(["personality", "fortune2026", "nameFortune"]);
+  const defaultExpandedKeys = new Set(["personality", "love", "fortune2026", "nameFortune"]);
 
   return (
     <>
