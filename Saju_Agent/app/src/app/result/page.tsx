@@ -6,10 +6,13 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import MobileContainer from "@/components/layout/MobileContainer";
 import FourPillarsDisplay from "@/components/saju/FourPillarsDisplay";
+import SpecialStarsBadges from "@/components/saju/SpecialStarsBadges";
 import ElementChart from "@/components/saju/ElementChart";
 import LoadingFortune from "@/components/ui/LoadingFortune";
+import ShareCard from "@/components/saju/ShareCard";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
+import DokkaebiIcon from "@/components/ui/DokkaebiIcon";
 import { SajuResult, TeaserReading } from "@/lib/saju/types";
 import { formatDate, formatTime, formatGender } from "@/lib/utils/format";
 
@@ -22,6 +25,7 @@ function ResultContent() {
   const [teaser, setTeaser] = useState<TeaserReading | null>(null);
   const [loading, setLoading] = useState(true);
   const [teaserLoading, setTeaserLoading] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
 
   useEffect(() => {
     if (!orderId) {
@@ -35,6 +39,10 @@ function ResultContent() {
       setSajuResult(result);
       setLoading(false);
       fetchTeaser(orderId);
+      const shareId = sessionStorage.getItem(`share-${orderId}`);
+      if (shareId) {
+        setShareUrl(`${window.location.origin}/share/${shareId}`);
+      }
     } else {
       setLoading(false);
       router.replace("/");
@@ -56,7 +64,7 @@ function ResultContent() {
         setTeaser(data.reading);
       }
     } catch {
-      // Teaser is optional, silently fail
+      // Teaser is optional
     } finally {
       setTeaserLoading(false);
     }
@@ -70,76 +78,124 @@ function ResultContent() {
     <>
       <Header showBack />
       <MobileContainer>
-        {/* Birth Info Summary */}
-        <Card className="text-center text-xs text-gray-500 space-y-0.5">
-          <p className="font-medium text-gray-700">
+        {/* Birth Info */}
+        <Card className="text-center space-y-1">
+          {sajuResult.input.nameInfo && (
+            <p className="font-display text-[17px] text-teal">
+              {sajuResult.input.nameInfo.koreanName}
+              {sajuResult.input.nameInfo.selectedHanja && (
+                <span className="text-[14px] text-text-dim ml-1.5 font-sans">
+                  ({sajuResult.input.nameInfo.selectedHanja.map(h => h.hanja).join("")})
+                </span>
+              )}
+            </p>
+          )}
+          <p className="text-[14px] font-medium text-text-primary">
             {formatDate(sajuResult.input.birthDate)}
             {sajuResult.input.birthTime && ` ${formatTime(sajuResult.input.birthTime)}`}
             {" · "}
             {formatGender(sajuResult.input.gender)}
           </p>
-          <p>
+          <p className="text-[13px] text-text-dim">
             {sajuResult.zodiacAnimalKorean}띠 · {sajuResult.input.isLunar ? "음력" : "양력"}
           </p>
         </Card>
 
         <div className="h-4" />
 
-        {/* Four Pillars with Animation */}
-        <FourPillarsDisplay pillars={sajuResult.fourPillars} animated />
+        <FourPillarsDisplay
+          pillars={sajuResult.fourPillars}
+          animated
+          tenGods={sajuResult.tenGods}
+          twelveStages={sajuResult.twelveStages}
+          gongmang={sajuResult.gongmang}
+          specialStars={sajuResult.specialStars}
+          branchRelations={sajuResult.branchRelations}
+        />
+        <SpecialStarsBadges
+          stars={sajuResult.specialStars}
+          branchRelations={sajuResult.branchRelations}
+        />
 
         <div className="h-4" />
 
-        {/* Element Chart */}
         <ElementChart
           distribution={sajuResult.elementDistribution}
           dominantElement={sajuResult.dominantElement}
         />
 
-        <div className="h-4" />
+        <div className="h-5" />
 
-        {/* Teaser Reading */}
+        {/* Teaser - Dokkaebi's first impression */}
         {teaserLoading ? (
           <Card className="text-center">
             <LoadingFortune />
           </Card>
         ) : teaser ? (
-          <Card className="space-y-3">
-            <h3 className="text-sm font-bold text-gray-700 text-center">
-              🦋 당신은 이런 사람이에요
-            </h3>
-            <p className="text-sm text-gray-600 leading-relaxed">
+          <Card glow="teal">
+            <div className="text-center mb-3">
+              <DokkaebiIcon size={36} className="mx-auto mb-2" />
+              <h3 className="font-display text-base text-teal">
+                도깨비가 슬쩍 본 너
+              </h3>
+            </div>
+            <p className="text-[14px] text-text-secondary leading-[1.85] font-hand">
               {teaser.personality}
             </p>
-            <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-xl p-3">
-              <p className="text-xs text-gray-500 leading-relaxed">
-                ✨ {teaser.elementInsight}
+            <div className="mt-4 bg-teal-dim rounded-xl p-4 space-y-3">
+              <p className="text-[13px] text-teal-light leading-relaxed">
+                {teaser.elementInsight}
               </p>
+              {teaser.nameHint && (
+                <p className="text-[13px] text-teal-light/80 leading-relaxed border-t border-teal/10 pt-3">
+                  {teaser.nameHint}
+                </p>
+              )}
             </div>
           </Card>
-        ) : null}
+        ) : (
+          <Card className="text-center space-y-3 fade-in">
+            <DokkaebiIcon size={36} className="mx-auto" />
+            <p className="text-[14px] text-text-secondary font-hand">
+              도깨비가 잠깐 딴짓했네. 새로고침 해봐.
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="text-[13px] text-teal underline underline-offset-4"
+            >
+              새로고침
+            </button>
+          </Card>
+        )}
 
-        <div className="h-6" />
+        <div className="h-8" />
 
-        {/* CTA to Full Reading (TEST MODE: 무료) */}
-        <Card className="text-center space-y-3">
-          <span className="text-3xl">✨</span>
-          <h3 className="text-base font-bold text-gray-800">
-            더 자세한 풀이가 궁금하다면?
-          </h3>
-          <p className="text-xs text-gray-400">
-            성격 · 적성 · 연애 · 건강 · 2026 운세 · 행운 요소
-          </p>
+        {/* CTA - Dokkaebi upsell */}
+        <Card glow="gold" className="text-center space-y-4">
+          <div className="space-y-2">
+            <h3 className="font-display text-lg text-gold">
+              더 까볼래?
+            </h3>
+            <p className="text-[13px] text-text-dim font-hand">
+              성격 · 재물 · 적성 · 연애 · 대인관계 · 건강 · 올해운 · 변화운 · 숨은재능{sajuResult.input.nameInfo ? " · 이름풀이" : ""} · 도깨비 조언
+            </p>
+          </div>
           <Button
             onClick={() => router.push(`/result/full?orderId=${orderId}`)}
             fullWidth
             size="lg"
-            variant="secondary"
+            variant="gold"
           >
-            상세 풀이 보기 ✨
+            운명 전체 까보기 👹
           </Button>
-          <p className="text-[10px] text-gray-300">테스트 모드: 무료 체험</p>
         </Card>
+
+        {shareUrl && (
+          <>
+            <div className="h-5" />
+            <ShareCard shareUrl={shareUrl} />
+          </>
+        )}
 
         <div className="h-8" />
       </MobileContainer>

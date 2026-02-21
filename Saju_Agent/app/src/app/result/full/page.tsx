@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import MobileContainer from "@/components/layout/MobileContainer";
 import FourPillarsDisplay from "@/components/saju/FourPillarsDisplay";
+import SpecialStarsBadges from "@/components/saju/SpecialStarsBadges";
 import ElementChart from "@/components/saju/ElementChart";
 import ReadingSection from "@/components/saju/ReadingSection";
 import LuckyBadge from "@/components/saju/LuckyBadge";
@@ -58,7 +59,8 @@ function FullResultContent() {
       const data = await res.json();
       if (data.reading) {
         setReading(data.reading);
-        setShareUrl(`${window.location.origin}/share/${id}`);
+        const sid = data.shareId || sessionStorage.getItem(`share-${id}`) || id;
+        setShareUrl(`${window.location.origin}/share/${sid}`);
       }
     } catch {
       // Error handling
@@ -76,11 +78,12 @@ function FullResultContent() {
       <>
         <Header showBack />
         <MobileContainer>
-          <Card className="text-center space-y-3 py-8">
-            <span className="text-4xl">😢</span>
-            <p className="text-sm text-gray-600">풀이를 불러올 수 없어요</p>
+          <Card className="text-center space-y-4 py-10">
+            <p className="text-[15px] text-text-secondary font-hand">
+              도깨비가 풀이를 잃어버렸어... 다시 해볼래?
+            </p>
             <Button onClick={() => router.push("/")} variant="outline" size="md">
-              처음으로 돌아가기
+              다시 처음부터 까보기
             </Button>
           </Card>
         </MobileContainer>
@@ -89,13 +92,8 @@ function FullResultContent() {
     );
   }
 
-  const sections = [
-    { key: "personality", data: reading.personality, highlighted: false },
-    { key: "career", data: reading.career, highlighted: false },
-    { key: "love", data: reading.love, highlighted: false },
-    { key: "health", data: reading.health, highlighted: false },
-    { key: "fortune2026", data: reading.fortune2026, highlighted: true },
-  ];
+  const highlightKeys = new Set(["fortune2026", "nameFortune", "dokkaebiAdvice"]);
+  const defaultExpandedKeys = new Set(["personality", "fortune2026", "nameFortune"]);
 
   return (
     <>
@@ -104,48 +102,72 @@ function FullResultContent() {
         {/* Birth Info */}
         {sajuResult && (
           <>
-            <Card className="text-center text-xs text-gray-500 space-y-0.5">
-              <p className="font-medium text-gray-700">
+            <Card className="text-center space-y-1">
+              {sajuResult.input.nameInfo && (
+                <p className="font-display text-[17px] text-teal">
+                  {sajuResult.input.nameInfo.koreanName}
+                  {sajuResult.input.nameInfo.selectedHanja && (
+                    <span className="text-[14px] text-text-dim ml-1.5 font-sans">
+                      ({sajuResult.input.nameInfo.selectedHanja.map(h => h.hanja).join("")})
+                    </span>
+                  )}
+                </p>
+              )}
+              <p className="text-[14px] font-medium text-text-primary">
                 {formatDate(sajuResult.input.birthDate)}
                 {sajuResult.input.birthTime && ` ${formatTime(sajuResult.input.birthTime)}`}
                 {" · "}
                 {formatGender(sajuResult.input.gender)}
               </p>
-              <p>
+              <p className="text-[13px] text-text-dim">
                 {sajuResult.zodiacAnimalKorean}띠 · {sajuResult.input.isLunar ? "음력" : "양력"}
               </p>
             </Card>
 
             <div className="h-4" />
-            <FourPillarsDisplay pillars={sajuResult.fourPillars} />
+            <FourPillarsDisplay
+              pillars={sajuResult.fourPillars}
+              tenGods={sajuResult.tenGods}
+              twelveStages={sajuResult.twelveStages}
+              gongmang={sajuResult.gongmang}
+              specialStars={sajuResult.specialStars}
+              branchRelations={sajuResult.branchRelations}
+            />
+            <SpecialStarsBadges
+              stars={sajuResult.specialStars}
+              branchRelations={sajuResult.branchRelations}
+            />
             <div className="h-4" />
             <ElementChart
               distribution={sajuResult.elementDistribution}
               dominantElement={sajuResult.dominantElement}
             />
-            <div className="h-4" />
+            <div className="h-5" />
           </>
         )}
 
-        {/* Reading Sections */}
+        {/* Readings - dokkaebi voice */}
         <div className="space-y-3">
-          {sections.map(({ key, data, highlighted }) => (
+          {reading.sections.map((section) => (
             <ReadingSection
-              key={key}
-              icon={data.icon}
-              title={data.title}
-              content={data.content}
-              highlighted={highlighted}
+              key={section.key}
+              icon={section.icon}
+              title={section.title}
+              content={section.content}
+              preview={section.preview}
+              highlighted={highlightKeys.has(section.key)}
+              expandable
+              defaultExpanded={defaultExpandedKeys.has(section.key)}
             />
           ))}
         </div>
 
-        <div className="h-4" />
+        <div className="h-5" />
 
         {/* Lucky Elements */}
-        <Card>
-          <h3 className="text-sm font-bold text-gray-700 text-center mb-3">
-            🍀 나의 행운 요소
+        <Card glow="gold">
+          <h3 className="font-display text-[15px] text-gold text-center mb-4">
+            도깨비가 점지한 행운
           </h3>
           <div className="grid grid-cols-2 gap-2">
             <LuckyBadge type="color" value={reading.luckyElements.color} />
@@ -155,29 +177,22 @@ function FullResultContent() {
           </div>
         </Card>
 
-        <div className="h-4" />
+        <div className="h-5" />
 
-        {/* Share */}
-        {shareUrl && (
-          <ShareCard
-            shareUrl={shareUrl}
-            title="AI 사주풀이 결과"
-          />
-        )}
+        {shareUrl && <ShareCard shareUrl={shareUrl} />}
 
-        <div className="h-4" />
+        <div className="h-5" />
 
-        {/* Back to Home */}
         <Button
           onClick={() => router.push("/")}
           fullWidth
           variant="outline"
           size="md"
         >
-          다른 사주 보기
+          다른 운명 까보기
         </Button>
 
-        <div className="h-6" />
+        <div className="h-8" />
       </MobileContainer>
       <Footer />
     </>

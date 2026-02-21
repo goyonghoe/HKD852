@@ -2,12 +2,12 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AI 사주풀이 - 내 사주 속 숨겨진 나를 찾아보세요",
+  title: "운명의 도깨비 — 니 운명, 내가 봐줄까?",
   description:
-    "생년월일만 입력하면 AI가 분석하는 나만의 사주풀이. 성격, 적성, 연애, 2026 운세까지!",
+    "생년월일만 대봐. 도깨비가 니 팔자 까발려줄게. 성격, 적성, 연애, 건강, 2026 운세까지.",
   openGraph: {
-    title: "AI 사주풀이 - 내 사주 속 숨겨진 나",
-    description: "생년월일만 입력하면 AI가 분석하는 나만의 사주풀이",
+    title: "운명의 도깨비 — 니 운명, 까발려줄까?",
+    description: "생년월일만 대봐. 도깨비가 니 팔자 봐줄게.",
     type: "website",
     locale: "ko_KR",
   },
@@ -16,9 +16,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  themeColor: "#7C5CFC",
+  maximumScale: 5,
+  themeColor: "#0A0910",
 };
 
 export default function RootLayout({
@@ -28,8 +27,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className="min-h-screen bg-cream">
-        <div className="mx-auto max-w-mobile min-h-screen bg-cream">
+      <body className="min-h-screen bg-bg">
+        <div className="mx-auto max-w-mobile min-h-screen bg-bg relative overflow-hidden">
           {children}
         </div>
       </body>

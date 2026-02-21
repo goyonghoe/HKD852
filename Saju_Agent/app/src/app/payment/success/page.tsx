@@ -18,9 +18,8 @@ function SuccessContent() {
   }, [orderId, router]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-cream gap-4">
-      <span className="text-5xl">🎉</span>
-      <p className="text-sm text-gray-600 font-medium">결제 완료! 풀이를 준비하고 있어요...</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-bg gap-4">
+      <p className="text-sm text-text-secondary font-hand">도깨비가 운명을 펼치는 중...</p>
       <LoadingFortune />
     </div>
   );

@@ -37,11 +37,11 @@ export const ELEMENT_NAMES: Record<Element, string> = {
 };
 
 export const ELEMENT_COLORS: Record<Element, string> = {
-  wood: "#4CAF50",
-  fire: "#FF5252",
-  earth: "#FFB74D",
-  metal: "#B0BEC5",
-  water: "#42A5F5",
+  wood: "#7DD3A0",
+  fire: "#F0736E",
+  earth: "#E8C468",
+  metal: "#B8C4D0",
+  water: "#7BB8D4",
 };
 
 export const ELEMENT_DESCRIPTIONS: Record<Element, string> = {

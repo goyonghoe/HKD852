@@ -1,11 +1,9 @@
-import { TeaserReading, FullReading } from "../saju/types";
+import { TeaserReading, FullReading, FullReadingSection, ReadingSectionKey, FullReadingV1 } from "../saju/types";
 
 function extractJSON(text: string): string {
-  // Try to find JSON in the response (handle markdown code blocks)
   const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)```/);
   if (jsonMatch) return jsonMatch[1].trim();
 
-  // Try to find raw JSON object
   const objectMatch = text.match(/\{[\s\S]*\}/);
   if (objectMatch) return objectMatch[0];
 
@@ -16,62 +14,87 @@ export function parseTeaserResponse(text: string): TeaserReading {
   try {
     const json = JSON.parse(extractJSON(text));
     return {
-      personality: json.personality || "당신은 독특한 매력을 가진 사람이에요!",
-      elementInsight: json.elementInsight || "오행의 조화가 특별한 에너지를 만들고 있어요.",
+      personality: json.personality || "으음... 뭔가 숨겨진 게 많은 녀석이네. 좀 더 들여다봐야겠어.",
+      elementInsight: json.elementInsight || "오행이 요상하게 섞여 있어. 자세한 건 까봐야 알지, 뭐.",
+      ...(json.nameHint ? { nameHint: json.nameHint } : {}),
     };
   } catch {
     return {
-      personality: "당신은 독특한 매력을 가진 사람이에요! 자세한 분석은 상세 풀이에서 확인해보세요.",
-      elementInsight: "오행의 조화가 특별한 에너지를 만들고 있어요.",
+      personality: "으음... 뭔가 숨겨진 게 많은 녀석이네. 좀 더 들여다봐야겠어.",
+      elementInsight: "오행이 요상하게 섞여 있어. 자세한 건 까봐야 알지, 뭐.",
     };
   }
 }
 
+const SECTION_KEYS: ReadingSectionKey[] = [
+  "personality", "wealth", "career", "love", "relationships",
+  "health", "fortune2026", "travel", "talent", "dokkaebiAdvice",
+];
+
+const DEFAULT_SECTIONS: FullReadingSection[] = [
+  { key: "personality", title: "타고난 성격", icon: "👹", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "wealth", title: "재물운", icon: "💰", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "career", title: "직업·적성", icon: "🔥", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "love", title: "연애·결혼운", icon: "💀", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "relationships", title: "대인관계", icon: "🤝", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "health", title: "건강 주의보", icon: "⚡", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "fortune2026", title: "2026 올해운", icon: "✨", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "travel", title: "역마·변화운", icon: "🌀", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "talent", title: "숨겨진 재능", icon: "🎭", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+  { key: "dokkaebiAdvice", title: "도깨비 한마디", icon: "🔮", content: "도깨비가 잠깐 졸았어. 다시 해봐.", preview: "잠시 대기" },
+];
+
+const DEFAULT_LUCKY = { color: "-", number: "-", direction: "-", season: "-" };
+
 const DEFAULT_FULL_READING: FullReading = {
-  personality: {
-    title: "성격과 기질",
-    icon: "sparkles",
-    content: "분석 결과를 불러오는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.",
-  },
-  career: {
-    title: "적성과 진로",
-    icon: "briefcase",
-    content: "분석 결과를 불러오는 중 문제가 발생했습니다.",
-  },
-  love: {
-    title: "대인관계와 연애",
-    icon: "heart",
-    content: "분석 결과를 불러오는 중 문제가 발생했습니다.",
-  },
-  health: {
-    title: "건강 포인트",
-    icon: "leaf",
-    content: "분석 결과를 불러오는 중 문제가 발생했습니다.",
-  },
-  fortune2026: {
-    title: "2026년 운세",
-    icon: "star",
-    content: "분석 결과를 불러오는 중 문제가 발생했습니다.",
-  },
-  luckyElements: {
-    color: "-",
-    number: "-",
-    direction: "-",
-    season: "-",
-  },
+  sections: DEFAULT_SECTIONS,
+  luckyElements: DEFAULT_LUCKY,
 };
+
+function migrateV1ToV2(v1: FullReadingV1): FullReading {
+  const sections: FullReadingSection[] = [
+    { key: "personality", ...v1.personality, preview: "" },
+    { key: "career", ...v1.career, preview: "" },
+    { key: "love", ...v1.love, preview: "" },
+    { key: "health", ...v1.health, preview: "" },
+    { key: "fortune2026", ...v1.fortune2026, preview: "" },
+  ];
+  return { sections, luckyElements: v1.luckyElements };
+}
 
 export function parseFullReadingResponse(text: string): FullReading {
   try {
     const json = JSON.parse(extractJSON(text));
-    return {
-      personality: json.personality || DEFAULT_FULL_READING.personality,
-      career: json.career || DEFAULT_FULL_READING.career,
-      love: json.love || DEFAULT_FULL_READING.love,
-      health: json.health || DEFAULT_FULL_READING.health,
-      fortune2026: json.fortune2026 || DEFAULT_FULL_READING.fortune2026,
-      luckyElements: json.luckyElements || DEFAULT_FULL_READING.luckyElements,
-    };
+
+    // V2 (배열 기반)
+    if (json.sections && Array.isArray(json.sections)) {
+      const sections = SECTION_KEYS.map(key => {
+        const found = json.sections.find((s: FullReadingSection) => s.key === key);
+        return found || DEFAULT_SECTIONS.find(d => d.key === key)!;
+      });
+      // nameFortune은 이름 입력 시에만 포함 (optional)
+      const nameFortune = json.sections.find((s: FullReadingSection) => s.key === "nameFortune");
+      if (nameFortune) {
+        // dokkaebiAdvice 앞에 삽입
+        const adviceIdx = sections.findIndex(s => s.key === "dokkaebiAdvice");
+        if (adviceIdx >= 0) {
+          sections.splice(adviceIdx, 0, nameFortune);
+        } else {
+          sections.push(nameFortune);
+        }
+      }
+      return {
+        sections,
+        luckyElements: json.luckyElements || DEFAULT_LUCKY,
+      };
+    }
+
+    // V1 (이름 필드) → 자동 마이그레이션
+    if (json.personality) {
+      return migrateV1ToV2(json as FullReadingV1);
+    }
+
+    return DEFAULT_FULL_READING;
   } catch {
     return DEFAULT_FULL_READING;
   }

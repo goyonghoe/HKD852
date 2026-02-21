@@ -2,109 +2,163 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Pretendard";
-  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
-}
-
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gaegu:wght@400;700&display=swap");
 
 :root {
-  --color-primary: #7C5CFC;
-  --color-secondary: #FF8FAB;
-  --color-cream: #FFF8F0;
+  --color-bg: #0A0910;
+  --color-surface: #13111C;
+  --color-teal: #4ECDC4;
+  --color-gold: #F0C674;
 }
 
 body {
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
-    system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
-    "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", sans-serif;
-  background-color: var(--color-cream);
-  color: #333;
+    system-ui, "Noto Sans KR", sans-serif;
+  background-color: var(--color-bg);
+  color: #EEEAF4;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1B1828; border-radius: 2px; }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
-  border-radius: 2px;
-}
-
-/* Skeleton animation */
+/* Skeleton */
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
-
 .skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, #13111C 25%, #1B1828 50%, #13111C 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 8px;
 }
 
-/* Pillar reveal animation */
+/* Pillar reveal */
 @keyframes pillarReveal {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
-
 .pillar-animate {
-  animation: pillarReveal 0.5s ease-out forwards;
+  animation: pillarReveal 0.6s ease-out forwards;
   opacity: 0;
 }
 
-/* Crystal ball floating */
-@keyframes crystalFloat {
+/* Fade */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dokkaebi float */
+@keyframes gentleFloat {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(3deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
 }
 
-.crystal-float {
-  animation: crystalFloat 3s ease-in-out infinite;
-  display: inline-block;
-}
-
-/* Lucky badge floating */
-@keyframes badgeFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-
-.badge-float {
-  animation: badgeFloat 2.5s ease-in-out infinite;
-}
-
-/* Blur overlay for teaser paywall */
-.reading-blur {
-  filter: blur(6px);
-  user-select: none;
-  pointer-events: none;
+/* 도깨비불 flicker */
+@keyframes fireFlicker {
+  0%, 100% { opacity: 0.6; filter: brightness(1); }
+  25% { opacity: 1; filter: brightness(1.2); }
+  50% { opacity: 0.8; filter: brightness(0.9); }
+  75% { opacity: 1; filter: brightness(1.1); }
 }
 
 /* Gradient text */
 .text-gradient {
-  background: linear-gradient(135deg, #7C5CFC, #FF8FAB);
+  background: linear-gradient(135deg, #4ECDC4, #F0C674);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Pulse for loading dots */
+/* Dokkaebi speech style */
+.dokkaebi-voice {
+  font-family: "Gaegu", cursive;
+}
+
+/* Pulse dots */
 @keyframes pulse {
   0%, 100% { opacity: 0.3; transform: scale(0.8); }
   50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Glows */
+.glow-teal { box-shadow: 0 0 40px rgba(78, 205, 196, 0.08); }
+.glow-gold { box-shadow: 0 0 40px rgba(240, 198, 116, 0.06); }
+.glow-ember { box-shadow: 0 0 30px rgba(255, 107, 107, 0.06); }
+
+/* Accordion */
+.accordion-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.accordion-body.open {
+  grid-template-rows: 1fr;
+}
+.accordion-body > div {
+  overflow: hidden;
+}
+.accordion-chevron {
+  transition: transform 0.3s ease;
+}
+.accordion-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Form select arrow */
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6580' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+/* Wizard slide animations */
+@keyframes wizardSlideIn {
+  from { transform: translateX(50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes wizardSlideOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-50px); opacity: 0; }
+}
+@keyframes wizardSlideBackIn {
+  from { transform: translateX(-50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes wizardSlideBackOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(50px); opacity: 0; }
+}
+.wizard-slide-in { animation: wizardSlideIn 0.2s ease-out forwards; }
+.wizard-slide-out { animation: wizardSlideOut 0.2s ease-in forwards; }
+.wizard-slide-back-in { animation: wizardSlideBackIn 0.2s ease-out forwards; }
+.wizard-slide-back-out { animation: wizardSlideBackOut 0.2s ease-in forwards; }
+
+/* 도깨비불 background dots */
+.dokkaebi-bg {
+  background-image:
+    radial-gradient(1.5px 1.5px at 15% 20%, rgba(78,205,196,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 15%, rgba(240,198,116,0.2) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 45% 75%, rgba(78,205,196,0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 55%, rgba(255,107,107,0.1) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 45%, rgba(240,198,116,0.12) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 65% 85%, rgba(78,205,196,0.2) 0%, transparent 100%);
 }

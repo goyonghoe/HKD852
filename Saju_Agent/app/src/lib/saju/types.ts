@@ -1,3 +1,6 @@
+import type { TenGodsResult, SpecialStarsResult, GongmangResult, BranchRelationsResult, TwelveStagesResult } from "./advanced-types";
+export type { TenGodsResult, SpecialStarsResult, GongmangResult, BranchRelationsResult, TwelveStagesResult };
+
 export type Element = "wood" | "fire" | "earth" | "metal" | "water";
 export type YinYang = "yin" | "yang";
 
@@ -39,11 +42,25 @@ export interface ElementDistribution {
   water: number;
 }
 
+export interface HanjaCharacter {
+  hanja: string;     // e.g. "英"
+  meaning: string;   // e.g. "꽃부리 영"
+  strokes: number;   // e.g. 8
+}
+
+export interface NameInfo {
+  koreanName: string;              // "김영수"
+  familyName: string;             // "김"
+  givenNameSyllables: string[];   // ["영", "수"]
+  selectedHanja?: HanjaCharacter[];
+}
+
 export interface SajuInput {
   birthDate: string; // YYYY-MM-DD
   birthTime: string | null; // HH:mm or null
   gender: "male" | "female";
   isLunar: boolean;
+  nameInfo?: NameInfo; // optional — backward compatible
 }
 
 export interface SajuResult {
@@ -54,31 +71,59 @@ export interface SajuResult {
   weakestElement: Element;
   zodiacAnimal: string;
   zodiacAnimalKorean: string;
+  // Advanced analysis (optional — backward compatible)
+  tenGods?: TenGodsResult;
+  specialStars?: SpecialStarsResult;
+  gongmang?: GongmangResult;
+  branchRelations?: BranchRelationsResult;
+  twelveStages?: TwelveStagesResult;
 }
 
 export interface TeaserReading {
   personality: string;
   elementInsight: string;
+  nameHint?: string;
 }
 
+export type ReadingSectionKey =
+  | "personality"
+  | "wealth"
+  | "career"
+  | "love"
+  | "relationships"
+  | "health"
+  | "fortune2026"
+  | "travel"
+  | "talent"
+  | "nameFortune"
+  | "dokkaebiAdvice";
+
 export interface FullReadingSection {
+  key: ReadingSectionKey;
   title: string;
   icon: string;
   content: string;
+  preview?: string;
 }
 
 export interface FullReading {
-  personality: FullReadingSection;
-  career: FullReadingSection;
-  love: FullReadingSection;
-  health: FullReadingSection;
-  fortune2026: FullReadingSection;
+  sections: FullReadingSection[];
   luckyElements: {
     color: string;
     number: string;
     direction: string;
     season: string;
   };
+}
+
+// V1 하위호환 (기존 DB 캐시)
+export interface FullReadingV1 {
+  personality: { title: string; icon: string; content: string };
+  career: { title: string; icon: string; content: string };
+  love: { title: string; icon: string; content: string };
+  health: { title: string; icon: string; content: string };
+  fortune2026: { title: string; icon: string; content: string };
+  luckyElements: { color: string; number: string; direction: string; season: string };
 }
 
 export interface OrderRecord {

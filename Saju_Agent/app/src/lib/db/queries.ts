@@ -3,13 +3,20 @@ import { db } from "./client";
 import { orders } from "./schema";
 import { SajuInput, SajuResult } from "../saju/types";
 
-export async function createOrder(sajuInput: SajuInput, amount: number) {
+export async function createOrder(
+  sajuInput: SajuInput,
+  amount: number,
+  sajuResult?: SajuResult,
+  shareId?: string,
+) {
   const [order] = await db
     .insert(orders)
     .values({
       sajuInput: sajuInput as unknown as Record<string, unknown>,
+      ...(sajuResult && { sajuResult: sajuResult as unknown as Record<string, unknown> }),
       amount,
       status: "pending",
+      ...(shareId && { shareId }),
     })
     .returning();
   return order;

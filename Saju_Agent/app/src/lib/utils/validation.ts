@@ -1,5 +1,18 @@
 import { z } from "zod";
 
+const hanjaCharacterSchema = z.object({
+  hanja: z.string().length(1),
+  meaning: z.string().min(1),
+  strokes: z.number().int().positive(),
+});
+
+const nameInfoSchema = z.object({
+  koreanName: z.string().min(2).max(5).regex(/^[가-힣]+$/, "한글 이름만 입력해주세요"),
+  familyName: z.string().min(1).max(2).regex(/^[가-힣]+$/),
+  givenNameSyllables: z.array(z.string().length(1)).min(1).max(3),
+  selectedHanja: z.array(hanjaCharacterSchema).optional(),
+});
+
 export const sajuInputSchema = z.object({
   birthDate: z
     .string()
@@ -17,6 +30,7 @@ export const sajuInputSchema = z.object({
     errorMap: () => ({ message: "성별을 선택해주세요" }),
   }),
   isLunar: z.boolean().default(false),
+  nameInfo: nameInfoSchema.optional(),
 });
 
 export const orderIdSchema = z.object({
