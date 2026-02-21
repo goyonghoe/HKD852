@@ -308,19 +308,22 @@ ${nameInfo.koreanName}... ${nameInfo.selectedHanja ? "한자까지 골라온 성
 
 // AI 호출 시도 (API키 있으면 사용, 없으면 데모)
 async function getReading(type: "teaser" | "full", sajuResult: SajuResult) {
+  let aiError: string | null = null;
+
   if (process.env.ANTHROPIC_API_KEY) {
     try {
       const { generateTeaserReading, generateFullReading } = await import("@/lib/ai/claude-client");
-      if (type === "teaser") return await generateTeaserReading(sajuResult);
-      return await generateFullReading(sajuResult);
+      if (type === "teaser") return { reading: await generateTeaserReading(sajuResult), source: "ai" };
+      return { reading: await generateFullReading(sajuResult), source: "ai" };
     } catch (e) {
-      console.error("[interpret] AI call failed, using demo:", e);
+      aiError = e instanceof Error ? e.message : String(e);
+      console.error("[interpret] AI call failed, using demo:", aiError);
     }
   }
 
   // 데모 모드
-  if (type === "teaser") return generateDemoTeaser(sajuResult);
-  return generateDemoFullReading(sajuResult);
+  const reading = type === "teaser" ? generateDemoTeaser(sajuResult) : generateDemoFullReading(sajuResult);
+  return { reading, source: "demo", aiError };
 }
 
 export async function POST(request: NextRequest) {
@@ -347,14 +350,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "사주 결과가 없어. 다시 해봐." }, { status: 400 });
     }
 
-    const reading = await getReading(type, sajuResult);
+    const result = await getReading(type, sajuResult);
 
     // DB 캐싱 + shareId 조회 (full만)
     let shareId: string | null = null;
     if (type === "full" && process.env.DATABASE_URL) {
       try {
         const { updateOrderReading, getOrder } = await import("@/lib/db/queries");
-        await updateOrderReading(body.orderId, JSON.stringify(reading));
+        await updateOrderReading(body.orderId, JSON.stringify(result.reading));
         const order = await getOrder(body.orderId);
         shareId = order?.shareId ?? null;
       } catch (error) {
@@ -362,7 +365,11 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({ reading, shareId });
+    return NextResponse.json({
+      reading: result.reading,
+      shareId,
+      _debug: { source: result.source, aiError: result.aiError || null },
+    });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors[0].message }, { status: 400 });
