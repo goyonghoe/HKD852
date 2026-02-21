@@ -42,10 +42,12 @@ function FullResultContent() {
 
   const fetchFullReading = async (id: string) => {
     try {
+      const cached = sessionStorage.getItem(`saju-${id}`);
+      const sajuResult = cached ? JSON.parse(cached) : undefined;
       const res = await fetch("/api/saju/interpret", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId: id, type: "full" }),
+        body: JSON.stringify({ orderId: id, type: "full", sajuResult }),
       });
 
       if (res.status === 403) {

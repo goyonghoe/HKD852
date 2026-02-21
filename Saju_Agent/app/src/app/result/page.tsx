@@ -44,10 +44,12 @@ function ResultContent() {
   const fetchTeaser = async (id: string) => {
     setTeaserLoading(true);
     try {
+      const cached = sessionStorage.getItem(`saju-${id}`);
+      const sajuResult = cached ? JSON.parse(cached) : undefined;
       const res = await fetch("/api/saju/interpret", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId: id, type: "teaser" }),
+        body: JSON.stringify({ orderId: id, type: "teaser", sajuResult }),
       });
       const data = await res.json();
       if (data.reading) {
