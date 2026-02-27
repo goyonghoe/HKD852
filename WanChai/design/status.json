@@ -1,0 +1,351 @@
+{
+  "version": 18,
+  "lastUpdated": "2026-02-27T21:45:00Z",
+  "gameVersion": "1.0.0",
+  "specs": [
+    {
+      "id": "SPEC-001",
+      "name": "circular-conveyor",
+      "designStatus": "implemented",
+      "implStatus": "verified",
+      "designDoc": "design/specs/mechanics/SPEC-001-circular-conveyor.md",
+      "implPath": "src/core/ConveyorState.ts"
+    },
+    {
+      "id": "SPEC-002",
+      "name": "element-matching",
+      "designStatus": "implemented",
+      "implStatus": "verified",
+      "designDoc": "design/specs/mechanics/SPEC-002-element-matching.md",
+      "implPath": "src/core/BoardState.ts"
+    },
+    {
+      "id": "SPEC-003",
+      "name": "sling-combo",
+      "designStatus": "implemented",
+      "implStatus": "verified",
+      "designDoc": "design/specs/mechanics/SPEC-003-sling-combo.md",
+      "implPath": "src/core/TurnResolver.ts"
+    },
+    {
+      "id": "SPEC-004",
+      "name": "armored-cubes",
+      "designStatus": "implemented",
+      "implStatus": "verified",
+      "designDoc": "design/specs/mechanics/SPEC-004-armored-cubes.md",
+      "implPath": "src/core/BoardState.ts"
+    },
+    {
+      "id": "SPEC-005",
+      "name": "score-system",
+      "designStatus": "implemented",
+      "implStatus": "verified",
+      "designDoc": "design/specs/mechanics/SPEC-005-score-system.md",
+      "implPath": "src/core/ScoreCalculator.ts"
+    },
+    {
+      "id": "SPEC-006",
+      "name": "hero-grid",
+      "designStatus": "implemented",
+      "implStatus": "verified",
+      "designDoc": "design/specs/mechanics/SPEC-006-hero-grid.md",
+      "implPath": "src/core/TurnResolver.ts"
+    },
+    {
+      "id": "SPEC-007",
+      "name": "bench-mechanic",
+      "designStatus": "implemented",
+      "implStatus": "verified",
+      "designDoc": "design/specs/mechanics/SPEC-007-bench-mechanic.md",
+      "implPath": "src/core/TurnResolver.ts"
+    },
+    {
+      "id": "SPEC-006A",
+      "name": "hero-grid-level-data",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/specs/data/SPEC-006A-hero-grid-level-data.md",
+      "implPath": "src/data/levels/world-1/stage-*.json"
+    },
+    {
+      "id": "SPEC-010",
+      "name": "worldbuilding",
+      "designStatus": "draft",
+      "implStatus": "pending",
+      "designDoc": "design/specs/worldbuilding.md",
+      "notes": "Wan Chai Harbor lore, The Blight, element districts, narrative structure."
+    },
+    {
+      "id": "SPEC-011",
+      "name": "roguelike-core",
+      "designStatus": "draft",
+      "implStatus": "implemented",
+      "designDoc": "design/specs/roguelike-core.md",
+      "implPath": "src/types/run.ts, src/config/roguelike-balance.ts, src/core/SeededRandom.ts, src/core/MapGenerator.ts, src/core/RunManager.ts",
+      "notes": "RunState, MapGenerator (linear 4-layer), RunManager (startRun/selectNode/beginBattle/endBattle/advanceToNextFloor). 43 tests."
+    },
+    {
+      "id": "SPEC-012",
+      "name": "critter-system",
+      "designStatus": "draft",
+      "implStatus": "implemented",
+      "designDoc": "design/specs/critter-system.md",
+      "implPath": "src/types/critter.ts, src/data/critters/definitions.ts, src/core/CritterManager.ts",
+      "notes": "18 critters (6 elements x 3 rarities). CritterManager: createInstance, addExp, evolve, toHeroInstance. 20 tests."
+    },
+    {
+      "id": "SPEC-013",
+      "name": "enemy-bestiary",
+      "designStatus": "draft",
+      "implStatus": "implemented",
+      "designDoc": "design/specs/enemy-bestiary.md",
+      "implPath": "src/types/blight.ts, src/data/blights/definitions.ts, src/core/EnemyPlacer.ts",
+      "notes": "18 blights. EnemyPlacer: generateBattleBoard with seeded RNG, floor-scaled board. 10 tests."
+    },
+    {
+      "id": "SPEC-014",
+      "name": "relic-system",
+      "designStatus": "draft",
+      "implStatus": "implemented",
+      "designDoc": "design/specs/relic-system.md",
+      "implPath": "src/core/RelicManager.ts, src/core/RelicResolver.ts, src/core/PassiveResolver.ts, src/core/ModifierResolver.ts",
+      "notes": "15 relics, 3 CombatPlugins (Passive/Modifier/Relic Resolver). TurnResolver plugin integration with 8 hooks. 104 tests."
+    },
+    {
+      "id": "SPEC-015",
+      "name": "meta-progression",
+      "designStatus": "draft",
+      "implStatus": "implemented",
+      "designDoc": "design/specs/meta-progression.md",
+      "implPath": "src/types/save.ts, src/config/meta-balance.ts, src/core/MetaManager.ts, src/managers/SaveManager.ts",
+      "notes": "MetaManager (20 methods: collection, hometown, codex, crystals). SaveData v2 with migration. 33 tests."
+    },
+    {
+      "id": "SPEC-016",
+      "name": "element-advantage-system",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/core/ElementAdvantage.ts, src/core/BoardState.ts, src/core/TurnResolver.ts, src/core/ScoreCalculator.ts",
+      "notes": "Fire→Wind→Earth→Water→Fire cycle + Light↔Dark. Advantage = 2x damage, 1.5x score. findFrom* returns { cube, matchType }. 18 tests."
+    },
+    {
+      "id": "SPEC-017",
+      "name": "phase2-visual-polish",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/types/puzzle.ts, src/core/TurnResolver.ts, src/utils/VFXManager.ts, src/scenes/PuzzleScene.ts, src/scenes/RunMapScene.ts",
+      "notes": "Phase 2 Visual Polish: matchType propagated to CubeDestroyEvent; advantage VFX (2x particles, white flash, SUPER! popup); sprite-based projectile with fallback line; combo text popup (>=3); ambient background particles in PuzzleScene; boss battle intro in RunMapScene."
+    },
+    {
+      "id": "SPEC-020",
+      "name": "hero-queue-system",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/specs/mechanics/SPEC-020-hero-queue-system.md",
+      "implPath": "src/core/HeroGridBuilder.ts, src/core/LevelLoader.ts",
+      "notes": "2-4 columns by element, AP descending, board-frequency ordered. 17 tests."
+    },
+    {
+      "id": "SPEC-021",
+      "name": "order-puzzle-combat",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/specs/SPEC-021-order-puzzle-combat.md",
+      "implPath": "src/types/combat.ts, src/core/EnemyBoard.ts, src/core/CombatResolver.ts, src/core/CombatPassiveResolver.ts, src/core/CombatRelicResolver.ts, src/types/combat-hooks.ts",
+      "notes": "Order Puzzle Combat: Enemy types (ATK/HP/shield/timer), EnemyBoard (grid+targeting), CombatResolver (deploy→orbit→fire→kill cycle), CombatHook plugin system (8 passives + 3 relic effects), PuzzleScene combat mode, PuzzleUIScene HP bar, VFXManager combat effects. 564 total tests (112 combat-specific)."
+    }
+  ],
+  "levels": [
+    {
+      "id": "w1-s001",
+      "name": "First Steps",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/levels/world-1/stage-001.md",
+      "jsonPath": "src/data/levels/world-1/stage-001.json"
+    },
+    {
+      "id": "w1-s002",
+      "name": "Triple Threat",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/levels/world-1/stage-002.md",
+      "jsonPath": "src/data/levels/world-1/stage-002.json"
+    },
+    {
+      "id": "w1-s003",
+      "name": "Tight Quarters",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/levels/world-1/stage-003.md",
+      "jsonPath": "src/data/levels/world-1/stage-003.json"
+    },
+    {
+      "id": "w1-s004",
+      "name": "Split Decision",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/levels/world-1/stage-004.md",
+      "jsonPath": "src/data/levels/world-1/stage-004.json"
+    },
+    {
+      "id": "w1-s005",
+      "name": "Gravity Well",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/levels/world-1/stage-005.md",
+      "jsonPath": "src/data/levels/world-1/stage-005.json"
+    },
+    {
+      "id": "w1-s006",
+      "name": "Shining Path",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/levels/world-1/stage-006.md",
+      "jsonPath": "src/data/levels/world-1/stage-006.json"
+    },
+    {
+      "id": "w1-s007",
+      "name": "Dark Curtain",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/levels/world-1/stage-007.md",
+      "jsonPath": "src/data/levels/world-1/stage-007.json"
+    },
+    {
+      "id": "w1-s008",
+      "name": "Iron Wall",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/levels/world-1/stage-008.md",
+      "jsonPath": "src/data/levels/world-1/stage-008.json"
+    },
+    {
+      "id": "w1-s009",
+      "name": "Gauntlet",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/levels/world-1/stage-009.md",
+      "jsonPath": "src/data/levels/world-1/stage-009.json"
+    },
+    {
+      "id": "w1-s010",
+      "name": "Final Stand",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/levels/world-1/stage-010.md",
+      "jsonPath": "src/data/levels/world-1/stage-010.json"
+    }
+  ],
+  "balance": [
+    {
+      "id": "BAL-001",
+      "name": "world-1-overview",
+      "designStatus": "ready",
+      "designDoc": "design/balance/world-1-overview.md"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "SCENE-001",
+      "name": "StageSelectScene",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/scenes/StageSelectScene.ts"
+    },
+    {
+      "id": "SCENE-002",
+      "name": "VictoryScene",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/scenes/VictoryScene.ts"
+    },
+    {
+      "id": "SCENE-003",
+      "name": "PauseOverlay",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/ui/PauseOverlay.ts"
+    },
+    {
+      "id": "SCENE-004",
+      "name": "SettingsOverlay",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/ui/SettingsOverlay.ts"
+    },
+    {
+      "id": "SCENE-005",
+      "name": "ModeSelectScene",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/scenes/ModeSelectScene.ts"
+    },
+    {
+      "id": "SCENE-006",
+      "name": "PartySelectScene",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/scenes/PartySelectScene.ts"
+    },
+    {
+      "id": "SCENE-007",
+      "name": "RunMapScene",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/scenes/RunMapScene.ts"
+    },
+    {
+      "id": "SCENE-008",
+      "name": "RewardScene",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/scenes/RewardScene.ts"
+    },
+    {
+      "id": "SCENE-009",
+      "name": "RunResultScene",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/scenes/RunResultScene.ts"
+    },
+    {
+      "id": "SCENE-010",
+      "name": "ShopScene",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/scenes/ShopScene.ts",
+      "notes": "3 cards: LevelUp (300pts), Recruit Critter (rarity-based cost), Acquire Relic. Party select overlay for LevelUp. Multiple purchases allowed. Seeded offers."
+    },
+    {
+      "id": "SCENE-011",
+      "name": "RestScene",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/scenes/RestScene.ts",
+      "notes": "3 options: Recover (clear exhaustion), Train (select critter +150 XP), Scout (reveal next floor nodes). One-time selection with CONTINUE button."
+    },
+    {
+      "id": "SCENE-012",
+      "name": "EventScene",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "implPath": "src/scenes/EventScene.ts",
+      "notes": "5 events seeded by run seed + floor. Two option buttons. Risk rolls via SeededRandom. Result message shown before CONTINUE."
+    }
+  ],
+  "runManagerMethods": {
+    "purchaseShopItem": "implemented",
+    "applyRest": "implemented",
+    "applyEvent": "implemented",
+    "notes": "Total: 564 tests (23 suites). SPEC-021 combat system added."
+  },
+  "saveSystems": {
+    "runSerialization": "implemented",
+    "autoSavePoints": ["RunMapScene.create", "ShopScene.leaveShop", "RestScene.onContinue", "EventScene.onContinue", "RewardScene.onContinue"],
+    "clearOn": "RunResultScene.create",
+    "continueRunButton": "ModeSelectScene (visible when SaveManager.hasActiveRun())",
+    "storage": "localStorage key: puzzlerpg_run",
+    "notes": "RunState JSON serialized/deserialized. SaveManager.saveRun/loadRun/clearRun/hasActiveRun. RewardScene: recruit adds PartyCritter to party, relic adds relic id to state.relics. Disabled cards dim when party/relics full."
+  }
+}

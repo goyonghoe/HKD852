@@ -112,7 +112,7 @@ export class PuzzleScene extends Phaser.Scene {
     this.levelId = data.levelId || 'w1-s001';
     this.runState = data.runState ?? null;
     this.isRoguelike = !!data.runState;
-    this.combatMode = data.combatMode ?? false;
+    this.combatMode = data.combatMode ?? !!data.levelData?.enemyGrid;
     this._roguelikeLevelData = data.levelData ?? null;
     this._roguelikeHeroQueue = data.heroQueue ?? null;
     this._roguelikeBlightMap = data.blightMap ?? null;
