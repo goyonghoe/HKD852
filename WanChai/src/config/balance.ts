@@ -77,7 +77,7 @@ export const BALANCE = {
     bossPerStage: ['boss', 'boss_circle', 'boss_burst'] as readonly string[],
   },
   GAME_SPEED: {
-    options: [1, 1.5, 2, 3] as readonly number[],
+    options: [1, 1.5, 2] as readonly number[],
   },
 } as const;
 
