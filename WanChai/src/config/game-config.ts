@@ -5,6 +5,9 @@ import { MainMenuScene } from '../scenes/MainMenuScene';
 import { RunScene } from '../scenes/RunScene';
 import { GameOverScene } from '../scenes/GameOverScene';
 import { MetaScene } from '../scenes/MetaScene';
+import { WeaponCodexScene } from '../scenes/WeaponCodexScene';
+import { EnemyCodexScene } from '../scenes/EnemyCodexScene';
+import { WorldMapScene } from '../scenes/WorldMapScene';
 
 /** Game version — bump on each deploy */
 export const GAME_VERSION = '0.1.0';
@@ -32,6 +35,9 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     RunScene,
     GameOverScene,
     MetaScene,
+    WeaponCodexScene,
+    EnemyCodexScene,
+    WorldMapScene,
   ],
   physics: {
     default: 'arcade',

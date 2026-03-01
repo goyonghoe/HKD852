@@ -53,28 +53,52 @@ export class MainMenuScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    // Start button (custom, no ButtonFactory dependency issues)
-    const btnW = 240;
-    const btnH = 64;
-    const btnY = 700;
+    // === BUTTONS ===
 
-    const btnBg = this.add
-      .rectangle(cx, btnY, btnW, btnH, NEON.UI_PANEL)
-      .setStrokeStyle(2, NEON.UI_ACCENT);
+    // Primary: 게임 시작
+    this.createMenuButton(cx, 640, 240, 56, '게임 시작', '28px', NEON.UI_ACCENT, NEON_CSS.UI_ACCENT, () => {
+      this.scene.start('RunScene');
+    });
+
+    // Secondary: 무기 도감
+    this.createMenuButton(cx, 720, 200, 48, '무기 도감', '22px', NEON.UI_BORDER, NEON_CSS.UI_TEXT, () => {
+      this.scene.start('WeaponCodexScene');
+    });
+
+    // Secondary: 적 도감
+    this.createMenuButton(cx, 780, 200, 48, '적 도감', '22px', NEON.UI_BORDER, NEON_CSS.UI_TEXT, () => {
+      this.scene.start('EnemyCodexScene');
+    });
+
+    // Secondary: 월드맵
+    this.createMenuButton(cx, 840, 200, 48, '월드맵', '22px', NEON.UI_BORDER, NEON_CSS.UI_TEXT, () => {
+      this.scene.start('WorldMapScene');
+    });
+  }
+
+  private createMenuButton(
+    x: number, y: number, w: number, h: number,
+    label: string, fontSize: string,
+    strokeColor: number, textColor: string,
+    onClick: () => void,
+  ): void {
+    const bg = this.add
+      .rectangle(x, y, w, h, NEON.UI_PANEL)
+      .setStrokeStyle(2, strokeColor);
 
     this.add
-      .text(cx, btnY, '게임 시작', {
-        fontSize: '28px',
-        color: NEON_CSS.UI_ACCENT,
+      .text(x, y, label, {
+        fontSize,
+        color: textColor,
         fontFamily: 'monospace',
         fontStyle: 'bold',
       })
       .setOrigin(0.5);
 
-    btnBg
+    bg
       .setInteractive({ useHandCursor: true })
-      .on('pointerover', () => btnBg.setStrokeStyle(3, NEON.UI_ACCENT))
-      .on('pointerout', () => btnBg.setStrokeStyle(2, NEON.UI_ACCENT))
-      .on('pointerdown', () => this.scene.start('RunScene'));
+      .on('pointerover', () => bg.setStrokeStyle(3, NEON.UI_ACCENT))
+      .on('pointerout', () => bg.setStrokeStyle(2, strokeColor))
+      .on('pointerdown', onClick);
   }
 }
