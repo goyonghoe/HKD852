@@ -1,5 +1,7 @@
 export interface RunState {
-  runTime: number;        // ms elapsed
+  runTime: number;        // ms elapsed (total across all stages)
+  stageTime: number;      // ms elapsed in current stage (resets per stage)
+  stage: number;          // 1-based current stage index
   playerLevel: number;
   playerXp: number;
   baseHp: number;         // current base wall HP
@@ -20,4 +22,4 @@ export interface MetaState {
   runsCompleted: number;
 }
 
-export type GamePhase = 'playing' | 'levelup' | 'paused' | 'gameover' | 'shop';
+export type GamePhase = 'playing' | 'levelup' | 'paused' | 'gameover' | 'shop' | 'stage_clear';

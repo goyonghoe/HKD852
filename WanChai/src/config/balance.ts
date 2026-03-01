@@ -52,6 +52,18 @@ export const BALANCE = {
     armorBoostPercent: 0.25,    // +25% armor (reduce incoming damage)
     armorCost: 20,
   },
+  STAGE: {
+    maxStages: 3,
+    durationMs: 60000,            // each stage 60s
+    clearHealPercent: 0.30,       // heal 30% base HP between stages
+    clearPauseMs: 2000,           // "Stage Clear" overlay duration
+    difficultyPerStage: {
+      hpMult: 1.5,                // cumulative per stage (S2=1.5x, S3=2.25x)
+      speedMult: 1.2,
+      damageMult: 1.3,
+    },
+    bossPerStage: ['boss', 'boss_circle', 'boss_burst'] as readonly string[],
+  },
   GAME_SPEED: {
     options: [1, 1.5, 2, 3] as readonly number[],
   },

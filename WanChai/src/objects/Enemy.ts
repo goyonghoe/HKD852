@@ -41,12 +41,24 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   // Hit flash (manual frame counter, no delayedCall)
   private flashTimer = 0;
 
+  // Boss circle state
+  private circleAngle = 0;
+  private circleCenterX = 0;
+  private circleCenterY = 0;
+  private circlePhase: 'approach' | 'orbit' = 'approach';
+
+  // Boss burst state
+  private burstTimer = 0;
+  private burstPhase: 'idle' | 'charge' = 'idle';
+  private readonly burstIdleDuration = 2000;  // ms pause between charges
+  private readonly burstChargeDuration = 1000; // ms per charge burst
+
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'enemy_circle');
     // Pool handles adding to scene/physics world
   }
 
-  activate(def: EnemyDef, x: number, y: number, minutesElapsed: number, elite = false): void {
+  activate(def: EnemyDef, x: number, y: number, minutesElapsed: number, elite = false, stageMult = 1): void {
     this.defId = def.id;
     this.isElite = elite;
     this.colorKey = def.colorKey;
@@ -62,9 +74,9 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     const eliteMult = elite ? 5 : 1;
 
-    this.hp = Math.ceil(def.baseHp * hpScale * eliteMult);
+    this.hp = Math.ceil(def.baseHp * hpScale * eliteMult * stageMult);
     this.maxHp = this.hp;
-    this.damage = Math.ceil(def.baseDamage * dmgScale * (elite ? 2 : 1));
+    this.damage = Math.ceil(def.baseDamage * dmgScale * (elite ? 2 : 1) * stageMult);
     this.speed = def.baseSpeed * spdScale;
     this.xpValue = def.xpValue * (elite ? 5 : 1);
 
@@ -72,7 +84,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     const texKey = SHAPE_TO_TEXTURE[def.shape] ?? 'enemy_circle';
     this.setTexture(texKey);
 
-    if (def.behavior === 'boss_chase') {
+    if (def.behavior === 'boss_chase' || def.behavior === 'boss_circle' || def.behavior === 'boss_burst') {
       this.setScale(3);
     } else if (elite) {
       this.setScale(2);
@@ -93,6 +105,14 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     this.dashTimer = 0;
     this.isDashing = false;
     this.knockbackTimer = 0;
+    // Boss circle
+    this.circleAngle = 0;
+    this.circleCenterX = 360; // screen center X
+    this.circleCenterY = 500; // orbit center Y
+    this.circlePhase = 'approach';
+    // Boss burst
+    this.burstTimer = 0;
+    this.burstPhase = 'idle';
   }
 
   deactivate(): void {
@@ -167,6 +187,50 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
       case 'boss_chase': {
         // Slow, steady, relentless march
         body.setVelocity(0, this.speed);
+        break;
+      }
+      case 'boss_circle': {
+        // Phase 1: approach orbit center, Phase 2: circular orbit descending
+        if (this.circlePhase === 'approach') {
+          const dx = this.circleCenterX - this.x;
+          const dy = this.circleCenterY - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 10) {
+            this.circlePhase = 'orbit';
+          } else {
+            body.setVelocity((dx / dist) * this.speed * 2, (dy / dist) * this.speed * 2);
+          }
+        } else {
+          // Orbit with slow descent
+          const radius = 200;
+          const orbitSpeed = 2; // rad/s
+          this.circleAngle += orbitSpeed * dt;
+          const targetX = this.circleCenterX + Math.cos(this.circleAngle) * radius;
+          const targetY = this.circleCenterY + Math.sin(this.circleAngle) * radius;
+          const dx = targetX - this.x;
+          const dy = targetY - this.y;
+          body.setVelocity(dx * 3, dy * 3 + this.speed * 0.3);
+          // Slowly push orbit center down
+          this.circleCenterY += this.speed * 0.15 * dt;
+        }
+        break;
+      }
+      case 'boss_burst': {
+        // Alternates: idle (2s) → charge downward (1s at 3x speed)
+        this.burstTimer += delta;
+        if (this.burstPhase === 'idle') {
+          body.setVelocity(0, this.speed * 0.2);
+          if (this.burstTimer >= this.burstIdleDuration) {
+            this.burstPhase = 'charge';
+            this.burstTimer = 0;
+          }
+        } else {
+          body.setVelocity(0, this.speed * 4);
+          if (this.burstTimer >= this.burstChargeDuration) {
+            this.burstPhase = 'idle';
+            this.burstTimer = 0;
+          }
+        }
         break;
       }
       default: {

@@ -24,11 +24,17 @@ export class WaveDirector {
   private bossSpawned = false;
   // Available enemy pool IDs (set externally)
   private enemyPool: string[] = ['basic'];
+  // Boss ID (configurable per stage)
+  private bossId = 'boss';
 
   constructor(private config: WaveConfig) {}
 
   setEnemyPool(ids: string[]): void {
     this.enemyPool = ids;
+  }
+
+  setBossId(id: string): void {
+    this.bossId = id;
   }
 
   /** Call every frame. Returns spawn commands (may be empty). */
@@ -67,7 +73,7 @@ export class WaveDirector {
     if (!this.bossSpawned && minutes >= this.config.bossTimeMinutes) {
       this.bossSpawned = true;
       // Boss is NOT elite — already has massive base stats
-      commands.push({ enemyId: 'boss', count: 1, isElite: false });
+      commands.push({ enemyId: this.bossId, count: 1, isElite: false });
     }
 
     return commands;

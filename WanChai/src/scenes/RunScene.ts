@@ -112,6 +112,14 @@ export class RunScene extends Phaser.Scene {
   private goldText!: Phaser.GameObjects.Text;
   private prevGold = -1;
 
+  // Stage clear UI
+  private stageClearContainer?: Phaser.GameObjects.Container;
+  private stageText!: Phaser.GameObjects.Text;
+  private prevStage = -1;
+
+  // Stage difficulty multiplier (cumulative from balance config)
+  private stageDifficultyMult = 1;
+
   constructor() {
     super({ key: 'RunScene' });
   }
@@ -155,6 +163,8 @@ export class RunScene extends Phaser.Scene {
     // Run state
     this.runState = {
       runTime: 0,
+      stageTime: 0,
+      stage: 1,
       playerLevel: 1,
       playerXp: 0,
       baseHp: BALANCE.BASE.hp,
@@ -164,6 +174,8 @@ export class RunScene extends Phaser.Scene {
       weapons: ['energy_shot'],
       passives: [],
     };
+    this.stageDifficultyMult = 1;
+    this.prevStage = -1;
 
     // Apply meta progression bonuses
     const meta = SaveManager.loadMeta();
@@ -224,7 +236,10 @@ export class RunScene extends Phaser.Scene {
       eliteChancePerMin: BALANCE.SPAWN.eliteChancePerMin,
       bossTimeMinutes: BALANCE.SPAWN.bossTimeMinutes,
     });
-    this.waveDirector.setEnemyPool(Object.keys(ENEMY_DEFS));
+    this.waveDirector.setEnemyPool(
+      Object.keys(ENEMY_DEFS).filter(id => !id.startsWith('boss')),
+    );
+    this.waveDirector.setBossId(BALANCE.STAGE.bossPerStage[0]);
     this.xpTable = new XpTable(BALANCE.XP.basePerLevel, BALANCE.XP.growthFactor);
     this.vfx = new VFXManager(this);
     this.dmgNumbers = new DamageNumberManager(this);
@@ -270,6 +285,7 @@ export class RunScene extends Phaser.Scene {
 
     const scaledDelta = delta * this.gameSpeed;
     this.runState.runTime += scaledDelta;
+    this.runState.stageTime += scaledDelta;
 
     // === PHASE 1: Build active enemy list + spatial hash (ONCE per frame) ===
     this.collisionHash.clear();
@@ -291,9 +307,9 @@ export class RunScene extends Phaser.Scene {
       this.player.aimUp();
     }
 
-    // === PHASE 3: Spawn (within 60s only) ===
+    // === PHASE 3: Spawn (within stage duration only) ===
     if (!this.spawnEnded) {
-      if (this.runState.runTime >= BALANCE.RUN.stageDurationMs) {
+      if (this.runState.stageTime >= BALANCE.STAGE.durationMs) {
         this.spawnEnded = true;
       } else {
         const commands = this.waveDirector.update(scaledDelta);
@@ -303,8 +319,8 @@ export class RunScene extends Phaser.Scene {
       }
     }
 
-    // === PHASE 3b: Mid-run shop trigger ===
-    if (!this.midShopShown && this.runState.runTime >= BALANCE.MID_SHOP.triggerTimeMs) {
+    // === PHASE 3b: Mid-run shop trigger (once per stage) ===
+    if (!this.midShopShown && this.runState.stageTime >= BALANCE.MID_SHOP.triggerTimeMs) {
       this.midShopShown = true;
       this.showMidRunShop();
       return; // pause update loop during shop
@@ -363,7 +379,11 @@ export class RunScene extends Phaser.Scene {
 
     // === PHASE 11: Victory check ===
     if (this.spawnEnded && this.activeEnemyCount === 0) {
-      this.onRunComplete(true);
+      if (this.runState.stage < BALANCE.STAGE.maxStages) {
+        this.showStageClear();
+      } else {
+        this.onRunComplete(true);
+      }
     }
   }
 
@@ -496,7 +516,7 @@ export class RunScene extends Phaser.Scene {
       const sx = Phaser.Math.Between(20, GAME_WIDTH - 20);
       const sy = BALANCE.SPAWN.spawnYMin +
         Math.random() * (BALANCE.SPAWN.spawnYMax - BALANCE.SPAWN.spawnYMin);
-      enemy.activate(def, sx, sy, minutes, elite);
+      enemy.activate(def, sx, sy, minutes, elite, this.stageDifficultyMult);
     }
   }
 
@@ -567,7 +587,7 @@ export class RunScene extends Phaser.Scene {
         const child = this.enemyGroup.get() as Enemy | null;
         if (!child) break;
         const offsetX = i === 0 ? -20 : 20;
-        child.activate(def, enemy.x + offsetX, enemy.y, this.waveDirector.getElapsedMinutes(), false);
+        child.activate(def, enemy.x + offsetX, enemy.y, this.waveDirector.getElapsedMinutes(), false, this.stageDifficultyMult);
         child.hp = Math.ceil(enemy.maxHp * 0.4);
         child.maxHp = child.hp;
         child.isSplitChild = true;
@@ -773,6 +793,96 @@ export class RunScene extends Phaser.Scene {
         this.player.moveSpeed = BALANCE.PLAYER.baseMoveSpeed * (1 + def.valuePerLevel * level);
         break;
     }
+  }
+
+  // === STAGE CLEAR / NEXT STAGE ===
+
+  private showStageClear(): void {
+    if (this.phase === 'stage_clear') return;
+    this.phase = 'stage_clear';
+    this.physics.pause();
+    getRetroSFX().levelClear();
+
+    const cx = GAME_WIDTH / 2;
+    const cy = GAME_HEIGHT / 2;
+    this.stageClearContainer = this.add.container(cx, cy).setDepth(2000);
+
+    const backdrop = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.7);
+    this.stageClearContainer.add(backdrop);
+
+    const stageLabel = this.add
+      .text(0, -80, `STAGE ${this.runState.stage} CLEAR`, {
+        fontSize: '48px', color: NEON_CSS.UI_ACCENT,
+        fontFamily: 'monospace', fontStyle: 'bold',
+      }).setOrigin(0.5);
+    this.stageClearContainer.add(stageLabel);
+
+    const healPct = BALANCE.STAGE.clearHealPercent;
+    const infoText = this.add
+      .text(0, 0, `기지 HP ${Math.round(healPct * 100)}% 회복\n다음 스테이지 준비 중...`, {
+        fontSize: '24px', color: NEON_CSS.UI_TEXT,
+        fontFamily: 'monospace', align: 'center',
+        lineSpacing: 8,
+      }).setOrigin(0.5);
+    this.stageClearContainer.add(infoText);
+
+    const nextLabel = this.add
+      .text(0, 80, `STAGE ${this.runState.stage + 1} / ${BALANCE.STAGE.maxStages}`, {
+        fontSize: '28px', color: NEON_CSS.GOLD,
+        fontFamily: 'monospace', fontStyle: 'bold',
+      }).setOrigin(0.5);
+    this.stageClearContainer.add(nextLabel);
+
+    this.time.delayedCall(BALANCE.STAGE.clearPauseMs, () => {
+      this.nextStage();
+    });
+  }
+
+  private nextStage(): void {
+    // Cleanup stage clear UI
+    this.stageClearContainer?.destroy();
+    this.stageClearContainer = undefined;
+
+    // Advance stage
+    this.runState.stage++;
+    this.runState.stageTime = 0;
+
+    // Apply stage difficulty multiplier (cumulative)
+    const diff = BALANCE.STAGE.difficultyPerStage;
+    this.stageDifficultyMult = Math.pow(diff.hpMult, this.runState.stage - 1);
+
+    // Heal base
+    const healAmount = Math.ceil(this.runState.baseMaxHp * BALANCE.STAGE.clearHealPercent);
+    this.runState.baseHp = Math.min(this.runState.baseMaxHp, this.runState.baseHp + healAmount);
+
+    // Reset wave director for new stage
+    this.waveDirector.reset();
+    const bossId = BALANCE.STAGE.bossPerStage[this.runState.stage - 1] ?? 'boss';
+    this.waveDirector.setBossId(bossId);
+
+    // Reset spawn state
+    this.spawnEnded = false;
+    this.ariaBossShown = false;
+    this.ariaLowHpShown = false;
+    this.midShopShown = false;
+
+    // Deactivate all remaining projectiles
+    const projChildren = this.projectileGroup.getChildren();
+    for (let i = 0; i < projChildren.length; i++) {
+      const proj = projChildren[i] as Projectile;
+      if (proj.active) proj.deactivate();
+    }
+
+    // Reset HUD dirty flags
+    this.prevBaseHpPct = -1;
+    this.prevXpPct = -1;
+    this.prevStage = -1;
+    this.prevGold = -1;
+
+    // Resume
+    this.physics.resume();
+    this.phase = 'playing';
+    this.ariaMsg.show(`ARIA-01: 구역 ${this.runState.stage} 침입 감지... 방어 태세 재편성`);
   }
 
   // === ARIA MESSAGES ===
@@ -1030,6 +1140,8 @@ export class RunScene extends Phaser.Scene {
     this.pauseOverlay.destroy();
     this.shopContainer?.destroy();
     this.shopContainer = undefined;
+    this.stageClearContainer?.destroy();
+    this.stageClearContainer = undefined;
 
     if (survived) {
       getRetroSFX().levelClear();
@@ -1044,6 +1156,8 @@ export class RunScene extends Phaser.Scene {
       level: this.runState.playerLevel,
       timeMs: this.runState.runTime,
       baseHpRemaining: this.runState.baseHp,
+      stage: this.runState.stage,
+      maxStages: BALANCE.STAGE.maxStages,
     });
   }
 
@@ -1067,6 +1181,11 @@ export class RunScene extends Phaser.Scene {
       .text(200, 20, '💰 0', {
         fontSize: '20px', color: NEON_CSS.GOLD, fontFamily: 'monospace',
       }).setScrollFactor(0).setDepth(1500);
+
+    this.stageText = this.add
+      .text(GAME_WIDTH / 2, 50, `Stage 1/${BALANCE.STAGE.maxStages}`, {
+        fontSize: '18px', color: NEON_CSS.GOLD, fontFamily: 'monospace', fontStyle: 'bold',
+      }).setOrigin(0.5, 0).setScrollFactor(0).setDepth(1500);
 
     this.levelText = this.add
       .text(20, 50, 'Lv 1', {
@@ -1159,13 +1278,18 @@ export class RunScene extends Phaser.Scene {
       this.goldText.setText(`G ${this.runState.gold}`);
     }
 
-    // Timer — countdown from 60s
+    if (this.runState.stage !== this.prevStage) {
+      this.prevStage = this.runState.stage;
+      this.stageText.setText(`Stage ${this.runState.stage}/${BALANCE.STAGE.maxStages}`);
+    }
+
+    // Timer — countdown from stage duration
     let timerStr: string;
     if (this.spawnEnded) {
       timerStr = `잔여: ${this.activeEnemyCount}`;
     } else {
       const remaining = Math.max(0, Math.ceil(
-        (BALANCE.RUN.stageDurationMs - this.runState.runTime) / 1000,
+        (BALANCE.STAGE.durationMs - this.runState.stageTime) / 1000,
       ));
       const min = Math.floor(remaining / 60);
       const sec = remaining % 60;
@@ -1178,7 +1302,7 @@ export class RunScene extends Phaser.Scene {
         this.timerText.setColor(NEON_CSS.GOLD);
       } else {
         const remaining = Math.max(0, Math.ceil(
-          (BALANCE.RUN.stageDurationMs - this.runState.runTime) / 1000,
+          (BALANCE.STAGE.durationMs - this.runState.stageTime) / 1000,
         ));
         this.timerText.setColor(remaining <= 10 ? NEON_CSS.HEALTH : NEON_CSS.UI_TEXT);
       }

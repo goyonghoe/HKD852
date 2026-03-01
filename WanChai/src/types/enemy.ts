@@ -6,6 +6,8 @@ export type EnemyBehavior =
   | 'slow_march'
   | 'split_on_death'
   | 'boss_chase'
+  | 'boss_circle'
+  | 'boss_burst'
   // Legacy behaviors remapped to march/dash for downward movement
   | 'chase'
   | 'slow_chase';

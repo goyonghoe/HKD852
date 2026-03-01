@@ -74,4 +74,30 @@ describe('WaveDirector', () => {
     const commands = director.update(2999);
     expect(commands).toHaveLength(0);
   });
+
+  it('setBossId changes boss spawn ID', () => {
+    const fast = new WaveDirector({
+      ...DEFAULT_CONFIG,
+      bossTimeMinutes: 0.05, // 3 seconds for quick test
+    });
+    fast.setEnemyPool(['basic']);
+    fast.setBossId('boss_circle');
+
+    // Advance past delay + boss time
+    fast.update(DEFAULT_CONFIG.initialDelayMs);
+    const cmds = fast.update(10000); // well past 3s boss time
+    const bossCmd = cmds.find(c => c.enemyId === 'boss_circle');
+    expect(bossCmd).toBeDefined();
+    expect(bossCmd!.isElite).toBe(false);
+  });
+
+  it('setBossId does not affect regular enemy spawns', () => {
+    director.setBossId('boss_burst');
+    director.setEnemyPool(['basic', 'fast']);
+    director.update(DEFAULT_CONFIG.initialDelayMs);
+    const cmds = director.update(DEFAULT_CONFIG.baseIntervalMs);
+    // Regular spawn should not use boss ID
+    const regularCmd = cmds.find(c => c.enemyId !== 'boss_burst');
+    expect(regularCmd).toBeDefined();
+  });
 });

@@ -11,6 +11,8 @@ interface GameOverData {
   level: number;
   timeMs: number;
   baseHpRemaining?: number;
+  stage?: number;
+  maxStages?: number;
 }
 
 export class GameOverScene extends Phaser.Scene {
@@ -43,7 +45,11 @@ export class GameOverScene extends Phaser.Scene {
     const baseHp = data.baseHpRemaining ?? 0;
     const baseHpPct = Math.round((baseHp / BALANCE.BASE.hp) * 100);
 
+    const stage = data.stage ?? 1;
+    const maxStages = data.maxStages ?? BALANCE.STAGE.maxStages;
+
     const stats = [
+      `구역: ${stage} / ${maxStages}`,
       `시간: ${timeStr}`,
       `레벨: ${data.level}`,
       `정화: ${data.kills}`,
@@ -81,7 +87,7 @@ export class GameOverScene extends Phaser.Scene {
     if (isNewRecord) {
       SaveManager.saveMeta(meta);
       this.add
-        .text(cx, 645, '신기록!', {
+        .text(cx, 700, '신기록!', {
           fontSize: '32px',
           color: NEON_CSS.GOLD,
           fontFamily: 'monospace',
@@ -92,10 +98,10 @@ export class GameOverScene extends Phaser.Scene {
 
     // Upgrade button (primary)
     const btnUpgBg = this.add
-      .rectangle(cx, 730, 260, 60, NEON.UI_PANEL)
+      .rectangle(cx, 790, 260, 60, NEON.UI_PANEL)
       .setStrokeStyle(2, NEON.GOLD);
     this.add
-      .text(cx, 730, `강화 (${data.gold})`, {
+      .text(cx, 790, `강화 (${data.gold})`, {
         fontSize: '24px', color: NEON_CSS.GOLD,
         fontFamily: 'monospace', fontStyle: 'bold',
       }).setOrigin(0.5);
@@ -104,10 +110,10 @@ export class GameOverScene extends Phaser.Scene {
 
     // Retry button
     const btn1Bg = this.add
-      .rectangle(cx, 820, 220, 60, NEON.UI_PANEL)
+      .rectangle(cx, 880, 220, 60, NEON.UI_PANEL)
       .setStrokeStyle(2, NEON.UI_ACCENT);
     this.add
-      .text(cx, 820, '재도전', {
+      .text(cx, 880, '재도전', {
         fontSize: '24px', color: NEON_CSS.UI_ACCENT,
         fontFamily: 'monospace', fontStyle: 'bold',
       }).setOrigin(0.5);
@@ -116,10 +122,10 @@ export class GameOverScene extends Phaser.Scene {
 
     // Menu button
     const btn2Bg = this.add
-      .rectangle(cx, 910, 220, 60, NEON.UI_PANEL)
+      .rectangle(cx, 970, 220, 60, NEON.UI_PANEL)
       .setStrokeStyle(2, NEON.UI_BORDER);
     this.add
-      .text(cx, 910, '메인 메뉴', {
+      .text(cx, 970, '메인 메뉴', {
         fontSize: '22px', color: NEON_CSS.UI_DIM,
         fontFamily: 'monospace',
       }).setOrigin(0.5);
