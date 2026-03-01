@@ -1,25 +1,48 @@
 import Phaser from 'phaser';
-import { ELEMENT_COLORS } from '../config/colors';
+import { NEON } from '../config/colors';
+import { GAME_WIDTH, GAME_HEIGHT } from '../config/game-config';
 import { VISUAL } from '../config/balance';
-import type { ElementColor } from '../types/hero';
 
-const POOL_SIZE = VISUAL.PARTICLE.POOL_SIZE;
+const POOL_SIZE = 80; // reduced from 120
+const LIGHTNING_POOL_SIZE = 6; // max concurrent lightning bolts
+
+interface ActiveParticle {
+  rect: Phaser.GameObjects.Rectangle;
+  vx: number;
+  vy: number;
+  life: number;
+  maxLife: number;
+}
+
+interface ActiveLightning {
+  graphics: Phaser.GameObjects.Graphics;
+  life: number;
+}
 
 /**
- * High-level visual effects API with object pooling.
- * Pre-allocates rectangle particles and reuses them to avoid GC pressure.
+ * Zero-allocation VFX manager.
+ * Uses manual velocity updates instead of tweens to avoid GC pressure.
+ * Lightning + bomb use pooled Graphics objects (no create/destroy per use).
  */
 export class VFXManager {
   private scene: Phaser.Scene;
   private pool: Phaser.GameObjects.Rectangle[] = [];
-  private activeCount = 0;
+  private active: ActiveParticle[] = [];
+  private poolHead = 0;
+
+  // Pooled lightning graphics (no per-use create/destroy)
+  private lightningPool: Phaser.GameObjects.Graphics[] = [];
+  private activeLightning: ActiveLightning[] = [];
+
+  // Pooled bomb graphics (single reusable instance)
+  private bombGraphics: Phaser.GameObjects.Graphics | null = null;
+  private bombLife = 0;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.initPool();
+    this.initLightningPool();
   }
-
-  // ── Pool management ───────────────────────────────────────────────────────
 
   private initPool(): void {
     for (let i = 0; i < POOL_SIZE; i++) {
@@ -30,503 +53,233 @@ export class VFXManager {
         .setDepth(500);
       this.pool.push(r);
     }
+    this.poolHead = 0;
   }
 
-  private acquire(
-    x: number,
-    y: number,
-    w: number,
-    h: number,
-    color: number,
-    depth = 500
-  ): Phaser.GameObjects.Rectangle | null {
-    const p = this.pool.pop();
-    if (!p) return null; // pool exhausted
-
-    p.setPosition(x, y);
-    p.setSize(w, h);
-    p.setDisplaySize(w, h);
-    p.fillColor = color;
-    p.fillAlpha = 1;
-    p.setAlpha(1);
-    p.setScale(1, 1);
-    p.setAngle(0);
-    p.setBlendMode(Phaser.BlendModes.NORMAL);
-    p.setDepth(depth);
-    p.setVisible(true);
-    p.setActive(true);
-    this.activeCount++;
-    return p;
-  }
-
-  private release(p: Phaser.GameObjects.Rectangle): void {
-    p.setVisible(false);
-    p.setActive(false);
-    p.setPosition(-100, -100);
-    this.pool.push(p);
-    this.activeCount--;
-  }
-
-  /** Tween helper that auto-releases the particle on complete */
-  private tweenParticle(
-    p: Phaser.GameObjects.Rectangle,
-    config: Omit<Phaser.Types.Tweens.TweenBuilderConfig, 'targets'>
-  ): void {
-    const origComplete = config.onComplete as
-      | ((tween: Phaser.Tweens.Tween, targets: object[]) => void)
-      | undefined;
-
-    this.scene.tweens.add({
-      ...(config as Phaser.Types.Tweens.TweenBuilderConfig),
-      targets: p,
-      onComplete: (tween, targets) => {
-        origComplete?.(tween, targets);
-        this.release(p);
-      },
-    });
-  }
-
-  // ── Public API ────────────────────────────────────────────────────────────
-
-  /** Element-differentiated burst when a cube is destroyed */
-  onCubeDestroy(x: number, y: number, element: ElementColor, matchType?: 'same' | 'advantage'): void {
-    const color = ELEMENT_COLORS[element];
-    const baseCount = Phaser.Math.Between(
-      VISUAL.PARTICLE.MATCH_DESTROY.min,
-      VISUAL.PARTICLE.MATCH_DESTROY.max
-    );
-    const count = matchType === 'advantage' ? baseCount * 2 : baseCount;
-
-    switch (element) {
-      case 'fire':
-        this.fireBurst(x, y, color, count);
-        break;
-      case 'water':
-        this.waterSplash(x, y, color, count);
-        break;
-      case 'earth':
-        this.earthShatter(x, y, color, count);
-        break;
-      case 'wind':
-        this.windSwirl(x, y, color, count);
-        break;
-      case 'light':
-        this.lightFlash(x, y, count);
-        break;
-      case 'dark':
-        this.darkImplode(x, y, color, count);
-        break;
-      default:
-        this.genericBurst(x, y, color, count);
+  private initLightningPool(): void {
+    for (let i = 0; i < LIGHTNING_POOL_SIZE; i++) {
+      const g = this.scene.add.graphics().setDepth(500).setVisible(false);
+      this.lightningPool.push(g);
     }
+  }
 
-    if (matchType === 'advantage') {
-      // White screen flash
-      const flash = this.acquire(
-        this.scene.cameras.main.centerX,
-        this.scene.cameras.main.centerY,
-        this.scene.cameras.main.width,
-        this.scene.cameras.main.height,
-        0xffffff,
-        1000
-      );
-      if (flash) {
-        flash.setAlpha(0.15);
-        this.tweenParticle(flash, {
-          alpha: 0,
-          duration: 80,
-        });
+  private acquire(): Phaser.GameObjects.Rectangle | null {
+    for (let i = 0; i < POOL_SIZE; i++) {
+      const idx = (this.poolHead + i) % POOL_SIZE;
+      const r = this.pool[idx];
+      if (!r.active) {
+        r.setActive(true).setVisible(true);
+        this.poolHead = (idx + 1) % POOL_SIZE;
+        return r;
       }
-
-      // "SUPER!" text popup
-      const superText = this.scene.add.text(x, y - 40, 'SUPER!', {
-        fontSize: '22px',
-        color: '#f0d050',
-        fontFamily: 'monospace',
-        fontStyle: 'bold',
-      }).setOrigin(0.5).setDepth(600);
-      this.scene.tweens.add({
-        targets: superText,
-        y: y - 80,
-        alpha: 0,
-        scaleX: { from: 0, to: 1.3 },
-        scaleY: { from: 0, to: 1.3 },
-        duration: 500,
-        ease: 'Back.easeOut',
-        onComplete: () => superText.destroy(),
-      });
     }
+    return null;
   }
 
-  /** Fire: upward sparks with long trails */
-  private fireBurst(x: number, y: number, color: number, count: number): void {
-    for (let i = 0; i < count; i++) {
-      const px = x + Phaser.Math.Between(-8, 8);
-      const py = y + Phaser.Math.Between(-4, 4);
-      const w = Phaser.Math.Between(3, 5);
-      const h = Phaser.Math.Between(6, 12);
-      const p = this.acquire(px, py, w, h, color);
-      if (!p) return;
-
-      this.tweenParticle(p, {
-        x: px + Phaser.Math.Between(-20, 20),
-        y: py - Phaser.Math.Between(40, 100),
-        alpha: 0,
-        scaleX: 0.3,
-        scaleY: 0.3,
-        duration: Phaser.Math.Between(250, 450),
-        ease: 'Power2',
-      });
-    }
+  private release(r: Phaser.GameObjects.Rectangle): void {
+    r.setActive(false).setVisible(false).setPosition(-100, -100).setScale(1).setAlpha(1);
   }
 
-  /** Water: radial splash droplets that spread and fall */
-  private waterSplash(x: number, y: number, color: number, count: number): void {
-    for (let i = 0; i < count; i++) {
-      const angle = (Math.PI * 2 * i) / count + Phaser.Math.FloatBetween(-0.3, 0.3);
-      const speed = Phaser.Math.Between(30, 70);
-      const size = Phaser.Math.Between(3, 6);
-      const p = this.acquire(x, y, size, size, color);
-      if (!p) return;
-
-      this.tweenParticle(p, {
-        x: x + Math.cos(angle) * speed,
-        y: y + Math.sin(angle) * speed + 20,
-        alpha: 0,
-        scaleX: 0.2,
-        scaleY: 0.2,
-        duration: Phaser.Math.Between(300, 500),
-        ease: 'Quad.easeOut',
-      });
-    }
-  }
-
-  /** Earth: heavy rectangular fragments falling down */
-  private earthShatter(x: number, y: number, color: number, count: number): void {
-    for (let i = 0; i < count; i++) {
-      const px = x + Phaser.Math.Between(-12, 12);
-      const py = y + Phaser.Math.Between(-6, 6);
-      const size = Phaser.Math.Between(4, 8);
-      const p = this.acquire(px, py, size, size, color);
-      if (!p) return;
-      p.setAngle(Phaser.Math.Between(0, 45));
-
-      this.tweenParticle(p, {
-        x: px + Phaser.Math.Between(-30, 30),
-        y: py + Phaser.Math.Between(30, 80),
-        angle: p.angle + Phaser.Math.Between(-90, 90),
-        alpha: 0,
-        duration: Phaser.Math.Between(350, 550),
-        ease: 'Bounce.easeOut',
-      });
-    }
-  }
-
-  /** Wind: fast spiral/swirl particles */
-  private windSwirl(x: number, y: number, color: number, count: number): void {
-    for (let i = 0; i < count; i++) {
-      const startAngle = (Math.PI * 2 * i) / count;
-      const radius = Phaser.Math.Between(10, 20);
-      const px = x + Math.cos(startAngle) * radius;
-      const py = y + Math.sin(startAngle) * radius;
-      const p = this.acquire(px, py, 3, 3, color);
-      if (!p) return;
-
-      const endAngle = startAngle + Math.PI * 1.5;
-      const endRadius = Phaser.Math.Between(50, 90);
-
-      this.tweenParticle(p, {
-        x: x + Math.cos(endAngle) * endRadius,
-        y: y + Math.sin(endAngle) * endRadius,
-        alpha: 0,
-        scaleX: 0,
-        scaleY: 0,
-        duration: Phaser.Math.Between(200, 350),
-        ease: 'Cubic.easeOut',
-      });
-    }
-  }
-
-  /** Light: bright flash + radial star rays */
-  private lightFlash(x: number, y: number, count: number): void {
-    // Central flash (uses pool particle with ADD blend)
-    const flash = this.acquire(x, y, 40, 40, 0xffffff, 510);
-    if (flash) {
-      flash.setAlpha(0.9);
-      flash.setBlendMode(Phaser.BlendModes.ADD);
-      this.tweenParticle(flash, {
-        scaleX: 2.5,
-        scaleY: 2.5,
-        alpha: 0,
-        duration: 200,
-        ease: 'Power3',
-      });
-    }
-
-    // Radial rays
-    for (let i = 0; i < count; i++) {
-      const angle = (Math.PI * 2 * i) / count;
-      const speed = Phaser.Math.Between(40, 80);
-      const p = this.acquire(x, y, 2, Phaser.Math.Between(6, 12), 0xf0f0f0);
-      if (!p) return;
-      p.setAngle(Phaser.Math.RadToDeg(angle) + 90);
-      p.setBlendMode(Phaser.BlendModes.ADD);
-
-      this.tweenParticle(p, {
-        x: x + Math.cos(angle) * speed,
-        y: y + Math.sin(angle) * speed,
-        alpha: 0,
-        duration: Phaser.Math.Between(150, 300),
-        ease: 'Power2',
-      });
-    }
-  }
-
-  /** Dark: implosion then explosion */
-  private darkImplode(x: number, y: number, color: number, count: number): void {
-    for (let i = 0; i < count; i++) {
-      const angle = (Math.PI * 2 * i) / count;
-      const startR = Phaser.Math.Between(40, 60);
-      const px = x + Math.cos(angle) * startR;
-      const py = y + Math.sin(angle) * startR;
-      const p = this.acquire(px, py, 5, 5, color);
-      if (!p) return;
-      p.setAlpha(0.8);
-
-      this.tweenParticle(p, {
-        x: x,
-        y: y,
-        alpha: 0,
-        scaleX: 0,
-        scaleY: 0,
-        duration: 200,
-        ease: 'Power3',
-      });
-    }
-
-    // Phase 2: delayed small burst from center
-    this.scene.time.delayedCall(150, () => {
-      for (let i = 0; i < 6; i++) {
-        const angle2 = (Math.PI * 2 * i) / 6;
-        const p2 = this.acquire(x, y, 3, 3, 0x604098);
-        if (!p2) return;
-
-        this.tweenParticle(p2, {
-          x: x + Math.cos(angle2) * 30,
-          y: y + Math.sin(angle2) * 30,
-          alpha: 0,
-          duration: 200,
-          ease: 'Power2',
-        });
+  private acquireLightning(): Phaser.GameObjects.Graphics | null {
+    for (const g of this.lightningPool) {
+      if (!g.visible) {
+        g.setVisible(true);
+        return g;
       }
-    });
+    }
+    return null;
   }
 
-  /** Generic fallback burst */
-  private genericBurst(x: number, y: number, color: number, count: number): void {
-    for (let i = 0; i < count; i++) {
-      const px = x + Phaser.Math.Between(-10, 10);
-      const py = y + Phaser.Math.Between(-10, 10);
-      const p = this.acquire(px, py, 6, 6, color);
-      if (!p) return;
+  /** Must be called every frame from RunScene.update() */
+  update(delta: number): void {
+    const dt = delta / 1000;
 
-      this.tweenParticle(p, {
-        x: px + Phaser.Math.Between(-60, 60),
-        y: py + Phaser.Math.Between(-80, 20),
-        alpha: 0,
-        scaleX: 0,
-        scaleY: 0,
-        duration: Phaser.Math.Between(200, 400),
-        ease: 'Power2',
-      });
+    // Particles
+    for (let i = this.active.length - 1; i >= 0; i--) {
+      const p = this.active[i];
+      p.life -= delta;
+      if (p.life <= 0) {
+        this.release(p.rect);
+        this.active[i] = this.active[this.active.length - 1];
+        this.active.pop();
+        continue;
+      }
+      const t = p.life / p.maxLife;
+      p.rect.x += p.vx * dt;
+      p.rect.y += p.vy * dt;
+      p.rect.setAlpha(t);
+      p.rect.setScale(t);
+    }
+
+    // Lightning fade
+    for (let i = this.activeLightning.length - 1; i >= 0; i--) {
+      const l = this.activeLightning[i];
+      l.life -= delta;
+      if (l.life <= 0) {
+        l.graphics.clear().setVisible(false);
+        this.activeLightning[i] = this.activeLightning[this.activeLightning.length - 1];
+        this.activeLightning.pop();
+      } else {
+        l.graphics.setAlpha(l.life / 200);
+      }
+    }
+
+    // Bomb flash fade
+    if (this.bombLife > 0) {
+      this.bombLife -= delta;
+      if (this.bombLife <= 0 && this.bombGraphics) {
+        this.bombGraphics.clear().setVisible(false);
+      } else if (this.bombGraphics) {
+        this.bombGraphics.setAlpha(this.bombLife / 300);
+      }
     }
   }
 
-  /** Combo text pop + radial burst */
-  onCombo(x: number, y: number, count: number): void {
-    const burstCount = Phaser.Math.Between(
-      VISUAL.PARTICLE.COMBO_BURST.min,
-      VISUAL.PARTICLE.COMBO_BURST.max
-    );
-    const comboColor = count >= 4 ? 0xe83820 : count >= 2 ? 0xf8d030 : 0x38b868;
-
-    for (let i = 0; i < burstCount; i++) {
-      const angle = (Math.PI * 2 * i) / burstCount;
-      const speed = Phaser.Math.Between(60, 150);
-      const p = this.acquire(x, y, 4, 4, comboColor);
-      if (!p) return;
-
-      this.tweenParticle(p, {
-        x: x + Math.cos(angle) * speed,
-        y: y + Math.sin(angle) * speed,
-        alpha: 0,
-        duration: 400,
-        ease: 'Power2',
-      });
-    }
-  }
-
-  /** Celebration burst for level complete */
-  onLevelComplete(centerX: number, centerY: number): void {
-    const count = Phaser.Math.Between(
-      VISUAL.PARTICLE.CELEBRATION.min,
-      VISUAL.PARTICLE.CELEBRATION.max
-    );
-    const colors = [0xf8d030, 0xe83820, 0x3890f8, 0x38b868, 0x7038c8, 0xf8f0d0];
-
+  /** Burst on enemy death — capped at 4 particles */
+  enemyDeath(x: number, y: number, color: number): void {
+    const count = Math.min(VISUAL.PARTICLE.deathBurst, 4);
+    const life = VISUAL.ANIM.deathFadeMs * 2;
     for (let i = 0; i < count; i++) {
-      const color = colors[i % colors.length];
-      const px = centerX + Phaser.Math.Between(-200, 200);
-      const startY = centerY - 100;
-      const w = Phaser.Math.Between(4, 8);
-      const h = Phaser.Math.Between(4, 8);
-      const p = this.acquire(px, startY, w, h, color, 600);
-      if (!p) return;
-
-      this.tweenParticle(p, {
-        y: startY + Phaser.Math.Between(200, 500),
-        x: px + Phaser.Math.Between(-50, 50),
-        alpha: 0,
-        angle: Phaser.Math.Between(-180, 180),
-        duration: Phaser.Math.Between(600, 1200),
-        delay: Phaser.Math.Between(0, 300),
-        ease: 'Power1',
-      });
-    }
-  }
-
-  /** Star reveal particles (gold burst) */
-  onStarReveal(x: number, y: number): void {
-    const count = Phaser.Math.Between(8, 12);
-    for (let i = 0; i < count; i++) {
+      const r = this.acquire();
+      if (!r) break;
+      r.setPosition(x, y).setFillStyle(color).setSize(4, 4).setAlpha(1).setScale(1);
       const angle = (Math.PI * 2 * i) / count;
-      const speed = Phaser.Math.Between(30, 80);
-      const p = this.acquire(x, y, 5, 5, 0xf8d030, 600);
-      if (!p) return;
-
-      this.tweenParticle(p, {
-        x: x + Math.cos(angle) * speed,
-        y: y + Math.sin(angle) * speed,
-        alpha: 0,
-        scaleX: 0,
-        scaleY: 0,
-        duration: 400,
-        ease: 'Power2',
-      });
-    }
-  }
-
-  /** Screen shake — intensity scales with combo */
-  screenShake(intensity = 4, duration = 100): void {
-    this.scene.cameras.main.shake(duration, intensity / 1000);
-  }
-
-  /** Brief screen flash overlay (combat: enemy attack, player hit) */
-  onScreenFlash(color: number, alpha = 0.3): void {
-    const { width, height } = this.scene.cameras.main;
-    const flash = this.scene.add.rectangle(width / 2, height / 2, width, height, color, alpha)
-      .setDepth(999)
-      .setScrollFactor(0);
-    this.scene.tweens.add({
-      targets: flash,
-      alpha: 0,
-      duration: 200,
-      ease: 'Power2',
-      onComplete: () => flash.destroy(),
-    });
-  }
-
-  /** Shield break flash (combat mode) */
-  onShieldBreak(x: number, y: number): void {
-    const count = 6;
-    for (let i = 0; i < count; i++) {
-      const p = this.acquire(x, y, 3, 8, 0x63b3ed);
-      if (!p) break;
-      const angle = (i / count) * Math.PI * 2;
-      const dist = 40 + Math.random() * 30;
-      p.setAngle(Phaser.Math.RadToDeg(angle));
-      this.tweenParticle(p, {
-        x: x + Math.cos(angle) * dist,
-        y: y + Math.sin(angle) * dist,
-        alpha: 0,
-        duration: 250,
-      });
-    }
-  }
-
-  /** Player hit indicator (combat mode) */
-  onPlayerHit(centerX: number, centerY: number, damage: number): void {
-    // Floating damage text
-    const text = this.scene.add.text(centerX, centerY - 40, `-${damage}`, {
-      fontSize: '24px',
-      color: '#e74c3c',
-      fontFamily: 'monospace',
-      fontStyle: 'bold',
-    }).setOrigin(0.5).setDepth(800);
-
-    this.scene.tweens.add({
-      targets: text,
-      y: centerY - 100,
-      alpha: 0,
-      duration: 600,
-      ease: 'Power2',
-      onComplete: () => text.destroy(),
-    });
-
-    this.screenShake(5, 120);
-  }
-
-  /** Floating damage number on enemy (combat mode) */
-  onDamageNumber(x: number, y: number, damage: number, color = '#ffffff'): void {
-    const text = this.scene.add.text(x, y - 10, `${damage}`, {
-      fontSize: '18px',
-      color,
-      fontFamily: 'monospace',
-      fontStyle: 'bold',
-    }).setOrigin(0.5).setDepth(800);
-
-    this.scene.tweens.add({
-      targets: text,
-      y: y - 50,
-      alpha: 0,
-      duration: 500,
-      ease: 'Power2',
-      onComplete: () => text.destroy(),
-    });
-  }
-
-  /** Enemy defeat burst (combat mode) */
-  onEnemyDefeat(x: number, y: number, color: number): void {
-    const count = 12;
-    for (let i = 0; i < count; i++) {
-      const size = 4 + Math.random() * 4;
-      const p = this.acquire(x, y, size, size, color);
-      if (!p) break;
-      const angle = (i / count) * Math.PI * 2;
       const speed = 80 + Math.random() * 120;
-      this.tweenParticle(p, {
-        x: x + Math.cos(angle) * speed,
-        y: y + Math.sin(angle) * speed,
-        alpha: 0,
-        scaleX: 0,
-        scaleY: 0,
-        duration: 300 + Math.random() * 200,
+      this.active.push({
+        rect: r,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life,
+        maxLife: life,
       });
     }
-    this.screenShake(3, 80);
   }
 
-  /** Trail particle behind a moving object */
-  emitTrail(x: number, y: number, color: number): void {
-    const p = this.acquire(x, y, 4, 4, color, 440);
-    if (!p) return;
-    p.setAlpha(0.8);
+  /** Small spark on projectile hit — 2 particles max */
+  hitSpark(x: number, y: number): void {
+    const count = Math.min(VISUAL.PARTICLE.hitSpark, 2);
+    const life = VISUAL.ANIM.hitFlashMs * 3;
+    for (let i = 0; i < count; i++) {
+      const r = this.acquire();
+      if (!r) break;
+      r.setPosition(x, y).setFillStyle(NEON.PROJECTILE).setSize(3, 3).setAlpha(1).setScale(1);
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 50 + Math.random() * 80;
+      this.active.push({
+        rect: r,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life,
+        maxLife: life,
+      });
+    }
+  }
 
-    this.tweenParticle(p, {
-      alpha: 0,
-      scaleX: 0,
-      scaleY: 0,
-      duration: 150,
-    });
+  /** Draw a zigzag lightning bolt — uses pooled Graphics (no create/destroy) */
+  lightning(x1: number, y1: number, x2: number, y2: number, color = NEON.XP_BAR): void {
+    const g = this.acquireLightning();
+    if (!g) return;
+
+    g.clear();
+    g.setAlpha(1);
+    g.lineStyle(2, color, 0.9);
+    g.beginPath();
+    g.moveTo(x1, y1);
+
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const segments = 6;
+    for (let i = 1; i < segments; i++) {
+      const t = i / segments;
+      const px = x1 + dx * t + (Math.random() - 0.5) * 20;
+      const py = y1 + dy * t + (Math.random() - 0.5) * 20;
+      g.lineTo(px, py);
+    }
+    g.lineTo(x2, y2);
+    g.strokePath();
+
+    this.activeLightning.push({ graphics: g, life: 200 });
+  }
+
+  /** Bomb explosion flash — uses single pooled Graphics */
+  bombFlash(x: number, y: number, radius: number): void {
+    if (!this.bombGraphics) {
+      this.bombGraphics = this.scene.add.graphics().setDepth(500);
+    }
+    const g = this.bombGraphics;
+    g.clear();
+    g.setVisible(true).setAlpha(1);
+    g.fillStyle(0xff4400, 0.3);
+    g.fillCircle(x, y, radius);
+    g.lineStyle(3, 0xff6600, 0.8);
+    g.strokeCircle(x, y, radius);
+    this.bombLife = 300;
+  }
+
+  /** Camera shake */
+  screenShake(intensity = 0.003, duration = 100): void {
+    this.scene.cameras.main.shake(duration, intensity);
+  }
+
+  /** Glitch scanlines overlay */
+  private glitchGraphics: Phaser.GameObjects.Graphics | null = null;
+  private glitchTimer = 0;
+
+  updateGlitch(delta: number, hpPct: number): void {
+    if (hpPct >= 0.3) {
+      if (this.glitchGraphics) {
+        this.glitchGraphics.setAlpha(0);
+      }
+      return;
+    }
+
+    this.glitchTimer += delta;
+    if (this.glitchTimer < 200) return;
+    this.glitchTimer = 0;
+
+    if (!this.glitchGraphics) {
+      this.glitchGraphics = this.scene.add.graphics().setDepth(1400);
+    }
+
+    const g = this.glitchGraphics;
+    g.clear();
+
+    const intensity = 1 - hpPct / 0.3;
+    g.setAlpha(0.15 + intensity * 0.25);
+
+    const lineCount = 3 + Math.floor(intensity * 8);
+    g.lineStyle(1, NEON.HEALTH, 0.4);
+    for (let i = 0; i < lineCount; i++) {
+      const y = Math.random() * GAME_HEIGHT;
+      g.moveTo(0, y);
+      g.lineTo(GAME_WIDTH, y);
+    }
+    g.strokePath();
+
+    const blockCount = Math.floor(intensity * 4);
+    g.fillStyle(NEON.HEALTH, 0.1 + intensity * 0.15);
+    for (let i = 0; i < blockCount; i++) {
+      const bw = 30 + Math.random() * 60;
+      const bh = 5 + Math.random() * 15;
+      const side = Math.random() < 0.5 ? 0 : GAME_WIDTH - bw;
+      g.fillRect(side, Math.random() * GAME_HEIGHT, bw, bh);
+    }
+  }
+
+  destroy(): void {
+    if (this.glitchGraphics) {
+      this.glitchGraphics.destroy();
+      this.glitchGraphics = null;
+    }
+    if (this.bombGraphics) {
+      this.bombGraphics.destroy();
+      this.bombGraphics = null;
+    }
+    for (const g of this.lightningPool) g.destroy();
+    this.lightningPool = [];
+    this.activeLightning = [];
+    for (const r of this.pool) r.destroy();
+    this.pool = [];
+    this.active = [];
   }
 }

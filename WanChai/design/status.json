@@ -1,6 +1,6 @@
 {
-  "version": 18,
-  "lastUpdated": "2026-02-27T21:45:00Z",
+  "version": 29,
+  "lastUpdated": "2026-03-02T12:00:00Z",
   "gameVersion": "1.0.0",
   "specs": [
     {
@@ -153,6 +153,54 @@
       "designDoc": "design/specs/SPEC-021-order-puzzle-combat.md",
       "implPath": "src/types/combat.ts, src/core/EnemyBoard.ts, src/core/CombatResolver.ts, src/core/CombatPassiveResolver.ts, src/core/CombatRelicResolver.ts, src/types/combat-hooks.ts",
       "notes": "Order Puzzle Combat: Enemy types (ATK/HP/shield/timer), EnemyBoard (grid+targeting), CombatResolver (deploy→orbit→fire→kill cycle), CombatHook plugin system (8 passives + 3 relic effects), PuzzleScene combat mode, PuzzleUIScene HP bar, VFXManager combat effects. 564 total tests (112 combat-specific)."
+    },
+    {
+      "id": "SPEC-010B",
+      "name": "world-map",
+      "designStatus": "implemented",
+      "implStatus": "pending",
+      "designDoc": "design/specs/world-map.md",
+      "notes": "실제 홍콩 지리 기반 7구역 세계 재설계. MTR 노선 월드맵."
+    },
+    {
+      "id": "SPEC-010C",
+      "name": "synopsis",
+      "designStatus": "implemented",
+      "implStatus": "pending",
+      "designDoc": "design/specs/synopsis.md",
+      "notes": "NEXT STOP — HK852 시놉시스 v2.2. 캐릭터 라인업, 스토리 아크, ARIA 시스템."
+    },
+    {
+      "id": "SPEC-012B",
+      "name": "critter-optimized-link",
+      "designStatus": "implemented",
+      "implStatus": "pending",
+      "designDoc": "design/specs/critter-optimized-link.md",
+      "notes": "정화된 최적화체 → 크리터 전환 시스템. 획득 조건, 능력치, 진화 경로."
+    },
+    {
+      "id": "SPEC-013B",
+      "name": "optimized-bestiary",
+      "designStatus": "implemented",
+      "implStatus": "pending",
+      "designDoc": "design/specs/optimized-bestiary.md",
+      "notes": "6구역 x 3티어 + Harvester = 19종 최적화체. 보드 행동, 정화 메카닉, 70스테이지 등장표."
+    },
+    {
+      "id": "SPEC-022B",
+      "name": "boss-narrative-profiles",
+      "designStatus": "implemented",
+      "implStatus": "pending",
+      "designDoc": "design/specs/boss-profiles.md",
+      "notes": "7보스 내러티브 프로필. ARIA 서브시스템, 봉인 동물, 대사, 정화 시퀀스, 에스컬레이션 아크."
+    },
+    {
+      "id": "SPEC-023",
+      "name": "pre-boss-floor-pacing",
+      "designStatus": "implemented",
+      "implStatus": "pending",
+      "designDoc": "design/specs/SPEC-023-pre-boss-floor-pacing.md",
+      "notes": "L3 노드 타입 재설계. 보스전 직전 페이싱."
     }
   ],
   "levels": [
@@ -243,6 +291,117 @@
       "name": "world-1-overview",
       "designStatus": "ready",
       "designDoc": "design/balance/world-1-overview.md"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "CH-01",
+      "name": "chapter-01-central",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/chapter-01-central.md",
+      "notes": "中環 (Central). Wind 원소. 기본 메카닉. HAI+MEI 합류."
+    },
+    {
+      "id": "CH-02",
+      "name": "chapter-02-aberdeen",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/chapter-02-aberdeen.md",
+      "notes": "香港仔 (Aberdeen). Water 원소. 조류(Tide) 기믹. TAO 합류."
+    },
+    {
+      "id": "CH-03",
+      "name": "chapter-03-mongkok",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/chapter-03-mongkok.md",
+      "notes": "旺角 (Mong Kok). Fire 원소. 네온 과부하 기믹. YAN 합류."
+    },
+    {
+      "id": "CH-04",
+      "name": "chapter-04-shamshuipo",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/chapter-04-shamshuipo.md",
+      "notes": "深水埗 (Sham Shui Po). Earth 원소. 균열 연쇄 기믹. KWAI 합류."
+    },
+    {
+      "id": "CH-05",
+      "name": "chapter-05-wongtaisin",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/chapter-05-wongtaisin.md",
+      "notes": "黃大仙 (Wong Tai Sin). Light 원소. 프리즘 반사 기믹. 파티 완성(5인)."
+    },
+    {
+      "id": "CH-06",
+      "name": "chapter-06-kowloon",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/chapter-06-kowloon.md",
+      "notes": "九龍城寨 (Kowloon Walled City). Dark 원소. 그림자 복제 기믹."
+    },
+    {
+      "id": "CH-07",
+      "name": "chapter-07-lantau",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/chapter-07-lantau.md",
+      "notes": "大嶼山 (Lantau). All 원소. 원소 순환 기믹. 최종 챕터."
+    }
+  ],
+  "bossMechanics": [
+    {
+      "id": "BOSS-01",
+      "name": "aero-wind",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/boss-mechanics-01-aero.md",
+      "notes": "暴風 Aero. 3페이즈, HP 30. Wind Vortex + Gust Convert. 보드 5x4."
+    },
+    {
+      "id": "BOSS-02",
+      "name": "hydra-water",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/boss-mechanics-02-hydra.md",
+      "notes": "深淵 Hydra. 3페이즈, HP 35. Rising Tide + Ink Cloud. 보드 5x5."
+    },
+    {
+      "id": "BOSS-03",
+      "name": "blaze-fire",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/boss-mechanics-03-blaze.md",
+      "notes": "烈焰 Blaze. 3페이즈, HP 40. Neon Surge + Sign Explosion. 보드 6x4."
+    },
+    {
+      "id": "BOSS-04",
+      "name": "terra-earth",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/boss-mechanics-04-terra.md",
+      "notes": "磐石 Terra. 3페이즈, HP 45. Foundation Shake + Concrete Wall + Fault Line. 보드 6x5."
+    },
+    {
+      "id": "BOSS-05",
+      "name": "lumen-light",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/boss-mechanics-05-lumen.md",
+      "notes": "聖光 Lumen. 3페이즈, HP 50. Prism Refraction + Light Barrier + Element Storm. 보드 6x5."
+    },
+    {
+      "id": "BOSS-06",
+      "name": "umbra-dark",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/boss-mechanics-06-umbra.md",
+      "notes": "闇影 Umbra. 4페이즈(유일), HP 60. Shadow Core + Previous Boss Echo. 보드 7x5."
+    },
+    {
+      "id": "BOSS-07",
+      "name": "harvester-all",
+      "designStatus": "implemented",
+      "designDoc": "design/specs/boss-mechanics-07-harvester.md",
+      "notes": "收割者 Harvester Core. 6페이즈, HP 80. 이전 보스 패턴 순차 재현 + Reabsorb. 보드 7x6."
+    }
+  ],
+  "uxDesign": [
+    {
+      "id": "UX-001",
+      "name": "expected-play-experience",
+      "designStatus": "implemented",
+      "designDoc": "design/ux/expected-play-experience.md",
+      "notes": "기대 플레이 경험 설계서. 씬별 감정 곡선, 터치 인터랙션, 레이아웃 가이드."
     }
   ],
   "scenes": [

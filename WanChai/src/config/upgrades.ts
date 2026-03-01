@@ -1,0 +1,60 @@
+import type { PassiveDef } from '../types/upgrade';
+
+export const PASSIVE_DEFS: Record<string, PassiveDef> = {
+  move_speed: {
+    id: 'move_speed',
+    name: '터보 부스터',
+    description: '포탑 회전 속도 +10%',
+    maxLevel: 5,
+    effect: 'move_speed',
+    valuePerLevel: 0.10,
+  },
+  attack_speed: {
+    id: 'attack_speed',
+    name: '속사 장치',
+    description: '공격 속도 +10%',
+    maxLevel: 5,
+    effect: 'attack_speed',
+    valuePerLevel: 0.10,
+  },
+  damage: {
+    id: 'damage',
+    name: '파워 코어',
+    description: '공격력 +15%',
+    maxLevel: 5,
+    effect: 'damage',
+    valuePerLevel: 0.15,
+  },
+  base_armor: {
+    id: 'base_armor',
+    name: '장갑 강화',
+    description: '기지 피해량 -10%',
+    maxLevel: 5,
+    effect: 'base_armor',
+    valuePerLevel: 0.10,
+  },
+  hp_regen: {
+    id: 'hp_regen',
+    name: '실드 수리',
+    description: '기지 HP 초당 +5 회복',
+    maxLevel: 3,
+    effect: 'hp_regen',
+    valuePerLevel: 5,
+  },
+  crit_chance: {
+    id: 'crit_chance',
+    name: '집중 렌즈',
+    description: '치명타 확률 +5%',
+    maxLevel: 5,
+    effect: 'crit_chance',
+    valuePerLevel: 0.05,
+  },
+  crit_damage: {
+    id: 'crit_damage',
+    name: '증폭기',
+    description: '치명타 피해 +25%',
+    maxLevel: 3,
+    effect: 'crit_damage',
+    valuePerLevel: 0.25,
+  },
+};

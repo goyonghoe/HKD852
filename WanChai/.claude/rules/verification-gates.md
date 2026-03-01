@@ -22,8 +22,12 @@ paths:
   2. /gd-review [spec-id] PASS 또는 수동 검증
 - 결과를 SESSION_LOG.md에 기록
 
-## Gate 4: 배포 전 (Before Deploy)
-- 빌드+테스트 PASS가 /pg-deploy 선행 조건
+## Gate 4: 배포 전 (Before Deploy) — 필수 체인
+- **빌드+테스트 PASS** — 항상 필수
+- **WIRING:PASS** — 새 씬/플래그/모드 추가 시 필수 (Gate 5)
+- **UX-GATE:PASS** — UI 변경 시 필수 (Gate 7 = /ux-gate)
+- 위 게이트 미통과 시 `/pg-deploy` 실행 거부
+- `/pg-deploy` 스킬이 자체적으로 사전 게이트를 검증함
 
 ## Gate 5: 통합 배선 검증 (After New System/Mode)
 > 새 시스템, 모드, 플래그 추가 시 반드시 수행 (M-008, M-009 방지)
