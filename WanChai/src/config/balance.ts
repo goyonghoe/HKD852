@@ -23,22 +23,22 @@ export const BALANCE = {
     spreadRange: 600,
   },
   SPAWN: {
-    initialDelayMs: 1000,
-    baseIntervalMs: 1200,     // time between spawns
-    minIntervalMs: 800,       // fastest spawn rate (was 400)
-    intervalDecayPerMin: 0.40, // gentler decay for 60s stage
-    maxEnemiesOnScreen: 30,   // hard cap — prevents frame drops
+    initialDelayMs: 800,
+    baseIntervalMs: 900,      // faster base spawn (was 1200)
+    minIntervalMs: 500,       // faster cap (was 800)
+    intervalDecayPerMin: 0.50, // steeper decay — late game swarms
+    maxEnemiesOnScreen: 35,   // slightly higher cap
     spawnYMin: -50,           // spawn above screen top
     spawnYMax: -10,
-    eliteChanceBase: 0.05,    // 5%
-    eliteChancePerMin: 0.15,  // +15% per minute
+    eliteChanceBase: 0.08,    // 8% (was 5%)
+    eliteChancePerMin: 0.20,  // +20% per minute (was 15%)
     bossTimeMinutes: 0.83,    // boss spawns at ~50s
   },
   DIFFICULTY: {
-    hpScalePerMin: 2.0,       // enemy HP 2x by end of 60s stage
-    speedScalePerMin: 1.3,
-    damageScalePerMin: 1.5,
-    maxSpeedMultiplier: 2.0,
+    hpScalePerMin: 2.5,       // enemy HP 2.5x by end of 60s stage (was 2.0)
+    speedScalePerMin: 1.4,    // (was 1.3)
+    damageScalePerMin: 1.8,   // (was 1.5)
+    maxSpeedMultiplier: 2.5,  // (was 2.0)
   },
   XP: {
     basePerLevel: 10,

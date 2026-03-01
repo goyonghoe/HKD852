@@ -127,6 +127,13 @@ export class RunScene extends Phaser.Scene {
   // Stage difficulty multiplier (cumulative from balance config)
   private stageDifficultyMult = 1;
 
+  // Weapon list HUD (right side)
+  private weaponListText!: Phaser.GameObjects.Text;
+  private prevWeaponListStr = '';
+
+  // Enemy overhead HP bars (elites + bosses)
+  private enemyHpBarsGfx!: Phaser.GameObjects.Graphics;
+
   // Allies
   private allyLeftSprite!: Phaser.GameObjects.Sprite;
   private allyRightSprite!: Phaser.GameObjects.Sprite;
@@ -150,6 +157,7 @@ export class RunScene extends Phaser.Scene {
     this.prevKills = -1;
     this.prevLevel = -1;
     this.prevTimerStr = '';
+    this.prevWeaponListStr = '';
     this.fpsUpdateTimer = 0;
 
     // Reset speed
@@ -447,8 +455,8 @@ export class RunScene extends Phaser.Scene {
   private onPointerDown(pointer: Phaser.Input.Pointer): void {
     if (this.phase !== 'playing') return;
 
-    // Ignore taps on HUD button area (top-right: speed + pause)
-    if (pointer.x > GAME_WIDTH - 180 && pointer.y < 100) return;
+    // Ignore taps on HUD area (top-right: speed + pause + weapon list)
+    if (pointer.x > GAME_WIDTH - 180 && pointer.y < 250) return;
 
     this.targetPoint = { x: pointer.x, y: pointer.y };
     this.drawTargetReticle(pointer.x, pointer.y);
@@ -1240,6 +1248,18 @@ export class RunScene extends Phaser.Scene {
         fontSize: '16px', color: NEON_CSS.BOSS_WARNING, fontFamily: 'monospace', fontStyle: 'bold',
       }).setOrigin(0.5, 0).setScrollFactor(0).setDepth(1500).setAlpha(0);
 
+    // Weapon list (right side, below speed/pause buttons)
+    this.weaponListText = this.add
+      .text(GAME_WIDTH - 10, 65, '', {
+        fontSize: '16px', color: NEON_CSS.UI_TEXT, fontFamily: 'monospace',
+        lineSpacing: 4,
+        align: 'right',
+      }).setOrigin(1, 0).setScrollFactor(0).setDepth(1500);
+    this.prevWeaponListStr = '';
+
+    // Enemy overhead HP bars (world-space, moves with enemies)
+    this.enemyHpBarsGfx = this.add.graphics().setDepth(200);
+
     this.fpsText = this.add
       .text(GAME_WIDTH - 20, GAME_HEIGHT - 50, '', {
         fontSize: '14px', color: NEON_CSS.UI_DIM, fontFamily: 'monospace',
@@ -1390,6 +1410,40 @@ export class RunScene extends Phaser.Scene {
       this.bossHpBar.setAlpha(0);
       this.bossNameText.setAlpha(0);
       this.prevBossHpPct = -1;
+    }
+
+    // Weapon list — only update on change
+    let weaponStr = '';
+    for (let i = 0; i < this.weapons.length; i++) {
+      const w = this.weapons[i];
+      const def = WEAPON_DEFS[w.defId];
+      if (def) {
+        weaponStr += `${def.name} Lv${w.level}\n`;
+      }
+    }
+    if (weaponStr !== this.prevWeaponListStr) {
+      this.prevWeaponListStr = weaponStr;
+      this.weaponListText.setText(weaponStr.trimEnd());
+    }
+
+    // Enemy overhead HP bars (elites + bosses)
+    this.enemyHpBarsGfx.clear();
+    for (let i = 0; i < this.activeEnemyCount; i++) {
+      const e = this.activeEnemies[i];
+      if (!e.isElite && !e.behavior.startsWith('boss_')) continue;
+      if (e.hp >= e.maxHp) continue; // full HP — skip bar
+      const barW = e.isElite ? 30 : 44;
+      const barH = 4;
+      const barX = e.x - barW / 2;
+      const barY = e.y - (e.isElite ? 20 : 36);
+      const pct = e.hp / e.maxHp;
+      // Background
+      this.enemyHpBarsGfx.fillStyle(0x000000, 0.6);
+      this.enemyHpBarsGfx.fillRect(barX, barY, barW, barH);
+      // Fill
+      const barColor = pct > 0.5 ? NEON.HEALTH : pct > 0.25 ? NEON.GOLD : NEON.BOSS_WARNING;
+      this.enemyHpBarsGfx.fillStyle(barColor, 1);
+      this.enemyHpBarsGfx.fillRect(barX, barY, barW * pct, barH);
     }
 
     // FPS — update every 500ms to avoid per-frame text update
