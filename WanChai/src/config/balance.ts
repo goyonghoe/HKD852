@@ -1,14 +1,26 @@
 export const BALANCE = {
   PLAYER: {
     baseMoveSpeed: 300,       // px/s (horizontal only)
-    baseY: 1100,              // fixed Y position (just above base wall)
+    baseY: 1200,              // fixed Y position (behind base wall)
     critMultiplier: 2.0,      // default crit multiplier (for Player.critDamage)
   },
   BASE: {
     hp: 1000,                 // base wall hit points
-    y: 1200,                  // base wall Y position (near bottom)
-    height: 40,               // wall visual height
+    y: 1100,                  // base wall Y position (in front of player)
+    height: 30,               // wall visual height
     damageFlashMs: 200,       // flash duration on hit
+  },
+  ALLY: {
+    leftX: 60,                // sniper ally X
+    rightX: 660,              // spread ally X
+    baseY: 1200,              // same Y as player
+    sniperCooldownMs: 1500,   // single-target, high damage
+    sniperDamage: 40,
+    sniperRange: 800,
+    spreadCooldownMs: 1000,   // multi-target, low damage
+    spreadDamage: 8,
+    spreadCount: 5,           // targets up to 5 enemies
+    spreadRange: 600,
   },
   SPAWN: {
     initialDelayMs: 1000,
@@ -34,7 +46,7 @@ export const BALANCE = {
   },
   COMBAT: {
     critMultiplier: 2.0,
-    knockbackForce: 100,
+    knockbackForce: 60,
     knockbackDuration: 150,
   },
   RUN: {

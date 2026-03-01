@@ -13,6 +13,7 @@ export class TextureFactory {
 
   static generateAll(scene: Phaser.Scene): void {
     this.generatePlayerTexture(scene);
+    this.generateAllyTextures(scene);
     this.generateEnemyTextures(scene);
     this.generateProjectileTextures(scene);
     this.generateParticleTextures(scene);
@@ -52,6 +53,48 @@ export class TextureFactory {
 
     g.generateTexture('player', s, s);
     g.destroy();
+  }
+
+  // === ALLIES ===
+  private static generateAllyTextures(scene: Phaser.Scene): void {
+    // Sniper ally — blue diamond turret
+    if (!this.has(scene, 'ally_sniper')) {
+      const s = 28;
+      const g = scene.add.graphics();
+      g.fillStyle(0x4488ff, 0.15);
+      g.fillCircle(s / 2, s / 2, 12);
+      g.fillStyle(0x224488);
+      g.fillRect(s / 2 - 4, 2, 8, s - 4);
+      g.fillStyle(0x4488ff);
+      g.fillRect(s / 2 - 6, s / 2 - 6, 12, 12);
+      g.fillStyle(0x88ccff);
+      g.fillRect(s / 2 - 3, s / 2 - 3, 6, 6);
+      g.lineStyle(1, 0x4488ff, 0.8);
+      g.strokeCircle(s / 2, s / 2, 11);
+      g.generateTexture('ally_sniper', s, s);
+      g.destroy();
+    }
+
+    // Spread ally — orange multi-barrel turret
+    if (!this.has(scene, 'ally_spread')) {
+      const s = 28;
+      const g = scene.add.graphics();
+      g.fillStyle(0xff8844, 0.15);
+      g.fillCircle(s / 2, s / 2, 12);
+      // Three barrels
+      g.fillStyle(0x884422);
+      g.fillRect(s / 2 - 8, 2, 4, s / 2);
+      g.fillRect(s / 2 - 2, 1, 4, s / 2);
+      g.fillRect(s / 2 + 4, 2, 4, s / 2);
+      g.fillStyle(0xff8844);
+      g.fillRect(s / 2 - 6, s / 2 - 6, 12, 12);
+      g.fillStyle(0xffcc88);
+      g.fillRect(s / 2 - 3, s / 2 - 3, 6, 6);
+      g.lineStyle(1, 0xff8844, 0.8);
+      g.strokeCircle(s / 2, s / 2, 11);
+      g.generateTexture('ally_spread', s, s);
+      g.destroy();
+    }
   }
 
   // === ENEMIES ===

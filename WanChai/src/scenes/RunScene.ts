@@ -120,6 +120,12 @@ export class RunScene extends Phaser.Scene {
   // Stage difficulty multiplier (cumulative from balance config)
   private stageDifficultyMult = 1;
 
+  // Allies
+  private allyLeftSprite!: Phaser.GameObjects.Sprite;
+  private allyRightSprite!: Phaser.GameObjects.Sprite;
+  private allySniperCooldown = 0;
+  private allySpreadCooldown = 0;
+
   constructor() {
     super({ key: 'RunScene' });
   }
@@ -256,6 +262,9 @@ export class RunScene extends Phaser.Scene {
 
     // NO physics.add.overlap — we handle collision manually via SpatialHash
 
+    // Allies
+    this.createAllies();
+
     // Input: tap to set target priority
     this.input.on('pointerdown', this.onPointerDown, this);
 
@@ -348,6 +357,9 @@ export class RunScene extends Phaser.Scene {
 
     // === PHASE 5b: Orbit weapon update ===
     this.updateOrbit(scaledDelta);
+
+    // === PHASE 5c: Ally auto-fire ===
+    this.updateAllies(scaledDelta);
 
     // === PHASE 6: Projectile update (manual, active only) ===
     const time = this.time.now;
@@ -1134,6 +1146,8 @@ export class RunScene extends Phaser.Scene {
     this.input.off('pointerdown', this.onPointerDown, this);
     this.orbitSprites.forEach((s) => s.destroy());
     this.orbitSprites = [];
+    this.allyLeftSprite?.destroy();
+    this.allyRightSprite?.destroy();
     this.vfx.destroy();
     this.dmgNumbers.destroy();
     this.ariaMsg.destroy();
@@ -1316,6 +1330,123 @@ export class RunScene extends Phaser.Scene {
       this.fpsText.setText(`FPS: ${fps}`);
       this.fpsText.setColor(fps >= 50 ? NEON_CSS.UI_DIM : fps >= 30 ? NEON_CSS.GOLD : NEON_CSS.HEALTH);
     }
+  }
+
+  // === ALLIES ===
+
+  private createAllies(): void {
+    this.allySniperCooldown = 0;
+    this.allySpreadCooldown = 0;
+
+    // Left ally: sniper (single-target, high damage)
+    this.allyLeftSprite = this.add.sprite(
+      BALANCE.ALLY.leftX,
+      BALANCE.ALLY.baseY,
+      'ally_sniper',
+    ).setDepth(50);
+
+    // Right ally: spread (multi-target, low damage)
+    this.allyRightSprite = this.add.sprite(
+      BALANCE.ALLY.rightX,
+      BALANCE.ALLY.baseY,
+      'ally_spread',
+    ).setDepth(50);
+  }
+
+  private updateAllies(delta: number): void {
+    // Sniper ally (left): single nearest enemy, high damage
+    this.allySniperCooldown -= delta;
+    if (this.allySniperCooldown <= 0 && this.activeEnemyCount > 0) {
+      const target = this.findNearestEnemyFrom(
+        this.allyLeftSprite.x, this.allyLeftSprite.y, BALANCE.ALLY.sniperRange,
+      );
+      if (target) {
+        this.fireAllyProjectile(
+          this.allyLeftSprite.x, this.allyLeftSprite.y,
+          target.x, target.y,
+          BALANCE.ALLY.sniperDamage,
+          'projectile_laser',
+        );
+        this.allySniperCooldown = BALANCE.ALLY.sniperCooldownMs;
+      }
+    }
+
+    // Spread ally (right): up to N nearest enemies, low damage
+    this.allySpreadCooldown -= delta;
+    if (this.allySpreadCooldown <= 0 && this.activeEnemyCount > 0) {
+      const targets = this.findNearestEnemiesFrom(
+        this.allyRightSprite.x, this.allyRightSprite.y,
+        BALANCE.ALLY.spreadRange, BALANCE.ALLY.spreadCount,
+      );
+      if (targets.length > 0) {
+        for (const t of targets) {
+          this.fireAllyProjectile(
+            this.allyRightSprite.x, this.allyRightSprite.y,
+            t.x, t.y,
+            BALANCE.ALLY.spreadDamage,
+            'projectile_bullet',
+          );
+        }
+        this.allySpreadCooldown = BALANCE.ALLY.spreadCooldownMs;
+      }
+    }
+  }
+
+  /** Find nearest enemy within range from a given point */
+  private findNearestEnemyFrom(
+    fx: number, fy: number, range: number,
+  ): { x: number; y: number } | null {
+    let nearest: Enemy | null = null;
+    let minDistSq = range * range;
+    for (let i = 0; i < this.activeEnemyCount; i++) {
+      const e = this.activeEnemies[i];
+      const dx = e.x - fx;
+      const dy = e.y - fy;
+      const dSq = dx * dx + dy * dy;
+      if (dSq < minDistSq) {
+        minDistSq = dSq;
+        nearest = e;
+      }
+    }
+    return nearest ? { x: nearest.x, y: nearest.y } : null;
+  }
+
+  /** Find up to N nearest enemies within range from a given point */
+  private findNearestEnemiesFrom(
+    fx: number, fy: number, range: number, maxCount: number,
+  ): { x: number; y: number }[] {
+    const rangeSq = range * range;
+    const candidates: { x: number; y: number; dSq: number }[] = [];
+    for (let i = 0; i < this.activeEnemyCount; i++) {
+      const e = this.activeEnemies[i];
+      const dx = e.x - fx;
+      const dy = e.y - fy;
+      const dSq = dx * dx + dy * dy;
+      if (dSq < rangeSq) {
+        candidates.push({ x: e.x, y: e.y, dSq });
+      }
+    }
+    candidates.sort((a, b) => a.dSq - b.dSq);
+    return candidates.slice(0, maxCount);
+  }
+
+  /** Fire a projectile from an ally toward a target */
+  private fireAllyProjectile(
+    fromX: number, fromY: number,
+    toX: number, toY: number,
+    damage: number,
+    texture: string,
+  ): void {
+    const proj = this.projectileGroup.get() as Projectile | null;
+    if (!proj) return;
+    const dx = toX - fromX;
+    const dy = toY - fromY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist === 0) return;
+    const speed = 500;
+    const vx = (dx / dist) * speed;
+    const vy = (dy / dist) * speed;
+    proj.fire(fromX, fromY, vx, vy, damage, 0, 'ally', texture);
   }
 
   // === GRID BACKGROUND ===
