@@ -15,6 +15,7 @@ export class TextureFactory {
     this.generatePlayerTexture(scene);
     this.generateAllyTextures(scene);
     this.generateEnemyTextures(scene);
+    this.generateBossTextures(scene);
     this.generateProjectileTextures(scene);
     this.generateParticleTextures(scene);
     this.generateUITextures(scene);
@@ -240,6 +241,133 @@ export class TextureFactory {
       g.closePath();
       g.strokePath();
       g.generateTexture('enemy_hexagon', s, s);
+      g.destroy();
+    }
+  }
+
+  // === BOSS TEXTURES ===
+  private static generateBossTextures(scene: Phaser.Scene): void {
+    // Stage 1 Boss — gold double hexagon with crown
+    if (!this.has(scene, 'boss_hex')) {
+      const s = 48;
+      const g = scene.add.graphics();
+      const cx = s / 2, cy = s / 2;
+
+      const hexPoints = (r: number) => {
+        const pts: { x: number; y: number }[] = [];
+        for (let i = 0; i < 6; i++) {
+          const a = (Math.PI / 3) * i - Math.PI / 6;
+          pts.push({ x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r });
+        }
+        return pts;
+      };
+
+      // Glow
+      g.fillStyle(NEON.ENEMY_ELITE, 0.15);
+      g.fillCircle(cx, cy, 24);
+      // Outer hex
+      g.fillStyle(0x665500);
+      g.fillPoints(hexPoints(22), true);
+      // Inner hex
+      g.fillStyle(NEON.ENEMY_ELITE);
+      g.fillPoints(hexPoints(18), true);
+      // Core hex
+      g.fillStyle(0x665500);
+      g.fillPoints(hexPoints(10), true);
+      // Crown (3 triangles on top)
+      g.fillStyle(NEON.ENEMY_ELITE);
+      g.fillTriangle(cx - 10, cy - 18, cx - 6, cy - 26, cx - 2, cy - 18);
+      g.fillTriangle(cx - 4, cy - 18, cx, cy - 30, cx + 4, cy - 18);
+      g.fillTriangle(cx + 2, cy - 18, cx + 6, cy - 26, cx + 10, cy - 18);
+      // Center eye
+      g.fillStyle(0xffffff, 0.8);
+      g.fillCircle(cx, cy, 4);
+      g.fillStyle(NEON.ENEMY_ELITE);
+      g.fillCircle(cx, cy, 2);
+      // Outline
+      g.lineStyle(2, 0xffee88, 0.9);
+      const outerPts = hexPoints(22);
+      g.moveTo(outerPts[0].x, outerPts[0].y);
+      for (let i = 1; i < 6; i++) g.lineTo(outerPts[i].x, outerPts[i].y);
+      g.closePath();
+      g.strokePath();
+      g.generateTexture('boss_hex', s, s);
+      g.destroy();
+    }
+
+    // Stage 2 Boss — pink diamond with orbital ring and eye
+    if (!this.has(scene, 'boss_diamond')) {
+      const s = 44;
+      const g = scene.add.graphics();
+      const cx = s / 2, cy = s / 2;
+
+      // Glow
+      g.fillStyle(NEON.ENEMY_SPECIAL, 0.15);
+      g.fillCircle(cx, cy, 22);
+      // Orbital ring
+      g.lineStyle(2, NEON.ENEMY_SPECIAL, 0.5);
+      g.strokeCircle(cx, cy, 20);
+      // Body diamond
+      g.fillStyle(0x661144);
+      g.fillTriangle(cx, 2, 2, cy, cx, s - 2);
+      g.fillTriangle(cx, 2, s - 2, cy, cx, s - 2);
+      g.fillStyle(NEON.ENEMY_SPECIAL);
+      g.fillTriangle(cx, 6, 6, cy, cx, s - 6);
+      g.fillTriangle(cx, 6, s - 6, cy, cx, s - 6);
+      // Inner eye
+      g.fillStyle(0x220022);
+      g.fillCircle(cx, cy, 7);
+      g.fillStyle(0xff88cc);
+      g.fillCircle(cx, cy, 4);
+      g.fillStyle(0xffffff, 0.6);
+      g.fillCircle(cx - 1, cy - 1, 2);
+      // Outline
+      g.lineStyle(2, 0xff88cc, 0.9);
+      g.moveTo(cx, 2);
+      g.lineTo(s - 2, cy);
+      g.lineTo(cx, s - 2);
+      g.lineTo(2, cy);
+      g.closePath();
+      g.strokePath();
+      g.generateTexture('boss_diamond', s, s);
+      g.destroy();
+    }
+
+    // Stage 3 Boss — purple armored rectangle with energy core
+    if (!this.has(scene, 'boss_rect')) {
+      const s = 52;
+      const g = scene.add.graphics();
+
+      // Glow
+      g.fillStyle(NEON.ENEMY_TANK, 0.12);
+      g.fillCircle(s / 2, s / 2, 26);
+      // Outer armor
+      g.fillStyle(0x221144);
+      g.fillRect(0, 0, s, s);
+      // Inner plate
+      g.fillStyle(NEON.ENEMY_TANK);
+      g.fillRect(4, 4, s - 8, s - 8);
+      // Armor cross
+      g.fillStyle(0x221144);
+      g.fillRect(s / 2 - 2, 4, 4, s - 8);
+      g.fillRect(4, s / 2 - 2, s - 8, 4);
+      // Corner bolts
+      g.fillStyle(0xcc88ff);
+      g.fillCircle(8, 8, 3);
+      g.fillCircle(s - 8, 8, 3);
+      g.fillCircle(8, s - 8, 3);
+      g.fillCircle(s - 8, s - 8, 3);
+      // Energy core
+      g.fillStyle(0xffffff, 0.6);
+      g.fillCircle(s / 2, s / 2, 8);
+      g.fillStyle(0xcc88ff);
+      g.fillCircle(s / 2, s / 2, 5);
+      g.fillStyle(0xffffff, 0.8);
+      g.fillCircle(s / 2, s / 2, 2);
+      // Outline
+      g.lineStyle(2, 0xcc88ff, 0.9);
+      g.strokeRect(0, 0, s, s);
+      g.generateTexture('boss_rect', s, s);
       g.destroy();
     }
   }

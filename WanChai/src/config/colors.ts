@@ -20,6 +20,7 @@ export const NEON = {
   UI_PANEL: 0x1a1a2e,
   UI_BORDER: 0x333355,
   UI_ACCENT: 0x00ffcc,
+  BOSS_WARNING: 0xff3300,
 } as const;
 
 // CSS versions for Text objects
@@ -40,6 +41,7 @@ export const NEON_CSS: Record<keyof typeof NEON, string> = {
   UI_PANEL: '#1a1a2e',
   UI_BORDER: '#333355',
   UI_ACCENT: '#00ffcc',
+  BOSS_WARNING: '#ff3300',
 };
 
 // Keep these for UI components that reference them

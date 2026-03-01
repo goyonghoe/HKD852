@@ -91,7 +91,14 @@ export class RunScene extends Phaser.Scene {
 
   // ARIA message triggers
   private ariaBossShown = false;
+  private ariaBossWarningShown = false;
   private ariaLowHpShown = false;
+
+  // Boss tracking
+  private activeBoss: Enemy | null = null;
+  private bossHpBar!: Phaser.GameObjects.Graphics;
+  private bossNameText!: Phaser.GameObjects.Text;
+  private prevBossHpPct = -1;
 
   // Orbit weapon
   private orbitSprites: Phaser.GameObjects.Sprite[] = [];
@@ -251,8 +258,11 @@ export class RunScene extends Phaser.Scene {
     this.dmgNumbers = new DamageNumberManager(this);
     this.ariaMsg = new ARIAMessage(this);
     this.ariaBossShown = false;
+    this.ariaBossWarningShown = false;
     this.ariaLowHpShown = false;
     this.midShopShown = false;
+    this.activeBoss = null;
+    this.prevBossHpPct = -1;
     this.prevGold = -1;
 
     // Initial weapon
@@ -299,6 +309,7 @@ export class RunScene extends Phaser.Scene {
     // === PHASE 1: Build active enemy list + spatial hash (ONCE per frame) ===
     this.collisionHash.clear();
     this.activeEnemyCount = 0;
+    this.activeBoss = null;
     const children = this.enemyGroup.getChildren();
     for (let i = 0; i < children.length; i++) {
       const enemy = children[i] as Enemy;
@@ -306,6 +317,9 @@ export class RunScene extends Phaser.Scene {
       this.activeEnemies[this.activeEnemyCount] = enemy;
       this.collisionHash.insert(this.activeEnemyCount, enemy.x, enemy.y);
       this.activeEnemyCount++;
+      if (enemy.behavior === 'boss_chase' || enemy.behavior === 'boss_circle' || enemy.behavior === 'boss_burst') {
+        this.activeBoss = enemy;
+      }
     }
 
     // === PHASE 2: Player aim ===
@@ -336,9 +350,11 @@ export class RunScene extends Phaser.Scene {
     }
 
     // === PHASE 4: Enemy movement + flash ===
+    const px = this.player.x;
+    const py = this.player.y;
     for (let i = 0; i < this.activeEnemyCount; i++) {
       const enemy = this.activeEnemies[i];
-      enemy.applyMovement(scaledDelta);
+      enemy.applyMovement(scaledDelta, px, py);
       enemy.updateFlash(scaledDelta);
       if (enemy.y >= BALANCE.BASE.y) {
         this.onEnemyReachedBase(enemy);
@@ -875,8 +891,11 @@ export class RunScene extends Phaser.Scene {
     // Reset spawn state
     this.spawnEnded = false;
     this.ariaBossShown = false;
+    this.ariaBossWarningShown = false;
     this.ariaLowHpShown = false;
     this.midShopShown = false;
+    this.activeBoss = null;
+    this.prevBossHpPct = -1;
 
     // Deactivate all remaining projectiles
     const projChildren = this.projectileGroup.getChildren();
@@ -900,10 +919,17 @@ export class RunScene extends Phaser.Scene {
   // === ARIA MESSAGES ===
 
   private checkARIATriggers(): void {
+    // Boss pre-warning (5s before boss spawn at ~45s)
+    if (!this.ariaBossWarningShown && this.runState.stageTime >= 45000) {
+      this.ariaBossWarningShown = true;
+      this.ariaMsg.show('ARIA-01: 고위험 최적화체 접근 중...');
+      this.vfx.screenShake(0.006, 300);
+    }
     // Boss spawn
     if (this.waveDirector.isBossSpawned() && !this.ariaBossShown) {
       this.ariaBossShown = true;
       this.ariaMsg.show('ARIA-01: 상위 최적화체 접근... 저항은 비효율적이다');
+      this.vfx.screenShake(0.01, 400);
       getRetroSFX().deploy();
     }
     // Low HP warning
@@ -1148,6 +1174,7 @@ export class RunScene extends Phaser.Scene {
     this.orbitSprites = [];
     this.allyLeftSprite?.destroy();
     this.allyRightSprite?.destroy();
+    this.activeBoss = null;
     this.vfx.destroy();
     this.dmgNumbers.destroy();
     this.ariaMsg.destroy();
@@ -1205,6 +1232,13 @@ export class RunScene extends Phaser.Scene {
       .text(20, 50, 'Lv 1', {
         fontSize: '18px', color: NEON_CSS.UI_ACCENT, fontFamily: 'monospace',
       }).setScrollFactor(0).setDepth(1500);
+
+    // Boss HP bar (hidden until boss spawns)
+    this.bossHpBar = this.add.graphics().setScrollFactor(0).setDepth(1500).setAlpha(0);
+    this.bossNameText = this.add
+      .text(GAME_WIDTH / 2, 88, '', {
+        fontSize: '16px', color: NEON_CSS.BOSS_WARNING, fontFamily: 'monospace', fontStyle: 'bold',
+      }).setOrigin(0.5, 0).setScrollFactor(0).setDepth(1500).setAlpha(0);
 
     this.fpsText = this.add
       .text(GAME_WIDTH - 20, GAME_HEIGHT - 50, '', {
@@ -1320,6 +1354,42 @@ export class RunScene extends Phaser.Scene {
         ));
         this.timerText.setColor(remaining <= 10 ? NEON_CSS.HEALTH : NEON_CSS.UI_TEXT);
       }
+    }
+
+    // Boss HP bar — show only when boss is alive
+    if (this.activeBoss && this.activeBoss.active) {
+      const bossPct = Math.round((this.activeBoss.hp / this.activeBoss.maxHp) * 100);
+      if (bossPct !== this.prevBossHpPct) {
+        this.prevBossHpPct = bossPct;
+        const bW = 500;
+        const bH = 12;
+        const bX = GAME_WIDTH / 2 - bW / 2;
+        const bY = 105;
+        const pct = bossPct / 100;
+        this.bossHpBar.clear();
+        this.bossHpBar.fillStyle(NEON.UI_PANEL, 0.9);
+        this.bossHpBar.fillRect(bX, bY, bW, bH);
+        this.bossHpBar.fillStyle(NEON.HEALTH, 1);
+        this.bossHpBar.fillRect(bX, bY, bW * pct, bH);
+        this.bossHpBar.lineStyle(1, NEON.BOSS_WARNING, 0.8);
+        this.bossHpBar.strokeRect(bX, bY, bW, bH);
+        this.bossHpBar.setAlpha(1);
+      }
+      if (this.bossNameText.alpha === 0) {
+        const bossNames: Record<string, string> = {
+          boss_chase: '수호자',
+          boss_circle: '회전자',
+          boss_burst: '돌격자',
+        };
+        this.bossNameText.setText(bossNames[this.activeBoss.behavior] ?? '보스');
+        this.bossNameText.setAlpha(1);
+      }
+    } else if (this.prevBossHpPct !== -1) {
+      // Boss died — hide bar
+      this.bossHpBar.clear();
+      this.bossHpBar.setAlpha(0);
+      this.bossNameText.setAlpha(0);
+      this.prevBossHpPct = -1;
     }
 
     // FPS — update every 500ms to avoid per-frame text update

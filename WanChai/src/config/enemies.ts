@@ -56,6 +56,17 @@ export const ENEMY_DEFS: Record<string, EnemyDef> = {
     xpValue: 4,
     colorKey: 'ENEMY_ELITE',
   },
+  chaser: {
+    id: 'chaser',
+    shape: 'triangle',
+    baseSize: 12,
+    baseSpeed: 55,
+    baseHp: 15,
+    baseDamage: 12,
+    behavior: 'chase',
+    xpValue: 3,
+    colorKey: 'ENEMY_FAST',
+  },
   boss: {
     id: 'boss',
     shape: 'hexagon',

@@ -12,6 +12,13 @@ const SHAPE_TO_TEXTURE: Record<string, string> = {
   hexagon: 'enemy_hexagon',
 };
 
+/** Boss enemies get dedicated larger textures */
+const BOSS_TEXTURES: Record<string, string> = {
+  boss: 'boss_hex',
+  boss_circle: 'boss_diamond',
+  boss_burst: 'boss_rect',
+};
+
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
   public hp = 0;
   public maxHp = 0;
@@ -81,12 +88,12 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     this.speed = def.baseSpeed * spdScale;
     this.xpValue = def.xpValue * (elite ? 5 : 1);
 
-    // Set texture based on enemy shape
-    const texKey = SHAPE_TO_TEXTURE[def.shape] ?? 'enemy_circle';
+    // Set texture: boss enemies get dedicated textures, others use shape mapping
+    const texKey = BOSS_TEXTURES[def.id] ?? SHAPE_TO_TEXTURE[def.shape] ?? 'enemy_circle';
     this.setTexture(texKey);
 
     if (def.behavior === 'boss_chase' || def.behavior === 'boss_circle' || def.behavior === 'boss_burst') {
-      this.setScale(3);
+      this.setScale(2); // Boss textures are already larger (48-52px)
     } else if (elite) {
       this.setScale(2);
     } else {
@@ -137,7 +144,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     this.knockbackTimer = BALANCE.COMBAT.knockbackDuration;
   }
 
-  applyMovement(delta: number): void {
+  applyMovement(delta: number, targetX?: number, targetY?: number): void {
     if (!this.active) return;
     const body = this.body as Phaser.Physics.Arcade.Body;
 
@@ -151,10 +158,28 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     switch (this.behavior) {
       case 'march':
-      case 'slow_chase':
       case 'slow_march': {
         // Straight down
         body.setVelocity(0, this.speed);
+        break;
+      }
+      case 'slow_chase': {
+        // Slow pursuit with gentle wobble
+        this.zigzagAngle += this.zigzagFreq * Math.PI * dt;
+        const wobble = Math.sin(this.zigzagAngle) * 30;
+        if (targetX != null && targetY != null) {
+          const dx = targetX - this.x;
+          const dy = targetY - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist > 1) {
+            body.setVelocity(
+              (dx / dist) * this.speed * 0.6 + wobble,
+              (dy / dist) * this.speed * 0.6,
+            );
+          }
+        } else {
+          body.setVelocity(wobble, this.speed * 0.6);
+        }
         break;
       }
       case 'zigzag': {
@@ -164,8 +189,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         body.setVelocity(vx, this.speed);
         break;
       }
-      case 'dash':
-      case 'chase': {
+      case 'dash': {
         // Periodic dash bursts downward (faster), slow march between
         this.dashTimer += delta;
         if (!this.isDashing && this.dashTimer >= this.dashInterval) {
@@ -180,14 +204,33 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         body.setVelocity(0, vy);
         break;
       }
+      case 'chase': {
+        // Direct pursuit toward player
+        if (targetX != null && targetY != null) {
+          const dx = targetX - this.x;
+          const dy = targetY - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist > 1) {
+            body.setVelocity((dx / dist) * this.speed, (dy / dist) * this.speed);
+          }
+        } else {
+          body.setVelocity(0, this.speed);
+        }
+        break;
+      }
       case 'split_on_death': {
         // Slow straight march
         body.setVelocity(0, this.speed * 0.7);
         break;
       }
       case 'boss_chase': {
-        // Slow, steady, relentless march
-        body.setVelocity(0, this.speed);
+        // Slow descent with gradual X-axis tracking toward player
+        let bvx = 0;
+        if (targetX != null) {
+          const dx = targetX - this.x;
+          bvx = dx * 0.02 * this.speed;
+        }
+        body.setVelocity(bvx, this.speed);
         break;
       }
       case 'boss_circle': {
