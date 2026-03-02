@@ -8,7 +8,6 @@ export interface PassiveDef {
 }
 
 export type PassiveEffect =
-  | 'move_speed'
   | 'attack_speed'
   | 'damage'
   | 'base_armor'

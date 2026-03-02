@@ -11,6 +11,7 @@ import { WeaponSystem } from '../systems/WeaponSystem';
 import { WaveDirector } from '../core/WaveDirector';
 import { XpTable } from '../core/XpTable';
 import { SpatialHash } from '../core/SpatialHash';
+import { SeededRandom } from '../core/SeededRandom';
 import { selectUpgrades } from '../core/UpgradeSelector';
 import type { UpgradeChoice } from '../core/UpgradeSelector';
 import type { WeaponInstance } from '../types/weapon';
@@ -22,18 +23,20 @@ import { SaveManager } from '../managers/SaveManager';
 import { getMetaBonus } from '../core/MetaProgression';
 import { PauseOverlay } from '../ui/PauseOverlay';
 import { getRetroSFX } from '../audio/RetroSFX';
+import { getRetroAudio } from '../audio/RetroAudio';
 import { GAME_WIDTH, GAME_HEIGHT } from '../config/game-config';
 
 // Collision radius: enemy body (12) + projectile buffer (12)
 const COLLISION_RADIUS = 24;
 const COLLISION_RADIUS_SQ = COLLISION_RADIUS * COLLISION_RADIUS;
 // Pre-allocated buffer for spatial hash queries
-const QUERY_BUFFER = new Array<number>(64);
+const QUERY_BUFFER = new Array<number>(128);
 
 export class RunScene extends Phaser.Scene {
   // Systems
   private weaponSystem!: WeaponSystem;
   private waveDirector!: WaveDirector;
+  private rng!: SeededRandom;
   private xpTable!: XpTable;
   private vfx!: VFXManager;
   private dmgNumbers!: DamageNumberManager;
@@ -44,6 +47,10 @@ export class RunScene extends Phaser.Scene {
   private player!: Player;
   private enemyGroup!: Phaser.Physics.Arcade.Group;
   private projectileGroup!: Phaser.Physics.Arcade.Group;
+  private enemyProjectiles: { x: number; y: number; vy: number; damage: number; sprite: Phaser.GameObjects.Arc }[] = [];
+
+  // Background
+  private bgSprite?: Phaser.GameObjects.Image;
 
   // Cached active lists (rebuilt each frame, avoids getChildren() allocation)
   private activeEnemies: Enemy[] = [];
@@ -64,6 +71,7 @@ export class RunScene extends Phaser.Scene {
   // Base wall
   private baseWallGraphics!: Phaser.GameObjects.Graphics;
   private baseArmorMultiplier = 1;
+  private shopArmorMultiplier = 1;  // track shop armor separately (C-02)
 
   // HUD elements
   private baseBar!: Phaser.GameObjects.Graphics;
@@ -83,6 +91,10 @@ export class RunScene extends Phaser.Scene {
 
   // Level up UI
   private upgradeContainer?: Phaser.GameObjects.Container;
+  private autoSelectBarBg?: Phaser.GameObjects.Rectangle;
+  private autoSelectBarFill?: Phaser.GameObjects.Rectangle;
+  private autoSelectStartReal = 0;   // Date.now() — immune to timeScale
+  private autoSelectBestChoice?: UpgradeChoice;
 
   // Speed control
   private gameSpeed = 1;
@@ -94,18 +106,14 @@ export class RunScene extends Phaser.Scene {
   private ariaBossWarningShown = false;
   private ariaLowHpShown = false;
 
+  // Boss → stage clear sequencing (must complete level-ups first)
+  private pendingStageClear = false;
+
   // Boss tracking
   private activeBoss: Enemy | null = null;
   private bossHpBar!: Phaser.GameObjects.Graphics;
   private bossNameText!: Phaser.GameObjects.Text;
   private prevBossHpPct = -1;
-
-  // Orbit weapon
-  private orbitSprites: Phaser.GameObjects.Sprite[] = [];
-  private orbitAngle = 0;
-  private orbitDamage = 0;
-  private orbitRadius = 100;
-  private orbitHitCooldowns = new Map<Enemy, number>();
 
   // Pause
   private pauseOverlay!: PauseOverlay;
@@ -118,18 +126,36 @@ export class RunScene extends Phaser.Scene {
   private shopContainer?: Phaser.GameObjects.Container;
   private goldText!: Phaser.GameObjects.Text;
   private prevGold = -1;
+  private shopAutoBarBg?: Phaser.GameObjects.Rectangle;
+  private shopAutoBarFill?: Phaser.GameObjects.Rectangle;
+  private shopAutoStartReal = 0;     // Date.now() — immune to timeScale
+  private shopAutoBestAction?: { action: 'heal' | 'damage' | 'armor'; cost: number } | null;
 
   // Stage clear UI
   private stageClearContainer?: Phaser.GameObjects.Container;
   private stageText!: Phaser.GameObjects.Text;
   private prevStage = -1;
 
-  // Stage difficulty multiplier (cumulative from balance config)
-  private stageDifficultyMult = 1;
+  // Stage difficulty multipliers (cumulative from balance config)
+  private stageHpMult = 1;
+  private stageSpeedMult = 1;
+  private stageDamageMult = 1;
+  private bossStageActive = false;  // true during boss-only stages
+  private bossSpawnedThisStage = false;
+  private metaXpBonus = 0;
 
-  // Weapon list HUD (right side)
-  private weaponListText!: Phaser.GameObjects.Text;
-  private prevWeaponListStr = '';
+  // Meta progression base values (preserved across passive stacking)
+  private metaDamageBase = 0;
+  private metaCritBase = 0;
+
+  // Weapon slots HUD (right side, 4 fixed slots)
+  private weaponSlotBgs: Phaser.GameObjects.Rectangle[] = [];
+  private weaponSlotTexts: Phaser.GameObjects.Text[] = [];
+  private prevWeaponSlotStr = '';
+
+  // Player stats HUD (left side)
+  private statsText!: Phaser.GameObjects.Text;
+  private prevStatsStr = '';
 
   // Enemy overhead HP bars (elites + bosses)
   private enemyHpBarsGfx!: Phaser.GameObjects.Graphics;
@@ -147,18 +173,23 @@ export class RunScene extends Phaser.Scene {
   create(): void {
     this.phase = 'playing';
     this.baseArmorMultiplier = 1;
+    this.shopArmorMultiplier = 1;
     this.spawnEnded = false;
     this.targetPoint = null;
     this.passiveCounts.clear();
     this.activeEnemies = new Array(BALANCE.SPAWN.maxEnemiesOnScreen);
     this.activeEnemyCount = 0;
+    // Clean up enemy projectiles from previous run
+    for (const p of this.enemyProjectiles) p.sprite.destroy();
+    this.enemyProjectiles = [];
     this.prevBaseHpPct = -1;
     this.prevXpPct = -1;
     this.prevKills = -1;
     this.prevLevel = -1;
     this.prevTimerStr = '';
-    this.prevWeaponListStr = '';
+    this.prevWeaponSlotStr = '';
     this.fpsUpdateTimer = 0;
+    this.bgSprite = undefined; // reset destroyed sprite reference from previous run
 
     // Reset speed
     this.gameSpeed = 1;
@@ -167,22 +198,22 @@ export class RunScene extends Phaser.Scene {
     this.time.timeScale = 1;
     this.sfxThrottles.clear();
 
-    // Reset orbit
-    this.orbitSprites.forEach((s) => s.destroy());
-    this.orbitSprites = [];
-    this.orbitAngle = 0;
-    this.orbitDamage = 0;
-    this.orbitHitCooldowns.clear();
-
     // Fixed world bounds
     this.physics.world.setBounds(0, 0, GAME_WIDTH, GAME_HEIGHT);
     this.cameras.main.setBackgroundColor(BG_COLOR);
     this.cameras.main.setScroll(0, 0);
+    this.cameras.main.fadeIn(300);
+    getRetroAudio().switchTrack('combat');
 
     this.drawGrid();
 
+    // Deterministic seed for this run (replay/debugging)
+    const seed = (Date.now() ^ (Math.random() * 0xFFFFFFFF)) >>> 0;
+    this.rng = new SeededRandom(seed);
+
     // Run state
     this.runState = {
+      seed,
       runTime: 0,
       stageTime: 0,
       stage: 1,
@@ -195,22 +226,29 @@ export class RunScene extends Phaser.Scene {
       weapons: ['energy_shot'],
       passives: [],
     };
-    this.stageDifficultyMult = 1;
+    this.stageHpMult = 1;
+    this.stageSpeedMult = 1;
+    this.stageDamageMult = 1;
     this.prevStage = -1;
+
+    this.updateBackground();
 
     // Apply meta progression bonuses
     const meta = SaveManager.loadMeta();
     const metaDmg = getMetaBonus(meta, 'damage');
     const metaHp = getMetaBonus(meta, 'base_hp');
-    const metaSpeed = getMetaBonus(meta, 'move_speed');
     const metaCrit = getMetaBonus(meta, 'crit_chance');
+    this.metaXpBonus = getMetaBonus(meta, 'xp_bonus');
     this.runState.baseHp = Math.ceil(BALANCE.BASE.hp * (1 + metaHp));
     this.runState.baseMaxHp = this.runState.baseHp;
+
+    // Store meta base values for passive stacking
+    this.metaDamageBase = metaDmg;
+    this.metaCritBase = metaCrit;
 
     // Player turret — FIXED at center
     this.player = new Player(this, GAME_WIDTH / 2);
     this.player.damageMultiplier = 1 + metaDmg;
-    this.player.moveSpeed = BALANCE.PLAYER.baseMoveSpeed * (1 + metaSpeed);
     this.player.critChance = metaCrit;
 
     // Base wall
@@ -242,11 +280,14 @@ export class RunScene extends Phaser.Scene {
       runChildUpdate: false,
     });
 
-    // Systems
+    // Systems — VFX + DmgNumbers must be created BEFORE WeaponSystem (C-02 fix)
+    this.vfx = new VFXManager(this);
+    this.dmgNumbers = new DamageNumberManager(this);
     this.weaponSystem = new WeaponSystem(this, {
       vfx: this.vfx,
       dmgNumbers: this.dmgNumbers,
       onEnemyDeath: (enemy: Enemy) => this.onEnemyDeath(enemy),
+      onWeaponFire: () => this.playSfx('weaponFire', () => getRetroSFX().weaponFire(), 400),
     });
     this.waveDirector = new WaveDirector({
       initialDelayMs: BALANCE.SPAWN.initialDelayMs,
@@ -255,20 +296,21 @@ export class RunScene extends Phaser.Scene {
       intervalDecayPerMin: BALANCE.SPAWN.intervalDecayPerMin,
       eliteChanceBase: BALANCE.SPAWN.eliteChanceBase,
       eliteChancePerMin: BALANCE.SPAWN.eliteChancePerMin,
-      bossTimeMinutes: BALANCE.SPAWN.bossTimeMinutes,
-    });
+      bossTimeMinutes: Infinity, // boss stages are separate — never auto-spawn boss
+    }, this.rng);
+    const stage1Config = BALANCE.STAGE.stages[0];
     this.waveDirector.setEnemyPool(
-      Object.keys(ENEMY_DEFS).filter(id => !id.startsWith('boss')),
+      stage1Config.enemyPool ?? Object.keys(ENEMY_DEFS).filter(id => !id.startsWith('boss')),
     );
-    this.waveDirector.setBossId(BALANCE.STAGE.bossPerStage[0]);
     this.xpTable = new XpTable(BALANCE.XP.basePerLevel, BALANCE.XP.growthFactor);
-    this.vfx = new VFXManager(this);
-    this.dmgNumbers = new DamageNumberManager(this);
     this.ariaMsg = new ARIAMessage(this);
     this.ariaBossShown = false;
     this.ariaBossWarningShown = false;
     this.ariaLowHpShown = false;
     this.midShopShown = false;
+    this.bossStageActive = false;
+    this.bossSpawnedThisStage = false;
+    this.pendingStageClear = false;
     this.activeBoss = null;
     this.prevBossHpPct = -1;
     this.prevGold = -1;
@@ -308,6 +350,32 @@ export class RunScene extends Phaser.Scene {
   }
 
   update(_time: number, delta: number): void {
+    // Auto-select bar animation + trigger during levelup (uses real time, immune to gameSpeed)
+    if (this.phase === 'levelup' && this.autoSelectBarFill) {
+      const elapsed = Date.now() - this.autoSelectStartReal;
+      const progress = Math.min(elapsed / VISUAL.UI.autoSelectDelayMs, 1);
+      const totalW = this.autoSelectBarBg?.width ?? 200;
+      this.autoSelectBarFill.width = totalW * (1 - progress);
+      if (progress >= 1 && this.autoSelectBestChoice) {
+        this.applyUpgrade(this.autoSelectBestChoice);
+      }
+    }
+
+    // Auto-select bar animation + trigger during shop (uses real time, immune to gameSpeed)
+    if (this.phase === 'shop' && this.shopAutoBarFill) {
+      const elapsed = Date.now() - this.shopAutoStartReal;
+      const progress = Math.min(elapsed / VISUAL.UI.autoSelectDelayMs, 1);
+      const totalW = this.shopAutoBarBg?.width ?? 200;
+      this.shopAutoBarFill.width = totalW * (1 - progress);
+      if (progress >= 1) {
+        if (this.shopAutoBestAction) {
+          this.applyShopChoice(this.shopAutoBestAction.action, this.shopAutoBestAction.cost);
+        } else {
+          this.closeShop();
+        }
+      }
+    }
+
     if (this.phase !== 'playing') return;
 
     const scaledDelta = delta * this.gameSpeed;
@@ -338,9 +406,23 @@ export class RunScene extends Phaser.Scene {
       this.player.aimUp();
     }
 
-    // === PHASE 3: Spawn (within stage duration only) ===
-    if (!this.spawnEnded) {
-      if (this.runState.stageTime >= BALANCE.STAGE.durationMs) {
+    // === PHASE 3: Spawn ===
+    const stageConfig = BALANCE.STAGE.stages[this.runState.stage - 1];
+    if (this.bossStageActive) {
+      // Boss stage: spawn boss once at start, no wave spawning
+      if (!this.bossSpawnedThisStage) {
+        this.bossSpawnedThisStage = true;
+        const bossId = stageConfig?.bossId ?? 'boss';
+        this.spawnEnemies(bossId, 1, false);
+        getRetroAudio().switchTrack('boss');
+        this.ariaMsg.show(`ARIA-01: 상위 최적화체 접근... 저항은 비효율적이다`);
+        this.vfx.screenShake(0.01, 400);
+        getRetroSFX().deploy();
+      }
+    } else if (!this.spawnEnded) {
+      // Wave stage: timed spawning
+      const duration = stageConfig?.durationMs ?? 60000;
+      if (this.runState.stageTime >= duration) {
         this.spawnEnded = true;
       } else {
         const commands = this.waveDirector.update(scaledDelta);
@@ -350,24 +432,58 @@ export class RunScene extends Phaser.Scene {
       }
     }
 
-    // === PHASE 3b: Mid-run shop trigger (once per stage) ===
-    if (!this.midShopShown && this.runState.stageTime >= BALANCE.MID_SHOP.triggerTimeMs) {
+    // === PHASE 3b: Mid-run shop trigger (wave stages only, once per stage) ===
+    if (!this.bossStageActive && !this.midShopShown && this.runState.stageTime >= BALANCE.MID_SHOP.triggerTimeMs) {
       this.midShopShown = true;
       this.showMidRunShop();
       return; // pause update loop during shop
     }
 
-    // === PHASE 4: Enemy movement + flash ===
+    // === PHASE 4: Enemy movement + attack logic + flash ===
     const px = this.player.x;
     const py = this.player.y;
     for (let i = 0; i < this.activeEnemyCount; i++) {
       const enemy = this.activeEnemies[i];
-      enemy.applyMovement(scaledDelta, px, py);
       enemy.updateFlash(scaledDelta);
+
+      if (enemy.isAttackingBase) {
+        // Melee: already at base, periodic attacks
+        if (enemy.shouldAttack(scaledDelta)) {
+          this.applyBaseDamage(enemy);
+          if (this.phase !== 'playing') return; // game-over guard
+        }
+        continue;
+      }
+
+      if (enemy.attackStyle === 'ranged' && enemy.isRangedStopped) {
+        // Ranged: stopped at firing position, shoot projectiles
+        enemy.applyMovement(scaledDelta, px, py); // slight sway
+        if (enemy.shouldShoot(scaledDelta)) {
+          this.spawnEnemyProjectile(enemy);
+        }
+        continue;
+      }
+
+      enemy.applyMovement(scaledDelta, px, py);
+
+      // Boss ranged: shoot while orbiting (boss_circle in orbit phase)
+      if (enemy.attackStyle === 'ranged' && enemy.circlePhase === 'orbit') {
+        if (enemy.shouldShoot(scaledDelta)) {
+          this.spawnEnemyProjectile(enemy);
+        }
+      }
+
       if (enemy.y >= BALANCE.BASE.y) {
         this.onEnemyReachedBase(enemy);
+        if (this.phase !== 'playing') return; // game-over guard
       }
     }
+
+    // === PHASE 4b: Enemy projectile update ===
+    this.updateEnemyProjectiles(scaledDelta);
+
+    // Guard: game-over may have been triggered during enemy/projectile phases
+    if (this.phase !== 'playing') return;
 
     // === PHASE 5: Weapon auto-fire ===
     this.weaponSystem.update(
@@ -379,23 +495,12 @@ export class RunScene extends Phaser.Scene {
       this.targetPoint,
     );
 
-    // === PHASE 5b: Orbit weapon update ===
-    this.updateOrbit(scaledDelta);
-
-    // === PHASE 5c: Ally auto-fire ===
+    // === PHASE 5b: Ally auto-fire ===
     this.updateAllies(scaledDelta);
 
-    // === PHASE 6: Projectile update (manual, active only) ===
-    const time = this.time.now;
-    const projChildren = this.projectileGroup.getChildren();
-    for (let i = 0; i < projChildren.length; i++) {
-      const proj = projChildren[i] as Projectile;
-      if (proj.active) {
-        proj.preUpdate(time, delta);
-      }
-    }
-
-    // === PHASE 7: Collision detection via SpatialHash ===
+    // === PHASE 6: Collision detection via SpatialHash ===
+    // NOTE: Projectile.preUpdate() is called automatically by Phaser's Group update.
+    // Do NOT call it manually here — that causes double-speed expiry/homing (C-01 fix).
     this.resolveCollisions();
 
     // === PHASE 8: VFX particle update (manual, no tweens) ===
@@ -414,7 +519,9 @@ export class RunScene extends Phaser.Scene {
     this.checkARIATriggers();
 
     // === PHASE 11: Victory check ===
-    if (this.spawnEnded && this.activeEnemyCount === 0) {
+    // Boss stage: boss death triggers clear (handled in onEnemyDeath)
+    // Wave stage: spawn ended + all enemies dead
+    if (!this.bossStageActive && this.spawnEnded && this.activeEnemyCount === 0) {
       if (this.runState.stage < BALANCE.STAGE.maxStages) {
         this.showStageClear();
       } else {
@@ -539,20 +646,22 @@ export class RunScene extends Phaser.Scene {
   private spawnEnemies(defId: string, count: number, elite: boolean): void {
     const def = ENEMY_DEFS[defId] ?? ENEMY_DEFS['basic'];
     if (!def) return;
-    // Hard cap: skip spawn if already at max
-    if (this.activeEnemyCount >= BALANCE.SPAWN.maxEnemiesOnScreen) return;
+    const isBoss = defId.startsWith('boss');
+    // Hard cap: skip spawn if already at max (bosses always spawn)
+    if (!isBoss && this.activeEnemyCount >= BALANCE.SPAWN.maxEnemiesOnScreen) return;
     const minutes = this.waveDirector.getElapsedMinutes();
-    // Clamp spawn count to remaining capacity
+    // Clamp spawn count to remaining capacity (bosses bypass)
     const capacity = BALANCE.SPAWN.maxEnemiesOnScreen - this.activeEnemyCount;
-    const actualCount = Math.min(count, capacity);
+    const actualCount = isBoss ? count : Math.min(count, Math.max(0, capacity));
 
     for (let i = 0; i < actualCount; i++) {
       const enemy = this.enemyGroup.get() as Enemy | null;
       if (!enemy) return;
-      const sx = Phaser.Math.Between(20, GAME_WIDTH - 20);
-      const sy = BALANCE.SPAWN.spawnYMin +
-        Math.random() * (BALANCE.SPAWN.spawnYMax - BALANCE.SPAWN.spawnYMin);
-      enemy.activate(def, sx, sy, minutes, elite, this.stageDifficultyMult);
+      // Boss spawns at center-top for dramatic entrance
+      const sx = isBoss ? GAME_WIDTH / 2 : Phaser.Math.Between(20, GAME_WIDTH - 20);
+      const sy = isBoss ? -60 : BALANCE.SPAWN.spawnYMin +
+        this.rng.next() * (BALANCE.SPAWN.spawnYMax - BALANCE.SPAWN.spawnYMin);
+      enemy.activate(def, sx, sy, minutes, elite, this.stageHpMult, this.stageSpeedMult, this.stageDamageMult);
     }
   }
 
@@ -580,18 +689,87 @@ export class RunScene extends Phaser.Scene {
   }
 
   private onEnemyReachedBase(enemy: Enemy): void {
+    // Boss bounces back instead of being deactivated (prevents softlock)
+    if (enemy.defId.startsWith('boss')) {
+      const body = enemy.body as Phaser.Physics.Arcade.Body;
+      enemy.y = BALANCE.BASE.y - 80;
+      body.setVelocity(0, -enemy.speed * 2);
+      this.vfx.screenShake(0.003, 100);
+      return;
+    }
+
+    // Melee enemies: start periodic base attack (stay alive)
+    if (enemy.attackStyle === 'melee') {
+      enemy.y = BALANCE.BASE.y - 10; // position just above base
+      enemy.startBaseAttack();
+      this.applyBaseDamage(enemy); // first hit on contact
+      return;
+    }
+
+    // Suicide enemies: deal damage + die (original behavior)
+    this.applyBaseDamage(enemy);
+    const color = (NEON as Record<string, number>)[enemy.colorKey] ?? NEON.ENEMY_BASIC;
+    this.vfx.enemyDeath(enemy.x, BALANCE.BASE.y, color);
+    enemy.deactivate();
+  }
+
+  /** Apply base damage from an enemy (shared by melee periodic + suicide impact) */
+  private applyBaseDamage(enemy: Enemy): void {
     const actualDamage = Math.ceil(enemy.damage * this.baseArmorMultiplier);
     this.runState.baseHp = Math.max(0, this.runState.baseHp - actualDamage);
     this.flashBaseWall();
     this.vfx.screenShake(0.005, 150);
-    this.playSfx('baseHit', () => getRetroSFX().benchRetreat(), 200);
-
-    const color = (NEON as Record<string, number>)[enemy.colorKey] ?? NEON.ENEMY_BASIC;
-    this.vfx.enemyDeath(enemy.x, BALANCE.BASE.y, color);
-    enemy.deactivate();
+    this.dmgNumbers.show(enemy.x, BALANCE.BASE.y - 20, actualDamage, false);
+    this.playSfx('baseHit', () => getRetroSFX().baseHit(), 500);
 
     if (this.runState.baseHp <= 0) {
       this.onRunComplete(false);
+    }
+  }
+
+  /** Spawn an enemy projectile aimed at base wall */
+  private spawnEnemyProjectile(enemy: Enemy): void {
+    const sprite = this.add.circle(enemy.x, enemy.y, 6, 0xe94560).setDepth(50);
+    this.enemyProjectiles.push({
+      x: enemy.x,
+      y: enemy.y,
+      vy: enemy.projectileSpeed,
+      damage: enemy.damage,
+      sprite,
+    });
+    this.playSfx('enemyShoot', () => getRetroSFX().deploy(), 300);
+  }
+
+  /** Update enemy projectiles: move down, check base collision, remove offscreen */
+  private updateEnemyProjectiles(delta: number): void {
+    const dt = delta / 1000;
+    for (let i = this.enemyProjectiles.length - 1; i >= 0; i--) {
+      const p = this.enemyProjectiles[i];
+      p.y += p.vy * dt;
+      p.sprite.setPosition(p.x, p.y);
+
+      // Hit base wall
+      if (p.y >= BALANCE.BASE.y) {
+        const actualDamage = Math.ceil(p.damage * this.baseArmorMultiplier);
+        this.runState.baseHp = Math.max(0, this.runState.baseHp - actualDamage);
+        this.flashBaseWall();
+        this.vfx.screenShake(0.003, 80);
+        this.dmgNumbers.show(p.x, BALANCE.BASE.y - 20, actualDamage, false);
+        this.playSfx('baseHit', () => getRetroSFX().baseHit(), 500);
+        p.sprite.destroy();
+        this.enemyProjectiles.splice(i, 1);
+
+        if (this.runState.baseHp <= 0) {
+          this.onRunComplete(false);
+        }
+        continue;
+      }
+
+      // Offscreen cleanup
+      if (p.y > GAME_HEIGHT + 50) {
+        p.sprite.destroy();
+        this.enemyProjectiles.splice(i, 1);
+      }
     }
   }
 
@@ -602,14 +780,24 @@ export class RunScene extends Phaser.Scene {
     this.runState.gold += enemy.isElite
       ? BALANCE.RUN.goldPerElite
       : BALANCE.RUN.goldPerKill;
-    this.runState.playerXp += enemy.xpValue;
+    this.playSfx('gold', () => getRetroSFX().goldCollect(), 200);
+    this.runState.playerXp += Math.ceil(enemy.xpValue * (1 + this.metaXpBonus));
+    this.playSfx('xp', () => getRetroSFX().xpCollect(), 100);
+    SaveManager.discoverEnemy(enemy.defId);
 
     const color = (NEON as Record<string, number>)[enemy.colorKey] ?? NEON.ENEMY_BASIC;
     this.vfx.enemyDeath(enemy.x, enemy.y, color);
 
-    // Screen shake: boss > elite > normal
-    if (enemy.behavior === 'boss_chase') {
+    // Boss gold bonus
+    const isBossEnemy = enemy.defId.startsWith('boss');
+    if (isBossEnemy) {
+      this.runState.gold += BALANCE.RUN.goldPerBoss;
+    }
+
+    // Screen shake + SFX: boss > elite > normal
+    if (isBossEnemy) {
       this.vfx.screenShake(0.008, 200);
+      getRetroSFX().bossDefeat();
     } else if (enemy.isElite) {
       this.vfx.screenShake(0.004, 120);
     } else {
@@ -623,7 +811,7 @@ export class RunScene extends Phaser.Scene {
         const child = this.enemyGroup.get() as Enemy | null;
         if (!child) break;
         const offsetX = i === 0 ? -20 : 20;
-        child.activate(def, enemy.x + offsetX, enemy.y, this.waveDirector.getElapsedMinutes(), false, this.stageDifficultyMult);
+        child.activate(def, enemy.x + offsetX, enemy.y, this.waveDirector.getElapsedMinutes(), false, this.stageHpMult, this.stageSpeedMult, this.stageDamageMult);
         child.hp = Math.ceil(enemy.maxHp * 0.4);
         child.maxHp = child.hp;
         child.isSplitChild = true;
@@ -634,14 +822,39 @@ export class RunScene extends Phaser.Scene {
     enemy.deactivate();
     this.playSfx('kill', () => getRetroSFX().destroy(), 80);
 
-    // Level up check
-    while (
-      this.runState.playerXp >= this.xpTable.required(this.runState.playerLevel)
-    ) {
-      this.runState.playerXp -= this.xpTable.required(this.runState.playerLevel);
-      this.runState.playerLevel++;
-      this.showLevelUpUI();
-      break;
+    // Boss stage: boss death = stage clear (serialized: level-ups first, then stage clear)
+    if (this.bossStageActive && isBossEnemy) {
+      getRetroSFX().levelClear();
+      this.pendingStageClear = true;
+    }
+
+    // Level up check — ONLY when still in 'playing' phase.
+    // If another kill in the same frame already triggered levelup, skip here;
+    // accumulated XP will be processed in applyUpgrade() chained level-up check.
+    if (this.phase === 'playing') {
+      while (
+        this.runState.playerXp >= this.xpTable.required(this.runState.playerLevel)
+      ) {
+        this.runState.playerXp -= this.xpTable.required(this.runState.playerLevel);
+        this.runState.playerLevel++;
+        this.showLevelUpUI();
+        break; // show one level-up at a time
+      }
+    }
+
+    // If boss died but no level-up pending → show stage clear after VFX delay
+    // CRITICAL: Pause physics to prevent new kills/level-ups during delay (C-03 fix)
+    if (this.pendingStageClear && this.phase !== 'levelup') {
+      this.pendingStageClear = false;
+      this.physics.pause();
+      this.time.delayedCall(500, () => {
+        if (this.phase === 'gameover') return;
+        if (this.runState.stage < BALANCE.STAGE.maxStages) {
+          this.showStageClear();
+        } else {
+          this.onRunComplete(true);
+        }
+      });
     }
   }
 
@@ -697,7 +910,8 @@ export class RunScene extends Phaser.Scene {
         Object.entries(PASSIVE_DEFS).map(([k, v]) => [k, { name: v.name, description: v.description }]),
       ),
       3,
-      6,
+      BALANCE.RUN.maxWeapons,
+      this.rng,
     );
     this.createUpgradeCards(choices);
   }
@@ -719,8 +933,8 @@ export class RunScene extends Phaser.Scene {
     this.upgradeContainer.add(backdrop);
 
     const title = this.add
-      .text(0, -GAME_HEIGHT * 0.3, '원소 강화!', {
-        fontSize: '48px',
+      .text(0, -GAME_HEIGHT * 0.3, '무기 선택!', {
+        fontSize: '56px',
         color: NEON_CSS.UI_ACCENT,
         fontFamily: 'monospace',
         fontStyle: 'bold',
@@ -742,21 +956,21 @@ export class RunScene extends Phaser.Scene {
 
       const nameText = this.add
         .text(cardX, -70, choice.name, {
-          fontSize: '20px', color: NEON_CSS.UI_TEXT,
+          fontSize: '24px', color: NEON_CSS.UI_TEXT,
           fontFamily: 'monospace', fontStyle: 'bold',
           wordWrap: { width: cardW - 16 }, align: 'center',
         }).setOrigin(0.5);
 
       const descText = this.add
         .text(cardX, -10, choice.description, {
-          fontSize: '16px', color: NEON_CSS.UI_DIM,
+          fontSize: '20px', color: NEON_CSS.UI_DIM,
           fontFamily: 'monospace',
           wordWrap: { width: cardW - 16 }, align: 'center',
         }).setOrigin(0.5);
 
       const levelLabel = this.add
         .text(cardX, 70, choice.isNew ? '신규!' : `Lv ${choice.level}`, {
-          fontSize: '18px',
+          fontSize: '22px',
           color: choice.isNew ? NEON_CSS.UI_ACCENT : NEON_CSS.GOLD,
           fontFamily: 'monospace', fontStyle: 'bold',
         }).setOrigin(0.5);
@@ -769,6 +983,36 @@ export class RunScene extends Phaser.Scene {
           bg.setStrokeStyle(2, choice.isNew ? NEON.UI_ACCENT : NEON.UI_BORDER))
         .on('pointerdown', () => this.applyUpgrade(choice));
     });
+
+    // Auto-select timer bar
+    const barW = totalW;
+    const barH = 6;
+    const barY = cardH / 2 + 20;
+    this.autoSelectBarBg = this.add.rectangle(0, barY, barW, barH, 0x333355, 0.8);
+    this.autoSelectBarFill = this.add.rectangle(-barW / 2, barY, barW, barH, NEON.UI_ACCENT, 0.9).setOrigin(0, 0.5);
+    this.upgradeContainer!.add([this.autoSelectBarBg, this.autoSelectBarFill]);
+
+    // Determine best choice — real-time auto-select (immune to gameSpeed)
+    this.autoSelectBestChoice = this.scoreBestChoice(choices);
+    this.autoSelectStartReal = Date.now();
+  }
+
+  private scoreBestChoice(choices: UpgradeChoice[]): UpgradeChoice {
+    const scoreChoice = (c: UpgradeChoice): number => {
+      let s = 0;
+      if (c.type === 'weapon') {
+        s += 100;
+        if (!c.isNew) s += 50 + c.level * 10;
+        const def = WEAPON_DEFS[c.id];
+        if (def) s += def.baseDamage;
+      } else {
+        s += 50;
+        if (!c.isNew) s += 30;
+        if (c.id === 'damage' || c.id === 'crit_chance' || c.id === 'attack_speed') s += 20;
+      }
+      return s;
+    };
+    return choices.reduce((best, c) => scoreChoice(c) > scoreChoice(best) ? c : best);
   }
 
   private applyUpgrade(choice: UpgradeChoice): void {
@@ -780,7 +1024,7 @@ export class RunScene extends Phaser.Scene {
         this.weapons.push({ defId: choice.id, level: 1, cooldownRemaining: 0 });
         this.runState.weapons.push(choice.id);
       }
-      if (choice.id === 'orbit_guard') this.syncOrbitSprites();
+      SaveManager.discoverWeapon(choice.id);
     } else {
       this.runState.passives.push(choice.id);
       const prev = this.passiveCounts.get(choice.id) ?? 0;
@@ -788,20 +1032,44 @@ export class RunScene extends Phaser.Scene {
       this.applyPassiveEffect(choice.id);
     }
 
+    // Clean up auto-select state
+    this.autoSelectBarBg = undefined;
+    this.autoSelectBarFill = undefined;
+    this.autoSelectBestChoice = undefined;
+
     getRetroSFX().tap();
     this.upgradeContainer?.destroy();
     this.upgradeContainer = undefined;
-    this.physics.resume();
-    this.phase = 'playing';
 
-    while (
-      this.runState.playerXp >= this.xpTable.required(this.runState.playerLevel)
-    ) {
+    // Check for more pending level-ups before resuming
+    if (this.runState.playerXp >= this.xpTable.required(this.runState.playerLevel)) {
       this.runState.playerXp -= this.xpTable.required(this.runState.playerLevel);
       this.runState.playerLevel++;
-      this.showLevelUpUI();
-      break;
+      this.showLevelUpUI(); // stay in levelup phase
+      return;
     }
+
+    // All level-ups resolved. Check pending stage clear (boss was killed).
+    // CRITICAL: Must transition phase OUT of 'levelup' before scheduling showStageClear,
+    // because showStageClear guards against phase === 'levelup' to prevent overlap.
+    // Without this, boss clear + level-up = permanent softlock (M-014).
+    if (this.pendingStageClear) {
+      this.pendingStageClear = false;
+      this.phase = 'playing'; // exit levelup phase — physics stays paused until stage clear
+      this.time.delayedCall(300, () => {
+        if (this.phase === 'gameover') return;
+        if (this.runState.stage < BALANCE.STAGE.maxStages) {
+          this.showStageClear();
+        } else {
+          this.onRunComplete(true);
+        }
+      });
+      return; // don't resume physics — stage clear will handle it
+    }
+
+    // Normal resume
+    this.physics.resume();
+    this.phase = 'playing';
   }
 
   private applyPassiveEffect(passiveId: string): void {
@@ -809,32 +1077,33 @@ export class RunScene extends Phaser.Scene {
     if (!def) return;
     const level = this.passiveCounts.get(passiveId) ?? 0;
 
+    // C-01 fix: Add passive bonus ON TOP of meta progression base, not overwrite
     switch (def.effect) {
       case 'attack_speed':
         this.player.attackSpeedMultiplier = 1 + def.valuePerLevel * level;
         break;
       case 'damage':
-        this.player.damageMultiplier = 1 + def.valuePerLevel * level;
+        this.player.damageMultiplier = 1 + this.metaDamageBase + def.valuePerLevel * level;
         break;
-      case 'base_armor':
-        this.baseArmorMultiplier = Math.max(0.1, 1 - def.valuePerLevel * level);
+      case 'base_armor': {
+        const passiveArmor = Math.max(0.1, 1 - def.valuePerLevel * level);
+        this.baseArmorMultiplier = passiveArmor * this.shopArmorMultiplier;
         break;
+      }
       case 'crit_chance':
-        this.player.critChance = def.valuePerLevel * level;
+        this.player.critChance = this.metaCritBase + def.valuePerLevel * level;
         break;
       case 'crit_damage':
         this.player.critDamage = BALANCE.COMBAT.critMultiplier + def.valuePerLevel * level;
         break;
-      case 'move_speed':
-        this.player.moveSpeed = BALANCE.PLAYER.baseMoveSpeed * (1 + def.valuePerLevel * level);
-        break;
+      // move_speed removed: player is a fixed turret
     }
   }
 
   // === STAGE CLEAR / NEXT STAGE ===
 
   private showStageClear(): void {
-    if (this.phase === 'stage_clear') return;
+    if (this.phase === 'stage_clear' || this.phase === 'levelup' || this.phase === 'gameover') return;
     this.phase = 'stage_clear';
     this.physics.pause();
     getRetroSFX().levelClear();
@@ -846,32 +1115,53 @@ export class RunScene extends Phaser.Scene {
     const backdrop = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.7);
     this.stageClearContainer.add(backdrop);
 
+    const curConfig = BALANCE.STAGE.stages[this.runState.stage - 1];
+    const clearTitle = this.bossStageActive
+      ? `${curConfig?.name ?? 'BOSS'} 격파!`
+      : `STAGE ${this.runState.stage} CLEAR`;
+
     const stageLabel = this.add
-      .text(0, -80, `STAGE ${this.runState.stage} CLEAR`, {
-        fontSize: '48px', color: NEON_CSS.UI_ACCENT,
+      .text(0, -80, clearTitle, {
+        fontSize: '50px', color: NEON_CSS.UI_ACCENT,
         fontFamily: 'monospace', fontStyle: 'bold',
       }).setOrigin(0.5);
     this.stageClearContainer.add(stageLabel);
 
     const healPct = BALANCE.STAGE.clearHealPercent;
     const infoText = this.add
-      .text(0, 0, `기지 HP ${Math.round(healPct * 100)}% 회복\n다음 스테이지 준비 중...`, {
-        fontSize: '24px', color: NEON_CSS.UI_TEXT,
+      .text(0, 0, `기지 HP ${Math.round(healPct * 100)}% 회복`, {
+        fontSize: '28px', color: NEON_CSS.UI_TEXT,
         fontFamily: 'monospace', align: 'center',
         lineSpacing: 8,
       }).setOrigin(0.5);
     this.stageClearContainer.add(infoText);
 
+    const nextConfig = BALANCE.STAGE.stages[this.runState.stage]; // next stage (0-indexed)
     const nextLabel = this.add
-      .text(0, 80, `STAGE ${this.runState.stage + 1} / ${BALANCE.STAGE.maxStages}`, {
+      .text(0, 60, `다음: ${nextConfig?.name ?? 'FINAL'} (${this.runState.stage + 1}/${BALANCE.STAGE.maxStages})`, {
         fontSize: '28px', color: NEON_CSS.GOLD,
         fontFamily: 'monospace', fontStyle: 'bold',
       }).setOrigin(0.5);
     this.stageClearContainer.add(nextLabel);
 
-    this.time.delayedCall(BALANCE.STAGE.clearPauseMs, () => {
-      this.nextStage();
-    });
+    // "다음 스테이지" button — player must tap to proceed
+    const btnBg = this.add
+      .rectangle(0, 150, 280, 60, NEON.UI_PANEL)
+      .setStrokeStyle(2, NEON.UI_ACCENT);
+    const btnText = this.add
+      .text(0, 150, '다음 스테이지', {
+        fontSize: '30px', color: NEON_CSS.UI_ACCENT,
+        fontFamily: 'monospace', fontStyle: 'bold',
+      }).setOrigin(0.5);
+    this.stageClearContainer.add([btnBg, btnText]);
+
+    btnBg.setInteractive({ useHandCursor: true })
+      .on('pointerover', () => btnBg.setStrokeStyle(3, NEON.UI_ACCENT))
+      .on('pointerout', () => btnBg.setStrokeStyle(2, NEON.UI_ACCENT))
+      .on('pointerdown', () => {
+        getRetroSFX().tap();
+        this.nextStage();
+      });
   }
 
   private nextStage(): void {
@@ -883,21 +1173,36 @@ export class RunScene extends Phaser.Scene {
     this.runState.stage++;
     this.runState.stageTime = 0;
 
-    // Apply stage difficulty multiplier (cumulative)
+    // Determine stage type
+    const nextConfig = BALANCE.STAGE.stages[this.runState.stage - 1];
+    this.bossStageActive = nextConfig?.type === 'boss';
+    this.bossSpawnedThisStage = false;
+
+    // Apply stage difficulty multipliers (cumulative, C-03 fix)
     const diff = BALANCE.STAGE.difficultyPerStage;
-    this.stageDifficultyMult = Math.pow(diff.hpMult, this.runState.stage - 1);
+    this.stageHpMult = Math.pow(diff.hpMult, this.runState.stage - 1);
+    this.stageSpeedMult = Math.pow(diff.speedMult, this.runState.stage - 1);
+    this.stageDamageMult = Math.pow(diff.damageMult, this.runState.stage - 1);
 
     // Heal base
     const healAmount = Math.ceil(this.runState.baseMaxHp * BALANCE.STAGE.clearHealPercent);
     this.runState.baseHp = Math.min(this.runState.baseMaxHp, this.runState.baseHp + healAmount);
 
-    // Reset wave director for new stage
-    this.waveDirector.reset();
-    const bossId = BALANCE.STAGE.bossPerStage[this.runState.stage - 1] ?? 'boss';
-    this.waveDirector.setBossId(bossId);
+    // Reset wave director for wave stages
+    if (!this.bossStageActive) {
+      this.waveDirector.reset();
+      if (nextConfig?.enemyPool) {
+        this.waveDirector.setEnemyPool(nextConfig.enemyPool);
+      }
+      getRetroAudio().switchTrack('combat');
+    }
+
+    // Update background for new stage area
+    this.updateBackground();
 
     // Reset spawn state
     this.spawnEnded = false;
+    this.pendingStageClear = false;
     this.ariaBossShown = false;
     this.ariaBossWarningShown = false;
     this.ariaLowHpShown = false;
@@ -905,12 +1210,23 @@ export class RunScene extends Phaser.Scene {
     this.activeBoss = null;
     this.prevBossHpPct = -1;
 
+    // Deactivate all remaining enemies (defensive: should already be 0, but prevents ghost sprites)
+    const enemyChildren = this.enemyGroup.getChildren();
+    for (let i = 0; i < enemyChildren.length; i++) {
+      const enemy = enemyChildren[i] as Enemy;
+      if (enemy.active) enemy.deactivate();
+    }
+
     // Deactivate all remaining projectiles
     const projChildren = this.projectileGroup.getChildren();
     for (let i = 0; i < projChildren.length; i++) {
       const proj = projChildren[i] as Projectile;
       if (proj.active) proj.deactivate();
     }
+
+    // Clean up enemy projectiles
+    for (const p of this.enemyProjectiles) p.sprite.destroy();
+    this.enemyProjectiles = [];
 
     // Reset HUD dirty flags
     this.prevBaseHpPct = -1;
@@ -921,25 +1237,20 @@ export class RunScene extends Phaser.Scene {
     // Resume
     this.physics.resume();
     this.phase = 'playing';
-    this.ariaMsg.show(`ARIA-01: 구역 ${this.runState.stage} 침입 감지... 방어 태세 재편성`);
+    const stageName = nextConfig?.name ?? `구역 ${this.runState.stage}`;
+    if (this.bossStageActive) {
+      this.ariaMsg.show(`ARIA-01: ${stageName} 감지... 경계 태세`);
+    } else {
+      this.ariaMsg.show(`ARIA-01: ${stageName} 침입 감지... 방어 태세 재편성`);
+    }
   }
 
   // === ARIA MESSAGES ===
 
   private checkARIATriggers(): void {
-    // Boss pre-warning (5s before boss spawn at ~45s)
-    if (!this.ariaBossWarningShown && this.runState.stageTime >= 45000) {
-      this.ariaBossWarningShown = true;
-      this.ariaMsg.show('ARIA-01: 고위험 최적화체 접근 중...');
-      this.vfx.screenShake(0.006, 300);
-    }
-    // Boss spawn
-    if (this.waveDirector.isBossSpawned() && !this.ariaBossShown) {
-      this.ariaBossShown = true;
-      this.ariaMsg.show('ARIA-01: 상위 최적화체 접근... 저항은 비효율적이다');
-      this.vfx.screenShake(0.01, 400);
-      getRetroSFX().deploy();
-    }
+    // Wave stage: boss pre-warning at 45s (no longer applies — boss has own stage)
+    // Boss stage ARIA is handled in Phase 3 (boss spawn)
+
     // Low HP warning
     const hpPct = this.runState.baseHp / this.runState.baseMaxHp;
     if (hpPct < 0.3 && !this.ariaLowHpShown) {
@@ -966,7 +1277,7 @@ export class RunScene extends Phaser.Scene {
     // Title
     const title = this.add
       .text(0, -GAME_HEIGHT * 0.3, 'ARIA 보급 포인트', {
-        fontSize: '36px', color: NEON_CSS.UI_ACCENT,
+        fontSize: '42px', color: NEON_CSS.UI_ACCENT,
         fontFamily: 'monospace', fontStyle: 'bold',
       }).setOrigin(0.5);
     this.shopContainer.add(title);
@@ -974,7 +1285,7 @@ export class RunScene extends Phaser.Scene {
     // Gold display
     const goldLabel = this.add
       .text(0, -GAME_HEIGHT * 0.22, `보유 골드: ${this.runState.gold}G`, {
-        fontSize: '24px', color: NEON_CSS.GOLD, fontFamily: 'monospace',
+        fontSize: '28px', color: NEON_CSS.GOLD, fontFamily: 'monospace',
       }).setOrigin(0.5);
     this.shopContainer.add(goldLabel);
 
@@ -1016,19 +1327,19 @@ export class RunScene extends Phaser.Scene {
 
       const nameText = this.add
         .text(cardX, -50, item.name, {
-          fontSize: '22px', color: canAfford ? NEON_CSS.UI_TEXT : NEON_CSS.UI_DIM,
+          fontSize: '26px', color: canAfford ? NEON_CSS.UI_TEXT : NEON_CSS.UI_DIM,
           fontFamily: 'monospace', fontStyle: 'bold',
         }).setOrigin(0.5);
 
       const descText = this.add
         .text(cardX, 0, item.desc, {
-          fontSize: '16px', color: NEON_CSS.UI_DIM,
+          fontSize: '20px', color: NEON_CSS.UI_DIM,
           fontFamily: 'monospace', wordWrap: { width: cardW - 16 }, align: 'center',
         }).setOrigin(0.5);
 
       const costText = this.add
         .text(cardX, 50, `${item.cost}G`, {
-          fontSize: '24px', color: canAfford ? NEON_CSS.GOLD : NEON_CSS.HEALTH,
+          fontSize: '28px', color: canAfford ? NEON_CSS.GOLD : NEON_CSS.HEALTH,
           fontFamily: 'monospace', fontStyle: 'bold',
         }).setOrigin(0.5);
 
@@ -1048,7 +1359,7 @@ export class RunScene extends Phaser.Scene {
       .setStrokeStyle(1, NEON.UI_BORDER);
     const skipText = this.add
       .text(0, cardH / 2 + 60, '건너뛰기', {
-        fontSize: '20px', color: NEON_CSS.UI_DIM,
+        fontSize: '24px', color: NEON_CSS.UI_DIM,
         fontFamily: 'monospace',
       }).setOrigin(0.5);
     this.shopContainer.add([skipBg, skipText]);
@@ -1057,6 +1368,36 @@ export class RunScene extends Phaser.Scene {
       .on('pointerover', () => skipBg.setStrokeStyle(2, NEON.UI_ACCENT))
       .on('pointerout', () => skipBg.setStrokeStyle(1, NEON.UI_BORDER))
       .on('pointerdown', () => this.closeShop());
+
+    // Auto-select timer bar (same as level-up)
+    const barW = totalW;
+    const barH = 6;
+    const barY = cardH / 2 + 110;
+    this.shopAutoBarBg = this.add.rectangle(0, barY, barW, barH, 0x333355, 0.8);
+    this.shopAutoBarFill = this.add.rectangle(-barW / 2, barY, barW, barH, NEON.UI_ACCENT, 0.9).setOrigin(0, 0.5);
+    this.shopContainer!.add([this.shopAutoBarBg, this.shopAutoBarFill]);
+
+    // Determine best affordable choice — real-time auto-select (immune to gameSpeed)
+    this.shopAutoBestAction = this.scoreBestShopChoice(items);
+    this.shopAutoStartReal = Date.now();
+  }
+
+  /** Pick the best affordable shop item: heal > damage > armor. */
+  private scoreBestShopChoice(
+    items: { name: string; desc: string; cost: number; action: 'heal' | 'damage' | 'armor' }[],
+  ): { action: 'heal' | 'damage' | 'armor'; cost: number } | null {
+    // Priority: heal if base HP < 70%, otherwise damage > armor
+    const affordable = items.filter(it => this.runState.gold >= it.cost);
+    if (affordable.length === 0) return null;
+
+    const hpPct = this.runState.baseHp / this.runState.baseMaxHp;
+    const heal = affordable.find(it => it.action === 'heal');
+    if (heal && hpPct < 0.7) return { action: heal.action, cost: heal.cost };
+
+    const dmg = affordable.find(it => it.action === 'damage');
+    if (dmg) return { action: dmg.action, cost: dmg.cost };
+
+    return { action: affordable[0].action, cost: affordable[0].cost };
   }
 
   private applyShopChoice(action: 'heal' | 'damage' | 'armor', cost: number): void {
@@ -1076,7 +1417,14 @@ export class RunScene extends Phaser.Scene {
         this.ariaMsg.show(`ARIA-01: 화력 ${Math.round(shop.damageBoostPercent * 100)}% 증폭 적용`);
         break;
       case 'armor':
-        this.baseArmorMultiplier *= (1 - shop.armorBoostPercent);
+        this.shopArmorMultiplier *= (1 - shop.armorBoostPercent);
+        this.baseArmorMultiplier = this.shopArmorMultiplier;
+        // Recalculate with passive armor if any
+        const armorLevel = this.passiveCounts.get('base_armor') ?? 0;
+        if (armorLevel > 0) {
+          const pDef = PASSIVE_DEFS['base_armor'];
+          this.baseArmorMultiplier = Math.max(0.1, 1 - pDef.valuePerLevel * armorLevel) * this.shopArmorMultiplier;
+        }
         this.ariaMsg.show(`ARIA-01: 방어막 ${Math.round(shop.armorBoostPercent * 100)}% 강화 적용`);
         break;
     }
@@ -1086,89 +1434,13 @@ export class RunScene extends Phaser.Scene {
   }
 
   private closeShop(): void {
+    this.shopAutoBestAction = undefined;
+    this.shopAutoBarBg = undefined;
+    this.shopAutoBarFill = undefined;
     this.shopContainer?.destroy();
     this.shopContainer = undefined;
     this.physics.resume();
     this.phase = 'playing';
-  }
-
-  // === ORBIT WEAPON ===
-
-  private updateOrbit(delta: number): void {
-    if (this.orbitSprites.length === 0) return;
-
-    const rotSpeed = 3; // radians per second
-    this.orbitAngle += rotSpeed * (delta / 1000);
-
-    const hitRadius = 28; // orbit sprite + enemy body
-    const hitRadiusSq = hitRadius * hitRadius;
-    const hitCooldownMs = 500; // ms between hits per enemy
-
-    for (let i = 0; i < this.orbitSprites.length; i++) {
-      const sprite = this.orbitSprites[i];
-      const angle = this.orbitAngle + (Math.PI * 2 * i) / this.orbitSprites.length;
-      sprite.setPosition(
-        this.player.x + Math.cos(angle) * this.orbitRadius,
-        this.player.y + Math.sin(angle) * this.orbitRadius,
-      );
-      sprite.setRotation(angle);
-
-      // Collision with enemies
-      for (let j = 0; j < this.activeEnemyCount; j++) {
-        const enemy = this.activeEnemies[j];
-        if (!enemy.active) continue;
-
-        const dx = sprite.x - enemy.x;
-        const dy = sprite.y - enemy.y;
-        if (dx * dx + dy * dy >= hitRadiusSq) continue;
-
-        // Per-enemy hit cooldown
-        const lastHit = this.orbitHitCooldowns.get(enemy) ?? 0;
-        const now = this.time.now;
-        if (now - lastHit < hitCooldownMs) continue;
-        this.orbitHitCooldowns.set(enemy, now);
-
-        const dead = enemy.takeDamage(this.orbitDamage);
-        this.vfx.hitSpark(enemy.x, enemy.y);
-        if (dead) {
-          this.onEnemyDeath(enemy);
-        }
-      }
-    }
-
-    // Clean stale cooldown entries
-    if (this.orbitHitCooldowns.size > 50) {
-      const now = this.time.now;
-      for (const [enemy, t] of this.orbitHitCooldowns) {
-        if (!enemy.active || now - t > hitCooldownMs * 2) {
-          this.orbitHitCooldowns.delete(enemy);
-        }
-      }
-    }
-  }
-
-  private syncOrbitSprites(): void {
-    const weapon = this.weapons.find((w) => w.defId === 'orbit_guard');
-    if (!weapon) return;
-
-    const def = WEAPON_DEFS['orbit_guard'];
-    if (!def) return;
-
-    const count = def.projectileCount + Math.floor((weapon.level - 1) * 0.5);
-    const levelMult = 1 + (weapon.level - 1) * 0.2;
-    this.orbitDamage = Math.ceil(def.baseDamage * levelMult * this.player.damageMultiplier);
-    this.orbitRadius = def.range + weapon.level * 10;
-
-    // Add missing sprites
-    while (this.orbitSprites.length < count) {
-      const sprite = this.add.sprite(0, 0, 'projectile_orbit').setDepth(400);
-      this.orbitSprites.push(sprite);
-    }
-    // Remove excess sprites
-    while (this.orbitSprites.length > count) {
-      const sprite = this.orbitSprites.pop()!;
-      sprite.destroy();
-    }
   }
 
   // === GAME OVER / VICTORY ===
@@ -1178,19 +1450,20 @@ export class RunScene extends Phaser.Scene {
     this.phase = 'gameover';
     this.physics.pause();
     this.input.off('pointerdown', this.onPointerDown, this);
-    this.orbitSprites.forEach((s) => s.destroy());
-    this.orbitSprites = [];
-    this.allyLeftSprite?.destroy();
-    this.allyRightSprite?.destroy();
+
+    // Clean up auto-select state (prevent update() callbacks after scene change)
+    this.autoSelectBestChoice = undefined;
+    this.autoSelectBarFill = undefined;
+    this.shopAutoBestAction = undefined;
+    this.shopAutoBarFill = undefined;
+
     this.activeBoss = null;
-    this.vfx.destroy();
-    this.dmgNumbers.destroy();
-    this.ariaMsg.destroy();
-    this.pauseOverlay.destroy();
     this.shopContainer?.destroy();
     this.shopContainer = undefined;
     this.stageClearContainer?.destroy();
     this.stageClearContainer = undefined;
+    this.upgradeContainer?.destroy();
+    this.upgradeContainer = undefined;
 
     if (survived) {
       getRetroSFX().levelClear();
@@ -1198,15 +1471,18 @@ export class RunScene extends Phaser.Scene {
       getRetroSFX().gameOver();
     }
 
-    this.scene.start('GameOverScene', {
-      survived,
-      kills: this.runState.kills,
-      gold: this.runState.gold,
-      level: this.runState.playerLevel,
-      timeMs: this.runState.runTime,
-      baseHpRemaining: this.runState.baseHp,
-      stage: this.runState.stage,
-      maxStages: BALANCE.STAGE.maxStages,
+    // Delay scene transition slightly so SFX plays and frame completes cleanly
+    this.time.delayedCall(100, () => {
+      this.scene.start('GameOverScene', {
+        survived,
+        kills: this.runState.kills,
+        gold: this.runState.gold,
+        level: this.runState.playerLevel,
+        timeMs: this.runState.runTime,
+        baseHpRemaining: this.runState.baseHp,
+        stage: this.runState.stage,
+        maxStages: BALANCE.STAGE.maxStages,
+      });
     });
   }
 
@@ -1216,82 +1492,107 @@ export class RunScene extends Phaser.Scene {
     this.baseBar = this.add.graphics().setScrollFactor(0).setDepth(1500);
     this.xpBar = this.add.graphics().setScrollFactor(0).setDepth(1500);
 
+    // === Row 1 (y=16): Kill | Timer | [II][1x] ===
     this.killText = this.add
-      .text(20, 20, '정화: 0', {
-        fontSize: '22px', color: NEON_CSS.UI_TEXT, fontFamily: 'monospace',
+      .text(20, 16, '정화: 0', {
+        fontSize: '24px', color: NEON_CSS.UI_TEXT, fontFamily: 'monospace',
       }).setScrollFactor(0).setDepth(1500);
 
     this.timerText = this.add
-      .text(GAME_WIDTH / 2, 20, '1:00', {
-        fontSize: '26px', color: NEON_CSS.UI_DIM, fontFamily: 'monospace', fontStyle: 'bold',
+      .text(GAME_WIDTH / 2, 14, '1:00', {
+        fontSize: '30px', color: NEON_CSS.UI_DIM, fontFamily: 'monospace', fontStyle: 'bold',
       }).setOrigin(0.5, 0).setScrollFactor(0).setDepth(1500);
 
+    // Pause button (top-right)
+    this.add
+      .rectangle(GAME_WIDTH - 50, 28, 60, 32, NEON.UI_PANEL, 0.9)
+      .setStrokeStyle(1, NEON.UI_BORDER)
+      .setScrollFactor(0).setDepth(1500)
+      .setInteractive({ useHandCursor: true })
+      .on('pointerdown', () => this.togglePause());
+    this.add
+      .text(GAME_WIDTH - 50, 28, 'II', {
+        fontSize: '22px', color: NEON_CSS.UI_TEXT,
+        fontFamily: 'monospace', fontStyle: 'bold',
+      }).setOrigin(0.5).setScrollFactor(0).setDepth(1501);
+
+    // Speed toggle button (bottom-right, large for easy tapping)
+    this.add
+      .rectangle(GAME_WIDTH - 70, BALANCE.BASE.y - 50, 100, 50, NEON.UI_PANEL, 0.85)
+      .setStrokeStyle(2, NEON.UI_BORDER)
+      .setScrollFactor(0).setDepth(1500)
+      .setInteractive({ useHandCursor: true })
+      .on('pointerdown', () => this.cycleSpeed());
+    this.speedText = this.add
+      .text(GAME_WIDTH - 70, BALANCE.BASE.y - 50, '1x', {
+        fontSize: '28px', color: NEON_CSS.UI_ACCENT,
+        fontFamily: 'monospace', fontStyle: 'bold',
+      }).setOrigin(0.5).setScrollFactor(0).setDepth(1501);
+
+    // === Row 2 (y=44): Lv + Gold | Stage ===
+    this.levelText = this.add
+      .text(20, 44, 'Lv 1', {
+        fontSize: '22px', color: NEON_CSS.UI_ACCENT, fontFamily: 'monospace',
+      }).setScrollFactor(0).setDepth(1500);
+
     this.goldText = this.add
-      .text(200, 20, '💰 0', {
-        fontSize: '20px', color: NEON_CSS.GOLD, fontFamily: 'monospace',
+      .text(120, 44, 'G 0', {
+        fontSize: '22px', color: NEON_CSS.GOLD, fontFamily: 'monospace',
       }).setScrollFactor(0).setDepth(1500);
 
     this.stageText = this.add
-      .text(GAME_WIDTH / 2, 50, `Stage 1/${BALANCE.STAGE.maxStages}`, {
-        fontSize: '18px', color: NEON_CSS.GOLD, fontFamily: 'monospace', fontStyle: 'bold',
+      .text(GAME_WIDTH / 2, 44, `Stage 1/${BALANCE.STAGE.maxStages}`, {
+        fontSize: '22px', color: NEON_CSS.GOLD, fontFamily: 'monospace', fontStyle: 'bold',
       }).setOrigin(0.5, 0).setScrollFactor(0).setDepth(1500);
 
-    this.levelText = this.add
-      .text(20, 50, 'Lv 1', {
-        fontSize: '18px', color: NEON_CSS.UI_ACCENT, fontFamily: 'monospace',
-      }).setScrollFactor(0).setDepth(1500);
-
-    // Boss HP bar (hidden until boss spawns)
-    this.bossHpBar = this.add.graphics().setScrollFactor(0).setDepth(1500).setAlpha(0);
+    // === Row 3 (y=70): XP bar (drawn in updateHUD) ===
+    // === Row 4 (y=84): Boss name (conditional) ===
     this.bossNameText = this.add
-      .text(GAME_WIDTH / 2, 88, '', {
-        fontSize: '16px', color: NEON_CSS.BOSS_WARNING, fontFamily: 'monospace', fontStyle: 'bold',
+      .text(GAME_WIDTH / 2, 84, '', {
+        fontSize: '20px', color: NEON_CSS.BOSS_WARNING, fontFamily: 'monospace', fontStyle: 'bold',
       }).setOrigin(0.5, 0).setScrollFactor(0).setDepth(1500).setAlpha(0);
 
-    // Weapon list (right side, below speed/pause buttons)
-    this.weaponListText = this.add
-      .text(GAME_WIDTH - 10, 65, '', {
-        fontSize: '16px', color: NEON_CSS.UI_TEXT, fontFamily: 'monospace',
+    // === Row 5 (y=102): Boss HP bar (conditional) ===
+    this.bossHpBar = this.add.graphics().setScrollFactor(0).setDepth(1500).setAlpha(0);
+
+    // === Left panel (y=96): Player stats ===
+    this.statsText = this.add
+      .text(14, 96, '', {
+        fontSize: '18px', color: NEON_CSS.UI_DIM, fontFamily: 'monospace',
         lineSpacing: 4,
-        align: 'right',
-      }).setOrigin(1, 0).setScrollFactor(0).setDepth(1500);
-    this.prevWeaponListStr = '';
+      }).setScrollFactor(0).setDepth(1500);
+    this.prevStatsStr = '';
+
+    // === Right panel (y=96): 4 fixed weapon slots ===
+    const slotW = 150;
+    const slotH = 30;
+    const slotGap = 4;
+    const slotX = GAME_WIDTH - 10 - slotW / 2;
+    this.weaponSlotBgs = [];
+    this.weaponSlotTexts = [];
+    for (let i = 0; i < BALANCE.RUN.maxWeapons; i++) {
+      const sy = 96 + i * (slotH + slotGap) + slotH / 2;
+      const bg = this.add
+        .rectangle(slotX, sy, slotW, slotH, NEON.UI_PANEL, 0.4)
+        .setStrokeStyle(1, NEON.UI_BORDER, 0.4)
+        .setScrollFactor(0).setDepth(1500);
+      const txt = this.add
+        .text(slotX, sy, '---', {
+          fontSize: '16px', color: NEON_CSS.UI_DIM, fontFamily: 'monospace',
+        })
+        .setOrigin(0.5).setScrollFactor(0).setDepth(1501);
+      this.weaponSlotBgs.push(bg);
+      this.weaponSlotTexts.push(txt);
+    }
+    this.prevWeaponSlotStr = '';
 
     // Enemy overhead HP bars (world-space, moves with enemies)
     this.enemyHpBarsGfx = this.add.graphics().setDepth(200);
 
     this.fpsText = this.add
       .text(GAME_WIDTH - 20, GAME_HEIGHT - 50, '', {
-        fontSize: '14px', color: NEON_CSS.UI_DIM, fontFamily: 'monospace',
+        fontSize: '18px', color: NEON_CSS.UI_DIM, fontFamily: 'monospace',
       }).setOrigin(1, 0).setScrollFactor(0).setDepth(1500);
-
-    // Pause button
-    this.add
-      .rectangle(GAME_WIDTH - 130, 30, 50, 32, NEON.UI_PANEL, 0.9)
-      .setStrokeStyle(1, NEON.UI_BORDER)
-      .setScrollFactor(0).setDepth(1500)
-      .setInteractive({ useHandCursor: true })
-      .on('pointerdown', () => this.togglePause());
-
-    this.add
-      .text(GAME_WIDTH - 130, 30, 'II', {
-        fontSize: '18px', color: NEON_CSS.UI_TEXT,
-        fontFamily: 'monospace', fontStyle: 'bold',
-      }).setOrigin(0.5).setScrollFactor(0).setDepth(1501);
-
-    // Speed toggle button
-    this.add
-      .rectangle(GAME_WIDTH - 50, 30, 70, 32, NEON.UI_PANEL, 0.9)
-      .setStrokeStyle(1, NEON.UI_BORDER)
-      .setScrollFactor(0).setDepth(1500)
-      .setInteractive({ useHandCursor: true })
-      .on('pointerdown', () => this.cycleSpeed());
-
-    this.speedText = this.add
-      .text(GAME_WIDTH - 50, 30, '1x', {
-        fontSize: '18px', color: NEON_CSS.UI_ACCENT,
-        fontFamily: 'monospace', fontStyle: 'bold',
-      }).setOrigin(0.5).setScrollFactor(0).setDepth(1501);
   }
 
   private updateHUD(rawDelta: number): void {
@@ -1322,7 +1623,7 @@ export class RunScene extends Phaser.Scene {
       const xW = VISUAL.UI.xpBarWidth;
       const xH = VISUAL.UI.xpBarHeight;
       const xX = GAME_WIDTH / 2 - xW / 2;
-      const xY = 75;
+      const xY = 70;
       this.xpBar.clear();
       this.xpBar.fillStyle(NEON.UI_PANEL, 0.8);
       this.xpBar.fillRect(xX, xY, xW, xH);
@@ -1351,13 +1652,17 @@ export class RunScene extends Phaser.Scene {
       this.stageText.setText(`Stage ${this.runState.stage}/${BALANCE.STAGE.maxStages}`);
     }
 
-    // Timer — countdown from stage duration
+    // Timer — countdown for wave stages, "BOSS" label for boss stages
     let timerStr: string;
-    if (this.spawnEnded) {
+    if (this.bossStageActive) {
+      timerStr = 'BOSS';
+    } else if (this.spawnEnded) {
       timerStr = `잔여: ${this.activeEnemyCount}`;
     } else {
+      const curStageConfig = BALANCE.STAGE.stages[this.runState.stage - 1];
+      const duration = curStageConfig?.durationMs ?? 60000;
       const remaining = Math.max(0, Math.ceil(
-        (BALANCE.STAGE.durationMs - this.runState.stageTime) / 1000,
+        (duration - this.runState.stageTime) / 1000,
       ));
       const min = Math.floor(remaining / 60);
       const sec = remaining % 60;
@@ -1366,11 +1671,15 @@ export class RunScene extends Phaser.Scene {
     if (timerStr !== this.prevTimerStr) {
       this.prevTimerStr = timerStr;
       this.timerText.setText(timerStr);
-      if (this.spawnEnded) {
+      if (this.bossStageActive) {
+        this.timerText.setColor(NEON_CSS.GOLD);
+      } else if (this.spawnEnded) {
         this.timerText.setColor(NEON_CSS.GOLD);
       } else {
+        const curStageConfig = BALANCE.STAGE.stages[this.runState.stage - 1];
+        const duration = curStageConfig?.durationMs ?? 60000;
         const remaining = Math.max(0, Math.ceil(
-          (BALANCE.STAGE.durationMs - this.runState.stageTime) / 1000,
+          (duration - this.runState.stageTime) / 1000,
         ));
         this.timerText.setColor(remaining <= 10 ? NEON_CSS.HEALTH : NEON_CSS.UI_TEXT);
       }
@@ -1384,7 +1693,7 @@ export class RunScene extends Phaser.Scene {
         const bW = 500;
         const bH = 12;
         const bX = GAME_WIDTH / 2 - bW / 2;
-        const bY = 105;
+        const bY = 102;
         const pct = bossPct / 100;
         this.bossHpBar.clear();
         this.bossHpBar.fillStyle(NEON.UI_PANEL, 0.9);
@@ -1412,18 +1721,47 @@ export class RunScene extends Phaser.Scene {
       this.prevBossHpPct = -1;
     }
 
-    // Weapon list — only update on change
-    let weaponStr = '';
+    // Weapon slots — only update on change
+    let weaponSlotStr = '';
     for (let i = 0; i < this.weapons.length; i++) {
       const w = this.weapons[i];
       const def = WEAPON_DEFS[w.defId];
-      if (def) {
-        weaponStr += `${def.name} Lv${w.level}\n`;
+      weaponSlotStr += def ? `${def.name}:${w.level}|` : '';
+    }
+    if (weaponSlotStr !== this.prevWeaponSlotStr) {
+      this.prevWeaponSlotStr = weaponSlotStr;
+      for (let i = 0; i < BALANCE.RUN.maxWeapons; i++) {
+        if (i < this.weapons.length) {
+          const w = this.weapons[i];
+          const def = WEAPON_DEFS[w.defId];
+          if (def) {
+            this.weaponSlotTexts[i].setText(`${def.name} Lv${w.level}`);
+            this.weaponSlotTexts[i].setColor(NEON_CSS.UI_TEXT);
+            this.weaponSlotBgs[i].setStrokeStyle(1, NEON.UI_ACCENT, 0.7);
+            this.weaponSlotBgs[i].setFillStyle(NEON.UI_PANEL, 0.7);
+          }
+        } else {
+          this.weaponSlotTexts[i].setText('---');
+          this.weaponSlotTexts[i].setColor(NEON_CSS.UI_DIM);
+          this.weaponSlotBgs[i].setStrokeStyle(1, NEON.UI_BORDER, 0.3);
+          this.weaponSlotBgs[i].setFillStyle(NEON.UI_PANEL, 0.3);
+        }
       }
     }
-    if (weaponStr !== this.prevWeaponListStr) {
-      this.prevWeaponListStr = weaponStr;
-      this.weaponListText.setText(weaponStr.trimEnd());
+
+    // Player stats — only update on change
+    const dmgMult = this.player.damageMultiplier;
+    const spdMult = this.player.attackSpeedMultiplier;
+    const critPct = Math.round(this.player.critChance * 100);
+    const critDmg = this.player.critDamage;
+    const statsStr =
+      `DMG x${dmgMult.toFixed(1)}\n` +
+      `SPD x${spdMult.toFixed(1)}\n` +
+      `CRT ${critPct}%\n` +
+      `CRT DMG x${critDmg.toFixed(1)}`;
+    if (statsStr !== this.prevStatsStr) {
+      this.prevStatsStr = statsStr;
+      this.statsText.setText(statsStr);
     }
 
     // Enemy overhead HP bars (elites + bosses)
@@ -1441,7 +1779,7 @@ export class RunScene extends Phaser.Scene {
       this.enemyHpBarsGfx.fillStyle(0x000000, 0.6);
       this.enemyHpBarsGfx.fillRect(barX, barY, barW, barH);
       // Fill
-      const barColor = pct > 0.5 ? NEON.HEALTH : pct > 0.25 ? NEON.GOLD : NEON.BOSS_WARNING;
+      const barColor = pct > 0.5 ? NEON.XP_ORB : pct > 0.25 ? NEON.ENEMY_FAST : NEON.HEALTH;
       this.enemyHpBarsGfx.fillStyle(barColor, 1);
       this.enemyHpBarsGfx.fillRect(barX, barY, barW * pct, barH);
     }
@@ -1574,6 +1912,39 @@ export class RunScene extends Phaser.Scene {
   }
 
   // === GRID BACKGROUND ===
+
+  /** Show stage-appropriate background image (fallback: solid color only) */
+  private static readonly BG_MAP: Record<number, string> = {
+    1: 'bg_wanchai',      // 灣仔
+    2: 'bg_central',      // 中環
+    3: 'bg_aberdeen',     // 香港仔
+    4: 'bg_mongkok',      // 旺角
+    5: 'bg_shamshuipo',   // 深水埗
+    6: 'bg_wongtaisin',   // 黃大仙
+    7: 'bg_kowloon',      // 九龍城寨
+    8: 'bg_lantau',       // 大嶼山
+  };
+
+  private updateBackground(): void {
+    const bgKey = RunScene.BG_MAP[this.runState.stage] ?? 'bg_wanchai';
+    if (!this.textures.exists(bgKey)) return;
+    if (this.bgSprite) {
+      this.bgSprite.setTexture(bgKey);
+    } else {
+      this.bgSprite = this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, bgKey)
+        .setDepth(-1)
+        .setAlpha(0.35);
+    }
+  }
+
+  /** Clean up when scene shuts down (C-06 fix: prevent memory leaks on restart). */
+  shutdown(): void {
+    for (const p of this.enemyProjectiles) p.sprite.destroy();
+    this.enemyProjectiles = [];
+    this.weaponSystem?.clearCache();
+    this.autoSelectBestChoice = undefined;
+    this.shopAutoBestAction = undefined;
+  }
 
   private drawGrid(): void {
     const g = this.add.graphics().setDepth(0);

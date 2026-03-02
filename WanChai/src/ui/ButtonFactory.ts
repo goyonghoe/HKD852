@@ -27,7 +27,7 @@ export function createButton(
     width = VISUAL.UI.BUTTON_MIN_WIDTH,
     height = VISUAL.UI.BUTTON_HEIGHT,
     label,
-    fontSize = '22px',
+    fontSize = '26px',
     variant = 'primary',
     depth = 100,
     onClick,
@@ -82,7 +82,7 @@ export function createButton(
   // Pokemon selector arrow (▶) — shown on hover
   const cursor = scene.add
     .text(-hw + 14, 0, '\u25B6', {
-      fontSize: '16px',
+      fontSize: '20px',
       color: textColor,
       fontFamily: 'monospace',
     })

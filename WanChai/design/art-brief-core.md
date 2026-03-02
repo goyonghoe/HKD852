@@ -1,16 +1,57 @@
 # 아트 작업 지시서 — NEXT STOP — HK852
 
-> 스테이블 디퓨전용 이미지 생성 프롬프트 + 기술 사양서.
-> 세계관: 스마트시티 AI "ARIA"가 폭주한 홍콩. 자연 동물이 기계와 강제 융합된 "최적화체"를 정화하며 도시를 되찾는 퍼즐 게임.
+> AI 이미지 생성 (Gemini API) 프롬프트 + 기술 사양서.
+> 세계관: 스마트시티 AI "ARIA"가 폭주한 홍콩. 자연 동물이 기계와 강제 융합된 "최적화체"를 정화하며 도시를 되찾는 오토슈터 서바이버 게임.
 
 ## 게임 개요
 
 - **타이틀**: NEXT STOP — HK852
-- **장르**: 원형 컨베이어 퍼즐 (원소 매칭)
+- **장르**: 오토슈터 로그라이크 서바이버 (NeonSurvivor)
 - **화면**: 720x1280 (9:16 세로, 모바일)
 - **배경**: 사이버펑크 홍콩. 어두운 네이비(#1a1a2e) 위에 네온 + 보라색 글리치
 - **키 비주얼**: 홍콩 네온사인 + MTR 지하철 + 야생 동물 정령 vs 기계화 생물
 - **톤**: 디스토피아가 아닌 "과잉 편의의 폭주". 어둡지만 희망적
+- **참고 게임**: 빵빵좀비단 (BangBang Survivor) — 시점, 스프라이트 비율, UI 레이아웃 참고
+
+---
+
+## 카메라 시점 — ★★★ 최우선 준수 사항
+
+> **모든 인게임 스프라이트(캐릭터, 적, 크리터, 보스)는 반드시 3/4 뷰(oblique top-down)로 생성합니다.**
+
+### 3/4 뷰 정의 (빵빵좀비단 참고)
+- **각도**: 약 60° 위에서 비스듬히 내려다보는 시점 (클래식 RPG 3/4 뷰)
+- **보이는 면**: 캐릭터의 **얼굴, 가슴, 팔다리가 모두 보임** + 머리 꼭대기 살짝 노출
+- **비율**: 치비 스타일 (2~3등신, 큰 머리 + 작은 몸)
+- **적 방향**: **정면을 향해 걸어오는 자세** (플레이어를 향함) — 얼굴 표정 100% 보임
+- **플레이어 방향**: 위를 향해 서있음 (등/뒷머리 보임) — 적과 반대
+- **포즈**: 정적 직립이 아닌 **동적 포즈** (걷기, 날기, 위협 자세)
+- **실루엣**: 스프라이트가 겹쳐도 구분 가능하도록 **강한 실루엣** 필수
+- **그림자**: 캐릭터 아래 작은 원형 그림자 (선택)
+
+### 빵빵좀비단 스크린샷 분석 요약
+1. 적은 위에서 아래로 밀려오며, 플레이어(하단 고정)를 향해 정면 노출
+2. 적 크기 차등: 소(일반) < 중(엘리트) < 대(뚱뚱이/특수) < 특대(보스, HP바)
+3. 색상 코딩으로 적 타입 구분 (파랑=일반, 빨강=화염, 갈색=비행, 핑크=특수)
+4. 카툰/일러스트 스타일이지만 WanChai는 **픽셀아트로 변환** 적용
+
+### 시점별 적용 대상
+
+| 대상 | 시점 | 설명 |
+|------|------|------|
+| T1 적 (48x48) | **3/4 뷰, 정면 향함** | 얼굴 100% 보임, 걸어오는 동적 포즈 |
+| T2 적 (72x72) | **3/4 뷰, 정면 향함** | 얼굴 100% 보임, 위협적 포즈 |
+| 보스 (192x192) | **3/4 뷰, 정면 향함** | 거대 크리처, 정면 위협감, HP바 영역 고려 |
+| 크리터 (48x48) | **3/4 뷰, 정면 향함** | 동물 정령, 귀여운 느낌 |
+| 캐릭터 인게임 (48x48) | **3/4 뷰, 뒷면 향함** | 위를 향해 서있음, 등/뒷머리 보임 |
+| 캐릭터 초상화 (128x128) | **정면 상반신** | 대화창/선택 화면용 |
+| 배경 (720x1280) | **관찰자 시점** | 풍경화, 수직 구도 |
+| UI 요소 | **정면** | 플랫 UI |
+
+### 절대 금지
+- ~~순수 탑다운 (90° 직상방)~~ — 실루엣 판별 불가, 얼굴 안 보임
+- ~~옆면 사이드뷰~~ — 장르 불일치
+- ~~정적 직립 자세~~ — 생동감 없음
 
 ---
 
@@ -19,30 +60,37 @@
 | 항목 | 값 |
 |------|-----|
 | 포맷 | PNG (투명 배경, RGBA) |
-| 배경 | 반드시 투명 (알파 채널) |
+| 배경 | 반드시 투명 (알파 채널) — AI 생성 후 rembg로 배경 제거 |
 | 스타일 | 픽셀아트 / 도트 그래픽 |
 | 스케일링 | Nearest-neighbor (안티앨리어싱 OFF) |
-| 방향 | 캐릭터는 **정면 또는 3/4 뷰** |
+| 시점 | **3/4 뷰 (oblique top-down, 45~60°)** — 위 섹션 참조 |
+| 비율 | 치비 (2~3등신) |
 | 네이밍 | `[카테고리]_[이름].png` |
+| 생성 엔진 | Gemini 2.5 Flash Image API |
+| 생성 해상도 | 1024x1024 → rembg 배경제거 → Nearest-neighbor 리사이즈 |
 
 ---
 
-## 공통 SD 프롬프트 프리픽스
+## 공통 프롬프트 프리픽스
 
-모든 프롬프트 앞에 이 스타일 지시를 붙입니다:
+모든 인게임 스프라이트 프롬프트에 이 스타일 지시를 적용합니다:
 
 ```
-pixel art, 16-bit retro game sprite, clean pixel edges, limited color palette,
-dark navy background removed, transparent background, no anti-aliasing,
+pixel art game sprite, 16-bit retro style, clean pixel edges, limited color palette,
+chibi proportions (big head small body, 2-3 head ratio),
+3/4 oblique top-down view (45-60 degree angle from above, showing both front face and top of head),
 cyberpunk Hong Kong aesthetic, neon glow accents,
+plain solid color background,
+no text, no letters, no numbers, no watermark, no shadow, no border, no frame
 ```
 
-### 네거티브 프롬프트 (전체 공통)
+### 금지 요소 (전체 공통)
 
 ```
 blurry, smooth gradients, 3d render, realistic, photograph, text, watermark,
 signature, frame, border, UI elements, numbers, letters, low quality,
-anti-aliased edges, soft edges, white background
+anti-aliased edges, soft edges, white background, pure top-down view,
+side view, profile view
 ```
 
 ---

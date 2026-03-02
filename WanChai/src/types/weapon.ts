@@ -1,5 +1,5 @@
 export type TargetMode = 'nearest' | 'random' | 'aoe';
-export type ProjectileType = 'bullet' | 'aoe' | 'laser' | 'orbit' | 'chain' | 'homing' | 'bomb';
+export type ProjectileType = 'bullet' | 'aoe' | 'laser' | 'chain' | 'homing' | 'bomb' | 'napalm';
 
 export interface WeaponDef {
   readonly id: string;

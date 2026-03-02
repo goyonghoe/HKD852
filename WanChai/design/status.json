@@ -1,510 +1,249 @@
 {
-  "version": 29,
+  "version": 36,
   "lastUpdated": "2026-03-02T12:00:00Z",
-  "gameVersion": "1.0.0",
+  "gameVersion": "1.5.3",
+  "gameMode": "auto-shooter (NeonSurvivor)",
+  "notes": "v36: TASK-010 디자인 문서 오토슈터 피봇 최신화. numerical-bible, art-style-guide, ui-ux-guideline, expected-play-experience 퍼즐 참조 제거. auto-shooter-combat-spec 신규 작성. package.json name puzzle-rpg→neonsurvivor.",
   "specs": [
     {
       "id": "SPEC-001",
       "name": "circular-conveyor",
       "designStatus": "implemented",
-      "implStatus": "verified",
+      "implStatus": "removed",
       "designDoc": "design/specs/mechanics/SPEC-001-circular-conveyor.md",
-      "implPath": "src/core/ConveyorState.ts"
+      "implPath": null,
+      "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
       "id": "SPEC-002",
       "name": "element-matching",
       "designStatus": "implemented",
-      "implStatus": "verified",
+      "implStatus": "removed",
       "designDoc": "design/specs/mechanics/SPEC-002-element-matching.md",
-      "implPath": "src/core/BoardState.ts"
+      "implPath": null,
+      "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
       "id": "SPEC-003",
       "name": "sling-combo",
       "designStatus": "implemented",
-      "implStatus": "verified",
+      "implStatus": "removed",
       "designDoc": "design/specs/mechanics/SPEC-003-sling-combo.md",
-      "implPath": "src/core/TurnResolver.ts"
+      "implPath": null,
+      "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
       "id": "SPEC-004",
       "name": "armored-cubes",
       "designStatus": "implemented",
-      "implStatus": "verified",
+      "implStatus": "removed",
       "designDoc": "design/specs/mechanics/SPEC-004-armored-cubes.md",
-      "implPath": "src/core/BoardState.ts"
+      "implPath": null,
+      "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
       "id": "SPEC-005",
       "name": "score-system",
       "designStatus": "implemented",
-      "implStatus": "verified",
+      "implStatus": "removed",
       "designDoc": "design/specs/mechanics/SPEC-005-score-system.md",
-      "implPath": "src/core/ScoreCalculator.ts"
+      "implPath": null,
+      "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
       "id": "SPEC-006",
       "name": "hero-grid",
       "designStatus": "implemented",
-      "implStatus": "verified",
+      "implStatus": "removed",
       "designDoc": "design/specs/mechanics/SPEC-006-hero-grid.md",
-      "implPath": "src/core/TurnResolver.ts"
+      "implPath": null,
+      "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
       "id": "SPEC-007",
       "name": "bench-mechanic",
       "designStatus": "implemented",
-      "implStatus": "verified",
+      "implStatus": "removed",
       "designDoc": "design/specs/mechanics/SPEC-007-bench-mechanic.md",
-      "implPath": "src/core/TurnResolver.ts"
+      "implPath": null,
+      "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
       "id": "SPEC-006A",
       "name": "hero-grid-level-data",
       "designStatus": "implemented",
-      "implStatus": "implemented",
+      "implStatus": "removed",
       "designDoc": "design/specs/data/SPEC-006A-hero-grid-level-data.md",
-      "implPath": "src/data/levels/world-1/stage-*.json"
+      "implPath": null,
+      "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
       "id": "SPEC-010",
       "name": "worldbuilding",
       "designStatus": "draft",
-      "implStatus": "pending",
+      "implStatus": "partial",
       "designDoc": "design/specs/worldbuilding.md",
-      "notes": "Wan Chai Harbor lore, The Blight, element districts, narrative structure."
+      "notes": "세계관 설정은 유지. MainMenu 타이틀 + ARIA 메시지에 반영."
     },
     {
       "id": "SPEC-011",
       "name": "roguelike-core",
       "designStatus": "draft",
-      "implStatus": "implemented",
+      "implStatus": "removed",
       "designDoc": "design/specs/roguelike-core.md",
-      "implPath": "src/types/run.ts, src/config/roguelike-balance.ts, src/core/SeededRandom.ts, src/core/MapGenerator.ts, src/core/RunManager.ts",
-      "notes": "RunState, MapGenerator (linear 4-layer), RunManager (startRun/selectNode/beginBattle/endBattle/advanceToNextFloor). 43 tests."
+      "implPath": null,
+      "notes": "RunManager, MapGenerator 코드 삭제됨. SeededRandom만 현재 사용."
     },
     {
       "id": "SPEC-012",
       "name": "critter-system",
       "designStatus": "draft",
-      "implStatus": "implemented",
+      "implStatus": "removed",
       "designDoc": "design/specs/critter-system.md",
-      "implPath": "src/types/critter.ts, src/data/critters/definitions.ts, src/core/CritterManager.ts",
-      "notes": "18 critters (6 elements x 3 rarities). CritterManager: createInstance, addExp, evolve, toHeroInstance. 20 tests."
+      "implPath": null,
+      "notes": "코드 삭제됨."
     },
     {
       "id": "SPEC-013",
       "name": "enemy-bestiary",
       "designStatus": "draft",
-      "implStatus": "implemented",
+      "implStatus": "removed",
       "designDoc": "design/specs/enemy-bestiary.md",
-      "implPath": "src/types/blight.ts, src/data/blights/definitions.ts, src/core/EnemyPlacer.ts",
-      "notes": "18 blights. EnemyPlacer: generateBattleBoard with seeded RNG, floor-scaled board. 10 tests."
+      "implPath": null,
+      "notes": "턴제 적 배치 시스템 삭제됨. 현재 적 정의: src/config/enemies.ts"
     },
     {
       "id": "SPEC-014",
       "name": "relic-system",
       "designStatus": "draft",
-      "implStatus": "implemented",
+      "implStatus": "removed",
       "designDoc": "design/specs/relic-system.md",
-      "implPath": "src/core/RelicManager.ts, src/core/RelicResolver.ts, src/core/PassiveResolver.ts, src/core/ModifierResolver.ts",
-      "notes": "15 relics, 3 CombatPlugins (Passive/Modifier/Relic Resolver). TurnResolver plugin integration with 8 hooks. 104 tests."
+      "implPath": null,
+      "notes": "CombatHook 플러그인 시스템 삭제됨."
     },
     {
       "id": "SPEC-015",
       "name": "meta-progression",
       "designStatus": "draft",
-      "implStatus": "implemented",
+      "implStatus": "reimplemented",
       "designDoc": "design/specs/meta-progression.md",
-      "implPath": "src/types/save.ts, src/config/meta-balance.ts, src/core/MetaManager.ts, src/managers/SaveManager.ts",
-      "notes": "MetaManager (20 methods: collection, hometown, codex, crystals). SaveData v2 with migration. 33 tests."
+      "implPath": "src/core/MetaProgression.ts, src/managers/SaveManager.ts, src/scenes/MetaScene.ts",
+      "notes": "auto-shooter용으로 재구현. 골드 기반 영구 강화 (damage, hp, speed, crit)."
     },
     {
       "id": "SPEC-016",
       "name": "element-advantage-system",
       "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/core/ElementAdvantage.ts, src/core/BoardState.ts, src/core/TurnResolver.ts, src/core/ScoreCalculator.ts",
-      "notes": "Fire→Wind→Earth→Water→Fire cycle + Light↔Dark. Advantage = 2x damage, 1.5x score. findFrom* returns { cube, matchType }. 18 tests."
+      "implStatus": "removed",
+      "implPath": null,
+      "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
       "id": "SPEC-017",
       "name": "phase2-visual-polish",
       "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/types/puzzle.ts, src/core/TurnResolver.ts, src/utils/VFXManager.ts, src/scenes/PuzzleScene.ts, src/scenes/RunMapScene.ts",
-      "notes": "Phase 2 Visual Polish: matchType propagated to CubeDestroyEvent; advantage VFX (2x particles, white flash, SUPER! popup); sprite-based projectile with fallback line; combo text popup (>=3); ambient background particles in PuzzleScene; boss battle intro in RunMapScene."
+      "implStatus": "removed",
+      "implPath": null,
+      "notes": "퍼즐 모드 VFX. 코드 삭제됨. VFXManager는 auto-shooter용으로 유지."
     },
     {
       "id": "SPEC-020",
       "name": "hero-queue-system",
       "designStatus": "implemented",
-      "implStatus": "implemented",
+      "implStatus": "removed",
       "designDoc": "design/specs/mechanics/SPEC-020-hero-queue-system.md",
-      "implPath": "src/core/HeroGridBuilder.ts, src/core/LevelLoader.ts",
-      "notes": "2-4 columns by element, AP descending, board-frequency ordered. 17 tests."
+      "implPath": null,
+      "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
       "id": "SPEC-021",
       "name": "order-puzzle-combat",
       "designStatus": "implemented",
-      "implStatus": "implemented",
+      "implStatus": "removed",
       "designDoc": "design/specs/SPEC-021-order-puzzle-combat.md",
-      "implPath": "src/types/combat.ts, src/core/EnemyBoard.ts, src/core/CombatResolver.ts, src/core/CombatPassiveResolver.ts, src/core/CombatRelicResolver.ts, src/types/combat-hooks.ts",
-      "notes": "Order Puzzle Combat: Enemy types (ATK/HP/shield/timer), EnemyBoard (grid+targeting), CombatResolver (deploy→orbit→fire→kill cycle), CombatHook plugin system (8 passives + 3 relic effects), PuzzleScene combat mode, PuzzleUIScene HP bar, VFXManager combat effects. 564 total tests (112 combat-specific)."
+      "implPath": null,
+      "notes": "턴제 전투 시스템 전면 삭제됨. 564 테스트 포함 삭제."
     },
     {
       "id": "SPEC-010B",
       "name": "world-map",
       "designStatus": "implemented",
-      "implStatus": "pending",
+      "implStatus": "implemented",
       "designDoc": "design/specs/world-map.md",
-      "notes": "실제 홍콩 지리 기반 7구역 세계 재설계. MTR 노선 월드맵."
+      "implPath": "src/scenes/WorldMapScene.ts",
+      "notes": "3구역 월드맵 + 탭 인터랙션 (적 구성/보스 정보 팝업)."
     },
     {
       "id": "SPEC-010C",
       "name": "synopsis",
       "designStatus": "implemented",
-      "implStatus": "pending",
+      "implStatus": "partial",
       "designDoc": "design/specs/synopsis.md",
-      "notes": "NEXT STOP — HK852 시놉시스 v2.2. 캐릭터 라인업, 스토리 아크, ARIA 시스템."
+      "notes": "ARIA 메시지 시스템으로 부분 반영."
     },
     {
-      "id": "SPEC-012B",
-      "name": "critter-optimized-link",
+      "id": "SPEC-030",
+      "name": "auto-shooter-combat",
       "designStatus": "implemented",
-      "implStatus": "pending",
-      "designDoc": "design/specs/critter-optimized-link.md",
-      "notes": "정화된 최적화체 → 크리터 전환 시스템. 획득 조건, 능력치, 진화 경로."
-    },
-    {
-      "id": "SPEC-013B",
-      "name": "optimized-bestiary",
-      "designStatus": "implemented",
-      "implStatus": "pending",
-      "designDoc": "design/specs/optimized-bestiary.md",
-      "notes": "6구역 x 3티어 + Harvester = 19종 최적화체. 보드 행동, 정화 메카닉, 70스테이지 등장표."
-    },
-    {
-      "id": "SPEC-022B",
-      "name": "boss-narrative-profiles",
-      "designStatus": "implemented",
-      "implStatus": "pending",
-      "designDoc": "design/specs/boss-profiles.md",
-      "notes": "7보스 내러티브 프로필. ARIA 서브시스템, 봉인 동물, 대사, 정화 시퀀스, 에스컬레이션 아크."
-    },
-    {
-      "id": "SPEC-023",
-      "name": "pre-boss-floor-pacing",
-      "designStatus": "implemented",
-      "implStatus": "pending",
-      "designDoc": "design/specs/SPEC-023-pre-boss-floor-pacing.md",
-      "notes": "L3 노드 타입 재설계. 보스전 직전 페이싱."
+      "implStatus": "implemented",
+      "designDoc": "design/specs/auto-shooter-combat-spec.md",
+      "implPath": "src/systems/WeaponSystem.ts, src/core/WaveDirector.ts, src/config/weapons.ts, src/config/enemies.ts, src/config/balance.ts",
+      "notes": "현재 오토슈터 전투 시스템 as-is 문서화. 무기 10종, 적 11종+보스 3종, 6스테이지 구조."
     }
   ],
-  "levels": [
-    {
-      "id": "w1-s001",
-      "name": "First Steps",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "designDoc": "design/levels/world-1/stage-001.md",
-      "jsonPath": "src/data/levels/world-1/stage-001.json"
-    },
-    {
-      "id": "w1-s002",
-      "name": "Triple Threat",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "designDoc": "design/levels/world-1/stage-002.md",
-      "jsonPath": "src/data/levels/world-1/stage-002.json"
-    },
-    {
-      "id": "w1-s003",
-      "name": "Tight Quarters",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "designDoc": "design/levels/world-1/stage-003.md",
-      "jsonPath": "src/data/levels/world-1/stage-003.json"
-    },
-    {
-      "id": "w1-s004",
-      "name": "Split Decision",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "designDoc": "design/levels/world-1/stage-004.md",
-      "jsonPath": "src/data/levels/world-1/stage-004.json"
-    },
-    {
-      "id": "w1-s005",
-      "name": "Gravity Well",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "designDoc": "design/levels/world-1/stage-005.md",
-      "jsonPath": "src/data/levels/world-1/stage-005.json"
-    },
-    {
-      "id": "w1-s006",
-      "name": "Shining Path",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "designDoc": "design/levels/world-1/stage-006.md",
-      "jsonPath": "src/data/levels/world-1/stage-006.json"
-    },
-    {
-      "id": "w1-s007",
-      "name": "Dark Curtain",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "designDoc": "design/levels/world-1/stage-007.md",
-      "jsonPath": "src/data/levels/world-1/stage-007.json"
-    },
-    {
-      "id": "w1-s008",
-      "name": "Iron Wall",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "designDoc": "design/levels/world-1/stage-008.md",
-      "jsonPath": "src/data/levels/world-1/stage-008.json"
-    },
-    {
-      "id": "w1-s009",
-      "name": "Gauntlet",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "designDoc": "design/levels/world-1/stage-009.md",
-      "jsonPath": "src/data/levels/world-1/stage-009.json"
-    },
-    {
-      "id": "w1-s010",
-      "name": "Final Stand",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "designDoc": "design/levels/world-1/stage-010.md",
-      "jsonPath": "src/data/levels/world-1/stage-010.json"
-    }
-  ],
-  "balance": [
-    {
-      "id": "BAL-001",
-      "name": "world-1-overview",
-      "designStatus": "ready",
-      "designDoc": "design/balance/world-1-overview.md"
-    }
-  ],
-  "chapters": [
-    {
-      "id": "CH-01",
-      "name": "chapter-01-central",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/chapter-01-central.md",
-      "notes": "中環 (Central). Wind 원소. 기본 메카닉. HAI+MEI 합류."
-    },
-    {
-      "id": "CH-02",
-      "name": "chapter-02-aberdeen",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/chapter-02-aberdeen.md",
-      "notes": "香港仔 (Aberdeen). Water 원소. 조류(Tide) 기믹. TAO 합류."
-    },
-    {
-      "id": "CH-03",
-      "name": "chapter-03-mongkok",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/chapter-03-mongkok.md",
-      "notes": "旺角 (Mong Kok). Fire 원소. 네온 과부하 기믹. YAN 합류."
-    },
-    {
-      "id": "CH-04",
-      "name": "chapter-04-shamshuipo",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/chapter-04-shamshuipo.md",
-      "notes": "深水埗 (Sham Shui Po). Earth 원소. 균열 연쇄 기믹. KWAI 합류."
-    },
-    {
-      "id": "CH-05",
-      "name": "chapter-05-wongtaisin",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/chapter-05-wongtaisin.md",
-      "notes": "黃大仙 (Wong Tai Sin). Light 원소. 프리즘 반사 기믹. 파티 완성(5인)."
-    },
-    {
-      "id": "CH-06",
-      "name": "chapter-06-kowloon",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/chapter-06-kowloon.md",
-      "notes": "九龍城寨 (Kowloon Walled City). Dark 원소. 그림자 복제 기믹."
-    },
-    {
-      "id": "CH-07",
-      "name": "chapter-07-lantau",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/chapter-07-lantau.md",
-      "notes": "大嶼山 (Lantau). All 원소. 원소 순환 기믹. 최종 챕터."
-    }
-  ],
-  "bossMechanics": [
-    {
-      "id": "BOSS-01",
-      "name": "aero-wind",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/boss-mechanics-01-aero.md",
-      "notes": "暴風 Aero. 3페이즈, HP 30. Wind Vortex + Gust Convert. 보드 5x4."
-    },
-    {
-      "id": "BOSS-02",
-      "name": "hydra-water",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/boss-mechanics-02-hydra.md",
-      "notes": "深淵 Hydra. 3페이즈, HP 35. Rising Tide + Ink Cloud. 보드 5x5."
-    },
-    {
-      "id": "BOSS-03",
-      "name": "blaze-fire",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/boss-mechanics-03-blaze.md",
-      "notes": "烈焰 Blaze. 3페이즈, HP 40. Neon Surge + Sign Explosion. 보드 6x4."
-    },
-    {
-      "id": "BOSS-04",
-      "name": "terra-earth",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/boss-mechanics-04-terra.md",
-      "notes": "磐石 Terra. 3페이즈, HP 45. Foundation Shake + Concrete Wall + Fault Line. 보드 6x5."
-    },
-    {
-      "id": "BOSS-05",
-      "name": "lumen-light",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/boss-mechanics-05-lumen.md",
-      "notes": "聖光 Lumen. 3페이즈, HP 50. Prism Refraction + Light Barrier + Element Storm. 보드 6x5."
-    },
-    {
-      "id": "BOSS-06",
-      "name": "umbra-dark",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/boss-mechanics-06-umbra.md",
-      "notes": "闇影 Umbra. 4페이즈(유일), HP 60. Shadow Core + Previous Boss Echo. 보드 7x5."
-    },
-    {
-      "id": "BOSS-07",
-      "name": "harvester-all",
-      "designStatus": "implemented",
-      "designDoc": "design/specs/boss-mechanics-07-harvester.md",
-      "notes": "收割者 Harvester Core. 6페이즈, HP 80. 이전 보스 패턴 순차 재현 + Reabsorb. 보드 7x6."
-    }
-  ],
+  "currentSystems": {
+    "core": [
+      { "name": "WaveDirector", "path": "src/core/WaveDirector.ts", "status": "active" },
+      { "name": "WeaponSystem", "path": "src/systems/WeaponSystem.ts", "status": "active" },
+      { "name": "XpTable", "path": "src/core/XpTable.ts", "status": "active" },
+      { "name": "SpatialHash", "path": "src/core/SpatialHash.ts", "status": "active" },
+      { "name": "DamageCalc", "path": "src/core/DamageCalc.ts", "status": "active" },
+      { "name": "SeededRandom", "path": "src/core/SeededRandom.ts", "status": "active" },
+      { "name": "UpgradeSelector", "path": "src/core/UpgradeSelector.ts", "status": "active" },
+      { "name": "MetaProgression", "path": "src/core/MetaProgression.ts", "status": "active" }
+    ],
+    "scenes": [
+      { "name": "BootScene", "path": "src/scenes/BootScene.ts", "status": "active" },
+      { "name": "PreloadScene", "path": "src/scenes/PreloadScene.ts", "status": "active" },
+      { "name": "MainMenuScene", "path": "src/scenes/MainMenuScene.ts", "status": "active" },
+      { "name": "RunScene", "path": "src/scenes/RunScene.ts", "status": "active" },
+      { "name": "GameOverScene", "path": "src/scenes/GameOverScene.ts", "status": "active" },
+      { "name": "MetaScene", "path": "src/scenes/MetaScene.ts", "status": "active" },
+      { "name": "WeaponCodexScene", "path": "src/scenes/WeaponCodexScene.ts", "status": "active" },
+      { "name": "EnemyCodexScene", "path": "src/scenes/EnemyCodexScene.ts", "status": "active" },
+      { "name": "WorldMapScene", "path": "src/scenes/WorldMapScene.ts", "status": "active" }
+    ],
+    "audio": [
+      { "name": "RetroAudio (BGM)", "path": "src/audio/RetroAudio.ts", "status": "active", "tracks": ["menu", "combat", "boss"] },
+      { "name": "RetroSFX", "path": "src/audio/RetroSFX.ts", "status": "active", "effects": 14 }
+    ],
+    "ui": [
+      { "name": "ButtonFactory", "path": "src/ui/ButtonFactory.ts", "status": "active" },
+      { "name": "GlassPanel", "path": "src/ui/GlassPanel.ts", "status": "active" },
+      { "name": "PauseOverlay", "path": "src/ui/PauseOverlay.ts", "status": "active" },
+      { "name": "SettingsOverlay", "path": "src/ui/SettingsOverlay.ts", "status": "active" },
+      { "name": "DamageNumber", "path": "src/ui/DamageNumber.ts", "status": "active" },
+      { "name": "ARIAMessage", "path": "src/ui/ARIAMessage.ts", "status": "active" }
+    ]
+  },
+  "tests": {
+    "active": 30,
+    "suites": ["DamageCalc", "WaveDirector", "SpatialHash", "XpTable", "SeededRandom"]
+  },
   "uxDesign": [
     {
       "id": "UX-001",
       "name": "expected-play-experience",
       "designStatus": "implemented",
       "designDoc": "design/ux/expected-play-experience.md",
-      "notes": "기대 플레이 경험 설계서. 씬별 감정 곡선, 터치 인터랙션, 레이아웃 가이드."
+      "notes": "v2: 13씬→9씬 오토슈터 피봇 반영. 삭제된 씬(RunMap/Shop/Rest/Event/Reward/PartySelect 등) 제거."
+    },
+    {
+      "id": "UX-002",
+      "name": "about-face-evaluation",
+      "designStatus": "implemented",
+      "designDoc": "design/ui/about-face-evaluation.md",
+      "notes": "About Face 12원칙 평가. P0+P1+P2 완료. P3 진행 중."
     }
-  ],
-  "scenes": [
-    {
-      "id": "SCENE-001",
-      "name": "StageSelectScene",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/scenes/StageSelectScene.ts"
-    },
-    {
-      "id": "SCENE-002",
-      "name": "VictoryScene",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/scenes/VictoryScene.ts"
-    },
-    {
-      "id": "SCENE-003",
-      "name": "PauseOverlay",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/ui/PauseOverlay.ts"
-    },
-    {
-      "id": "SCENE-004",
-      "name": "SettingsOverlay",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/ui/SettingsOverlay.ts"
-    },
-    {
-      "id": "SCENE-005",
-      "name": "ModeSelectScene",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/scenes/ModeSelectScene.ts"
-    },
-    {
-      "id": "SCENE-006",
-      "name": "PartySelectScene",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/scenes/PartySelectScene.ts"
-    },
-    {
-      "id": "SCENE-007",
-      "name": "RunMapScene",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/scenes/RunMapScene.ts"
-    },
-    {
-      "id": "SCENE-008",
-      "name": "RewardScene",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/scenes/RewardScene.ts"
-    },
-    {
-      "id": "SCENE-009",
-      "name": "RunResultScene",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/scenes/RunResultScene.ts"
-    },
-    {
-      "id": "SCENE-010",
-      "name": "ShopScene",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/scenes/ShopScene.ts",
-      "notes": "3 cards: LevelUp (300pts), Recruit Critter (rarity-based cost), Acquire Relic. Party select overlay for LevelUp. Multiple purchases allowed. Seeded offers."
-    },
-    {
-      "id": "SCENE-011",
-      "name": "RestScene",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/scenes/RestScene.ts",
-      "notes": "3 options: Recover (clear exhaustion), Train (select critter +150 XP), Scout (reveal next floor nodes). One-time selection with CONTINUE button."
-    },
-    {
-      "id": "SCENE-012",
-      "name": "EventScene",
-      "designStatus": "implemented",
-      "implStatus": "implemented",
-      "implPath": "src/scenes/EventScene.ts",
-      "notes": "5 events seeded by run seed + floor. Two option buttons. Risk rolls via SeededRandom. Result message shown before CONTINUE."
-    }
-  ],
-  "runManagerMethods": {
-    "purchaseShopItem": "implemented",
-    "applyRest": "implemented",
-    "applyEvent": "implemented",
-    "notes": "Total: 564 tests (23 suites). SPEC-021 combat system added."
-  },
-  "saveSystems": {
-    "runSerialization": "implemented",
-    "autoSavePoints": ["RunMapScene.create", "ShopScene.leaveShop", "RestScene.onContinue", "EventScene.onContinue", "RewardScene.onContinue"],
-    "clearOn": "RunResultScene.create",
-    "continueRunButton": "ModeSelectScene (visible when SaveManager.hasActiveRun())",
-    "storage": "localStorage key: puzzlerpg_run",
-    "notes": "RunState JSON serialized/deserialized. SaveManager.saveRun/loadRun/clearRun/hasActiveRun. RewardScene: recruit adds PartyCritter to party, relic adds relic id to state.relics. Disabled cards dim when party/relics full."
-  }
+  ]
 }

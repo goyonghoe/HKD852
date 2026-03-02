@@ -2,15 +2,17 @@ import Phaser from 'phaser';
 import { BG_COLOR, NEON, NEON_CSS } from '../config/colors';
 import { WEAPON_DEFS } from '../config/weapons';
 import { GAME_WIDTH } from '../config/game-config';
+import { createButton } from '../ui/ButtonFactory';
+import { SaveManager } from '../managers/SaveManager';
 
 const TYPE_LABELS: Record<string, string> = {
   bullet: '탄환',
   aoe: '범위',
   laser: '레이저',
-  orbit: '궤도',
   chain: '체인',
   homing: '유도',
   bomb: '폭탄',
+  napalm: '화염',
 };
 
 export class WeaponCodexScene extends Phaser.Scene {
@@ -20,24 +22,35 @@ export class WeaponCodexScene extends Phaser.Scene {
 
   create(): void {
     this.cameras.main.setBackgroundColor(BG_COLOR);
+    this.cameras.main.fadeIn(300);
     const cx = GAME_WIDTH / 2;
+
+    const discovered = SaveManager.getDiscovered();
+    const defs = Object.values(WEAPON_DEFS);
+    const unlockedCount = defs.filter(d => discovered.weapons.includes(d.id)).length;
 
     // Title
     this.add
       .text(cx, 50, '무기 도감', {
-        fontSize: '32px',
+        fontSize: '38px',
         color: NEON_CSS.UI_ACCENT,
         fontFamily: 'monospace',
         fontStyle: 'bold',
       })
       .setOrigin(0.5);
 
-    // Weapon cards (2 columns x 4 rows)
-    const defs = Object.values(WEAPON_DEFS);
+    // Discovery counter
+    this.add
+      .text(cx, 86, `${unlockedCount} / ${defs.length} 해금`, {
+        fontSize: '22px',
+        color: NEON_CSS.UI_DIM,
+        fontFamily: 'monospace',
+      })
+      .setOrigin(0.5);
     const cardW = 320;
     const cardH = 130;
     const gap = 16;
-    const startY = 100;
+    const startY = 120;
     const col1X = cx - cardW / 2 - gap / 2;
     const col2X = cx + cardW / 2 + gap / 2;
 
@@ -46,16 +59,31 @@ export class WeaponCodexScene extends Phaser.Scene {
       const row = Math.floor(i / 2);
       const x = col === 0 ? col1X : col2X;
       const y = startY + row * (cardH + gap) + cardH / 2;
+      const unlocked = discovered.weapons.includes(def.id);
 
       // Card background
       this.add
-        .rectangle(x, y, cardW, cardH, NEON.UI_PANEL, 0.9)
-        .setStrokeStyle(1, NEON.UI_BORDER);
+        .rectangle(x, y, cardW, cardH, NEON.UI_PANEL, unlocked ? 0.9 : 0.4)
+        .setStrokeStyle(1, unlocked ? NEON.UI_BORDER : NEON.UI_PANEL);
+
+      if (!unlocked) {
+        // Locked card — show "???"
+        this.add
+          .text(x, y, '???', {
+            fontSize: '34px',
+            color: NEON_CSS.UI_DIM,
+            fontFamily: 'monospace',
+            fontStyle: 'bold',
+          })
+          .setOrigin(0.5)
+          .setAlpha(0.5);
+        return;
+      }
 
       // Weapon name
       this.add
         .text(x - cardW / 2 + 16, y - cardH / 2 + 14, def.name, {
-          fontSize: '20px',
+          fontSize: '24px',
           color: NEON_CSS.UI_ACCENT,
           fontFamily: 'monospace',
           fontStyle: 'bold',
@@ -65,7 +93,7 @@ export class WeaponCodexScene extends Phaser.Scene {
       const typeLabel = TYPE_LABELS[def.projectileType] ?? def.projectileType;
       this.add
         .text(x + cardW / 2 - 16, y - cardH / 2 + 16, typeLabel, {
-          fontSize: '16px',
+          fontSize: '20px',
           color: NEON_CSS.UI_DIM,
           fontFamily: 'monospace',
         })
@@ -75,7 +103,7 @@ export class WeaponCodexScene extends Phaser.Scene {
       const cdSec = (def.cooldownMs / 1000).toFixed(1);
       this.add
         .text(x - cardW / 2 + 16, y - 4, `DMG ${def.baseDamage}  CD ${cdSec}s`, {
-          fontSize: '16px',
+          fontSize: '20px',
           color: NEON_CSS.UI_TEXT,
           fontFamily: 'monospace',
         });
@@ -89,7 +117,7 @@ export class WeaponCodexScene extends Phaser.Scene {
       if (extras.length > 0) {
         this.add
           .text(x - cardW / 2 + 16, y + 22, extras.join('  '), {
-            fontSize: '14px',
+            fontSize: '20px',
             color: NEON_CSS.UI_DIM,
             fontFamily: 'monospace',
           });
@@ -98,7 +126,7 @@ export class WeaponCodexScene extends Phaser.Scene {
       // Max level
       this.add
         .text(x + cardW / 2 - 16, y + cardH / 2 - 18, `Max Lv${def.maxLevel}`, {
-          fontSize: '14px',
+          fontSize: '20px',
           color: NEON_CSS.GOLD,
           fontFamily: 'monospace',
         })
@@ -107,23 +135,11 @@ export class WeaponCodexScene extends Phaser.Scene {
 
     // Back button
     const btnY = startY + Math.ceil(defs.length / 2) * (cardH + gap) + 30;
-    const btnBg = this.add
-      .rectangle(cx, btnY, 200, 48, NEON.UI_PANEL)
-      .setStrokeStyle(2, NEON.UI_BORDER);
-
-    this.add
-      .text(cx, btnY, '돌아가기', {
-        fontSize: '22px',
-        color: NEON_CSS.UI_TEXT,
-        fontFamily: 'monospace',
-        fontStyle: 'bold',
-      })
-      .setOrigin(0.5);
-
-    btnBg
-      .setInteractive({ useHandCursor: true })
-      .on('pointerover', () => btnBg.setStrokeStyle(3, NEON.UI_ACCENT))
-      .on('pointerout', () => btnBg.setStrokeStyle(2, NEON.UI_BORDER))
-      .on('pointerdown', () => this.scene.start('MainMenuScene'));
+    createButton(this, {
+      x: cx, y: btnY, width: 220, height: 52,
+      label: '돌아가기', fontSize: '26px',
+      variant: 'secondary',
+      onClick: () => this.scene.start('MainMenuScene'),
+    });
   }
 }

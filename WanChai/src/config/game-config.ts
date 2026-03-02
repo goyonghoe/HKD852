@@ -10,7 +10,7 @@ import { EnemyCodexScene } from '../scenes/EnemyCodexScene';
 import { WorldMapScene } from '../scenes/WorldMapScene';
 
 /** Game version — bump on each deploy */
-export const GAME_VERSION = '0.1.0';
+export const GAME_VERSION = '1.5.0';
 
 /** Base design resolution (9:16 portrait for mobile) */
 export const GAME_WIDTH = 720;

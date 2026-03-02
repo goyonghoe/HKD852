@@ -23,7 +23,7 @@ export class DamageNumberManager {
     for (let i = 0; i < POOL_SIZE; i++) {
       const t = scene.add
         .text(-100, -100, '', {
-          fontSize: '18px',
+          fontSize: '22px',
           color: NEON_CSS.UI_TEXT,
           fontFamily: 'monospace',
           fontStyle: 'bold',
@@ -44,10 +44,10 @@ export class DamageNumberManager {
     text.setAlpha(1);
 
     if (isCrit) {
-      text.setFontSize(28);
+      text.setFontSize(34);
       text.setColor(NEON_CSS.GOLD);
     } else {
-      text.setFontSize(18);
+      text.setFontSize(22);
       text.setColor(NEON_CSS.UI_TEXT);
     }
 

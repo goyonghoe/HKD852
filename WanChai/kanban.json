@@ -1,0 +1,385 @@
+{
+  "version": "1.4.0",
+  "updated_at": "2026-03-02T16:00:00+09:00",
+  "deployed_at": "2026-03-02T16:00:00+09:00",
+  "next_id": 13,
+  "token_budget": {
+    "monthly_limit": null,
+    "used_this_month": 0,
+    "reset_date": "2026-04-01"
+  },
+  "changelog": [
+    {
+      "version": "1.4.0",
+      "date": "2026-03-02",
+      "summary": "AI 토큰 사용량 추적 기능 추가",
+      "changes": [
+        "태스크별 AI 토큰 사용량 기록 (phase/input/output/model)",
+        "카드에 토큰 배지 표시",
+        "상세 모달에 토큰 사용 내역 섹션 추가",
+        "헤더에 전체 토큰 사용량 표시",
+        "월간 토큰 예산 설정 기능 (수동)"
+      ]
+    },
+    {
+      "version": "1.3.0",
+      "date": "2026-03-02",
+      "summary": "WanChai 전용 칸반으로 피봇",
+      "changes": [
+        "PMO_Agent → WanChai 하위로 귀속",
+        "에이전트 목록을 WanChai 팀 6명으로 한정",
+        "전 스킬 모델 Opus로 통일",
+        "UI 가독성 폴리싱 (그림자, 스페이싱, 타이포)"
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "2026-03-02",
+      "summary": "버전 관리 + 히스토리 뷰 추가",
+      "changes": [
+        "배포 버전 관리 시스템 추가 (changelog)",
+        "태스크 히스토리 타임라인 뷰 추가",
+        "버전 히스토리 뷰 추가",
+        "탭 네비게이션 (보드 / 태스크 히스토리 / 버전 히스토리)"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-03-02",
+      "summary": "Monday.com 테마 + 한글화",
+      "changes": [
+        "Monday.com 스타일 UI 리디자인 (딥 네이비 팔레트)",
+        "카드 왼쪽 컬러 스트립, 이니셜 아바타, QA 링 차트",
+        "전체 UI 한글화",
+        "파이프라인 인디케이터 헤더"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "date": "2026-03-02",
+      "summary": "칸반 보드 초기 릴리즈",
+      "changes": [
+        "5컬럼 칸반 보드 (대기/진행/검토/QA/완료)",
+        "7개 스킬 (/kanban-create, pickup, done, qa, redteam, status, deploy)",
+        "필터/검색 기능 (부서, 담당자, 우선순위, 스프린트)",
+        "태스크 상세 모달 (QA/RedTeam 결과, 히스토리)"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "무기 코덱스 씬 UX 설계",
+      "description": "10종 무기 아이콘 + 상세 정보 + 잠금/해금 표시. 무기별 DPS, 범위, 특수효과를 직관적으로 비교할 수 있는 레이아웃.",
+      "status": "final_done",
+      "priority": "high",
+      "assignee": "game-designer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-02-28T10:00:00+09:00",
+      "updated_at": "2026-03-01T16:00:00+09:00",
+      "due_date": null,
+      "tags": ["sprint-3", "codex"],
+      "sprint": "sprint-003",
+      "qa_review": {
+        "score": 88,
+        "breakdown": { "completeness": 23, "fidelity": 22, "maintainability": 22, "compliance": 21 },
+        "feedback": "전반적으로 양호. 모바일 터치 타겟 사이즈 검증 필요.",
+        "reviewed_at": "2026-03-01T14:00:00+09:00",
+        "reviewed_by": "Quality_Gate"
+      },
+      "redteam_review": {
+        "verdict": "APPROVE",
+        "findings": [
+          { "severity": "low", "category": "UX", "detail": "잠금 무기 실루엣이 스포일러가 될 수 있음" }
+        ],
+        "summary": "심각한 이슈 없음. 잠금 표시 방식 경미한 우려.",
+        "reviewed_at": "2026-03-01T16:00:00+09:00",
+        "reviewed_by": "RedTeam"
+      },
+      "token_usage": {
+        "total_tokens": 156200,
+        "entries": [
+          { "phase": "구현", "input": 45000, "output": 32000, "model": "opus", "by": "game-designer", "at": "2026-03-01T11:00:00+09:00" },
+          { "phase": "QA", "input": 28000, "output": 18500, "model": "opus", "by": "Quality_Gate", "at": "2026-03-01T14:00:00+09:00" },
+          { "phase": "레드팀", "input": 22000, "output": 10700, "model": "opus", "by": "RedTeam", "at": "2026-03-01T16:00:00+09:00" }
+        ]
+      },
+      "history": [
+        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-02-28T10:00:00+09:00" },
+        { "from": "backlog", "to": "in_progress", "by": "game-designer", "at": "2026-02-28T10:30:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "game-designer", "at": "2026-03-01T11:00:00+09:00", "note": "WanChai/design/weapon-codex-ux.md 생성" },
+        { "from": "done", "to": "qa_passed", "by": "Quality_Gate", "at": "2026-03-01T14:00:00+09:00" },
+        { "from": "qa_passed", "to": "final_done", "by": "RedTeam", "at": "2026-03-01T16:00:00+09:00" }
+      ]
+    },
+    {
+      "id": "TASK-002",
+      "title": "메인 메뉴 UI 레이아웃 설계",
+      "description": "메인 메뉴 3버튼 (게임 시작, 코덱스, 설정) + 배경 애니메이션. 48dp 이상 터치 타겟, 글래스모피즘 패널.",
+      "status": "in_progress",
+      "priority": "mid",
+      "assignee": "ui-designer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-01T09:00:00+09:00",
+      "updated_at": "2026-03-02T09:00:00+09:00",
+      "due_date": "2026-03-10T23:59:00+09:00",
+      "tags": ["ui", "sprint-3"],
+      "sprint": "sprint-003",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": {
+        "total_tokens": 68400,
+        "entries": [
+          { "phase": "구현", "input": 42000, "output": 26400, "model": "opus", "by": "ui-designer", "at": "2026-03-02T09:00:00+09:00" }
+        ]
+      },
+      "history": [
+        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-03-01T09:00:00+09:00" },
+        { "from": "backlog", "to": "in_progress", "by": "ui-designer", "at": "2026-03-01T09:30:00+09:00" }
+      ]
+    },
+    {
+      "id": "TASK-003",
+      "title": "패시브 업그레이드 시스템 구현",
+      "description": "레벨업 시 3개 패시브 중 1개 선택. 패시브 풀 15종, 희귀도별 가중치, 중복 선택 시 레벨업.",
+      "status": "qa_passed",
+      "priority": "critical",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-02-27T10:00:00+09:00",
+      "updated_at": "2026-03-02T08:00:00+09:00",
+      "due_date": null,
+      "tags": ["core-mechanic", "sprint-3"],
+      "sprint": "sprint-003",
+      "qa_review": {
+        "score": 92,
+        "breakdown": { "completeness": 24, "fidelity": 24, "maintainability": 22, "compliance": 22 },
+        "feedback": "우수한 구현. 희귀도 가중치 엣지 케이스 커버 확인.",
+        "reviewed_at": "2026-03-02T08:00:00+09:00",
+        "reviewed_by": "Quality_Gate"
+      },
+      "redteam_review": null,
+      "token_usage": {
+        "total_tokens": 245800,
+        "entries": [
+          { "phase": "구현", "input": 89000, "output": 72000, "model": "opus", "by": "programmer", "at": "2026-03-01T18:00:00+09:00" },
+          { "phase": "QA", "input": 52000, "output": 32800, "model": "opus", "by": "Quality_Gate", "at": "2026-03-02T08:00:00+09:00" }
+        ]
+      },
+      "history": [
+        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-02-27T10:00:00+09:00" },
+        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-02-27T14:00:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-01T18:00:00+09:00", "note": "WanChai/src/systems/PassiveSystem.ts 구현 완료" },
+        { "from": "done", "to": "qa_passed", "by": "Quality_Gate", "at": "2026-03-02T08:00:00+09:00" }
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "title": "적 도감 씬 아트 리소스 제작",
+      "description": "적 도감용 초상화 20종 (T1~보스). 3/4 oblique 시점, 프론트 페이싱.",
+      "status": "backlog",
+      "priority": "high",
+      "assignee": "art-director",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-02T09:00:00+09:00",
+      "updated_at": "2026-03-02T09:00:00+09:00",
+      "due_date": "2026-03-15T23:59:00+09:00",
+      "tags": ["art", "sprint-3"],
+      "sprint": "sprint-003",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-03-02T09:00:00+09:00" }
+      ]
+    },
+    {
+      "id": "TASK-005",
+      "title": "[BUG] Napalm VFX 다중 존 버그 — 투명 데미지 존 발생",
+      "description": "VFXManager.napalmGraphics가 1개뿐이라 나팜 2연발 시 첫 번째 존의 VFX가 사라지지만 WeaponSystem의 napalmZones에는 데미지가 남아있음. 플레이어가 보이지 않는 존에서 피해를 받음.\n\n수정 방향: napalmGraphics를 풀로 관리하거나, napalmZone 데이터와 VFX를 1:1 매핑.",
+      "status": "done",
+      "priority": "high",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "PMO",
+      "created_at": "2026-03-02T17:00:00+09:00",
+      "updated_at": "2026-03-02T19:30:00+09:00",
+      "due_date": null,
+      "tags": ["bug", "sprint-4", "gameplay"],
+      "sprint": "sprint-004",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "스프린트 리뷰에서 발견" },
+        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T19:00:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T19:30:00+09:00", "note": "napalmGraphics → 4개 풀로 전환, ActiveNapalm 배열로 독립 페이드" }
+      ]
+    },
+    {
+      "id": "TASK-006",
+      "title": "[BUG] GameOverScene 골드 저장 시점 — 강제종료 시 소실",
+      "description": "GameOverScene에서 골드가 goRetry()/goMenu() 버튼 클릭 시에만 MetaState에 저장됨. 이 화면에서 앱을 강제종료하면 런에서 번 골드가 소실.\n\n수정: create() 진입 시 즉시 골드를 MetaState에 반영 + SaveManager.saveMeta() 호출.",
+      "status": "done",
+      "priority": "high",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "PMO",
+      "created_at": "2026-03-02T17:00:00+09:00",
+      "updated_at": "2026-03-02T19:30:00+09:00",
+      "due_date": null,
+      "tags": ["bug", "sprint-4", "data-loss"],
+      "sprint": "sprint-004",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "스프린트 리뷰에서 발견" },
+        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T19:00:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T19:30:00+09:00", "note": "create()에서 즉시 골드 저장, 버튼 핸들러에서 중복 저장 제거" }
+      ]
+    },
+    {
+      "id": "TASK-007",
+      "title": "[BUG] 매직 넘버 정리 — Boss HP/Projectile/Enemy 하드코딩",
+      "description": "M-002 위반 사항 일괄 수정:\n1. Enemy.ts: Boss HP 캡 15000 → balance.ts로 이동\n2. Projectile.ts: 범위 체크 820/1380 → GAME_WIDTH+100/GAME_HEIGHT+100\n3. Projectile.ts: 호밍 턴레이트 3 → balance.ts\n4. Enemy.ts: 텔레포트 목적지 (50,670)/(100,900) → game-config 참조",
+      "status": "done",
+      "priority": "mid",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "PMO",
+      "created_at": "2026-03-02T17:00:00+09:00",
+      "updated_at": "2026-03-02T19:30:00+09:00",
+      "due_date": null,
+      "tags": ["refactor", "sprint-4", "m-002"],
+      "sprint": "sprint-004",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "스프린트 리뷰 M-002 검증" },
+        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T19:00:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T19:30:00+09:00", "note": "BALANCE.ENEMY_BEHAVIOR + COMBAT.homing* 추가, Projectile/Enemy/WeaponSystem에서 참조" }
+      ]
+    },
+    {
+      "id": "TASK-008",
+      "title": "RunScene God Object 리팩토링 설계",
+      "description": "RunScene.ts가 1953줄, ~70개 인스턴스 변수를 가진 God Object. 스폰, 충돌, HUD, 레벨업, 상점, 스테이지 전환, 보스, 동료, 일시정지 등 모든 로직이 하나의 파일에 집중.\n\n설계 필요:\n1. 어떤 서브시스템으로 분리할 것인가 (SpawnManager, CollisionManager, HUDManager, LevelUpManager, StageManager 등)\n2. 각 서브시스템의 책임 범위\n3. 씬과 서브시스템 간 인터페이스\n4. 단계별 마이그레이션 계획 (한 번에 하지 않고 점진적으로)\n\n이 태스크는 설계 문서 산출. 구현은 별도 태스크로 분리.",
+      "status": "done",
+      "priority": "critical",
+      "assignee": "game-designer",
+      "division": "game",
+      "created_by": "PMO",
+      "created_at": "2026-03-02T17:00:00+09:00",
+      "updated_at": "2026-03-02T19:30:00+09:00",
+      "due_date": null,
+      "tags": ["architecture", "sprint-4", "tech-debt"],
+      "sprint": "sprint-004",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "스프린트 리뷰 — 최대 기술 부채 항목" },
+        { "from": "backlog", "to": "in_progress", "by": "game-designer", "at": "2026-03-02T19:00:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "game-designer", "at": "2026-03-02T19:30:00+09:00", "note": "design/specs/runscene-refactor.md 작성 완료 — 7개 매니저, 7단계 마이그레이션" }
+      ]
+    },
+    {
+      "id": "TASK-009",
+      "title": "테스트 커버리지 확대 — WeaponSystem, Enemy, MetaProgression",
+      "description": "현재 테스트: 30개/5모듈 (DamageCalc, XpTable, SpatialHash, WaveDirector, SeededRandom).\n\n추가 필요:\n1. WeaponSystem — 7종 발사 모드 (bullet, laser, aoe, chain, homing, bomb, napalm) 단위 테스트\n2. Enemy — 12종 행동 패턴 (linear, zigzag, circle, charge 등) 이동 검증\n3. MetaProgression — 구매/레벨업/비용 계산 검증\n4. UpgradeSelector — 풀 구성, 셔플, 선택지 중복 제거 검증\n5. SaveManager — 저장/로딩/리셋 검증\n\nM-009 교훈: 유닛 테스트 PASS ≠ 통합 동작 보장. 호출 경로 검증도 포함.",
+      "status": "done",
+      "priority": "high",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "PMO",
+      "created_at": "2026-03-02T17:00:00+09:00",
+      "updated_at": "2026-03-02T19:35:00+09:00",
+      "due_date": null,
+      "tags": ["testing", "sprint-4", "quality"],
+      "sprint": "sprint-004",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "현재 커버리지 C등급 — M-009 준수 필요" },
+        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T19:30:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T19:35:00+09:00", "note": "MetaProgression(15), UpgradeSelector(10), SaveManager(12) 테스트 추가 → 30→67 (123% 증가)" }
+      ]
+    },
+    {
+      "id": "TASK-010",
+      "title": "디자인 문서 오토슈터 피봇 최신화",
+      "description": "퍼즐 RPG → 오토슈터로 피봇했지만 디자인 문서 절반이 구 체제 참조.\n\n최신화 필요 목록:\n1. numerical-bible.md — 큐브/히어로/컨베이어 벨트 참조 제거, 오토슈터 전투 공식 추가\n2. art-style-guide.md — 큐브 스프라이트 참조 제거\n3. ui-ux-guideline.md — 제거된 씬(RunMapScene, ShopScene 등) 참조 정리\n4. expected-play-experience.md — 현행 9씬 기준으로 재작성 (13씬 → 9씬)\n5. 새 문서: auto-shooter-combat-spec.md — 현행 전투 시스템 공식 스펙\n\npackage.json 이름도 puzzle-rpg → neonsurvivor로 변경.",
+      "status": "done",
+      "priority": "high",
+      "assignee": "game-designer",
+      "division": "game",
+      "created_by": "PMO",
+      "created_at": "2026-03-02T17:00:00+09:00",
+      "updated_at": "2026-03-02T22:00:00+09:00",
+      "due_date": null,
+      "tags": ["docs", "sprint-4"],
+      "sprint": "sprint-004",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "디자인 문서 ~50%가 구 퍼즐 RPG 참조" },
+        { "from": "backlog", "to": "in_progress", "by": "game-designer", "at": "2026-03-02T19:30:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "game-designer", "at": "2026-03-02T22:00:00+09:00", "note": "8개 파일 최신화 — numerical-bible, art-style-guide, ui-ux-guideline, expected-play-experience 재작성 + auto-shooter-combat-spec.md 신규 + package.json/status.json/CLAUDE.md 업데이트" }
+      ]
+    },
+    {
+      "id": "TASK-011",
+      "title": "SeededRandom 통합 — 결정론적 스폰/업그레이드",
+      "description": "SeededRandom이 구현되어 있지만 WaveDirector와 UpgradeSelector가 Math.random()을 사용. 런 재현성이 없음.\n\n수정:\n1. WaveDirector: Math.random() → SeededRandom.next()\n2. UpgradeSelector: Fisher-Yates shuffle → SeededRandom.shuffle()\n3. 런 시작 시 시드를 RunState에 기록 → 리플레이/디버깅 가능",
+      "status": "done",
+      "priority": "mid",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "PMO",
+      "created_at": "2026-03-02T17:00:00+09:00",
+      "updated_at": "2026-03-02T22:10:00+09:00",
+      "due_date": null,
+      "tags": ["refactor", "sprint-4"],
+      "sprint": "sprint-004",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00" },
+        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T22:00:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T22:10:00+09:00", "note": "WaveDirector/UpgradeSelector/RunScene에 SeededRandom 주입, RunState.seed 추가, 결정론적 테스트 2개 추가 → 69 tests" }
+      ]
+    },
+    {
+      "id": "TASK-012",
+      "title": "코드 정리 — 드래그 스크롤 공통화 + 데드 코드 제거",
+      "description": "소규모 코드 품질 개선 묶음:\n1. 드래그 스크롤 3중 구현 (WeaponCodex, EnemyCodex, WorldMap) → 공통 유틸 추출\n2. EnemyCodexScene 미사용 container 변수 제거\n3. GlassPanel deprecated createGlassPanel 별칭 제거\n4. RetroAudio localStorage 직접 접근 → SaveManager 통일\n5. PauseOverlay/SettingsOverlay 오디오 UI 중복 → 공통 컴포넌트 추출",
+      "status": "done",
+      "priority": "low",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "PMO",
+      "created_at": "2026-03-02T17:00:00+09:00",
+      "updated_at": "2026-03-02T22:15:00+09:00",
+      "due_date": null,
+      "tags": ["refactor", "sprint-4", "code-quality"],
+      "sprint": "sprint-004",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00" },
+        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T22:10:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T22:15:00+09:00", "note": "5항목 전부 완료 — DragScroll 유틸 추출, container/GlassPanel alias 제거, RetroAudio→SaveManager, PauseOverlay buildAudioRow 리팩토링 (414→247행, 번들 -2KB)" }
+      ]
+    }
+  ]
+}

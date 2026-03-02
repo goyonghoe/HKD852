@@ -1,6 +1,6 @@
-# Project WanChai — Phaser 3 Puzzle Game
+# Project WanChai — Phaser 3 Auto-Shooter Survivor
 
-> Circular conveyor puzzle with element matching
+> Vertical auto-shooter survivor set in cyberpunk Hong Kong (NeonSurvivor)
 
 ## Tech Stack
 
@@ -23,7 +23,7 @@ vercel deploy --prod  # deploy
 
 ## Agents
 
-5 specialized agents in `.claude/agents/`:
+6 specialized agents in `.claude/agents/`:
 
 | Agent | Role | Model | Skills |
 |-------|------|-------|--------|
@@ -32,15 +32,38 @@ vercel deploy --prod  # deploy
 | `art-director` | Procedural textures, VFX | opus | `/art-*` (4) |
 | `ui-designer` | Layouts, animations, polish, UX gate | opus | `/ui-*` (5) |
 | `balance-designer` | DPS/TTK analysis, growth curves, economy sim, difficulty audit | opus | `/bal-*` (6) |
+| `audio-designer` | Procedural BGM/SFX, audio mixing, cyberpunk soundscape | opus | `/aud-*` (4) |
 
 Cross-agent: `/design-status-sync` (1), `/log-mistake` (1)
-**Total: 34 skills**
+
+### Kanban (프로젝트 관리)
+
+| Skill | Description | Model |
+|-------|-------------|-------|
+| `/kanban-create` | 태스크 생성 | opus |
+| `/kanban-pickup` | 태스크 시작 (backlog → in_progress) | opus |
+| `/kanban-done` | 태스크 완료 (in_progress → done) | opus |
+| `/kanban-qa` | CFMC 품질 평가 | opus |
+| `/kanban-redteam` | 적대적 리뷰 | opus |
+| `/kanban-status` | 현황 조회 (읽기 전용) | opus |
+| `/kanban-deploy` | 대시보드 빌드+배포 | opus |
+
+- **데이터**: `WanChai/kanban.json` (단일 진실 소스)
+- **대시보드**: https://pmo-kanban.vercel.app
+- **파이프라인**: Backlog → In Progress → Done → QA (CFMC 80+) → RedTeam → Final Done
+- **토큰 추적**: 태스크별 AI 토큰 사용량 기록 (`token_usage` 필드)
+  - `/kanban-done --tokens <input>,<output>,<model>` 로 기록
+  - QA/RedTeam 리뷰 시 자동 기록
+  - `token_budget` 필드로 월간 예산 설정 가능 (수동)
+
+**Total: 45 skills**
 
 ## Key References
 
 - @design/reference/numerical-bible.md
 - @design/reference/art-style-guide.md
 - @design/reference/ui-ux-guideline.md
+- @design/reference/about-face-ux-principles.md
 - @design/status.json
 
 ## Process Infrastructure

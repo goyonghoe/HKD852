@@ -32,9 +32,11 @@ export class SpatialHash {
     list.push(index);
   }
 
-  /** Query indices into a pre-allocated buffer. Returns count written. */
+  /** Query indices into a pre-allocated buffer. Returns count written.
+   *  When `out` is pre-allocated (length > 0), bounds-checks to avoid overflow. */
   queryRadiusInto(x: number, y: number, radius: number, out: number[]): number {
     let count = 0;
+    const maxCount = out.length; // 0 for dynamic arrays, >0 for pre-allocated buffers
     const r = Math.ceil(radius / this.cellSize);
     const cx = Math.floor(x / this.cellSize);
     const cy = Math.floor(y / this.cellSize);
@@ -44,6 +46,7 @@ export class SpatialHash {
         const list = this.cells.get(k);
         if (list) {
           for (let i = 0; i < list.length; i++) {
+            if (maxCount > 0 && count >= maxCount) return count;
             out[count++] = list[i];
           }
         }

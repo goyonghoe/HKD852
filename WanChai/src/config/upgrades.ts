@@ -1,14 +1,6 @@
 import type { PassiveDef } from '../types/upgrade';
 
 export const PASSIVE_DEFS: Record<string, PassiveDef> = {
-  move_speed: {
-    id: 'move_speed',
-    name: '터보 부스터',
-    description: '포탑 회전 속도 +10%',
-    maxLevel: 5,
-    effect: 'move_speed',
-    valuePerLevel: 0.10,
-  },
   attack_speed: {
     id: 'attack_speed',
     name: '속사 장치',

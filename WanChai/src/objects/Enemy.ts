@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import type { EnemyDef } from '../types/enemy';
+import type { EnemyDef, EnemyAttackStyle } from '../types/enemy';
 import { BALANCE, VISUAL } from '../config/balance';
 import { GAME_WIDTH } from '../config/game-config';
 
@@ -12,11 +12,34 @@ const SHAPE_TO_TEXTURE: Record<string, string> = {
   hexagon: 'enemy_hexagon',
 };
 
+/** Per-enemy-id texture overrides — pixel art sprites */
+const ID_TEXTURES: Record<string, string> = {
+  // T1 (48x48)
+  basic: 't1_moth',
+  fast: 't1_rat',
+  special: 't1_butterfly',
+  swarm: 't1_ant',
+  chaser: 't1_cat',
+  shooter: 't1_jelly',
+  // T2 (72x72)
+  tank: 'opt_t2_ape',
+  splitter: 'opt_t2_kite',
+  guardian: 'opt_t2_lion',
+  sniper_enemy: 'opt_t2_koi',
+  teleporter: 'opt_t2_pango',
+};
+
 /** Boss enemies get dedicated larger textures */
 const BOSS_TEXTURES: Record<string, string> = {
-  boss: 'boss_hex',
-  boss_circle: 'boss_diamond',
-  boss_burst: 'boss_rect',
+  boss: 'boss_aero',
+  boss_circle: 'boss_hydra',
+  boss_burst: 'boss_blaze',
+  // Stage 4~6 (activate when def added to enemies.ts):
+  // boss_terra_def: 'boss_terra',
+  // boss_lumen_def: 'boss_lumen',
+  // boss_umbra_def: 'boss_umbra',
+  // Final boss:
+  // boss_harvester_def: 'boss_harvester',
 };
 
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
@@ -30,6 +53,15 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   public colorKey = '';
   public behavior = '';
   public isSplitChild = false;
+  public knockbackImmune = false;
+
+  // Attack style state
+  public attackStyle: EnemyAttackStyle = 'melee';
+  public attackInterval = 2000;
+  public attackTimer = 0;
+  public isAttackingBase = false;
+  public projectileSpeed = 200;
+  public isRangedStopped = false;  // ranged: stopped at firing position
 
   // Zigzag state
   private zigzagAngle = 0;
@@ -53,7 +85,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   private circleAngle = 0;
   private circleCenterX = 0;
   private circleCenterY = 0;
-  private circlePhase: 'approach' | 'orbit' = 'approach';
+  public circlePhase: 'approach' | 'orbit' = 'approach';
 
   // Boss burst state
   private burstTimer = 0;
@@ -61,17 +93,22 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   private readonly burstIdleDuration = 2000;  // ms pause between charges
   private readonly burstChargeDuration = 1000; // ms per charge burst
 
+  // Teleport state
+  private teleportTimer = 0;
+  private readonly teleportInterval = 2000; // ms between teleports
+
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'enemy_circle');
     // Pool handles adding to scene/physics world
   }
 
-  activate(def: EnemyDef, x: number, y: number, minutesElapsed: number, elite = false, stageMult = 1): void {
+  activate(def: EnemyDef, x: number, y: number, minutesElapsed: number, elite = false, stageHpMult = 1, stageSpeedMult = 1, stageDamageMult = 1): void {
     this.defId = def.id;
     this.isElite = elite;
     this.colorKey = def.colorKey;
     this.behavior = def.behavior;
     this.isSplitChild = false;
+    this.knockbackImmune = (def.knockbackImmune ?? false) || elite;
 
     const hpScale = Math.pow(BALANCE.DIFFICULTY.hpScalePerMin, minutesElapsed);
     const spdScale = Math.min(
@@ -80,20 +117,58 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     );
     const dmgScale = Math.pow(BALANCE.DIFFICULTY.damageScalePerMin, minutesElapsed);
 
-    const eliteMult = elite ? 5 : 1;
+    const eliteMult = elite ? 3 : 1;
 
-    this.hp = Math.ceil(def.baseHp * hpScale * eliteMult * stageMult);
+    let finalHp = Math.ceil(def.baseHp * hpScale * eliteMult * stageHpMult);
+    // Cap boss HP to prevent impossible encounters
+    const isBoss = def.behavior === 'boss_chase' || def.behavior === 'boss_circle' || def.behavior === 'boss_burst';
+    if (isBoss && finalHp > BALANCE.DIFFICULTY.maxBossHp) {
+      finalHp = BALANCE.DIFFICULTY.maxBossHp;
+    }
+    this.hp = finalHp;
     this.maxHp = this.hp;
-    this.damage = Math.ceil(def.baseDamage * dmgScale * (elite ? 2 : 1) * stageMult);
-    this.speed = def.baseSpeed * spdScale;
+    this.damage = Math.ceil(def.baseDamage * dmgScale * (elite ? 2 : 1) * stageDamageMult);
+    this.speed = def.baseSpeed * spdScale * stageSpeedMult;
     this.xpValue = def.xpValue * (elite ? 5 : 1);
 
-    // Set texture: boss enemies get dedicated textures, others use shape mapping
-    const texKey = BOSS_TEXTURES[def.id] ?? SHAPE_TO_TEXTURE[def.shape] ?? 'enemy_circle';
+    // Attack style
+    this.attackStyle = def.attackStyle ?? 'melee';
+    this.attackInterval = def.attackInterval ?? 2000;
+    this.attackTimer = 0;
+    this.isAttackingBase = false;
+    this.projectileSpeed = def.projectileSpeed ?? 200;
+    this.isRangedStopped = false;
+
+    // Set texture: boss → ID override → shape mapping (with PNG existence fallback)
+    const bossTex = BOSS_TEXTURES[def.id];
+    const idTex = ID_TEXTURES[def.id];
+    const shapeTex = SHAPE_TO_TEXTURE[def.shape] ?? 'enemy_circle';
+    let texKey: string;
+    if (bossTex && this.scene.textures.exists(bossTex)) {
+      texKey = bossTex;
+    } else if (idTex && this.scene.textures.exists(idTex)) {
+      texKey = idTex;
+    } else {
+      texKey = shapeTex;
+    }
     this.setTexture(texKey);
 
-    if (def.behavior === 'boss_chase' || def.behavior === 'boss_circle' || def.behavior === 'boss_burst') {
-      this.setScale(2); // Boss textures are already larger (48-52px)
+    // Size correction: scale pixel art to visible display size
+    // Target: T1(48px)→96px, T2(72px)→120px, Boss(192px)→360px
+    const texW = this.texture.getSourceImage().width;
+    if (texW > 0) {
+      let displaySize: number;
+      if (isBoss) {
+        displaySize = 360;   // half screen width — imposing but not covering everything
+      } else if (texW >= 72) {
+        displaySize = 120;   // T2: large, clearly different from T1
+      } else {
+        displaySize = 96;    // T1: easily visible on 720px screen
+      }
+      if (elite) displaySize *= 1.4;
+      this.setScale(displaySize / texW);
+    } else if (isBoss) {
+      this.setScale(2);
     } else if (elite) {
       this.setScale(2);
     } else {
@@ -115,12 +190,14 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     this.knockbackTimer = 0;
     // Boss circle
     this.circleAngle = 0;
-    this.circleCenterX = 360; // screen center X
-    this.circleCenterY = 500; // orbit center Y
+    this.circleCenterX = GAME_WIDTH / 2;
+    this.circleCenterY = BALANCE.ENEMY_BEHAVIOR.bossOrbitCenterY;
     this.circlePhase = 'approach';
     // Boss burst
     this.burstTimer = 0;
     this.burstPhase = 'idle';
+    // Teleport
+    this.teleportTimer = 0;
   }
 
   deactivate(): void {
@@ -136,7 +213,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
    * Called by RunScene each frame (delta in ms).
    */
   applyKnockback(fromX: number, fromY: number): void {
-    if (!this.active) return;
+    if (!this.active || this.knockbackImmune) return;
     const body = this.body as Phaser.Physics.Arcade.Body;
     const angle = Math.atan2(this.y - fromY, this.x - fromX);
     const force = BALANCE.COMBAT.knockbackForce;
@@ -147,6 +224,12 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   applyMovement(delta: number, targetX?: number, targetY?: number): void {
     if (!this.active) return;
     const body = this.body as Phaser.Physics.Arcade.Body;
+
+    // Melee enemies attacking base: stay in place
+    if (this.isAttackingBase) {
+      body.setVelocity(0, 0);
+      return;
+    }
 
     // During knockback, skip normal movement
     if (this.knockbackTimer > 0) {
@@ -223,6 +306,46 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         body.setVelocity(0, this.speed * 0.7);
         break;
       }
+      case 'shoot': {
+        // Ranged: descend slowly → stop at Y ~800 (400px before base) → slight sway
+        const rangedStopY = BALANCE.BASE.y - 400;
+        if (!this.isRangedStopped && this.y >= rangedStopY) {
+          this.isRangedStopped = true;
+        }
+        if (this.isRangedStopped) {
+          // Gentle horizontal sway while stationary
+          this.zigzagAngle += this.zigzagFreq * Math.PI * dt;
+          const sway = Math.sin(this.zigzagAngle) * 20;
+          body.setVelocity(sway, 0);
+        } else {
+          body.setVelocity(0, this.speed);
+        }
+        break;
+      }
+      case 'teleport': {
+        // Slow descent + periodic teleport forward
+        this.teleportTimer += delta;
+        body.setVelocity(0, this.speed * 0.5);
+        if (this.teleportTimer >= this.teleportInterval) {
+          this.teleportTimer = 0;
+          const jumpY = BALANCE.ENEMY_BEHAVIOR.teleportJumpYMin + Math.random() * BALANCE.ENEMY_BEHAVIOR.teleportJumpYRange;
+          const jumpX = (Math.random() - 0.5) * BALANCE.ENEMY_BEHAVIOR.teleportJumpXRange;
+          this.setPosition(
+            Math.max(10, Math.min(GAME_WIDTH - 10, this.x + jumpX)),
+            this.y + jumpY,
+          );
+          body.reset(this.x, this.y);
+          // Blink effect
+          this.setAlpha(0.2);
+          this.scene.tweens.add({
+            targets: this,
+            alpha: 1,
+            duration: 200,
+            ease: 'Linear',
+          });
+        }
+        break;
+      }
       case 'boss_chase': {
         // Slow descent with gradual X-axis tracking toward player
         let bvx = 0;
@@ -246,16 +369,14 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
           }
         } else {
           // Orbit with slow descent
-          const radius = 200;
-          const orbitSpeed = 2; // rad/s
+          const radius = BALANCE.ENEMY_BEHAVIOR.bossOrbitRadius;
+          const orbitSpeed = BALANCE.ENEMY_BEHAVIOR.bossOrbitSpeed;
           this.circleAngle += orbitSpeed * dt;
           const targetX = this.circleCenterX + Math.cos(this.circleAngle) * radius;
           const targetY = this.circleCenterY + Math.sin(this.circleAngle) * radius;
           const dx = targetX - this.x;
           const dy = targetY - this.y;
           body.setVelocity(dx * 3, dy * 3 + this.speed * 0.3);
-          // Slowly push orbit center down
-          this.circleCenterY += this.speed * 0.15 * dt;
         }
         break;
       }
@@ -287,6 +408,34 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     if (this.x < 10) this.x = 10;
     else if (this.x > GAME_WIDTH - 10) this.x = GAME_WIDTH - 10;
     if (this.y < -100) this.y = -100;
+  }
+
+  /** Transition to base attack mode (melee: stop moving, start periodic attacks) */
+  startBaseAttack(): void {
+    this.isAttackingBase = true;
+    this.attackTimer = 0; // first attack fires immediately
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    body.setVelocity(0, 0);
+  }
+
+  /** Check if it's time for a periodic attack; resets timer if true */
+  shouldAttack(delta: number): boolean {
+    this.attackTimer += delta;
+    if (this.attackTimer >= this.attackInterval) {
+      this.attackTimer = 0;
+      return true;
+    }
+    return false;
+  }
+
+  /** For ranged enemies: check if should fire, and tick timer */
+  shouldShoot(delta: number): boolean {
+    this.attackTimer += delta;
+    if (this.attackTimer >= this.attackInterval) {
+      this.attackTimer = 0;
+      return true;
+    }
+    return false;
   }
 
   takeDamage(amount: number): boolean {

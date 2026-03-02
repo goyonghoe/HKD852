@@ -12,6 +12,7 @@ interface SaveData {
     bgmVolume: number;
     bgmMuted: boolean;
     sfxVolume: number;
+    sfxMuted: boolean;
   };
 }
 
@@ -24,6 +25,7 @@ function getDefaultMeta(): MetaState {
     bestTimeMs: 0,
     upgrades: {},
     runsCompleted: 0,
+    discovered: { weapons: ['energy_shot'], enemies: [] },
   };
 }
 
@@ -35,7 +37,8 @@ function getDefaultSave(): SaveData {
     settings: {
       bgmVolume: 0.12,
       bgmMuted: true,
-      sfxVolume: 1,
+      sfxVolume: 0.8,
+      sfxMuted: false,
     },
   };
 }
@@ -87,6 +90,55 @@ export class SaveManager {
     SaveManager.save(data);
   }
 
+  // ── SFX settings ───────────────────────────────────────────────────
+
+  static getSfxSettings(): { volume: number; muted: boolean } {
+    const data = SaveManager.load();
+    return {
+      volume: data.settings.sfxVolume ?? 0.8,
+      muted: data.settings.sfxMuted ?? false,
+    };
+  }
+
+  static setSfxVolume(volume: number): void {
+    const data = SaveManager.load();
+    data.settings.sfxVolume = Math.max(0, Math.min(1, volume));
+    SaveManager.save(data);
+  }
+
+  static setSfxMuted(muted: boolean): void {
+    const data = SaveManager.load();
+    data.settings.sfxMuted = muted;
+    SaveManager.save(data);
+  }
+
+  // ── Discovery tracking ──────────────────────────────────────────────
+
+  static discoverWeapon(weaponId: string): void {
+    const data = SaveManager.load();
+    const disc = data.meta.discovered ?? { weapons: ['energy_shot'], enemies: [] };
+    if (!disc.weapons.includes(weaponId)) {
+      disc.weapons.push(weaponId);
+      data.meta.discovered = disc;
+      SaveManager.save(data);
+    }
+  }
+
+  static discoverEnemy(enemyId: string): void {
+    const data = SaveManager.load();
+    const disc = data.meta.discovered ?? { weapons: ['energy_shot'], enemies: [] };
+    if (!disc.enemies.includes(enemyId)) {
+      disc.enemies.push(enemyId);
+      data.meta.discovered = disc;
+      SaveManager.save(data);
+    }
+  }
+
+  static getDiscovered(): { weapons: string[]; enemies: string[] } {
+    const data = SaveManager.load();
+    return data.meta.discovered ?? { weapons: ['energy_shot'], enemies: [] };
+  }
+
   // ── Mid-run persistence ──────────────────────────────────────────────────
 
   static saveRun(state: RunState): void {
@@ -111,5 +163,22 @@ export class SaveManager {
 
   static hasActiveRun(): boolean {
     return localStorage.getItem(RUN_SAVE_KEY) !== null;
+  }
+
+  /** Reset ALL saved data — meta progression, records, discovery, settings, run save. */
+  static resetAll(): void {
+    localStorage.removeItem(SAVE_KEY);
+    localStorage.removeItem(RUN_SAVE_KEY);
+  }
+
+  /** Returns true if player has any meta progression (upgrades, gold, records, etc.) */
+  static hasProgression(): boolean {
+    const meta = SaveManager.loadMeta();
+    return (
+      meta.totalGold > 0 ||
+      meta.runsCompleted > 0 ||
+      meta.bestKills > 0 ||
+      Object.keys(meta.upgrades).length > 0
+    );
   }
 }

@@ -1,6 +1,6 @@
 # UI/UX 가이드라인 — WanChai
 
-> 모바일 게임 UI/UX 가이드 (2025-2026 트렌드 반영)
+> 모바일 오토슈터 서바이버 게임 UI/UX 가이드 (2025-2026 트렌드 반영)
 
 ---
 
@@ -31,11 +31,16 @@
 
 | 용도 | 크기 | 굵기 | 비고 |
 |------|------|------|------|
-| 타이틀 (Title) | 48px | Bold (700) | 화면 타이틀, 레벨 이름 |
-| 헤딩 (Heading) | 32px | SemiBold (600) | 섹션 헤딩 |
-| 본문 (Body) | 22px | Regular (400) | 일반 텍스트, 설명 |
-| 캡션 (Caption) | 14px | Regular (400) | 보조 정보, 라벨 |
-| 스코어 (Score) | 42px | Bold (700) | 점수 표시, monospace |
+| 타이틀 (Title) | 48px | Bold (700) | 화면 타이틀 |
+| 브랜드 (Brand) | 72px | Bold (700) | WANCHAI 로고 전용 |
+| 스코어 (Score) | 42px | Bold (700) | 점수/타이머 표시, monospace |
+| 헤딩 (Heading) | 28~32px | Bold (700) | 섹션 헤딩, 카드 타이틀 |
+| 서브헤딩 | 22px | SemiBold (600) | 부제목, 항목명 |
+| 버튼 라벨 | 22~28px | Bold (700) | 버튼 텍스트 |
+| 본문 (Body) | 20px | Regular (400) | 일반 텍스트, 설명 |
+| 보조 본문 | 18px | Regular (400) | 부연 설명, 힌트 |
+| 정보 라벨 | 16px | Regular (400) | HP, 비용, 상태 라벨 |
+| 캡션 (Caption) | 14px | Regular (400) | 각주, 버전, 최소 허용 |
 
 ### 2.2 폰트 규칙
 
@@ -43,6 +48,7 @@
 - 한글 지원: 시스템 폰트 폴백 (`sans-serif`)
 - 텍스트 컬러: `#ecf0f1` (기본), `#bdc3c7` (보조), `#e94560` (강조)
 - 그림자: `2px 2px 4px rgba(0,0,0,0.5)` — 배경 위 가독성 확보
+- **최소 폰트 크기: 14px** — 14px 미만 금지
 
 ---
 
@@ -71,54 +77,102 @@
 | 드래그 (Drag) | 오브젝트 추종 + 그림자 | 실시간 |
 | 놓기 (Release) | spring back 1.0 | 120ms |
 
+### 3.4 인게임 조작
+
+| 조작 | 동작 | 설명 |
+|------|------|------|
+| 좌우 드래그 | 플레이어 좌우 이동 | 화면 하단 영역 |
+| 탭 | 조준점 이동 | 무기가 탭 위치 근처 적 우선 타겟 |
+| 속도 버튼 | 게임 속도 토글 | 1x → 1.5x → 2x |
+| 일시정지 | 일시정지 오버레이 | 좌상단 48x48 버튼 |
+
 ---
 
-## 4. HUD 레이아웃 (720x1280)
+## 4. 현재 씬 구조 (9씬)
 
-### 4.1 구조
+### 4.1 씬 목록
+
+| # | 씬 | 역할 |
+|---|-----|------|
+| 1 | BootScene | 초기 설정 |
+| 2 | PreloadScene | 에셋 로드 + 프로시저럴 텍스처 생성 |
+| 3 | MainMenuScene | 메인 메뉴 (START, 도감, 월드맵, 메타 강화) |
+| 4 | RunScene | 코어 게임플레이 (오토슈터 전투) |
+| 5 | GameOverScene | 게임 오버 결과 |
+| 6 | MetaScene | 영구 강화 (골드 소비) |
+| 7 | WeaponCodexScene | 무기 도감 |
+| 8 | EnemyCodexScene | 적 도감 |
+| 9 | WorldMapScene | 3구역 월드맵 |
+
+### 4.2 씬 플로우
+
+```
+BootScene → PreloadScene → MainMenuScene
+                              │
+              ┌───────────────┼───────────────┐
+              │               │               │
+          RunScene      MetaScene     WeaponCodexScene
+              │                         EnemyCodexScene
+         GameOverScene                  WorldMapScene
+              │
+         MainMenuScene
+```
+
+---
+
+## 5. HUD 레이아웃 (720x1280) — RunScene
+
+### 5.1 구조
 
 ```
 ┌─────────────────────────────┐ y=0
 │         Safe Area Top       │
 ├─────────────────────────────┤ y=40
 │ ┌─────────────────────────┐ │
-│ │   Glass Panel Top Bar   │ │ height=80
-│ │ [Combo]  [Progress] [Score] │
+│ │  [Pause][Sound][Speed]  │ │ height=40
+│ │  Stage Name | Timer     │ │
 │ └─────────────────────────┘ │
-├─────────────────────────────┤ y=130
+│ [XP Bar ========================] │ XP 바 (600x8)
+├─────────────────────────────┤ y=100
 │                             │
+│     적이 위에서 내려옴       │
 │                             │
-│        Game Area            │
-│     (Belt + Board)          │
+│     Game Area (전투 영역)    │
 │                             │
+│     투사체가 위로 올라감     │
 │                             │
+├─────────────────────────────┤ y=1070
+│ [Base HP ========================] │ 기지 HP 바 (680x16)
+│ ▓▓▓▓▓▓ 기지 벽 (720x30) ▓▓▓▓▓▓  │
 ├─────────────────────────────┤ y=1100
-│ ┌─────────────────────────┐ │
-│ │  Hero Queue / Controls  │ │ height=140
-│ └─────────────────────────┘ │
+│     🧑 플레이어 (y=1200)    │
+│   [무기 목록 HUD]           │
 ├─────────────────────────────┤ y=1240
 │       Safe Area Bottom      │
 └─────────────────────────────┘ y=1280
 ```
 
-### 4.2 HUD 요소 배치
+### 5.2 HUD 요소 배치
 
-| 요소 | 위치 | 정렬 | 크기 |
-|------|------|------|------|
-| 스코어 (Score) | 우측 상단 | 우측 정렬 | 42px monospace |
-| 콤보 (Combo) | 좌측 상단 | 좌측 정렬 | 32px bold |
-| 진행 바 (Progress Bar) | 중앙 상단 | 가운데 | 200x12px |
-| 레벨 이름 (Level Name) | 진행바 아래 | 가운데 | 14px caption |
-| 히어로 큐 (Hero Queue) | 하단 패널 | 가운데 | 히어로당 64px |
+| 요소 | 위치 | 크기/폰트 |
+|------|------|----------|
+| 일시정지 버튼 | 좌상단 | 48x48 아이콘 |
+| 사운드 버튼 | 일시정지 옆 | 48x48 아이콘 |
+| 속도 버튼 | 사운드 옆 | 48x48 아이콘 |
+| 스테이지명 | 상단 중앙 | 18px |
+| 타이머 | 상단 우측 | 22px monospace |
+| XP 바 | 상단 하단 | 600x8px |
+| 레벨 표시 | XP 바 좌측 | 14px |
+| 기지 HP 바 | y=1070 | 680x16px |
+| 무기 목록 | 하단 | 아이콘 리스트 |
 
 ---
 
-## 5. 패널 컴포넌트 스펙
+## 6. 패널 컴포넌트 스펙
 
-### 5.1 표준 글래스 패널
+### 6.1 표준 글래스 패널
 
 ```typescript
-// 표준 글래스 패널 드로잉
 function drawGlassPanel(
   graphics: Phaser.GameObjects.Graphics,
   x: number, y: number,
@@ -126,100 +180,50 @@ function drawGlassPanel(
   alpha: number = 0.25,
   radius: number = 16
 ): void {
-  // 배경
   graphics.fillStyle(0x1a1a2e, alpha);
   graphics.fillRoundedRect(x, y, w, h, radius);
-
-  // 테두리
   graphics.lineStyle(1, 0x4a6fa5, 0.3);
   graphics.strokeRoundedRect(x, y, w, h, radius);
 }
 ```
 
-### 5.2 패널 변형
+### 6.2 패널 변형
 
 | 변형 | Alpha | Border | 용도 |
 |------|-------|--------|------|
 | 기본형 (Standard) | 0.25 | 1px 0.3 | HUD, 일반 패널 |
-| 모달 (Modal) | 0.40 | 1px 0.5 | 팝업, 다이얼로그 |
-| 카드 (Card) | 0.20 | 1px 0.2 | 레벨 셀렉트 카드 |
-| 미니멀 (Minimal) | 0.15 | none | 툴팁, 힌트 |
+| 모달 (Modal) | 0.40 | 1px 0.5 | 레벨업 선택, 일시정지 오버레이 |
+| 카드 (Card) | 0.20 | 1px 0.2 | 무기/패시브 선택 카드 |
+| 미니멀 (Minimal) | 0.15 | none | 툴팁, 데미지 넘버 |
 
 ---
 
-## 6. 스코어 카운터
+## 7. 레벨업 선택 UI
 
-### 6.1 롤링 애니메이션
+### 7.1 레벨업 카드
 
 | 속성 | 값 |
 |------|---|
-| 지속 시간 | 800 ~ 1500ms (점수 차이에 비례) |
-| 이징 | Power2.easeOut |
-| 스케일 팝 | 1.15x → 1.0x (Back.easeOut, 200ms) |
+| 카드 크기 | 200 x 240 px |
+| 카드 간격 | 16px gap |
+| 카드 라디우스 | 16px |
+| 레이아웃 | 3장 가로 배치 |
+| 배경 | Modal overlay (alpha 0.40) |
+| 자동 선택 | 5초 후 자동 선택 (autoSelectDelayMs) |
 
-### 6.2 구현 패턴
+### 7.2 카드 내부 구조
 
-```typescript
-// 스코어 카운터 롤
-tweens.addCounter({
-  from: currentScore,
-  to: targetScore,
-  duration: Math.min(1500, Math.max(800, delta * 2)),
-  ease: 'Power2',
-  onUpdate: (tween) => {
-    scoreText.setText(Math.floor(tween.getValue()).toLocaleString());
-  },
-  onComplete: () => {
-    // scale pop
-    tweens.add({
-      targets: scoreText,
-      scale: { from: 1.15, to: 1.0 },
-      duration: 200,
-      ease: 'Back.easeOut'
-    });
-  }
-});
 ```
-
----
-
-## 7. 별 연출 (Star Reveal)
-
-### 7.1 시퀀셜 등장
-
-| 속성 | 값 |
-|------|---|
-| 별 간 딜레이 | 300ms |
-| 등장 애니메이션 | scale 0 → 1.2 → 1.0 |
-| 이징 | Back.easeOut |
-| 파티클 버스트 | 별마다 8~12개 파티클 |
-
-### 7.2 구현 패턴
-
-```typescript
-// 별 시퀀셜 연출
-stars.forEach((star, index) => {
-  star.setScale(0);
-
-  tweens.add({
-    targets: star,
-    scale: { from: 0, to: 1.2 },
-    duration: 300,
-    delay: index * 300,
-    ease: 'Back.easeOut',
-    onComplete: () => {
-      // settle to 1.0
-      tweens.add({
-        targets: star,
-        scale: 1.0,
-        duration: 150,
-        ease: 'Power2'
-      });
-      // particle burst
-      emitStarBurst(star.x, star.y, 10);
-    }
-  });
-});
+┌────────────────┐
+│   무기 아이콘    │ ← 36px 아이콘
+│   무기 이름      │ ← 18px bold
+│                 │
+│   설명 텍스트    │ ← 16px
+│   Lv.3 → Lv.4  │ ← 14px
+│                 │
+│   DPS: 25.0     │ ← 14px monospace
+└────────────────┘
+      200x240
 ```
 
 ---
@@ -233,8 +237,7 @@ stars.forEach((star, index) => {
 | 배경색 | Accent `#e94560` |
 | 텍스트 | `#ffffff`, 22px Bold |
 | 라디우스 | 16px |
-| 최소 크기 | 200 x 56 dp |
-| 호버 (Hover) | scale 1.05x, 밝기 +10% |
+| 최소 크기 | 220 x 60 dp |
 | 누름 (Press) | scale 0.95x, 밝기 -10% |
 | 비활성 (Disabled) | alpha 0.4 |
 
@@ -246,7 +249,6 @@ stars.forEach((star, index) => {
 | 테두리 | 1px `#4a6fa5` alpha 0.3 |
 | 텍스트 | `#ecf0f1`, 22px Regular |
 | 라디우스 | 16px |
-| 호버 (Hover) | scale 1.05x, 테두리 alpha 0.5 |
 | 누름 (Press) | scale 0.95x |
 
 ### 8.3 아이콘 버튼 (Icon Button)
@@ -260,39 +262,22 @@ stars.forEach((star, index) => {
 
 ---
 
-## 9. 레벨 셀렉트
+## 9. 장면 전환
 
-### 9.1 벤토 그리드 (Bento Grid)
+### 9.1 전환 패턴
 
-| 속성 | 값 |
-|------|---|
-| 카드 크기 | 140 x 140 px |
-| 카드 간격 | 16px gap |
-| 카드 라디우스 | 16px |
-| 레이아웃 | 4열 그리드, 스크롤 가능 |
-| 배경 | Glass panel alpha 0.20 |
+| 전환 | 효과 | 지속 시간 |
+|------|------|----------|
+| 메뉴 → 게임 (RunScene) | 검정 페이드 (Fade Black) | 500ms |
+| 게임 → 게임오버 | 검정 페이드 (Fade Black) | 500ms |
+| 게임오버 → 메뉴 | 검정 페이드 (Fade Black) | 500ms |
+| 메뉴 → 도감/메타/월드맵 | 검정 페이드 (Fade Black) | 500ms |
+| 스테이지 → 다음 스테이지 | 인게임 오버레이 (2초 정지) | 2000ms |
 
-### 9.2 카드 상태
+### 9.2 전환 이징
 
-| 상태 | 시각 표현 |
-|------|----------|
-| 잠김 (Locked) | alpha 0.3, 자물쇠 아이콘 |
-| 도전 가능 (Available) | 기본 글래스 카드 + 레벨 번호 |
-| 완료됨 (Completed) | 별 표시 (1~3) + 스코어 |
-| 현재 (Current) | 글로우 보더 (accent 컬러 pulse) |
-
-### 9.3 카드 내부 구조
-
-```
-┌────────────────┐
-│  Level 1-3     │ ← 14px caption
-│                │
-│    ★ ★ ☆      │ ← 별 표시 (완료 시)
-│                │
-│   12,450       │ ← 최고 점수 (완료 시)
-└────────────────┘
-      140x140
-```
+- 모든 장면 전환: 검은색 오버레이 alpha 0→1→0
+- 인게임 스테이지 전환: "STAGE CLEAR" 텍스트 스케일인 + 페이드
 
 ---
 
@@ -305,8 +290,8 @@ stars.forEach((star, index) => {
 | 기준 | 720 x 1280 (9:16) |
 | Phaser Scale Mode | `Phaser.Scale.FIT` |
 | Auto Center | `Phaser.Scale.CENTER_BOTH` |
-| 최소 너비 (Min Width) | 360px |
-| 최대 너비 (Max Width) | 1080px |
+| 최소 | 360 x 640 |
+| 최대 | 1440 x 2560 |
 
 ### 10.2 Safe Area
 
@@ -330,28 +315,10 @@ const config: Phaser.Types.Core.GameConfig = {
 
 ---
 
-## 11. 장면 전환
-
-### 11.1 전환 패턴
-
-| 전환 | 효과 | 지속 시간 |
-|------|------|----------|
-| 메뉴 → 레벨 셀렉트 | 좌측 슬라이드 (Slide Left) | 400ms |
-| 레벨 셀렉트 → 퍼즐 | 검정 페이드 (Fade Black) | 500ms |
-| 퍼즐 → 결과 | 확대 + 페이드 (Scale Up + Fade) | 400ms |
-| 결과 → 레벨 셀렉트 | 우측 슬라이드 (Slide Right) | 400ms |
-
-### 11.2 전환 이징
-
-- 모든 장면 전환: `Power2.easeInOut`
-- 페이드: 검은색 오버레이 alpha 0→1→0
-
----
-
-## 12. 접근성
+## 11. 접근성
 
 - 색상만으로 정보 구분하지 않음 (아이콘/심벌 병행)
 - 터치 타겟 최소 48dp 준수
 - 텍스트 대비 비율 4.5:1 이상
 - 애니메이션 축소 옵션 (prefers-reduced-motion 존중)
-- 스코어/타이머 등 핵심 정보는 여러 채널로 전달 (시각 + 크기 + 위치)
+- 적 유형은 도형으로 구분 (circle, triangle, rect, diamond, hexagon)

@@ -1,15 +1,15 @@
 # 아트 스타일 가이드 — WanChai
 
-> 프로시저럴 픽셀아트 퍼즐 게임 아트 디렉션 가이드
+> 프로시저럴 픽셀아트 오토슈터 서바이버 게임 아트 디렉션 가이드
 
 ---
 
 ## 1. 코어 에스테틱
 
 - **스타일**: Procedural Pixel Art (`pixelArt: true` in Phaser config)
-- **베이스 컬러**: Dark Navy `#1a1a2e`
+- **베이스 컬러**: Dark Background `#0a0a1a`
 - **악센트**: 원소별 고채도 컬러 (아래 컬러 시스템 참조)
-- **분위기**: 어두운 배경 위에 빛나는 원소들이 생동감을 주는 구조
+- **분위기**: 사이버펑크 홍콩 뒷골목 — 어두운 배경 위에 네온 빛과 투사체가 생동감을 주는 구조
 - **렌더링**: WebGL, nearest-neighbor 스케일링 (안티앨리어싱 OFF)
 
 ---
@@ -20,7 +20,7 @@
 
 | 용도 | 컬러 | Hex |
 |------|------|-----|
-| 메인 배경 | Dark Navy | `#1a1a2e` |
+| 메인 배경 | Dark Base | `#0a0a1a` |
 | 보조 배경 | Deep Indigo | `#16213e` |
 | 서피스 | Midnight Blue | `#0f3460` |
 | 악센트 (UI) | Crimson Rose | `#e94560` |
@@ -38,9 +38,19 @@
 | **Light** (광) | `#ecf0f1` | `#ffffff` | `#bdc3c7` |
 | **Dark** (암) | `#9b59b6` | `#c39bd3` | `#6c3483` |
 
-### 2.3 컬러 사용 규칙
+### 2.3 적 컬러키
 
-- 모든 원소 컬러는 `src/config/colors.ts`에서 상수로 관리
+| 컬러키 | 용도 | 설명 |
+|--------|------|------|
+| `ENEMY_BASIC` | 기본 적 (circle) | 일반 네온 톤 |
+| `ENEMY_FAST` | 빠른 적 (triangle), 추적자, 군체 | 위협적인 톤 |
+| `ENEMY_TANK` | 탱크 (rect), 수호자, 버스트 보스 | 묵직한 톤 |
+| `ENEMY_SPECIAL` | 특수 적 (diamond), 사격수, 저격수, 서클 보스 | 불길한 톤 |
+| `ENEMY_ELITE` | 엘리트, 분열자, 텔레포터, 일반 보스 | 고위험 톤 |
+
+### 2.4 컬러 사용 규칙
+
+- 모든 컬러는 `src/config/colors.ts`에서 상수로 관리
 - 씬 코드에 직접 hex 리터럴 작성 금지 — 반드시 `colors.ts` 임포트
 - highlight는 라이팅/셀렉션 상태, shadow는 그림자/비활성 상태에 사용
 - 배경 위에 원소 컬러가 충분한 대비를 갖도록 contrast ratio 4.5:1 이상 유지
@@ -72,113 +82,96 @@ graphics.strokeRoundedRect(x, y, w, h, radius);
 
 ---
 
-## 4. 큐브 스프라이트 스펙
+## 4. 적 스프라이트 스펙
 
-### 4.1 기본 큐브
+### 4.1 적 형태 (Shape) 매핑
 
-| 속성 | 값 |
-|------|---|
-| 크기 | 80 x 80 px |
-| 코너 라디우스 | 8 px |
-| 이너 베벨 | 2 px (highlight shade 사용) |
-| 심벌 | 중앙에 원소 아이콘 (40x40 영역) |
+| 형태 | 도형 | 크기 (baseSize) | 대표 적 |
+|------|------|----------------|---------|
+| `circle` | 원형 | 8~12px | basic, swarm |
+| `triangle` | 삼각형 | 10~12px | fast, chaser, sniper_enemy |
+| `rect` | 사각형 | 18~36px | tank, guardian, boss_burst |
+| `diamond` | 마름모 | 13~28px | special, shooter, teleporter, boss_circle |
+| `hexagon` | 육각형 | 16~32px | splitter, boss |
 
-### 4.2 큐브 구조
-
-```
-┌──────────────────┐
-│  2px bevel (highlight) │
-│  ┌──────────────┐ │
-│  │              │ │
-│  │   Element    │ │
-│  │   Symbol     │ │
-│  │   (40x40)    │ │
-│  │              │ │
-│  └──────────────┘ │
-│  2px shadow (bottom/right) │
-└──────────────────┘
-        80x80
-```
-
-### 4.3 아머드 큐브 (강화)
-
-- 기본 큐브에 **메탈릭 보더** 추가
-- 보더 두께: 4px
-- 보더 컬러: `#c0c0c0` (silver) / `#ffd700` (gold, HP3)
-- 내부 원소 심벌 유지
-- HP 표시: 보더 하단에 도트 인디케이터
-
-### 4.4 큐브 상태
+### 4.2 적 상태
 
 | 상태 | 시각 표현 |
 |------|----------|
-| 일반 (Normal) | base 컬러 배경 + 심벌 |
-| 선택됨 (Selected) | highlight 컬러 + glow 링 |
-| 매칭됨 (Matched) | flash white → destroy 애니메이션 |
-| 강화됨 (Armored) | 메탈릭 보더 + HP 도트 |
+| 일반 (Normal) | colorKey 기반 컬러 + 도형 |
+| 엘리트 (Elite) | 3배 크기 + 밝은 오라 + HP 바 표시 |
+| 피격 (Hit) | hitFlash 80ms 화이트 플래시 |
+| 사망 (Death) | deathFade 200ms + 파티클 버스트 8개 |
+| 넉백 (Knockback) | 60px 밀려남 + 150ms 지속 |
+
+### 4.3 보스 시각 연출
+
+- 등장 시: 어둡게 오버레이 + "BOSS" 텍스트 스케일인 + 화면 흔들림
+- HP 바: 화면 상단 전체 폭 (680px) 표시
+- 사망 시: 강화된 파티클 + 화면 흔들림 + 페이드
 
 ---
 
-## 5. 히어로 스프라이트 스펙
+## 5. 플레이어 스프라이트 스펙
 
 | 속성 | 값 |
 |------|---|
-| 형태 | 원형 (circle) |
-| 지름 | 64 px |
-| 하이라이트 크레센트 | 상단 좌측, highlight shade, 호 두께 6px |
-| 글로우 링 | 반경 +4px, alpha 0.3, 원소 base 컬러 |
-| 눈 | 도트 2개, 8px, 위쪽 1/3 위치, `#ffffff` |
+| 형태 | 캐릭터 스프라이트 (char_hai_ingame) 또는 폴백 프로시저럴 원형 |
+| 디스플레이 크기 | 96 x 96 px |
+| 물리 반경 | 14 px |
+| 위치 | 화면 하단 고정 (y=1200), 좌우 이동만 가능 |
+| 조준 | 가장 가까운 적 방향으로 자동 회전 |
 
-### 히어로 구조
-
-```
-      ╭───────╮
-    ╭─┤ crescent ├─╮    ← highlight crescent (6px arc)
-   │  ╰───────╯  │
-   │   ●     ●   │    ← dot eyes (8px, white)
-   │              │
-   │  (element    │
-   │   color)     │    ← base color fill
-   ╰──────────────╯
-   ┊  glow ring   ┊    ← +4px, alpha 0.3
-        64px
-```
-
-### 히어로 상태
+### 플레이어 상태
 
 | 상태 | 시각 표현 |
 |------|----------|
-| 대기 (Idle, 벨트 위) | 기본 + 글로우 링 |
-| 활성 (Active, 발사 중) | scale 1.1x + 트레일 파티클 |
-| 매칭됨 (Matched) | bounce 애니메이션 + spark 이펙트 |
+| 대기 (Idle) | 기본 스프라이트, 상단 조준 |
+| 이동 (Moving) | 좌우 이동, 터치/드래그 추종 |
+| 발사 (Firing) | 무기별 투사체 발사 이펙트 |
 
 ---
 
-## 6. 파티클 표준
+## 6. 투사체 스프라이트 스펙
 
-### 6.1 오브젝트 풀
+| 투사체 | 텍스처 키 | 설명 |
+|--------|----------|------|
+| `projectile_bullet` | 기본 탄환 | 에너지 샷, 산탄총 |
+| `projectile_rapid` | 속사 탄환 | 속사포 전용 |
+| `projectile_shuriken` | 회전 수리검 | spinRate 12 적용 |
+| `projectile_laser` | 레이저 빔 | 관통 99, 긴 수명 |
+| `projectile_missile` | 유도 미사일 | 호밍 추적 |
+| `projectile_napalm` | 네이팜 화구 | 착탄 후 화염 지대 생성 |
+
+---
+
+## 7. 파티클 표준
+
+### 7.1 오브젝트 풀
 
 | 속성 | 값 |
 |------|---|
 | 풀 크기 | 200 파티클 |
-| 관리 | `ParticlePool.ts` 싱글턴 |
+| 관리 | `VFXManager.ts` |
 | 블렌드 모드 | `Phaser.BlendModes.ADD` |
 
-### 6.2 이펙트별 파티클 수
+### 7.2 이펙트별 파티클 수
 
 | 이펙트 | 파티클 수 | 수명 | 설명 |
 |--------|----------|------|------|
-| 매칭 파괴 (Match Destroy) | 8 ~ 15 | 300ms | 큐브 파괴 시 원소 컬러 파편 |
-| 콤보 폭발 (Combo Burst) | 15 ~ 25 | 400ms | 콤보 달성 시 방사형 폭발 |
-| 클리어 축하 (Celebration) | 30 ~ 50 | 800ms | 레벨 클리어 시 화면 전체 |
-| 잔상 (Trail) | 3 ~ 5 | 150ms | 히어로 이동 시 잔상 |
+| 적 사망 (Death Burst) | 8 | 200ms | 적 사망 시 컬러 파편 |
+| 피격 스파크 (Hit Spark) | 3 | 80ms | 적 피격 시 불꽃 |
+| XP 픽업 (XP Pickup) | 4 | 150ms | XP 오브 수집 시 |
+| 체인 라이트닝 | VFX 라인 | 즉시 | 적 사이 전기 연결선 |
+| 폭탄 폭발 (Bomb Flash) | VFX 원형 | 150ms | 폭발 반경 + 화면 흔들림 |
+| 네이팜 지대 (Napalm Zone) | VFX 영역 | 4000ms | 지속 화염 영역 |
 
-### 6.3 파티클 공통 속성
+### 7.3 파티클 공통 속성
 
 ```typescript
 {
   blendMode: Phaser.BlendModes.ADD,
-  lifespan: { min: 200, max: 400 },
+  lifespan: { min: 100, max: 300 },
   scale: { start: 1, end: 0 },
   alpha: { start: 1, end: 0 },
   speed: { min: 50, max: 200 },
@@ -188,61 +181,56 @@ graphics.strokeRoundedRect(x, y, w, h, radius);
 
 ---
 
-## 7. 애니메이션 타이밍
+## 8. 애니메이션 타이밍
 
-### 7.1 코어 타이밍
-
-| 애니메이션 | 지속 시간 | 이징 |
-|-----------|----------|------|
-| 큐브 파괴 (Cube Destroy) | 200ms | Power2.easeOut |
-| 중력 낙하 (Gravity Fall) | 150ms (셀당) | Bounce.easeOut |
-| 매칭 플래시 (Match Flash) | 100ms | Linear (2회 깜빡임) |
-| 히어로 발사 (Hero Launch) | 300ms | Power3.easeOut |
-| 히어로 복귀 (Hero Return) | 200ms | Back.easeIn |
-
-### 7.2 UI 애니메이션
+### 8.1 코어 타이밍
 
 | 애니메이션 | 지속 시간 | 이징 |
 |-----------|----------|------|
-| 스코어 롤 (Score Roll) | 800 ~ 1500ms | Power2.easeOut |
-| 별 등장 (Star Reveal) | 300ms (별당) | Back.easeOut |
-| 패널 슬라이드 (Panel Slide) | 400ms | Power2.easeInOut |
+| 적 사망 페이드 (Death Fade) | 200ms | Linear |
+| 피격 플래시 (Hit Flash) | 80ms | Linear |
+| 넉백 (Knockback) | 150ms | Power2.easeOut |
+| 레벨업 일시정지 | 100ms | — |
+| 보스 등장 연출 | 800ms | Back.easeOut |
+| 스테이지 클리어 | 2000ms | Power2.easeOut |
+
+### 8.2 UI 애니메이션
+
+| 애니메이션 | 지속 시간 | 이징 |
+|-----------|----------|------|
+| XP 바 채움 | 200ms | Power2.easeOut |
+| 레벨업 카드 등장 | 300ms | Back.easeOut |
 | 버튼 누름 (Button Press) | 80ms | Linear |
+| 씬 페이드 (Scene Fade) | 500ms | Linear |
+| 데미지 넘버 팝업 | 300ms | Power2.easeOut |
 
 ---
 
-## 8. 벨트 트랙 비주얼
+## 9. 기지 벽 (Base Wall) 비주얼
 
-### 8.1 트랙 구조
+### 9.1 기지 구조
 
 | 속성 | 값 |
 |------|---|
-| 형태 | 이중 평행 레일 (double parallel rails) |
-| 레일 간격 | 히어로 지름 + 8px 마진 |
-| 레일 두께 | 3px |
-| 레일 컬러 | `#4a6fa5` alpha 0.5 |
-| 리벳 도트 | 8px 간격, 3px 지름, `#6b7b8d` |
+| 위치 | y=1100 |
+| 높이 | 30px |
+| 폭 | 화면 전체 (720px) |
+| HP 바 | 상단에 680x16px HP 바 |
+| 피격 | damageFlash 200ms (빨간 플래시) |
 
-### 8.2 액티브 슬롯 글로우
-
-- 현재 히어로가 위치한 슬롯에 글로우 표시
-- 글로우 컬러: 히어로 원소의 base 컬러
-- 글로우 alpha: 0.2
-- 글로우 크기: 슬롯 영역 + 12px 패딩
-
-### 8.3 트랙 구조 다이어그램
+### 9.2 기지 HP 바
 
 ```
-  ● ─ ─ ● ─ ─ ● ─ ─ ● ─ ─ ●    ← 리벳 도트
- ═══════════════════════════════   ← 외부 레일 (3px)
- │  [Hero]  [Hero]  [Hero]   │   ← 히어로 슬롯
- ═══════════════════════════════   ← 내부 레일 (3px)
-  ● ─ ─ ● ─ ─ ● ─ ─ ● ─ ─ ●    ← 리벳 도트
+┌─────────────────────────────────┐
+│  ████████████████░░░░░░░░░░░░  │  ← 기지 HP 바 (680x16)
+│  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  │  ← 기지 벽 (720x30)
+└─────────────────────────────────┘
+          y=1100
 ```
 
 ---
 
-## 9. 프로시저럴 생성 원칙
+## 10. 프로시저럴 생성 원칙
 
 모든 스프라이트는 **런타임 프로시저럴 생성** (코드로 그림):
 
@@ -255,16 +243,16 @@ graphics.strokeRoundedRect(x, y, w, h, radius);
 
 ```
 1. 배경 텍스처 (Background textures)
-2. 큐브 텍스처 (6 원소 x 일반/강화)
-3. 히어로 텍스처 (6 원소)
-4. 벨트 트랙 텍스처 (Belt track textures)
-5. UI 컴포넌트 텍스처 (UI component textures)
+2. 플레이어 텍스처 (Player sprite)
+3. 적 텍스처 (Shape별: circle, triangle, rect, diamond, hexagon × 컬러키)
+4. 투사체 텍스처 (bullet, rapid, shuriken, laser, missile, napalm)
+5. UI 컴포넌트 텍스처 (HP 바, XP 바, 레벨업 카드)
 6. 파티클 텍스처 (Particle textures)
 ```
 
 ---
 
-## 10. 금지 사항
+## 11. 금지 사항
 
 - 하드코딩된 컬러 값 (반드시 `colors.ts`에서 임포트)
 - 하드코딩된 수치 (반드시 `balance.ts`에서 임포트)

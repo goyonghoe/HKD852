@@ -243,6 +243,72 @@ export class TextureFactory {
       g.generateTexture('enemy_hexagon', s, s);
       g.destroy();
     }
+
+    // Shooter — red diamond with crosshair detail
+    if (!this.has(scene, 'enemy_shooter')) {
+      const s = 28;
+      const g = scene.add.graphics();
+      const cx = s / 2, cy = s / 2;
+      // Glow
+      g.fillStyle(NEON.ENEMY_SPECIAL, 0.12);
+      g.fillCircle(cx, cy, 14);
+      // Body diamond
+      g.fillStyle(0x661122);
+      g.fillTriangle(cx, 1, 1, cy, cx, s - 1);
+      g.fillTriangle(cx, 1, s - 1, cy, cx, s - 1);
+      g.fillStyle(0xcc2244);
+      g.fillTriangle(cx, 4, 4, cy, cx, s - 4);
+      g.fillTriangle(cx, 4, s - 4, cy, cx, s - 4);
+      // Crosshair
+      g.lineStyle(1, 0xff6688, 0.8);
+      g.strokeCircle(cx, cy, 5);
+      g.beginPath();
+      g.moveTo(cx, cy - 8); g.lineTo(cx, cy + 8);
+      g.moveTo(cx - 8, cy); g.lineTo(cx + 8, cy);
+      g.strokePath();
+      // Outline
+      g.lineStyle(1, 0xff4466, 0.7);
+      g.beginPath();
+      g.moveTo(cx, 1); g.lineTo(s - 1, cy); g.lineTo(cx, s - 1); g.lineTo(1, cy);
+      g.closePath();
+      g.strokePath();
+      g.generateTexture('enemy_shooter', s, s);
+      g.destroy();
+    }
+
+    // Teleporter — gold diamond with phase lines
+    if (!this.has(scene, 'enemy_teleporter')) {
+      const s = 26;
+      const g = scene.add.graphics();
+      const cx = s / 2, cy = s / 2;
+      // Glow
+      g.fillStyle(NEON.ENEMY_ELITE, 0.15);
+      g.fillCircle(cx, cy, 13);
+      // Body diamond
+      g.fillStyle(0x665500);
+      g.fillTriangle(cx, 2, 2, cy, cx, s - 2);
+      g.fillTriangle(cx, 2, s - 2, cy, cx, s - 2);
+      g.fillStyle(NEON.ENEMY_ELITE);
+      g.fillTriangle(cx, 5, 5, cy, cx, s - 5);
+      g.fillTriangle(cx, 5, s - 5, cy, cx, s - 5);
+      // Phase lines (horizontal dashes)
+      g.lineStyle(1, 0xffffff, 0.5);
+      g.beginPath();
+      g.moveTo(cx - 6, cy - 3); g.lineTo(cx + 6, cy - 3);
+      g.moveTo(cx - 4, cy + 3); g.lineTo(cx + 4, cy + 3);
+      g.strokePath();
+      // Core
+      g.fillStyle(0xffffff, 0.7);
+      g.fillCircle(cx, cy, 3);
+      // Outline
+      g.lineStyle(1, 0xffee88, 0.7);
+      g.beginPath();
+      g.moveTo(cx, 2); g.lineTo(s - 2, cy); g.lineTo(cx, s - 2); g.lineTo(2, cy);
+      g.closePath();
+      g.strokePath();
+      g.generateTexture('enemy_teleporter', s, s);
+      g.destroy();
+    }
   }
 
   // === BOSS TEXTURES ===
@@ -405,19 +471,83 @@ export class TextureFactory {
       g.destroy();
     }
 
-    // Orbit — ring shape
-    if (!this.has(scene, 'projectile_orbit')) {
+    // Shuriken — 4-pointed star
+    if (!this.has(scene, 'projectile_shuriken')) {
+      const s = 16;
       const g = scene.add.graphics();
-      // Glow
-      g.fillStyle(NEON.UI_ACCENT, 0.2);
-      g.fillCircle(8, 8, 8);
-      // Ring
-      g.lineStyle(3, NEON.UI_ACCENT, 0.9);
-      g.strokeCircle(8, 8, 6);
-      // Center dot
-      g.fillStyle(NEON.PROJECTILE, 0.8);
-      g.fillCircle(8, 8, 2);
-      g.generateTexture('projectile_orbit', 16, 16);
+      const cx = s / 2, cy = s / 2;
+      g.fillStyle(NEON.GOLD, 0.2);
+      g.fillCircle(cx, cy, 8);
+      g.fillStyle(NEON.GOLD);
+      // 4-pointed star
+      g.beginPath();
+      for (let i = 0; i < 8; i++) {
+        const a = (Math.PI / 4) * i - Math.PI / 2;
+        const r = i % 2 === 0 ? 7 : 3;
+        const px = cx + Math.cos(a) * r;
+        const py = cy + Math.sin(a) * r;
+        if (i === 0) g.moveTo(px, py);
+        else g.lineTo(px, py);
+      }
+      g.closePath();
+      g.fillPath();
+      g.fillStyle(0xffffff, 0.6);
+      g.fillCircle(cx, cy, 2);
+      g.generateTexture('projectile_shuriken', s, s);
+      g.destroy();
+    }
+
+    // Rapid fire — small bright circle
+    if (!this.has(scene, 'projectile_rapid')) {
+      const g = scene.add.graphics();
+      g.fillStyle(NEON.XP_BAR, 0.3);
+      g.fillCircle(4, 4, 4);
+      g.fillStyle(NEON.XP_BAR);
+      g.fillCircle(4, 4, 2);
+      g.generateTexture('projectile_rapid', 8, 8);
+      g.destroy();
+    }
+
+    // Missile — elongated arrow/rocket with exhaust trail
+    if (!this.has(scene, 'projectile_missile')) {
+      const g = scene.add.graphics();
+      const w = 24, h = 10;
+      // Exhaust glow
+      g.fillStyle(NEON.HEALTH, 0.3);
+      g.fillCircle(4, h / 2, 5);
+      // Body
+      g.fillStyle(0xcccccc);
+      g.fillRect(4, 1, 14, h - 2);
+      // Nose cone
+      g.fillStyle(0xff4444);
+      g.beginPath();
+      g.moveTo(w, h / 2);
+      g.lineTo(18, 0);
+      g.lineTo(18, h);
+      g.closePath();
+      g.fillPath();
+      // Fins
+      g.fillStyle(0x888888);
+      g.fillTriangle(4, 0, 8, 0, 4, -2 + h / 2);
+      g.fillTriangle(4, h, 8, h, 4, 2 + h / 2);
+      g.generateTexture('projectile_missile', w, h);
+      g.destroy();
+    }
+
+    // Napalm — fireball projectile (flies to target before zone)
+    if (!this.has(scene, 'projectile_napalm')) {
+      const s = 16;
+      const g = scene.add.graphics();
+      // Outer flame glow
+      g.fillStyle(0xff6600, 0.3);
+      g.fillCircle(s / 2, s / 2, 8);
+      // Inner fire
+      g.fillStyle(0xff4400, 0.8);
+      g.fillCircle(s / 2, s / 2, 5);
+      // Hot core
+      g.fillStyle(0xffcc00);
+      g.fillCircle(s / 2, s / 2, 3);
+      g.generateTexture('projectile_napalm', s, s);
       g.destroy();
     }
   }

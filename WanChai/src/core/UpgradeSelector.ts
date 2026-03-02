@@ -1,3 +1,5 @@
+import { SeededRandom } from './SeededRandom';
+
 export interface UpgradeChoice {
   type: 'weapon' | 'passive';
   id: string;
@@ -20,6 +22,7 @@ export function selectUpgrades(
   passiveData: Record<string, { name: string; description: string }>,
   count: number,
   maxWeapons: number,
+  rng: SeededRandom,
 ): UpgradeChoice[] {
   const pool: UpgradeChoice[] = [];
 
@@ -83,9 +86,9 @@ export function selectUpgrades(
     }
   }
 
-  // Shuffle and pick
+  // Shuffle and pick (deterministic via SeededRandom)
   for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = rng.nextInt(0, i + 1);
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
 

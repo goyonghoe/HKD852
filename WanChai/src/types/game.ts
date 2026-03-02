@@ -1,4 +1,5 @@
 export interface RunState {
+  seed: number;           // deterministic PRNG seed for replay/debugging
   runTime: number;        // ms elapsed (total across all stages)
   stageTime: number;      // ms elapsed in current stage (resets per stage)
   stage: number;          // 1-based current stage index
@@ -20,6 +21,10 @@ export interface MetaState {
   bestTimeMs: number;
   upgrades: Record<string, number>; // upgradeId → level
   runsCompleted: number;
+  discovered: {
+    weapons: string[];
+    enemies: string[];
+  };
 }
 
 export type GamePhase = 'playing' | 'levelup' | 'paused' | 'gameover' | 'shop' | 'stage_clear';

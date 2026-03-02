@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { BG_COLOR, NEON, NEON_CSS } from '../config/colors';
 import { GAME_WIDTH, GAME_HEIGHT } from '../config/game-config';
+import { createButton } from '../ui/ButtonFactory';
 import { SaveManager } from '../managers/SaveManager';
 import {
   META_UPGRADES,
@@ -8,6 +9,7 @@ import {
   purchaseUpgrade,
 } from '../core/MetaProgression';
 import type { MetaState } from '../types/game';
+import { getRetroSFX } from '../audio/RetroSFX';
 
 interface MetaSceneData {
   goldEarned: number;
@@ -29,6 +31,7 @@ export class MetaScene extends Phaser.Scene {
 
   create(data: MetaSceneData): void {
     this.cameras.main.setBackgroundColor(BG_COLOR);
+    this.cameras.main.fadeIn(300);
 
     // Load and update meta with earned gold
     this.meta = SaveManager.loadMeta();
@@ -41,7 +44,7 @@ export class MetaScene extends Phaser.Scene {
     // Title
     this.add
       .text(cx, 80, '영구 강화', {
-        fontSize: '42px',
+        fontSize: '50px',
         color: NEON_CSS.UI_ACCENT,
         fontFamily: 'monospace',
         fontStyle: 'bold',
@@ -51,7 +54,7 @@ export class MetaScene extends Phaser.Scene {
     // Gold display
     this.goldText = this.add
       .text(cx, 140, `데이터: ${this.meta.totalGold}`, {
-        fontSize: '24px',
+        fontSize: '28px',
         color: NEON_CSS.GOLD,
         fontFamily: 'monospace',
       })
@@ -74,11 +77,12 @@ export class MetaScene extends Phaser.Scene {
 
       const bg = this.add
         .rectangle(cx, y, cardW, cardH, NEON.UI_PANEL)
-        .setStrokeStyle(2, affordable ? NEON.UI_ACCENT : NEON.UI_BORDER);
+        .setStrokeStyle(2, affordable ? NEON.UI_ACCENT : NEON.UI_BORDER)
+        .setAlpha(maxed ? 0.4 : affordable ? 1 : 0.6);
 
       const nameText = this.add
         .text(cx - cardW / 2 + 20, y - 20, `${def.name}  (Lv ${level}/${def.maxLevel})`, {
-          fontSize: '20px',
+          fontSize: '24px',
           color: NEON_CSS.UI_TEXT,
           fontFamily: 'monospace',
           fontStyle: 'bold',
@@ -87,7 +91,7 @@ export class MetaScene extends Phaser.Scene {
 
       const descText = this.add
         .text(cx - cardW / 2 + 20, y + 15, def.description, {
-          fontSize: '16px',
+          fontSize: '20px',
           color: NEON_CSS.UI_DIM,
           fontFamily: 'monospace',
         })
@@ -97,7 +101,7 @@ export class MetaScene extends Phaser.Scene {
 
       const costText = this.add
         .text(cx + cardW / 2 - 20, y, maxed ? 'MAX' : `${cost}`, {
-          fontSize: '22px',
+          fontSize: '26px',
           color: maxed ? NEON_CSS.UI_DIM : affordable ? NEON_CSS.GOLD : NEON_CSS.HEALTH,
           fontFamily: 'monospace',
           fontStyle: 'bold',
@@ -120,6 +124,7 @@ export class MetaScene extends Phaser.Scene {
             if (!canPurchase(this.meta, def.id)) return;
             this.meta = purchaseUpgrade(this.meta, def.id);
             SaveManager.saveMeta(this.meta);
+            getRetroSFX().purchase();
             this.refreshCards();
           });
       }
@@ -127,20 +132,12 @@ export class MetaScene extends Phaser.Scene {
 
     // Continue button
     const btnY = startY + upgrades.length * (cardH + gap) + 40;
-    const btnBg = this.add
-      .rectangle(cx, btnY, 240, 60, NEON.UI_PANEL)
-      .setStrokeStyle(2, NEON.UI_ACCENT);
-    this.add
-      .text(cx, btnY, '메인 메뉴', {
-        fontSize: '24px',
-        color: NEON_CSS.UI_ACCENT,
-        fontFamily: 'monospace',
-        fontStyle: 'bold',
-      })
-      .setOrigin(0.5);
-    btnBg
-      .setInteractive({ useHandCursor: true })
-      .on('pointerdown', () => this.scene.start('MainMenuScene'));
+    createButton(this, {
+      x: cx, y: btnY, width: 240, height: 60,
+      label: '메인 메뉴', fontSize: '28px',
+      variant: 'primary',
+      onClick: () => this.scene.start('MainMenuScene'),
+    });
   }
 
   private refreshCards(): void {
@@ -159,6 +156,7 @@ export class MetaScene extends Phaser.Scene {
       card.costText.setText(maxed ? 'MAX' : `${cost}`);
       card.costText.setColor(maxed ? NEON_CSS.UI_DIM : affordable ? NEON_CSS.GOLD : NEON_CSS.HEALTH);
       card.bg.setStrokeStyle(2, affordable ? NEON.UI_ACCENT : NEON.UI_BORDER);
+      card.bg.setAlpha(maxed ? 0.4 : affordable ? 1 : 0.6);
     });
   }
 }

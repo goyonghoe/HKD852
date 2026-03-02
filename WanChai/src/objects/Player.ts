@@ -20,7 +20,15 @@ export class Player extends Phaser.GameObjects.Container {
     this.moveSpeed = BALANCE.PLAYER.baseMoveSpeed;
     this.critDamage = BALANCE.COMBAT.critMultiplier;
 
-    this.sprite = scene.add.sprite(0, 0, 'player');
+    const ingameKey = 'char_hai_ingame';
+    const charKey = scene.textures.exists(ingameKey) ? ingameKey : 'player';
+    this.sprite = scene.add.sprite(0, 0, charKey);
+    // Scale: 48px source → 96px display (ingame), 128px → 96px (portrait fallback)
+    const targetSize = 96;
+    const charTexW = this.sprite.texture.getSourceImage().width;
+    if (charTexW > 0 && charTexW !== targetSize) {
+      this.sprite.setScale(targetSize / charTexW);
+    }
     this.add(this.sprite);
 
     scene.add.existing(this);

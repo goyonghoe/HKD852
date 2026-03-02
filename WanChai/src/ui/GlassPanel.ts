@@ -63,5 +63,3 @@ export function createRetroPanel(
   return container;
 }
 
-/** @deprecated Use createRetroPanel */
-export const createGlassPanel = createRetroPanel;

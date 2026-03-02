@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { GAME_WIDTH, GAME_HEIGHT } from '../config/game-config';
 
 export class Projectile extends Phaser.Physics.Arcade.Sprite {
   public damage = 0;
@@ -7,6 +8,7 @@ export class Projectile extends Phaser.Physics.Arcade.Sprite {
   public weaponId = '';
   public lifeMs = 0;
   public isCrit = false;
+  public spinRate = 0; // radians/s, 0 = no spin (used by shuriken)
   private spawnTime = 0;
 
   // Homing properties
@@ -53,6 +55,7 @@ export class Projectile extends Phaser.Physics.Arcade.Sprite {
     this.homingTarget = null;
     this.homingTurnRate = 0;
     this.homingSpeed = 0;
+    this.spinRate = 0;
   }
 
   deactivate(): void {
@@ -72,6 +75,11 @@ export class Projectile extends Phaser.Physics.Arcade.Sprite {
     if (time - this.spawnTime > this.lifeMs) {
       this.deactivate();
       return;
+    }
+
+    // Spin rotation (shuriken)
+    if (this.spinRate !== 0) {
+      this.rotation += this.spinRate * (delta / 1000);
     }
 
     // Homing: steer toward target
@@ -100,8 +108,8 @@ export class Projectile extends Phaser.Physics.Arcade.Sprite {
       this.setRotation(newAngle);
     }
 
-    // Out of world bounds (static values — avoids property chain lookup per frame)
-    if (this.x < -100 || this.x > 820 || this.y < -100 || this.y > 1380) {
+    // Out of world bounds
+    if (this.x < -100 || this.x > GAME_WIDTH + 100 || this.y < -100 || this.y > GAME_HEIGHT + 100) {
       this.deactivate();
     }
   }

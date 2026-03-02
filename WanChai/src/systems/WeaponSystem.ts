@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { WEAPON_DEFS } from '../config/weapons';
+import { BALANCE } from '../config/balance';
 import { calculateDamage } from '../core/DamageCalc';
 import type { VFXManager } from '../utils/VFXManager';
 import type { DamageNumberManager } from '../ui/DamageNumber';
@@ -9,10 +10,21 @@ import type { Player } from '../objects/Player';
 import type { Enemy } from '../objects/Enemy';
 import type { Projectile } from '../objects/Projectile';
 
+interface NapalmZone {
+  x: number;
+  y: number;
+  radius: number;
+  damage: number;
+  remainingMs: number;
+  tickMs: number;
+  tickTimer: number;
+}
+
 export interface WeaponSystemDeps {
   vfx?: VFXManager;
   dmgNumbers?: DamageNumberManager;
   onEnemyDeath?: (enemy: Enemy) => void;
+  onWeaponFire?: () => void;
 }
 
 export class WeaponSystem {
@@ -23,9 +35,19 @@ export class WeaponSystem {
   private cachedEnemies: Enemy[] = [];
   private cachedEnemyCount = 0;
 
+  // Napalm zones
+  private napalmZones: NapalmZone[] = [];
+
   constructor(scene: Phaser.Scene, deps?: WeaponSystemDeps) {
     this.scene = scene;
     if (deps) this.deps = deps;
+  }
+
+  /** Release references to prevent memory leaks on scene restart. */
+  clearCache(): void {
+    this.cachedEnemies.length = 0;
+    this.cachedEnemyCount = 0;
+    this.napalmZones.length = 0;
   }
 
   update(
@@ -63,29 +85,38 @@ export class WeaponSystem {
       switch (def.projectileType) {
         case 'bullet':
           this.fireBullet(player, def, weapon, projectilePool, levelMult);
+          this.deps.onWeaponFire?.();
           break;
         case 'aoe':
           this.fireAoe(player, def, weapon, levelMult);
+          this.deps.onWeaponFire?.();
           break;
         case 'laser':
           this.fireLaser(player, def, weapon, projectilePool, levelMult);
+          this.deps.onWeaponFire?.();
           break;
-        case 'orbit':
-          weapon.cooldownRemaining = 0;
+        case 'napalm':
+          this.fireNapalm(player, def, weapon, levelMult);
+          this.deps.onWeaponFire?.();
           break;
         case 'chain':
           this.fireChain(player, def, weapon, levelMult);
+          this.deps.onWeaponFire?.();
           break;
         case 'homing':
           this.fireHoming(player, def, weapon, projectilePool, levelMult);
+          this.deps.onWeaponFire?.();
           break;
         case 'bomb':
           this.fireBomb(player, def, weapon, levelMult);
+          this.deps.onWeaponFire?.();
           break;
         default:
           break;
       }
     }
+
+    this.updateNapalmZones(delta);
   }
 
   private _targetPoint: { x: number; y: number } | null = null;
@@ -110,7 +141,7 @@ export class WeaponSystem {
     );
 
     const count = def.projectileCount + Math.floor((weapon.level - 1) * 0.5);
-    const spread = count > 1 ? 0.3 : 0;
+    const spread = count > 1 ? 0.15 : 0;
 
     for (let i = 0; i < count; i++) {
       const proj = projectilePool.get() as Projectile | null;
@@ -122,7 +153,12 @@ export class WeaponSystem {
       const vx = Math.cos(bulletAngle) * def.projectileSpeed;
       const vy = Math.sin(bulletAngle) * def.projectileSpeed;
 
-      proj.fire(player.x, player.y, vx, vy, result.damage, def.piercing + Math.floor(weapon.level / 3), def.id, 'projectile_bullet', result.isCrit);
+      let texture = 'projectile_bullet';
+      if (def.id === 'shuriken') texture = 'projectile_shuriken';
+      else if (def.id === 'rapid_fire') texture = 'projectile_rapid';
+      else if (def.id === 'shotgun') texture = 'projectile_bullet';
+      proj.fire(player.x, player.y, vx, vy, result.damage, def.piercing + Math.floor(weapon.level / 3), def.id, texture, result.isCrit);
+      if (def.id === 'shuriken') proj.spinRate = 12;
     }
   }
 
@@ -269,7 +305,7 @@ export class WeaponSystem {
 
     const count = def.projectileCount + Math.floor((weapon.level - 1) * 0.5);
     const homingSpeed = def.projectileSpeed + weapon.level * 40;
-    const turnRate = 4 + weapon.level * 0.5;
+    const turnRate = BALANCE.COMBAT.homingBaseTurnRate + weapon.level * BALANCE.COMBAT.homingTurnRatePerLevel;
 
     for (let i = 0; i < count; i++) {
       const proj = projectilePool.get() as Projectile | null;
@@ -286,7 +322,7 @@ export class WeaponSystem {
         result.damage,
         0,
         def.id,
-        'projectile_bullet',
+        'projectile_missile',
         result.isCrit,
       );
       proj.lifeMs = 4000;
@@ -345,6 +381,97 @@ export class WeaponSystem {
     if (hitCount > 0) {
       this.deps.vfx?.screenShake(0.006, 150);
       this.deps.vfx?.bombFlash(bestX, bestY, scanRadius);
+    }
+  }
+
+  /** Napalm — fire a visible projectile that flies to enemy centroid, then creates fire zone */
+  private fireNapalm(
+    player: Player,
+    def: WeaponDef,
+    weapon: WeaponInstance,
+    levelMult: number,
+  ): void {
+    if (this.cachedEnemyCount === 0) return;
+
+    const radius = def.aoeRadius + weapon.level * 15;
+
+    // Target: centroid of all enemies
+    let sumX = 0;
+    let sumY = 0;
+    for (let i = 0; i < this.cachedEnemyCount; i++) {
+      sumX += this.cachedEnemies[i].x;
+      sumY += this.cachedEnemies[i].y;
+    }
+    const zoneX = sumX / this.cachedEnemyCount;
+    const zoneY = sumY / this.cachedEnemyCount;
+
+    const { damage } = calculateDamage(
+      def.baseDamage * levelMult,
+      player.damageMultiplier,
+      player.critChance,
+      player.critDamage,
+      Math.random(),
+    );
+
+    // Visual projectile — flies from player to target then creates zone
+    const texKey = this.scene.textures.exists('projectile_napalm') ? 'projectile_napalm' : 'projectile_bullet';
+    const fireball = this.scene.add.sprite(player.x, player.y, texKey).setDepth(300);
+    const dist = Math.sqrt((zoneX - player.x) ** 2 + (zoneY - player.y) ** 2);
+    const flightMs = Math.max(200, Math.min(500, dist * 0.5));
+
+    this.scene.tweens.add({
+      targets: fireball,
+      x: zoneX,
+      y: zoneY,
+      scaleX: 1.5,
+      scaleY: 1.5,
+      duration: flightMs,
+      ease: 'Quad.easeIn',
+      onComplete: () => {
+        fireball.destroy();
+        this.napalmZones.push({
+          x: zoneX,
+          y: zoneY,
+          radius,
+          damage,
+          remainingMs: 4000,
+          tickMs: 500,
+          tickTimer: 0,
+        });
+        this.deps.vfx?.napalmZone(zoneX, zoneY, radius);
+      },
+    });
+  }
+
+  /** Tick all active napalm zones — damage enemies in range each 500ms */
+  private updateNapalmZones(delta: number): void {
+    for (let z = this.napalmZones.length - 1; z >= 0; z--) {
+      const zone = this.napalmZones[z];
+      zone.remainingMs -= delta;
+      if (zone.remainingMs <= 0) {
+        this.napalmZones[z] = this.napalmZones[this.napalmZones.length - 1];
+        this.napalmZones.pop();
+        continue;
+      }
+
+      zone.tickTimer -= delta;
+      if (zone.tickTimer <= 0) {
+        zone.tickTimer = zone.tickMs;
+        const radiusSq = zone.radius * zone.radius;
+
+        for (let i = 0; i < this.cachedEnemyCount; i++) {
+          const enemy = this.cachedEnemies[i];
+          const dx = enemy.x - zone.x;
+          const dy = enemy.y - zone.y;
+          if (dx * dx + dy * dy < radiusSq) {
+            const dead = enemy.takeDamage(zone.damage);
+            this.deps.dmgNumbers?.show(enemy.x, enemy.y, zone.damage, false);
+            if (dead) {
+              this.deps.onEnemyDeath?.(enemy);
+            }
+          }
+        }
+      }
     }
   }
 

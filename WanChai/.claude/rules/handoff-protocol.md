@@ -57,8 +57,14 @@ Step 8: /pg-deploy → DEPLOY:SUCCESS
 
 ### 게이트 생략 조건
 - Step 6 (/pg-wiring-check): 씬 전환/플래그 변경 없는 순수 밸런스/텍스트 수정 시 생략 가능
-- Step 7 (/ux-gate): UI/UX 변경 없는 순수 로직/테스트 수정 시 생략 가능
+- Step 7 (/ux-gate): **src/ui/ 또는 src/scenes/ 내 시각 요소 변경이 없는** 순수 로직/테스트 수정 시만 생략 가능
 - Step 5 (/pg-build-check): **절대 생략 불가**
+
+### Step 7 (/ux-gate) 필수 트리거 — M-012 방지
+> 아래 파일 변경 시 `/ux-gate` 반드시 실행. verification-gates.md Gate 4 참조.
+- `src/ui/*.ts` — 모든 UI 컴포넌트 (Overlay, Panel, Button 등)
+- `src/scenes/*Scene.ts` — 씬 내 `.add.text()`, `.add.rectangle()`, 좌표/크기 변경
+- 생략 시 `/pg-deploy` 거부
 
 ## Status Machine
 

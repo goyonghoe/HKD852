@@ -5,6 +5,7 @@ import { VISUAL } from '../config/balance';
 
 const POOL_SIZE = 80; // reduced from 120
 const LIGHTNING_POOL_SIZE = 6; // max concurrent lightning bolts
+const NAPALM_POOL_SIZE = 4;   // max concurrent napalm zones
 
 interface ActiveParticle {
   rect: Phaser.GameObjects.Rectangle;
@@ -15,6 +16,11 @@ interface ActiveParticle {
 }
 
 interface ActiveLightning {
+  graphics: Phaser.GameObjects.Graphics;
+  life: number;
+}
+
+interface ActiveNapalm {
   graphics: Phaser.GameObjects.Graphics;
   life: number;
 }
@@ -34,6 +40,10 @@ export class VFXManager {
   private lightningPool: Phaser.GameObjects.Graphics[] = [];
   private activeLightning: ActiveLightning[] = [];
 
+  // Pooled napalm graphics (multiple concurrent zones)
+  private napalmPool: Phaser.GameObjects.Graphics[] = [];
+  private activeNapalm: ActiveNapalm[] = [];
+
   // Pooled bomb graphics (single reusable instance)
   private bombGraphics: Phaser.GameObjects.Graphics | null = null;
   private bombLife = 0;
@@ -42,6 +52,7 @@ export class VFXManager {
     this.scene = scene;
     this.initPool();
     this.initLightningPool();
+    this.initNapalmPool();
   }
 
   private initPool(): void {
@@ -61,6 +72,23 @@ export class VFXManager {
       const g = this.scene.add.graphics().setDepth(500).setVisible(false);
       this.lightningPool.push(g);
     }
+  }
+
+  private initNapalmPool(): void {
+    for (let i = 0; i < NAPALM_POOL_SIZE; i++) {
+      const g = this.scene.add.graphics().setDepth(200).setVisible(false);
+      this.napalmPool.push(g);
+    }
+  }
+
+  private acquireNapalm(): Phaser.GameObjects.Graphics | null {
+    for (const g of this.napalmPool) {
+      if (!g.visible) {
+        g.setVisible(true);
+        return g;
+      }
+    }
+    return null;
   }
 
   private acquire(): Phaser.GameObjects.Rectangle | null {
@@ -121,6 +149,19 @@ export class VFXManager {
         this.activeLightning.pop();
       } else {
         l.graphics.setAlpha(l.life / 200);
+      }
+    }
+
+    // Napalm zone fade (pooled — supports multiple concurrent zones)
+    for (let i = this.activeNapalm.length - 1; i >= 0; i--) {
+      const n = this.activeNapalm[i];
+      n.life -= delta;
+      if (n.life <= 0) {
+        n.graphics.clear().setVisible(false);
+        this.activeNapalm[i] = this.activeNapalm[this.activeNapalm.length - 1];
+        this.activeNapalm.pop();
+      } else {
+        n.graphics.setAlpha((n.life / 4000) * 0.6);
       }
     }
 
@@ -201,6 +242,22 @@ export class VFXManager {
     this.activeLightning.push({ graphics: g, life: 200 });
   }
 
+  /** Napalm fire zone — pooled Graphics (supports multiple concurrent zones), fades over 4s */
+  napalmZone(x: number, y: number, radius: number): void {
+    const g = this.acquireNapalm();
+    if (!g) return;
+    g.clear();
+    g.setAlpha(0.6);
+    g.fillStyle(0xff4400, 0.25);
+    g.fillCircle(x, y, radius);
+    g.lineStyle(2, 0xff6600, 0.5);
+    g.strokeCircle(x, y, radius);
+    // Inner fire
+    g.fillStyle(0xff8800, 0.15);
+    g.fillCircle(x, y, radius * 0.6);
+    this.activeNapalm.push({ graphics: g, life: 4000 });
+  }
+
   /** Bomb explosion flash — uses single pooled Graphics */
   bombFlash(x: number, y: number, radius: number): void {
     if (!this.bombGraphics) {
@@ -271,6 +328,9 @@ export class VFXManager {
       this.glitchGraphics.destroy();
       this.glitchGraphics = null;
     }
+    for (const g of this.napalmPool) g.destroy();
+    this.napalmPool = [];
+    this.activeNapalm = [];
     if (this.bombGraphics) {
       this.bombGraphics.destroy();
       this.bombGraphics = null;

@@ -8,9 +8,13 @@ export type EnemyBehavior =
   | 'boss_chase'
   | 'boss_circle'
   | 'boss_burst'
+  | 'shoot'
+  | 'teleport'
   // Legacy behaviors remapped to march/dash for downward movement
   | 'chase'
   | 'slow_chase';
+
+export type EnemyAttackStyle = 'melee' | 'ranged' | 'suicide';
 
 export interface EnemyDef {
   readonly id: string;
@@ -23,4 +27,8 @@ export interface EnemyDef {
   readonly xpValue: number;
   readonly colorKey: string;        // key in colors.ts
   readonly isElite?: boolean;
+  readonly knockbackImmune?: boolean; // true = ignores knockback (bosses, tanks)
+  readonly attackStyle?: EnemyAttackStyle;  // default 'melee'
+  readonly attackInterval?: number;         // ms between attacks (default 2000)
+  readonly projectileSpeed?: number;        // ranged only (default 200)
 }

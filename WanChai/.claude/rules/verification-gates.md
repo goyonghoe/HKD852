@@ -29,6 +29,22 @@ paths:
 - 위 게이트 미통과 시 `/pg-deploy` 실행 거부
 - `/pg-deploy` 스킬이 자체적으로 사전 게이트를 검증함
 
+### UX-GATE 필수 트리거 조건
+> 아래 중 하나라도 해당하면 `/ux-gate` 실행 필수 (생략 불가)
+
+1. **신규 UI 컴포넌트**: Overlay, Panel, Popup, Button 등 새 UI 요소 추가
+2. **기존 UI 수정**: 좌표, 크기, 색상, 폰트, 정렬 등 시각 속성 변경
+3. **씬 레이아웃 변경**: 요소 배치 순서/간격/앵커 변경
+4. **오버레이/모달**: SettingsOverlay, PauseOverlay 등 오버레이 내부 변경
+5. **인터랙션 영역**: 터치 타겟, 히트 영역, 스크롤 영역 수정
+
+### UX-GATE 검증 항목 (최소)
+- [ ] 모든 UI 요소가 부모 패널/컨테이너 경계 내에 위치
+- [ ] 터치 타겟 최소 48dp (모바일)
+- [ ] 폰트 14px 이상
+- [ ] 라벨 X 좌표 일관성 (같은 역할의 라벨은 같은 X)
+- [ ] 5-segment 게이지 등 반복 요소의 좌우 마진 ≥ 8px
+
 ## Gate 5: 통합 배선 검증 (After New System/Mode)
 > 새 시스템, 모드, 플래그 추가 시 반드시 수행 (M-008, M-009 방지)
 
@@ -55,6 +71,30 @@ paths:
 1. 주요 씬 전환 경로가 올바른 데이터를 전달하는지 최종 확인
 2. 새 기능의 시각적 결과물(스프라이트, UI, VFX)이 실제 렌더링 경로에 포함되는지 확인
 3. 콘솔 에러 없는지 `vercel inspect --logs` 확인
+
+## Gate 8: 보스 클리어 플로우 검증 (After Boss/Stage/Phase Changes)
+> 보스 사망, 스테이지 전환, phase 상태머신, 레벨업 관련 코드 변경 시 반드시 수행 (M-008, M-013, M-014 방지)
+
+**트리거**: `onEnemyDeath`, `applyUpgrade`, `showStageClear`, `nextStage`, `showLevelUpUI`, `pendingStageClear`, `bossStageActive`, `phase` 관련 코드 수정 시
+
+**검증 체크리스트**:
+1. **보스 사망 + 레벨업 동시 발생 트레이스**:
+   - `onEnemyDeath`: `pendingStageClear=true` 후 레벨업 발생 경로 확인
+   - `applyUpgrade`: `pendingStageClear` 소비 시 `this.phase`가 `showStageClear` 가드를 통과할 값으로 설정되는지 확인
+   - `showStageClear`: 실제 호출 시점의 `this.phase` 값 트레이스
+
+2. **보스 사망 + 레벨업 미발생 트레이스**:
+   - `onEnemyDeath` 직접 경로에서 `delayedCall` 콜백 시점의 `this.phase` 값 확인
+
+3. **phase 연속성 확인** (끊김 없이 전이해야 함):
+   ```
+   playing → (boss dies) → levelup → (upgrade) → playing → (delay) → stage_clear → (button) → playing
+   playing → (boss dies, no levelup) → playing → (delay) → stage_clear → (button) → playing
+   ```
+
+4. **결과**: `BOSS_FLOW:PASS` 또는 `BOSS_FLOW:FAIL(끊김지점)` 기록
+
+**FAIL 시 배포 금지.**
 
 ---
 

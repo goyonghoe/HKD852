@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { WaveDirector, WaveConfig } from '../../src/core/WaveDirector';
+import { SeededRandom } from '../../src/core/SeededRandom';
 
 const DEFAULT_CONFIG: WaveConfig = {
   initialDelayMs: 3000,
@@ -15,7 +16,7 @@ describe('WaveDirector', () => {
   let director: WaveDirector;
 
   beforeEach(() => {
-    director = new WaveDirector(DEFAULT_CONFIG);
+    director = new WaveDirector(DEFAULT_CONFIG, new SeededRandom(12345));
   });
 
   it('produces no spawns during initial delay', () => {
@@ -52,7 +53,7 @@ describe('WaveDirector', () => {
 
     // After reset, advance past initial delay and boss time together
     const allCommands: ReturnType<WaveDirector['update']> = [];
-    const fresh = new WaveDirector(DEFAULT_CONFIG);
+    const fresh = new WaveDirector(DEFAULT_CONFIG, new SeededRandom(99999));
     fresh.setEnemyPool(['basic', 'fast', 'tank']);
 
     // Step past initial delay
@@ -79,7 +80,7 @@ describe('WaveDirector', () => {
     const fast = new WaveDirector({
       ...DEFAULT_CONFIG,
       bossTimeMinutes: 0.05, // 3 seconds for quick test
-    });
+    }, new SeededRandom(77777));
     fast.setEnemyPool(['basic']);
     fast.setBossId('boss_circle');
 
@@ -99,5 +100,23 @@ describe('WaveDirector', () => {
     // Regular spawn should not use boss ID
     const regularCmd = cmds.find(c => c.enemyId !== 'boss_burst');
     expect(regularCmd).toBeDefined();
+  });
+
+  it('produces deterministic spawns with same seed', () => {
+    const d1 = new WaveDirector(DEFAULT_CONFIG, new SeededRandom(42));
+    const d2 = new WaveDirector(DEFAULT_CONFIG, new SeededRandom(42));
+    d1.setEnemyPool(['basic', 'fast', 'tank']);
+    d2.setEnemyPool(['basic', 'fast', 'tank']);
+
+    d1.update(DEFAULT_CONFIG.initialDelayMs);
+    d2.update(DEFAULT_CONFIG.initialDelayMs);
+    const cmds1 = d1.update(DEFAULT_CONFIG.baseIntervalMs);
+    const cmds2 = d2.update(DEFAULT_CONFIG.baseIntervalMs);
+
+    expect(cmds1.length).toBe(cmds2.length);
+    for (let i = 0; i < cmds1.length; i++) {
+      expect(cmds1[i].enemyId).toBe(cmds2[i].enemyId);
+      expect(cmds1[i].isElite).toBe(cmds2[i].isElite);
+    }
   });
 });

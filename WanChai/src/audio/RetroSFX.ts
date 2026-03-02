@@ -38,16 +38,20 @@ export class RetroSFX {
     this.ctx = new AudioContext();
     this.masterGain = this.ctx.createGain();
 
-    // Wire volume from persisted settings
-    const saveData = SaveManager.load();
-    const sfxVolume = saveData.settings.sfxVolume ?? 1.0;
-    this.masterGain.gain.value = Math.max(0, Math.min(1, sfxVolume));
+    // Wire volume + muted from persisted settings
+    const sfxSettings = SaveManager.getSfxSettings();
+    this.masterGain.gain.value = Math.max(0, Math.min(1, sfxSettings.volume));
+    this.enabled = !sfxSettings.muted;
 
     this.masterGain.connect(this.ctx.destination);
   }
 
   setEnabled(on: boolean): void {
     this.enabled = on;
+  }
+
+  setMuted(muted: boolean): void {
+    this.enabled = !muted;
   }
 
   setVolume(v: number): void {
@@ -282,6 +286,78 @@ export class RetroSFX {
     const ctx = this.getCtx();
     if (!ctx) return;
     this.playTone('sine', 1047, 1047, 0.150, 0.22, ctx.currentTime);
+  }
+
+  /**
+   * weaponFire — Subtle tick for weapon shot.
+   * Triangle wave, 500 Hz, 15 ms, low volume.
+   */
+  weaponFire(): void {
+    const ctx = this.getCtx();
+    if (!ctx) return;
+    this.playTone('triangle', 500, 400, 0.015, 0.05, ctx.currentTime);
+  }
+
+  /**
+   * baseHit — Low warning pulse when base takes damage.
+   * Sine wave sweep 200→80 Hz, 120 ms.
+   */
+  baseHit(): void {
+    const ctx = this.getCtx();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+    this.playTone('sine', 200, 80, 0.120, 0.20, t);
+    this.playNoise(0.040, 0.10, t);
+  }
+
+  /**
+   * xpCollect — Quick ascending blip for XP pickup.
+   * Triangle wave, 800→1200 Hz, 40 ms.
+   */
+  xpCollect(): void {
+    const ctx = this.getCtx();
+    if (!ctx) return;
+    this.playTone('triangle', 800, 1200, 0.040, 0.12, ctx.currentTime);
+  }
+
+  /**
+   * goldCollect — Coin clink.
+   * Sine wave, 1200 Hz, 50 ms.
+   */
+  goldCollect(): void {
+    const ctx = this.getCtx();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+    this.playTone('sine', 1200, 1200, 0.030, 0.15, t);
+    this.playTone('sine', 1800, 1800, 0.030, 0.10, t + 0.030);
+  }
+
+  /**
+   * purchase — Confirmation chime (two ascending notes).
+   * Square wave, C5→E5, 60 ms each.
+   */
+  purchase(): void {
+    const ctx = this.getCtx();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+    this.playTone('square', FREQ.C5, FREQ.C5, 0.060, 0.18, t);
+    this.playTone('square', FREQ.E5, FREQ.E5, 0.080, 0.20, t + 0.060);
+  }
+
+  /**
+   * bossDefeat — Triumphant fanfare + explosion.
+   * Ascending arpeggio + noise burst.
+   */
+  bossDefeat(): void {
+    const ctx = this.getCtx();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+    this.playNoise(0.100, 0.15, t);
+    this.playTone('square', FREQ.C5, FREQ.C5, 0.080, 0.20, t + 0.050);
+    this.playTone('square', FREQ.E5, FREQ.E5, 0.080, 0.20, t + 0.130);
+    this.playTone('square', FREQ.G5, FREQ.G5, 0.080, 0.20, t + 0.210);
+    this.playTone('square', FREQ.C6, FREQ.C6, 0.200, 0.25, t + 0.290);
+    this.playNoise(0.080, 0.12, t + 0.290);
   }
 }
 

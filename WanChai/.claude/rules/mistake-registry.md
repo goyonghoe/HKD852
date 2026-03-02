@@ -84,6 +84,46 @@
   3. **NEVER** `/pg-deploy`에서 사전 게이트 체인을 건너뛰지 않음
   4. **ALWAYS** `/pg-deploy` 스킬 내 Gate 0-A/0-B/0-C 필수 체크
 
+## M-013 | UI | 패널 경계 밖 UI 요소 (오버플로)
+- **What**: SettingsOverlay의 SFX 볼륨 5-segment 게이지 오른쪽 끝이 패널 경계를 2px 초과. PauseOverlay의 SFX/BGM 라벨 X좌표 불일치 (cx-180 vs cx-160).
+- **Root cause**: 볼륨 세그먼트 시작점(`segStartX = cx + 10`)을 수동 계산 → 5개 세그먼트 총 폭(212px) 미고려. 라벨은 복사-붙여넣기 시 좌표 불일치.
+- **Impact**: SFX 게이지가 패널 밖으로 삐져나옴. 라벨 정렬이 시각적으로 어긋남.
+- **Prevention**:
+  1. **ALWAYS** UI 요소 배치 시 부모 패널 경계 검증: `요소_우측끝 = startX + count * (width + gap)` ≤ `panelRight`
+  2. **ALWAYS** 같은 역할의 라벨(BGM/SFX)은 동일한 X 좌표 사용
+  3. **ALWAYS** 반복 UI 요소(세그먼트, 버튼 행)는 총 폭 계산 후 `startX` 역산
+  4. **NEVER** UI 변경 후 `/ux-gate` 없이 배포
+
+## M-014 | Integration | 보스 사망 + 레벨업 동시 발생 시 스테이지 진행 소프트락
+- **What**: 스테이지2 보스 클리어 후 다음 스테이지로 진행 불가. 화면 멈춤.
+- **Root cause**: `onEnemyDeath`에서 보스 사망 시 `pendingStageClear=true` 설정 후 레벨업 발생 → `applyUpgrade`에서 `pendingStageClear` 소비 시 `this.phase`를 `'levelup'`에서 변경하지 않고 `return` → 300ms 후 `showStageClear()` 호출 시 `if (this.phase === 'levelup') return` 가드에 걸려 스테이지 클리어 UI가 영원히 표시 안 됨.
+- **Impact**: 보스가 충분한 XP를 주므로 거의 매번 레벨업 동시 발생 → 보스 스테이지 클리어 시 높은 확률로 소프트락.
+- **Prevention**:
+  1. **ALWAYS** `phase` 전환이 필요한 `delayedCall` 콜백에서, 콜백이 기대하는 phase를 사전에 설정 (특히 'levelup'→'playing' 전환)
+  2. **ALWAYS** 보스 사망 → 레벨업 → 스테이지 클리어 직렬화 플로우 변경 시, "레벨업 + 보스 사망 동시 발생" 케이스를 반드시 코드 트레이스
+  3. **ALWAYS** `showStageClear()` 호출 전 `this.phase`가 `'playing'`인지 확인하는 로직 추가
+  4. **NEVER** `phase`를 변경하지 않은 채 phase-gated 함수를 `delayedCall`로 예약하지 않음
+- **Pattern**: 이 버그는 M-008/M-013과 같은 "이벤트 직렬화 + phase 상태 머신" 계열. 두 이벤트가 동시 발생할 때 phase가 꼬이는 패턴이 반복됨.
+- **Checklist (보스 클리어 플로우 변경 시)**:
+  1. `onEnemyDeath`: 보스 사망 → `pendingStageClear=true` → 레벨업 체크 → 남은 경우 처리
+  2. `applyUpgrade`: 모든 레벨업 소진 → `pendingStageClear` 확인 → **phase를 'playing'으로 전환** → `showStageClear` 스케줄
+  3. `showStageClear`: phase 가드 통과 → 'stage_clear'로 전환
+  4. `nextStage`: UI 정리 → stage++ → phase 'playing' + physics resume
+  5. **반드시 4단계 전체를 코드 트레이스하여 phase 연속성 확인**
+
+---
+
+## M-015 | Integration | 미초기화 상태 참조 (create() 내 호출 순서)
+- **What**: `updateBackground()`를 `this.runState` 초기화 전에 호출 → `this.runState.stage` 접근 시 undefined 에러 → 게임 멈춤
+- **Root cause**: `create()` 내에서 새 메서드 호출을 `drawGrid()` 바로 뒤에 추가했지만, `this.runState = { ... }` 초기화는 그보다 아래에 위치. TS 컴파일은 `runState!` (non-null assertion) 때문에 에러를 잡지 못함.
+- **Impact**: 게임 시작 시 RunScene 진입 즉시 크래시. 흰 화면 멈춤.
+- **Prevention**:
+  1. **ALWAYS** `create()`에 새 메서드 호출 추가 시, 해당 메서드가 참조하는 `this.*` 필드가 **호출 시점에 이미 초기화되었는지** 확인
+  2. **ALWAYS** `!` non-null assertion 필드(`runState!`, `player!` 등)를 사용하는 메서드는, 해당 필드 할당 **이후**에만 호출
+  3. **NEVER** `drawGrid()` 근처(runState 초기화 전)에 runState/player/weaponSystem 등을 참조하는 코드 배치 금지
+  4. **ALWAYS** 새 코드 추가 후 `npm run dev`로 실제 실행 확인 — TS 빌드 PASS만으로 런타임 초기화 순서 버그는 탐지 불가
+- **Pattern**: M-007(타입 미스매치)과 유사하지만, 이 경우 타입 시스템(`!` assertion)이 버그를 은폐. `npm run build` PASS ≠ 런타임 정상.
+
 ---
 
 ## 새 항목 추가 방법

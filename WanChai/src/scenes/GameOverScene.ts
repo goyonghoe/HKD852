@@ -1,8 +1,10 @@
 import Phaser from 'phaser';
-import { BG_COLOR, NEON, NEON_CSS } from '../config/colors';
+import { BG_COLOR, NEON_CSS } from '../config/colors';
 import { BALANCE } from '../config/balance';
 import { GAME_WIDTH } from '../config/game-config';
 import { SaveManager } from '../managers/SaveManager';
+import { createButton } from '../ui/ButtonFactory';
+import { getRetroAudio } from '../audio/RetroAudio';
 
 interface GameOverData {
   survived: boolean;
@@ -22,6 +24,8 @@ export class GameOverScene extends Phaser.Scene {
 
   create(data: GameOverData): void {
     this.cameras.main.setBackgroundColor(BG_COLOR);
+    this.cameras.main.fadeIn(300);
+    getRetroAudio().switchTrack('menu');
     const cx = GAME_WIDTH / 2;
 
     const title = data.survived ? '구역 정화 완료!' : '최적화 완료...';
@@ -29,7 +33,7 @@ export class GameOverScene extends Phaser.Scene {
 
     this.add
       .text(cx, 180, title, {
-        fontSize: '52px',
+        fontSize: '60px',
         color: titleColor,
         fontFamily: 'monospace',
         fontStyle: 'bold',
@@ -62,15 +66,16 @@ export class GameOverScene extends Phaser.Scene {
     stats.forEach((line, i) => {
       this.add
         .text(cx, 360 + i * 55, line, {
-          fontSize: '26px',
+          fontSize: '30px',
           color: NEON_CSS.UI_TEXT,
           fontFamily: 'monospace',
         })
         .setOrigin(0.5);
     });
 
-    // Check and save records
+    // Save gold + records immediately (prevents loss on force-quit)
     const meta = SaveManager.loadMeta();
+    meta.totalGold += data.gold;
     let isNewRecord = false;
     if (data.kills > (meta.bestKills ?? 0)) {
       meta.bestKills = data.kills;
@@ -84,11 +89,11 @@ export class GameOverScene extends Phaser.Scene {
       meta.bestTimeMs = data.timeMs;
       isNewRecord = true;
     }
+    SaveManager.saveMeta(meta);
     if (isNewRecord) {
-      SaveManager.saveMeta(meta);
       this.add
         .text(cx, 700, '신기록!', {
-          fontSize: '32px',
+          fontSize: '38px',
           color: NEON_CSS.GOLD,
           fontFamily: 'monospace',
           fontStyle: 'bold',
@@ -96,40 +101,35 @@ export class GameOverScene extends Phaser.Scene {
         .setOrigin(0.5);
     }
 
-    // Upgrade button (primary)
-    const btnUpgBg = this.add
-      .rectangle(cx, 790, 260, 60, NEON.UI_PANEL)
-      .setStrokeStyle(2, NEON.GOLD);
-    this.add
-      .text(cx, 790, `강화 (${data.gold})`, {
-        fontSize: '24px', color: NEON_CSS.GOLD,
-        fontFamily: 'monospace', fontStyle: 'bold',
-      }).setOrigin(0.5);
-    btnUpgBg.setInteractive({ useHandCursor: true })
-      .on('pointerdown', () => this.scene.start('MetaScene', { goldEarned: data.gold }));
+    // Upgrade button (primary) — bottom 1/3 zone
+    createButton(this, {
+      x: cx, y: 880, width: 280, height: 60,
+      label: `강화 (${data.gold})`, fontSize: '28px',
+      variant: 'primary',
+      onClick: () => this.scene.start('MetaScene', { goldEarned: data.gold }),
+    });
 
-    // Retry button
-    const btn1Bg = this.add
-      .rectangle(cx, 880, 220, 60, NEON.UI_PANEL)
-      .setStrokeStyle(2, NEON.UI_ACCENT);
-    this.add
-      .text(cx, 880, '재도전', {
-        fontSize: '24px', color: NEON_CSS.UI_ACCENT,
-        fontFamily: 'monospace', fontStyle: 'bold',
-      }).setOrigin(0.5);
-    btn1Bg.setInteractive({ useHandCursor: true })
-      .on('pointerdown', () => this.scene.start('RunScene'));
+    // Retry button — save gold before retry
+    createButton(this, {
+      x: cx, y: 960, width: 240, height: 56,
+      label: '재도전', fontSize: '26px',
+      variant: 'secondary',
+      onClick: () => {
+        this.scene.start('RunScene');
+      },
+    });
 
-    // Menu button
-    const btn2Bg = this.add
-      .rectangle(cx, 970, 220, 60, NEON.UI_PANEL)
-      .setStrokeStyle(2, NEON.UI_BORDER);
-    this.add
-      .text(cx, 970, '메인 메뉴', {
-        fontSize: '22px', color: NEON_CSS.UI_DIM,
-        fontFamily: 'monospace',
-      }).setOrigin(0.5);
-    btn2Bg.setInteractive({ useHandCursor: true })
-      .on('pointerdown', () => this.scene.start('MainMenuScene'));
+    // Menu button — save gold before returning
+    createButton(this, {
+      x: cx, y: 1050, width: 240, height: 56,
+      label: '메인 메뉴', fontSize: '26px',
+      variant: 'secondary',
+      onClick: () => {
+        const m = SaveManager.loadMeta();
+        m.runsCompleted = (m.runsCompleted ?? 0) + 1;
+        SaveManager.saveMeta(m);
+        this.scene.start('MainMenuScene');
+      },
+    });
   }
 }

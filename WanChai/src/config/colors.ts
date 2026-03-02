@@ -68,7 +68,7 @@ export const RETRO = {
   shadowColor: 0x000011,
   bevelLight: 0x444466,
   bevelDark: 0x0a0a1a,
-  radius: 8,
+  radius: 12,
   textColor: NEON.UI_TEXT,
   textHighlight: NEON.UI_ACCENT,
 } as const;

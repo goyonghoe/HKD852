@@ -29,15 +29,6 @@ export const META_UPGRADES: Record<string, MetaUpgradeDef> = {
     effect: 'base_hp',
     valuePerLevel: 0.15,
   },
-  meta_speed: {
-    id: 'meta_speed',
-    name: '기동력',
-    description: '이동 속도 +10%',
-    maxLevel: 3,
-    costPerLevel: [80, 200, 500],
-    effect: 'move_speed',
-    valuePerLevel: 0.10,
-  },
   meta_xp: {
     id: 'meta_xp',
     name: 'XP 부스터',

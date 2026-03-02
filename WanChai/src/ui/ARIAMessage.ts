@@ -1,13 +1,13 @@
 import Phaser from 'phaser';
 import { NEON, NEON_CSS } from '../config/colors';
-import { GAME_WIDTH } from '../config/game-config';
+import { GAME_WIDTH, GAME_HEIGHT } from '../config/game-config';
 
-const TYPE_SPEED_MS = 30;    // ms per character
-const DISPLAY_MS = 3000;     // total display time after typing finishes
+const TYPE_SPEED_MS = 25;    // ms per character (faster for center prominence)
+const DISPLAY_MS = 3500;     // total display time after typing finishes
 const GLITCH_INTERVAL = 80;  // ms between random glitch char swaps
 
 /**
- * ARIA communication overlay — cyberpunk typewriter text at top of screen.
+ * ARIA communication overlay — cyberpunk typewriter text at screen center.
  * Shows one message at a time with typing effect + glitch noise.
  */
 export class ARIAMessage {
@@ -26,16 +26,19 @@ export class ARIAMessage {
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
 
+    const cy = GAME_HEIGHT * 0.38;
     this.bgRect = scene.add
-      .rectangle(GAME_WIDTH / 2, 110, GAME_WIDTH - 40, 36, NEON.UI_PANEL, 0.85)
-      .setStrokeStyle(1, NEON.UI_BORDER);
+      .rectangle(GAME_WIDTH / 2, cy, GAME_WIDTH - 60, 52, 0x0a0a1a, 0.92)
+      .setStrokeStyle(2, NEON.UI_ACCENT, 0.6);
 
     this.textObj = scene.add
-      .text(GAME_WIDTH / 2, 110, '', {
-        fontSize: '14px',
+      .text(GAME_WIDTH / 2, cy, '', {
+        fontSize: '24px',
         color: NEON_CSS.UI_ACCENT,
         fontFamily: 'monospace',
+        fontStyle: 'bold',
         align: 'center',
+        wordWrap: { width: GAME_WIDTH - 100 },
       })
       .setOrigin(0.5);
 
