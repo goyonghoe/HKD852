@@ -1,0 +1,180 @@
+{
+  "version": "1.2.0",
+  "updated_at": "2026-03-02T15:20:00+09:00",
+  "deployed_at": "2026-03-02T15:20:00+09:00",
+  "next_id": 6,
+  "changelog": [
+    {
+      "version": "1.2.0",
+      "date": "2026-03-02",
+      "summary": "버전 관리 + 히스토리 뷰 추가",
+      "changes": [
+        "배포 버전 관리 시스템 추가 (changelog)",
+        "태스크 히스토리 타임라인 뷰 추가",
+        "버전 히스토리 뷰 추가",
+        "탭 네비게이션 (보드 / 태스크 히스토리 / 버전 히스토리)"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-03-02",
+      "summary": "Monday.com 테마 + 한글화",
+      "changes": [
+        "Monday.com 스타일 UI 리디자인 (딥 네이비 팔레트)",
+        "카드 왼쪽 컬러 스트립, 이니셜 아바타, QA 링 차트",
+        "전체 UI 한글화",
+        "파이프라인 인디케이터 헤더"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "date": "2026-03-02",
+      "summary": "칸반 보드 초기 릴리즈",
+      "changes": [
+        "5컬럼 칸반 보드 (대기/진행/검토/QA/완료)",
+        "7개 스킬 (/kanban-create, pickup, done, qa, redteam, status, deploy)",
+        "필터/검색 기능 (부서, 담당자, 우선순위, 스프린트)",
+        "태스크 상세 모달 (QA/RedTeam 결과, 히스토리)"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "무기 코덱스 씬 UX 설계",
+      "description": "10종 무기 아이콘 + 상세 정보 + 잠금/해금 표시. 무기별 DPS, 범위, 특수효과를 직관적으로 비교할 수 있는 레이아웃.",
+      "status": "final_done",
+      "priority": "high",
+      "assignee": "GameDesign_Agent",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-01T17:00:00+09:00",
+      "updated_at": "2026-03-01T19:30:00+09:00",
+      "due_date": null,
+      "tags": ["sprint-3", "codex"],
+      "sprint": "sprint-003",
+      "qa_review": {
+        "score": 88,
+        "breakdown": { "completeness": 23, "fidelity": 22, "maintainability": 22, "compliance": 21 },
+        "feedback": "전반적으로 양호. 모바일 터치 타겟 사이즈 검증 필요.",
+        "reviewed_at": "2026-03-01T19:10:00+09:00",
+        "reviewed_by": "Quality_Gate"
+      },
+      "redteam_review": {
+        "verdict": "APPROVE",
+        "findings": [
+          { "severity": "low", "category": "UX", "detail": "잠금 무기 실루엣이 스포일러가 될 수 있음" }
+        ],
+        "summary": "심각한 이슈 없음. 잠금 표시 방식 경미한 우려.",
+        "reviewed_at": "2026-03-01T19:30:00+09:00",
+        "reviewed_by": "RedTeam_Agent"
+      },
+      "history": [
+        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-03-01T17:00:00+09:00" },
+        { "from": "backlog", "to": "in_progress", "by": "GameDesign_Agent", "at": "2026-03-01T17:10:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "GameDesign_Agent", "at": "2026-03-01T19:04:00+09:00", "note": "아웃게임 메뉴 3종 추가 커밋 (91bf9b5)" },
+        { "from": "done", "to": "qa_passed", "by": "Quality_Gate", "at": "2026-03-01T19:10:00+09:00" },
+        { "from": "qa_passed", "to": "final_done", "by": "RedTeam_Agent", "at": "2026-03-01T19:30:00+09:00" }
+      ]
+    },
+    {
+      "id": "TASK-002",
+      "title": "스팀 스토어 페이지 초안 작성",
+      "description": "WanChai 게임 스팀 스토어 페이지 텍스트/이미지 구성. 타겟: NA 시장 우선.",
+      "status": "backlog",
+      "priority": "mid",
+      "assignee": "Marketing_Agent",
+      "division": "business",
+      "created_by": "CEO",
+      "created_at": "2026-03-02T10:00:00+09:00",
+      "updated_at": "2026-03-02T10:00:00+09:00",
+      "due_date": "2026-03-10T23:59:00+09:00",
+      "tags": ["steam", "sprint-4"],
+      "sprint": "sprint-004",
+      "qa_review": null,
+      "redteam_review": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-03-02T10:00:00+09:00" }
+      ]
+    },
+    {
+      "id": "TASK-003",
+      "title": "패시브 업그레이드 시스템 구현",
+      "description": "레벨업 시 3개 패시브 중 1개 선택. 패시브 풀 15종, 희귀도별 가중치, 중복 선택 시 레벨업.",
+      "status": "qa_passed",
+      "priority": "critical",
+      "assignee": "GameDev_Agent",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-01T17:00:00+09:00",
+      "updated_at": "2026-03-02T11:10:00+09:00",
+      "due_date": null,
+      "tags": ["core-mechanic", "sprint-3"],
+      "sprint": "sprint-003",
+      "qa_review": {
+        "score": 92,
+        "breakdown": { "completeness": 24, "fidelity": 24, "maintainability": 22, "compliance": 22 },
+        "feedback": "우수한 구현. 희귀도 가중치 엣지 케이스 커버 확인.",
+        "reviewed_at": "2026-03-02T11:10:00+09:00",
+        "reviewed_by": "Quality_Gate"
+      },
+      "redteam_review": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-03-01T17:00:00+09:00", "note": "VS-like 피봇 후 패시브 시스템 신규 기획" },
+        { "from": "backlog", "to": "in_progress", "by": "GameDev_Agent", "at": "2026-03-01T17:52:00+09:00", "note": "피봇 커밋에서 UpgradeSelector 초기 구현" },
+        { "from": "in_progress", "to": "done", "by": "GameDev_Agent", "at": "2026-03-02T11:06:00+09:00", "note": "Sprint 4 커밋(40fbc30)에서 테스트 확대 + 코드 정리" },
+        { "from": "done", "to": "qa_passed", "by": "Quality_Gate", "at": "2026-03-02T11:10:00+09:00" }
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "title": "적 도감 씬 아트 리소스 제작",
+      "description": "적 도감용 초상화 20종 (T1~보스). 3/4 oblique 시점, 프론트 페이싱.",
+      "status": "backlog",
+      "priority": "high",
+      "assignee": "team-kowloon",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-02T11:00:00+09:00",
+      "updated_at": "2026-03-02T11:00:00+09:00",
+      "due_date": "2026-03-15T23:59:00+09:00",
+      "tags": ["art", "sprint-4"],
+      "sprint": "sprint-004",
+      "qa_review": null,
+      "redteam_review": null,
+      "history": [
+        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-03-02T11:00:00+09:00" }
+      ]
+    },
+    {
+      "id": "TASK-005",
+      "title": "보스 충돌박스 스프라이트 비례 수정",
+      "description": "모든 적이 setCircle(12) 고정 → 보스(360px)의 충돌 반경이 스프라이트의 6.7%에 불과. displaySize*0.2 비례 공식으로 T1:19, T2:24, Boss:72px 적용. SpatialHash queryRadius도 96px로 확대.",
+      "status": "done",
+      "priority": "high",
+      "assignee": "GameDev_Agent",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-02T14:30:00+09:00",
+      "updated_at": "2026-03-02T15:17:00+09:00",
+      "due_date": null,
+      "tags": ["bugfix", "collision", "sprint-4"],
+      "sprint": "sprint-004",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": {
+        "total_tokens": 157211,
+        "entries": [
+          { "phase": "탐색", "by": "GameDesign_Agent", "model": "opus", "input": 80000, "output": 20384 },
+          { "phase": "구현", "by": "GameDev_Agent", "model": "opus", "input": 30000, "output": 10000 },
+          { "phase": "리뷰", "by": "GameDev_Agent", "model": "sonnet", "input": 12000, "output": 4827 }
+        ]
+      },
+      "history": [
+        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-03-02T14:30:00+09:00", "note": "보스 발사체 충돌 미스 신고" },
+        { "from": "backlog", "to": "in_progress", "by": "GameDev_Agent", "at": "2026-03-02T14:35:00+09:00" },
+        { "from": "in_progress", "to": "done", "by": "GameDev_Agent", "at": "2026-03-02T15:17:00+09:00", "note": "Enemy.ts hitRadius 비례 적용 + RunScene.ts 충돌 판정 수정. 빌드+91테스트 PASS. 코드 리뷰 APPROVE (Warning 1: boss_burst 모니터링). Vercel 배포 완료." }
+      ]
+    }
+  ]
+}
