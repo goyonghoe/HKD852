@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSBL 런칭 체크리스트 대시보드</title>
+<style>
+:root{--bg:#0f1117;--card:#1a1d27;--card2:#1e2130;--border:#2a2d3a;--border2:#353849;--text:#e4e4e7;--text2:#c8c9cf;--muted:#8b8d98;--dim:#5a5d6e;--p0:#ef4444;--p0bg:rgba(239,68,68,.10);--p1:#f59e0b;--p1bg:rgba(245,158,11,.10);--p2:#6b7280;--p2bg:rgba(107,114,128,.10);--done:#22c55e;--donebg:rgba(34,197,94,.10);--wip:#3b82f6;--wipbg:rgba(59,130,246,.10);--block:#ef4444;--accent:#8b5cf6;--accentbg:rgba(139,92,246,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Pretendard','Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:14px}
+.container{max-width:1400px;margin:0 auto;padding:32px 24px 60px}
+
+/* === HERO === */
+.hero{margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.hero h1{font-size:32px;font-weight:800;margin-bottom:4px;letter-spacing:-0.5px}
+.hero .tagline{color:var(--muted);font-size:14px;margin-bottom:16px}
+.hero-intro{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;color:var(--text2);font-size:13px;line-height:1.8}
+.hero-intro strong{color:var(--text);font-weight:600}
+
+/* === SECTION === */
+.section{margin-bottom:40px}
+.section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.section-num{font-size:11px;font-weight:700;color:var(--accent);background:var(--accentbg);padding:3px 10px;border-radius:12px;letter-spacing:0.5px}
+.section-title{font-size:20px;font-weight:700}
+.section-desc{color:var(--muted);font-size:13px;margin-bottom:20px;padding-left:52px}
+
+/* === GO/NO-GO === */
+.gonogo-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:center;position:relative}
+.gonogo-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.gonogo-verdict{font-size:42px;font-weight:900;margin:4px 0 8px;letter-spacing:1px}
+.gonogo-verdict.go{color:var(--done)}.gonogo-verdict.cond{color:var(--p1)}.gonogo-verdict.nogo{color:var(--p0)}
+.gonogo-detail{font-size:13px;color:var(--muted);margin-bottom:16px}
+.gonogo-criteria{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:left}
+.gon-crit{background:var(--card2);border-radius:10px;padding:14px 16px}
+.gon-crit .gc-label{font-size:11px;color:var(--muted);margin-bottom:4px}
+.gon-crit .gc-val{font-size:18px;font-weight:700}
+.gon-crit .gc-req{font-size:11px;color:var(--dim);margin-top:2px}
+.gon-crit.pass .gc-val{color:var(--done)}.gon-crit.fail .gc-val{color:var(--p0)}
+
+/* === SUMMARY CARDS === */
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+/* === RESPONSIVE: 1024px === */
+@media(max-width:1024px){
+.container{padding:28px 20px 48px}
+.summary-grid{grid-template-columns:repeat(2,1fr)}
+.urgent-list{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+}
+
+/* === RESPONSIVE: 768px === */
+@media(max-width:768px){
+.container{padding:24px 16px 40px}
+.hero h1{font-size:24px}
+.gonogo-verdict{font-size:32px}
+.gonogo-criteria{grid-template-columns:1fr}
+.summary-grid{grid-template-columns:repeat(2,1fr)}
+.card .v{font-size:24px}
+.risk-val{font-size:26px}
+.section-title{font-size:18px}
+.cal-title{font-size:18px}
+.tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:10px 16px;font-size:12px}
+.filter-section{gap:12px}
+.hist-item{flex-wrap:wrap}
+.hist-time{min-width:auto}
+.blocker-node{min-width:160px}
+.modal{padding:24px 20px}
+.section-desc{padding-left:0}
+.pct{font-size:18px;min-width:48px}
+.hero-intro{padding:16px 18px}
+.gonogo-box{padding:22px}
+.cal-cell{min-height:68px;padding:6px}
+.cal-day{font-size:12px}
+.cal-mark{font-size:9px;padding:1px 4px}
+.prog{padding:16px 18px}
+.card{padding:16px 18px}
+.urgent-list{grid-template-columns:1fr}
+.leg{flex-wrap:wrap;gap:12px}
+th{padding:10px 12px;font-size:10px}
+td{padding:10px 12px;font-size:12px}
+}
+
+/* === RESPONSIVE: 480px === */
+@media(max-width:480px){
+.container{padding:16px 12px 32px}
+.hero h1{font-size:20px}
+.hero-intro{padding:14px 16px;font-size:12px}
+.gonogo-verdict{font-size:28px}
+.gonogo-box{padding:20px 16px}
+.summary-grid{grid-template-columns:1fr}
+.card .v{font-size:22px}
+.risk-val{font-size:22px}
+.section-title{font-size:16px}
+.cal-title{font-size:16px}
+.cal-cell{min-height:60px;padding:6px}
+.cal-mark{font-size:9px;padding:1px 4px}
+.cal-day{font-size:12px}
+.urgent-list{grid-template-columns:1fr}
+.filter-section{gap:8px}
+.filter-group{flex-wrap:wrap;gap:4px}
+.filter-divider{display:none}
+.fb{padding:5px 10px;font-size:11px}
+input.di{width:90px}
+input.oi{width:70px}
+.hist-item{flex-direction:column;gap:6px}
+.hist-time{min-width:auto;display:block;font-size:11px}
+.blocker-pair{flex-direction:column;gap:8px;align-items:stretch}
+.blocker-arrow{text-align:center;transform:rotate(90deg)}
+.blocker-node{min-width:0;width:100%}
+.section-desc{padding-left:0;font-size:12px}
+.modal{padding:20px 16px}
+.row-2{grid-template-columns:1fr}
+.pct{font-size:16px;min-width:40px}
+.prog-label{font-size:13px}
+.prog-detail{font-size:11px}
+.leg{gap:10px;flex-wrap:wrap}
+.section{margin-bottom:28px}
+.hero{margin-bottom:28px;padding-bottom:24px}
+.tooltip::after{display:none}
+th{padding:8px 10px;font-size:10px}
+td{padding:8px 10px;font-size:11px}
+select.ss{font-size:10px;padding:3px 8px}
+.gonogo-criteria{gap:8px}
+.gon-crit{padding:10px 12px}
+.gon-crit .gc-val{font-size:16px}
+.risk-grid{grid-template-columns:1fr}
+.cal-legend{font-size:11px}
+.bar{height:20px}
+.btn-add{font-size:11px;padding:6px 14px}
+.filter-select{font-size:11px;padding:5px 24px 5px 8px}
+}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;transition:border-color .2s}
+.card:hover{border-color:var(--border2)}
+.card .l{font-size:11px;color:var(--muted);letter-spacing:.3px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.card .v{font-size:28px;font-weight:700;margin-bottom:2px}
+.card .s{font-size:12px;color:var(--dim);line-height:1.5}
+.card.p0{border-left:3px solid var(--p0)}.card.p0 .v{color:var(--p0)}
+.card.p1{border-left:3px solid var(--p1)}.card.p1 .v{color:var(--p1)}
+.card.p2{border-left:3px solid var(--p2)}
+.card.tot{border-left:3px solid var(--accent)}
+.tooltip{position:relative;cursor:help}
+.tooltip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#2a2d3a;color:var(--text);padding:8px 12px;border-radius:8px;font-size:11px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.tooltip:hover::after{opacity:1}
+
+/* === PROGRESS === */
+.prog{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px}
+.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.prog-label{font-weight:600;font-size:15px}
+.prog-detail{font-size:12px;color:var(--muted)}
+.prog-row{display:flex;align-items:center;gap:14px}
+.bar{flex:1;height:24px;background:#22253a;border-radius:12px;overflow:hidden;display:flex}
+.bar .d{background:var(--done);transition:width .5s ease}.bar .w{background:var(--wip);transition:width .5s ease}.bar .b{background:var(--block);transition:width .5s ease}
+.pct{font-size:22px;font-weight:800;min-width:60px;text-align:right}
+.leg{display:flex;gap:20px;margin-top:12px;font-size:12px;color:var(--muted)}
+.leg span{display:flex;align-items:center;gap:5px}
+.leg span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px}
+.ld::before{background:var(--done)}.lw::before{background:var(--wip)}.lb::before{background:var(--block)}.ln::before{background:#22253a;border:1px solid #555}.lp::before{background:#555}
+
+/* === URGENT === */
+.urgent-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+.urgent-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;transition:border-color .2s}
+.urgent-item:hover{border-color:var(--border2)}
+.urgent-item.level-p0{border-left:3px solid var(--p0)}
+.urgent-item.level-p1{border-left:3px solid var(--p1)}
+.urgent-no{font-size:11px;color:var(--dim);font-weight:600;min-width:28px;padding-top:2px}
+.urgent-body{flex:1}
+.urgent-task{font-weight:600;font-size:14px;margin-bottom:4px}
+.urgent-meta{font-size:12px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
+.urgent-reason{font-size:11px;color:var(--p0);margin-top:4px}
+
+/* === TABS === */
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--border);margin-bottom:0}
+.tab{padding:12px 22px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab:hover{color:var(--text)}.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tc{display:none}.tc.active{display:block}
+
+/* === FILTER BAR === */
+.filter-section{padding:20px 0 16px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.filter-group{display:flex;gap:6px;align-items:center}
+.filter-label{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-right:4px;font-weight:600}
+.fb{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s;font-weight:500}
+.fb:hover{color:var(--text);border-color:var(--border2)}
+.fb.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.fb.active-p0{background:var(--p0bg);color:var(--p0);border-color:rgba(239,68,68,.3)}
+.fb.active-p1{background:var(--p1bg);color:var(--p1);border-color:rgba(245,158,11,.3)}
+.fb.active-p2{background:var(--p2bg);color:var(--p2);border-color:rgba(107,114,128,.3)}
+.filter-divider{width:1px;height:24px;background:var(--border)}
+
+/* === TABLE === */
+.tbl{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--card2);padding:12px 14px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);position:sticky;top:0}
+td{padding:12px 14px;border-top:1px solid var(--border);vertical-align:top}
+tr:hover{background:rgba(139,92,246,.03)}
+.badge{display:inline-block;padding:3px 10px;border-radius:16px;font-size:11px;font-weight:700;white-space:nowrap}
+.bp0{background:rgba(239,68,68,.18);color:#f87171}.bp1{background:rgba(245,158,11,.18);color:#fbbf24}.bp2{background:rgba(107,114,128,.18);color:#9ca3af}
+.bd{background:rgba(34,197,94,.20);color:#4ade80}.bw{background:rgba(59,130,246,.20);color:#60a5fa}.bb{background:rgba(239,68,68,.20);color:#f87171}.bn{background:rgba(148,163,184,.15);color:#94a3b8}.bq{background:rgba(107,114,128,.25);color:#78716c}
+.task-name{font-weight:600;margin-bottom:2px}
+.task-detail{font-size:12px;color:var(--dim);line-height:1.5}
+select.ss{border-radius:16px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;border:none;appearance:none;-webkit-appearance:none;text-align:center}
+select.ss:focus{outline:2px solid var(--accent);outline-offset:1px}
+select.ss[data-status="미착수"]{background:rgba(148,163,184,.15);color:#94a3b8}
+select.ss[data-status="진행중"]{background:rgba(59,130,246,.20);color:#60a5fa}
+select.ss[data-status="완료"]{background:rgba(34,197,94,.20);color:#4ade80}
+select.ss[data-status="블로킹"]{background:rgba(239,68,68,.20);color:#f87171}
+select.ss[data-status="포기"]{background:rgba(107,114,128,.25);color:#78716c}
+input.di{background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12px;width:110px}
+input.oi{background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12px;width:90px}
+input.di:hover,input.oi:hover{border-color:var(--border2)}
+
+/* === RISK === */
+.risk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
+.risk-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.risk-card.danger{border-left:3px solid var(--p0)}
+.risk-card.warn{border-left:3px solid var(--p1)}
+.risk-val{font-size:32px;font-weight:800;margin:6px 0 4px}
+.risk-card.danger .risk-val{color:var(--p0)}.risk-card.warn .risk-val{color:var(--p1)}
+.risk-desc{font-size:12px;color:var(--dim);line-height:1.5}
+
+/* === BLOCKER === */
+.blocker-chain{margin-top:16px}
+.blocker-pair{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:10px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.blocker-arrow{color:var(--dim);font-size:18px;flex-shrink:0}
+.blocker-node{flex:1;min-width:200px}
+.blocker-node-label{font-size:11px;color:var(--dim);margin-bottom:2px}
+.blocker-node-task{font-weight:600;font-size:13px}
+
+/* === EMPTY STATE === */
+.empty{text-align:center;padding:48px 24px;color:var(--dim);font-size:14px}
+
+/* === TOGGLE === */
+.toggle-section{cursor:pointer;display:flex;align-items:center;gap:8px;user-select:none}
+.toggle-section .arrow{transition:transform .2s;font-size:12px;color:var(--dim)}
+.toggle-section.open .arrow{transform:rotate(90deg)}
+
+/* === ADD BUTTON === */
+.btn-add{padding:7px 18px;border-radius:8px;border:1px dashed var(--border2);background:transparent;color:var(--accent);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.btn-add:hover{background:var(--accentbg);border-color:var(--accent)}
+.filter-select{padding:6px 28px 6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:12px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235a5d6e'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;font-weight:500;transition:all .2s}
+.filter-select:hover{border-color:var(--border2);color:var(--text)}
+.filter-select:focus{outline:none;border-color:var(--accent)}
+
+/* === DELETE BUTTON === */
+.btn-del{width:26px;height:26px;border-radius:6px;border:none;background:transparent;color:var(--dim);font-size:14px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.btn-del:hover{background:rgba(239,68,68,.15);color:var(--p0)}
+
+/* === MODAL === */
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.show{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 32px;width:540px;max-width:90vw;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.modal h2{font-size:18px;font-weight:700;margin-bottom:20px}
+.modal-row{margin-bottom:14px}
+.modal-row label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;letter-spacing:.3px}
+.modal-row input,.modal-row textarea,.modal-row select{width:100%;background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:13px;font-family:inherit;transition:border-color .2s}
+.modal-row input:focus,.modal-row textarea:focus,.modal-row select:focus{outline:none;border-color:var(--accent)}
+.modal-row textarea{resize:vertical;min-height:60px}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.btn-modal{padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:none}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{opacity:.85}
+.btn-danger{background:rgba(239,68,68,.15);color:var(--p0)}.btn-danger:hover{background:rgba(239,68,68,.25)}
+.btn-cancel{background:var(--card2);color:var(--muted);border:1px solid var(--border)}.btn-cancel:hover{color:var(--text)}
+
+/* === INLINE EDIT === */
+.edit-cell{cursor:pointer;padding:2px 4px;border-radius:4px;transition:background .15s;min-height:20px}
+.edit-cell:hover{background:rgba(139,92,246,.08)}
+.edit-cell.empty-cell{color:var(--dim);font-style:italic}
+
+/* === HISTORY === */
+.hist-list{display:flex;flex-direction:column;gap:2px;margin-top:16px}
+.hist-item{display:flex;gap:14px;padding:10px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:12px;align-items:flex-start}
+.hist-time{color:var(--dim);white-space:nowrap;min-width:130px;font-variant-numeric:tabular-nums}
+.hist-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.hist-icon.add{background:rgba(34,197,94,.15);color:#4ade80}
+.hist-icon.edit{background:rgba(59,130,246,.15);color:#60a5fa}
+.hist-icon.del{background:rgba(239,68,68,.15);color:#f87171}
+.hist-icon.status{background:rgba(245,158,11,.15);color:#fbbf24}
+.hist-body{flex:1;line-height:1.6}
+.hist-body strong{color:var(--text);font-weight:600}
+.hist-body .hist-detail{color:var(--dim)}
+.hist-clear{padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:11px;cursor:pointer;transition:all .2s}
+.hist-clear:hover{border-color:var(--p0);color:var(--p0)}
+
+/* === CALENDAR === */
+.cal-wrap{margin-top:16px}
+.cal-header{display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:16px}
+.cal-title{font-size:20px;font-weight:700}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-dow{text-align:center;font-size:11px;font-weight:600;color:var(--muted);padding:8px 0;text-transform:uppercase}
+.cal-dow.sun{color:var(--p0)}
+.cal-dow.sat{color:var(--wip)}
+.cal-cell{background:var(--card);border:1px solid var(--border);border-radius:8px;min-height:80px;padding:8px;position:relative;transition:border-color .2s}
+.cal-cell:hover{border-color:var(--border2)}
+.cal-cell.empty{background:transparent;border-color:transparent}
+.cal-cell.today{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.cal-cell.sun .cal-day{color:var(--p0)}
+.cal-cell.sat .cal-day{color:var(--wip)}
+.cal-day{font-size:13px;font-weight:600;margin-bottom:4px}
+.cal-mark{font-size:10px;padding:2px 6px;border-radius:4px;display:inline-block;margin-top:2px;font-weight:600;line-height:1.4}
+.cal-mark.launch{background:rgba(239,68,68,.2);color:#f87171}
+.cal-mark.qa{background:rgba(245,158,11,.2);color:#fbbf24}
+.cal-mark.deadline{background:rgba(139,92,246,.15);color:#a78bfa}
+.cal-legend{display:flex;gap:20px;justify-content:center;margin-top:14px;font-size:12px;color:var(--muted)}
+.cal-legend span{display:flex;align-items:center;gap:5px}
+.cal-legend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px}
+.cal-legend .cl-launch::before{background:rgba(239,68,68,.3)}
+.cal-legend .cl-qa::before{background:rgba(245,158,11,.3)}
+.cal-legend .cl-today::before{background:var(--accent)}
+.cal-legend .cl-dl::before{background:rgba(139,92,246,.2)}
+.cal-tasks{margin-top:2px}
+.cal-task-dot{font-size:9px;padding:1px 5px;border-radius:3px;display:inline-block;margin:1px 0;line-height:1.3;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cal-task-dot.p0{background:rgba(239,68,68,.12);color:#f87171}
+.cal-task-dot.p1{background:rgba(245,158,11,.12);color:#fbbf24}
+.cal-task-dot.p2{background:rgba(107,114,128,.12);color:#9ca3af}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <h1>SSBL 런칭 체크리스트</h1>
+  <p class="tagline">SUPERSTAR THEBLACKLABEL &mdash; K-pop 리듬 게임 런칭 관리 대시보드</p>
+  <div class="hero-intro">
+    이 대시보드는 <strong>SSBL 게임 출시까지 완료해야 할 83개 항목</strong>을 추적합니다.
+    항목은 중요도에 따라 3단계로 나뉩니다:
+    <strong style="color:var(--p0)">[P0] 필수</strong> &mdash; 이것 없이는 출시 불가,
+    <strong style="color:var(--p1)">[P1] 중요</strong> &mdash; 출시 품질에 직접 영향,
+    <strong style="color:var(--p2)">[P2] 후속</strong> &mdash; 출시 후 순차 대응.
+    항목을 추가/수정/삭제할 수 있으며, 모든 변경 사항은 브라우저에 자동 저장됩니다.
+  </div>
+</div>
+
+<!-- ==================== STEP 1: Go/No-Go ==================== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">STEP 1</span>
+    <span class="section-title">런칭 가능 여부</span>
+  </div>
+  <p class="section-desc">P0 필수 항목이 100% 완료되고, P1 중요 항목이 80% 이상이면 GO 판정입니다.</p>
+
+  <div class="gonogo-box">
+    <div class="gonogo-label">Go / No-Go 자동 판정</div>
+    <div class="gonogo-verdict" id="verdict">NO-GO</div>
+    <div class="gonogo-detail" id="verdict-detail"></div>
+    <div class="gonogo-criteria">
+      <div class="gon-crit fail" id="gc-p0">
+        <div class="gc-label">P0 필수 완료율</div>
+        <div class="gc-val" id="gc-p0-val">0%</div>
+        <div class="gc-req">목표: 100%</div>
+      </div>
+      <div class="gon-crit fail" id="gc-p1">
+        <div class="gc-label">P1 중요 완료율</div>
+        <div class="gc-val" id="gc-p1-val">0%</div>
+        <div class="gc-req">목표: 80% 이상</div>
+      </div>
+      <div class="gon-crit fail" id="gc-owner">
+        <div class="gc-label">P0 담당 미정</div>
+        <div class="gc-val" id="gc-owner-val">21건</div>
+        <div class="gc-req">목표: 0건</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STEP 2: 전체 현황 ==================== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">STEP 2</span>
+    <span class="section-title">전체 진행 현황</span>
+  </div>
+  <p class="section-desc">우선순위별 완료 현황과 전체 진행률을 확인합니다.</p>
+
+  <div class="summary-grid" style="margin-bottom:16px">
+    <div class="card tot">
+      <div class="l">전체 항목</div>
+      <div class="v" id="c-total">68</div>
+      <div class="s">P0:22 &middot; P1:37 &middot; P2:24</div>
+    </div>
+    <div class="card p0">
+      <div class="l"><span class="tooltip" data-tip="이것 없이는 절대 출시 불가. 스토어 심사, 결제, 법률 등">P0 필수</span></div>
+      <div class="v" id="c-p0">0 / 21</div>
+      <div class="s">출시 차단 항목</div>
+    </div>
+    <div class="card p1">
+      <div class="l"><span class="tooltip" data-tip="없어도 출시는 가능하지만, 첫인상과 품질에 직접 영향">P1 중요</span></div>
+      <div class="v" id="c-p1">0 / 27</div>
+      <div class="s">품질 영향 항목</div>
+    </div>
+    <div class="card p2">
+      <div class="l"><span class="tooltip" data-tip="출시 후 순차적으로 대응해도 되는 항목">P2 후속</span></div>
+      <div class="v" id="c-p2">0 / 20</div>
+      <div class="s">출시 후 대응</div>
+    </div>
+  </div>
+
+  <div class="prog">
+    <div class="prog-top">
+      <span class="prog-label">전체 진행률</span>
+      <span class="prog-detail" id="prog-det"></span>
+    </div>
+    <div class="prog-row">
+      <div class="bar"><div class="d" id="bd" style="width:0"></div><div class="w" id="bw" style="width:0"></div><div class="b" id="bb" style="width:0"></div></div>
+      <div class="pct" id="bpct">0%</div>
+    </div>
+    <div class="leg">
+      <span class="ld">완료</span>
+      <span class="lw">진행중</span>
+      <span class="lb">블로킹</span>
+      <span class="ln">미착수</span>
+      <span class="lp">포기</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STEP 3: 지금 주목할 항목 ==================== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">STEP 3</span>
+    <span class="section-title">지금 주목할 항목</span>
+  </div>
+  <p class="section-desc">담당자가 없거나, 블로킹 중이거나, 마감이 임박한 P0/P1 항목을 우선 표시합니다.</p>
+  <div class="urgent-list" id="urgent-list"></div>
+</div>
+
+<!-- ==================== STEP 4: 상세 일감 ==================== -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">STEP 4</span>
+    <span class="section-title">상세 일감 관리</span>
+  </div>
+  <p class="section-desc">각 탭에서 전체 일감, 담당자 리스크, 선행 의존 관계를 확인할 수 있습니다.</p>
+
+  <div class="tabs">
+    <div class="tab active" data-t="tasks">일감 목록</div>
+    <div class="tab" data-t="calendar">캘린더</div>
+    <div class="tab" data-t="risk">담당자 리스크</div>
+    <div class="tab" data-t="blocker">선행 의존 관계</div>
+    <div class="tab" data-t="history">히스토리</div>
+  </div>
+
+  <!-- Tab: Tasks -->
+  <div class="tc active" id="t-tasks">
+    <div class="filter-section">
+      <button class="btn-add" onclick="openAddModal()">+ 일감 추가</button>
+      <div class="filter-divider"></div>
+      <div class="filter-group">
+        <span class="filter-label">우선순위</span>
+        <button class="fb active" data-f="all" id="fb-all">전체</button>
+        <button class="fb" data-f="[P0] 필수" data-color="p0">P0 필수</button>
+        <button class="fb" data-f="[P1] 중요" data-color="p1">P1 중요</button>
+        <button class="fb" data-f="[P2] 후속" data-color="p2">P2 후속</button>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-group">
+        <span class="filter-label">상태</span>
+        <button class="fb" data-f="미착수">미착수</button>
+        <button class="fb" data-f="진행중">진행중</button>
+        <button class="fb" data-f="완료">완료</button>
+        <button class="fb" data-f="블로킹">블로킹</button>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-group">
+        <span class="filter-label">담당자</span>
+        <select class="filter-select" id="owner-filter">
+          <option value="all">전체</option>
+        </select>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-group">
+        <span class="filter-label">정렬</span>
+        <select class="filter-select" id="sort-select">
+          <option value="no">No 순</option>
+          <option value="tier">우선순위 순</option>
+          <option value="status">상태 순</option>
+          <option value="owner">담당자 순</option>
+          <option value="deadline">마감일 순</option>
+        </select>
+      </div>
+    </div>
+    <div class="tbl"><table><thead><tr>
+      <th style="width:52px">No</th>
+      <th style="width:80px;white-space:nowrap">구분</th>
+      <th>항목 / 상세</th>
+      <th style="width:96px">담당자</th>
+      <th style="width:130px">선행 조건</th>
+      <th style="width:116px">마감일</th>
+      <th style="width:80px;white-space:nowrap">상태</th>
+      <th style="width:110px">이슈</th>
+    </tr></thead><tbody id="tbody"></tbody></table></div>
+    <div style="padding:12px 16px;font-size:11px;color:var(--dim)">
+      항목명을 클릭하면 수정 모달이 열립니다. &times; 버튼으로 삭제합니다. 담당자·마감일·상태는 인라인 편집 가능합니다.
+    </div>
+  </div>
+
+  <!-- Tab: Calendar -->
+  <div class="tc" id="t-calendar">
+    <div style="padding:20px 0 8px;font-size:13px;color:var(--muted)">
+      2026년 3월 런칭 일정입니다. 마감일이 설정된 일감은 해당 날짜에 표시됩니다.
+    </div>
+    <div class="cal-wrap" id="cal-wrap"></div>
+  </div>
+
+  <!-- Tab: Risk -->
+  <div class="tc" id="t-risk">
+    <div style="padding:20px 0 8px;font-size:13px;color:var(--muted)">
+      담당자가 배정되지 않은 항목이 많을수록 런칭 리스크가 높습니다. 특히 P0 필수 항목에 담당자가 없으면 즉시 배정이 필요합니다.
+    </div>
+    <div class="risk-grid" id="risk-grid"></div>
+  </div>
+
+  <!-- Tab: Blocker -->
+  <div class="tc" id="t-blocker">
+    <div style="padding:20px 0 8px;font-size:13px;color:var(--muted)">
+      일부 항목은 다른 항목이 먼저 완료되어야 시작할 수 있습니다. 선행 항목이 지연되면 후속 항목도 함께 밀립니다.
+    </div>
+    <div class="blocker-chain" id="blocker-view"></div>
+  </div>
+
+  <!-- Tab: History -->
+  <div class="tc" id="t-history">
+    <div style="padding:20px 0 8px;display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:13px;color:var(--muted)">일감의 생성, 수정, 삭제, 상태 변경 이력이 기록됩니다.</span>
+      <button class="hist-clear" onclick="clearHistory()">로그 초기화</button>
+    </div>
+    <div class="hist-list" id="hist-list"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h2 id="modal-title">새 일감 추가</h2>
+    <input type="hidden" id="modal-no">
+    <div class="modal-row">
+      <label>항목명</label>
+      <input type="text" id="m-task" placeholder="예: Apple App Store 심사 제출">
+    </div>
+    <div class="modal-row">
+      <label>상세 설명</label>
+      <textarea id="m-detail" placeholder="이 항목에 대한 상세 설명"></textarea>
+    </div>
+    <div class="modal-row row-2">
+      <div>
+        <label>구분 (우선순위)</label>
+        <select id="m-tier">
+          <option value="[P0] 필수">[P0] 필수 — 출시 차단</option>
+          <option value="[P1] 중요">[P1] 중요 — 품질 영향</option>
+          <option value="[P2] 후속">[P2] 후속 — 출시 후 대응</option>
+        </select>
+      </div>
+      <div>
+        <label>상태</label>
+        <select id="m-status">
+          <option>미착수</option>
+          <option>진행중</option>
+          <option>완료</option>
+          <option>블로킹</option>
+          <option>포기</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-row row-2">
+      <div>
+        <label>담당자</label>
+        <input type="text" id="m-owner" placeholder="미정">
+      </div>
+      <div>
+        <label>마감일</label>
+        <input type="date" id="m-deadline">
+      </div>
+    </div>
+    <div class="modal-row">
+      <label>선행 조건 (블로커)</label>
+      <input type="text" id="m-blocker" placeholder="예: 프로덕션 서버 구축">
+    </div>
+    <div class="modal-row">
+      <label>이슈 / 메모</label>
+      <input type="text" id="m-issue" placeholder="특이사항이 있으면 입력">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal btn-danger" id="modal-delete" style="margin-right:auto;display:none" onclick="deleteTask()">삭제</button>
+      <button class="btn-modal btn-cancel" onclick="closeModal()">취소</button>
+      <button class="btn-modal btn-primary" id="modal-save" onclick="saveModal()">추가</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+const TASKS=[
+{no:1,tier:"[P0] 필수",task:"Apple App Store 심사 제출",detail:"릴리즈 빌드 기반 심사 제출. 리젝 시 재심사 버퍼 확보",owner:"김준형",blocker:"릴리즈 빌드 완성",deadline:"",status:"미착수",issue:""},
+{no:2,tier:"[P0] 필수",task:"Google Play Store 심사 제출",detail:"콘텐츠 등급 설정 포함. 정책 위반 사전 체크",owner:"김준형",blocker:"릴리즈 빌드 완성",deadline:"",status:"미착수",issue:""},
+{no:3,tier:"[P0] 필수",task:"Release 빌드 생성 및 검증",detail:"디버그 코드 제거, 난독화, ProGuard/R8 적용",owner:"박준영",blocker:"크리티컬 버그 픽스",deadline:"",status:"미착수",issue:""},
+{no:4,tier:"[P0] 필수",task:"프로덕션 서버 구축 및 가동",detail:"오토스케일링, CDN, 프로덕션 DB 세팅",owner:"고덕환",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:5,tier:"[P0] 필수",task:"서버 부하 테스트",detail:"목표 CCU 대비 150% 부하 테스트",owner:"고덕환",blocker:"프로덕션 서버 구축",deadline:"",status:"미착수",issue:""},
+{no:6,tier:"[P0] 필수",task:"Apple IAP 상품 등록 및 검증",detail:"App Store Connect 전 상품 등록. Sandbox 결제",owner:"고용회",blocker:"",deadline:"",status:"완료",issue:""},
+{no:7,tier:"[P0] 필수",task:"Google Play Billing 상품 등록 및 검증",detail:"Play Console 전 상품 등록. 테스트 결제",owner:"고용회",blocker:"",deadline:"",status:"완료",issue:""},
+{no:8,tier:"[P0] 필수",task:"영수증 검증 서버",detail:"Apple/Google 서버사이드 영수증 검증",owner:"고덕환",blocker:"프로덕션 서버 구축",deadline:"",status:"완료",issue:""},
+{no:9,tier:"[P0] 필수",task:"결제 실패 시 복구 로직",detail:"결제 성공→지급 실패 시 재지급. 재화 유실 방지",owner:"고덕환",blocker:"영수증 검증 서버",deadline:"",status:"완료",issue:""},
+{no:10,tier:"[P0] 필수",task:"확률형 아이템 확률 공시 페이지",detail:"게임산업법 의무. 가챠 확률 공시",owner:"박상헌",blocker:"가챠 확률 테이블 확정",deadline:"",status:"완료",issue:""},
+{no:11,tier:"[P0] 필수",task:"이용약관 / 개인정보처리방침",detail:"법무 검토 다국어 약관. GDPR/CCPA",owner:"염정문",blocker:"",deadline:"",status:"완료",issue:""},
+{no:12,tier:"[P0] 필수",task:"연령 등급 심사 (GRAC)",detail:"게임물관리위원회 등급 분류",owner:"고용회",blocker:"",deadline:"",status:"완료",issue:""},
+{no:13,tier:"[P0] 필수",task:"음원 라이선스 계약 확인",detail:"수록곡 전곡 디지털 사용 라이선스",owner:"고용회",blocker:"",deadline:"",status:"완료",issue:""},
+{no:14,tier:"[P0] 필수",task:"초상권/퍼블리시티권 계약 확인",detail:"4 아티스트 이미지 사용 계약",owner:"고용회",blocker:"",deadline:"",status:"완료",issue:""},
+{no:15,tier:"[P0] 필수",task:"가챠 확률 테이블 확정",detail:"등급별 확률, 천장, 픽업 확률",owner:"박상헌",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:16,tier:"[P0] 필수",task:"상점 상품 구성 확정",detail:"IAP 상품 목록, 가격, 재화 구성",owner:"고용회",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:19,tier:"[P0] 필수",task:"점검 모드 (Maintenance) 시스템",detail:"긴급 점검 시 접속 차단 및 안내",owner:"정재호",blocker:"프로덕션 서버 구축",deadline:"",status:"완료",issue:""},
+{no:20,tier:"[P0] 필수",task:"사전등록 → 정식 전환 및 보상 지급",detail:"사전등록 유저 보상 자동 지급",owner:"고용회",blocker:"프로덕션 서버 구축",deadline:"",status:"미착수",issue:""},
+{no:21,tier:"[P0] 필수",task:"스토어 페이지 에셋",detail:"스크린샷, 프리뷰 영상, 아이콘",owner:"고용회",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:22,tier:"[P1] 중요",task:"튜토리얼 플로우 완성도 검증",detail:"FTUE 이탈 포인트 검증",owner:"강주선",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:23,tier:"[P1] 중요",task:"리듬게임 노트 싱크 검증",detail:"전 수록곡 타이밍/판정. 디바이스별 레이턴시",owner:"양시열",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:24,tier:"[P1] 중요",task:"크리티컬 버그 픽스",detail:"Crash, ANR, 데이터 유실 전수 수정",owner:"정재호",blocker:"",deadline:"",status:"미착수",issue:"크래시율 <0.5%"},
+{no:25,tier:"[P1] 중요",task:"네트워크 예외 처리",detail:"약한 네트워크, Wi-Fi↔LTE 전환",owner:"정재호",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:26,tier:"[P1] 중요",task:"런칭 수록곡 리스트 및 비트맵 완성",detail:"전 수록곡 난이도별 비트맵",owner:"양시열",blocker:"음원 라이선스 계약",deadline:"",status:"미착수",issue:""},
+{no:27,tier:"[P1] 중요",task:"카드 밸런스 테이블 확정",detail:"전체 카드 스탯, 스킬, 성장 밸런스",owner:"박상헌",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:28,tier:"[P1] 중요",task:"아티스트별 카드 아트 완성",detail:"4 아티스트 전 등급 카드 아트",owner:"오지선",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:29,tier:"[P1] 중요",task:"다국어 텍스트 검증",detail:"번역 누락, 오역, UI 오버플로우",owner:"이효빈",blocker:"번역 대상 언어 확정",deadline:"",status:"미착수",issue:""},
+{no:30,tier:"[P1] 중요",task:"번역 대상 언어 확정 및 번역 완료",detail:"지원 언어 확정, 전체 텍스트 번역",owner:"이효빈",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:31,tier:"[P1] 중요",task:"런칭 이벤트 기획 및 세팅",detail:"런칭 보상, 출석, 미션 이벤트",owner:"고용회",blocker:"달콤허브 운영툴",deadline:"",status:"미착수",issue:""},
+{no:32,tier:"[P1] 중요",task:"달콤허브 운영툴 세팅",detail:"운영 관리 시스템 전체 세팅",owner:"고덕환",blocker:"프로덕션 서버 구축",deadline:"",status:"미착수",issue:""},
+{no:33,tier:"[P1] 중요",task:"공지사항/메일 발송 시스템",detail:"인게임 공지, 우편함 보상 발송",owner:"고용회",blocker:"달콤허브 운영툴",deadline:"",status:"미착수",issue:""},
+{no:34,tier:"[P1] 중요",task:"달콤툴즈 세팅",detail:"아트 리소스 관리 시스템 연동",owner:"고용회",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:36,tier:"[P1] 중요",task:"사전등록 캠페인 현황 관리",detail:"목표 달성 현황, 보상 단계",owner:"고용회",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:37,tier:"[P1] 중요",task:"트래킹 시스템 (MMP) 세팅",detail:"태블로 기반 대시보드 구성, 슬랙 기반 리포트 구성",owner:"배선형",blocker:"",deadline:"2026-03-27",status:"진행중",issue:""},
+{no:38,tier:"[P1] 중요",task:"핵심 KPI 이벤트 로깅",detail:"FTUE, 결제, 레벨업, 가챠 로깅",owner:"옥성욱",blocker:"프로덕션 서버 구축",deadline:"2026-03-27",status:"진행중",issue:"DB 스키마 연동"},
+{no:39,tier:"[P1] 중요",task:"CS 응대 매뉴얼 작성",detail:"문의 유형별 스크립트, 에스컬레이션",owner:"송여진",blocker:"",deadline:"",status:"진행중",issue:""},
+{no:40,tier:"[P1] 중요",task:"CS 인력 확보 및 교육",detail:"런칭 시 CS 배치, 교육",owner:"고용회",blocker:"CS 응대 매뉴얼",deadline:"",status:"미착수",issue:""},
+{no:41,tier:"[P1] 중요",task:"클라이언트 보안 솔루션 적용",detail:"Anti-Cheat, 루팅/탈옥 탐지",owner:"정재호",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:42,tier:"[P1] 중요",task:"API 보안 (인증/암호화)",detail:"API 토큰, SSL/TLS, 요청 검증",owner:"정재호",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:43,tier:"[P1] 중요",task:"서버 모니터링 시스템",detail:"Grafana/Prometheus 모니터링",owner:"고덕환",blocker:"프로덕션 서버 구축",deadline:"",status:"미착수",issue:""},
+{no:44,tier:"[P1] 중요",task:"장애 대응 플레이북",detail:"서버/DB/CDN 장애 시나리오별 매뉴얼",owner:"고덕환",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:45,tier:"[P1] 중요",task:"롤백 계획 수립 및 테스트",detail:"긴급 상황 시 롤백 절차",owner:"인프라팀",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:46,tier:"[P1] 중요",task:"런칭 사업 목표 수립",detail:"D+7/30/90 DAU, 매출, Retention",owner:"고용회",blocker:"",deadline:"",status:"진행중",issue:"대표님 보고"},
+{no:47,tier:"[P1] 중요",task:"공식 SNS/커뮤니티 개설",detail:"Twitter, IG, YouTube, 공식 카페",owner:"마케팅팀",blocker:"",deadline:"",status:"진행중",issue:""},
+{no:48,tier:"[P1] 중요",task:"국가별 가격 정책 설정",detail:"환율 기반 국가별 가격 구간",owner:"김준형",blocker:"상점 상품 구성 확정",deadline:"",status:"미착수",issue:""},
+{no:49,tier:"[P2] 후속",task:"실시간 운영 대시보드 (BI)",detail:"DAU, 매출, 접속자 BI",owner:"옥성욱",blocker:"",deadline:"",status:"미착수",issue:"D+7 목표"},
+{no:51,tier:"[P2] 후속",task:"CRM/리타겟팅 시스템",detail:"이탈 유저 복귀, 푸시 세그먼트",owner:"박성은",blocker:"",deadline:"",status:"완료",issue:""},
+{no:52,tier:"[P2] 후속",task:"스토어 피처링 요청",detail:"Apple/Google 피처링 신청",owner:"김준형",blocker:"",deadline:"",status:"완료",issue:""},
+{no:53,tier:"[P2] 후속",task:"런칭 PV/트레일러 영상",detail:"공식 프로모션 영상",owner:"IP팀",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:54,tier:"[P2] 후속",task:"인플루언서/KOL 시딩",detail:"K-pop 인플루언서, 게임 유튜버",owner:"IP팀",blocker:"",deadline:"",status:"완료",issue:""},
+{no:55,tier:"[P2] 후속",task:"프레스킷 준비",detail:"미디어 배포용 자료",owner:"사업개발팀",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:56,tier:"[P2] 후속",task:"월간/주간 콘텐츠 로드맵",detail:"런칭 후 3개월 업데이트",owner:"고용회",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:57,tier:"[P2] 후속",task:"리그/랭킹 시스템 고도화",detail:"시즌, 랭킹 산정, 보상 튜닝",owner:"박성은",blocker:"",deadline:"",status:"완료",issue:""},
+{no:58,tier:"[P2] 후속",task:"앱 용량 최적화",detail:"초기 다운로드 최적화",owner:"정재호",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:59,tier:"[P2] 후속",task:"딥링크 동작 검증",detail:"마케팅 딥링크, 스토어 리다이렉트",owner:"염정문",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:60,tier:"[P2] 후속",task:"쿠폰 시스템",detail:"프로모션 쿠폰 발급/사용/만료",owner:"정재호",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:61,tier:"[P2] 후속",task:"긴급 밴/제재 시스템",detail:"어뷰저 탐지, 계정 제재",owner:"고덕환",blocker:"",deadline:"",status:"완료",issue:""},
+{no:62,tier:"[P2] 후속",task:"환불 처리 프로세스 고도화",detail:"스토어 환불 시 재화 회수",owner:"고덕환",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:63,tier:"[P2] 후속",task:"인게임 고객센터/FAQ",detail:"FAQ, 1:1 문의 시스템",owner:"송여진",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:64,tier:"[P2] 후속",task:"버그 리포트 수집 시스템",detail:"유저 버그 접수/분류/전달",owner:"김진수",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:65,tier:"[P2] 후속",task:"취약점 스캔/펜테스트",detail:"외부 보안 진단",owner:"염정문",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:66,tier:"[P2] 후속",task:"폰트/레이아웃 현지화 고도화",detail:"아랍어 RTL 등",owner:"김시원",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:68,tier:"[P2] 후속",task:"퍼널 분석 설계",detail:"설치→튜토리얼→첫결제 퍼널",owner:"옥성욱",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:69,tier:"[P0] 필수",task:"오디오 싱크 보정 UI (Touch Sync)",detail:"디바이스별 오디오 레이턴시 차이 보정. 유저가 직접 BGM/터치 싱크 오프셋 조정 가능해야 함. 리듬게임 핵심 UX",owner:"",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:70,tier:"[P0] 필수",task:"카드 등급 시스템 및 업그레이드 밸런스 검증",detail:"C→B→A→S→R 5단계 등급, 파워업(별 강화) + 업그레이드(등급 상승) 비용/확률 테이블 QA. 슈퍼스타 시리즈 핵심 수집 루프",owner:"",blocker:"카드 밸런스 테이블 확정",deadline:"",status:"미착수",issue:""},
+{no:71,tier:"[P0] 필수",task:"헤드폰(스태미나) 시스템 구현 및 밸런스",detail:"플레이 횟수 제한 재화. 충전 주기, 최대 보유량, 다이아몬드 충전 가격 확정. 수익화 핵심 요소",owner:"",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:72,tier:"[P1] 중요",task:"주간 리그 시스템 구현",detail:"브론즈→실버→골드→플래티넘→마스터 5단계(각 3티어). 주간 리셋, 승격/강등 로직, 리그 보상 설계",owner:"",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:73,tier:"[P1] 중요",task:"카드 테마 시스템 (기본/한정/이벤트)",detail:"아티스트별 기본 테마 + 컴백 한정 테마 + 이벤트 테마 구분. 테마 보너스 점수 로직. 한정카드 기간 설정",owner:"",blocker:"아티스트별 카드 아트 완성",deadline:"",status:"미착수",issue:""},
+{no:74,tier:"[P1] 중요",task:"노트 판정 체계 검증 (SPerfect/Perfect/Good/Miss)",detail:"판정 프레임 윈도우 확정, 콤보/스코어 계산 투명성. 디바이스별 터치 입력 레이턴시 보정 테스트",owner:"",blocker:"리듬게임 노트 싱크 검증",deadline:"",status:"미착수",issue:""},
+{no:75,tier:"[P1] 중요",task:"음원 에셋 백그라운드 다운로드",detail:"초기 설치 용량 최소화 + 곡별 에셋 온디맨드 다운로드. Wi-Fi 전용 옵션, 다운로드 진행률 표시",owner:"",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:76,tier:"[P1] 중요",task:"일일/주간 미션 시스템",detail:"매일 리셋되는 데일리 미션 + 주간 미션. 보상(RP, 다이아, 카드팩), 미션 갱신 로직, 운영툴 연동",owner:"",blocker:"달콤허브 운영툴",deadline:"",status:"미착수",issue:""},
+{no:77,tier:"[P1] 중요",task:"RP(리듬포인트) 경제 밸런스",detail:"곡 플레이 RP 보상, 카드 강화 RP 소비, 상점 RP 가격 밸런스. 일일 RP 획득 상한 여부 결정",owner:"",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:78,tier:"[P1] 중요",task:"월드레코드 / 글로벌 랭킹",detail:"곡별 전체 유저 최고점 랭킹. 부정 스코어 탐지 로직. 랭킹 보상",owner:"",blocker:"프로덕션 서버 구축",deadline:"",status:"미착수",issue:""},
+{no:79,tier:"[P1] 중요",task:"카드 인벤토리 관리 UI",detail:"대량 카드 정렬/필터(등급, 아티스트, 테마), 일괄 파워업, 잠금, 즐겨찾기. 인벤토리 상한 및 확장",owner:"",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:80,tier:"[P1] 중요",task:"곡 선택 UI 및 미리듣기",detail:"아티스트별/앨범별 곡 브라우징, 30초 미리듣기, 난이도(Easy/Normal/Hard) 선택, 최고기록 표시",owner:"",blocker:"런칭 수록곡 리스트 확정",deadline:"",status:"미착수",issue:""},
+{no:81,tier:"[P1] 중요",task:"컴백 연동 이벤트 프레임워크",detail:"THEBLACKLABEL 아티스트 컴백 시 한정카드/미션/보너스 자동 세팅 가능한 이벤트 템플릿. 운영툴 연동",owner:"",blocker:"달콤허브 운영툴",deadline:"",status:"미착수",issue:""},
+{no:82,tier:"[P1] 중요",task:"노트 속도 조절 옵션",detail:"유저별 노트 낙하 속도 1~10단계 조절. 설정 저장. 리듬게임 접근성 핵심 옵션",owner:"",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:83,tier:"[P2] 후속",task:"프리미엄 패스 (시즌 패스)",detail:"유료 시즌 패스 구매 시 추가 보상 트랙 해금. 시즌 기간, 보상 설계, 가격 정책",owner:"",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:84,tier:"[P2] 후속",task:"슈퍼스타 리그 (상위 랭킹 콘텐츠)",detail:"마스터 리그 이상 상위 경쟁 콘텐츠. 시즌 보상, 명예의 전당",owner:"",blocker:"주간 리그 시스템",deadline:"",status:"미착수",issue:""},
+{no:85,tier:"[P2] 후속",task:"카드북 / 도감 시스템",detail:"수집한 카드 도감, 테마 완성 보상, 아티스트별 수집률 표시. 컬렉션 동기 부여",owner:"",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:86,tier:"[P2] 후속",task:"크로스 프로모션 (타 슈퍼스타 타이틀)",detail:"달콤소프트 다른 슈퍼스타 게임과 크로스 이벤트. 공동 보상, 연동 링크",owner:"",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:87,tier:"[P2] 후속",task:"팬덤 커뮤니티 인게임 연동",detail:"Weverse/팬카페 연동, 아티스트 생일/기념일 자동 이벤트, 팬 투표 기능",owner:"",blocker:"",deadline:"",status:"미착수",issue:""},
+{no:88,tier:"[P2] 후속",task:"접근성 옵션 (색약 모드, 노트 크기 조절)",detail:"색약/색맹 대응 노트 색상 변경, 노트 크기 확대, 진동 피드백 On/Off. 앱 심사 접근성 항목 충족",owner:"",blocker:"",deadline:"",status:"미착수",issue:""}
+];
+
+
+const KEY='ssbl-launch-v3';
+const BKEY='ssbl-launch-v3-backup';
+const CLOUD_API='/api/tasks';
+let _cloudLoaded=false;
+let _saveTimer=null;
+
+function _applyData(s){
+  if(Array.isArray(s)&&s.length>0&&s[0].no!==undefined){
+    TASKS.length=0;
+    s.forEach(t=>TASKS.push(t));
+    return true;
+  }
+  return false;
+}
+
+function load(){
+  try{
+    const raw=localStorage.getItem(KEY);
+    if(raw) _applyData(JSON.parse(raw));
+  }catch(e){
+    console.error('[SSBL] localStorage 로드 실패:',e);
+    try{
+      const bk=localStorage.getItem(BKEY);
+      if(bk) _applyData(JSON.parse(bk));
+    }catch(e2){}
+  }
+}
+
+async function cloudLoad(){
+  try{
+    const res=await fetch(CLOUD_API,{headers:{'Accept':'application/json'}});
+    if(!res.ok) throw new Error(res.status);
+    const data=await res.json();
+    if(_applyData(data)){
+      _cloudLoaded=true;
+      localStorage.setItem(KEY,JSON.stringify(TASKS));
+      console.log('[SSBL] 클라우드에서 로드 완료 ('+TASKS.length+'건)');
+      updateAll();
+    }
+  }catch(e){
+    console.warn('[SSBL] 클라우드 로드 실패, localStorage 사용:',e);
+  }
+}
+
+function save(){
+  try{
+    const data=JSON.stringify(TASKS);
+    const prev=localStorage.getItem(KEY);
+    if(prev)localStorage.setItem(BKEY,prev);
+    localStorage.setItem(KEY,data);
+  }catch(e){
+    console.error('[SSBL] localStorage 저장 실패:',e);
+  }
+  // 클라우드 저장: 300ms 디바운스
+  clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(()=>{
+    fetch(CLOUD_API,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(TASKS)
+    }).then(r=>{
+      if(!r.ok) throw new Error(r.status);
+      console.log('[SSBL] 클라우드 저장 완료');
+    }).catch(e=>console.warn('[SSBL] 클라우드 저장 실패:',e));
+  },300);
+}
+
+load();
+cloudLoad();
+
+function tierBadge(t){return t==='[P0] 필수'?'<span class="badge bp0">P0 필수</span>':t==='[P1] 중요'?'<span class="badge bp1">P1 중요</span>':'<span class="badge bp2">P2 후속</span>';}
+function statusBadge(s){const m={'완료':'bd','진행중':'bw','블로킹':'bb','미착수':'bn','포기':'bq'};return `<span class="badge ${m[s]||'bn'}">${s}</span>`;}
+function cnt(tier,status){return TASKS.filter(t=>(tier?t.tier===tier:true)&&(status?t.status===status:true)).length;}
+
+function updateAll(){
+  populateOwnerFilter();
+  const total=TASKS.length;
+  const done=cnt(null,'완료'),wip=cnt(null,'진행중'),block=cnt(null,'블로킹'),quit=cnt(null,'포기'),notstart=cnt(null,'미착수');
+  const p0t=cnt('[P0] 필수'),p0d=cnt('[P0] 필수','완료');
+  const p1t=cnt('[P1] 중요'),p1d=cnt('[P1] 중요','완료');
+  const p2t=cnt('[P2] 후속'),p2d=cnt('[P2] 후속','완료');
+
+  document.getElementById('c-total').textContent=total;
+  document.getElementById('c-p0').textContent=p0d+' / '+p0t;
+  document.getElementById('c-p1').textContent=p1d+' / '+p1t;
+  document.getElementById('c-p2').textContent=p2d+' / '+p2t;
+  document.getElementById('fb-all').textContent='전체 ('+total+')';
+  document.getElementById('prog-det').textContent=`${done} 완료 · ${wip} 진행중 · ${block} 블로킹 · ${notstart} 미착수 · ${quit} 포기`;
+
+  const pct=Math.round(done/total*100);
+  document.getElementById('bpct').textContent=pct+'%';
+  document.getElementById('bd').style.width=(done/total*100)+'%';
+  document.getElementById('bw').style.width=(wip/total*100)+'%';
+  document.getElementById('bb').style.width=(block/total*100)+'%';
+
+  // Go/No-Go
+  const p0pct=p0t?p0d/p0t:0, p1pct=p1t?p1d/p1t:0;
+  const p0미정=TASKS.filter(t=>t.tier==='[P0] 필수'&&(t.owner===''||t.owner==='미정')).length;
+  const vel=document.getElementById('verdict'),vd=document.getElementById('verdict-detail');
+
+  if(p0pct===1&&p1pct>=0.8&&p0미정===0){
+    vel.textContent='GO';vel.className='gonogo-verdict go';
+    vd.textContent='모든 필수 조건을 충족했습니다. 런칭 가능합니다.';
+  } else if(p0pct===1&&p1pct>=0.6){
+    vel.textContent='CONDITIONAL GO';vel.className='gonogo-verdict cond';
+    vd.textContent='P0 완료. P1 진행률이 80% 미만이므로 D+3 핫픽스 계획이 필요합니다.';
+  } else {
+    vel.textContent='NO-GO';vel.className='gonogo-verdict nogo';
+    vd.textContent=`P0 필수 항목이 ${p0t-p0d}건 미완료입니다. 완료 후 재판정하세요.`;
+  }
+
+  // Go/No-Go criteria cards
+  const p0PctVal=Math.round(p0pct*100), p1PctVal=Math.round(p1pct*100);
+  document.getElementById('gc-p0-val').textContent=p0PctVal+'%';
+  document.getElementById('gc-p1-val').textContent=p1PctVal+'%';
+  document.getElementById('gc-owner-val').textContent=p0미정+'건';
+  document.getElementById('gc-p0').className='gon-crit '+(p0pct===1?'pass':'fail');
+  document.getElementById('gc-p1').className='gon-crit '+(p1pct>=0.8?'pass':'fail');
+  document.getElementById('gc-owner').className='gon-crit '+(p0미정===0?'pass':'fail');
+
+  // Urgent items
+  renderUrgent();
+
+  // Risk
+  const 미정all=TASKS.filter(t=>t.owner===''||t.owner==='미정').length;
+  const 인수=TASKS.filter(t=>t.owner==='인수필요').length;
+  const 포기all=TASKS.filter(t=>t.owner==='포기'||t.status==='포기').length;
+  const p0미정v=TASKS.filter(t=>t.tier==='[P0] 필수'&&(t.owner===''||t.owner==='미정')).length;
+  const p0인수=TASKS.filter(t=>t.tier==='[P0] 필수'&&t.owner==='인수필요').length;
+  document.getElementById('risk-grid').innerHTML=`
+    <div class="risk-card danger">
+      <div class="l">P0 필수 중 담당 미정</div>
+      <div class="risk-val">${p0미정v}건</div>
+      <div class="risk-desc">출시 차단 항목인데 아무도 담당하지 않고 있습니다. 즉시 배정이 필요합니다.</div>
+    </div>
+    <div class="risk-card danger">
+      <div class="l">전체 담당 미정</div>
+      <div class="risk-val">${미정all}건</div>
+      <div class="risk-desc">담당자가 지정되지 않은 전체 항목 수입니다.</div>
+    </div>
+    <div class="risk-card warn">
+      <div class="l">인수 필요</div>
+      <div class="risk-val">${인수}건</div>
+      <div class="risk-desc">기존 담당자가 빠져 새로운 담당자 배정이 필요합니다.</div>
+    </div>
+    <div class="risk-card warn">
+      <div class="l">P0 필수 중 인수 필요</div>
+      <div class="risk-val">${p0인수}건</div>
+      <div class="risk-desc">출시 차단 항목 중 인수가 필요한 건입니다.</div>
+    </div>
+    <div class="risk-card">
+      <div class="l">포기 처리</div>
+      <div class="risk-val">${포기all}건</div>
+      <div class="risk-desc">런칭 범위에서 제외된 항목입니다. 출시 후 로드맵으로 이동합니다.</div>
+    </div>`;
+
+  // Blocker chains
+  const blocked=TASKS.filter(t=>t.blocker);
+  if(blocked.length===0){
+    document.getElementById('blocker-view').innerHTML='<div class="empty">선행 의존 관계가 있는 항목이 없습니다.</div>';
+  } else {
+    document.getElementById('blocker-view').innerHTML=blocked.map(t=>{
+      const dep=TASKS.find(d=>t.blocker.includes(d.task));
+      const depStatus=dep?dep.status:'(외부 항목)';
+      const tierClass=t.tier==='[P0] 필수'?'level-p0':t.tier==='[P1] 중요'?'level-p1':'';
+      return `<div class="blocker-pair ${tierClass}">
+        <div class="blocker-node">
+          <div class="blocker-node-label">먼저 완료해야 할 항목 (선행)</div>
+          <div class="blocker-node-task">${t.blocker} ${dep?statusBadge(depStatus):'<span class="badge bn">외부</span>'}</div>
+        </div>
+        <div class="blocker-arrow">&rarr;</div>
+        <div class="blocker-node">
+          <div class="blocker-node-label">이후 시작 가능 (후행) &mdash; ${tierBadge(t.tier)}</div>
+          <div class="blocker-node-task">#${t.no} ${t.task} ${statusBadge(t.status)}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+}
+
+function renderUrgent(){
+  const urgent=TASKS.filter(t=>{
+    if(t.tier==='[P2] 후속')return false;
+    if(t.status==='완료'||t.status==='포기')return false;
+    const noOwner=t.owner===''||t.owner==='미정'||t.owner==='인수필요';
+    const isBlocking=t.status==='블로킹';
+    return noOwner||isBlocking;
+  }).slice(0,8);
+
+  if(urgent.length===0){
+    document.getElementById('urgent-list').innerHTML='<div class="empty">주목할 항목이 없습니다. 모든 P0/P1 항목에 담당자가 배정되어 있습니다.</div>';
+    return;
+  }
+
+  document.getElementById('urgent-list').innerHTML=urgent.map(t=>{
+    const reasons=[];
+    if(t.owner===''||t.owner==='미정')reasons.push('담당자 미정');
+    if(t.owner==='인수필요')reasons.push('인수 필요');
+    if(t.status==='블로킹')reasons.push('블로킹 중');
+    const cls=t.tier==='[P0] 필수'?'level-p0':'level-p1';
+    return `<div class="urgent-item ${cls}">
+      <div class="urgent-no">#${t.no}</div>
+      <div class="urgent-body">
+        <div class="urgent-task">${t.task}</div>
+        <div class="urgent-meta">
+          ${tierBadge(t.tier)}
+          ${statusBadge(t.status)}
+          ${t.blocker?`<span style="color:var(--dim);font-size:11px">선행: ${t.blocker}</span>`:''}
+        </div>
+        <div class="urgent-reason">${reasons.join(' · ')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+let curFilter='all';
+let curOwnerFilter='all';
+let curSort='no';
+
+function populateOwnerFilter(){
+  const sel=document.getElementById('owner-filter');
+  const prev=sel.value;
+  const owners=[...new Set(TASKS.map(t=>t.owner).filter(Boolean))].sort();
+  sel.innerHTML='<option value="all">전체</option><option value="_none">미정</option>'+owners.map(o=>`<option value="${o}">${o}</option>`).join('');
+  sel.value=prev||'all';
+}
+
+function renderTable(){
+  let filtered=TASKS.filter(t=>{
+    if(curFilter!=='all'){
+      if(curFilter.startsWith('[')){if(t.tier!==curFilter)return false;}
+      else{if(t.status!==curFilter)return false;}
+    }
+    if(curOwnerFilter!=='all'){
+      if(curOwnerFilter==='_none'){if(t.owner)return false;}
+      else{if(t.owner!==curOwnerFilter)return false;}
+    }
+    return true;
+  });
+
+  const tierOrder={'[P0] 필수':0,'[P1] 중요':1,'[P2] 후속':2};
+  const statusOrder={'블로킹':0,'미착수':1,'진행중':2,'완료':3,'포기':4};
+  filtered.sort((a,b)=>{
+    if(curSort==='no')return a.no-b.no;
+    if(curSort==='tier')return(tierOrder[a.tier]??9)-(tierOrder[b.tier]??9)||a.no-b.no;
+    if(curSort==='status')return(statusOrder[a.status]??9)-(statusOrder[b.status]??9)||a.no-b.no;
+    if(curSort==='owner')return(a.owner||'zzz').localeCompare(b.owner||'zzz')||a.no-b.no;
+    if(curSort==='deadline'){
+      const da=a.deadline||'9999-99-99',db=b.deadline||'9999-99-99';
+      return da.localeCompare(db)||a.no-b.no;
+    }
+    return 0;
+  });
+
+  if(filtered.length===0){
+    document.getElementById('tbody').innerHTML='<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--dim)">해당하는 항목이 없습니다.</td></tr>';
+    return;
+  }
+
+  document.getElementById('tbody').innerHTML=filtered.map(t=>`<tr>
+    <td style="color:var(--dim);font-weight:600;white-space:nowrap">
+      <div style="display:flex;align-items:center;gap:4px">
+        <button class="btn-del" data-no="${t.no}" title="삭제">&times;</button>
+        <span>${t.no}</span>
+      </div>
+    </td>
+    <td>${tierBadge(t.tier)}</td>
+    <td>
+      <div class="edit-cell" data-no="${t.no}" data-action="edit" title="클릭하여 수정">
+        <div class="task-name">${t.task}</div>
+        <div class="task-detail">${t.detail}</div>
+      </div>
+    </td>
+    <td><input class="oi" data-no="${t.no}" data-field="owner" value="${t.owner}" placeholder="미정"></td>
+    <td style="font-size:12px;color:var(--dim)">${t.blocker||'&mdash;'}</td>
+    <td><input class="di" type="date" data-no="${t.no}" data-field="deadline" value="${t.deadline}"></td>
+    <td><select class="ss" data-no="${t.no}" data-status="${t.status}">
+      <option${t.status==='미착수'?' selected':''}>미착수</option>
+      <option${t.status==='진행중'?' selected':''}>진행중</option>
+      <option${t.status==='완료'?' selected':''}>완료</option>
+      <option${t.status==='블로킹'?' selected':''}>블로킹</option>
+      <option${t.status==='포기'?' selected':''}>포기</option>
+    </select></td>
+    <td style="font-size:12px;color:${t.issue?'var(--p1)':'var(--dim)'}">${t.issue||''}</td>
+  </tr>`).join('');
+
+  document.querySelectorAll('select.ss').forEach(s=>s.onchange=e=>{
+    const oldVal=e.target.dataset.status;
+    e.target.dataset.status=e.target.value;
+    const t=TASKS.find(t=>t.no==e.target.dataset.no);
+    t.status=e.target.value;save();updateAll();renderTable();
+    addLog('status',t.no,t.task,oldVal+' → '+e.target.value);
+  });
+  document.querySelectorAll('input.oi').forEach(i=>i.onchange=e=>{
+    const t=TASKS.find(t=>t.no==e.target.dataset.no);
+    const oldOwner=t.owner||'(없음)';
+    t.owner=e.target.value;save();updateAll();renderUrgent();
+    addLog('edit',t.no,t.task,'담당자: '+oldOwner+' → '+(e.target.value||'(없음)'));
+  });
+  document.querySelectorAll('input.di').forEach(i=>i.onchange=e=>{
+    const t=TASKS.find(t=>t.no==e.target.dataset.no);
+    const oldDl=t.deadline||'(없음)';
+    t.deadline=e.target.value;save();updateAll();
+    addLog('edit',t.no,t.task,'마감일: '+oldDl+' → '+(e.target.value||'(없음)'));
+  });
+  document.querySelectorAll('.edit-cell[data-action="edit"]').forEach(c=>c.onclick=e=>{
+    const no=parseInt(c.dataset.no);openEditModal(no);
+  });
+  document.querySelectorAll('.btn-del').forEach(b=>b.onclick=e=>{
+    e.stopPropagation();
+    const no=parseInt(b.dataset.no);
+    const t=TASKS.find(x=>x.no===no);
+    if(t&&confirm(`"${t.task}" 항목을 삭제하시겠습니까?`)){
+      const taskName=t.task,taskNo=t.no;
+      const idx=TASKS.findIndex(x=>x.no===no);
+      if(idx>-1){TASKS.splice(idx,1);save();updateAll();renderTable();}
+      addLog('delete',taskNo,taskName,'인라인 삭제');
+    }
+  });
+}
+
+// === MODAL FUNCTIONS ===
+let editingNo=null;
+
+function openAddModal(){
+  editingNo=null;
+  document.getElementById('modal-title').textContent='새 일감 추가';
+  document.getElementById('modal-save').textContent='추가';
+  document.getElementById('modal-delete').style.display='none';
+  document.getElementById('m-task').value='';
+  document.getElementById('m-detail').value='';
+  document.getElementById('m-tier').value='[P1] 중요';
+  document.getElementById('m-status').value='미착수';
+  document.getElementById('m-owner').value='';
+  document.getElementById('m-deadline').value='';
+  document.getElementById('m-blocker').value='';
+  document.getElementById('m-issue').value='';
+  document.getElementById('modal-overlay').classList.add('show');
+  document.getElementById('m-task').focus();
+}
+
+function openEditModal(no){
+  const t=TASKS.find(x=>x.no===no);
+  if(!t)return;
+  editingNo=no;
+  document.getElementById('modal-title').textContent='일감 수정 — #'+no;
+  document.getElementById('modal-save').textContent='저장';
+  document.getElementById('modal-delete').style.display='inline-block';
+  document.getElementById('m-task').value=t.task;
+  document.getElementById('m-detail').value=t.detail;
+  document.getElementById('m-tier').value=t.tier;
+  document.getElementById('m-status').value=t.status;
+  document.getElementById('m-owner').value=t.owner;
+  document.getElementById('m-deadline').value=t.deadline;
+  document.getElementById('m-blocker').value=t.blocker;
+  document.getElementById('m-issue').value=t.issue;
+  document.getElementById('modal-overlay').classList.add('show');
+  document.getElementById('m-task').focus();
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('show');
+  editingNo=null;
+}
+
+function saveModal(){
+  const task=document.getElementById('m-task').value.trim();
+  if(!task){alert('항목명을 입력하세요.');return;}
+  const data={
+    task:task,
+    detail:document.getElementById('m-detail').value.trim(),
+    tier:document.getElementById('m-tier').value,
+    status:document.getElementById('m-status').value,
+    owner:document.getElementById('m-owner').value.trim(),
+    deadline:document.getElementById('m-deadline').value,
+    blocker:document.getElementById('m-blocker').value.trim(),
+    issue:document.getElementById('m-issue').value.trim()
+  };
+  if(editingNo!==null){
+    // Edit existing
+    const t=TASKS.find(x=>x.no===editingNo);
+    if(t){
+      const changes=[];
+      if(t.task!==data.task)changes.push('항목명');
+      if(t.tier!==data.tier)changes.push('구분: '+t.tier+'→'+data.tier);
+      if(t.status!==data.status)changes.push('상태: '+t.status+'→'+data.status);
+      if(t.owner!==data.owner)changes.push('담당자');
+      if(t.deadline!==data.deadline)changes.push('마감일');
+      if(t.blocker!==data.blocker)changes.push('블로커');
+      Object.assign(t,data);
+      addLog('edit',editingNo,data.task,changes.join(', ')||'내용 수정');
+    }
+  } else {
+    // Add new
+    const maxNo=TASKS.reduce((m,t)=>Math.max(m,t.no),0);
+    const newNo=maxNo+1;
+    TASKS.push({no:newNo,...data});
+    addLog('add',newNo,data.task,data.tier+' / '+data.status);
+  }
+  save();updateAll();renderTable();closeModal();
+}
+
+function deleteTask(){
+  if(editingNo===null)return;
+  const t=TASKS.find(x=>x.no===editingNo);
+  if(t&&confirm(`"${t.task}" 항목을 삭제하시겠습니까?`)){
+    const taskName=t.task,taskNo=t.no;
+    const idx=TASKS.findIndex(x=>x.no===editingNo);
+    if(idx>-1){TASKS.splice(idx,1);save();updateAll();renderTable();}
+    addLog('delete',taskNo,taskName,'모달에서 삭제');
+    closeModal();
+  }
+}
+
+// Close modal on overlay click or Escape
+document.getElementById('modal-overlay').onclick=e=>{if(e.target===e.currentTarget)closeModal();};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+// === HISTORY LOG ===
+const HKEY='ssbl-history';
+let HISTORY=[];
+function loadHistory(){
+  try{
+    const raw=localStorage.getItem(HKEY);
+    if(!raw){HISTORY=[];return;}
+    const parsed=JSON.parse(raw);
+    HISTORY=Array.isArray(parsed)?parsed:[];
+  }catch(e){
+    console.error('[SSBL] 히스토리 로드 실패:',e);
+    HISTORY=[];
+  }
+}
+function saveHistory(){
+  try{localStorage.setItem(HKEY,JSON.stringify(HISTORY));}
+  catch(e){console.error('[SSBL] 히스토리 저장 실패:',e);}
+}
+loadHistory();
+
+function addLog(type,taskNo,taskName,detail){
+  const now=new Date();
+  const ts=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+  HISTORY.unshift({ts,type,no:taskNo,name:taskName,detail});
+  if(HISTORY.length>200)HISTORY.length=200;
+  saveHistory();
+  renderHistory();
+}
+
+function renderHistory(){
+  const el=document.getElementById('hist-list');
+  if(!el)return;
+  if(HISTORY.length===0){el.innerHTML='<div class="empty">아직 기록된 이력이 없습니다.</div>';return;}
+  const icons={add:'+ ',edit:'✎',del:'✕',status:'◉'};
+  el.innerHTML=HISTORY.map(h=>{
+    const ic=h.type==='add'?'add':h.type==='delete'?'del':h.type==='status'?'status':'edit';
+    return `<div class="hist-item">
+      <span class="hist-time">${h.ts}</span>
+      <span class="hist-icon ${ic}">${icons[ic]||'•'}</span>
+      <span class="hist-body"><strong>#${h.no} ${h.name}</strong> <span class="hist-detail">${h.detail}</span></span>
+    </div>`;
+  }).join('');
+}
+
+function clearHistory(){
+  if(!confirm('히스토리 로그를 모두 삭제하시겠습니까?'))return;
+  HISTORY=[];saveHistory();renderHistory();
+}
+
+// === CALENDAR ===
+function renderMonth(year,month,milestones,milestoneClass){
+  const daysInMonth=new Date(year,month,0).getDate();
+  const firstDow=new Date(year,month-1,1).getDay();
+  const monthNames=['','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+
+  const tasksByDay={};
+  TASKS.forEach(t=>{
+    if(!t.deadline)return;
+    const parts=t.deadline.split('-');
+    if(parseInt(parts[0])===year&&parseInt(parts[1])===month){
+      const d=parseInt(parts[2]);
+      if(!tasksByDay[d])tasksByDay[d]=[];
+      tasksByDay[d].push(t);
+    }
+  });
+
+  const today=new Date();
+  const todayDay=(today.getFullYear()===year&&today.getMonth()+1===month)?today.getDate():-1;
+
+  const dows=['일','월','화','수','목','금','토'];
+  let html=`<div class="cal-header"><span class="cal-title">${year}년 ${monthNames[month]}</span></div>`;
+  html+='<div class="cal-grid">';
+  dows.forEach((d,i)=>{
+    const cls=i===0?'cal-dow sun':i===6?'cal-dow sat':'cal-dow';
+    html+=`<div class="${cls}">${d}</div>`;
+  });
+
+  for(let i=0;i<firstDow;i++) html+='<div class="cal-cell empty"></div>';
+
+  for(let d=1;d<=daysInMonth;d++){
+    const dow=(firstDow+d-1)%7;
+    const classes=['cal-cell'];
+    if(dow===0)classes.push('sun');
+    if(dow===6)classes.push('sat');
+    if(d===todayDay)classes.push('today');
+
+    let inner=`<div class="cal-day">${d}</div>`;
+    if(milestones[d]) inner+=`<div class="cal-mark ${milestoneClass[d]}">${milestones[d]}</div>`;
+    if(tasksByDay[d]){
+      inner+='<div class="cal-tasks">';
+      tasksByDay[d].slice(0,3).forEach(t=>{
+        const tc=t.tier==='[P0] 필수'?'p0':t.tier==='[P1] 중요'?'p1':'p2';
+        inner+=`<div class="cal-task-dot ${tc}" title="${t.task}">${t.task}</div>`;
+      });
+      if(tasksByDay[d].length>3)inner+=`<div style="font-size:9px;color:var(--dim)">+${tasksByDay[d].length-3}건 더</div>`;
+      inner+='</div>';
+    }
+    html+=`<div class="${classes.join(' ')}">${inner}</div>`;
+  }
+
+  const totalCells=firstDow+daysInMonth;
+  const remaining=totalCells%7===0?0:7-totalCells%7;
+  for(let i=0;i<remaining;i++) html+='<div class="cal-cell empty"></div>';
+  html+='</div>';
+  return html;
+}
+
+function renderCalendar(){
+  const el=document.getElementById('cal-wrap');
+  if(!el)return;
+
+  // 3월
+  let html=renderMonth(2026,3,
+    {20:'QA 마감',31:'출시일 (Launch)'},
+    {20:'qa',31:'launch'}
+  );
+
+  // 4월
+  html+='<div style="margin-top:32px"></div>';
+  html+=renderMonth(2026,4,
+    {7:'D+7 리텐션 체크',30:'D+30 KPI 리뷰'},
+    {7:'qa',30:'deadline'}
+  );
+
+  html+='<div class="cal-legend"><span class="cl-launch">출시일 (3/31)</span><span class="cl-qa">QA 마감 / 체크포인트</span><span class="cl-today">오늘</span><span class="cl-dl">일감 마감일</span></div>';
+
+  // D-day counters
+  const today=new Date();
+  const launchDate=new Date(2026,2,31);
+  const qaDate=new Date(2026,2,20);
+  const nowMs=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime();
+  const dLaunch=Math.ceil((launchDate.getTime()-nowMs)/(1000*60*60*24));
+  const dQa=Math.ceil((qaDate.getTime()-nowMs)/(1000*60*60*24));
+  html+=`<div style="display:flex;gap:14px;justify-content:center;margin-top:16px;flex-wrap:wrap">`;
+  html+=`<div class="card" style="text-align:center;padding:14px 24px;border-left:3px solid var(--p0)"><div class="l" style="justify-content:center">출시까지</div><div class="v" style="color:var(--p0)">${dLaunch>0?'D-'+dLaunch:dLaunch===0?'D-Day':'D+'+Math.abs(dLaunch)}</div></div>`;
+  html+=`<div class="card" style="text-align:center;padding:14px 24px;border-left:3px solid var(--p1)"><div class="l" style="justify-content:center">QA 마감까지</div><div class="v" style="color:var(--p1)">${dQa>0?'D-'+dQa:dQa===0?'D-Day':'D+'+Math.abs(dQa)}</div></div>`;
+  html+=`</div>`;
+
+  el.innerHTML=html;
+}
+
+// Tab switching
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tc').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById('t-'+t.dataset.t).classList.add('active');
+  if(t.dataset.t==='cal')renderCalendar();
+  if(t.dataset.t==='hist')renderHistory();
+});
+
+// Filter buttons
+document.querySelectorAll('.fb').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.fb').forEach(x=>{x.classList.remove('active','active-p0','active-p1','active-p2');});
+  const color=b.dataset.color;
+  if(color){b.classList.add('active-'+color);}else{b.classList.add('active');}
+  curFilter=b.dataset.f;
+  renderTable();
+});
+
+document.getElementById('owner-filter').onchange=e=>{curOwnerFilter=e.target.value;renderTable();};
+document.getElementById('sort-select').onchange=e=>{curSort=e.target.value;renderTable();};
+
+populateOwnerFilter();
+updateAll();
+renderTable();
+renderCalendar();
+renderHistory();
+</script>
+</body>
+</html>
