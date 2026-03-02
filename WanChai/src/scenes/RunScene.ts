@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { BALANCE, VISUAL } from '../config/balance';
-import { NEON, NEON_CSS, BG_COLOR } from '../config/colors';
+import { NEON, NEON_CSS, BG_COLOR, WEATHER_COLORS } from '../config/colors';
+import { getDistrictForStage } from '../config/districts';
 import { ENEMY_DEFS } from '../config/enemies';
 import { WEAPON_DEFS } from '../config/weapons';
 import { PASSIVE_DEFS } from '../config/upgrades';
@@ -8,8 +9,8 @@ import { Player } from '../objects/Player';
 import { Enemy } from '../objects/Enemy';
 import { Projectile } from '../objects/Projectile';
 import { WeaponSystem } from '../systems/WeaponSystem';
-import { WaveDirector } from '../core/WaveDirector';
 import { XpTable } from '../core/XpTable';
+import { SpawnManager } from '../managers/SpawnManager';
 import { SpatialHash } from '../core/SpatialHash';
 import { SeededRandom } from '../core/SeededRandom';
 import { selectUpgrades } from '../core/UpgradeSelector';
@@ -25,17 +26,22 @@ import { PauseOverlay } from '../ui/PauseOverlay';
 import { getRetroSFX } from '../audio/RetroSFX';
 import { getRetroAudio } from '../audio/RetroAudio';
 import { GAME_WIDTH, GAME_HEIGHT } from '../config/game-config';
+import { CHARACTERS } from '../config/characters';
+import { getCritterForElement } from '../config/critters';
+import { ELEMENT } from '../config/colors';
+import { Critter } from '../objects/Critter';
 
-// Collision radius: enemy body (12) + projectile buffer (12)
-const COLLISION_RADIUS = 24;
-const COLLISION_RADIUS_SQ = COLLISION_RADIUS * COLLISION_RADIUS;
+// Max query radius for SpatialHash: largest enemy hitRadius (boss ~72) + projectile buffer (24)
+const MAX_COLLISION_QUERY_RADIUS = 96;
+// Projectile half-size buffer added to per-enemy hitRadius
+const PROJECTILE_RADIUS = 12;
 // Pre-allocated buffer for spatial hash queries
 const QUERY_BUFFER = new Array<number>(128);
 
 export class RunScene extends Phaser.Scene {
   // Systems
   private weaponSystem!: WeaponSystem;
-  private waveDirector!: WaveDirector;
+  private spawnManager!: SpawnManager;
   private rng!: SeededRandom;
   private xpTable!: XpTable;
   private vfx!: VFXManager;
@@ -45,9 +51,9 @@ export class RunScene extends Phaser.Scene {
 
   // Game objects
   private player!: Player;
-  private enemyGroup!: Phaser.Physics.Arcade.Group;
+  public enemyGroup!: Phaser.Physics.Arcade.Group;
   private projectileGroup!: Phaser.Physics.Arcade.Group;
-  private enemyProjectiles: { x: number; y: number; vy: number; damage: number; sprite: Phaser.GameObjects.Arc }[] = [];
+  private enemyProjectiles: { x: number; y: number; vy: number; damage: number; sprite: Phaser.GameObjects.GameObject & { setPosition(x: number, y: number): void; destroy(): void } }[] = [];
 
   // Background
   private bgSprite?: Phaser.GameObjects.Image;
@@ -60,7 +66,6 @@ export class RunScene extends Phaser.Scene {
   private phase: GamePhase = 'playing';
   private runState!: RunState;
   private weapons: WeaponInstance[] = [];
-  private spawnEnded = false;
   private passiveCounts = new Map<string, number>();
 
   // Target point (user tap to prioritize attacks)
@@ -109,6 +114,14 @@ export class RunScene extends Phaser.Scene {
   // Boss → stage clear sequencing (must complete level-ups first)
   private pendingStageClear = false;
 
+  // Weather effects (district-based)
+  private weatherSpeedMult = 1;
+  private weatherArmorMult = 1;
+  private weatherCritBonus = 0;
+  private weatherFlameTimer = 0;
+  private fogOverlay?: Phaser.GameObjects.Graphics;
+  private activeFlameZones: { x: number; y: number; life: number; gfx: Phaser.GameObjects.Graphics }[] = [];
+
   // Boss tracking
   private activeBoss: Enemy | null = null;
   private bossHpBar!: Phaser.GameObjects.Graphics;
@@ -140,8 +153,6 @@ export class RunScene extends Phaser.Scene {
   private stageHpMult = 1;
   private stageSpeedMult = 1;
   private stageDamageMult = 1;
-  private bossStageActive = false;  // true during boss-only stages
-  private bossSpawnedThisStage = false;
   private metaXpBonus = 0;
 
   // Meta progression base values (preserved across passive stacking)
@@ -151,7 +162,12 @@ export class RunScene extends Phaser.Scene {
   // Weapon slots HUD (right side, 4 fixed slots)
   private weaponSlotBgs: Phaser.GameObjects.Rectangle[] = [];
   private weaponSlotTexts: Phaser.GameObjects.Text[] = [];
+  private weaponSlotIcons: Phaser.GameObjects.Image[] = [];
   private prevWeaponSlotStr = '';
+
+  // Weapon range overlay (press-hold on weapon slot)
+  private rangeOverlay!: Phaser.GameObjects.Graphics;
+  private activeRangeSlot = -1;
 
   // Player stats HUD (left side)
   private statsText!: Phaser.GameObjects.Text;
@@ -166,6 +182,14 @@ export class RunScene extends Phaser.Scene {
   private allySniperCooldown = 0;
   private allySpreadCooldown = 0;
 
+  // Critter companion
+  private critter?: Critter;
+  private critterShieldActive = false;
+  private critterSlowActive = false;
+  private critterAttackSpeedActive = false;
+  private critterFireColumn?: Phaser.GameObjects.Graphics;
+  private critterFireColumnLife = 0;
+
   constructor() {
     super({ key: 'RunScene' });
   }
@@ -174,7 +198,6 @@ export class RunScene extends Phaser.Scene {
     this.phase = 'playing';
     this.baseArmorMultiplier = 1;
     this.shopArmorMultiplier = 1;
-    this.spawnEnded = false;
     this.targetPoint = null;
     this.passiveCounts.clear();
     this.activeEnemies = new Array(BALANCE.SPAWN.maxEnemiesOnScreen);
@@ -207,12 +230,19 @@ export class RunScene extends Phaser.Scene {
 
     this.drawGrid();
 
+    // Read character selection from scene data
+    const sceneData = (this.sys.settings.data ?? {}) as { characterId?: string };
+    const characterId = sceneData.characterId ?? 'hai';
+    const charDef = CHARACTERS[characterId];
+    const startWeapon = charDef?.startWeapon ?? 'energy_shot';
+
     // Deterministic seed for this run (replay/debugging)
     const seed = (Date.now() ^ (Math.random() * 0xFFFFFFFF)) >>> 0;
     this.rng = new SeededRandom(seed);
 
     // Run state
     this.runState = {
+      characterId,
       seed,
       runTime: 0,
       stageTime: 0,
@@ -223,7 +253,7 @@ export class RunScene extends Phaser.Scene {
       baseMaxHp: BALANCE.BASE.hp,
       kills: 0,
       gold: 0,
-      weapons: ['energy_shot'],
+      weapons: [startWeapon],
       passives: [],
     };
     this.stageHpMult = 1;
@@ -232,6 +262,7 @@ export class RunScene extends Phaser.Scene {
     this.prevStage = -1;
 
     this.updateBackground();
+    this.applyWeather();
 
     // Apply meta progression bonuses
     const meta = SaveManager.loadMeta();
@@ -247,9 +278,23 @@ export class RunScene extends Phaser.Scene {
     this.metaCritBase = metaCrit;
 
     // Player turret — FIXED at center
-    this.player = new Player(this, GAME_WIDTH / 2);
+    this.player = new Player(this, GAME_WIDTH / 2, characterId);
     this.player.damageMultiplier = 1 + metaDmg;
     this.player.critChance = metaCrit;
+
+    // Apply character passive (AFTER meta bonuses so they stack)
+    if (charDef) {
+      switch (charDef.passive.type) {
+        case 'moveSpeed': this.player.moveSpeed *= (1 + charDef.passive.value); break;
+        case 'critChance': this.player.critChance += charDef.passive.value; break;
+        case 'damage': this.player.damageMultiplier *= (1 + charDef.passive.value); break;
+        case 'cooldown': this.player.attackSpeedMultiplier *= (1 + charDef.passive.value); break;
+        case 'hp':
+          this.runState.baseHp = Math.ceil(this.runState.baseHp * (1 + charDef.passive.value));
+          this.runState.baseMaxHp = this.runState.baseHp;
+          break;
+      }
+    }
 
     // Base wall
     this.baseWallGraphics = this.add.graphics().setDepth(10);
@@ -289,41 +334,54 @@ export class RunScene extends Phaser.Scene {
       onEnemyDeath: (enemy: Enemy) => this.onEnemyDeath(enemy),
       onWeaponFire: () => this.playSfx('weaponFire', () => getRetroSFX().weaponFire(), 400),
     });
-    this.waveDirector = new WaveDirector({
-      initialDelayMs: BALANCE.SPAWN.initialDelayMs,
-      baseIntervalMs: BALANCE.SPAWN.baseIntervalMs,
-      minIntervalMs: BALANCE.SPAWN.minIntervalMs,
-      intervalDecayPerMin: BALANCE.SPAWN.intervalDecayPerMin,
-      eliteChanceBase: BALANCE.SPAWN.eliteChanceBase,
-      eliteChancePerMin: BALANCE.SPAWN.eliteChancePerMin,
-      bossTimeMinutes: Infinity, // boss stages are separate — never auto-spawn boss
-    }, this.rng);
-    const stage1Config = BALANCE.STAGE.stages[0];
-    this.waveDirector.setEnemyPool(
-      stage1Config.enemyPool ?? Object.keys(ENEMY_DEFS).filter(id => !id.startsWith('boss')),
-    );
+    this.spawnManager = new SpawnManager({
+      onBossSpawn: () => {
+        getRetroAudio().switchTrack('boss');
+        this.ariaMsg.show(`ARIA-01: 상위 최적화체 접근... 저항은 비효율적이다`);
+        this.vfx.screenShake(0.01, 400);
+        getRetroSFX().deploy();
+      },
+    });
+    this.spawnManager.create(this.rng);
     this.xpTable = new XpTable(BALANCE.XP.basePerLevel, BALANCE.XP.growthFactor);
     this.ariaMsg = new ARIAMessage(this);
     this.ariaBossShown = false;
     this.ariaBossWarningShown = false;
     this.ariaLowHpShown = false;
     this.midShopShown = false;
-    this.bossStageActive = false;
-    this.bossSpawnedThisStage = false;
     this.pendingStageClear = false;
     this.activeBoss = null;
     this.prevBossHpPct = -1;
     this.prevGold = -1;
 
-    // Initial weapon
+    // Initial weapon (from character selection)
     this.weapons = [
-      { defId: 'energy_shot', level: 1, cooldownRemaining: 0 },
+      { defId: startWeapon, level: 1, cooldownRemaining: 0 },
     ];
 
     // NO physics.add.overlap — we handle collision manually via SpatialHash
 
     // Allies
     this.createAllies();
+
+    // Critter companion (element-matched to character)
+    this.critterShieldActive = false;
+    this.critterSlowActive = false;
+    this.critterAttackSpeedActive = false;
+    this.critterFireColumnLife = 0;
+    if (this.critterFireColumn) { this.critterFireColumn.destroy(); this.critterFireColumn = undefined; }
+    if (charDef) {
+      const critterDef = getCritterForElement(charDef.element);
+      if (critterDef) {
+        this.critter = new Critter(
+          this,
+          this.player.x, this.player.y,
+          critterDef,
+          BALANCE.CRITTER.orbitRadius,
+          BALANCE.CRITTER.orbitSpeed,
+        );
+      }
+    }
 
     // Input: tap to set target priority
     this.input.on('pointerdown', this.onPointerDown, this);
@@ -406,34 +464,21 @@ export class RunScene extends Phaser.Scene {
       this.player.aimUp();
     }
 
-    // === PHASE 3: Spawn ===
-    const stageConfig = BALANCE.STAGE.stages[this.runState.stage - 1];
-    if (this.bossStageActive) {
-      // Boss stage: spawn boss once at start, no wave spawning
-      if (!this.bossSpawnedThisStage) {
-        this.bossSpawnedThisStage = true;
-        const bossId = stageConfig?.bossId ?? 'boss';
-        this.spawnEnemies(bossId, 1, false);
-        getRetroAudio().switchTrack('boss');
-        this.ariaMsg.show(`ARIA-01: 상위 최적화체 접근... 저항은 비효율적이다`);
-        this.vfx.screenShake(0.01, 400);
-        getRetroSFX().deploy();
-      }
-    } else if (!this.spawnEnded) {
-      // Wave stage: timed spawning
-      const duration = stageConfig?.durationMs ?? 60000;
-      if (this.runState.stageTime >= duration) {
-        this.spawnEnded = true;
-      } else {
-        const commands = this.waveDirector.update(scaledDelta);
-        for (const cmd of commands) {
-          this.spawnEnemies(cmd.enemyId, cmd.count, cmd.isElite);
-        }
-      }
-    }
+    // === PHASE 3: Spawn (delegated to SpawnManager) ===
+    this.spawnManager.update(
+      scaledDelta,
+      this.runState.stageTime,
+      this.runState.stage,
+      this.activeEnemyCount,
+      this.enemyGroup,
+      this.rng,
+      this.stageHpMult,
+      this.stageSpeedMult,
+      this.stageDamageMult,
+    );
 
     // === PHASE 3b: Mid-run shop trigger (wave stages only, once per stage) ===
-    if (!this.bossStageActive && !this.midShopShown && this.runState.stageTime >= BALANCE.MID_SHOP.triggerTimeMs) {
+    if (!this.spawnManager.isBossStage && !this.midShopShown && this.runState.stageTime >= BALANCE.MID_SHOP.triggerTimeMs) {
       this.midShopShown = true;
       this.showMidRunShop();
       return; // pause update loop during shop
@@ -442,6 +487,9 @@ export class RunScene extends Phaser.Scene {
     // === PHASE 4: Enemy movement + attack logic + flash ===
     const px = this.player.x;
     const py = this.player.y;
+    const enemyDelta = this.critterSlowActive
+      ? scaledDelta * BALANCE.CRITTER.slowMultiplier
+      : scaledDelta;
     for (let i = 0; i < this.activeEnemyCount; i++) {
       const enemy = this.activeEnemies[i];
       enemy.updateFlash(scaledDelta);
@@ -457,14 +505,14 @@ export class RunScene extends Phaser.Scene {
 
       if (enemy.attackStyle === 'ranged' && enemy.isRangedStopped) {
         // Ranged: stopped at firing position, shoot projectiles
-        enemy.applyMovement(scaledDelta, px, py); // slight sway
+        enemy.applyMovement(enemyDelta, px, py); // slight sway
         if (enemy.shouldShoot(scaledDelta)) {
           this.spawnEnemyProjectile(enemy);
         }
         continue;
       }
 
-      enemy.applyMovement(scaledDelta, px, py);
+      enemy.applyMovement(enemyDelta, px, py);
 
       // Boss ranged: shoot while orbiting (boss_circle in orbit phase)
       if (enemy.attackStyle === 'ranged' && enemy.circlePhase === 'orbit') {
@@ -482,12 +530,16 @@ export class RunScene extends Phaser.Scene {
     // === PHASE 4b: Enemy projectile update ===
     this.updateEnemyProjectiles(scaledDelta);
 
+    // === PHASE 4c: Weather effects ===
+    this.updateWeather(scaledDelta);
+
     // Guard: game-over may have been triggered during enemy/projectile phases
     if (this.phase !== 'playing') return;
 
     // === PHASE 5: Weapon auto-fire ===
+    const weaponDelta = this.critterAttackSpeedActive ? scaledDelta * 2 : scaledDelta;
     this.weaponSystem.update(
-      scaledDelta,
+      weaponDelta,
       this.player,
       this.weapons,
       this.enemyGroup,
@@ -497,6 +549,9 @@ export class RunScene extends Phaser.Scene {
 
     // === PHASE 5b: Ally auto-fire ===
     this.updateAllies(scaledDelta);
+
+    // === PHASE 5c: Critter companion ===
+    this.updateCritter(scaledDelta);
 
     // === PHASE 6: Collision detection via SpatialHash ===
     // NOTE: Projectile.preUpdate() is called automatically by Phaser's Group update.
@@ -521,7 +576,7 @@ export class RunScene extends Phaser.Scene {
     // === PHASE 11: Victory check ===
     // Boss stage: boss death triggers clear (handled in onEnemyDeath)
     // Wave stage: spawn ended + all enemies dead
-    if (!this.bossStageActive && this.spawnEnded && this.activeEnemyCount === 0) {
+    if (!this.spawnManager.isBossStage && this.spawnManager.isSpawnEnded && this.activeEnemyCount === 0) {
       if (this.runState.stage < BALANCE.STAGE.maxStages) {
         this.showStageClear();
       } else {
@@ -539,7 +594,7 @@ export class RunScene extends Phaser.Scene {
       if (!proj.active) continue;
 
       const count = this.collisionHash.queryRadiusInto(
-        proj.x, proj.y, COLLISION_RADIUS, QUERY_BUFFER,
+        proj.x, proj.y, MAX_COLLISION_QUERY_RADIUS, QUERY_BUFFER,
       );
 
       for (let j = 0; j < count; j++) {
@@ -549,7 +604,8 @@ export class RunScene extends Phaser.Scene {
 
         const dx = proj.x - enemy.x;
         const dy = proj.y - enemy.y;
-        if (dx * dx + dy * dy < COLLISION_RADIUS_SQ) {
+        const hitDist = enemy.hitRadius + PROJECTILE_RADIUS;
+        if (dx * dx + dy * dy < hitDist * hitDist) {
           this.onProjectileHitEnemy(proj, enemy);
           if (!proj.active) break; // projectile consumed
         }
@@ -643,28 +699,6 @@ export class RunScene extends Phaser.Scene {
 
   // === SPAWN ===
 
-  private spawnEnemies(defId: string, count: number, elite: boolean): void {
-    const def = ENEMY_DEFS[defId] ?? ENEMY_DEFS['basic'];
-    if (!def) return;
-    const isBoss = defId.startsWith('boss');
-    // Hard cap: skip spawn if already at max (bosses always spawn)
-    if (!isBoss && this.activeEnemyCount >= BALANCE.SPAWN.maxEnemiesOnScreen) return;
-    const minutes = this.waveDirector.getElapsedMinutes();
-    // Clamp spawn count to remaining capacity (bosses bypass)
-    const capacity = BALANCE.SPAWN.maxEnemiesOnScreen - this.activeEnemyCount;
-    const actualCount = isBoss ? count : Math.min(count, Math.max(0, capacity));
-
-    for (let i = 0; i < actualCount; i++) {
-      const enemy = this.enemyGroup.get() as Enemy | null;
-      if (!enemy) return;
-      // Boss spawns at center-top for dramatic entrance
-      const sx = isBoss ? GAME_WIDTH / 2 : Phaser.Math.Between(20, GAME_WIDTH - 20);
-      const sy = isBoss ? -60 : BALANCE.SPAWN.spawnYMin +
-        this.rng.next() * (BALANCE.SPAWN.spawnYMax - BALANCE.SPAWN.spawnYMin);
-      enemy.activate(def, sx, sy, minutes, elite, this.stageHpMult, this.stageSpeedMult, this.stageDamageMult);
-    }
-  }
-
   // === COLLISION CALLBACKS ===
 
   private onProjectileHitEnemy(proj: Projectile, enemy: Enemy): void {
@@ -708,13 +742,14 @@ export class RunScene extends Phaser.Scene {
 
     // Suicide enemies: deal damage + die (original behavior)
     this.applyBaseDamage(enemy);
-    const color = (NEON as Record<string, number>)[enemy.colorKey] ?? NEON.ENEMY_BASIC;
-    this.vfx.enemyDeath(enemy.x, BALANCE.BASE.y, color);
+    const tier = (enemy.defId === 'tank' || enemy.defId === 'splitter' || enemy.defId === 'guardian') ? 't2' : 't1';
+    this.vfx.purifyDeath(enemy.x, BALANCE.BASE.y, tier);
     enemy.deactivate();
   }
 
   /** Apply base damage from an enemy (shared by melee periodic + suicide impact) */
   private applyBaseDamage(enemy: Enemy): void {
+    if (this.critterShieldActive) return; // Lion shield blocks all damage
     const actualDamage = Math.ceil(enemy.damage * this.baseArmorMultiplier);
     this.runState.baseHp = Math.max(0, this.runState.baseHp - actualDamage);
     this.flashBaseWall();
@@ -729,7 +764,22 @@ export class RunScene extends Phaser.Scene {
 
   /** Spawn an enemy projectile aimed at base wall */
   private spawnEnemyProjectile(enemy: Enemy): void {
-    const sprite = this.add.circle(enemy.x, enemy.y, 6, 0xe94560).setDepth(50);
+    const isBoss = enemy.behavior.startsWith('boss_');
+    const texKey = isBoss && this.textures.exists('projectile_enemy_large')
+      ? 'projectile_enemy_large'
+      : this.textures.exists('projectile_enemy')
+        ? 'projectile_enemy'
+        : '';
+    let sprite: Phaser.GameObjects.GameObject & { setPosition(x: number, y: number): void; destroy(): void };
+    if (texKey) {
+      const img = this.add.image(enemy.x, enemy.y, texKey).setDepth(50);
+      const targetSize = isBoss ? 24 : 16;
+      const srcW = img.texture.getSourceImage().width;
+      if (srcW > 0) img.setScale(targetSize / srcW);
+      sprite = img;
+    } else {
+      sprite = this.add.circle(enemy.x, enemy.y, 6, NEON.HEALTH).setDepth(50);
+    }
     this.enemyProjectiles.push({
       x: enemy.x,
       y: enemy.y,
@@ -785,11 +835,13 @@ export class RunScene extends Phaser.Scene {
     this.playSfx('xp', () => getRetroSFX().xpCollect(), 100);
     SaveManager.discoverEnemy(enemy.defId);
 
-    const color = (NEON as Record<string, number>)[enemy.colorKey] ?? NEON.ENEMY_BASIC;
-    this.vfx.enemyDeath(enemy.x, enemy.y, color);
+    // Purification VFX — tier-based
+    const isBossEnemy = enemy.defId.startsWith('boss');
+    const tier = isBossEnemy ? 'boss' : enemy.isElite ? 'elite'
+      : (enemy.defId === 'tank' || enemy.defId === 'splitter' || enemy.defId === 'guardian') ? 't2' : 't1';
+    this.vfx.purifyDeath(enemy.x, enemy.y, tier);
 
     // Boss gold bonus
-    const isBossEnemy = enemy.defId.startsWith('boss');
     if (isBossEnemy) {
       this.runState.gold += BALANCE.RUN.goldPerBoss;
     }
@@ -811,7 +863,7 @@ export class RunScene extends Phaser.Scene {
         const child = this.enemyGroup.get() as Enemy | null;
         if (!child) break;
         const offsetX = i === 0 ? -20 : 20;
-        child.activate(def, enemy.x + offsetX, enemy.y, this.waveDirector.getElapsedMinutes(), false, this.stageHpMult, this.stageSpeedMult, this.stageDamageMult);
+        child.activate(def, enemy.x + offsetX, enemy.y, this.spawnManager.getElapsedMinutes(), false, this.stageHpMult, this.stageSpeedMult, this.stageDamageMult);
         child.hp = Math.ceil(enemy.maxHp * 0.4);
         child.maxHp = child.hp;
         child.isSplitChild = true;
@@ -823,7 +875,7 @@ export class RunScene extends Phaser.Scene {
     this.playSfx('kill', () => getRetroSFX().destroy(), 80);
 
     // Boss stage: boss death = stage clear (serialized: level-ups first, then stage clear)
-    if (this.bossStageActive && isBossEnemy) {
+    if (this.spawnManager.isBossStage && isBossEnemy) {
       getRetroSFX().levelClear();
       this.pendingStageClear = true;
     }
@@ -913,6 +965,27 @@ export class RunScene extends Phaser.Scene {
       BALANCE.RUN.maxWeapons,
       this.rng,
     );
+
+    // Guard: all upgrades exhausted — skip level-up UI
+    if (choices.length === 0) {
+      // Handle pending stage clear (boss died + pool exhaustion, M-014 interaction)
+      if (this.pendingStageClear) {
+        this.pendingStageClear = false;
+        this.phase = 'playing';
+        this.time.delayedCall(300, () => {
+          if (this.phase === 'gameover') return;
+          if (this.runState.stage < BALANCE.STAGE.maxStages) {
+            this.showStageClear();
+          } else {
+            this.onRunComplete(true);
+          }
+        });
+        return;
+      }
+      this.phase = 'playing';
+      this.physics.resume();
+      return;
+    }
     this.createUpgradeCards(choices);
   }
 
@@ -931,6 +1004,13 @@ export class RunScene extends Phaser.Scene {
     this.upgradeContainer = this.add.container(cx, cy).setDepth(2000);
     const backdrop = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.75);
     this.upgradeContainer.add(backdrop);
+
+    // Level-up effect sprite
+    if (this.textures.exists('fx_levelup')) {
+      const fxImg = this.add.image(0, -GAME_HEIGHT * 0.3 - 60, 'fx_levelup').setDisplaySize(72, 72).setAlpha(0);
+      this.upgradeContainer.add(fxImg);
+      this.tweens.add({ targets: fxImg, alpha: 1, scale: { from: 0.5, to: 1 }, duration: 350, ease: 'Back.easeOut' });
+    }
 
     const title = this.add
       .text(0, -GAME_HEIGHT * 0.3, '무기 선택!', {
@@ -954,28 +1034,48 @@ export class RunScene extends Phaser.Scene {
         .rectangle(cardX, 0, cardW, cardH, NEON.UI_PANEL)
         .setStrokeStyle(2, choice.isNew ? NEON.UI_ACCENT : NEON.UI_BORDER);
 
+      // Icon (weapon or passive)
+      const iconKey = choice.type === 'weapon'
+        ? `icon_${choice.id}`
+        : `icon_passive_${choice.id === 'base_armor' ? 'armor' : choice.id === 'crit_chance' ? 'crit' : choice.id === 'crit_damage' ? 'crit_dmg' : choice.id === 'hp_regen' ? 'regen' : choice.id === 'attack_speed' ? 'cooldown' : choice.id}`;
+      const items: Phaser.GameObjects.GameObject[] = [bg];
+      if (this.textures.exists(iconKey)) {
+        const icon = this.add.image(cardX, -80, iconKey).setDisplaySize(36, 36);
+        items.push(icon);
+      }
+
       const nameText = this.add
-        .text(cardX, -70, choice.name, {
+        .text(cardX, this.textures.exists(iconKey) ? -54 : -80, choice.name, {
           fontSize: '24px', color: NEON_CSS.UI_TEXT,
           fontFamily: 'monospace', fontStyle: 'bold',
           wordWrap: { width: cardW - 16 }, align: 'center',
         }).setOrigin(0.5);
 
       const descText = this.add
-        .text(cardX, -10, choice.description, {
+        .text(cardX, this.textures.exists(iconKey) ? -6 : -20, choice.description, {
           fontSize: '20px', color: NEON_CSS.UI_DIM,
           fontFamily: 'monospace',
           wordWrap: { width: cardW - 16 }, align: 'center',
         }).setOrigin(0.5);
 
+      // Stat detail line
+      const statDesc = this.getUpgradeStatDesc(choice);
+      const statText = this.add
+        .text(cardX, 30, statDesc, {
+          fontSize: '13px', color: NEON_CSS.UI_DIM,
+          fontFamily: 'monospace',
+          wordWrap: { width: cardW - 12 }, align: 'center',
+        }).setOrigin(0.5);
+
       const levelLabel = this.add
-        .text(cardX, 70, choice.isNew ? '신규!' : `Lv ${choice.level}`, {
+        .text(cardX, 80, choice.isNew ? '신규!' : `Lv ${choice.level}`, {
           fontSize: '22px',
           color: choice.isNew ? NEON_CSS.UI_ACCENT : NEON_CSS.GOLD,
           fontFamily: 'monospace', fontStyle: 'bold',
         }).setOrigin(0.5);
 
-      this.upgradeContainer!.add([bg, nameText, descText, levelLabel]);
+      items.push(nameText, descText, statText, levelLabel);
+      this.upgradeContainer!.add(items);
 
       bg.setInteractive({ useHandCursor: true })
         .on('pointerover', () => bg.setStrokeStyle(3, NEON.UI_ACCENT))
@@ -992,12 +1092,36 @@ export class RunScene extends Phaser.Scene {
     this.autoSelectBarFill = this.add.rectangle(-barW / 2, barY, barW, barH, NEON.UI_ACCENT, 0.9).setOrigin(0, 0.5);
     this.upgradeContainer!.add([this.autoSelectBarBg, this.autoSelectBarFill]);
 
+    // Skip button — below cards
+    const skipY = cardH / 2 + 50;
+    const skipBg = this.add
+      .rectangle(0, skipY, 160, 36, NEON.UI_PANEL, 0.6)
+      .setStrokeStyle(1, NEON.UI_BORDER);
+    const skipLabel = this.add
+      .text(0, skipY, '건너뛰기', {
+        fontSize: '18px', color: NEON_CSS.UI_DIM,
+        fontFamily: 'monospace',
+      }).setOrigin(0.5);
+    this.upgradeContainer!.add([skipBg, skipLabel]);
+
+    skipBg.setInteractive({ useHandCursor: true })
+      .on('pointerover', () => {
+        skipBg.setStrokeStyle(1, NEON.UI_ACCENT);
+        skipLabel.setColor(NEON_CSS.UI_TEXT);
+      })
+      .on('pointerout', () => {
+        skipBg.setStrokeStyle(1, NEON.UI_BORDER);
+        skipLabel.setColor(NEON_CSS.UI_DIM);
+      })
+      .on('pointerdown', () => this.skipUpgrade());
+
     // Determine best choice — real-time auto-select (immune to gameSpeed)
     this.autoSelectBestChoice = this.scoreBestChoice(choices);
     this.autoSelectStartReal = Date.now();
   }
 
-  private scoreBestChoice(choices: UpgradeChoice[]): UpgradeChoice {
+  private scoreBestChoice(choices: UpgradeChoice[]): UpgradeChoice | undefined {
+    if (choices.length === 0) return undefined;
     const scoreChoice = (c: UpgradeChoice): number => {
       let s = 0;
       if (c.type === 'weapon') {
@@ -1013,6 +1137,89 @@ export class RunScene extends Phaser.Scene {
       return s;
     };
     return choices.reduce((best, c) => scoreChoice(c) > scoreChoice(best) ? c : best);
+  }
+
+  /** Generate a concise stat description for an upgrade choice. */
+  private getUpgradeStatDesc(choice: UpgradeChoice): string {
+    if (choice.type === 'weapon') {
+      const def = WEAPON_DEFS[choice.id];
+      if (!def) return '';
+      if (choice.isNew) {
+        // New weapon: show base stats
+        const parts = [`DMG ${def.baseDamage}`];
+        parts.push(`CD ${def.cooldownMs}ms`);
+        if (def.piercing > 0) parts.push(`관통 ${def.piercing}`);
+        if (def.aoeRadius > 0) parts.push(`범위 ${def.aoeRadius}`);
+        return parts.join(' | ');
+      }
+      // Upgrade: show key stat changes at new level
+      const lv = choice.level;
+      const prevLv = lv - 1;
+      const dmgNow = (1 + (lv - 1) * 0.2).toFixed(1);
+      const dmgPrev = (1 + (prevLv - 1) * 0.2).toFixed(1);
+      const parts = [`DMG x${dmgPrev}\u2192x${dmgNow}`];
+      // Count changes (weapon-specific)
+      let countNow: number, countPrev: number;
+      if (def.id === 'energy_shot') {
+        countNow = 1 + Math.floor(lv / 2);
+        countPrev = 1 + Math.floor(prevLv / 2);
+      } else if (def.id === 'shotgun') {
+        countNow = def.projectileCount + Math.floor((lv - 1) / 2) * 2;
+        countPrev = def.projectileCount + Math.floor((prevLv - 1) / 2) * 2;
+      } else {
+        countNow = def.projectileCount + Math.floor((lv - 1) * 0.5);
+        countPrev = def.projectileCount + Math.floor((prevLv - 1) * 0.5);
+      }
+      if (countNow !== countPrev) parts.push(`탄 ${countPrev}\u2192${countNow}`);
+      // Piercing changes
+      const piercNow = def.piercing + Math.floor(lv / 3);
+      const piercPrev = def.piercing + Math.floor(prevLv / 3);
+      if (piercNow !== piercPrev) parts.push(`관통+${piercNow - piercPrev}`);
+      return parts.join(' | ');
+    }
+    // Passive: show effect value
+    const pdef = PASSIVE_DEFS[choice.id];
+    if (!pdef) return '';
+    const val = pdef.valuePerLevel;
+    switch (pdef.effect) {
+      case 'attack_speed': return `공속 +${(val * 100).toFixed(0)}%`;
+      case 'damage': return `공격력 +${(val * 100).toFixed(0)}%`;
+      case 'base_armor': return `피해감소 -${(val * 100).toFixed(0)}%`;
+      case 'hp_regen': return `초당 +${val} HP`;
+      case 'crit_chance': return `크리티컬 +${(val * 100).toFixed(0)}%`;
+      case 'crit_damage': return `크리 DMG +${(val * 100).toFixed(0)}%`;
+      default: return pdef.description;
+    }
+  }
+
+  /** Skip the current level-up without applying any upgrade. */
+  private skipUpgrade(): void {
+    // Clean up auto-select state
+    this.autoSelectBarBg = undefined;
+    this.autoSelectBarFill = undefined;
+    this.autoSelectBestChoice = undefined;
+
+    getRetroSFX().tap();
+    this.upgradeContainer?.destroy();
+    this.upgradeContainer = undefined;
+
+    // Check pending stage clear (same logic as applyUpgrade)
+    if (this.pendingStageClear) {
+      this.pendingStageClear = false;
+      this.phase = 'playing';
+      this.time.delayedCall(300, () => {
+        if (this.phase === 'gameover') return;
+        if (this.runState.stage < BALANCE.STAGE.maxStages) {
+          this.showStageClear();
+        } else {
+          this.onRunComplete(true);
+        }
+      });
+      return;
+    }
+
+    this.phase = 'playing';
+    this.physics.resume();
   }
 
   private applyUpgrade(choice: UpgradeChoice): void {
@@ -1116,7 +1323,14 @@ export class RunScene extends Phaser.Scene {
     this.stageClearContainer.add(backdrop);
 
     const curConfig = BALANCE.STAGE.stages[this.runState.stage - 1];
-    const clearTitle = this.bossStageActive
+    // Stage clear effect sprite
+    if (this.textures.exists('fx_stage_clear')) {
+      const fxImg = this.add.image(0, -180, 'fx_stage_clear').setDisplaySize(96, 96).setAlpha(0);
+      this.stageClearContainer.add(fxImg);
+      this.tweens.add({ targets: fxImg, alpha: 1, scale: { from: 0.5, to: 1 }, duration: 400, ease: 'Back.easeOut' });
+    }
+
+    const clearTitle = this.spawnManager.isBossStage
       ? `${curConfig?.name ?? 'BOSS'} 격파!`
       : `STAGE ${this.runState.stage} CLEAR`;
 
@@ -1144,12 +1358,23 @@ export class RunScene extends Phaser.Scene {
       }).setOrigin(0.5);
     this.stageClearContainer.add(nextLabel);
 
+    // District weather preview for next stage
+    const nextDistrict = getDistrictForStage(this.runState.stage + 1);
+    if (nextDistrict) {
+      const weatherText = this.add
+        .text(0, 100, nextDistrict.weatherDescription, {
+          fontSize: '22px', color: NEON_CSS.UI_DIM,
+          fontFamily: 'monospace', align: 'center',
+        }).setOrigin(0.5);
+      this.stageClearContainer.add(weatherText);
+    }
+
     // "다음 스테이지" button — player must tap to proceed
     const btnBg = this.add
-      .rectangle(0, 150, 280, 60, NEON.UI_PANEL)
+      .rectangle(0, 170, 280, 60, NEON.UI_PANEL)
       .setStrokeStyle(2, NEON.UI_ACCENT);
     const btnText = this.add
-      .text(0, 150, '다음 스테이지', {
+      .text(0, 170, '다음 스테이지', {
         fontSize: '30px', color: NEON_CSS.UI_ACCENT,
         fontFamily: 'monospace', fontStyle: 'bold',
       }).setOrigin(0.5);
@@ -1173,10 +1398,8 @@ export class RunScene extends Phaser.Scene {
     this.runState.stage++;
     this.runState.stageTime = 0;
 
-    // Determine stage type
-    const nextConfig = BALANCE.STAGE.stages[this.runState.stage - 1];
-    this.bossStageActive = nextConfig?.type === 'boss';
-    this.bossSpawnedThisStage = false;
+    // Reset spawn manager for new stage (sets bossStageActive, resets waveDirector)
+    this.spawnManager.resetForStage(this.runState.stage);
 
     // Apply stage difficulty multipliers (cumulative, C-03 fix)
     const diff = BALANCE.STAGE.difficultyPerStage;
@@ -1188,20 +1411,14 @@ export class RunScene extends Phaser.Scene {
     const healAmount = Math.ceil(this.runState.baseMaxHp * BALANCE.STAGE.clearHealPercent);
     this.runState.baseHp = Math.min(this.runState.baseMaxHp, this.runState.baseHp + healAmount);
 
-    // Reset wave director for wave stages
-    if (!this.bossStageActive) {
-      this.waveDirector.reset();
-      if (nextConfig?.enemyPool) {
-        this.waveDirector.setEnemyPool(nextConfig.enemyPool);
-      }
+    // Switch audio for wave stages
+    if (!this.spawnManager.isBossStage) {
       getRetroAudio().switchTrack('combat');
     }
 
-    // Update background for new stage area
+    // Update background and weather for new stage area
     this.updateBackground();
-
-    // Reset spawn state
-    this.spawnEnded = false;
+    this.applyWeather();
     this.pendingStageClear = false;
     this.ariaBossShown = false;
     this.ariaBossWarningShown = false;
@@ -1237,8 +1454,9 @@ export class RunScene extends Phaser.Scene {
     // Resume
     this.physics.resume();
     this.phase = 'playing';
+    const nextConfig = BALANCE.STAGE.stages[this.runState.stage - 1];
     const stageName = nextConfig?.name ?? `구역 ${this.runState.stage}`;
-    if (this.bossStageActive) {
+    if (this.spawnManager.isBossStage) {
       this.ariaMsg.show(`ARIA-01: ${stageName} 감지... 경계 태세`);
     } else {
       this.ariaMsg.show(`ARIA-01: ${stageName} 침입 감지... 방어 태세 재편성`);
@@ -1482,6 +1700,7 @@ export class RunScene extends Phaser.Scene {
         baseHpRemaining: this.runState.baseHp,
         stage: this.runState.stage,
         maxStages: BALANCE.STAGE.maxStages,
+        characterId: this.runState.characterId,
       });
     });
   }
@@ -1570,21 +1789,40 @@ export class RunScene extends Phaser.Scene {
     const slotX = GAME_WIDTH - 10 - slotW / 2;
     this.weaponSlotBgs = [];
     this.weaponSlotTexts = [];
+    this.weaponSlotIcons = [];
     for (let i = 0; i < BALANCE.RUN.maxWeapons; i++) {
       const sy = 96 + i * (slotH + slotGap) + slotH / 2;
       const bg = this.add
         .rectangle(slotX, sy, slotW, slotH, NEON.UI_PANEL, 0.4)
         .setStrokeStyle(1, NEON.UI_BORDER, 0.4)
         .setScrollFactor(0).setDepth(1500);
+      const iconX = slotX - slotW / 2 + 14;
+      const icon = this.add.image(iconX, sy, '__DEFAULT')
+        .setDisplaySize(22, 22).setAlpha(0)
+        .setScrollFactor(0).setDepth(1501);
       const txt = this.add
-        .text(slotX, sy, '---', {
+        .text(slotX + 6, sy, '---', {
           fontSize: '16px', color: NEON_CSS.UI_DIM, fontFamily: 'monospace',
         })
         .setOrigin(0.5).setScrollFactor(0).setDepth(1501);
       this.weaponSlotBgs.push(bg);
       this.weaponSlotTexts.push(txt);
+      this.weaponSlotIcons.push(icon);
     }
     this.prevWeaponSlotStr = '';
+
+    // Range overlay (hidden by default)
+    this.rangeOverlay = this.add.graphics().setScrollFactor(0).setDepth(1400).setVisible(false);
+    this.activeRangeSlot = -1;
+
+    // Make weapon slots interactive for range preview
+    for (let i = 0; i < BALANCE.RUN.maxWeapons; i++) {
+      this.weaponSlotBgs[i].setInteractive();
+      const idx = i;
+      this.weaponSlotBgs[i].on('pointerdown', () => this.showWeaponRange(idx));
+      this.weaponSlotBgs[i].on('pointerup', () => this.hideWeaponRange());
+      this.weaponSlotBgs[i].on('pointerout', () => this.hideWeaponRange());
+    }
 
     // Enemy overhead HP bars (world-space, moves with enemies)
     this.enemyHpBarsGfx = this.add.graphics().setDepth(200);
@@ -1654,9 +1892,9 @@ export class RunScene extends Phaser.Scene {
 
     // Timer — countdown for wave stages, "BOSS" label for boss stages
     let timerStr: string;
-    if (this.bossStageActive) {
+    if (this.spawnManager.isBossStage) {
       timerStr = 'BOSS';
-    } else if (this.spawnEnded) {
+    } else if (this.spawnManager.isSpawnEnded) {
       timerStr = `잔여: ${this.activeEnemyCount}`;
     } else {
       const curStageConfig = BALANCE.STAGE.stages[this.runState.stage - 1];
@@ -1671,9 +1909,9 @@ export class RunScene extends Phaser.Scene {
     if (timerStr !== this.prevTimerStr) {
       this.prevTimerStr = timerStr;
       this.timerText.setText(timerStr);
-      if (this.bossStageActive) {
+      if (this.spawnManager.isBossStage) {
         this.timerText.setColor(NEON_CSS.GOLD);
-      } else if (this.spawnEnded) {
+      } else if (this.spawnManager.isSpawnEnded) {
         this.timerText.setColor(NEON_CSS.GOLD);
       } else {
         const curStageConfig = BALANCE.STAGE.stages[this.runState.stage - 1];
@@ -1739,12 +1977,17 @@ export class RunScene extends Phaser.Scene {
             this.weaponSlotTexts[i].setColor(NEON_CSS.UI_TEXT);
             this.weaponSlotBgs[i].setStrokeStyle(1, NEON.UI_ACCENT, 0.7);
             this.weaponSlotBgs[i].setFillStyle(NEON.UI_PANEL, 0.7);
+            const iconKey = `icon_${w.defId}`;
+            if (this.textures.exists(iconKey)) {
+              this.weaponSlotIcons[i].setTexture(iconKey).setAlpha(1);
+            }
           }
         } else {
           this.weaponSlotTexts[i].setText('---');
           this.weaponSlotTexts[i].setColor(NEON_CSS.UI_DIM);
           this.weaponSlotBgs[i].setStrokeStyle(1, NEON.UI_BORDER, 0.3);
           this.weaponSlotBgs[i].setFillStyle(NEON.UI_PANEL, 0.3);
+          this.weaponSlotIcons[i].setAlpha(0);
         }
       }
     }
@@ -1854,6 +2097,132 @@ export class RunScene extends Phaser.Scene {
     }
   }
 
+  // ── Critter companion ──────────────────────────────────────────────
+
+  private updateCritter(delta: number): void {
+    if (!this.critter) return;
+
+    // Fire column damage over time
+    if (this.critterFireColumnLife > 0) {
+      this.critterFireColumnLife -= delta;
+      this.applyFireColumnDamage(delta);
+      if (this.critterFireColumnLife <= 0) {
+        this.critterFireColumn?.clear();
+        this.critterFireColumnLife = 0;
+      }
+    }
+
+    const shouldFire = this.critter.updateOrbit(
+      delta, this.player.x, this.player.y,
+    );
+
+    if (shouldFire) {
+      this.fireCritterSkill();
+    }
+  }
+
+  private fireCritterSkill(): void {
+    if (!this.critter) return;
+    const def = this.critter.def;
+    const elementColor = ELEMENT[def.element as keyof typeof ELEMENT] ?? 0xffffff;
+    this.critter.flashSkill(elementColor);
+
+    switch (def.skill) {
+      case 'slowAll':
+        this.critter.activateSkill();
+        this.critterSlowActive = true;
+        // Apply slow to all active enemies
+        for (let i = 0; i < this.activeEnemyCount; i++) {
+          const e = this.activeEnemies[i];
+          e.setTint(ELEMENT.WIND);
+        }
+        this.time.delayedCall(def.durationMs, () => {
+          this.critterSlowActive = false;
+          for (let i = 0; i < this.activeEnemyCount; i++) {
+            this.activeEnemies[i].clearTint();
+          }
+        });
+        break;
+
+      case 'heal': {
+        const healAmt = Math.ceil(this.runState.baseMaxHp * BALANCE.CRITTER.healPercent);
+        this.runState.baseHp = Math.min(
+          this.runState.baseMaxHp,
+          this.runState.baseHp + healAmt,
+        );
+        this.dmgNumbers.show(this.player.x, this.player.y - 30, healAmt, true);
+        break;
+      }
+
+      case 'fireColumn':
+        this.critter.activateSkill();
+        this.critterFireColumnLife = def.durationMs;
+        if (!this.critterFireColumn) {
+          this.critterFireColumn = this.add.graphics();
+          this.critterFireColumn.setDepth(85);
+        }
+        this.critterFireColumn.clear();
+        this.critterFireColumn.fillStyle(ELEMENT.FIRE, 0.3);
+        this.critterFireColumn.fillRect(
+          this.player.x - BALANCE.CRITTER.fireColumnWidth / 2,
+          this.player.y - BALANCE.CRITTER.fireColumnHeight,
+          BALANCE.CRITTER.fireColumnWidth,
+          BALANCE.CRITTER.fireColumnHeight,
+        );
+        break;
+
+      case 'shield':
+        this.critter.activateSkill();
+        this.critterShieldActive = true;
+        this.time.delayedCall(def.durationMs, () => {
+          this.critterShieldActive = false;
+        });
+        break;
+
+      case 'attackSpeed':
+        this.critter.activateSkill();
+        this.critterAttackSpeedActive = true;
+        this.time.delayedCall(def.durationMs, () => {
+          this.critterAttackSpeedActive = false;
+        });
+        break;
+
+      case 'knockbackStun':
+        for (let i = 0; i < this.activeEnemyCount; i++) {
+          const e = this.activeEnemies[i];
+          const dx = e.x - this.player.x;
+          const dy = e.y - this.player.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < BALANCE.CRITTER.knockbackRadius) {
+            const nx = dist > 0 ? dx / dist : 0;
+            const ny = dist > 0 ? dy / dist : -1;
+            e.x += nx * BALANCE.CRITTER.knockbackForce;
+            e.y += ny * BALANCE.CRITTER.knockbackForce;
+          }
+        }
+        break;
+    }
+  }
+
+  private applyFireColumnDamage(delta: number): void {
+    const dps = BALANCE.CRITTER.fireColumnDps;
+    const dmg = dps * (delta / 1000);
+    const colLeft = this.player.x - BALANCE.CRITTER.fireColumnWidth / 2;
+    const colRight = this.player.x + BALANCE.CRITTER.fireColumnWidth / 2;
+    const colTop = this.player.y - BALANCE.CRITTER.fireColumnHeight;
+    const colBottom = this.player.y;
+
+    for (let i = 0; i < this.activeEnemyCount; i++) {
+      const e = this.activeEnemies[i];
+      if (e.x >= colLeft && e.x <= colRight && e.y >= colTop && e.y <= colBottom) {
+        e.takeDamage(dmg);
+        if (e.hp <= 0) {
+          this.onEnemyDeath(e);
+        }
+      }
+    }
+  }
+
   /** Find nearest enemy within range from a given point */
   private findNearestEnemyFrom(
     fx: number, fy: number, range: number,
@@ -1911,18 +2280,104 @@ export class RunScene extends Phaser.Scene {
     proj.fire(fromX, fromY, vx, vy, damage, 0, 'ally', texture);
   }
 
+  // === WEATHER SYSTEM ===
+
+  private applyWeather(): void {
+    // Reset all weather modifiers
+    this.weatherSpeedMult = 1;
+    this.weatherArmorMult = 1;
+    this.weatherCritBonus = 0;
+    this.weatherFlameTimer = 0;
+
+    // Clean up fog overlay
+    if (this.fogOverlay) {
+      this.fogOverlay.destroy();
+      this.fogOverlay = undefined;
+    }
+    // Clean up flame zones
+    for (const fz of this.activeFlameZones) fz.gfx.destroy();
+    this.activeFlameZones = [];
+
+    const district = getDistrictForStage(this.runState.stage);
+    if (!district) return;
+
+    switch (district.weatherEffect) {
+      case 'speed_all':
+        this.weatherSpeedMult = 1 + BALANCE.WEATHER.speedAllBonus;
+        break;
+      case 'armor_all':
+        this.weatherArmorMult = 1 + BALANCE.WEATHER.armorAllBonus;
+        break;
+      case 'crit_all':
+        this.weatherCritBonus = BALANCE.WEATHER.critAllBonus;
+        break;
+      case 'fog':
+        this.fogOverlay = this.add.graphics().setDepth(1000);
+        break;
+    }
+  }
+
+  private updateWeather(delta: number): void {
+    const district = getDistrictForStage(this.runState.stage);
+    if (!district) return;
+
+    if (district.weatherEffect === 'flame_zones') {
+      this.weatherFlameTimer += delta;
+      if (this.weatherFlameTimer >= BALANCE.WEATHER.flameZoneIntervalMs) {
+        this.weatherFlameTimer = 0;
+        this.spawnFlameZone();
+      }
+      // Update existing flame zones
+      for (let i = this.activeFlameZones.length - 1; i >= 0; i--) {
+        const fz = this.activeFlameZones[i];
+        fz.life -= delta;
+        if (fz.life <= 0) {
+          fz.gfx.destroy();
+          this.activeFlameZones.splice(i, 1);
+        }
+      }
+    }
+
+    // Update fog position to follow player
+    if (district.weatherEffect === 'fog' && this.fogOverlay) {
+      const g = this.fogOverlay;
+      g.clear();
+
+      const px = this.player?.x ?? GAME_WIDTH / 2;
+      const py = this.player?.y ?? GAME_HEIGHT - 120;
+      const fogR = BALANCE.WEATHER.fogRadius;
+
+      // Dark bars around the vision circle
+      g.fillStyle(WEATHER_COLORS.FOG_DARK, WEATHER_COLORS.FOG_ALPHA);
+      g.fillRect(0, 0, GAME_WIDTH, Math.max(0, py - fogR));
+      g.fillRect(0, py + fogR, GAME_WIDTH, GAME_HEIGHT - py - fogR);
+      g.fillRect(0, py - fogR, Math.max(0, px - fogR), fogR * 2);
+      g.fillRect(px + fogR, py - fogR, GAME_WIDTH - px - fogR, fogR * 2);
+    }
+  }
+
+  private spawnFlameZone(): void {
+    const r = BALANCE.WEATHER.flameZoneRadius;
+    const x = r + Math.random() * (GAME_WIDTH - r * 2);
+    const y = 200 + Math.random() * 600;
+    const gfx = this.add.graphics().setDepth(50);
+    gfx.fillStyle(WEATHER_COLORS.FLAME_FILL, WEATHER_COLORS.FLAME_FILL_ALPHA);
+    gfx.fillCircle(x, y, r);
+    gfx.lineStyle(2, WEATHER_COLORS.FLAME_STROKE, WEATHER_COLORS.FLAME_STROKE_ALPHA);
+    gfx.strokeCircle(x, y, r);
+    this.activeFlameZones.push({ x, y, life: BALANCE.WEATHER.flameZoneDurationMs, gfx });
+  }
+
   // === GRID BACKGROUND ===
 
   /** Show stage-appropriate background image (fallback: solid color only) */
   private static readonly BG_MAP: Record<number, string> = {
-    1: 'bg_wanchai',      // 灣仔
-    2: 'bg_central',      // 中環
-    3: 'bg_aberdeen',     // 香港仔
-    4: 'bg_mongkok',      // 旺角
-    5: 'bg_shamshuipo',   // 深水埗
-    6: 'bg_wongtaisin',   // 黃大仙
-    7: 'bg_kowloon',      // 九龍城寨
-    8: 'bg_lantau',       // 大嶼山
+    1: 'bg_central',      // Central (中環)
+    2: 'bg_central',      // Central Boss
+    3: 'bg_wanchai',      // Tsim Sha Tsui (尖沙咀) — reuse wanchai bg
+    4: 'bg_wanchai',      // TST Boss
+    5: 'bg_mongkok',      // Mong Kok (旺角)
+    6: 'bg_mongkok',      // Mong Kok Boss
   };
 
   private updateBackground(): void {
@@ -1944,6 +2399,54 @@ export class RunScene extends Phaser.Scene {
     this.weaponSystem?.clearCache();
     this.autoSelectBestChoice = undefined;
     this.shopAutoBestAction = undefined;
+    // Weather cleanup
+    if (this.fogOverlay) { this.fogOverlay.destroy(); this.fogOverlay = undefined; }
+    for (const fz of this.activeFlameZones) fz.gfx.destroy();
+    this.activeFlameZones = [];
+  }
+
+  private showWeaponRange(slotIndex: number): void {
+    if (slotIndex >= this.weapons.length) return;
+    const w = this.weapons[slotIndex];
+    const def = WEAPON_DEFS[w.defId];
+    if (!def) return;
+
+    this.activeRangeSlot = slotIndex;
+    this.rangeOverlay.clear();
+    this.rangeOverlay.setVisible(true);
+
+    const px = this.player?.x ?? GAME_WIDTH / 2;
+    const py = this.player?.y ?? GAME_HEIGHT - 120;
+
+    if (def.range > 0) {
+      this.rangeOverlay.lineStyle(2, NEON.UI_ACCENT, 0.6);
+      this.rangeOverlay.fillStyle(NEON.UI_ACCENT, 0.08);
+      this.rangeOverlay.fillCircle(px, py, def.range);
+      this.rangeOverlay.strokeCircle(px, py, def.range);
+    } else {
+      // Infinite range — show full screen tint
+      this.rangeOverlay.fillStyle(NEON.UI_ACCENT, 0.05);
+      this.rangeOverlay.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+      this.rangeOverlay.lineStyle(1, NEON.UI_ACCENT, 0.3);
+      this.rangeOverlay.strokeRect(4, 4, GAME_WIDTH - 8, GAME_HEIGHT - 8);
+    }
+
+    // Highlight the active slot
+    this.weaponSlotBgs[slotIndex].setStrokeStyle(2, NEON.UI_ACCENT, 1.0);
+  }
+
+  private hideWeaponRange(): void {
+    if (this.activeRangeSlot >= 0 && this.activeRangeSlot < this.weaponSlotBgs.length) {
+      const w = this.weapons[this.activeRangeSlot];
+      if (w) {
+        this.weaponSlotBgs[this.activeRangeSlot].setStrokeStyle(1, NEON.UI_ACCENT, 0.7);
+      } else {
+        this.weaponSlotBgs[this.activeRangeSlot].setStrokeStyle(1, NEON.UI_BORDER, 0.3);
+      }
+    }
+    this.rangeOverlay.clear();
+    this.rangeOverlay.setVisible(false);
+    this.activeRangeSlot = -1;
   }
 
   private drawGrid(): void {

@@ -54,6 +54,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   public behavior = '';
   public isSplitChild = false;
   public knockbackImmune = false;
+  public hitRadius = 20;
 
   // Attack style state
   public attackStyle: EnemyAttackStyle = 'melee';
@@ -166,13 +167,19 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         displaySize = 96;    // T1: easily visible on 720px screen
       }
       if (elite) displaySize *= 1.4;
-      this.setScale(displaySize / texW);
+      const scale = displaySize / texW;
+      this.setScale(scale);
+      // Collision radius proportional to display size (20% of display size)
+      this.hitRadius = Math.round(displaySize * 0.2);
     } else if (isBoss) {
       this.setScale(2);
+      this.hitRadius = 40;
     } else if (elite) {
       this.setScale(2);
+      this.hitRadius = 24;
     } else {
       this.setScale(1);
+      this.hitRadius = 20;
     }
 
     this.setPosition(x, y);
@@ -181,6 +188,13 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     const body = this.body as Phaser.Physics.Arcade.Body;
     body.enable = true;
     body.reset(x, y);
+
+    // Update physics body circle to match hitRadius for player↔enemy overlap
+    if (body) {
+      body.setCircle(this.hitRadius);
+      const offset = (this.displayWidth - this.hitRadius * 2) / 2;
+      body.setOffset(offset, offset);
+    }
 
     // Reset behavior state
     this.zigzagAngle = Math.random() * Math.PI * 2;
