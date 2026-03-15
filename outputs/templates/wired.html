@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게임으로 중국어를 가르치는 전쟁</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #fff;
+    color: #1a1a1a;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.8;
+    word-break: keep-all;
+    overflow-x: hidden;
+  }
+
+  /* — NAV BAR — */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px;
+    border-bottom: 3px solid #000;
+    font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px;
+  }
+  .topbar .logo { font-size: 22px; font-weight: 700; letter-spacing: 4px; }
+  .topbar nav a { margin-left: 24px; text-decoration: none; color: #1a1a1a; }
+  .topbar nav a:hover { text-decoration: underline; }
+
+  /* — HERO — */
+  .hero {
+    background: #fde047;
+    padding: 80px 32px 64px;
+    position: relative;
+  }
+  .hero-inner {
+    max-width: 900px; margin: 0 auto;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: #000; color: #fde047;
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+    padding: 6px 14px; margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: 56px; font-weight: 900;
+    line-height: 1.15; letter-spacing: -2px;
+    max-width: 780px;
+  }
+  .hero .subtitle {
+    font-size: 20px; font-weight: 500;
+    margin-top: 20px; max-width: 600px;
+    color: #333;
+    line-height: 1.8;
+  }
+
+  /* — BYLINE — */
+  .byline-bar {
+    max-width: 720px; margin: 0 auto;
+    padding: 40px 32px 0;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .byline-bar::before {
+    content: ''; display: block;
+    width: 40px; height: 4px; background: #f472b6; flex-shrink: 0;
+  }
+  .byline-name { font-weight: 700; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; }
+  .byline-date { font-size: 13px; color: #777; }
+
+  /* — ARTICLE BODY — */
+  .article-body {
+    max-width: 720px; margin: 0 auto;
+    padding: 32px 32px 0;
+  }
+  .article-body p { margin-bottom: 24px; }
+  .article-body p.lede {
+    font-size: 21px; font-weight: 500; line-height: 1.7;
+    color: #111;
+  }
+
+  /* — FULL-BLEED IMAGE — */
+  .full-bleed {
+    width: 100%; position: relative;
+    margin: 48px 0;
+  }
+  .full-bleed .img-placeholder {
+    width: 100%; height: 420px;
+    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px;
+  }
+  .full-bleed .img-placeholder.overlay-pink {
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+    color: rgba(255,255,255,0.7);
+  }
+  .full-bleed .img-placeholder.overlay-blue {
+    background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+    color: rgba(255,255,255,0.7);
+  }
+  .full-bleed figcaption {
+    max-width: 720px; margin: 12px auto 0;
+    padding: 0 32px;
+    font-size: 13px; color: #999;
+  }
+
+  /* — SECTION COLOR BANDS — */
+  .section-band {
+    width: 100%; padding: 56px 32px;
+    margin: 48px 0;
+  }
+  .section-band .band-inner {
+    max-width: 720px; margin: 0 auto;
+  }
+  .section-band h2 {
+    font-size: 40px; font-weight: 900; letter-spacing: -1.5px;
+    line-height: 1.2; margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .band-yellow { background: #fde047; }
+  .band-pink { background: #f472b6; color: #fff; }
+  .band-pink h2 { color: #fff; }
+  .band-blue { background: #38bdf8; color: #fff; }
+  .band-blue h2 { color: #fff; }
+  .band-lime { background: #a3e635; }
+
+  /* — PULL QUOTE — */
+  .pull-quote {
+    max-width: 720px; margin: 48px auto;
+    padding: 0 32px;
+  }
+  .pull-quote blockquote {
+    font-size: 36px; font-weight: 700;
+    line-height: 1.35; letter-spacing: -1px;
+    border: none; padding: 0;
+  }
+  .pull-quote.color-pink blockquote { color: #f472b6; }
+  .pull-quote.color-blue blockquote { color: #0ea5e9; }
+  .pull-quote.color-lime blockquote { color: #65a30d; }
+  .pull-quote cite {
+    display: block; margin-top: 16px;
+    font-size: 14px; font-weight: 600; color: #777;
+    font-style: normal; text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* — SIDEBAR ANNOTATION — */
+  .annotated-section {
+    max-width: 960px; margin: 48px auto;
+    padding: 0 32px;
+    display: grid; grid-template-columns: 1fr 220px; gap: 40px;
+    align-items: start;
+  }
+  .annotation-box {
+    background: #f8fafc; border-left: 4px solid #38bdf8;
+    padding: 16px 20px;
+    font-size: 13px; line-height: 1.7; color: #555;
+  }
+  .annotation-box strong {
+    display: block; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #38bdf8; margin-bottom: 6px;
+  }
+
+  /* — DATA VIZ: BAR CHART — */
+  .chart-section {
+    max-width: 720px; margin: 0 auto;
+    padding: 0 32px 48px;
+  }
+  .chart-title {
+    font-size: 18px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 24px;
+  }
+  .bar-chart { display: flex; flex-direction: column; gap: 14px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; }
+  .bar-label {
+    width: 130px; flex-shrink: 0;
+    font-size: 13px; font-weight: 600; text-align: right;
+  }
+  .bar-track { flex: 1; height: 28px; background: #f1f5f9; border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px;
+    font-size: 12px; font-weight: 700; color: #fff; min-width: 36px; }
+  .bar-fill.c-yellow { background: #eab308; }
+  .bar-fill.c-pink { background: #ec4899; }
+  .bar-fill.c-blue { background: #0ea5e9; }
+  .bar-fill.c-lime { background: #65a30d; }
+
+  /* — TAG PILLS — */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+  .tag-pill {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+    padding: 6px 14px; border-radius: 100px;
+    display: inline-block;
+  }
+  .tag-pill.t-yellow { background: #fde047; color: #713f12; }
+  .tag-pill.t-pink { background: #f472b6; color: #fff; }
+  .tag-pill.t-blue { background: #38bdf8; color: #fff; }
+  .tag-pill.t-lime { background: #a3e635; color: #365314; }
+
+  /* — FOOTER — */
+  .footer {
+    border-top: 3px solid #000;
+    padding: 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;
+    color: #999;
+  }
+
+  /* — MOBILE — */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 36px; letter-spacing: -1px; }
+    .hero .subtitle { font-size: 17px; }
+    .section-band h2 { font-size: 28px; }
+    .pull-quote blockquote { font-size: 26px; }
+    .annotated-section { grid-template-columns: 1fr; gap: 24px; }
+    .bar-label { width: 90px; font-size: 12px; }
+    .topbar nav { display: none; }
+    .topbar { padding: 12px 20px; }
+    .hero { padding: 48px 20px 40px; }
+    .byline-bar, .article-body, .pull-quote, .chart-section { padding-left: 20px; padding-right: 20px; }
+    .annotated-section { padding: 0 20px; }
+    .full-bleed .img-placeholder { height: 260px; }
+    .footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="logo">WIRED</div>
+  <nav>
+    <a href="#">culture</a>
+    <a href="#">business</a>
+    <a href="#">science</a>
+    <a href="#">gear</a>
+    <a href="#">ideas</a>
+  </nav>
+</header>
+
+<!-- HERO: Section 1 -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">EdTech &times; Gaming</span>
+    <h1>게임으로 중국어를 가르치는 전쟁</h1>
+    <p class="subtitle">게이미피케이션 HSK 앱의 새로운 물결이 세계에서 가장 어려운 언어를 중독성 있는 모바일 경험으로 바꾸고 있다&mdash;그리고 이것이 300억 달러 시장에 던지는 의미.</p>
+  </div>
+</section>
+
+<!-- BYLINE -->
+<div class="byline-bar">
+  <span class="byline-name">김서연</span>
+  <span class="byline-date">2026년 3월 7일 &middot; 12분 분량</span>
+</div>
+
+<!-- BODY: INTRO -->
+<div class="article-body">
+  <p class="lede">중국어 원어민은 약 11억 명이며, 현재 외국어로 중국어를 학습하는 인구는 약 8천만 명으로 추산된다. 하지만 최근까지 학습자들이 사용할 수 있는 도구는 암울했다. 단순 반복 플래시카드, 지루한 교재 오디오, 아무리 동기 부여가 강한 학생도 포기하게 만드는 어휘 목록이 전부였다.</p>
+  <p>하지만 그것이 빠르게 변하고 있다. 새로운 세대의 모바일 앱들이 로그라이크 게임, 방치형 클리커, 경쟁 멀티플레이어의 메커닉을 차용해 HSK(한어수평고시) 6단계 시험 체계에 적용하고 있다. 그 결과, 불과 3년 전에는 거의 존재하지 않았던 시장이 이제 본격적인 벤처 투자를 끌어들이고 있다.</p>
+
+  <div class="tags">
+    <span class="tag-pill t-yellow">HSK</span>
+    <span class="tag-pill t-pink">모바일 게임</span>
+    <span class="tag-pill t-blue">EdTech</span>
+    <span class="tag-pill t-lime">AI 튜터링</span>
+  </div>
+</div>
+
+<!-- FULL-BLEED IMAGE -->
+<figure class="full-bleed">
+  <div class="img-placeholder overlay-pink">1200 &times; 420 &mdash; 히어로 이미지: 상하이 교실에서 게임하는 학생들</div>
+  <figcaption>상하이의 한 어학원에서 학생들이 구조화된 학습 시간에 게이미피케이션 앱을 사용하고 있다. 사진: placeholder.</figcaption>
+</figure>
+
+<!-- BODY CONTINUED -->
+<div class="article-body">
+  <p>전환점은 2024년, 중국 교육부가 HSK를 기존 6단계에서 9단계로 개편하면서 찾아왔다. 수천 개의 신규 어휘가 추가되었고, 새로운 체계에 대응할 수 있는 학습 도구에 대한 수요가 폭발적으로 늘었다. 단순 플래시카드 유틸리티를 만들던 앱 개발자들은 갑자기 치열한 군비 경쟁에 뛰어들게 되었다.</p>
+  <p>"기존 HSK는 이미 알려진 범위 안에 있었습니다." 칭화대학교 전산언어학자 웨이린 박사는 말한다. "새로운 9단계 체계는 기존의 모든 커리큘럼을 깨뜨렸습니다. 그것은 파괴자들에게 보낸 초대장이었죠."</p>
+</div>
+
+<!-- PULL QUOTE -->
+<div class="pull-quote color-pink">
+  <blockquote>"우리는 어휘를 가르치지 않습니다. 한자 인식을 중심으로 도파민 루프를 설계합니다."</blockquote>
+  <cite>&mdash; 제임스 박, LingQuest CEO</cite>
+</div>
+
+<!-- SECTION 2: Hot Pink Band -->
+<section class="section-band band-pink">
+  <div class="band-inner">
+    <h2>규칙을 다시 쓰는 플레이어들</h2>
+    <p>현재 최소 12개 이상의 유망 스타트업이 게이미피케이션 중국어 학습 시장을 놓고 경쟁하고 있다. 그들의 접근 방식은 극도로 다양하다&mdash;대화 선택지로 문법을 가르치는 내러티브 RPG부터, 학습자끼리 실시간으로 HSK 어휘 대결을 벌이는 경쟁형 스피드 리콜 게임까지.</p>
+    <p>가장 큰 규모의 Duolingo는 2025년 말 "HSK 트랙"을 추가했다. 하지만 소규모 경쟁자들은 범용 플랫폼에 볼트온된 트랙이 전용 설계 경험을 결코 따라잡을 수 없다고 주장한다.</p>
+  </div>
+</section>
+
+<!-- ANNOTATED SECTION -->
+<div class="annotated-section">
+  <div class="article-body" style="padding:0; max-width:none;">
+    <p>가장 공격적인 진입자는 서울 기반의 LingQuest다. 지난 10월 시리즈 B에서 4,200만 달러를 유치했다. 이들의 앱은 로그라이크 던전 크롤러 메커닉을 사용한다. 플레이어는 중국어 한자를 "적"으로 만나 성조, 의미, 필순을 정확히 식별해야 처치할 수 있다. 오답은 HP를 깎는다. 보스전에서는 시간 압박 속에 HSK 수준의 완전한 문장을 구성해야 한다.</p>
+    <p>리텐션 데이터는 놀랍다. LingQuest는 D30 리텐션 72%를 보고하고 있다&mdash;언어 학습 앱 업계 평균의 약 3배이며, Clash Royale 같은 최상위 모바일 게임에 필적하는 수치다.</p>
+  </div>
+  <aside class="annotation-box">
+    <strong>숫자로 보기</strong>
+    언어 학습 앱의 업계 평균 D30 리텐션은 18~24%다. 최상위 모바일 게임이 25~35%를 달성한다. LingQuest의 72%는 EdTech 분야에서 전례 없는 수치다.
+  </aside>
+</div>
+
+<!-- DATA VIZ: BAR CHART -->
+<div class="chart-section">
+  <h3 class="chart-title">D30 리텐션: 게임 vs. 언어 학습 앱</h3>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <span class="bar-label">LingQuest</span>
+      <div class="bar-track"><div class="bar-fill c-pink" style="width:72%">72%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Clash Royale</span>
+      <div class="bar-track"><div class="bar-fill c-yellow" style="width:35%">35%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Duolingo HSK</span>
+      <div class="bar-track"><div class="bar-fill c-blue" style="width:28%">28%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">HelloChinese</span>
+      <div class="bar-track"><div class="bar-fill c-lime" style="width:22%">22%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">언어 앱 평균</span>
+      <div class="bar-track"><div class="bar-fill c-yellow" style="width:18%">18%</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FULL-BLEED IMAGE 2 -->
+<figure class="full-bleed">
+  <div class="img-placeholder overlay-blue">1200 &times; 420 &mdash; 앱 스크린샷 몽타주: 게이미피케이션 HSK 인터페이스</div>
+  <figcaption>RPG, 퍼즐, 경쟁 모드를 보여주는 세 개의 대표 게이미피케이션 중국어 앱 스크린샷.</figcaption>
+</figure>
+
+<!-- SECTION 3: Electric Blue Band -->
+<section class="section-band band-blue">
+  <div class="band-inner">
+    <h2>AI가 다시 모든 것을 바꾼다</h2>
+    <p>진짜 와일드카드는 생성형 AI다. 여러 앱이 이제 대형 언어 모델을 사용해 무한한 회화 연습을 생성하며, 각 학습자의 HSK 수준에 맞춰 실시간으로 난이도를 조절한다. 스타트업 ToneAI는 Claude 기반 튜터가 HSK 각 급별로 200가지 이상의 대화 시나리오를 시뮬레이션할 수 있다고 주장한다&mdash;청두에서 길거리 음식 주문하기부터 선전에서 비즈니스 계약 협상까지.</p>
+    <p>게임 메커닉과 AI 튜터링의 결합은 전통적인 교실 수업이 절대 따라잡을 수 없는 피드백 루프를 만들어낸다. 개인화된 난이도, 즉각적인 교정, 게임의 동기 부여 구조&mdash;이 모든 것이 주머니 속 기기에서 24시간 운영된다.</p>
+  </div>
+</section>
+
+<!-- PULL QUOTE 2 -->
+<div class="pull-quote color-blue">
+  <blockquote>"최고의 언어 교사는 절대 지치지 않고, 절대 판단하지 않으며, 다음에 무엇을 연습해야 하는지 항상 정확히 아는 존재입니다."</blockquote>
+  <cite>&mdash; 메이 장 박사, ToneAI 수석 과학자</cite>
+</div>
+
+<!-- BODY CONTINUED -->
+<div class="article-body">
+  <p>게이미피케이션의 물결이 순전히 긍정적이라고 모두가 확신하는 것은 아니다. 비판론자들은 참여 지표에 대한 최적화가 진정한 언어 능력의 희생 위에 이루어질 수 있다고 지적한다. 학습자가 앱 내에서 인상적인 통계를 달성하면서도 원어민과의 기본적인 대화에서는 어려움을 겪을 수 있다는 것이다.</p>
+  <p>"게임 맥락에서 한자를 인식하는 것과 대화 중에 자발적으로 그것을 사용하는 것 사이에는 큰 차이가 있습니다." 베이징사범대학교의 리준 교수는 경고한다. "게이미피케이션 학습자와 전통적 학습자를 실제 숙련도 시험에서 비교하는 종단 연구가 필요합니다."</p>
+</div>
+
+<!-- SECTION 4: Lime Band -->
+<section class="section-band band-lime">
+  <div class="band-inner">
+    <h2>300억 달러짜리 질문</h2>
+    <p>글로벌 중국어 학습 시장은 최근 Morgan Stanley 보고서에 따르면 2028년까지 302억 달러 규모에 도달할 전망이다. 게이미피케이션 부문은 현재 전체 시장의 약 8%이지만 연간 340% 성장률을 기록하며 어떤 EdTech 버티컬보다 빠르게 커지고 있다.</p>
+    <p>투자자 관점에서 논리는 명쾌하다. 모바일 게임의 수익화 파워(시즌 패스, 코스메틱, 프리미엄 콘텐츠)와 교육의 구독 수익 모델(정기 구독, 자격증 준비)을 결합하는 것이다. 그 결과는 게임 수준의 참여도와 EdTech 수준의 LTV를 동시에 갖춘 비즈니스다.</p>
+  </div>
+</section>
+
+<!-- DATA VIZ 2 -->
+<div class="chart-section" style="margin-top:48px;">
+  <h3 class="chart-title">접근 방식별 시장 점유율 (2026년 추정)</h3>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <span class="bar-label">전통 학습 앱</span>
+      <div class="bar-track"><div class="bar-fill c-yellow" style="width:45%">45%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">1:1 온라인 튜터링</span>
+      <div class="bar-track"><div class="bar-fill c-blue" style="width:28%">28%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">게이미피케이션 앱</span>
+      <div class="bar-track"><div class="bar-fill c-pink" style="width:18%">18%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">AI 튜터</span>
+      <div class="bar-track"><div class="bar-fill c-lime" style="width:9%">9%</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PULL QUOTE 3 -->
+<div class="pull-quote color-lime">
+  <blockquote>"우리는 언어 앱을 만드는 게 아닙니다. 유창하게 만들어주는 게임을 만들고 있는 겁니다."</blockquote>
+  <cite>&mdash; 유키 다나카, KanjiQuest 창업자 (HSK 확장 중)</cite>
+</div>
+
+<!-- BODY: CONCLUSION -->
+<div class="article-body">
+  <p>경쟁은 아직 끝나지 않았다. AI 모델이 더 강력해지고 게임 디자인 관행이 진화함에 따라 "학습"과 "플레이" 사이의 경계는 계속 흐려질 것이다. 승자는 그 방정식의 양면을 모두 이해하는 기업이 될 것이다&mdash;HSK 6급을 시험이 아니라 최종 보스처럼 느끼게 만들 수 있는 기업 말이다.</p>
+  <p>전 세계에서 중국어를 시작했다가 수차례 포기한 수백만 명의 사람들에게, 그것은 바로 그들이 기다려왔던 것일 수 있다.</p>
+
+  <div class="tags" style="margin-top:40px; padding-bottom:48px; border-bottom: 2px solid #e2e8f0;">
+    <span class="tag-pill t-yellow">EdTech</span>
+    <span class="tag-pill t-pink">Gaming</span>
+    <span class="tag-pill t-blue">AI</span>
+    <span class="tag-pill t-lime">China</span>
+    <span class="tag-pill t-yellow">HSK</span>
+    <span class="tag-pill t-pink">Mobile</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span>WIRED 템플릿 &copy; 2026</span>
+  <span>볼드 디지털 매거진 스타일</span>
+</footer>
+
+</body>
+</html>

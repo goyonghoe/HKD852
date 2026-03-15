@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKD852 스튜디오 2026년 로드맵</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #1a1a1a;
+    background: #fafafa;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.4;
+    word-break: keep-all;
+  }
+
+  /* ── 헤더 섹션 ── */
+  .header {
+    text-align: center;
+    padding: 60px 24px 40px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 8px;
+  }
+
+  .header .period {
+    font-size: 15px;
+    color: #666;
+    font-weight: 400;
+  }
+
+  .header .divider {
+    width: 48px;
+    height: 3px;
+    background: #3b82f6;
+    margin: 20px auto 0;
+    border-radius: 2px;
+  }
+
+  /* ── 타임라인 컨테이너 ── */
+  .timeline-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    position: relative;
+  }
+
+  /* 중앙 수직 라인 */
+  .timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #3b82f6;
+    transform: translateX(-50%);
+  }
+
+  /* ── 분기 라벨 ── */
+  .quarter-label {
+    position: relative;
+    text-align: center;
+    margin: 40px 0 24px;
+    z-index: 2;
+  }
+
+  .quarter-label:first-child {
+    margin-top: 0;
+  }
+
+  .quarter-label span {
+    display: inline-block;
+    background: #3b82f6;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 16px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── 마일스톤 아이템 ── */
+  .milestone {
+    position: relative;
+    width: 50%;
+    padding: 0 40px 32px;
+  }
+
+  .milestone.left {
+    left: 0;
+    text-align: right;
+    padding-right: 48px;
+    padding-left: 24px;
+  }
+
+  .milestone.right {
+    left: 50%;
+    text-align: left;
+    padding-left: 48px;
+    padding-right: 24px;
+  }
+
+  /* 타임라인 도트 */
+  .milestone::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #3b82f6;
+    z-index: 2;
+  }
+
+  .milestone.left::before {
+    right: -8px;
+  }
+
+  .milestone.right::before {
+    left: -8px;
+  }
+
+  /* 상태별 도트 색상 */
+  .milestone.status-done::before {
+    border-color: #22c55e;
+    background: #22c55e;
+  }
+
+  .milestone.status-progress::before {
+    border-color: #3b82f6;
+    background: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+  }
+
+  .milestone.status-upcoming::before {
+    border-color: #9ca3af;
+    background: #fff;
+  }
+
+  /* 연결선 */
+  .milestone::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    width: 24px;
+    height: 2px;
+    background: #d1d5db;
+  }
+
+  .milestone.left::after {
+    right: 8px;
+  }
+
+  .milestone.right::after {
+    left: 8px;
+  }
+
+  .milestone.status-done::after { background: #bbf7d0; }
+  .milestone.status-progress::after { background: #bfdbfe; }
+
+  /* ── 카드 ── */
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: inline-block;
+    text-align: left;
+    max-width: 360px;
+  }
+
+  .milestone.left .card {
+    float: right;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* 날짜 배지 */
+  .card .date {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+
+  .status-done .card .date {
+    background: #f0fdf4;
+    color: #15803d;
+  }
+
+  .status-progress .card .date {
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
+
+  .status-upcoming .card .date {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+
+  .card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 6px;
+  }
+
+  .card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+
+  /* 상태 표시 */
+  .status-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .status-done .status-badge {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .status-progress .status-badge {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  .status-upcoming .status-badge {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+
+  /* ── 요약 통계 ── */
+  .summary {
+    max-width: 900px;
+    margin: 0 auto 60px;
+    padding: 0 24px;
+  }
+
+  .summary-inner {
+    background: #fff;
+    border-radius: 12px;
+    padding: 28px 32px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+
+  .stat-item .stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.2;
+  }
+
+  .stat-item .stat-label {
+    font-size: 14px;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  .stat-item:nth-child(1) .stat-value { color: #22c55e; }
+  .stat-item:nth-child(2) .stat-value { color: #3b82f6; }
+  .stat-item:nth-child(3) .stat-value { color: #f59e0b; }
+
+  /* ── clearfix ── */
+  .milestone::after,
+  .milestone .card { clear: none; }
+  .milestone { overflow: hidden; }
+
+  /* ── 모바일 반응형 ── */
+  @media (max-width: 640px) {
+    .header { padding: 40px 20px 28px; }
+    .header h1 { font-size: 22px; }
+
+    .timeline-container::before {
+      left: 20px;
+    }
+
+    .milestone,
+    .milestone.left,
+    .milestone.right {
+      width: 100%;
+      left: 0;
+      text-align: left;
+      padding-left: 48px;
+      padding-right: 16px;
+    }
+
+    .milestone.left .card {
+      float: none;
+    }
+
+    .milestone::before,
+    .milestone.left::before,
+    .milestone.right::before {
+      left: 12px;
+      right: auto;
+    }
+
+    .milestone::after,
+    .milestone.left::after,
+    .milestone.right::after {
+      left: 28px;
+      right: auto;
+      width: 12px;
+    }
+
+    .card {
+      max-width: 100%;
+      display: block;
+    }
+
+    .summary-inner {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding: 20px;
+    }
+  }
+
+  /* ── 인쇄 ── */
+  @media print {
+    body { background: #fff; font-size: 12pt; }
+    .header { padding: 20px 0; }
+    .card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+    .card:hover { transform: none; box-shadow: none; }
+    .timeline-container::before { background: #999; }
+    .milestone::before { border-color: #999; }
+    .milestone.status-done::before { background: #22c55e; border-color: #22c55e; }
+    .milestone.status-progress::before { background: #3b82f6; border-color: #3b82f6; }
+    .summary-inner { box-shadow: none; border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div class="header">
+  <h1>HKD852 스튜디오 2026년 로드맵</h1>
+  <p class="period">2026년 1월 ~ 12월</p>
+  <div class="divider"></div>
+</div>
+
+<!-- 타임라인 -->
+<div class="timeline-container">
+
+  <!-- Q1 -->
+  <div class="quarter-label"><span>1분기 (Q1)</span></div>
+
+  <div class="milestone left status-done">
+    <div class="card">
+      <span class="date">2026년 1월</span>
+      <h3>에이전트 조직 구축 완료</h3>
+      <p>24개 AI 에이전트 배치, 스킬 112개 등록, 자율 운영 파이프라인 가동 시작</p>
+      <span class="status-badge">완료</span>
+    </div>
+  </div>
+
+  <div class="milestone right status-done">
+    <div class="card">
+      <span class="date">2026년 2월</span>
+      <h3>WanChai 프로토타입 완성</h3>
+      <p>로그라이크 슈팅 코어 루프 구현, 7개 보스 전투 시스템, 칸반 기반 스프린트 운영 체계 확립</p>
+      <span class="status-badge">완료</span>
+    </div>
+  </div>
+
+  <div class="milestone left status-done">
+    <div class="card">
+      <span class="date">2026년 3월</span>
+      <h3>SSBL 런칭 준비 완료</h3>
+      <p>런칭 대시보드 구축, 클라우드 동기화 적용, 플레이어 과금 분석 시스템 가동</p>
+      <span class="status-badge">완료</span>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="quarter-label"><span>2분기 (Q2)</span></div>
+
+  <div class="milestone right status-progress">
+    <div class="card">
+      <span class="date">2026년 4월</span>
+      <h3>쇼츠 채널 수익화 안정화</h3>
+      <p>멀티채널 병렬 운영 체계 확대, 월간 RPM 목표 달성, 자동 렌더링 파이프라인 최적화</p>
+      <span class="status-badge">진행중</span>
+    </div>
+  </div>
+
+  <div class="milestone left status-upcoming">
+    <div class="card">
+      <span class="date">2026년 5월</span>
+      <h3>WanChai 클로즈드 베타 테스트</h3>
+      <p>TestFlight / 내부 트랙 배포, 플레이테스트 피드백 수집, 밸런스 1차 조정</p>
+      <span class="status-badge">예정</span>
+    </div>
+  </div>
+
+  <div class="milestone right status-upcoming">
+    <div class="card">
+      <span class="date">2026년 6월</span>
+      <h3>Unity 빌드 파이프라인 자동화</h3>
+      <p>iOS / Android / Steam / WebGL 멀티플랫폼 CI/CD 구축, 핫픽스 자동 배포 체계</p>
+      <span class="status-badge">예정</span>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="quarter-label"><span>3분기 (Q3)</span></div>
+
+  <div class="milestone left status-upcoming">
+    <div class="card">
+      <span class="date">2026년 8월</span>
+      <h3>WanChai 소프트 런칭</h3>
+      <p>동남아 / 캐나다 소프트 런칭, 핵심 KPI 모니터링, 온보딩 퍼널 최적화</p>
+      <span class="status-badge">예정</span>
+    </div>
+  </div>
+
+  <div class="milestone right status-upcoming">
+    <div class="card">
+      <span class="date">2026년 9월</span>
+      <h3>보안 및 규정 준수 인증</h3>
+      <p>GDPR / COPPA / PIPL 준수 검증, OWASP 보안 감사, 데이터 흐름 전수 점검</p>
+      <span class="status-badge">예정</span>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="quarter-label"><span>4분기 (Q4)</span></div>
+
+  <div class="milestone left status-upcoming">
+    <div class="card">
+      <span class="date">2026년 10월</span>
+      <h3>WanChai 글로벌 런칭</h3>
+      <p>북미 / 유럽 동시 출시, 5개 언어 현지화, 인플루언서 마케팅 캠페인 실행</p>
+      <span class="status-badge">예정</span>
+    </div>
+  </div>
+
+  <div class="milestone right status-upcoming">
+    <div class="card">
+      <span class="date">2026년 12월</span>
+      <h3>연간 성과 리뷰 및 2027 전략 수립</h3>
+      <p>매출 / DAU / 리텐션 종합 분석, 에이전트 조직 확대 계획, 차기 타이틀 기획 착수</p>
+      <span class="status-badge">예정</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- 요약 통계 -->
+<div class="summary">
+  <div class="summary-inner">
+    <div class="stat-item">
+      <div class="stat-value">10</div>
+      <div class="stat-label">총 마일스톤</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">30%</div>
+      <div class="stat-label">완료율</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">299</div>
+      <div class="stat-label">남은 일수</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

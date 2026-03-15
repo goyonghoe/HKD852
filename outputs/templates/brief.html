@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangMaster 사업 진출 의사결정 브리핑</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    word-break: keep-all;
+    color: #1a1a1a;
+    background: #f3f4f6;
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 48px 52px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+
+  .header-left { flex: 1; }
+
+  .classification {
+    display: inline-block;
+    background: #dc2626;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .doc-title {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+
+  .doc-subtitle {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 400;
+  }
+
+  .header-meta {
+    text-align: right;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.7;
+    white-space: nowrap;
+    margin-left: 32px;
+  }
+
+  .header-meta strong {
+    color: #374151;
+    font-weight: 600;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  /* Executive Summary Box */
+  .exec-summary {
+    background: #fef2f2;
+    border-left: 4px solid #dc2626;
+    padding: 16px 20px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .exec-summary ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .exec-summary li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 6px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .exec-summary li:last-child { margin-bottom: 0; }
+
+  .exec-summary li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 8px;
+    height: 8px;
+    background: #dc2626;
+    border-radius: 50%;
+  }
+
+  /* Body text */
+  .body-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #374151;
+  }
+
+  .body-text p {
+    margin-bottom: 10px;
+  }
+
+  .body-text p:last-child { margin-bottom: 0; }
+
+  .body-text strong {
+    color: #1a1a1a;
+    font-weight: 700;
+  }
+
+  /* Comparison Table */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .comp-table thead th {
+    background: #1a1a1a;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .comp-table tbody td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: top;
+    word-break: keep-all;
+  }
+
+  .comp-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .comp-table tbody tr:nth-child(even) {
+    background: #f9fafb;
+  }
+
+  .recommend {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .recommend.high {
+    background: #dc2626;
+    color: #fff;
+  }
+
+  .recommend.mid {
+    background: #f59e0b;
+    color: #fff;
+  }
+
+  .recommend.low {
+    background: #d1d5db;
+    color: #374151;
+  }
+
+  /* Recommendation Box */
+  .recommendation {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-left: 5px solid #dc2626;
+    padding: 16px 20px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .recommendation .rec-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #dc2626;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .recommendation p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #1a1a1a;
+    font-weight: 500;
+  }
+
+  /* Action Items */
+  .action-list {
+    list-style: none;
+    padding: 0;
+    counter-reset: action;
+  }
+
+  .action-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .action-list li:last-child { border-bottom: none; }
+
+  .action-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .action-content { flex: 1; }
+
+  .action-meta {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 2px;
+  }
+
+  .action-meta span {
+    margin-right: 12px;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 24px;
+    padding-top: 14px;
+    border-top: 2px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #9ca3af;
+    line-height: 1.6;
+  }
+
+  .footer strong {
+    color: #6b7280;
+  }
+
+  /* Print */
+  @media print {
+    body {
+      background: #fff;
+      padding: 0;
+      font-size: 13px;
+    }
+
+    .page {
+      box-shadow: none;
+      padding: 24px 28px;
+      max-width: 100%;
+    }
+
+    .header { padding-bottom: 12px; margin-bottom: 14px; }
+    .section { margin-bottom: 14px; padding-bottom: 12px; }
+    .doc-title { font-size: 18px; }
+    .exec-summary li { font-size: 13px; }
+    .body-text { font-size: 13px; }
+    .comp-table { font-size: 11px; }
+    .action-list li { font-size: 12px; }
+
+    .exec-summary { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .comp-table thead th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .classification { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .recommend { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .action-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+    @page {
+      size: A4;
+      margin: 16mm 12mm;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="classification">대외비</div>
+      <div class="doc-title">LangMaster 사업 진출 의사결정 브리핑</div>
+      <div class="doc-subtitle">AI 기반 언어학습 앱 시장 진출 타당성 검토</div>
+    </div>
+    <div class="header-meta">
+      <div><strong>일자</strong> 2026.03.07</div>
+      <div><strong>수신</strong> 대표이사</div>
+      <div><strong>발신</strong> 사업개발팀</div>
+      <div><strong>문서번호</strong> BD-2026-041</div>
+    </div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="section">
+    <div class="section-title">핵심 요약</div>
+    <div class="exec-summary">
+      <ul>
+        <li>글로벌 AI 언어학습 시장 규모 <strong>$28.4B</strong>(2026), 연평균 성장률 <strong>18.7%</strong>로 고성장 지속</li>
+        <li>기존 Duolingo, Babbel 대비 <strong>AI 대화 시뮬레이션</strong> 영역에서 기술적 차별화 가능</li>
+        <li>초기 투자 <strong>12억 원</strong>, 손익분기점 도달까지 <strong>18개월</strong> 소요 예상</li>
+        <li>북미(NA) 시장 우선 진출 후 아시아 확장 전략 권고 &mdash; <strong>옵션 A 채택 제안</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 현황 분석 -->
+  <div class="section">
+    <div class="section-title">현황 분석</div>
+    <div class="body-text">
+      <p>AI 언어학습 시장은 ChatGPT 등장 이후 급격히 재편되고 있다. 기존 게이미피케이션 중심의 학습 앱(Duolingo MAU <strong>9,700만</strong>)은 여전히 시장을 지배하나, 실질적 회화 능력 향상에 대한 사용자 불만이 <strong>앱스토어 1점 리뷰의 34%</strong>를 차지하며 뚜렷한 미충족 수요가 존재한다.</p>
+      <p>HKD852 스튜디오는 <strong>게임 AI 엔진, 콘텐츠 자동생산 파이프라인, 다국어 현지화 역량</strong>을 보유하고 있어 핵심 기술 자산의 재활용이 가능하다. 특히 ShortsFactory의 다국어 TTS/자막 파이프라인은 학습 콘텐츠 생성에 직접 전용할 수 있다.</p>
+      <p>경쟁 환경 측면에서 Speak(한국 기반, 시리즈 C <strong>$74M</strong>)이 북미 시장에서 빠르게 성장 중이나, B2B 엔터프라이즈 시장은 아직 <strong>진입 여백이 충분</strong>한 것으로 분석된다.</p>
+    </div>
+  </div>
+
+  <!-- 옵션 비교 -->
+  <div class="section">
+    <div class="section-title">옵션 비교</div>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="width:14%">옵션</th>
+          <th style="width:24%">장점</th>
+          <th style="width:24%">단점</th>
+          <th style="width:16%">초기 비용</th>
+          <th style="width:10%">BEP</th>
+          <th style="width:12%">추천도</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A. 자체 개발</strong><br>(B2C 앱)</td>
+          <td>브랜드 구축, 데이터 소유권 확보, 장기 마진 극대화</td>
+          <td>초기 투자 부담, 시장 진입까지 6개월 소요</td>
+          <td>12억 원</td>
+          <td>18개월</td>
+          <td><span class="recommend high">강력 추천</span></td>
+        </tr>
+        <tr>
+          <td><strong>B. 파트너십</strong><br>(기술 라이선싱)</td>
+          <td>저위험, 즉시 매출, 기존 유저 기반 활용</td>
+          <td>낮은 마진(15~20%), 브랜드 노출 제한</td>
+          <td>3억 원</td>
+          <td>6개월</td>
+          <td><span class="recommend mid">조건부 추천</span></td>
+        </tr>
+        <tr>
+          <td><strong>C. 보류</strong><br>(시장 관망)</td>
+          <td>리스크 제로, 기존 사업 집중</td>
+          <td>선점 기회 상실, 기술 자산 유휴화</td>
+          <td>0원</td>
+          <td>&mdash;</td>
+          <td><span class="recommend low">비추천</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 권고안 -->
+  <div class="section">
+    <div class="section-title">권고안</div>
+    <div class="recommendation">
+      <div class="rec-label">RECOMMENDATION</div>
+      <p><strong>옵션 A(자체 개발)를 채택</strong>하되, 1단계로 MVP를 <strong>8주 내 출시</strong>하여 북미 시장에서 검증한 후 본격 투자를 집행할 것을 권고한다. MVP 단계에서 DAU <strong>5,000명</strong>, 유료 전환율 <strong>3% 이상</strong> 달성 시 시리즈 투자를 병행하여 아시아 시장 확장에 착수한다.</p>
+    </div>
+  </div>
+
+  <!-- 다음 단계 -->
+  <div class="section">
+    <div class="section-title">다음 단계</div>
+    <ol class="action-list">
+      <li>
+        <span class="action-num">1</span>
+        <div class="action-content">
+          <div>LangMaster 프로젝트팀 구성 및 킥오프 미팅</div>
+          <div class="action-meta"><span>담당: 사업개발팀</span><span>기한: 2026.03.14</span></div>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">2</span>
+        <div class="action-content">
+          <div>MVP 기능 정의 및 기술 아키텍처 확정</div>
+          <div class="action-meta"><span>담당: GameDev_Agent</span><span>기한: 2026.03.21</span></div>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">3</span>
+        <div class="action-content">
+          <div>북미 시장 사용자 리서치 및 경쟁사 심층 분석 완료</div>
+          <div class="action-meta"><span>담당: Marketing_Agent</span><span>기한: 2026.03.21</span></div>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">4</span>
+        <div class="action-content">
+          <div>MVP 개발 착수 (Alpha 빌드 목표: 2026.05.02)</div>
+          <div class="action-meta"><span>담당: 개발팀</span><span>기한: 2026.03.28</span></div>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">5</span>
+        <div class="action-content">
+          <div>CEO 최종 투자 승인 회의</div>
+          <div class="action-meta"><span>담당: 대표이사</span><span>기한: 2026.03.14</span></div>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>
+      <strong>작성</strong> 사업개발팀 Income_Factory &nbsp;|&nbsp;
+      <strong>검토</strong> Growth_Agent &nbsp;|&nbsp;
+      <strong>승인</strong> 대표이사
+    </div>
+    <div>
+      <strong>v1.0</strong> &nbsp; 2026.03.07
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

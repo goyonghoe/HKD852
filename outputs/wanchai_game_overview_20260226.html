@@ -1,0 +1,3306 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project WanChai — 게임 소개서</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap");
+
+      :root {
+        --bg-deep: #080e16;
+        --bg-main: #0f1923;
+        --bg-card: #1a2332;
+        --bg-card-hover: #1e2a3a;
+        --border: #2d3748;
+        --border-light: #3d4f65;
+        --text: #e2e8f0;
+        --text-dim: #8899aa;
+        --text-muted: #5a6a7a;
+        --accent: #e94560;
+        --accent-glow: rgba(233, 69, 96, 0.3);
+        --fire: #f06060;
+        --water: #5090f8;
+        --earth: #50c878;
+        --wind: #f0d050;
+        --light: #f0f0f0;
+        --dark: #9060d8;
+        --gold: #ffd700;
+        --common: #8899aa;
+        --rare: #5090f8;
+        --epic: #9060d8;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg-deep);
+        color: var(--text);
+        font-family:
+          "Inter",
+          -apple-system,
+          sans-serif;
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+
+      /* ─── Hero Section ─── */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        overflow: hidden;
+        background:
+          radial-gradient(
+            ellipse at 50% 30%,
+            rgba(233, 69, 96, 0.08) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 20% 80%,
+            rgba(80, 144, 248, 0.06) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 80% 70%,
+            rgba(144, 96, 216, 0.06) 0%,
+            transparent 50%
+          ),
+          var(--bg-deep);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='g' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='1' cy='1' r='0.6' fill='%23ffffff08'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23g)' width='60' height='60'/%3E%3C/svg%3E");
+        opacity: 0.5;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        padding: 60px 20px;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        padding: 6px 20px;
+        background: rgba(233, 69, 96, 0.15);
+        border: 1px solid rgba(233, 69, 96, 0.3);
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--accent);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+
+      .hero h1 {
+        font-size: clamp(48px, 8vw, 96px);
+        font-weight: 900;
+        letter-spacing: -2px;
+        line-height: 1.05;
+        background: linear-gradient(
+          135deg,
+          #fff 0%,
+          #e2e8f0 40%,
+          var(--accent) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 16px;
+      }
+
+      .hero-sub {
+        font-size: clamp(18px, 3vw, 28px);
+        font-weight: 300;
+        color: var(--text-dim);
+        max-width: 600px;
+        margin: 0 auto 40px;
+      }
+
+      .hero-stats {
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .hero-stat {
+        text-align: center;
+      }
+
+      .hero-stat-num {
+        font-size: 42px;
+        font-weight: 800;
+        font-family: "JetBrains Mono", monospace;
+        color: var(--accent);
+      }
+
+      .hero-stat-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-muted);
+        margin-top: -4px;
+      }
+
+      .scroll-hint {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: bounce 2s infinite;
+        color: var(--text-muted);
+        font-size: 24px;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(8px);
+        }
+      }
+
+      /* ─── Container & Layout ─── */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      section {
+        padding: 100px 0;
+        border-bottom: 1px solid rgba(45, 55, 72, 0.5);
+      }
+
+      .section-label {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 12px;
+        padding: 4px 12px;
+        background: rgba(233, 69, 96, 0.1);
+        border-radius: 4px;
+      }
+
+      .section-title {
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
+      }
+
+      .section-desc {
+        font-size: 18px;
+        color: var(--text-dim);
+        max-width: 700px;
+        margin-bottom: 48px;
+      }
+
+      /* ─── Cards ─── */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+      }
+
+      .card-grid-3 {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        transition: all 0.3s ease;
+      }
+
+      .card:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-light);
+        transform: translateY(-2px);
+      }
+
+      .card-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 16px;
+      }
+
+      .card h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .card p {
+        color: var(--text-dim);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      /* ─── Element Badges ─── */
+      .el-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .el-fire {
+        background: rgba(240, 96, 96, 0.15);
+        color: var(--fire);
+        border: 1px solid rgba(240, 96, 96, 0.3);
+      }
+      .el-water {
+        background: rgba(80, 144, 248, 0.15);
+        color: var(--water);
+        border: 1px solid rgba(80, 144, 248, 0.3);
+      }
+      .el-earth {
+        background: rgba(80, 200, 120, 0.15);
+        color: var(--earth);
+        border: 1px solid rgba(80, 200, 120, 0.3);
+      }
+      .el-wind {
+        background: rgba(240, 208, 80, 0.15);
+        color: var(--wind);
+        border: 1px solid rgba(240, 208, 80, 0.3);
+      }
+      .el-light {
+        background: rgba(240, 240, 240, 0.1);
+        color: var(--light);
+        border: 1px solid rgba(240, 240, 240, 0.2);
+      }
+      .el-dark {
+        background: rgba(144, 96, 216, 0.15);
+        color: var(--dark);
+        border: 1px solid rgba(144, 96, 216, 0.3);
+      }
+
+      .el-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .el-dot-fire {
+        background: var(--fire);
+      }
+      .el-dot-water {
+        background: var(--water);
+      }
+      .el-dot-earth {
+        background: var(--earth);
+      }
+      .el-dot-wind {
+        background: var(--wind);
+      }
+      .el-dot-light {
+        background: var(--light);
+      }
+      .el-dot-dark {
+        background: var(--dark);
+      }
+
+      /* ─── Tables ─── */
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        margin-bottom: 32px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      thead th {
+        background: var(--bg-card);
+        padding: 14px 16px;
+        text-align: left;
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-dim);
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+
+      tbody td {
+        padding: 12px 16px;
+        border-bottom: 1px solid rgba(45, 55, 72, 0.3);
+        vertical-align: middle;
+      }
+
+      tbody tr:hover {
+        background: rgba(26, 35, 50, 0.5);
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .rarity-common {
+        color: var(--common);
+      }
+      .rarity-rare {
+        color: var(--rare);
+        font-weight: 600;
+      }
+      .rarity-epic {
+        color: var(--epic);
+        font-weight: 700;
+      }
+
+      /* ─── Flow Diagram ─── */
+      .flow-diagram {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        padding: 24px;
+        background: var(--bg-card);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        margin-bottom: 32px;
+      }
+
+      .flow-node {
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .flow-arrow {
+        color: var(--text-muted);
+        font-size: 18px;
+      }
+
+      .flow-battle {
+        background: rgba(233, 69, 96, 0.15);
+        color: var(--accent);
+        border: 1px solid rgba(233, 69, 96, 0.3);
+      }
+      .flow-scene {
+        background: rgba(80, 144, 248, 0.15);
+        color: var(--water);
+        border: 1px solid rgba(80, 144, 248, 0.3);
+      }
+      .flow-reward {
+        background: rgba(255, 215, 0, 0.15);
+        color: var(--gold);
+        border: 1px solid rgba(255, 215, 0, 0.3);
+      }
+      .flow-meta {
+        background: rgba(80, 200, 120, 0.15);
+        color: var(--earth);
+        border: 1px solid rgba(80, 200, 120, 0.3);
+      }
+
+      /* ─── Advantage Cycle ─── */
+      .advantage-wrap {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+      }
+
+      .advantage-cycle {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        flex-shrink: 0;
+      }
+
+      .cycle-node {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 700;
+        border: 3px solid;
+      }
+
+      .advantage-info {
+        flex: 1;
+        min-width: 280px;
+      }
+
+      .advantage-rule {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: var(--bg-card);
+        border-radius: 10px;
+        margin-bottom: 8px;
+        border: 1px solid var(--border);
+        font-size: 15px;
+      }
+
+      .advantage-rule .arrow {
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* ─── Stats Row ─── */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 16px;
+        margin-bottom: 40px;
+      }
+
+      .stat-box {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .stat-box-num {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 32px;
+        font-weight: 700;
+      }
+
+      .stat-box-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--text-dim);
+        margin-top: 4px;
+      }
+
+      /* ─── Progress Bar ─── */
+      .progress-group {
+        margin-bottom: 32px;
+      }
+
+      .progress-item {
+        margin-bottom: 12px;
+      }
+
+      .progress-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        margin-bottom: 6px;
+      }
+
+      .progress-label span:first-child {
+        font-weight: 600;
+      }
+      .progress-label span:last-child {
+        color: var(--text-dim);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      .progress-bar {
+        height: 8px;
+        background: rgba(45, 55, 72, 0.5);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 1s ease;
+      }
+
+      .fill-done {
+        background: linear-gradient(90deg, var(--earth), #80e0a0);
+      }
+      .fill-partial {
+        background: linear-gradient(90deg, var(--water), #80b8f8);
+      }
+      .fill-draft {
+        background: linear-gradient(90deg, var(--wind), #f0e080);
+      }
+
+      /* ─── Tech Stack ─── */
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+
+      .tech-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+      }
+
+      .tech-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        background: rgba(233, 69, 96, 0.1);
+      }
+
+      .tech-name {
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .tech-ver {
+        font-size: 12px;
+        color: var(--text-muted);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* ─── Critter Cards ─── */
+      .critter-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 16px;
+      }
+
+      .critter-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        transition: all 0.3s ease;
+      }
+
+      .critter-card:hover {
+        border-color: var(--border-light);
+        transform: translateY(-1px);
+      }
+
+      .critter-avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        flex-shrink: 0;
+      }
+
+      .critter-info {
+        flex: 1;
+      }
+
+      .critter-name {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+
+      .critter-name-en {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+      }
+
+      .critter-meta {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .critter-tag {
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+
+      .tag-ap {
+        background: rgba(233, 69, 96, 0.15);
+        color: var(--accent);
+      }
+
+      /* ─── World Cards ─── */
+      .world-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 20px;
+      }
+
+      .world-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .world-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+      }
+
+      .world-card[data-el="fire"]::before {
+        background: var(--fire);
+      }
+      .world-card[data-el="water"]::before {
+        background: var(--water);
+      }
+      .world-card[data-el="earth"]::before {
+        background: var(--earth);
+      }
+      .world-card[data-el="wind"]::before {
+        background: var(--wind);
+      }
+      .world-card[data-el="light"]::before {
+        background: var(--light);
+      }
+      .world-card[data-el="dark"]::before {
+        background: var(--dark);
+      }
+
+      .world-num {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 48px;
+        font-weight: 800;
+        color: rgba(255, 255, 255, 0.06);
+        position: absolute;
+        top: 10px;
+        right: 20px;
+      }
+
+      .world-card h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .world-card .sub {
+        font-size: 14px;
+        color: var(--text-dim);
+        margin-bottom: 12px;
+      }
+
+      .world-boss {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: rgba(233, 69, 96, 0.08);
+        border-radius: 8px;
+        font-size: 13px;
+        margin-top: 12px;
+      }
+
+      .world-boss strong {
+        color: var(--accent);
+      }
+
+      /* ─── Relic List ─── */
+      .relic-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 12px;
+      }
+
+      .relic-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+      }
+
+      .relic-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+
+      .relic-name {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
+
+      .relic-effect {
+        font-size: 12px;
+        color: var(--text-dim);
+      }
+
+      /* ─── Level Table ─── */
+      .level-diff {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .diff-easy {
+        background: rgba(80, 200, 120, 0.15);
+        color: var(--earth);
+      }
+      .diff-normal {
+        background: rgba(80, 144, 248, 0.15);
+        color: var(--water);
+      }
+      .diff-hard {
+        background: rgba(240, 208, 80, 0.15);
+        color: var(--wind);
+      }
+      .diff-boss {
+        background: rgba(233, 69, 96, 0.15);
+        color: var(--accent);
+      }
+
+      /* ─── Footer ─── */
+      footer {
+        padding: 60px 0;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      footer .logo {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text-dim);
+        margin-bottom: 8px;
+      }
+
+      /* ─── Responsive ─── */
+      @media (max-width: 768px) {
+        .hero-stats {
+          gap: 24px;
+        }
+        .advantage-wrap {
+          flex-direction: column;
+          align-items: center;
+        }
+        .critter-grid,
+        .world-grid,
+        .relic-grid {
+          grid-template-columns: 1fr;
+        }
+        section {
+          padding: 60px 0;
+        }
+      }
+
+      /* ─── SVG Cycle ─── */
+      .cycle-svg {
+        margin: 0 auto;
+        display: block;
+      }
+
+      /* ─── Separator ─── */
+      .sep {
+        width: 60px;
+        height: 3px;
+        background: var(--accent);
+        border-radius: 2px;
+        margin: 16px 0 32px;
+      }
+
+      /* ─── Passive Skill ─── */
+      .passive-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 12px;
+      }
+
+      .passive-item {
+        padding: 16px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+      }
+
+      .passive-item strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .passive-item span {
+        font-size: 12px;
+        color: var(--text-dim);
+      }
+
+      /* Hometown */
+      .hometown-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 16px;
+      }
+
+      .hometown-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .hometown-card .icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+      }
+      .hometown-card h4 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .hometown-card p {
+        font-size: 12px;
+        color: var(--text-dim);
+      }
+      .hometown-card .max {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-top: 8px;
+      }
+
+      /* nav */
+      .toc {
+        position: fixed;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .toc a {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--border);
+        transition: all 0.2s;
+        display: block;
+      }
+
+      .toc a:hover {
+        background: var(--accent);
+        transform: scale(1.3);
+      }
+
+      @media (max-width: 768px) {
+        .toc {
+          display: none;
+        }
+      }
+
+      /* modifier table */
+      .modifier-row {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 16px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        margin-bottom: 8px;
+      }
+
+      .modifier-icon {
+        font-size: 24px;
+        flex-shrink: 0;
+      }
+
+      .modifier-info {
+        flex: 1;
+      }
+      .modifier-info strong {
+        font-size: 14px;
+      }
+      .modifier-info p {
+        font-size: 12px;
+        color: var(--text-dim);
+        margin-top: 2px;
+      }
+      .modifier-counter {
+        font-size: 12px;
+        color: var(--accent);
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ─── Navigation Dots ─── -->
+    <nav class="toc">
+      <a href="#hero" title="Top"></a>
+      <a href="#concept" title="Concept"></a>
+      <a href="#elements" title="Elements"></a>
+      <a href="#worlds" title="Worlds"></a>
+      <a href="#critters" title="Critters"></a>
+      <a href="#enemies" title="Enemies"></a>
+      <a href="#relics" title="Relics"></a>
+      <a href="#roguelike" title="Roguelike"></a>
+      <a href="#levels" title="Levels"></a>
+      <a href="#meta" title="Meta"></a>
+      <a href="#tech" title="Tech"></a>
+      <a href="#status" title="Status"></a>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════ HERO ═══════════════════════════════════════════ -->
+    <header class="hero" id="hero">
+      <div class="hero-content">
+        <div class="hero-badge">HKD852 Studio</div>
+        <h1>Project<br />WanChai</h1>
+        <p class="hero-sub">
+          원형 컨베이어 퍼즐 × 로그라이크 RPG<br />6원소 크리처 수집 모바일 게임
+        </p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num">357</div>
+            <div class="hero-stat-label">Tests Passing</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">12</div>
+            <div class="hero-stat-label">Game Scenes</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">36</div>
+            <div class="hero-stat-label">Critters</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">15</div>
+            <div class="hero-stat-label">Relics</div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint">&#8595;</div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════ CONCEPT ═══════════════════════════════════════════ -->
+    <section id="concept">
+      <div class="container">
+        <span class="section-label">Game Concept</span>
+        <h2 class="section-title">어둠에 물든 항구를 정화하라</h2>
+        <p class="section-desc">
+          완차이 항구(Wan Chai Harbor) — 6개 원소 지구로 이루어진 해안 도시가
+          "역병(The Blight)"에 의해 오염되었습니다. 플레이어는 정령
+          동물(크리처)을 수집하고 전략적으로 편성하여, 원형 컨베이어 퍼즐을 통해
+          역병을 정화합니다.
+        </p>
+        <div class="sep"></div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon" style="background: rgba(233, 69, 96, 0.12)">
+              &#9881;
+            </div>
+            <h3>원형 컨베이어 퍼즐</h3>
+            <p>
+              6칸 원형 벨트에 히어로를 배치하고 회전시켜, 같은 원소의 적 큐브를
+              파괴합니다. 바깥 레이어부터 깎아내는 "껍질 벗기기" 전략이
+              핵심입니다.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon" style="background: rgba(80, 144, 248, 0.12)">
+              &#128270;
+            </div>
+            <h3>로그라이크 런</h3>
+            <p>
+              3층 + 보스 구성의 분기형 맵을 탐험합니다. 전투, 엘리트, 상점,
+              휴식, 이벤트 등 7가지 노드 타입이 매번 다른 경험을 만듭니다.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon" style="background: rgba(80, 200, 120, 0.12)">
+              &#127968;
+            </div>
+            <h3>메타 진행</h3>
+            <p>
+              런 결과에 따라 정화 결정을 획득하고, 마을(Hometown)을
+              업그레이드합니다. 크리처 수집, 도감, 5개 건물 강화로 영구적 성장을
+              이룹니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ ELEMENTS ═══════════════════════════════════════════ -->
+    <section id="elements">
+      <div class="container">
+        <span class="section-label">Element System</span>
+        <h2 class="section-title">6원소 상성 체계</h2>
+        <p class="section-desc">
+          4원소 순환 + 빛/어둠 상호 우위. 상성 히트 시 데미지 2배, 스코어 1.5배.
+          아머 큐브(HP 2)도 상성으로 원샷 가능합니다.
+        </p>
+        <div class="sep"></div>
+
+        <!-- Element Badges -->
+        <div
+          style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px"
+        >
+          <span class="el-badge el-fire"
+            ><span class="el-dot el-dot-fire"></span>화 Fire</span
+          >
+          <span class="el-badge el-water"
+            ><span class="el-dot el-dot-water"></span>수 Water</span
+          >
+          <span class="el-badge el-earth"
+            ><span class="el-dot el-dot-earth"></span>지 Earth</span
+          >
+          <span class="el-badge el-wind"
+            ><span class="el-dot el-dot-wind"></span>풍 Wind</span
+          >
+          <span class="el-badge el-light"
+            ><span class="el-dot el-dot-light"></span>광 Light</span
+          >
+          <span class="el-badge el-dark"
+            ><span class="el-dot el-dot-dark"></span>암 Dark</span
+          >
+        </div>
+
+        <div class="advantage-wrap">
+          <!-- SVG Cycle -->
+          <svg class="cycle-svg" width="300" height="300" viewBox="0 0 300 300">
+            <!-- Cycle ring -->
+            <circle
+              cx="150"
+              cy="150"
+              r="110"
+              fill="none"
+              stroke="rgba(45,55,72,0.5)"
+              stroke-width="2"
+            />
+
+            <!-- 4-element cycle arrows -->
+            <defs>
+              <marker
+                id="arrowR"
+                markerWidth="8"
+                markerHeight="6"
+                refX="8"
+                refY="3"
+                orient="auto"
+              >
+                <polygon points="0 0, 8 3, 0 6" fill="#e94560" opacity="0.6" />
+              </marker>
+            </defs>
+
+            <!-- Fire (top) -->
+            <circle
+              cx="150"
+              cy="40"
+              r="28"
+              fill="rgba(240,96,96,0.2)"
+              stroke="#f06060"
+              stroke-width="2"
+            />
+            <text
+              x="150"
+              y="44"
+              text-anchor="middle"
+              fill="#f06060"
+              font-size="14"
+              font-weight="700"
+              font-family="Inter"
+            >
+              火
+            </text>
+
+            <!-- Wind (right) -->
+            <circle
+              cx="260"
+              cy="150"
+              r="28"
+              fill="rgba(240,208,80,0.2)"
+              stroke="#f0d050"
+              stroke-width="2"
+            />
+            <text
+              x="260"
+              y="154"
+              text-anchor="middle"
+              fill="#f0d050"
+              font-size="14"
+              font-weight="700"
+              font-family="Inter"
+            >
+              풍
+            </text>
+
+            <!-- Earth (bottom) -->
+            <circle
+              cx="150"
+              cy="260"
+              r="28"
+              fill="rgba(80,200,120,0.2)"
+              stroke="#50c878"
+              stroke-width="2"
+            />
+            <text
+              x="150"
+              y="264"
+              text-anchor="middle"
+              fill="#50c878"
+              font-size="14"
+              font-weight="700"
+              font-family="Inter"
+            >
+              지
+            </text>
+
+            <!-- Water (left) -->
+            <circle
+              cx="40"
+              cy="150"
+              r="28"
+              fill="rgba(80,144,248,0.2)"
+              stroke="#5090f8"
+              stroke-width="2"
+            />
+            <text
+              x="40"
+              y="154"
+              text-anchor="middle"
+              fill="#5090f8"
+              font-size="14"
+              font-weight="700"
+              font-family="Inter"
+            >
+              수
+            </text>
+
+            <!-- Arrows: Fire→Wind→Earth→Water→Fire -->
+            <line
+              x1="175"
+              y1="55"
+              x2="235"
+              y2="125"
+              stroke="#e94560"
+              stroke-width="1.5"
+              marker-end="url(#arrowR)"
+              opacity="0.6"
+            />
+            <line
+              x1="255"
+              y1="180"
+              x2="180"
+              y2="240"
+              stroke="#e94560"
+              stroke-width="1.5"
+              marker-end="url(#arrowR)"
+              opacity="0.6"
+            />
+            <line
+              x1="122"
+              y1="252"
+              x2="65"
+              y2="180"
+              stroke="#e94560"
+              stroke-width="1.5"
+              marker-end="url(#arrowR)"
+              opacity="0.6"
+            />
+            <line
+              x1="48"
+              y1="122"
+              x2="125"
+              y2="58"
+              stroke="#e94560"
+              stroke-width="1.5"
+              marker-end="url(#arrowR)"
+              opacity="0.6"
+            />
+
+            <!-- Light (top-right inner) ↔ Dark (bottom-left inner) -->
+            <circle
+              cx="200"
+              cy="100"
+              r="22"
+              fill="rgba(240,240,240,0.1)"
+              stroke="#f0f0f0"
+              stroke-width="1.5"
+            />
+            <text
+              x="200"
+              y="104"
+              text-anchor="middle"
+              fill="#f0f0f0"
+              font-size="12"
+              font-weight="700"
+              font-family="Inter"
+            >
+              광
+            </text>
+
+            <circle
+              cx="100"
+              cy="200"
+              r="22"
+              fill="rgba(144,96,216,0.15)"
+              stroke="#9060d8"
+              stroke-width="1.5"
+            />
+            <text
+              x="100"
+              y="204"
+              text-anchor="middle"
+              fill="#9060d8"
+              font-size="12"
+              font-weight="700"
+              font-family="Inter"
+            >
+              암
+            </text>
+
+            <!-- Bidirectional arrow Light ↔ Dark -->
+            <line
+              x1="182"
+              y1="116"
+              x2="118"
+              y2="184"
+              stroke="#e94560"
+              stroke-width="1.5"
+              stroke-dasharray="4,3"
+              opacity="0.5"
+            />
+            <text
+              x="150"
+              y="150"
+              text-anchor="middle"
+              fill="#e94560"
+              font-size="10"
+              font-weight="700"
+              font-family="Inter"
+            >
+              &#8596;
+            </text>
+          </svg>
+
+          <div class="advantage-info">
+            <div class="advantage-rule">
+              <span style="color: var(--fire)">&#9679; 화</span>
+              <span class="arrow">&#8594;</span>
+              <span style="color: var(--wind)">&#9679; 풍</span>
+              <span class="arrow">&#8594;</span>
+              <span style="color: var(--earth)">&#9679; 지</span>
+              <span class="arrow">&#8594;</span>
+              <span style="color: var(--water)">&#9679; 수</span>
+              <span class="arrow">&#8594;</span>
+              <span style="color: var(--fire)">&#9679; 화</span>
+            </div>
+            <div class="advantage-rule">
+              <span style="color: var(--light)">&#9679; 광</span>
+              <span class="arrow">&#8596;</span>
+              <span style="color: var(--dark)">&#9679; 암</span>
+              <span
+                style="
+                  color: var(--text-muted);
+                  margin-left: 12px;
+                  font-size: 13px;
+                "
+                >상호 우위</span
+              >
+            </div>
+            <div style="margin-top: 20px">
+              <div class="stats-row" style="margin-bottom: 0">
+                <div class="stat-box">
+                  <div class="stat-box-num" style="color: var(--accent)">
+                    2x
+                  </div>
+                  <div class="stat-box-label">Advantage Damage</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-box-num" style="color: var(--gold)">
+                    1.5x
+                  </div>
+                  <div class="stat-box-label">Score Multiplier</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-box-num" style="color: var(--earth)">1x</div>
+                  <div class="stat-box-label">Same Element</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ WORLDS ═══════════════════════════════════════════ -->
+    <section id="worlds">
+      <div class="container">
+        <span class="section-label">Worlds</span>
+        <h2 class="section-title">6개 원소 지구</h2>
+        <p class="section-desc">
+          각 지구는 고유한 환경과 보스를 가지며, S-커브 난이도로 설계되었습니다.
+        </p>
+        <div class="sep"></div>
+
+        <div class="world-grid">
+          <div class="world-card" data-el="fire">
+            <div class="world-num">W1</div>
+            <h3>Magma Market &#128293;</h3>
+            <div class="sub">용암, 대장간, 온천 — 불타오르는 시작</div>
+            <p style="font-size: 13px; color: var(--text-dim)">
+              10개 스테이지 구현 완료. 초반 튜토리얼부터 보스전까지의 난이도
+              곡선.
+            </p>
+            <div class="world-boss">
+              <strong>BOSS</strong> Flame Drake — HP 5 | Fire aura (인접 화속성
+              강화)
+            </div>
+          </div>
+          <div class="world-card" data-el="water">
+            <div class="world-num">W2</div>
+            <h3>Abyssal Dock &#127754;</h3>
+            <div class="sub">해저 동굴, 항구, 산호 — 깊어지는 미스터리</div>
+            <p style="font-size: 13px; color: var(--text-dim)">
+              W1 보스 클리어 후 해금. 수속성 중심 전투.
+            </p>
+            <div class="world-boss">
+              <strong>BOSS</strong> Abyssal Kraken — HP 6 | 촉수 재생 (쓰러진 T1
+              부활)
+            </div>
+          </div>
+          <div class="world-card" data-el="earth">
+            <div class="world-num">W3</div>
+            <h3>Root Alley &#127795;</h3>
+            <div class="sub">거대 나무, 이끼 정원 — 자연의 양면성</div>
+            <p style="font-size: 13px; color: var(--text-dim)">
+              W2 보스 클리어 후 해금. 가파른 난이도 진입 구간.
+            </p>
+            <div class="world-boss">
+              <strong>BOSS</strong> Thorn Treant — HP 7 | 뿌리 갑옷 (2턴마다
+              아머 재생)
+            </div>
+          </div>
+          <div class="world-card" data-el="wind">
+            <div class="world-num">W4</div>
+            <h3>Gale Tower &#127744;</h3>
+            <div class="sub">시계탑, 풍차 — 진실이 드러나다</div>
+            <p style="font-size: 13px; color: var(--text-dim)">
+              W3 보스 클리어 후 해금. 풍속성 중심의 높은 난이도.
+            </p>
+            <div class="world-boss">
+              <strong>BOSS</strong> Thunder Dragon — HP 8 | 번개 연쇄 (랜덤
+              크리처 AP-1)
+            </div>
+          </div>
+          <div class="world-card" data-el="light">
+            <div class="world-num">W5</div>
+            <h3>Beacon Hill &#128161;</h3>
+            <div class="sub">수정 등대, 대성당 — 빛과 어둠</div>
+            <p style="font-size: 13px; color: var(--text-dim)">
+              W4 보스 클리어 후 해금. 마스터리 구간 진입.
+            </p>
+            <div class="world-boss">
+              <strong>BOSS</strong> Solar Sphinx — HP 9 | 빛의 장벽 (1턴마다
+              원소 변경)
+            </div>
+          </div>
+          <div class="world-card" data-el="dark">
+            <div class="world-num">W6</div>
+            <h3>Shadow Below &#128128;</h3>
+            <div class="sub">하수구, 폐광 — 최종 결전</div>
+            <p style="font-size: 13px; color: var(--text-dim)">
+              W5 보스 클리어 후 해금. 모든 메카닉이 총동원되는 최종 월드.
+            </p>
+            <div class="world-boss">
+              <strong>BOSS</strong> Nightmare Knight — HP 10 | 그림자 분신
+              (역병핵 추가 생성)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ CRITTERS ═══════════════════════════════════════════ -->
+    <section id="critters">
+      <div class="container">
+        <span class="section-label">Critter Collection</span>
+        <h2 class="section-title">18종 정령 크리처</h2>
+        <p class="section-desc">
+          6원소 × 3등급 = 18종 기본 + 18종 진화 = 총 36종. 각 크리처는 고유
+          패시브와 AP를 가집니다. Lv5에서 진화하면 AP +1 영구 버프.
+        </p>
+        <div class="sep"></div>
+
+        <!-- Fire -->
+        <h3 style="margin-bottom: 16px">
+          <span class="el-badge el-fire"
+            ><span class="el-dot el-dot-fire"></span>화속성 Fire</span
+          >
+        </h3>
+        <div class="critter-grid" style="margin-bottom: 32px">
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(240, 96, 96, 0.15)"
+            >
+              &#128293;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">불여우</div>
+              <div class="critter-name-en">Flame Fox</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-common"
+                  style="background: rgba(136, 153, 170, 0.1)"
+                  >Common</span
+                >
+                <span class="critter-tag tag-ap">AP 2</span>
+                <span
+                  class="critter-tag"
+                  style="background: rgba(240, 96, 96, 0.1); color: var(--fire)"
+                  >관통 Pierce</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(240, 96, 96, 0.15)"
+            >
+              &#128293;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">화염도롱뇽</div>
+              <div class="critter-name-en">Blaze Salamander</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-rare"
+                  style="background: rgba(80, 144, 248, 0.1)"
+                  >Rare</span
+                >
+                <span class="critter-tag tag-ap">AP 3</span>
+                <span
+                  class="critter-tag"
+                  style="background: rgba(240, 96, 96, 0.1); color: var(--fire)"
+                  >스플래시 Splash</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(240, 96, 96, 0.15)"
+            >
+              &#128293;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">아기용</div>
+              <div class="critter-name-en">Ember Drake</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-epic"
+                  style="background: rgba(144, 96, 216, 0.1)"
+                  >Epic</span
+                >
+                <span class="critter-tag tag-ap">AP 4</span>
+                <span
+                  class="critter-tag"
+                  style="background: rgba(240, 96, 96, 0.1); color: var(--fire)"
+                  >연타 Double Strike</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Water -->
+        <h3 style="margin-bottom: 16px">
+          <span class="el-badge el-water"
+            ><span class="el-dot el-dot-water"></span>수속성 Water</span
+          >
+        </h3>
+        <div class="critter-grid" style="margin-bottom: 32px">
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(80, 144, 248, 0.15)"
+            >
+              &#128167;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">물수달</div>
+              <div class="critter-name-en">Tide Otter</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-common"
+                  style="background: rgba(136, 153, 170, 0.1)"
+                  >Common</span
+                >
+                <span class="critter-tag tag-ap">AP 2</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(80, 144, 248, 0.1);
+                    color: var(--water);
+                  "
+                  >회수 Recall</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(80, 144, 248, 0.15)"
+            >
+              &#128167;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">파도거북</div>
+              <div class="critter-name-en">Wave Turtle</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-rare"
+                  style="background: rgba(80, 144, 248, 0.1)"
+                  >Rare</span
+                >
+                <span class="critter-tag tag-ap">AP 3</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(80, 144, 248, 0.1);
+                    color: var(--water);
+                  "
+                  >방벽 Barrier</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(80, 144, 248, 0.15)"
+            >
+              &#128167;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">번개돌핀</div>
+              <div class="critter-name-en">Storm Dolphin</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-epic"
+                  style="background: rgba(144, 96, 216, 0.1)"
+                  >Epic</span
+                >
+                <span class="critter-tag tag-ap">AP 4</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(80, 144, 248, 0.1);
+                    color: var(--water);
+                  "
+                  >흡수 Absorb</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Earth -->
+        <h3 style="margin-bottom: 16px">
+          <span class="el-badge el-earth"
+            ><span class="el-dot el-dot-earth"></span>지속성 Earth</span
+          >
+        </h3>
+        <div class="critter-grid" style="margin-bottom: 32px">
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(80, 200, 120, 0.15)"
+            >
+              &#127793;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">곰돌이</div>
+              <div class="critter-name-en">Stone Bear</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-common"
+                  style="background: rgba(136, 153, 170, 0.1)"
+                  >Common</span
+                >
+                <span class="critter-tag tag-ap">AP 2</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(80, 200, 120, 0.1);
+                    color: var(--earth);
+                  "
+                  >방벽 Barrier</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(80, 200, 120, 0.15)"
+            >
+              &#127793;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">바위고슴도치</div>
+              <div class="critter-name-en">Rock Hedgehog</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-rare"
+                  style="background: rgba(80, 144, 248, 0.1)"
+                  >Rare</span
+                >
+                <span class="critter-tag tag-ap">AP 3</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(80, 200, 120, 0.1);
+                    color: var(--earth);
+                  "
+                  >축복 Bless</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(80, 200, 120, 0.15)"
+            >
+              &#127793;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">수정사슴</div>
+              <div class="critter-name-en">Crystal Stag</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-epic"
+                  style="background: rgba(144, 96, 216, 0.1)"
+                  >Epic</span
+                >
+                <span class="critter-tag tag-ap">AP 4</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(80, 200, 120, 0.1);
+                    color: var(--earth);
+                  "
+                  >재생 Regen</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wind -->
+        <h3 style="margin-bottom: 16px">
+          <span class="el-badge el-wind"
+            ><span class="el-dot el-dot-wind"></span>풍속성 Wind</span
+          >
+        </h3>
+        <div class="critter-grid" style="margin-bottom: 32px">
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(240, 208, 80, 0.15)"
+            >
+              &#127744;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">바람토끼</div>
+              <div class="critter-name-en">Gale Rabbit</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-common"
+                  style="background: rgba(136, 153, 170, 0.1)"
+                  >Common</span
+                >
+                <span class="critter-tag tag-ap">AP 2</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(240, 208, 80, 0.1);
+                    color: var(--wind);
+                  "
+                  >관통 Pierce</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(240, 208, 80, 0.15)"
+            >
+              &#127744;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">돌풍매</div>
+              <div class="critter-name-en">Storm Hawk</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-rare"
+                  style="background: rgba(80, 144, 248, 0.1)"
+                  >Rare</span
+                >
+                <span class="critter-tag tag-ap">AP 3</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(240, 208, 80, 0.1);
+                    color: var(--wind);
+                  "
+                  >연타 Double Strike</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(240, 208, 80, 0.15)"
+            >
+              &#127744;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">뇌전말벌</div>
+              <div class="critter-name-en">Thunder Wasp</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-epic"
+                  style="background: rgba(144, 96, 216, 0.1)"
+                  >Epic</span
+                >
+                <span class="critter-tag tag-ap">AP 4</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(240, 208, 80, 0.1);
+                    color: var(--wind);
+                  "
+                  >저주 Curse</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Light -->
+        <h3 style="margin-bottom: 16px">
+          <span class="el-badge el-light"
+            ><span class="el-dot el-dot-light"></span>광속성 Light</span
+          >
+        </h3>
+        <div class="critter-grid" style="margin-bottom: 32px">
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(240, 240, 240, 0.1)"
+            >
+              &#9728;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">빛사자</div>
+              <div class="critter-name-en">Radiant Lion</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-common"
+                  style="background: rgba(136, 153, 170, 0.1)"
+                  >Common</span
+                >
+                <span class="critter-tag tag-ap">AP 2</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(240, 240, 240, 0.08);
+                    color: var(--light);
+                  "
+                  >축복 Bless</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(240, 240, 240, 0.1)"
+            >
+              &#9728;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">현자부엉이</div>
+              <div class="critter-name-en">Sage Owl</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-rare"
+                  style="background: rgba(80, 144, 248, 0.1)"
+                  >Rare</span
+                >
+                <span class="critter-tag tag-ap">AP 3</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(240, 240, 240, 0.08);
+                    color: var(--light);
+                  "
+                  >흡수 Absorb</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(240, 240, 240, 0.1)"
+            >
+              &#9728;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">일각수</div>
+              <div class="critter-name-en">Prism Unicorn</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-epic"
+                  style="background: rgba(144, 96, 216, 0.1)"
+                  >Epic</span
+                >
+                <span class="critter-tag tag-ap">AP 4</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(240, 240, 240, 0.08);
+                    color: var(--light);
+                  "
+                  >스플래시 Splash</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dark -->
+        <h3 style="margin-bottom: 16px">
+          <span class="el-badge el-dark"
+            ><span class="el-dot el-dot-dark"></span>암속성 Dark</span
+          >
+        </h3>
+        <div class="critter-grid" style="margin-bottom: 32px">
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(144, 96, 216, 0.15)"
+            >
+              &#127769;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">그림자늑대</div>
+              <div class="critter-name-en">Shadow Wolf</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-common"
+                  style="background: rgba(136, 153, 170, 0.1)"
+                  >Common</span
+                >
+                <span class="critter-tag tag-ap">AP 2</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(144, 96, 216, 0.1);
+                    color: var(--dark);
+                  "
+                  >저주 Curse</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(144, 96, 216, 0.15)"
+            >
+              &#127769;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">공허고양이</div>
+              <div class="critter-name-en">Void Cat</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-rare"
+                  style="background: rgba(80, 144, 248, 0.1)"
+                  >Rare</span
+                >
+                <span class="critter-tag tag-ap">AP 3</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(144, 96, 216, 0.1);
+                    color: var(--dark);
+                  "
+                  >회수 Recall</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="critter-card">
+            <div
+              class="critter-avatar"
+              style="background: rgba(144, 96, 216, 0.15)"
+            >
+              &#127769;
+            </div>
+            <div class="critter-info">
+              <div class="critter-name">혼돈박쥐</div>
+              <div class="critter-name-en">Chaos Bat</div>
+              <div class="critter-meta">
+                <span
+                  class="critter-tag rarity-epic"
+                  style="background: rgba(144, 96, 216, 0.1)"
+                  >Epic</span
+                >
+                <span class="critter-tag tag-ap">AP 4</span>
+                <span
+                  class="critter-tag"
+                  style="
+                    background: rgba(144, 96, 216, 0.1);
+                    color: var(--dark);
+                  "
+                  >관통 Pierce</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Passives -->
+        <h3 style="margin-bottom: 16px">9가지 패시브 스킬</h3>
+        <div class="passive-grid">
+          <div class="passive-item">
+            <strong>&#128293; 관통 Pierce</strong
+            ><span>시야 1~2칸 무시하고 뒤의 적 타격</span>
+          </div>
+          <div class="passive-item">
+            <strong>&#128165; 스플래시 Splash</strong
+            ><span>처치 시 인접 적에게 추가 데미지</span>
+          </div>
+          <div class="passive-item">
+            <strong>&#9876; 연타 Double Strike</strong
+            ><span>AP 1당 2회 타격</span>
+          </div>
+          <div class="passive-item">
+            <strong>&#128260; 회수 Recall</strong
+            ><span>벤치 히어로 자동 큐 복귀</span>
+          </div>
+          <div class="passive-item">
+            <strong>&#128171; 흡수 Absorb</strong
+            ><span>처치 시 해당 크리처 AP +1 획득</span>
+          </div>
+          <div class="passive-item">
+            <strong>&#128737; 방벽 Barrier</strong
+            ><span>벤치 슬롯 오버플로우 보호</span>
+          </div>
+          <div class="passive-item">
+            <strong>&#10024; 축복 Bless</strong
+            ><span>같은 원소 아군 AP 보너스</span>
+          </div>
+          <div class="passive-item">
+            <strong>&#128128; 저주 Curse</strong><span>같은 원소 적 HP -1</span>
+          </div>
+          <div class="passive-item">
+            <strong>&#128154; 재생 Regen</strong
+            ><span>벤치 히어로 3턴 후 자동 복귀</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ ENEMIES ═══════════════════════════════════════════ -->
+    <section id="enemies">
+      <div class="container">
+        <span class="section-label">Enemy System</span>
+        <h2 class="section-title">역병(Blight) 적 시스템</h2>
+        <p class="section-desc">
+          6원소 × 3티어 = 18종 기본 적 + 4가지 특수 변이 + 6 월드 보스. 층이
+          올라갈수록 강력한 변이가 등장합니다.
+        </p>
+        <div class="sep"></div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>원소</th>
+                <th>T1 (HP 1)</th>
+                <th>T2 (HP 2)</th>
+                <th>T3 (HP 3)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="el-badge el-fire" style="font-size: 12px"
+                    ><span class="el-dot el-dot-fire"></span>화</span
+                  >
+                </td>
+                <td>
+                  불꽃슬라임
+                  <span style="color: var(--text-muted)">Ember Slime</span>
+                </td>
+                <td>
+                  용암두꺼비
+                  <span style="color: var(--text-muted)">Lava Toad</span>
+                </td>
+                <td>
+                  화염드레이크
+                  <span style="color: var(--text-muted)">Flame Drake</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="el-badge el-water" style="font-size: 12px"
+                    ><span class="el-dot el-dot-water"></span>수</span
+                  >
+                </td>
+                <td>
+                  독해파리
+                  <span style="color: var(--text-muted)">Toxic Jelly</span>
+                </td>
+                <td>
+                  타락잉어
+                  <span style="color: var(--text-muted)">Blight Koi</span>
+                </td>
+                <td>
+                  심해크라켄
+                  <span style="color: var(--text-muted)">Abyssal Kraken</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="el-badge el-earth" style="font-size: 12px"
+                    ><span class="el-dot el-dot-earth"></span>지</span
+                  >
+                </td>
+                <td>
+                  이끼버섯
+                  <span style="color: var(--text-muted)">Moss Shroom</span>
+                </td>
+                <td>
+                  바위골렘
+                  <span style="color: var(--text-muted)">Stone Golem</span>
+                </td>
+                <td>
+                  가시덩굴수
+                  <span style="color: var(--text-muted)">Thorn Treant</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="el-badge el-wind" style="font-size: 12px"
+                    ><span class="el-dot el-dot-wind"></span>풍</span
+                  >
+                </td>
+                <td>
+                  먼지악령
+                  <span style="color: var(--text-muted)">Dust Sprite</span>
+                </td>
+                <td>
+                  폭풍매
+                  <span style="color: var(--text-muted)">Gale Raptor</span>
+                </td>
+                <td>
+                  번개용
+                  <span style="color: var(--text-muted)">Thunder Dragon</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="el-badge el-light" style="font-size: 12px"
+                    ><span class="el-dot el-dot-light"></span>광</span
+                  >
+                </td>
+                <td>
+                  눈부신나방
+                  <span style="color: var(--text-muted)">Glare Moth</span>
+                </td>
+                <td>
+                  프리즘갑충
+                  <span style="color: var(--text-muted)">Prism Beetle</span>
+                </td>
+                <td>
+                  태양스핑크스
+                  <span style="color: var(--text-muted)">Solar Sphinx</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="el-badge el-dark" style="font-size: 12px"
+                    ><span class="el-dot el-dot-dark"></span>암</span
+                  >
+                </td>
+                <td>
+                  그림자쥐
+                  <span style="color: var(--text-muted)">Shadow Rat</span>
+                </td>
+                <td>
+                  공허박쥐
+                  <span style="color: var(--text-muted)">Void Bat</span>
+                </td>
+                <td>
+                  악몽기사
+                  <span style="color: var(--text-muted)">Nightmare Knight</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-bottom: 16px">4가지 특수 변이</h3>
+        <div style="margin-bottom: 24px">
+          <div class="modifier-row">
+            <div class="modifier-icon">&#128737;</div>
+            <div class="modifier-info">
+              <strong>아머 Armored</strong>
+              <p>첫 번째 히트 무효화, 두 번째 히트부터 정상 피해</p>
+            </div>
+            <div class="modifier-counter">카운터: 연타 / 상성</div>
+          </div>
+          <div class="modifier-row">
+            <div class="modifier-icon">&#128296;</div>
+            <div class="modifier-info">
+              <strong>분열 Splitting</strong>
+              <p>처치 시 T1 적 2마리로 분열</p>
+            </div>
+            <div class="modifier-counter">카운터: 스플래시</div>
+          </div>
+          <div class="modifier-row">
+            <div class="modifier-icon">&#128154;</div>
+            <div class="modifier-info">
+              <strong>흡수 Absorbing</strong>
+              <p>인접 아군 적에게 턴마다 HP +1 회복</p>
+            </div>
+            <div class="modifier-counter">카운터: 저주</div>
+          </div>
+          <div class="modifier-row">
+            <div class="modifier-icon">&#128128;</div>
+            <div class="modifier-info">
+              <strong>역병핵 Blight Core</strong>
+              <p>3×3 범위 아우라, 모든 적 턴마다 HP +1</p>
+            </div>
+            <div class="modifier-counter">카운터: 관통</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ RELICS ═══════════════════════════════════════════ -->
+    <section id="relics">
+      <div class="container">
+        <span class="section-label">Relic System</span>
+        <h2 class="section-title">15가지 유물</h2>
+        <p class="section-desc">
+          전투 보상으로 획득하는 런 한정 버프. 3개 중 택 1 (항상 Rare 이상 1개
+          보장). 유물 조합이 런 전략을 결정합니다.
+        </p>
+        <div class="sep"></div>
+
+        <h3 style="margin-bottom: 16px">코어 유물 (7종)</h3>
+        <div class="relic-grid" style="margin-bottom: 32px">
+          <div class="relic-item">
+            <div class="relic-icon" style="background: rgba(240, 96, 96, 0.15)">
+              &#128293;
+            </div>
+            <div>
+              <div class="relic-name rarity-common">Ring of Flames</div>
+              <div class="relic-effect">화속성 스플래시에 대각선 추가</div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div
+              class="relic-icon"
+              style="background: rgba(80, 144, 248, 0.15)"
+            >
+              &#128167;
+            </div>
+            <div>
+              <div class="relic-name rarity-common">Wave Amulet</div>
+              <div class="relic-effect">수속성 처치 시 인접 적 HP -1</div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div
+              class="relic-icon"
+              style="background: rgba(80, 200, 120, 0.15)"
+            >
+              &#128737;
+            </div>
+            <div>
+              <div class="relic-name rarity-rare">Earth Shield</div>
+              <div class="relic-effect">벤치 슬롯 +2 (5 &#8594; 7)</div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div
+              class="relic-icon"
+              style="background: rgba(240, 208, 80, 0.15)"
+            >
+              &#128094;
+            </div>
+            <div>
+              <div class="relic-name rarity-rare">Wind Boots</div>
+              <div class="relic-effect">궤도 속도 &#215;1.5 (2칸/이동)</div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div
+              class="relic-icon"
+              style="background: rgba(144, 96, 216, 0.15)"
+            >
+              &#128718;
+            </div>
+            <div>
+              <div class="relic-name rarity-rare">Shadow Cloak</div>
+              <div class="relic-effect">암속성 크리처 시야 무시</div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div
+              class="relic-icon"
+              style="background: rgba(240, 240, 240, 0.1)"
+            >
+              &#128142;
+            </div>
+            <div>
+              <div class="relic-name rarity-epic">Light Prism</div>
+              <div class="relic-effect">광속성이 모든 원소에 1 데미지</div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div class="relic-icon" style="background: rgba(233, 69, 96, 0.15)">
+              &#128260;
+            </div>
+            <div>
+              <div class="relic-name rarity-epic">Bench Recycler</div>
+              <div class="relic-effect">턴 시작 시 벤치에서 1명 자동 회수</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: 16px">확장 유물 (8종)</h3>
+        <div class="relic-grid">
+          <div class="relic-item">
+            <div class="relic-icon" style="background: rgba(255, 215, 0, 0.15)">
+              &#128081;
+            </div>
+            <div>
+              <div class="relic-name rarity-common">Combo Crown</div>
+              <div class="relic-effect">슬링 콤보 보너스 +5%</div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div class="relic-icon" style="background: rgba(80, 144, 248, 0.1)">
+              &#128270;
+            </div>
+            <div>
+              <div class="relic-name rarity-common">Scout Lens</div>
+              <div class="relic-effect">다음 노드 적 미리보기</div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div class="relic-icon" style="background: rgba(80, 200, 120, 0.1)">
+              &#127807;
+            </div>
+            <div>
+              <div class="relic-name rarity-common">Healing Herb</div>
+              <div class="relic-effect">
+                승리 시 지친 크리처 1명 AP 50% 회복
+              </div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div class="relic-icon" style="background: rgba(255, 215, 0, 0.1)">
+              &#129689;
+            </div>
+            <div>
+              <div class="relic-name rarity-common">Gold Magnet</div>
+              <div class="relic-effect">정화 점수 +25%</div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div class="relic-icon" style="background: rgba(144, 96, 216, 0.1)">
+              &#128142;
+            </div>
+            <div>
+              <div class="relic-name rarity-rare">Evolution Stone</div>
+              <div class="relic-effect">진화 시 AP +2 (기존 +1)</div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div class="relic-icon" style="background: rgba(80, 144, 248, 0.1)">
+              &#127873;
+            </div>
+            <div>
+              <div class="relic-name rarity-rare">Double Reward</div>
+              <div class="relic-effect">보상 선택지 4개 (기존 3개)</div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div class="relic-icon" style="background: rgba(233, 69, 96, 0.1)">
+              &#128128;
+            </div>
+            <div>
+              <div class="relic-name rarity-epic">Curse Amplifier</div>
+              <div class="relic-effect">
+                저주 효과 &#215;2 (HP-1 &#8594; HP-2)
+              </div>
+            </div>
+          </div>
+          <div class="relic-item">
+            <div class="relic-icon" style="background: rgba(233, 69, 96, 0.1)">
+              &#128163;
+            </div>
+            <div>
+              <div class="relic-name rarity-epic">Blight Bane</div>
+              <div class="relic-effect">특수 적 HP -1 (최소 1)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ ROGUELIKE ═══════════════════════════════════════════ -->
+    <section id="roguelike">
+      <div class="container">
+        <span class="section-label">Roguelike Mode</span>
+        <h2 class="section-title">로그라이크 런 구조</h2>
+        <p class="section-desc">
+          메인 게임 모드. 9마리 파티를 편성하고, 분기형 3층 + 보스 맵을
+          탐험합니다. 매 런마다 다른 경험.
+        </p>
+        <div class="sep"></div>
+
+        <h3 style="margin-bottom: 16px">씬 플로우</h3>
+        <div class="flow-diagram">
+          <span class="flow-node flow-meta">PartySelect</span>
+          <span class="flow-arrow">&#8594;</span>
+          <span class="flow-node flow-scene">RunMap</span>
+          <span class="flow-arrow">&#8594;</span>
+          <span class="flow-node flow-battle">Puzzle Battle</span>
+          <span class="flow-arrow">&#8594;</span>
+          <span class="flow-node flow-reward">Reward</span>
+          <span class="flow-arrow">&#8594;</span>
+          <span class="flow-node flow-scene">RunMap</span>
+          <span class="flow-arrow">&#8594;</span>
+          <span
+            class="flow-node"
+            style="
+              background: rgba(233, 69, 96, 0.2);
+              color: var(--accent);
+              border: 1px solid rgba(233, 69, 96, 0.4);
+            "
+            >&#9876; BOSS</span
+          >
+          <span class="flow-arrow">&#8594;</span>
+          <span class="flow-node flow-meta">RunResult</span>
+        </div>
+
+        <h3 style="margin-bottom: 16px">7가지 노드 타입</h3>
+        <div class="card-grid card-grid-3" style="margin-bottom: 40px">
+          <div class="card">
+            <h3 style="color: var(--accent)">
+              &#9876; Battle
+              <span
+                style="
+                  color: var(--text-muted);
+                  font-weight: 400;
+                  font-size: 13px;
+                "
+                >40%</span
+              >
+            </h3>
+            <p>표준 컨베이어 퍼즐 전투. 적 전멸 시 클리어.</p>
+          </div>
+          <div class="card">
+            <h3 style="color: var(--gold)">
+              &#9733; Elite
+              <span
+                style="
+                  color: var(--text-muted);
+                  font-weight: 400;
+                  font-size: 13px;
+                "
+                >15%</span
+              >
+            </h3>
+            <p>적 HP +50%, 특수 변이 +20%. 보상 2배.</p>
+          </div>
+          <div class="card">
+            <h3 style="color: var(--earth)">
+              &#128722; Shop
+              <span
+                style="
+                  color: var(--text-muted);
+                  font-weight: 400;
+                  font-size: 13px;
+                "
+                >10%</span
+              >
+            </h3>
+            <p>크리처 레벨업, 유물 구매, AP 회복.</p>
+          </div>
+          <div class="card">
+            <h3 style="color: var(--water)">
+              &#128716; Rest
+              <span
+                style="
+                  color: var(--text-muted);
+                  font-weight: 400;
+                  font-size: 13px;
+                "
+                >10%</span
+              >
+            </h3>
+            <p>벤치 회복 / 크리처 훈련 / 정찰 중 택1.</p>
+          </div>
+          <div class="card">
+            <h3 style="color: var(--dark)">
+              &#127922; Event
+              <span
+                style="
+                  color: var(--text-muted);
+                  font-weight: 400;
+                  font-size: 13px;
+                "
+                >15%</span
+              >
+            </h3>
+            <p>10가지 이벤트. 리스크/리워드 선택.</p>
+          </div>
+          <div class="card">
+            <h3 style="color: var(--accent)">
+              &#128128; Boss
+              <span
+                style="
+                  color: var(--text-muted);
+                  font-weight: 400;
+                  font-size: 13px;
+                "
+                >고정</span
+              >
+            </h3>
+            <p>월드 보스 + 미니언 + 역병핵. 런당 1회.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: 16px">층별 난이도 스케일링</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Floor</th>
+                <th>Total HP</th>
+                <th>Elements</th>
+                <th>Special Enemies</th>
+                <th>AP Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>F1</strong></td>
+                <td>12–16</td>
+                <td>2–3</td>
+                <td>None</td>
+                <td style="color: var(--earth)">1.5+ (Easy)</td>
+              </tr>
+              <tr>
+                <td><strong>F2</strong></td>
+                <td>18–24</td>
+                <td>3–4</td>
+                <td>Armor 10-20%</td>
+                <td style="color: var(--water)">1.2–1.5 (Normal)</td>
+              </tr>
+              <tr>
+                <td><strong>F3</strong></td>
+                <td>24–32</td>
+                <td>4–5</td>
+                <td>Armor + Splitting</td>
+                <td style="color: var(--wind)">1.0–1.2 (Hard)</td>
+              </tr>
+              <tr>
+                <td><strong>BOSS</strong></td>
+                <td>35–45</td>
+                <td>5–6</td>
+                <td>All types + Core</td>
+                <td style="color: var(--accent)">0.9–1.1 (Extreme)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ LEVELS ═══════════════════════════════════════════ -->
+    <section id="levels">
+      <div class="container">
+        <span class="section-label">World 1 Levels</span>
+        <h2 class="section-title">Magma Market 10 스테이지</h2>
+        <p class="section-desc">
+          S-커브 난이도 곡선: 1-2 Easy &#8594; 3-6 Normal &#8594; 7-9 Hard
+          &#8594; 10 Boss. 전체 구현 완료.
+        </p>
+        <div class="sep"></div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Difficulty</th>
+                <th>Board</th>
+                <th>Elements</th>
+                <th>Total HP</th>
+                <th>Heroes</th>
+                <th>AP</th>
+                <th>AP/HP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>001</td>
+                <td><strong>First Steps</strong></td>
+                <td><span class="level-diff diff-easy">Easy</span></td>
+                <td>4&#215;4</td>
+                <td>2</td>
+                <td>14</td>
+                <td>8</td>
+                <td>16</td>
+                <td>1.14</td>
+              </tr>
+              <tr>
+                <td>002</td>
+                <td><strong>Triple Threat</strong></td>
+                <td><span class="level-diff diff-easy">Easy</span></td>
+                <td>4&#215;5</td>
+                <td>3</td>
+                <td>12</td>
+                <td>8</td>
+                <td>18</td>
+                <td>1.50</td>
+              </tr>
+              <tr>
+                <td>003</td>
+                <td><strong>Tight Quarters</strong></td>
+                <td><span class="level-diff diff-normal">Normal</span></td>
+                <td>5&#215;5</td>
+                <td>3</td>
+                <td>21</td>
+                <td>12</td>
+                <td>28</td>
+                <td>1.33</td>
+              </tr>
+              <tr>
+                <td>004</td>
+                <td><strong>Split Decision</strong></td>
+                <td><span class="level-diff diff-normal">Normal</span></td>
+                <td>4&#215;6</td>
+                <td>4</td>
+                <td>20</td>
+                <td>10</td>
+                <td>23</td>
+                <td>1.15</td>
+              </tr>
+              <tr>
+                <td>005</td>
+                <td><strong>Gravity Well</strong></td>
+                <td><span class="level-diff diff-normal">Normal</span></td>
+                <td>5&#215;5</td>
+                <td>4</td>
+                <td>19</td>
+                <td>10</td>
+                <td>24</td>
+                <td>1.26</td>
+              </tr>
+              <tr>
+                <td>006</td>
+                <td><strong>Shining Path</strong></td>
+                <td><span class="level-diff diff-normal">Normal</span></td>
+                <td>5&#215;6</td>
+                <td>5</td>
+                <td>22</td>
+                <td>12</td>
+                <td>28</td>
+                <td>1.27</td>
+              </tr>
+              <tr>
+                <td>007</td>
+                <td><strong>Dark Curtain</strong></td>
+                <td><span class="level-diff diff-hard">Hard</span></td>
+                <td>5&#215;6</td>
+                <td>6</td>
+                <td>22</td>
+                <td>16</td>
+                <td>34</td>
+                <td>1.55</td>
+              </tr>
+              <tr>
+                <td>008</td>
+                <td><strong>Iron Wall</strong></td>
+                <td><span class="level-diff diff-hard">Hard</span></td>
+                <td>5&#215;6</td>
+                <td>4</td>
+                <td>24</td>
+                <td>14</td>
+                <td>33</td>
+                <td>1.38</td>
+              </tr>
+              <tr>
+                <td>009</td>
+                <td><strong>Gauntlet</strong></td>
+                <td><span class="level-diff diff-hard">Hard</span></td>
+                <td>6&#215;6</td>
+                <td>6</td>
+                <td>28</td>
+                <td>16</td>
+                <td>36</td>
+                <td>1.29</td>
+              </tr>
+              <tr>
+                <td>010</td>
+                <td><strong>Final Stand</strong></td>
+                <td><span class="level-diff diff-boss">Boss</span></td>
+                <td>6&#215;7</td>
+                <td>6</td>
+                <td>36</td>
+                <td>19</td>
+                <td>43</td>
+                <td>1.19</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-bottom: 16px">스코어 시스템</h3>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--text); font-size: 24px"
+            >
+              100
+            </div>
+            <div class="stat-box-label">Base Score / Cube</div>
+          </div>
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--wind); font-size: 24px"
+            >
+              +10%
+            </div>
+            <div class="stat-box-label">Per Sling Combo</div>
+          </div>
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--earth); font-size: 24px"
+            >
+              200
+            </div>
+            <div class="stat-box-label">Remaining Hero Bonus</div>
+          </div>
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--gold); font-size: 24px"
+            >
+              &#215;1.5
+            </div>
+            <div class="stat-box-label">Advantage Bonus</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ META ═══════════════════════════════════════════ -->
+    <section id="meta">
+      <div class="container">
+        <span class="section-label">Meta Progression</span>
+        <h2 class="section-title">영구 진행 시스템</h2>
+        <p class="section-desc">
+          런 결과에 따라 정화 결정(Crystal)을 획득하고, 마을을 업그레이드합니다.
+          약 40런(20-30시간)에 전체 맥스.
+        </p>
+        <div class="sep"></div>
+
+        <h3 style="margin-bottom: 16px">마을(Hometown) 건물 5종</h3>
+        <div class="hometown-grid" style="margin-bottom: 40px">
+          <div class="hometown-card">
+            <div class="icon">&#127979;</div>
+            <h4>Training Hall</h4>
+            <p>크리처 경험치 +10~50%</p>
+            <div class="max">Max Lv 5 | Cost: 200~3000</div>
+          </div>
+          <div class="hometown-card">
+            <div class="icon">&#127976;</div>
+            <h4>Inn</h4>
+            <p>벤치 슬롯 +1~3 (5&#8594;8)</p>
+            <div class="max">Max Lv 3 | Cost: 300~2000</div>
+          </div>
+          <div class="hometown-card">
+            <div class="icon">&#9876;</div>
+            <h4>Forge</h4>
+            <p>전체 크리처 시작 AP +1~3</p>
+            <div class="max">Max Lv 3 | Cost: 500~4000</div>
+          </div>
+          <div class="hometown-card">
+            <div class="icon">&#127960;</div>
+            <h4>Watchtower</h4>
+            <p>맵 노드 1~3개 미리 공개</p>
+            <div class="max">Max Lv 3 | Cost: 200~1200</div>
+          </div>
+          <div class="hometown-card">
+            <div class="icon">&#9878;</div>
+            <h4>Merchant Guild</h4>
+            <p>상점 가격 -10~20%</p>
+            <div class="max">Max Lv 3 | Cost: 300~1500</div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: 16px">도감(Codex) 마일스톤</h3>
+        <div class="table-wrap" style="margin-bottom: 40px">
+          <table>
+            <thead>
+              <tr>
+                <th>달성률</th>
+                <th>크리처 도감 보상</th>
+                <th>역병 도감 보상</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>25%</strong></td>
+                <td>그림자늑대 무료 획득</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td><strong>50%</strong></td>
+                <td>유물 슬롯 +1</td>
+                <td>적 미리보기 해금</td>
+              </tr>
+              <tr>
+                <td><strong>75%</strong></td>
+                <td>시작 시 무료 유물 1개</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td><strong>100%</strong></td>
+                <td>"원소의 사당" 건물 해금</td>
+                <td>전체 적 HP -1 (영구)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-bottom: 16px">크리처 성장 체계</h3>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--earth); font-size: 24px"
+            >
+              Lv 3
+            </div>
+            <div class="stat-box-label">Passive Strengthen</div>
+          </div>
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--water); font-size: 24px"
+            >
+              Lv 5
+            </div>
+            <div class="stat-box-label">Evolution Unlock</div>
+          </div>
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--wind); font-size: 24px"
+            >
+              Lv 7
+            </div>
+            <div class="stat-box-label">2nd Passive</div>
+          </div>
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--accent); font-size: 24px"
+            >
+              Lv 10
+            </div>
+            <div class="stat-box-label">Ultimate Skill</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ TECH ═══════════════════════════════════════════ -->
+    <section id="tech">
+      <div class="container">
+        <span class="section-label">Technical</span>
+        <h2 class="section-title">기술 스택 &amp; 아키텍처</h2>
+        <p class="section-desc">
+          순수 TypeScript 코어 + Phaser 렌더링 분리 아키텍처. 프로시저럴
+          픽셀아트, 200개 파티클 풀, EventBus 통신.
+        </p>
+        <div class="sep"></div>
+
+        <h3 style="margin-bottom: 16px">Tech Stack</h3>
+        <div class="tech-grid" style="margin-bottom: 40px">
+          <div class="tech-item">
+            <div class="tech-icon">&#127918;</div>
+            <div>
+              <div class="tech-name">Phaser</div>
+              <div class="tech-ver">v3.90+</div>
+            </div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-icon">&#128221;</div>
+            <div>
+              <div class="tech-name">TypeScript</div>
+              <div class="tech-ver">v5.7+ (strict)</div>
+            </div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-icon">&#9889;</div>
+            <div>
+              <div class="tech-name">Vite</div>
+              <div class="tech-ver">v6</div>
+            </div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-icon">&#9989;</div>
+            <div>
+              <div class="tech-name">Vitest</div>
+              <div class="tech-ver">v3</div>
+            </div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-icon">&#9650;</div>
+            <div>
+              <div class="tech-name">Vercel</div>
+              <div class="tech-ver">Deploy</div>
+            </div>
+          </div>
+          <div class="tech-item">
+            <div class="tech-icon">&#128241;</div>
+            <div>
+              <div class="tech-name">Mobile-First</div>
+              <div class="tech-ver">720&#215;1280 (9:16)</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: 16px">아키텍처 분리</h3>
+        <div class="card-grid" style="margin-bottom: 40px">
+          <div class="card">
+            <h3
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 16px;
+                color: var(--earth);
+              "
+            >
+              src/core/
+            </h3>
+            <p>
+              순수 TypeScript. Phaser 의존 없음. 모든 게임 로직(TurnResolver,
+              BoardState, RunManager, CritterManager 등)이 여기에. 100% 유닛
+              테스트 가능.
+            </p>
+          </div>
+          <div class="card">
+            <h3
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 16px;
+                color: var(--water);
+              "
+            >
+              src/scenes/
+            </h3>
+            <p>
+              Phaser Scene 렌더링 전용. EventBus로 core와 통신. PuzzleScene,
+              RunMapScene, RewardScene 등 12개 씬.
+            </p>
+          </div>
+          <div class="card">
+            <h3
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 16px;
+                color: var(--wind);
+              "
+            >
+              src/config/
+            </h3>
+            <p>
+              밸런스 상수(balance.ts), 로그라이크 밸런스(roguelike-balance.ts),
+              메타 밸런스(meta-balance.ts), 컬러 팔레트(colors.ts).
+            </p>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: 16px">12 Game Scenes</h3>
+        <div class="table-wrap" style="margin-bottom: 40px">
+          <table>
+            <thead>
+              <tr>
+                <th>Scene</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>PreloadScene</strong></td>
+                <td>프로시저럴 텍스처 생성 (히어로, 큐브, 이펙트)</td>
+              </tr>
+              <tr>
+                <td><strong>BootScene</strong></td>
+                <td>초기화, 설정 로드</td>
+              </tr>
+              <tr>
+                <td><strong>ModeSelectScene</strong></td>
+                <td>Standard / Roguelike / Collection 모드 선택</td>
+              </tr>
+              <tr>
+                <td><strong>StageSelectScene</strong></td>
+                <td>레벨 선택 + 별 표시</td>
+              </tr>
+              <tr>
+                <td><strong>PartySelectScene</strong></td>
+                <td>로그라이크 9마리 파티 편성</td>
+              </tr>
+              <tr>
+                <td><strong>RunMapScene</strong></td>
+                <td>분기형 로그라이크 맵 탐험 + 보스 인트로</td>
+              </tr>
+              <tr>
+                <td><strong>PuzzleScene</strong></td>
+                <td>핵심 컨베이어 퍼즐 전투 + 앰비언트 파티클</td>
+              </tr>
+              <tr>
+                <td><strong>VictoryScene</strong></td>
+                <td>클리어 결과, 별 평가</td>
+              </tr>
+              <tr>
+                <td><strong>RewardScene</strong></td>
+                <td>전투 후 보상 3택 (유물/크리처)</td>
+              </tr>
+              <tr>
+                <td><strong>RunResultScene</strong></td>
+                <td>런 종합 결과 (승리/패배)</td>
+              </tr>
+              <tr>
+                <td><strong>PauseOverlay</strong></td>
+                <td>일시정지 오버레이</td>
+              </tr>
+              <tr>
+                <td><strong>SettingsOverlay</strong></td>
+                <td>설정 오버레이</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-bottom: 16px">CombatPlugin 시스템</h3>
+        <div class="flow-diagram">
+          <span class="flow-node flow-battle">TurnResolver</span>
+          <span class="flow-arrow">&#8594;</span>
+          <span class="flow-node flow-scene">8 Hooks</span>
+          <span class="flow-arrow">&#8594;</span>
+          <span class="flow-node flow-meta">PassiveResolver</span>
+          <span class="flow-arrow">+</span>
+          <span class="flow-node flow-reward">ModifierResolver</span>
+          <span class="flow-arrow">+</span>
+          <span
+            class="flow-node"
+            style="
+              background: rgba(144, 96, 216, 0.15);
+              color: var(--dark);
+              border: 1px solid rgba(144, 96, 216, 0.3);
+            "
+            >RelicResolver</span
+          >
+        </div>
+
+        <h3 style="margin-bottom: 16px">비주얼 시스템</h3>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--accent); font-size: 24px"
+            >
+              200
+            </div>
+            <div class="stat-box-label">Particle Pool</div>
+          </div>
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--earth); font-size: 24px"
+            >
+              100%
+            </div>
+            <div class="stat-box-label">Procedural Art</div>
+          </div>
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--water); font-size: 24px"
+            >
+              6
+            </div>
+            <div class="stat-box-label">Element VFX</div>
+          </div>
+          <div class="stat-box">
+            <div
+              class="stat-box-num"
+              style="color: var(--gold); font-size: 24px"
+            >
+              SUPER!
+            </div>
+            <div class="stat-box-label">Advantage VFX</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ STATUS ═══════════════════════════════════════════ -->
+    <section id="status" style="border-bottom: none">
+      <div class="container">
+        <span class="section-label">Implementation Status</span>
+        <h2 class="section-title">구현 현황</h2>
+        <p class="section-desc">
+          2026-02-26 기준. 357 테스트, 18개 SPEC, 12개 씬, 10개 레벨 구현 완료.
+        </p>
+        <div class="sep"></div>
+
+        <div class="stats-row" style="margin-bottom: 48px">
+          <div class="stat-box">
+            <div class="stat-box-num" style="color: var(--earth)">357</div>
+            <div class="stat-box-label">Tests Passing</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num" style="color: var(--water)">18</div>
+            <div class="stat-box-label">SPECs Defined</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num" style="color: var(--wind)">12</div>
+            <div class="stat-box-label">Game Scenes</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num" style="color: var(--accent)">22</div>
+            <div class="stat-box-label">Dev Skills</div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: 16px">SPEC 구현 상태</h3>
+        <div class="progress-group">
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>SPEC-001~007 Core Puzzle</span
+              ><span style="color: var(--earth)">Verified</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-done" style="width: 100%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>SPEC-006A Hero Grid Level Data</span
+              ><span style="color: var(--earth)">Implemented</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-done" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>SPEC-011 Roguelike Core</span
+              ><span style="color: var(--earth)">Implemented</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-done" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>SPEC-012 Critter System</span
+              ><span style="color: var(--earth)">Implemented</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-done" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>SPEC-013 Enemy Bestiary</span
+              ><span style="color: var(--earth)">Implemented</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-done" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>SPEC-014 Relic System (104 tests)</span
+              ><span style="color: var(--earth)">Implemented</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-done" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>SPEC-015 Meta Progression</span
+              ><span style="color: var(--earth)">Implemented</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-done" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>SPEC-016 Element Advantage</span
+              ><span style="color: var(--earth)">Implemented</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-done" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>SPEC-017 Visual Polish</span
+              ><span style="color: var(--earth)">Implemented</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-done" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>SPEC-020 Hero Queue System</span
+              ><span style="color: var(--earth)">Implemented</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-done" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>SPEC-010 Worldbuilding</span
+              ><span style="color: var(--wind)">Draft</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-draft" style="width: 30%"></div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: 16px">다음 개발 후보</h3>
+        <div class="card-grid card-grid-3">
+          <div class="card">
+            <h3 style="color: var(--water)">B. 월드빌딩</h3>
+            <p>스토리 텍스트, NPC, 지구별 배경 아트, 내러티브 이벤트 구현.</p>
+          </div>
+          <div class="card">
+            <h3 style="color: var(--earth)">D. World 2 레벨</h3>
+            <p>Abyssal Dock 10 스테이지 디자인 + 수속성 중심 밸런스.</p>
+          </div>
+          <div class="card">
+            <h3 style="color: var(--dark)">E. 고급 로그라이크</h3>
+            <p>이벤트 노드 10종, 상점 UI, 크리처 진화 연출.</p>
+          </div>
+          <div class="card">
+            <h3 style="color: var(--wind)">F. 오디오</h3>
+            <p>BGM, SFX, 원소별 파괴 사운드, UI 피드백 사운드.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ FOOTER ═══════════════════════════════════════════ -->
+    <footer>
+      <div class="container">
+        <div class="logo">HKD852 Studio</div>
+        <p>Project WanChai &mdash; Game Overview Document</p>
+        <p style="margin-top: 4px; color: var(--text-muted)">
+          Generated 2026-02-26 | 357 Tests | v13
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

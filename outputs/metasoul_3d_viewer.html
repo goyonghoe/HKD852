@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>META SOUL - 3D Character Viewer</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #1a1a2e;
+        overflow: hidden;
+        font-family: "Orbitron", "Segoe UI", sans-serif;
+        color: #fff;
+      }
+      #canvas {
+        width: 100vw;
+        height: 100vh;
+        display: block;
+      }
+
+      .hud-top {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        z-index: 10;
+        pointer-events: none;
+      }
+      .hud-top h1 {
+        font-size: 28px;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+        background: linear-gradient(90deg, #ff6a00, #00f0ff, #ff6a00);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 3s linear infinite;
+        text-shadow: 0 0 30px rgba(255, 106, 0, 0.3);
+      }
+      .hud-top p {
+        font-size: 11px;
+        letter-spacing: 4px;
+        color: #99aacc;
+        margin-top: 6px;
+      }
+
+      @keyframes shimmer {
+        to {
+          background-position: 200% center;
+        }
+      }
+
+      .controls {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+        z-index: 10;
+      }
+      .controls button {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 106, 0, 0.3);
+        color: #aaa;
+        padding: 10px 22px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 12px;
+        letter-spacing: 2px;
+        transition: all 0.3s;
+      }
+      .controls button:hover,
+      .controls button.active {
+        background: rgba(255, 106, 0, 0.15);
+        border-color: #ff6a00;
+        color: #ff6a00;
+        box-shadow: 0 0 20px rgba(255, 106, 0, 0.2);
+      }
+
+      .stats {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10;
+        font-size: 10px;
+        color: #7788aa;
+        letter-spacing: 2px;
+        text-align: right;
+        pointer-events: none;
+      }
+      .stats .val {
+        color: #ff6a00;
+      }
+
+      .scan-line {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 240, 255, 0.015) 2px,
+          rgba(0, 240, 255, 0.015) 4px
+        );
+        pointer-events: none;
+        z-index: 5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scan-line"></div>
+
+    <div class="hud-top">
+      <h1>META SOUL #74</h1>
+      <p>HOLOGRAPHIC DISPLAY SYSTEM</p>
+    </div>
+
+    <div class="stats">
+      <div>SOUL_ID <span class="val">#074</span></div>
+      <div>STATUS <span class="val">ACTIVE</span></div>
+      <div>RENDER <span class="val" id="fps">60</span> FPS</div>
+    </div>
+
+    <div class="controls">
+      <button class="active" onclick="setMode('orbit')">ORBIT</button>
+      <button onclick="setMode('float')">FLOAT</button>
+      <button onclick="setMode('glitch')">GLITCH</button>
+      <button onclick="toggleWireframe()">WIREFRAME</button>
+      <button onclick="toggleParticles()">PARTICLES</button>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+
+      const canvas = document.getElementById("canvas");
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: true,
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 2.0;
+
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x1a1a2e, 0.03);
+
+      const camera = new THREE.PerspectiveCamera(
+        45,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        100,
+      );
+      camera.position.set(0, 0, 5);
+
+      // --- Lights ---
+      const ambientLight = new THREE.AmbientLight(0x667799, 2.0);
+      scene.add(ambientLight);
+
+      const keyLight = new THREE.PointLight(0xff8833, 4, 20);
+      keyLight.position.set(3, 3, 4);
+      scene.add(keyLight);
+
+      const fillLight = new THREE.PointLight(0x44ddff, 3, 20);
+      fillLight.position.set(-3, -1, 3);
+      scene.add(fillLight);
+
+      const rimLight = new THREE.PointLight(0xff55cc, 2.5, 15);
+      rimLight.position.set(0, 3, -3);
+      scene.add(rimLight);
+
+      const frontLight = new THREE.DirectionalLight(0xffffff, 1.5);
+      frontLight.position.set(0, 0, 5);
+      scene.add(frontLight);
+
+      // --- Character Card (front + back) ---
+      const loader = new THREE.TextureLoader();
+      const charTexture = loader.load(
+        "https://metasoulclub.com/assets/samples/74.png",
+      );
+      charTexture.colorSpace = THREE.SRGBColorSpace;
+
+      const cardGroup = new THREE.Group();
+
+      // Main card - front
+      const cardGeo = new THREE.PlaneGeometry(2, 2.6, 32, 32);
+      const cardMat = new THREE.MeshPhysicalMaterial({
+        map: charTexture,
+        transparent: true,
+        side: THREE.FrontSide,
+        roughness: 0.3,
+        metalness: 0.1,
+        clearcoat: 0.8,
+        clearcoatRoughness: 0.2,
+        emissive: new THREE.Color(0x110800),
+        emissiveIntensity: 0.3,
+      });
+      const cardMesh = new THREE.Mesh(cardGeo, cardMat);
+      cardGroup.add(cardMesh);
+
+      // Back face - holographic
+      const backMat = new THREE.MeshPhysicalMaterial({
+        color: 0x111122,
+        side: THREE.BackSide,
+        roughness: 0.2,
+        metalness: 0.9,
+        clearcoat: 1.0,
+        emissive: new THREE.Color(0x001a33),
+        emissiveIntensity: 0.5,
+      });
+      const backMesh = new THREE.Mesh(cardGeo.clone(), backMat);
+      cardGroup.add(backMesh);
+
+      // Edge glow frame
+      const edgeGeo = new THREE.EdgesGeometry(
+        new THREE.BoxGeometry(2.05, 2.65, 0.02),
+      );
+      const edgeMat = new THREE.LineBasicMaterial({
+        color: 0xff6a00,
+        transparent: true,
+        opacity: 0.4,
+      });
+      const edgeLines = new THREE.LineSegments(edgeGeo, edgeMat);
+      cardGroup.add(edgeLines);
+
+      scene.add(cardGroup);
+
+      // --- Holographic ring ---
+      const ringGeo = new THREE.TorusGeometry(1.8, 0.008, 16, 100);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: 0x00f0ff,
+        transparent: true,
+        opacity: 0.3,
+      });
+      const ring1 = new THREE.Mesh(ringGeo, ringMat);
+      ring1.rotation.x = Math.PI / 2;
+      cardGroup.add(ring1);
+
+      const ring2 = ring1.clone();
+      ring2.rotation.x = Math.PI / 2;
+      ring2.rotation.z = Math.PI / 6;
+      ring2.material = ringMat.clone();
+      ring2.material.color.set(0xff6a00);
+      ring2.material.opacity = 0.2;
+      cardGroup.add(ring2);
+
+      const ring3 = ring1.clone();
+      ring3.rotation.x = Math.PI / 3;
+      ring3.rotation.y = Math.PI / 4;
+      ring3.material = ringMat.clone();
+      ring3.material.color.set(0xff00aa);
+      ring3.material.opacity = 0.15;
+      cardGroup.add(ring3);
+
+      // --- Floating data points ---
+      const dataGeo = new THREE.BufferGeometry();
+      const dataCount = 40;
+      const dataPos = new Float32Array(dataCount * 3);
+      for (let i = 0; i < dataCount; i++) {
+        const angle = (i / dataCount) * Math.PI * 2;
+        const r = 1.6 + Math.random() * 0.5;
+        dataPos[i * 3] = Math.cos(angle) * r;
+        dataPos[i * 3 + 1] = (Math.random() - 0.5) * 2.5;
+        dataPos[i * 3 + 2] = Math.sin(angle) * r * 0.3;
+      }
+      dataGeo.setAttribute("position", new THREE.BufferAttribute(dataPos, 3));
+      const dataMat = new THREE.PointsMaterial({
+        color: 0x00f0ff,
+        size: 0.03,
+        transparent: true,
+        opacity: 0.6,
+      });
+      const dataPoints = new THREE.Points(dataGeo, dataMat);
+      cardGroup.add(dataPoints);
+
+      // --- Particle system ---
+      const particleCount = 800;
+      const particleGeo = new THREE.BufferGeometry();
+      const particlePositions = new Float32Array(particleCount * 3);
+      const particleSpeeds = new Float32Array(particleCount);
+      for (let i = 0; i < particleCount; i++) {
+        particlePositions[i * 3] = (Math.random() - 0.5) * 12;
+        particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 12;
+        particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 12;
+        particleSpeeds[i] = 0.002 + Math.random() * 0.008;
+      }
+      particleGeo.setAttribute(
+        "position",
+        new THREE.BufferAttribute(particlePositions, 3),
+      );
+      const particleMat = new THREE.PointsMaterial({
+        color: 0xff6a00,
+        size: 0.02,
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+      const particles = new THREE.Points(particleGeo, particleMat);
+      scene.add(particles);
+
+      // --- Ground grid ---
+      const gridHelper = new THREE.GridHelper(20, 40, 0x334466, 0x1a1a3a);
+      gridHelper.position.y = -2;
+      scene.add(gridHelper);
+
+      // --- Wireframe overlay ---
+      const wireGeo = new THREE.PlaneGeometry(2, 2.6, 12, 16);
+      const wireMat = new THREE.MeshBasicMaterial({
+        color: 0x00f0ff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0,
+      });
+      const wireMesh = new THREE.Mesh(wireGeo, wireMat);
+      wireMesh.position.z = 0.01;
+      cardGroup.add(wireMesh);
+
+      // --- State ---
+      let mode = "orbit";
+      let showWireframe = false;
+      let showParticles = true;
+      let mouseX = 0,
+        mouseY = 0;
+      let targetRotX = 0,
+        targetRotY = 0;
+      let glitchTimer = 0;
+      let frameCount = 0;
+      let lastFpsUpdate = performance.now();
+
+      window.setMode = (m) => {
+        mode = m;
+        document
+          .querySelectorAll(".controls button")
+          .forEach((b) => b.classList.remove("active"));
+        event.target.classList.add("active");
+      };
+
+      window.toggleWireframe = () => {
+        showWireframe = !showWireframe;
+        wireMat.opacity = showWireframe ? 0.15 : 0;
+        event.target.classList.toggle("active");
+      };
+
+      window.toggleParticles = () => {
+        showParticles = !showParticles;
+        particles.visible = showParticles;
+        event.target.classList.toggle("active");
+      };
+
+      // --- Mouse interaction ---
+      let isDragging = false;
+      let dragStartX = 0,
+        dragStartY = 0;
+      let rotOffsetX = 0,
+        rotOffsetY = 0;
+
+      canvas.addEventListener("mousemove", (e) => {
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+        if (isDragging) {
+          rotOffsetY += (e.clientX - dragStartX) * 0.005;
+          rotOffsetX += (e.clientY - dragStartY) * 0.005;
+          dragStartX = e.clientX;
+          dragStartY = e.clientY;
+        }
+      });
+
+      canvas.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+      });
+
+      canvas.addEventListener("mouseup", () => {
+        isDragging = false;
+      });
+      canvas.addEventListener("mouseleave", () => {
+        isDragging = false;
+      });
+
+      // Touch support
+      canvas.addEventListener(
+        "touchmove",
+        (e) => {
+          e.preventDefault();
+          const t = e.touches[0];
+          mouseX = (t.clientX / window.innerWidth) * 2 - 1;
+          mouseY = (t.clientY / window.innerHeight) * 2 - 1;
+        },
+        { passive: false },
+      );
+
+      // Scroll to zoom
+      canvas.addEventListener("wheel", (e) => {
+        camera.position.z = Math.max(
+          2.5,
+          Math.min(8, camera.position.z + e.deltaY * 0.005),
+        );
+      });
+
+      // --- Animation ---
+      const clock = new THREE.Clock();
+
+      function animate() {
+        requestAnimationFrame(animate);
+        const t = clock.getElapsedTime();
+        const dt = clock.getDelta();
+
+        // Mode-based rotation
+        switch (mode) {
+          case "orbit":
+            targetRotY = t * 0.3 + rotOffsetY;
+            targetRotX = Math.sin(t * 0.5) * 0.15 + rotOffsetX;
+            break;
+          case "float":
+            targetRotY = Math.sin(t * 0.4) * 0.6 + rotOffsetY;
+            targetRotX = Math.cos(t * 0.3) * 0.2 + rotOffsetX;
+            cardGroup.position.y = Math.sin(t * 0.8) * 0.15;
+            break;
+          case "glitch":
+            targetRotY = t * 0.3 + rotOffsetY;
+            targetRotX = rotOffsetX;
+            glitchTimer += dt;
+            if (glitchTimer > 2 + Math.random() * 3) {
+              glitchTimer = 0;
+              cardGroup.position.x = (Math.random() - 0.5) * 0.3;
+              cardGroup.position.y = (Math.random() - 0.5) * 0.1;
+              cardMat.emissiveIntensity = 1.5;
+              edgeMat.opacity = 1;
+              setTimeout(() => {
+                cardGroup.position.x = 0;
+                cardGroup.position.y = 0;
+                cardMat.emissiveIntensity = 0.3;
+                edgeMat.opacity = 0.4;
+              }, 80);
+            }
+            break;
+        }
+
+        // Mouse influence (subtle)
+        if (!isDragging) {
+          targetRotY += mouseX * 0.1;
+          targetRotX += mouseY * 0.05;
+        }
+
+        // Smooth rotation
+        cardGroup.rotation.y += (targetRotY - cardGroup.rotation.y) * 0.05;
+        cardGroup.rotation.x += (targetRotX - cardGroup.rotation.x) * 0.05;
+
+        // Ring animations
+        ring1.rotation.z = t * 0.2;
+        ring2.rotation.z = -t * 0.15;
+        ring3.rotation.z = t * 0.25;
+        ring1.material.opacity = 0.2 + Math.sin(t * 2) * 0.1;
+
+        // Data points orbit
+        dataPoints.rotation.y = t * 0.1;
+
+        // Particle animation
+        if (showParticles) {
+          const pos = particles.geometry.attributes.position.array;
+          for (let i = 0; i < particleCount; i++) {
+            pos[i * 3 + 1] += particleSpeeds[i];
+            if (pos[i * 3 + 1] > 6) pos[i * 3 + 1] = -6;
+          }
+          particles.geometry.attributes.position.needsUpdate = true;
+          particles.rotation.y = t * 0.02;
+        }
+
+        // Light animation
+        keyLight.intensity = 2 + Math.sin(t * 1.5) * 0.3;
+        fillLight.position.x = Math.cos(t * 0.5) * 3;
+
+        // Edge glow pulse
+        edgeMat.opacity = 0.3 + Math.sin(t * 2) * 0.15;
+
+        // Card vertex displacement (holographic wave)
+        const positions = cardGeo.attributes.position.array;
+        for (let i = 0; i < positions.length; i += 3) {
+          positions[i + 2] =
+            Math.sin(positions[i] * 3 + t * 2) * 0.02 +
+            Math.cos(positions[i + 1] * 2 + t * 1.5) * 0.015;
+        }
+        cardGeo.attributes.position.needsUpdate = true;
+
+        // FPS counter
+        frameCount++;
+        if (performance.now() - lastFpsUpdate > 500) {
+          document.getElementById("fps").textContent = Math.round(
+            frameCount / ((performance.now() - lastFpsUpdate) / 1000),
+          );
+          frameCount = 0;
+          lastFpsUpdate = performance.now();
+        }
+
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      // Resize
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+  </body>
+</html>

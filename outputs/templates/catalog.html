@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangMaster 요금제 비교</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #f9fafb;
+    --white: #ffffff;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --accent-dark: #1d4ed8;
+    --green: #16a34a;
+    --red: #dc2626;
+    --orange: #ea580c;
+    --radius: 16px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--gray-800);
+    background: var(--bg);
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === LAYOUT === */
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* === HEADER === */
+  .header {
+    text-align: center;
+    padding: 64px 0 40px;
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: var(--gray-900);
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .header p {
+    font-size: 17px;
+    color: var(--gray-500);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* === FILTER TABS === */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .tab {
+    display: inline-block;
+    padding: 8px 22px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-500);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .tab:hover {
+    color: var(--gray-700);
+    border-color: var(--gray-300);
+    background: var(--gray-50);
+  }
+  .tab.active {
+    color: var(--white);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* === CARD GRID === */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 80px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card.featured {
+    border-color: var(--accent);
+    border-width: 2px;
+  }
+  .card.featured::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), #818cf8);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  .card-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: var(--accent);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  .card-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+  .card-icon.free { background: #f0fdf4; }
+  .card-icon.premium { background: var(--accent-light); }
+  .card-icon.master { background: #fef3c7; }
+
+  .card-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gray-900);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+
+  .card-specs {
+    list-style: none;
+    margin-bottom: 28px;
+    flex: 1;
+  }
+  .card-specs li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+  .card-specs .icon-check {
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 18px;
+    text-align: center;
+  }
+  .card-specs .icon-x {
+    color: var(--gray-300);
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 18px;
+    text-align: center;
+  }
+
+  .card-price {
+    margin-bottom: 20px;
+  }
+  .price-amount {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--gray-900);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+  }
+  .price-unit {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-400);
+    margin-left: 2px;
+  }
+  .price-note {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-top: 4px;
+  }
+
+  .card-cta {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    font-family: inherit;
+  }
+  .cta-outline {
+    background: var(--white);
+    color: var(--gray-700);
+    border: 1px solid var(--gray-300);
+  }
+  .cta-outline:hover {
+    background: var(--gray-50);
+    border-color: var(--gray-400);
+  }
+  .cta-primary {
+    background: var(--accent);
+    color: var(--white);
+  }
+  .cta-primary:hover {
+    background: var(--accent-dark);
+  }
+  .cta-dark {
+    background: var(--gray-900);
+    color: var(--white);
+  }
+  .cta-dark:hover {
+    background: var(--gray-700);
+  }
+
+  /* === COMPARISON TABLE === */
+  .comparison-section {
+    margin-bottom: 80px;
+  }
+  .section-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gray-900);
+    text-align: center;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+  }
+  .section-subtitle {
+    font-size: 15px;
+    color: var(--gray-500);
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    font-size: 14px;
+  }
+  .compare-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  .compare-table th {
+    background: var(--gray-50);
+    padding: 16px 20px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--gray-700);
+    text-align: center;
+    border-bottom: 2px solid var(--gray-200);
+    white-space: nowrap;
+  }
+  .compare-table th:first-child {
+    text-align: left;
+    min-width: 200px;
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    background: var(--gray-50);
+  }
+  .compare-table th.highlight {
+    background: var(--accent-light);
+    color: var(--accent-dark);
+  }
+
+  .compare-table td {
+    padding: 14px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-600);
+  }
+  .compare-table td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: var(--gray-800);
+    position: sticky;
+    left: 0;
+    background: var(--white);
+    z-index: 1;
+  }
+  .compare-table tbody tr:nth-child(even) td {
+    background: var(--gray-50);
+  }
+  .compare-table tbody tr:nth-child(even) td:first-child {
+    background: var(--gray-50);
+  }
+  .compare-table td.highlight {
+    background: #eff6ff !important;
+  }
+
+  .compare-table .category-row td {
+    background: var(--gray-100) !important;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 10px 20px;
+  }
+
+  .icon-yes { color: var(--green); font-weight: 700; }
+  .icon-no { color: var(--gray-300); }
+  .icon-partial { color: var(--orange); font-weight: 600; font-size: 13px; }
+
+  /* === FAQ ACCORDION === */
+  .faq-section {
+    margin-bottom: 80px;
+  }
+
+  .faq-list {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .faq-item:first-child {
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .faq-item summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gray-800);
+    cursor: pointer;
+    list-style: none;
+    line-height: 1.6;
+    transition: color 0.2s ease;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--gray-400);
+    flex-shrink: 0;
+    margin-left: 16px;
+    transition: transform 0.25s ease;
+  }
+  .faq-item[open] summary::after {
+    transform: rotate(45deg);
+  }
+  .faq-item summary:hover {
+    color: var(--accent);
+  }
+
+  .faq-answer {
+    padding: 0 4px 24px;
+    font-size: 15px;
+    color: var(--gray-600);
+    line-height: 1.8;
+  }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 40px 0;
+    border-top: 1px solid var(--gray-200);
+    color: var(--gray-400);
+    font-size: 13px;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    .card-grid { grid-template-columns: repeat(2, 1fr); }
+    .header h1 { font-size: 28px; }
+  }
+
+  @media (max-width: 600px) {
+    .card-grid { grid-template-columns: 1fr; gap: 20px; }
+    .header { padding: 48px 0 32px; }
+    .header h1 { font-size: 24px; }
+    .header p { font-size: 15px; }
+    .section-title { font-size: 22px; }
+    .card { padding: 28px 24px; }
+    .price-amount { font-size: 28px; }
+    .tabs { gap: 6px; }
+    .tab { padding: 7px 16px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <span class="header-badge">2026 요금제 안내</span>
+    <h1>LangMaster 요금제 비교</h1>
+    <p>나에게 맞는 요금제를 선택하고, 오늘부터 AI 언어 학습을 시작하세요.</p>
+  </div>
+</header>
+
+<!-- FILTER TABS -->
+<nav class="container">
+  <div class="tabs">
+    <a class="tab active" href="#">전체</a>
+    <a class="tab" href="#">기본</a>
+    <a class="tab" href="#">프로</a>
+    <a class="tab" href="#">엔터프라이즈</a>
+  </div>
+</nav>
+
+<!-- PRODUCT CARDS -->
+<section class="container">
+  <div class="card-grid">
+
+    <!-- 무료 -->
+    <div class="card">
+      <div class="card-icon free">&#x1F331;</div>
+      <div class="card-name">무료</div>
+      <div class="card-desc">부담 없이 핵심 기능을 체험해 보세요. 가입만 하면 바로 시작할 수 있습니다.</div>
+      <ul class="card-specs">
+        <li><span class="icon-check">&#10003;</span>일일 대화 연습 5회</li>
+        <li><span class="icon-check">&#10003;</span>기초 문법 강의 열람</li>
+        <li><span class="icon-check">&#10003;</span>단어장 100개 저장</li>
+        <li><span class="icon-x">&#10005;</span>AI 발음 교정</li>
+        <li><span class="icon-x">&#10005;</span>맞춤형 학습 리포트</li>
+      </ul>
+      <div class="card-price">
+        <span class="price-amount">&#8361;0</span><span class="price-unit">/월</span>
+        <div class="price-note">영원히 무료</div>
+      </div>
+      <button class="card-cta cta-outline">무료로 시작하기</button>
+    </div>
+
+    <!-- 프리미엄 (추천) -->
+    <div class="card featured">
+      <span class="card-badge">인기</span>
+      <div class="card-icon premium">&#x1F680;</div>
+      <div class="card-name">프리미엄</div>
+      <div class="card-desc">AI 기반 맞춤 학습으로 실력을 빠르게 끌어올리세요. 가장 많이 선택하는 요금제입니다.</div>
+      <ul class="card-specs">
+        <li><span class="icon-check">&#10003;</span>대화 연습 무제한</li>
+        <li><span class="icon-check">&#10003;</span>전체 강의 열람</li>
+        <li><span class="icon-check">&#10003;</span>단어장 무제한 저장</li>
+        <li><span class="icon-check">&#10003;</span>AI 발음 교정</li>
+        <li><span class="icon-check">&#10003;</span>주간 학습 리포트</li>
+      </ul>
+      <div class="card-price">
+        <span class="price-amount">&#8361;9,900</span><span class="price-unit">/월</span>
+        <div class="price-note">연간 결제 시 &#8361;7,900/월</div>
+      </div>
+      <button class="card-cta cta-primary">프리미엄 시작하기</button>
+    </div>
+
+    <!-- 마스터 -->
+    <div class="card">
+      <div class="card-icon master">&#x1F451;</div>
+      <div class="card-name">마스터</div>
+      <div class="card-desc">전문가 수준의 학습 도구와 1:1 코칭까지. 진지한 학습자를 위한 올인원 플랜입니다.</div>
+      <ul class="card-specs">
+        <li><span class="icon-check">&#10003;</span>프리미엄 기능 전체 포함</li>
+        <li><span class="icon-check">&#10003;</span>1:1 AI 튜터 세션</li>
+        <li><span class="icon-check">&#10003;</span>비즈니스 회화 모듈</li>
+        <li><span class="icon-check">&#10003;</span>실시간 번역 도우미</li>
+        <li><span class="icon-check">&#10003;</span>수료증 발급</li>
+      </ul>
+      <div class="card-price">
+        <span class="price-amount">&#8361;24,900</span><span class="price-unit">/월</span>
+        <div class="price-note">연간 결제 시 &#8361;19,900/월</div>
+      </div>
+      <button class="card-cta cta-dark">마스터 시작하기</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="comparison-section">
+  <div class="container">
+    <h2 class="section-title">기능 상세 비교</h2>
+    <p class="section-subtitle">각 요금제에 포함된 기능을 한눈에 확인하세요.</p>
+
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>기능</th>
+            <th>무료</th>
+            <th class="highlight">프리미엄 (추천)</th>
+            <th>마스터</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 학습 기본 -->
+          <tr class="category-row">
+            <td colspan="4">학습 기본</td>
+          </tr>
+          <tr>
+            <td>일일 대화 연습</td>
+            <td>5회</td>
+            <td class="highlight"><span class="icon-yes">무제한</span></td>
+            <td><span class="icon-yes">무제한</span></td>
+          </tr>
+          <tr>
+            <td>문법 강의 열람</td>
+            <td>기초만</td>
+            <td class="highlight"><span class="icon-yes">&#10003;</span> 전체</td>
+            <td><span class="icon-yes">&#10003;</span> 전체</td>
+          </tr>
+          <tr>
+            <td>단어장 저장</td>
+            <td>100개</td>
+            <td class="highlight"><span class="icon-yes">무제한</span></td>
+            <td><span class="icon-yes">무제한</span></td>
+          </tr>
+          <tr>
+            <td>학습 언어 수</td>
+            <td>1개</td>
+            <td class="highlight">3개</td>
+            <td><span class="icon-yes">무제한</span></td>
+          </tr>
+
+          <!-- AI 기능 -->
+          <tr class="category-row">
+            <td colspan="4">AI 기능</td>
+          </tr>
+          <tr>
+            <td>AI 발음 교정</td>
+            <td><span class="icon-no">&#10005;</span></td>
+            <td class="highlight"><span class="icon-yes">&#10003;</span></td>
+            <td><span class="icon-yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td>AI 문장 교정</td>
+            <td><span class="icon-no">&#10005;</span></td>
+            <td class="highlight"><span class="icon-yes">&#10003;</span></td>
+            <td><span class="icon-yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td>1:1 AI 튜터 세션</td>
+            <td><span class="icon-no">&#10005;</span></td>
+            <td class="highlight"><span class="icon-no">&#10005;</span></td>
+            <td><span class="icon-yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td>실시간 번역 도우미</td>
+            <td><span class="icon-no">&#10005;</span></td>
+            <td class="highlight"><span class="icon-partial">제한적</span></td>
+            <td><span class="icon-yes">&#10003;</span></td>
+          </tr>
+
+          <!-- 리포트/관리 -->
+          <tr class="category-row">
+            <td colspan="4">리포트 및 관리</td>
+          </tr>
+          <tr>
+            <td>학습 리포트</td>
+            <td><span class="icon-no">&#10005;</span></td>
+            <td class="highlight">주간</td>
+            <td><span class="icon-yes">일간 + 주간</span></td>
+          </tr>
+          <tr>
+            <td>학습 목표 설정</td>
+            <td>기본</td>
+            <td class="highlight"><span class="icon-yes">&#10003;</span> 상세</td>
+            <td><span class="icon-yes">&#10003;</span> 상세</td>
+          </tr>
+          <tr>
+            <td>수료증 발급</td>
+            <td><span class="icon-no">&#10005;</span></td>
+            <td class="highlight"><span class="icon-no">&#10005;</span></td>
+            <td><span class="icon-yes">&#10003;</span></td>
+          </tr>
+
+          <!-- 특화 콘텐츠 -->
+          <tr class="category-row">
+            <td colspan="4">특화 콘텐츠</td>
+          </tr>
+          <tr>
+            <td>비즈니스 회화 모듈</td>
+            <td><span class="icon-no">&#10005;</span></td>
+            <td class="highlight"><span class="icon-no">&#10005;</span></td>
+            <td><span class="icon-yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td>시험 대비 (TOPIK 등)</td>
+            <td><span class="icon-no">&#10005;</span></td>
+            <td class="highlight"><span class="icon-yes">&#10003;</span></td>
+            <td><span class="icon-yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td>오프라인 학습 다운로드</td>
+            <td><span class="icon-no">&#10005;</span></td>
+            <td class="highlight"><span class="icon-partial">월 10강</span></td>
+            <td><span class="icon-yes">무제한</span></td>
+          </tr>
+
+          <!-- 지원 -->
+          <tr class="category-row">
+            <td colspan="4">고객 지원</td>
+          </tr>
+          <tr>
+            <td>이메일 지원</td>
+            <td><span class="icon-yes">&#10003;</span></td>
+            <td class="highlight"><span class="icon-yes">&#10003;</span></td>
+            <td><span class="icon-yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td>우선 지원</td>
+            <td><span class="icon-no">&#10005;</span></td>
+            <td class="highlight"><span class="icon-yes">&#10003;</span></td>
+            <td><span class="icon-yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td>전담 학습 매니저</td>
+            <td><span class="icon-no">&#10005;</span></td>
+            <td class="highlight"><span class="icon-no">&#10005;</span></td>
+            <td><span class="icon-yes">&#10003;</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <h2 class="section-title">자주 묻는 질문</h2>
+    <p class="section-subtitle">요금제와 서비스에 관해 궁금한 점을 확인하세요.</p>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>무료 요금제에서 프리미엄으로 언제든 업그레이드할 수 있나요?</summary>
+        <div class="faq-answer">
+          네, 언제든 가능합니다. 설정 메뉴에서 요금제 변경을 누르면 바로 프리미엄 기능을 사용할 수 있습니다. 무료 체험 기간 중에 저장한 단어장과 학습 기록은 그대로 유지됩니다.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>연간 결제와 월간 결제의 차이점은 무엇인가요?</summary>
+        <div class="faq-answer">
+          연간 결제를 선택하시면 월간 대비 약 20%를 절약할 수 있습니다. 프리미엄 기준 월 9,900원이 7,900원으로, 마스터 기준 월 24,900원이 19,900원으로 할인됩니다. 결제일 기준 12개월간 동일 금액이 적용됩니다.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>환불 정책은 어떻게 되나요?</summary>
+        <div class="faq-answer">
+          결제일로부터 7일 이내에 요청하시면 전액 환불해 드립니다. 7일이 지난 후에는 잔여 기간에 대한 비례 환불이 적용됩니다. 연간 결제의 경우에도 동일한 정책이 적용되며, 고객센터를 통해 간편하게 처리할 수 있습니다.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>AI 발음 교정은 어떤 방식으로 작동하나요?</summary>
+        <div class="faq-answer">
+          마이크로 녹음한 음성을 AI가 분석하여 원어민 발음과 비교합니다. 음소 단위로 정확도를 측정하고, 개선이 필요한 부분을 시각적으로 표시합니다. 반복 연습 시 발음 점수 변화를 추적하여 리포트에 반영됩니다.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>여러 기기에서 동시에 사용할 수 있나요?</summary>
+        <div class="faq-answer">
+          하나의 계정으로 최대 3대의 기기에서 동시 로그인이 가능합니다. 학습 진도와 단어장은 모든 기기에서 실시간으로 동기화됩니다. 기기 변경은 설정에서 자유롭게 관리할 수 있습니다.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>마스터 요금제의 1:1 AI 튜터 세션은 무엇인가요?</summary>
+        <div class="faq-answer">
+          AI 튜터가 학습자의 수준과 목표에 맞춘 개인 레슨을 진행합니다. 실제 대화 상황을 시뮬레이션하고, 즉각적인 피드백을 제공합니다. 월 20회까지 이용 가능하며, 각 세션은 약 15분입니다.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    LangMaster &copy; 2026. 모든 가격은 부가세 포함 금액입니다.
+  </div>
+</footer>
+
+</body>
+</html>

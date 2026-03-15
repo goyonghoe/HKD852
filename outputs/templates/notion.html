@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>프로젝트 위키 — LangMaster</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #37352f;
+    background: #ffffff;
+    word-break: keep-all;
+  }
+
+  /* Cover band */
+  .cover {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #e8decc 0%, #d3c4a8 100%);
+  }
+
+  /* Page container */
+  .page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    position: relative;
+  }
+
+  /* Page icon */
+  .page-icon {
+    font-size: 72px;
+    line-height: 1;
+    margin-top: -44px;
+    margin-bottom: 12px;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 40px;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-top: 28px;
+    margin-bottom: 6px;
+  }
+
+  p {
+    margin-bottom: 12px;
+    color: #37352f;
+  }
+
+  /* Properties block */
+  .properties {
+    margin: 16px 0 28px;
+    font-size: 14px;
+  }
+
+  .properties table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .properties td {
+    padding: 6px 0;
+    vertical-align: top;
+    border-bottom: 1px solid #f0efed;
+  }
+
+  .properties .prop-label {
+    width: 140px;
+    color: #9b9a97;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .properties .prop-value {
+    color: #37352f;
+    font-size: 14px;
+  }
+
+  .prop-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .prop-tag.blue { background: #d3e5ef; color: #24537b; }
+  .prop-tag.green { background: #dbeddb; color: #1e5e2e; }
+  .prop-tag.orange { background: #fadec9; color: #93541b; }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid #e6e5e3;
+    margin: 24px 0;
+  }
+
+  /* Toggle / Accordion */
+  .toggle {
+    margin: 8px 0;
+  }
+
+  .toggle-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    cursor: pointer;
+    padding: 4px 0;
+    user-select: none;
+    font-weight: 600;
+    font-size: 16px;
+    color: #37352f;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    line-height: 1.8;
+  }
+
+  .toggle-header:hover { background: #f7f6f3; border-radius: 3px; }
+
+  .toggle-arrow {
+    display: inline-block;
+    width: 20px;
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+    font-size: 12px;
+    line-height: 1.8;
+    padding-top: 3px;
+    color: #9b9a97;
+  }
+
+  .toggle.open .toggle-arrow { transform: rotate(90deg); }
+
+  .toggle-content {
+    display: none;
+    padding-left: 24px;
+    padding-bottom: 4px;
+  }
+
+  .toggle.open .toggle-content { display: block; }
+
+  /* Callout blocks */
+  .callout {
+    display: flex;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 15px;
+  }
+
+  .callout-icon { font-size: 20px; flex-shrink: 0; padding-top: 1px; }
+  .callout-body { flex: 1; }
+
+  .callout.info    { background: #e7f3f8; }
+  .callout.warning { background: #fbf3db; }
+  .callout.alert   { background: #fbe4e4; }
+  .callout.success { background: #ddedea; }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+    margin: 8px 0 12px;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 3px 0;
+    font-size: 15px;
+  }
+
+  .checklist .check {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #c4c4c0;
+    border-radius: 3px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 11px;
+    color: transparent;
+    background: #fff;
+    transition: all 0.1s;
+  }
+
+  .checklist .check.checked {
+    background: #2383e2;
+    border-color: #2383e2;
+    color: #fff;
+  }
+
+  .checklist .check.checked + span {
+    text-decoration: line-through;
+    color: #9b9a97;
+  }
+
+  /* Quote block */
+  .quote-block {
+    border-left: 3px solid #37352f;
+    padding: 4px 0 4px 16px;
+    margin: 12px 0;
+    font-size: 16px;
+    color: #37352f;
+  }
+
+  /* Code block */
+  .code-block {
+    background: #f7f6f3;
+    border-radius: 4px;
+    padding: 16px;
+    font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: auto;
+    margin: 12px 0;
+    color: #37352f;
+  }
+
+  /* Inline database table */
+  .db-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+
+  .db-table th {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e6e5e3;
+    color: #9b9a97;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: default;
+  }
+
+  .db-table th:hover { background: #f7f6f3; }
+
+  .db-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #f0efed;
+    color: #37352f;
+  }
+
+  .db-table tr:hover td { background: #f7f6f3; }
+
+  /* Links */
+  a {
+    color: #37352f;
+    text-decoration: underline;
+    text-decoration-color: #c4c4c0;
+    text-underline-offset: 2px;
+  }
+
+  a:hover { text-decoration-color: #37352f; }
+
+  /* Inline code */
+  code {
+    font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 85%;
+    background: #f7f6f3;
+    padding: 2px 5px;
+    border-radius: 3px;
+    color: #eb5757;
+  }
+
+  /* Subtle text */
+  .text-muted { color: #9b9a97; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<!-- Cover -->
+<div class="cover"></div>
+
+<div class="page">
+
+  <!-- Page Icon -->
+  <div class="page-icon">&#x1F4DA;</div>
+
+  <!-- Title -->
+  <h1>프로젝트 위키 — LangMaster</h1>
+  <p class="text-muted">LangMaster Agent 프로젝트의 중앙 지식 베이스입니다.</p>
+
+  <!-- Properties -->
+  <div class="properties">
+    <table>
+      <tr>
+        <td class="prop-label">상태</td>
+        <td class="prop-value"><span class="prop-tag blue">진행 중</span></td>
+      </tr>
+      <tr>
+        <td class="prop-label">최종 업데이트</td>
+        <td class="prop-value">2026-03-07</td>
+      </tr>
+      <tr>
+        <td class="prop-label">담당</td>
+        <td class="prop-value">HKD852 Studio</td>
+      </tr>
+      <tr>
+        <td class="prop-label">태그</td>
+        <td class="prop-value">
+          <span class="prop-tag green">문서화</span>
+          <span class="prop-tag orange">내부용</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="prop-label">우선순위</td>
+        <td class="prop-value">높음</td>
+      </tr>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Overview -->
+  <h2>&#x1F30D; 개요</h2>
+  <p>
+    LangMaster는 HSK 어휘 데이터를 기반으로 구축된 AI 기반 언어 학습 플랫폼입니다.
+    숙련도 수준별 구조화된 단어 목록을 처리하여 전 세계 학습자를 위한
+    적응형 학습 자료를 생성합니다.
+  </p>
+  <p>
+    이 위키는 아키텍처 결정사항, 데이터 스키마, 팀 프로세스, 진행 중인 리서치를
+    하나의 참조 지점으로 통합합니다.
+  </p>
+
+  <!-- Callout: Info -->
+  <div class="callout info">
+    <div class="callout-icon">&#x2139;&#xFE0F;</div>
+    <div class="callout-body">
+      이 페이지는 LangMaster 프로젝트의 단일 진실 소스(SSOT)입니다.
+      모든 팀원은 새로운 작업을 시작하기 전에 이 문서를 참조해야 합니다.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Toggle: Architecture -->
+  <h2>&#x1F3D7;&#xFE0F; 아키텍처</h2>
+
+  <div class="toggle">
+    <button class="toggle-header" onclick="toggleSection(this)">
+      <span class="toggle-arrow">&#x25B6;</span>
+      <span>시스템 아키텍처</span>
+    </button>
+    <div class="toggle-content">
+      <p>
+        플랫폼은 데이터 수집 계층, 처리 엔진, 배포 API의 3티어 아키텍처를 따릅니다.
+        HSK 어휘 데이터는 구조화된 JSON 파일에서 정규화 파이프라인을 거쳐
+        학습 모듈에 전달됩니다.
+      </p>
+      <div class="code-block">data/hsk/*.json → Normalizer → Study Engine → REST API → Client</div>
+    </div>
+  </div>
+
+  <div class="toggle">
+    <button class="toggle-header" onclick="toggleSection(this)">
+      <span class="toggle-arrow">&#x25B6;</span>
+      <span>데이터 스키마</span>
+    </button>
+    <div class="toggle-content">
+      <p>각 HSK 레벨 파일은 일관된 스키마를 따릅니다:</p>
+      <div class="code-block">{
+  "level": 1,
+  "words": [
+    {
+      "id": "hsk1-001",
+      "simplified": "...",
+      "pinyin": "...",
+      "english": "...",
+      "category": "..."
+    }
+  ]
+}</div>
+    </div>
+  </div>
+
+  <div class="toggle">
+    <button class="toggle-header" onclick="toggleSection(this)">
+      <span class="toggle-arrow">&#x25B6;</span>
+      <span>기술 스택</span>
+    </button>
+    <div class="toggle-content">
+      <p>프로젝트 전반에 사용되는 핵심 기술:</p>
+      <ul style="margin: 8px 0 12px 20px;">
+        <li>런타임: Node.js 20 LTS</li>
+        <li>프레임워크: Next.js 14 (App Router)</li>
+        <li>데이터베이스: PostgreSQL + Drizzle ORM</li>
+        <li>AI: Claude API 기반 적응형 콘텐츠</li>
+        <li>배포: Vercel</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Quote -->
+  <div class="quote-block">
+    좋은 문서화란 모든 것을 적는 것이 아닙니다. 사람들이 찾을 수 있도록
+    적절한 내용을 적절한 위치에 적는 것입니다.
+  </div>
+
+  <hr class="divider">
+
+  <!-- Inline Database Table -->
+  <h2>&#x1F4CA; 모듈 현황</h2>
+  <p>각 프로젝트 모듈의 현재 상태:</p>
+
+  <table class="db-table">
+    <thead>
+      <tr>
+        <th>모듈</th>
+        <th>담당</th>
+        <th>상태</th>
+        <th>진행률</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>HSK 데이터 파이프라인</td>
+        <td>데이터팀</td>
+        <td><span class="prop-tag green">완료</span></td>
+        <td>100%</td>
+      </tr>
+      <tr>
+        <td>학습 엔진</td>
+        <td>코어팀</td>
+        <td><span class="prop-tag blue">진행 중</span></td>
+        <td>72%</td>
+      </tr>
+      <tr>
+        <td>REST API</td>
+        <td>백엔드팀</td>
+        <td><span class="prop-tag blue">진행 중</span></td>
+        <td>55%</td>
+      </tr>
+      <tr>
+        <td>클라이언트 앱</td>
+        <td>프론트엔드팀</td>
+        <td><span class="prop-tag orange">기획 중</span></td>
+        <td>15%</td>
+      </tr>
+      <tr>
+        <td>애널리틱스 대시보드</td>
+        <td>데이터팀</td>
+        <td><span class="prop-tag orange">기획 중</span></td>
+        <td>5%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="divider">
+
+  <!-- Callout: Warning -->
+  <div class="callout warning">
+    <div class="callout-icon">&#x26A0;&#xFE0F;</div>
+    <div class="callout-body">
+      API 스키마가 아직 확정되지 않았습니다. v0.9 태그가 지정될 때까지
+      현재 엔드포인트를 기반으로 클라이언트 연동을 구현하지 마세요.
+    </div>
+  </div>
+
+  <!-- Toggle: Meeting Notes -->
+  <h2>&#x1F4DD; 회의록</h2>
+
+  <div class="toggle">
+    <button class="toggle-header" onclick="toggleSection(this)">
+      <span class="toggle-arrow">&#x25B6;</span>
+      <span>2026-03-05 — 스프린트 플래닝</span>
+    </button>
+    <div class="toggle-content">
+      <p>스프린트 플래닝에서 결정된 주요 사항:</p>
+      <ul style="margin: 8px 0 12px 20px;">
+        <li>확장 전 HSK 1~3 데이터 완성도 우선 확보</li>
+        <li>학습 엔진 MVP는 간격 반복만 타겟</li>
+        <li>API 인증은 다음 스프린트로 연기</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="toggle">
+    <button class="toggle-header" onclick="toggleSection(this)">
+      <span class="toggle-arrow">&#x25B6;</span>
+      <span>2026-03-01 — 킥오프</span>
+    </button>
+    <div class="toggle-content">
+      <p>
+        프로젝트 킥오프 완료. 팀 역할 배정 완료. HSK 레벨 1 시드 데이터로
+        데이터 파이프라인 리포지토리 초기화. Vercel 프리뷰 배포 기반
+        CI/CD 구성 완료.
+      </p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Checklist -->
+  <h2>&#x2705; 런칭 체크리스트</h2>
+
+  <ul class="checklist">
+    <li>
+      <div class="check checked" onclick="toggleCheck(this)">&#x2713;</div>
+      <span>프로젝트 리포지토리 초기화</span>
+    </li>
+    <li>
+      <div class="check checked" onclick="toggleCheck(this)">&#x2713;</div>
+      <span>HSK 1~3 어휘 데이터 임포트</span>
+    </li>
+    <li>
+      <div class="check checked" onclick="toggleCheck(this)">&#x2713;</div>
+      <span>CI/CD 파이프라인 구축</span>
+    </li>
+    <li>
+      <div class="check" onclick="toggleCheck(this)">&#x2713;</div>
+      <span>학습 엔진 MVP 완성</span>
+    </li>
+    <li>
+      <div class="check" onclick="toggleCheck(this)">&#x2713;</div>
+      <span>API v0.9 스키마 확정</span>
+    </li>
+    <li>
+      <div class="check" onclick="toggleCheck(this)">&#x2713;</div>
+      <span>클라이언트 앱 프로토타입</span>
+    </li>
+    <li>
+      <div class="check" onclick="toggleCheck(this)">&#x2713;</div>
+      <span>사용자 테스트 1차</span>
+    </li>
+    <li>
+      <div class="check" onclick="toggleCheck(this)">&#x2713;</div>
+      <span>프로덕션 배포</span>
+    </li>
+  </ul>
+
+  <!-- Callout: Success -->
+  <div class="callout success">
+    <div class="callout-icon">&#x2705;</div>
+    <div class="callout-body">
+      데이터 파이프라인 마일스톤이 일정보다 앞서 완료되었습니다. HSK 레벨 1~3이
+      완전히 임포트되었으며 100% 스키마 커버리지로 검증되었습니다.
+    </div>
+  </div>
+
+  <!-- Callout: Alert -->
+  <div class="callout alert">
+    <div class="callout-icon">&#x1F6A8;</div>
+    <div class="callout-body">
+      블로킹 이슈: HSK 레벨 6 데이터의 <code>pinyin</code> 필드에
+      성조 표기가 일관되지 않습니다. 해결 전까지 임포트하지 마세요.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- References -->
+  <h2>&#x1F517; 참고 자료</h2>
+  <p>
+    <a href="#">HSK 어휘 표준 (공식)</a><br>
+    <a href="#">내부 API 문서</a><br>
+    <a href="#">디자인 시스템 — Figma</a><br>
+    <a href="#">스프린트 보드 — 칸반</a>
+  </p>
+
+  <hr class="divider">
+  <p class="text-muted" style="text-align: center; margin-top: 32px;">
+    최종 편집: 2026-03-07 &middot; LangMaster 위키
+  </p>
+
+</div>
+
+<script>
+function toggleSection(btn) {
+  const toggle = btn.parentElement;
+  toggle.classList.toggle('open');
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+}
+</script>
+</body>
+</html>

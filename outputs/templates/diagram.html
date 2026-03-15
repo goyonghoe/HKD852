@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangMaster 개발 파이프라인</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    word-break: keep-all;
+    background: #f8fafc;
+    color: #1e293b;
+    min-height: 100vh;
+    padding: 32px 24px;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #0f172a;
+    line-height: 1.4;
+  }
+  .header p {
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 6px;
+  }
+
+  /* ── Diagram container ── */
+  .diagram-wrapper {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* SVG overlay for connections */
+  .connections-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .connections-svg path {
+    fill: none;
+    stroke: #94a3b8;
+    stroke-width: 1.8;
+  }
+  .connections-svg .conn-label {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 11px;
+    fill: #64748b;
+    text-anchor: middle;
+  }
+
+  /* ── Grid layout ── */
+  .node-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    gap: 24px 32px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Phase groups ── */
+  .phase-group {
+    border: 2px dashed #cbd5e1;
+    border-radius: 16px;
+    padding: 20px 16px 16px;
+    position: relative;
+  }
+  .phase-group .phase-label {
+    position: absolute;
+    top: -11px;
+    left: 20px;
+    background: #f8fafc;
+    padding: 0 10px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #94a3b8;
+  }
+  .phase-group.phase-prepare { grid-column: 1 / 3; grid-row: 1; }
+  .phase-group.phase-build   { grid-column: 3 / 5; grid-row: 1; }
+  .phase-group.phase-validate { grid-column: 1 / 4; grid-row: 3; }
+  .phase-group.phase-release  { grid-column: 4 / 6; grid-row: 3; }
+
+  .phase-inner {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* ── Node card ── */
+  .node {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    border-left: 4px solid transparent;
+    min-width: 160px;
+    max-width: 200px;
+    flex: 1;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .node:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+  }
+
+  /* Node types with left-border colors */
+  .node--input    { border-left-color: #3b82f6; }
+  .node--process  { border-left-color: #8b5cf6; }
+  .node--decision { border-left-color: #f59e0b; }
+  .node--output   { border-left-color: #22c55e; }
+  .node--risk     { border-left-color: #ef4444; }
+
+  /* Step number circle */
+  .node__step {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .node--input    .node__step { background: #3b82f6; }
+  .node--process  .node__step { background: #8b5cf6; }
+  .node--decision .node__step { background: #f59e0b; }
+  .node--output   .node__step { background: #22c55e; }
+  .node--risk     .node__step { background: #ef4444; }
+
+  .node__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .node__desc {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.6;
+  }
+  .node__tag {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+  .node--input    .node__tag { background: #eff6ff; color: #3b82f6; }
+  .node--process  .node__tag { background: #f5f3ff; color: #8b5cf6; }
+  .node--decision .node__tag { background: #fffbeb; color: #d97706; }
+  .node--output   .node__tag { background: #f0fdf4; color: #16a34a; }
+  .node--risk     .node__tag { background: #fef2f2; color: #dc2626; }
+
+  /* Decision diamond indicator */
+  .node--decision::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 12px;
+    height: 12px;
+    background: #f59e0b;
+    transform: rotate(45deg);
+    border-radius: 2px;
+    opacity: 0.3;
+  }
+
+  /* ── Standalone nodes row ── */
+  .standalone-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px 32px;
+    margin: 28px 0;
+    position: relative;
+    z-index: 2;
+  }
+  .standalone-row .node {
+    max-width: none;
+  }
+
+  /* ── Legend ── */
+  .legend {
+    margin-top: 48px;
+    padding: 20px 24px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+  .legend__title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-right: 8px;
+  }
+  .legend__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #475569;
+  }
+  .legend__swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .legend__swatch--input    { background: #3b82f6; }
+  .legend__swatch--process  { background: #8b5cf6; }
+  .legend__swatch--decision { background: #f59e0b; }
+  .legend__swatch--output   { background: #22c55e; }
+  .legend__swatch--risk     { background: #ef4444; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 11px;
+    color: #94a3b8;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    body { padding: 20px 12px; }
+    .node-grid { grid-template-columns: 1fr; gap: 16px; }
+    .phase-group { grid-column: 1 !important; grid-row: auto !important; }
+    .phase-inner { flex-direction: column; }
+    .standalone-row { grid-template-columns: 1fr; gap: 16px; }
+    .node { max-width: none; }
+    .connections-svg { display: none; }
+    .legend { flex-direction: column; align-items: flex-start; }
+    .header h1 { font-size: 20px; }
+    /* Vertical flow arrows for mobile */
+    .node::before {
+      content: '';
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid #cbd5e1;
+    }
+    .phase-inner .node:first-child::before,
+    .standalone-row > .node:first-child::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>LangMaster 개발 파이프라인</h1>
+  <p>데이터 수집부터 출시까지의 전체 프로세스 &mdash; Go/No-Go 의사결정 게이트 포함</p>
+</div>
+
+<div class="diagram-wrapper">
+
+  <!-- SVG Connections Overlay -->
+  <svg class="connections-svg" id="connSvg" viewBox="0 0 1100 720" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <marker id="arrowHead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+        <polygon points="0 0, 8 3, 0 6" fill="#94a3b8"/>
+      </marker>
+      <marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+        <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+      </marker>
+      <marker id="arrowPurple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+        <polygon points="0 0, 8 3, 0 6" fill="#8b5cf6"/>
+      </marker>
+      <marker id="arrowAmber" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+        <polygon points="0 0, 8 3, 0 6" fill="#d97706"/>
+      </marker>
+      <marker id="arrowGreen" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+        <polygon points="0 0, 8 3, 0 6" fill="#22c55e"/>
+      </marker>
+      <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+        <polygon points="0 0, 8 3, 0 6" fill="#ef4444"/>
+      </marker>
+    </defs>
+
+    <!-- Phase 1: 데이터 수집 -> HSK 코퍼스 -->
+    <path d="M 165,140 Q 220,140 275,140" stroke="#3b82f6" marker-end="url(#arrowBlue)"/>
+    <text class="conn-label" x="220" y="132">파싱</text>
+
+    <!-- Phase 1 -> Phase 2: HSK 코퍼스 -> 게임 설계 -->
+    <path d="M 440,140 Q 510,140 560,140" stroke="#94a3b8" marker-end="url(#arrowHead)"/>
+    <text class="conn-label" x="500" y="132">연계</text>
+
+    <!-- 게임 설계 -> UI/UX 프로토타입 -->
+    <path d="M 690,140 Q 760,140 820,140" stroke="#8b5cf6" marker-end="url(#arrowPurple)"/>
+    <text class="conn-label" x="755" y="132">스펙</text>
+
+    <!-- Phase 1+2 -> Row 2 middle: 설계 게이트 -->
+    <path d="M 550,200 Q 550,260 550,310" stroke="#d97706" stroke-dasharray="6,4" marker-end="url(#arrowAmber)"/>
+    <text class="conn-label" x="570" y="268">검토</text>
+
+    <!-- 설계 게이트 YES -> 빌드 단계 -->
+    <path d="M 550,380 Q 550,410 360,430" stroke="#22c55e" marker-end="url(#arrowGreen)"/>
+    <text class="conn-label" x="430" y="418">GO</text>
+
+    <!-- 설계 게이트 NO -> 리스크 노드 -->
+    <path d="M 620,345 Q 720,345 800,345" stroke="#ef4444" marker-end="url(#arrowRed)"/>
+    <text class="conn-label" x="710" y="337">NO-GO</text>
+
+    <!-- 프로토타입 빌드 -> QA 테스트 -->
+    <path d="M 290,490 Q 380,490 460,490" stroke="#8b5cf6" marker-end="url(#arrowPurple)"/>
+    <text class="conn-label" x="375" y="482">빌드</text>
+
+    <!-- QA 테스트 -> 출시 게이트 -->
+    <path d="M 590,490 Q 650,490 700,560" stroke="#d97706" stroke-dasharray="6,4" marker-end="url(#arrowAmber)"/>
+    <text class="conn-label" x="660" y="520">결과</text>
+
+    <!-- 출시 게이트 YES -> 소프트 런칭 -->
+    <path d="M 770,620 Q 850,620 900,620" stroke="#22c55e" marker-end="url(#arrowGreen)"/>
+    <text class="conn-label" x="840" y="612">GO</text>
+
+    <!-- 출시 게이트 NO -> 반복 -->
+    <path d="M 700,620 Q 500,680 290,530" stroke="#ef4444" stroke-dasharray="6,4" marker-end="url(#arrowRed)"/>
+    <text class="conn-label" x="490" y="620">반복</text>
+  </svg>
+
+  <!-- Row 1: 준비 + 설계 단계 -->
+  <div class="node-grid">
+
+    <!-- Phase: 준비 -->
+    <div class="phase-group phase-prepare">
+      <span class="phase-label">Phase 1 &mdash; 준비</span>
+      <div class="phase-inner">
+
+        <div class="node node--input" id="n-data">
+          <div class="node__step">1</div>
+          <div class="node__title">데이터 수집</div>
+          <div class="node__desc">HSK 어휘 목록, 빈도 데이터, 등급별 읽기 자료(1~6급)를 수집합니다.</div>
+          <span class="node__tag">입력</span>
+        </div>
+
+        <div class="node node--input" id="n-corpus">
+          <div class="node__step">2</div>
+          <div class="node__title">HSK 코퍼스 구축</div>
+          <div class="node__desc">단어 뱅크, 예문, 오디오 참조 자료를 게임용 JSON으로 구조화합니다.</div>
+          <span class="node__tag">입력</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Phase: 설계 -->
+    <div class="phase-group phase-build">
+      <span class="phase-label">Phase 2 &mdash; 설계</span>
+      <div class="phase-inner">
+
+        <div class="node node--process" id="n-design">
+          <div class="node__step">3</div>
+          <div class="node__title">게임 설계</div>
+          <div class="node__desc">핵심 루프, 성장 곡선, 언어 학습용 게이미피케이션 메커닉을 정의합니다.</div>
+          <span class="node__tag">프로세스</span>
+        </div>
+
+        <div class="node node--process" id="n-uiux">
+          <div class="node__step">4</div>
+          <div class="node__title">UI/UX 프로토타입</div>
+          <div class="node__desc">모바일 우선 학습자를 타깃으로 한 와이어프레임, 인터랙션 플로우, 시각 목업을 제작합니다.</div>
+          <span class="node__tag">프로세스</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 2: 의사결정 게이트 + 리스크 -->
+  <div class="standalone-row" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr;">
+
+    <div style="grid-column: 2 / 4;">
+      <div class="node node--decision" id="n-gate1" style="max-width: none;">
+        <div class="node__step">5</div>
+        <div class="node__title">설계 게이트: Go / No-Go</div>
+        <div class="node__desc">PD 리뷰, 시장 적합성 평가, 이해관계자 승인. 기준: 예상 리텐션 > 30%, 콘텐츠 커버리지 > 80%.</div>
+        <span class="node__tag">의사결정</span>
+      </div>
+    </div>
+
+    <div style="grid-column: 4 / 6;">
+      <div class="node node--risk" id="n-risk1" style="max-width: none;">
+        <div class="node__step">!</div>
+        <div class="node__title">스코프 크리프 리스크</div>
+        <div class="node__desc">반려 시: 기능 범위를 축소하거나, 핵심 루프 가정을 재검토하거나, 콘텐츠 전략을 피봇합니다.</div>
+        <span class="node__tag">리스크</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 3: 검증 + 출시 단계 -->
+  <div class="node-grid" style="margin-top: 8px;">
+
+    <!-- Phase: 검증 -->
+    <div class="phase-group phase-validate">
+      <span class="phase-label">Phase 3 &mdash; 검증</span>
+      <div class="phase-inner">
+
+        <div class="node node--process" id="n-build">
+          <div class="node__step">6</div>
+          <div class="node__title">프로토타입 빌드</div>
+          <div class="node__desc">50개 단어 데모 세트와 기본 진행 시스템을 포함한 핵심 게임 루프의 Unity 구현.</div>
+          <span class="node__tag">프로세스</span>
+        </div>
+
+        <div class="node node--process" id="n-qa">
+          <div class="node__step">7</div>
+          <div class="node__title">QA 및 플레이테스트</div>
+          <div class="node__desc">내부 테스트, 학습 효과 지표, 사용성 세션, 버그 분류를 수행합니다.</div>
+          <span class="node__tag">프로세스</span>
+        </div>
+
+        <div class="node node--decision" id="n-gate2">
+          <div class="node__step">8</div>
+          <div class="node__title">출시 게이트</div>
+          <div class="node__desc">통과: 크래시율 &lt; 0.5%, D1 리텐션 &gt; 40%, 학습 효과 검증 완료. 실패: 반복 개선.</div>
+          <span class="node__tag">의사결정</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Phase: 출시 -->
+    <div class="phase-group phase-release">
+      <span class="phase-label">Phase 4 &mdash; 출시</span>
+      <div class="phase-inner">
+
+        <div class="node node--output" id="n-soft">
+          <div class="node__step">9</div>
+          <div class="node__title">소프트 런칭</div>
+          <div class="node__desc">제한 시장(KR, TW) 출시로 수익화, ARPU, 오가닉 성장을 검증합니다.</div>
+          <span class="node__tag">산출물</span>
+        </div>
+
+        <div class="node node--output" id="n-global">
+          <div class="node__step">10</div>
+          <div class="node__title">글로벌 런칭</div>
+          <div class="node__desc">NA, EU, CN, JP 전역 정식 출시. ASO, 마케팅 푸시, 라이브옵스 가동.</div>
+          <span class="node__tag">산출물</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Legend -->
+<div class="legend" style="max-width: 1100px; margin: 48px auto 0;">
+  <span class="legend__title">범례</span>
+  <div class="legend__item">
+    <div class="legend__swatch legend__swatch--input"></div>
+    <span>입력 &mdash; 데이터 소스 및 자료</span>
+  </div>
+  <div class="legend__item">
+    <div class="legend__swatch legend__swatch--process"></div>
+    <span>프로세스 &mdash; 빌드 및 변환 단계</span>
+  </div>
+  <div class="legend__item">
+    <div class="legend__swatch legend__swatch--decision"></div>
+    <span>의사결정 &mdash; Go / No-Go 게이트</span>
+  </div>
+  <div class="legend__item">
+    <div class="legend__swatch legend__swatch--output"></div>
+    <span>산출물 &mdash; 결과물 및 릴리스</span>
+  </div>
+  <div class="legend__item">
+    <div class="legend__swatch legend__swatch--risk"></div>
+    <span>리스크 &mdash; 실패 경로 및 대응 방안</span>
+  </div>
+  <div class="legend__item" style="margin-left: 8px; padding-left: 12px; border-left: 1px solid #e2e8f0;">
+    <svg width="32" height="12"><path d="M 0,6 Q 16,0 32,6" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowHead)"/></svg>
+    <span>흐름 연결</span>
+  </div>
+  <div class="legend__item">
+    <svg width="32" height="12"><path d="M 0,6 Q 16,0 32,6" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3"/></svg>
+    <span>피드백 / 반복 루프</span>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  LangMaster 개발 파이프라인 &mdash; HKD852 Studio &mdash; 2026-03-07 업데이트
+</div>
+
+</body>
+</html>

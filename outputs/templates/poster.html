@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangMaster - 게임으로 중국어를 배우다</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+<style>
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    word-break: keep-all;
+    background: #0a0a0a;
+    color: #ffffff;
+    overflow-x: hidden;
+  }
+
+  section {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Section 1: Giant Headline ── */
+  .s1 {
+    background: linear-gradient(180deg, #0a0a0a 0%, #0d1117 100%);
+    text-align: center;
+  }
+
+  .s1::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .s1-kicker {
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #2563eb;
+    margin-bottom: 32px;
+  }
+
+  .s1-headline {
+    font-size: 84px;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+
+  .s1-headline em {
+    font-style: normal;
+    color: #2563eb;
+  }
+
+  .s1-subtitle {
+    font-size: 22px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 600px;
+    margin-bottom: 64px;
+  }
+
+  .s1-number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .s1-number-value {
+    font-size: 120px;
+    font-weight: 900;
+    line-height: 1;
+    color: #2563eb;
+    letter-spacing: -4px;
+  }
+
+  .s1-number-label {
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 12px;
+  }
+
+  /* ── Section 2: Three Key Facts ── */
+  .s2 {
+    background: #0a0a0a;
+  }
+
+  .s2::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.3), transparent);
+  }
+
+  .s2-title {
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: #2563eb;
+    margin-bottom: 80px;
+    text-align: center;
+  }
+
+  .s2-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 80px;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .s2-fact {
+    text-align: center;
+  }
+
+  .s2-fact-number {
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+
+  .s2-fact-unit {
+    font-size: 36px;
+    font-weight: 300;
+    color: #2563eb;
+  }
+
+  .s2-fact-label {
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  .s2-fact-divider {
+    width: 40px;
+    height: 2px;
+    background: #2563eb;
+    margin: 24px auto 0;
+  }
+
+  /* ── Section 3: Quote ── */
+  .s3 {
+    background: linear-gradient(180deg, #0a0a0a 0%, #0d1420 50%, #0a0a0a 100%);
+    text-align: center;
+  }
+
+  .s3::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .s3-mark {
+    font-size: 160px;
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(37, 99, 235, 0.15);
+    margin-bottom: -40px;
+    user-select: none;
+  }
+
+  .s3-quote {
+    font-size: 40px;
+    font-weight: 300;
+    line-height: 1.6;
+    font-style: italic;
+    max-width: 800px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 48px;
+  }
+
+  .s3-quote strong {
+    font-weight: 700;
+    color: #2563eb;
+    font-style: normal;
+  }
+
+  .s3-attribution {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 2px;
+  }
+
+  .s3-attribution span {
+    color: #2563eb;
+  }
+
+  /* ── Section 4: Data Visualization ── */
+  .s4 {
+    background: #0a0a0a;
+  }
+
+  .s4-title {
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: #2563eb;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .s4-headline {
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: 64px;
+    max-width: 700px;
+  }
+
+  .s4-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 32px;
+    height: 320px;
+    max-width: 800px;
+    width: 100%;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+  }
+
+  .s4-bar-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .s4-bar-value {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #ffffff;
+  }
+
+  .s4-bar {
+    width: 100%;
+    max-width: 80px;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    transition: height 0.3s ease;
+  }
+
+  .s4-bar-label {
+    position: absolute;
+    bottom: -48px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+  }
+
+  .bar-accent {
+    background: linear-gradient(180deg, #2563eb, #1d4ed8);
+  }
+
+  .bar-dim {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
+  }
+
+  .s4-note {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 80px;
+    text-align: center;
+  }
+
+  /* ── Section 5: Call to Action ── */
+  .s5 {
+    background: linear-gradient(180deg, #0a0a0a 0%, #0d1420 100%);
+    text-align: center;
+  }
+
+  .s5::before {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .s5-label {
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    color: #2563eb;
+    margin-bottom: 40px;
+  }
+
+  .s5-statement {
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1.2;
+    max-width: 800px;
+    margin-bottom: 48px;
+    letter-spacing: -1px;
+  }
+
+  .s5-statement em {
+    font-style: normal;
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s5-sub {
+    font-size: 20px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    max-width: 500px;
+    margin-bottom: 64px;
+  }
+
+  .s5-cta {
+    display: inline-block;
+    padding: 20px 56px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: background 0.2s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  .s5-cta:hover {
+    background: #1d4ed8;
+  }
+
+  .s5-footer {
+    position: absolute;
+    bottom: 40px;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 2px;
+  }
+
+  /* ── Scroll indicator ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .scroll-hint-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.25);
+    transform: rotate(45deg);
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    section {
+      padding: 60px 40px;
+    }
+
+    .s1-headline {
+      font-size: 60px;
+    }
+
+    .s1-number-value {
+      font-size: 88px;
+    }
+
+    .s2-grid {
+      gap: 48px;
+    }
+
+    .s2-fact-number {
+      font-size: 56px;
+    }
+
+    .s3-quote {
+      font-size: 32px;
+    }
+
+    .s4-headline {
+      font-size: 36px;
+    }
+
+    .s5-statement {
+      font-size: 48px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    section {
+      padding: 48px 24px;
+    }
+
+    .s1-kicker {
+      font-size: 14px;
+      letter-spacing: 4px;
+    }
+
+    .s1-headline {
+      font-size: 42px;
+      letter-spacing: -1px;
+    }
+
+    .s1-subtitle {
+      font-size: 18px;
+    }
+
+    .s1-number-value {
+      font-size: 64px;
+      letter-spacing: -2px;
+    }
+
+    .s2-title {
+      margin-bottom: 48px;
+    }
+
+    .s2-grid {
+      grid-template-columns: 1fr;
+      gap: 56px;
+    }
+
+    .s2-fact-number {
+      font-size: 56px;
+    }
+
+    .s3-mark {
+      font-size: 100px;
+      margin-bottom: -24px;
+    }
+
+    .s3-quote {
+      font-size: 24px;
+    }
+
+    .s4-headline {
+      font-size: 28px;
+    }
+
+    .s4-chart {
+      height: 240px;
+      gap: 16px;
+    }
+
+    .s4-bar-value {
+      font-size: 16px;
+    }
+
+    .s4-bar-label {
+      font-size: 12px;
+    }
+
+    .s5-statement {
+      font-size: 36px;
+    }
+
+    .s5-sub {
+      font-size: 17px;
+    }
+
+    .s5-cta {
+      padding: 16px 40px;
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .s1-headline {
+      font-size: 32px;
+    }
+
+    .s1-number-value {
+      font-size: 48px;
+    }
+
+    .s2-fact-number {
+      font-size: 44px;
+    }
+
+    .s2-fact-unit {
+      font-size: 28px;
+    }
+
+    .s3-quote {
+      font-size: 20px;
+    }
+
+    .s4-headline {
+      font-size: 24px;
+    }
+
+    .s5-statement {
+      font-size: 28px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Section 1: Giant Headline -->
+<section class="s1">
+  <p class="s1-kicker">LangMaster</p>
+  <h1 class="s1-headline"><em>게임</em>으로<br>중국어를 배우다</h1>
+  <p class="s1-subtitle">교과서가 아닌 플레이로 익히는 살아있는 중국어. 매일 10분, 습관이 실력이 됩니다.</p>
+  <div class="s1-number">
+    <span class="s1-number-value">HSK 4</span>
+    <span class="s1-number-label">90일 만에 도달하는 목표 레벨</span>
+  </div>
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="scroll-hint-arrow"></div>
+  </div>
+</section>
+
+<!-- Section 2: Three Key Facts -->
+<section class="s2">
+  <p class="s2-title">핵심 수치</p>
+  <div class="s2-grid">
+    <div class="s2-fact">
+      <div class="s2-fact-number">2.7<span class="s2-fact-unit">배</span></div>
+      <p class="s2-fact-label">교재 학습 대비<br>단어 기억 지속률</p>
+      <div class="s2-fact-divider"></div>
+    </div>
+    <div class="s2-fact">
+      <div class="s2-fact-number">94<span class="s2-fact-unit">%</span></div>
+      <p class="s2-fact-label">30일 연속 학습<br>유지율</p>
+      <div class="s2-fact-divider"></div>
+    </div>
+    <div class="s2-fact">
+      <div class="s2-fact-number">1,200<span class="s2-fact-unit">어휘</span></div>
+      <p class="s2-fact-label">90일 과정 완료 시<br>습득 어휘 수</p>
+      <div class="s2-fact-divider"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Quote -->
+<section class="s3">
+  <div class="s3-mark">"</div>
+  <blockquote class="s3-quote">
+    중국어 공부를 포기한 사람에게<br>다시 한번 해보라고 말할 수 있는 건,<br><strong>이건 공부가 아니라 게임이니까.</strong>
+  </blockquote>
+  <p class="s3-attribution"><span>LangMaster</span> 팀 비전 선언문에서</p>
+</section>
+
+<!-- Section 4: Data Visualization -->
+<section class="s4">
+  <p class="s4-title">학습 효과 비교</p>
+  <h2 class="s4-headline">기존 학습법 대비<br>몰입도와 성취도 격차</h2>
+  <div class="s4-chart">
+    <div class="s4-bar-group">
+      <span class="s4-bar-value">32%</span>
+      <div class="s4-bar bar-dim" style="height: 32%;"></div>
+      <span class="s4-bar-label">교재 독학</span>
+    </div>
+    <div class="s4-bar-group">
+      <span class="s4-bar-value">45%</span>
+      <div class="s4-bar bar-dim" style="height: 45%;"></div>
+      <span class="s4-bar-label">인강 수강</span>
+    </div>
+    <div class="s4-bar-group">
+      <span class="s4-bar-value">51%</span>
+      <div class="s4-bar bar-dim" style="height: 51%;"></div>
+      <span class="s4-bar-label">플래시카드</span>
+    </div>
+    <div class="s4-bar-group">
+      <span class="s4-bar-value">68%</span>
+      <div class="s4-bar bar-dim" style="height: 68%;"></div>
+      <span class="s4-bar-label">기존 앱</span>
+    </div>
+    <div class="s4-bar-group">
+      <span class="s4-bar-value">94%</span>
+      <div class="s4-bar bar-accent" style="height: 94%;"></div>
+      <span class="s4-bar-label" style="color: #2563eb; font-weight: 700;">LangMaster</span>
+    </div>
+  </div>
+  <p class="s4-note">30일 학습 지속률 기준 내부 베타 테스트 결과</p>
+</section>
+
+<!-- Section 5: Call to Action -->
+<section class="s5">
+  <p class="s5-label">다음 단계</p>
+  <h2 class="s5-statement">매일 10분,<br><em>게임 한 판</em>이면 충분합니다</h2>
+  <p class="s5-sub">지금 시작하면 90일 후, 중국 출장에서 통역 없이 대화합니다.</p>
+  <button class="s5-cta">무료로 시작하기</button>
+  <p class="s5-footer">HKD852 STUDIO &mdash; LangMaster</p>
+</section>
+
+</body>
+</html>

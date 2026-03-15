@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LANGMASTER // TERMINAL</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --green: #00ff41;
+    --green-dim: #00cc33;
+    --green-dark: #003b00;
+    --amber: #ffb300;
+    --red: #ff1744;
+    --bg: #000000;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--green);
+    font-family: 'JetBrains Mono', 'Pretendard', 'Noto Sans KR', monospace;
+    font-size: 15px;
+    line-height: 1.8;
+    min-height: 100vh;
+    overflow-x: hidden;
+    animation: flicker 4s infinite;
+    word-break: keep-all;
+  }
+
+  /* CRT scanline overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15) 0px,
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* Screen flicker */
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.97; }
+    52% { opacity: 1; }
+    78% { opacity: 0.98; }
+    80% { opacity: 1; }
+  }
+
+  /* Blinking cursor */
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  .cursor { animation: blink 1s step-end infinite; }
+
+  /* Typing animation */
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  .typing-line {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--green);
+    width: 0;
+    animation: typing 2s steps(50, end) forwards, blink 0.8s step-end 3;
+  }
+
+  /* Glow effect */
+  .glow {
+    text-shadow: 0 0 5px var(--green), 0 0 10px var(--green-dark);
+  }
+  .glow-amber {
+    color: var(--amber);
+    text-shadow: 0 0 5px var(--amber), 0 0 10px rgba(255, 179, 0, 0.3);
+  }
+  .glow-red {
+    color: var(--red);
+    text-shadow: 0 0 5px var(--red), 0 0 10px rgba(255, 23, 68, 0.3);
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 20px;
+  }
+
+  /* Boot sequence */
+  .boot-line {
+    opacity: 0;
+    animation: fadeIn 0.1s forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .section {
+    margin: 24px 0;
+  }
+
+  .prompt {
+    color: var(--green);
+    font-weight: 700;
+  }
+  .prompt::before {
+    content: '> ';
+    color: var(--green-dim);
+  }
+
+  .ascii-border {
+    color: var(--green-dim);
+  }
+
+  pre {
+    font-family: 'JetBrains Mono', 'Pretendard', 'Noto Sans KR', monospace;
+    white-space: pre;
+    line-height: 1.5;
+  }
+
+  .progress-bar { display: inline; }
+  .bar-fill { color: var(--green); }
+  .bar-empty { color: #1a3a1a; }
+  .bar-amber .bar-fill { color: var(--amber); }
+  .bar-red .bar-fill { color: var(--red); }
+
+  .table-line { color: var(--green-dim); }
+
+  h1, h2 {
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  a { color: var(--green); text-decoration: underline; }
+  a:hover { color: #fff; }
+
+  .dimmed { color: var(--green-dim); opacity: 0.6; }
+
+  .chart-bar { color: var(--green); }
+  .chart-label { color: var(--green-dim); display: inline-block; width: 120px; text-align: right; margin-right: 8px; }
+
+  .hidden { display: none; }
+
+  /* Fade-in for sections */
+  .section[data-delay] { opacity: 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ════════════════════════════════════════ -->
+<!-- 부트 시퀀스                              -->
+<!-- ════════════════════════════════════════ -->
+<div id="boot" class="section glow">
+<pre>
+<span class="boot-line" style="animation-delay:0.1s">BIOS v3.41 ... OK</span>
+<span class="boot-line" style="animation-delay:0.3s">MEM CHECK: 65536K .............. OK</span>
+<span class="boot-line" style="animation-delay:0.6s">DISK 0: SSD-LANGMASTER-1T ....... OK</span>
+<span class="boot-line" style="animation-delay:0.9s">NET ADAPTER: SECURE-TUNNEL ...... OK</span>
+<span class="boot-line" style="animation-delay:1.2s">CRYPTO MODULE: AES-256 .......... OK</span>
+<span class="boot-line" style="animation-delay:1.5s">LOADING KERNEL .................. OK</span>
+<span class="boot-line" style="animation-delay:1.8s dimmed">────────────────────────────────────────</span>
+<span class="boot-line" style="animation-delay:2.1s"><span class="glow-amber">시스템 준비 완료.</span></span>
+</pre>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 헤더                                    -->
+<!-- ════════════════════════════════════════ -->
+<div class="section glow" data-delay="2400">
+<pre class="ascii-border">
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║   시스템: LANGMASTER 시장 분석 v1.0                          ║
+║   날짜:   2026-03-07 09:00:00 UTC                            ║
+║   등급:   기밀 // 내부 전용                                  ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+</pre>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 시장 스캔                                -->
+<!-- ════════════════════════════════════════ -->
+<div class="section" data-delay="2800">
+<p class="prompt glow">시장 스캔 중...</p>
+<br>
+<pre class="glow">
+$ curl -s api.langmaster.io/market/scan --header "Auth: Bearer ****"
+$ Processing 4,218 data points...
+
+상태: <span class="glow-amber">스캔 완료</span> [4,218 / 4,218 레코드]
+</pre>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 경쟁사 테이블                            -->
+<!-- ════════════════════════════════════════ -->
+<div class="section" data-delay="3200">
+<p class="prompt glow">경쟁사 분석</p>
+<br>
+<pre class="table-line">
++------------------+----------+----------+-----------+--------+
+| 경쟁사           |  MAU(M)  | 매출     | 성장률    | 위협도 |
++------------------+----------+----------+-----------+--------+</pre>
+<pre>
+| Duolingo         |   97.6   |  $531M   |  +41.2%   | <span class="glow-red">높음</span>   |
+| Babbel           |   12.3   |  $210M   |  +11.8%   | <span class="glow-amber">중간</span>   |
+| Busuu            |    8.1   |   $89M   |   +8.3%   | <span class="glow-amber">중간</span>   |
+| Rosetta Stone    |    5.4   |  $142M   |   -2.1%   | <span style="color:var(--green)">낮음</span>   |
+| HelloTalk        |    4.2   |   $31M   |  +22.5%   | <span class="glow-amber">중간</span>   |
+| LangMaster (us)  |    0.3   |   $1.2M  |  +185%    | <span style="color:var(--green)">---</span>    |</pre>
+<pre class="table-line">
++------------------+----------+----------+-----------+--------+</pre>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 위협 평가                                -->
+<!-- ════════════════════════════════════════ -->
+<div class="section" data-delay="3600">
+<p class="prompt glow">위협 평가</p>
+<br>
+<pre>
+시장 포화도         [<span class="bar-fill">████████████</span><span class="bar-empty">░░░░░░░░</span>]  62%  <span class="glow-amber">경고</span>
+경쟁사 지출         [<span class="bar-fill">██████████████████</span><span class="bar-empty">░░</span>]  91%  <span class="glow-red">위험</span>
+유저 획득 비용      [<span class="bar-fill">█████████████</span><span class="bar-empty">░░░░░░░</span>]  67%  <span class="glow-amber">경고</span>
+기술 해자           [<span class="bar-fill">████████</span><span class="bar-empty">░░░░░░░░░░░░</span>]  40%  안정
+브랜드 인지도       [<span class="bar-fill">████</span><span class="bar-empty">░░░░░░░░░░░░░░░░</span>]  22%  <span class="glow-red">위험</span>
+제품-시장 적합도    [<span class="bar-fill">███████████████</span><span class="bar-empty">░░░░░</span>]  76%  양호
+</pre>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 시장 점유율 차트                          -->
+<!-- ════════════════════════════════════════ -->
+<div class="section" data-delay="4000">
+<p class="prompt glow">시장 점유율 (ASCII 차트)</p>
+<br>
+<pre>
+<span class="chart-label">Duolingo</span> <span class="chart-bar">####################################################</span>  52.1%
+<span class="chart-label">Babbel</span> <span class="chart-bar">############</span>  12.8%
+<span class="chart-label">Busuu</span> <span class="chart-bar">########</span>   8.4%
+<span class="chart-label">Rosetta</span> <span class="chart-bar">######</span>   5.6%
+<span class="chart-label">HelloTalk</span> <span class="chart-bar">####</span>   4.4%
+<span class="chart-label"><span class="glow-amber">LangMaster</span></span> <span class="glow-amber">#</span>   0.3%
+<span class="chart-label dimmed">기타</span> <span class="dimmed">################</span>  16.4%
+
+  <span class="dimmed">└──────────┬──────────┬──────────┬──────────┬──────────┘</span>
+  <span class="dimmed">          10%        20%        30%        40%        50%</span>
+</pre>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 전략 권고 사항                            -->
+<!-- ════════════════════════════════════════ -->
+<div class="section" data-delay="4400">
+<pre class="ascii-border">
+╔══════════════════════════════════════════════════════════════╗
+║  전략 권고 사항                                              ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+║  [01] <span class="glow-red">위험</span>   - 브랜드 인지도 예산 3배 증액 필요           ║
+║       대상 채널: TikTok, YouTube Shorts, Reddit              ║
+║                                                              ║
+║  [02] <span class="glow-amber">경고</span>   - 유저 획득 채널 다각화 필요                 ║
+║       현재 CAC: $4.20 (목표: $2.80)                          ║
+║                                                              ║
+║  [03] <span style="color:var(--green)">안정</span>   - AI 기반 개인화 학습 강화                   ║
+║       자체 LLM 튜닝을 통한 경쟁 해자 확보                    ║
+║                                                              ║
+║  [04] <span style="color:var(--green)">안정</span>   - 2026년 3분기까지 CN + JP 시장 확장          ║
+║       현지화 파이프라인 준비 완료 (Translate_Agent)           ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+</pre>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 리스크 매트릭스                           -->
+<!-- ════════════════════════════════════════ -->
+<div class="section" data-delay="4800">
+<p class="prompt glow">리스크 매트릭스</p>
+<br>
+<pre class="table-line">
++----+---------------------------+-----------+----------+---------+
+| ID | 리스크                    | 발생확률  | 영향도   | 점수    |
++----+---------------------------+-----------+----------+---------+</pre>
+<pre>
+| R1 | Duolingo AI 전환          |   높음    |   높음   | <span class="glow-red">9.2</span>     |
+| R2 | 앱스토어 정책 변경        |   중간    |   높음   | <span class="glow-amber">7.1</span>     |
+| R3 | LLM 비용 증가             |   중간    |   중간   | <span class="glow-amber">5.5</span>     |
+| R4 | 데이터 개인정보 규제      |   낮음    |   높음   | <span style="color:var(--green)">4.2</span>     |
+| R5 | 핵심 인력 이탈            |   낮음    |   중간   | <span style="color:var(--green)">3.0</span>     |</pre>
+<pre class="table-line">
++----+---------------------------+-----------+----------+---------+</pre>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 시스템 로그                               -->
+<!-- ════════════════════════════════════════ -->
+<div class="section" data-delay="5200">
+<p class="prompt glow">시스템 로그</p>
+<br>
+<pre>
+<span class="dimmed">[09:00:01]</span> 시장 스캔 시작
+<span class="dimmed">[09:00:03]</span> 12개 데이터 소스 연결 완료
+<span class="dimmed">[09:00:08]</span> 경쟁사 프로필 로드 완료: 6건
+<span class="dimmed">[09:00:11]</span> <span class="glow-amber">경고: Duolingo MAU 급증 감지 (전월 대비 +12%)</span>
+<span class="dimmed">[09:00:14]</span> 리스크 매트릭스 산출 완료
+<span class="dimmed">[09:00:15]</span> 전략 권고 사항 생성 완료
+<span class="dimmed">[09:00:16]</span> 보고서 컴파일 완료: 4,218 데이터 포인트
+<span class="dimmed">[09:00:16]</span> <span style="color:var(--green)">완료. 전 시스템 정상.</span>
+</pre>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 푸터                                     -->
+<!-- ════════════════════════════════════════ -->
+<div class="section" data-delay="5600">
+<pre class="dimmed">
+════════════════════════════════════════════════════════════════
+  LANGMASTER TERMINAL v1.0 // HKD852 STUDIO
+  생성일: 2026-03-07 09:00:16 UTC
+  분류: 기밀
+  EOF
+════════════════════════════════════════════════════════════════
+</pre>
+<p class="glow" style="margin-top:12px;">$ <span class="cursor">█</span></p>
+</div>
+
+</div><!-- /container -->
+
+<!-- ════════════════════════════════════════ -->
+<!-- JAVASCRIPT: 타이핑 + 등장 애니메이션     -->
+<!-- ════════════════════════════════════════ -->
+<script>
+(function() {
+  // 섹션별 시차 등장
+  const sections = document.querySelectorAll('.section[data-delay]');
+  sections.forEach(function(section) {
+    const delay = parseInt(section.getAttribute('data-delay'), 10);
+    setTimeout(function() {
+      section.style.opacity = '1';
+      section.style.transition = 'opacity 0.4s ease-in';
+    }, delay);
+  });
+
+  // 헤더 타이틀 타이핑 효과
+  const header = document.querySelector('.section[data-delay="2400"] pre');
+  if (header) {
+    header.style.opacity = '0';
+    setTimeout(function() {
+      header.style.opacity = '1';
+      header.style.transition = 'opacity 0.3s';
+    }, 2400);
+  }
+
+  // 부트 시퀀스 순차 등장
+  const bootLines = document.querySelectorAll('.boot-line');
+  bootLines.forEach(function(line) {
+    const style = line.getAttribute('style') || '';
+    const match = style.match(/animation-delay:\s*([\d.]+)s/);
+    const delay = match ? parseFloat(match[1]) * 1000 : 0;
+    line.style.opacity = '0';
+    setTimeout(function() {
+      line.style.opacity = '1';
+      line.style.transition = 'opacity 0.15s';
+    }, delay);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangMaster 개발 현황 - 칸반 보드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    word-break: keep-all;
+    background: #f1f5f9;
+    color: #1e293b;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 28px 32px 24px;
+  }
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+  .header .subtitle {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 20px;
+  }
+
+  .stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 20px;
+    min-width: 140px;
+  }
+  .stat-card .stat-label {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+    margin-bottom: 2px;
+    line-height: 1.4;
+  }
+  .stat-card .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.3;
+  }
+  .stat-card .stat-value .unit {
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+    margin-left: 2px;
+  }
+  .stat-card.highlight {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+  }
+  .stat-card.highlight .stat-value {
+    color: #2563eb;
+  }
+
+  .board-container {
+    max-width: 1400px;
+    margin: 24px auto;
+    padding: 0 24px 40px;
+  }
+  .board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    min-height: 500px;
+  }
+  @media (max-width: 1024px) {
+    .board {
+      grid-template-columns: repeat(4, minmax(280px, 1fr));
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .column {
+      scroll-snap-align: start;
+    }
+  }
+
+  .column {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .column-header {
+    padding: 16px 16px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 6px solid;
+  }
+  .column-header .col-title {
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .column-header .col-count {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 99px;
+    line-height: 1.5;
+  }
+
+  .col-backlog .column-header { border-top-color: #94a3b8; }
+  .col-backlog .col-title { color: #475569; }
+  .col-backlog .col-count { background: #f1f5f9; color: #475569; }
+
+  .col-progress .column-header { border-top-color: #3b82f6; }
+  .col-progress .col-title { color: #2563eb; }
+  .col-progress .col-count { background: #eff6ff; color: #2563eb; }
+
+  .col-review .column-header { border-top-color: #f59e0b; }
+  .col-review .col-title { color: #d97706; }
+  .col-review .col-count { background: #fffbeb; color: #d97706; }
+
+  .col-done .column-header { border-top-color: #22c55e; }
+  .col-done .col-title { color: #16a34a; }
+  .col-done .col-count { background: #f0fdf4; color: #16a34a; }
+
+  .column-body {
+    padding: 8px 12px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px;
+    cursor: default;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+
+  .card.priority-critical { border-left: 4px solid #ef4444; }
+  .card.priority-high { border-left: 4px solid #f97316; }
+  .card.priority-normal { border-left: 4px solid #3b82f6; }
+  .card.priority-low { border-left: 4px solid #94a3b8; }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .priority-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 99px;
+    line-height: 1.5;
+  }
+  .priority-badge.critical { background: #fef2f2; color: #dc2626; }
+  .priority-badge.high { background: #fff7ed; color: #ea580c; }
+  .priority-badge.normal { background: #eff6ff; color: #2563eb; }
+  .priority-badge.low { background: #f1f5f9; color: #64748b; }
+
+  .due-date {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 99px;
+    line-height: 1.5;
+  }
+  .tag-plan { background: #f5f3ff; color: #7c3aed; }
+  .tag-dev { background: #ecfdf5; color: #059669; }
+  .tag-design { background: #fdf2f8; color: #db2777; }
+  .tag-qa { background: #fefce8; color: #ca8a04; }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .avatar-blue { background: #3b82f6; }
+  .avatar-green { background: #22c55e; }
+  .avatar-purple { background: #8b5cf6; }
+  .avatar-orange { background: #f97316; }
+  .avatar-pink { background: #ec4899; }
+  .avatar-teal { background: #14b8a6; }
+
+  .done-card .card-title {
+    color: #94a3b8;
+    text-decoration: line-through;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>LangMaster 개발 현황</h1>
+    <p class="subtitle">AI 기반 언어 학습 앱 - Sprint 7 칸반 보드</p>
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">총 태스크</div>
+        <div class="stat-value">14<span class="unit">건</span></div>
+      </div>
+      <div class="stat-card highlight">
+        <div class="stat-label">완료율</div>
+        <div class="stat-value">28.6<span class="unit">%</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">이번 주 완료</div>
+        <div class="stat-value">4<span class="unit">건</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">긴급 태스크</div>
+        <div class="stat-value">2<span class="unit">건</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="board-container">
+  <div class="board">
+
+    <!-- 대기 (Backlog) -->
+    <div class="column col-backlog">
+      <div class="column-header">
+        <div class="col-title">대기</div>
+        <span class="col-count">4</span>
+      </div>
+      <div class="column-body">
+
+        <div class="card priority-normal">
+          <div class="card-title">HSK 6급 단어장 데이터 구축</div>
+          <div class="card-meta">
+            <span class="priority-badge normal">보통</span>
+            <span class="due-date">3/21</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-plan">기획</span></div>
+            <div class="avatar avatar-purple">김</div>
+          </div>
+        </div>
+
+        <div class="card priority-low">
+          <div class="card-title">다크모드 테마 적용</div>
+          <div class="card-meta">
+            <span class="priority-badge low">낮음</span>
+            <span class="due-date">3/28</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-design">디자인</span></div>
+            <div class="avatar avatar-pink">박</div>
+          </div>
+        </div>
+
+        <div class="card priority-normal">
+          <div class="card-title">학습 통계 대시보드 설계</div>
+          <div class="card-meta">
+            <span class="priority-badge normal">보통</span>
+            <span class="due-date">3/25</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-plan">기획</span><span class="tag tag-design">디자인</span></div>
+            <div class="avatar avatar-blue">이</div>
+          </div>
+        </div>
+
+        <div class="card priority-high">
+          <div class="card-title">발음 평가 엔진 연동 조사</div>
+          <div class="card-meta">
+            <span class="priority-badge high">높음</span>
+            <span class="due-date">3/14</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-dev">개발</span></div>
+            <div class="avatar avatar-green">정</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 진행중 (In Progress) -->
+    <div class="column col-progress">
+      <div class="column-header">
+        <div class="col-title">진행중</div>
+        <span class="col-count">4</span>
+      </div>
+      <div class="column-body">
+
+        <div class="card priority-critical">
+          <div class="card-title">AI 문장 생성 API 성능 최적화</div>
+          <div class="card-meta">
+            <span class="priority-badge critical">긴급</span>
+            <span class="due-date">3/10</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-dev">개발</span></div>
+            <div class="avatar avatar-orange">최</div>
+          </div>
+        </div>
+
+        <div class="card priority-high">
+          <div class="card-title">복습 알림 푸시 시스템 구현</div>
+          <div class="card-meta">
+            <span class="priority-badge high">높음</span>
+            <span class="due-date">3/12</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-dev">개발</span></div>
+            <div class="avatar avatar-green">정</div>
+          </div>
+        </div>
+
+        <div class="card priority-normal">
+          <div class="card-title">온보딩 플로우 UI 리디자인</div>
+          <div class="card-meta">
+            <span class="priority-badge normal">보통</span>
+            <span class="due-date">3/14</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-design">디자인</span></div>
+            <div class="avatar avatar-pink">박</div>
+          </div>
+        </div>
+
+        <div class="card priority-critical">
+          <div class="card-title">결제 모듈 iOS 크래시 수정</div>
+          <div class="card-meta">
+            <span class="priority-badge critical">긴급</span>
+            <span class="due-date">3/08</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-dev">개발</span><span class="tag tag-qa">QA</span></div>
+            <div class="avatar avatar-teal">한</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 검토중 (Review) -->
+    <div class="column col-review">
+      <div class="column-header">
+        <div class="col-title">검토중</div>
+        <span class="col-count">2</span>
+      </div>
+      <div class="column-body">
+
+        <div class="card priority-high">
+          <div class="card-title">단어 퀴즈 게이미피케이션 기능</div>
+          <div class="card-meta">
+            <span class="priority-badge high">높음</span>
+            <span class="due-date">3/09</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-dev">개발</span><span class="tag tag-qa">QA</span></div>
+            <div class="avatar avatar-orange">최</div>
+          </div>
+        </div>
+
+        <div class="card priority-normal">
+          <div class="card-title">회원가입 소셜 로그인 연동</div>
+          <div class="card-meta">
+            <span class="priority-badge normal">보통</span>
+            <span class="due-date">3/10</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-dev">개발</span></div>
+            <div class="avatar avatar-teal">한</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 완료 (Done) -->
+    <div class="column col-done">
+      <div class="column-header">
+        <div class="col-title">완료</div>
+        <span class="col-count">4</span>
+      </div>
+      <div class="column-body">
+
+        <div class="card priority-high done-card">
+          <div class="card-title">HSK 1~3급 단어 데이터베이스</div>
+          <div class="card-meta">
+            <span class="priority-badge high">높음</span>
+            <span class="due-date">3/03</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-plan">기획</span></div>
+            <div class="avatar avatar-purple">김</div>
+          </div>
+        </div>
+
+        <div class="card priority-normal done-card">
+          <div class="card-title">플래시카드 스와이프 인터랙션</div>
+          <div class="card-meta">
+            <span class="priority-badge normal">보통</span>
+            <span class="due-date">3/04</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-dev">개발</span><span class="tag tag-design">디자인</span></div>
+            <div class="avatar avatar-blue">이</div>
+          </div>
+        </div>
+
+        <div class="card priority-critical done-card">
+          <div class="card-title">서버 응답 지연 핫픽스</div>
+          <div class="card-meta">
+            <span class="priority-badge critical">긴급</span>
+            <span class="due-date">3/05</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-dev">개발</span></div>
+            <div class="avatar avatar-green">정</div>
+          </div>
+        </div>
+
+        <div class="card priority-normal done-card">
+          <div class="card-title">HSK 4~5급 예문 검수 완료</div>
+          <div class="card-meta">
+            <span class="priority-badge normal">보통</span>
+            <span class="due-date">3/06</span>
+          </div>
+          <div class="card-footer">
+            <div class="tags"><span class="tag tag-qa">QA</span></div>
+            <div class="avatar avatar-purple">김</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

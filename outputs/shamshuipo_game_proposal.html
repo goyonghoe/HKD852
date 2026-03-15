@@ -1,0 +1,2019 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShamShuiPo 게임 제안서 — Neon Survivors</title>
+    <style>
+      @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css");
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Pretendard",
+          "Noto Sans KR",
+          -apple-system,
+          sans-serif;
+        background: #fafafa;
+        color: #1d1d1f;
+        padding: 40px 24px;
+        font-size: 15px;
+        line-height: 1.8;
+        word-break: keep-all;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .page-header {
+        max-width: 1080px;
+        margin: 0 auto 32px;
+        text-align: center;
+      }
+      .page-header h1 {
+        font-size: 15px;
+        font-weight: 600;
+        color: #86868b;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+      }
+      .page-header .date {
+        font-size: 13px;
+        color: #a1a1a6;
+        margin-top: 4px;
+      }
+
+      /* ── Bento Grid ── */
+      .bento {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+
+      /* ── Card Base ── */
+      .card {
+        background: #f5f5f7;
+        border-radius: 20px;
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.25s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .card:hover {
+        transform: scale(1.01);
+      }
+
+      /* ── Span helpers ── */
+      .span-2 {
+        grid-column: span 2;
+      }
+      .span-3 {
+        grid-column: span 3;
+      }
+      .span-4 {
+        grid-column: span 4;
+      }
+      .tall {
+        grid-row: span 2;
+      }
+
+      /* ── Color Variants ── */
+      .bg-blue {
+        background: #e8f0fe;
+      }
+      .bg-green {
+        background: #e6f4ea;
+      }
+      .bg-purple {
+        background: #f3e8ff;
+      }
+      .bg-amber {
+        background: #fef3c7;
+      }
+      .bg-rose {
+        background: #ffe4e6;
+      }
+      .bg-cyan {
+        background: #e0f7fa;
+      }
+      .bg-dark {
+        background: #1d1d1f;
+        color: #f5f5f7;
+      }
+      .bg-dark .card-label {
+        color: #a1a1a6;
+      }
+      .bg-dark .card-secondary {
+        color: #a1a1a6;
+      }
+      .bg-neon {
+        background: linear-gradient(
+          135deg,
+          #0f0f23 0%,
+          #1a1a3e 50%,
+          #0d1b2a 100%
+        );
+        color: #f5f5f7;
+      }
+      .bg-neon .card-label {
+        color: #00f5ff;
+      }
+      .bg-neon .card-secondary {
+        color: #a1a1a6;
+      }
+
+      /* ── Typography ── */
+      .card-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #86868b;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 8px;
+      }
+      .card-heading {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        line-height: 1.25;
+      }
+      .card-heading.lg {
+        font-size: 28px;
+      }
+      .card-heading.xl {
+        font-size: 32px;
+      }
+      .card-body {
+        font-size: 15px;
+        font-weight: 400;
+        color: #1d1d1f;
+        line-height: 1.8;
+        margin-top: 10px;
+      }
+      .card-secondary {
+        font-size: 14px;
+        color: #86868b;
+        line-height: 1.5;
+        margin-top: 6px;
+      }
+
+      /* ── Big Number ── */
+      .big-number {
+        font-size: 56px;
+        font-weight: 800;
+        letter-spacing: -2px;
+        line-height: 1;
+        margin-top: auto;
+      }
+      .big-number.xl {
+        font-size: 64px;
+      }
+      .big-number .unit {
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 0;
+      }
+
+      /* ── Icon Circle ── */
+      .icon-circle {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin-bottom: 14px;
+        flex-shrink: 0;
+      }
+      .icon-circle.blue {
+        background: #d1e0fc;
+      }
+      .icon-circle.green {
+        background: #c6e9cc;
+      }
+      .icon-circle.purple {
+        background: #e4d0fc;
+      }
+      .icon-circle.amber {
+        background: #fde68a;
+      }
+      .icon-circle.dark {
+        background: #333;
+        color: #fff;
+      }
+      .icon-circle.rose {
+        background: #fecdd3;
+      }
+      .icon-circle.cyan {
+        background: #a5f3fc;
+      }
+      .icon-circle.neon {
+        background: rgba(0, 245, 255, 0.15);
+        border: 2px solid rgba(0, 245, 255, 0.4);
+      }
+
+      /* ── Hero ── */
+      .hero-statement {
+        font-size: 36px;
+        font-weight: 700;
+        letter-spacing: -0.8px;
+        line-height: 1.2;
+        max-width: 700px;
+      }
+      .hero-sub {
+        font-size: 17px;
+        color: #a1a1a6;
+        margin-top: 12px;
+        line-height: 1.8;
+        max-width: 640px;
+      }
+      .hero-tagline {
+        display: inline-block;
+        background: rgba(0, 245, 255, 0.15);
+        color: #00f5ff;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 6px 16px;
+        border-radius: 20px;
+        margin-top: 16px;
+        letter-spacing: 0.5px;
+      }
+
+      /* ── List ── */
+      .feature-list {
+        list-style: none;
+        margin-top: 14px;
+      }
+      .feature-list li {
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .feature-list li:last-child {
+        border: none;
+      }
+      .feature-list .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* ── Timeline ── */
+      .timeline {
+        margin-top: 14px;
+      }
+      .timeline-item {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 10px 0;
+      }
+      .timeline-marker {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-top: 5px;
+        flex-shrink: 0;
+        background: #86868b;
+      }
+      .timeline-marker.active {
+        background: #0071e3;
+      }
+      .timeline-marker.neon {
+        background: #00f5ff;
+      }
+      .timeline-marker.pink {
+        background: #ff6b9d;
+      }
+      .timeline-marker.green {
+        background: #00e676;
+      }
+      .timeline-text {
+        font-size: 14px;
+        line-height: 1.45;
+      }
+      .timeline-text strong {
+        display: block;
+        font-size: 15px;
+      }
+
+      /* ── Bar chart ── */
+      .bar-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .bar-label {
+        font-size: 13px;
+        width: 100px;
+        color: #86868b;
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .bar-track {
+        flex: 1;
+        height: 8px;
+        background: rgba(0, 0, 0, 0.06);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.6s ease;
+      }
+      .bar-value {
+        font-size: 12px;
+        color: #86868b;
+        width: 50px;
+        flex-shrink: 0;
+      }
+
+      /* ── Table ── */
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 14px;
+        font-size: 14px;
+      }
+      .data-table th {
+        text-align: left;
+        font-weight: 600;
+        padding: 8px 10px;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+        color: #86868b;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .data-table td {
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      }
+      .data-table tr:last-child td {
+        border: none;
+      }
+      .data-table .highlight {
+        font-weight: 700;
+        color: #0071e3;
+      }
+      .data-table .success {
+        color: #188038;
+      }
+      .data-table .warning {
+        color: #b45309;
+      }
+
+      /* ── Tags ── */
+      .tag {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 12px;
+        margin: 2px 4px 2px 0;
+      }
+      .tag-blue {
+        background: #d1e0fc;
+        color: #1a56db;
+      }
+      .tag-green {
+        background: #c6e9cc;
+        color: #166534;
+      }
+      .tag-purple {
+        background: #e4d0fc;
+        color: #6b21a8;
+      }
+      .tag-amber {
+        background: #fde68a;
+        color: #92400e;
+      }
+      .tag-rose {
+        background: #fecdd3;
+        color: #be123c;
+      }
+      .tag-cyan {
+        background: #a5f3fc;
+        color: #0e7490;
+      }
+
+      /* ── Section Divider ── */
+      .section-divider {
+        grid-column: span 4;
+        text-align: center;
+        padding: 32px 0 8px;
+      }
+      .section-divider h2 {
+        font-size: 13px;
+        font-weight: 700;
+        color: #86868b;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      /* ── Comparison Card ── */
+      .comp-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        font-size: 14px;
+      }
+      .comp-row:last-child {
+        border: none;
+      }
+      .comp-name {
+        font-weight: 600;
+        flex: 1;
+      }
+      .comp-val {
+        text-align: right;
+        color: #86868b;
+      }
+
+      /* ── Callout ── */
+      .callout {
+        background: rgba(0, 113, 227, 0.06);
+        border-left: 3px solid #0071e3;
+        padding: 14px 18px;
+        border-radius: 0 12px 12px 0;
+        margin-top: 14px;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .callout.warning {
+        background: rgba(234, 88, 12, 0.06);
+        border-left-color: #ea580c;
+      }
+      .callout.success {
+        background: rgba(22, 163, 74, 0.06);
+        border-left-color: #16a34a;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 768px) {
+        .bento {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .span-3,
+        .span-4 {
+          grid-column: span 2;
+        }
+        .section-divider {
+          grid-column: span 2;
+        }
+        .hero-statement {
+          font-size: 26px;
+        }
+        .big-number {
+          font-size: 44px;
+        }
+        .big-number.xl {
+          font-size: 50px;
+        }
+      }
+      @media (max-width: 480px) {
+        .bento {
+          grid-template-columns: 1fr;
+        }
+        .span-2,
+        .span-3,
+        .span-4 {
+          grid-column: span 1;
+        }
+        .section-divider {
+          grid-column: span 1;
+        }
+        body {
+          padding: 24px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-header">
+      <h1>ShamShuiPo Game Proposal</h1>
+      <div class="date">2026-03-12 &middot; HKD852 Studio</div>
+    </div>
+
+    <div class="bento">
+      <!-- ════════════════════════════════════════════ -->
+      <!-- HERO — Game Vision -->
+      <!-- ════════════════════════════════════════════ -->
+
+      <div
+        class="card span-4 bg-neon"
+        style="padding: 56px 44px; min-height: 240px"
+      >
+        <div>
+          <div class="card-label" style="color: #00f5ff">Game Concept</div>
+          <p class="hero-statement" style="color: #f5f5f7">
+            네온 사이버펑크 도시에서 살아남아라.<br />
+            <span style="color: #ff6b9d">Neon Survivors</span> &mdash; 모바일
+            불릿 헤븐 액션 로그라이크
+          </p>
+          <p class="hero-sub">
+            한 손가락 조이스틱으로 이동, 공격은 자동. 10분 안에 수백 명의 적을
+            쓸어버리는 쾌감. Kill &rarr; Collect &rarr; Upgrade 코어 루프.
+            CraftPix 사이버펑크 에셋 14,391장으로 완성 가능.
+          </p>
+          <span class="hero-tagline"
+            >Bullet Heaven &times; Cyberpunk &times; Roguelike</span
+          >
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION: Market Opportunity -->
+      <!-- ════════════════════════════════════════════ -->
+
+      <div class="section-divider"><h2>&#128200; 시장 기회</h2></div>
+
+      <!-- Metric: Mobile Gaming Market -->
+      <div class="card bg-blue">
+        <div class="card-label">모바일 게임 시장</div>
+        <div class="big-number xl" style="color: #0071e3">
+          $133<span class="unit">B</span>
+        </div>
+        <div class="card-secondary">
+          2026년 글로벌 모바일 게임 매출<br />전체 게임 시장의 50% 이상
+        </div>
+      </div>
+
+      <!-- Metric: Roguelike Market -->
+      <div class="card bg-green">
+        <div class="card-label">로그라이크 시장</div>
+        <div class="big-number" style="color: #188038">
+          $10.5<span class="unit">B</span>
+        </div>
+        <div class="card-secondary">
+          2033년 전망 (CAGR 10.5%)<br />2024년 $3.2B &rarr; 3.3배 성장
+        </div>
+      </div>
+
+      <!-- Metric: Pixel Art Market -->
+      <div class="card bg-purple">
+        <div class="card-label">픽셀아트 게임 시장</div>
+        <div class="big-number" style="color: #7c3aed">
+          $8.5<span class="unit">B</span>
+        </div>
+        <div class="card-secondary">
+          2033년 전망 (CAGR 11.3%)<br />2025년 $3.8B 기준
+        </div>
+      </div>
+
+      <!-- Metric: Hybrid Casual Growth -->
+      <div class="card bg-amber">
+        <div class="card-label">하이브리드 캐주얼</div>
+        <div class="big-number" style="color: #b45309">
+          +37<span class="unit">%</span>
+        </div>
+        <div class="card-secondary">
+          IAP 매출 YoY 성장률<br />모바일 게임 중 가장 빠른 성장
+        </div>
+      </div>
+
+      <!-- Competitor Revenue — span 2, tall -->
+      <div class="card span-2 tall">
+        <div>
+          <div class="icon-circle cyan">&#127942;</div>
+          <div class="card-heading lg">검증된 장르 — 상위 타이틀 매출</div>
+          <div class="card-secondary" style="margin-bottom: 8px">
+            같은 장르(불릿 헤븐/액션 로그라이크) 모바일 게임의 누적 IAP 매출
+          </div>
+
+          <div class="bar-row">
+            <div class="bar-label">Survivor.io</div>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="
+                  width: 100%;
+                  background: linear-gradient(90deg, #0071e3, #00f5ff);
+                "
+              ></div>
+            </div>
+            <div class="bar-value">$500M+</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Archero 1+2</div>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="width: 84%; background: #7c3aed"
+              ></div>
+            </div>
+            <div class="bar-value">$421M</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Capybara Go</div>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="width: 28%; background: #188038"
+              ></div>
+            </div>
+            <div class="bar-value">$139M</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Brotato</div>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="width: 6%; background: #b45309"
+              ></div>
+            </div>
+            <div class="bar-value">$28M</div>
+          </div>
+        </div>
+        <div class="callout success" style="margin-top: 16px">
+          <strong>핵심 인사이트</strong>: Habby(Survivor.io 퍼블리셔)만 이
+          장르에서 <strong>$2B+</strong> 달성. Capybara Go는 런칭 2개월 만에
+          $40M 해외 매출을 기록하여 시장이 여전히 포화되지 않았음을 증명.
+        </div>
+      </div>
+
+      <!-- Why This Genre — span 2, tall -->
+      <div class="card span-2 tall bg-cyan">
+        <div>
+          <div class="icon-circle neon" style="font-size: 24px">&#9889;</div>
+          <div class="card-heading lg">왜 불릿 헤븐인가</div>
+          <ul class="feature-list">
+            <li>
+              <span class="dot" style="background: #0071e3"></span
+              ><strong>한 손가락 조작</strong> &mdash; 조이스틱만으로 플레이.
+              출퇴근 지하철에서 최적
+            </li>
+            <li>
+              <span class="dot" style="background: #188038"></span
+              ><strong>10분 세션</strong> &mdash; 모바일 사용 패턴(22분/일
+              평균)에 완벽 부합
+            </li>
+            <li>
+              <span class="dot" style="background: #7c3aed"></span
+              ><strong>파워 판타지</strong> &mdash; 1분차 생존 → 10분차 화면
+              가득 공격. 중독적 성장감
+            </li>
+            <li>
+              <span class="dot" style="background: #b45309"></span
+              ><strong>이중 프로그레션</strong> &mdash; 런 내 선택 + 런 간 영구
+              성장 = 장기 리텐션
+            </li>
+            <li>
+              <span class="dot" style="background: #e11d48"></span
+              ><strong>TikTok 바이럴</strong> &mdash; 화면이 미쳐 돌아가는
+              장면이 자연스러운 공유 콘텐츠
+            </li>
+            <li>
+              <span class="dot" style="background: #0891b2"></span
+              ><strong>콘텐츠 확장 용이</strong> &mdash; 무기/스킬/적/보스만
+              추가하면 되는 모듈 구조
+            </li>
+          </ul>
+        </div>
+        <div class="callout" style="margin-top: 14px">
+          <strong>사이버펑크 차별화</strong>: "cyberpunk UI" 검색량 237%
+          증가(2022~). 대부분 PC/콘솔 타겟. 모바일 사이버펑크 불릿 헤븐은
+          <strong>미개척 교차점</strong>.
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION: Core Loop -->
+      <!-- ════════════════════════════════════════════ -->
+
+      <div class="section-divider"><h2>&#128260; 코어 루프 설계</h2></div>
+
+      <!-- Core Loop Diagram — span 4 -->
+      <div class="card span-4" style="padding: 36px 40px; text-align: center">
+        <div class="card-heading xl" style="margin-bottom: 24px">
+          Kill &rarr; Collect &rarr; Upgrade
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+          "
+        >
+          <div
+            style="
+              flex: 1;
+              min-width: 180px;
+              max-width: 220px;
+              padding: 20px;
+              background: #e8f0fe;
+              border-radius: 16px;
+            "
+          >
+            <div style="font-size: 36px; margin-bottom: 8px">&#128299;</div>
+            <div style="font-weight: 700; font-size: 16px">자동 공격</div>
+            <div style="font-size: 13px; color: #86868b; margin-top: 6px">
+              플레이어는 이동에 집중<br />무기가 자동으로 발사
+            </div>
+          </div>
+          <div
+            style="
+              flex: 1;
+              min-width: 180px;
+              max-width: 220px;
+              padding: 20px;
+              background: #e6f4ea;
+              border-radius: 16px;
+            "
+          >
+            <div style="font-size: 36px; margin-bottom: 8px">&#128142;</div>
+            <div style="font-weight: 700; font-size: 16px">XP 수집</div>
+            <div style="font-size: 13px; color: #86868b; margin-top: 6px">
+              적 처치 시 젬 드롭<br />자석 범위 내 자동 수집
+            </div>
+          </div>
+          <div
+            style="
+              flex: 1;
+              min-width: 180px;
+              max-width: 220px;
+              padding: 20px;
+              background: #f3e8ff;
+              border-radius: 16px;
+            "
+          >
+            <div style="font-size: 36px; margin-bottom: 8px">
+              &#11014;&#65039;
+            </div>
+            <div style="font-weight: 700; font-size: 16px">레벨업 선택</div>
+            <div style="font-size: 13px; color: #86868b; margin-top: 6px">
+              60~90초마다 3개 중 택 1<br />무기/스킬/패시브 강화
+            </div>
+          </div>
+          <div
+            style="
+              flex: 1;
+              min-width: 180px;
+              max-width: 220px;
+              padding: 20px;
+              background: #fef3c7;
+              border-radius: 16px;
+            "
+          >
+            <div style="font-size: 36px; margin-bottom: 8px">&#128165;</div>
+            <div style="font-weight: 700; font-size: 16px">보스 & 보상</div>
+            <div style="font-size: 13px; color: #86868b; margin-top: 6px">
+              5분/10분 보스전<br />런 완료 시 장비/재화 획득
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+          "
+        >
+          <span class="tag tag-blue">세션 시간: 10~15분</span>
+          <span class="tag tag-green">일일 플레이: 2~3런</span>
+          <span class="tag tag-purple">재시작까지: 3초 이내</span>
+          <span class="tag tag-amber">오리엔테이션: 세로 모드</span>
+        </div>
+      </div>
+
+      <!-- Session Loop — span 2 -->
+      <div class="card span-2">
+        <div class="icon-circle blue">&#127918;</div>
+        <div class="card-heading">인-런 루프 (10분)</div>
+        <div class="card-body">
+          <table class="data-table">
+            <tr>
+              <th>시간</th>
+              <th>이벤트</th>
+              <th>감정</th>
+            </tr>
+            <tr>
+              <td>0:00</td>
+              <td>런 시작, 기본 무기 1개</td>
+              <td>긴장감</td>
+            </tr>
+            <tr>
+              <td>0:30</td>
+              <td>첫 레벨업 — 무기/스킬 선택</td>
+              <td>기대감</td>
+            </tr>
+            <tr>
+              <td>2:00</td>
+              <td>적 밀도 증가, 두 번째 무기 획득</td>
+              <td>몰입</td>
+            </tr>
+            <tr>
+              <td>5:00</td>
+              <td class="highlight">미니보스 등장</td>
+              <td>도전</td>
+            </tr>
+            <tr>
+              <td>7:00</td>
+              <td>화면 가득 투사체, 파워 판타지 절정</td>
+              <td>쾌감</td>
+            </tr>
+            <tr>
+              <td>10:00</td>
+              <td class="highlight">최종 보스 — 생존 or 사망</td>
+              <td>클라이맥스</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Meta Loop — span 2 -->
+      <div class="card span-2">
+        <div class="icon-circle purple">&#128736;</div>
+        <div class="card-heading">메타 루프 (런 사이)</div>
+        <div class="card-body">
+          <table class="data-table">
+            <tr>
+              <th>시스템</th>
+              <th>역할</th>
+              <th>수익화 연결</th>
+            </tr>
+            <tr>
+              <td>장비 강화</td>
+              <td>무기/방어구 등급 업그레이드</td>
+              <td>재료 IAP</td>
+            </tr>
+            <tr>
+              <td>캐릭터 해금</td>
+              <td>고유 스킬셋 캐릭터 수집</td>
+              <td>캐릭터 팩</td>
+            </tr>
+            <tr>
+              <td>챕터 진행</td>
+              <td>8개 사이버펑크 구역 순차 해금</td>
+              <td>에너지</td>
+            </tr>
+            <tr>
+              <td>영구 스탯</td>
+              <td>소프트 재화로 기본 능력치 상승</td>
+              <td>재화 팩</td>
+            </tr>
+            <tr>
+              <td>배틀패스</td>
+              <td>시즌별 무료/프리미엄 보상 트랙</td>
+              <td class="highlight">핵심 IAP</td>
+            </tr>
+            <tr>
+              <td>일일 도전</td>
+              <td>매일 변하는 특수 조건 런</td>
+              <td>광고 보상</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION: Available Assets -->
+      <!-- ════════════════════════════════════════════ -->
+
+      <div class="section-divider"><h2>&#127912; 보유 에셋 인벤토리</h2></div>
+
+      <!-- Asset Stats — 4 cards -->
+      <div class="card" style="text-align: center">
+        <div class="card-label">총 PNG 에셋</div>
+        <div class="big-number" style="color: #0071e3">14,391</div>
+        <div class="card-secondary">CraftPix 사이버펑크 팩</div>
+      </div>
+
+      <div class="card bg-green" style="text-align: center">
+        <div class="card-label">오디오 파일</div>
+        <div class="big-number" style="color: #188038">199</div>
+        <div class="card-secondary">55 BGM + 149 SFX</div>
+      </div>
+
+      <div class="card bg-purple" style="text-align: center">
+        <div class="card-label">현재 활용률</div>
+        <div class="big-number" style="color: #7c3aed">
+          0.25<span class="unit">%</span>
+        </div>
+        <div class="card-secondary">14,391장 중 36장만 배포</div>
+      </div>
+
+      <div class="card bg-rose" style="text-align: center">
+        <div class="card-label">잠재력</div>
+        <div class="big-number" style="color: #e11d48">40&times;</div>
+        <div class="card-secondary">현재 대비 콘텐츠 확장 가능</div>
+      </div>
+
+      <!-- Asset Breakdown — span 2, tall -->
+      <div class="card span-2 tall">
+        <div>
+          <div class="icon-circle amber">&#128230;</div>
+          <div class="card-heading lg">에셋 카테고리별 상세</div>
+          <table class="data-table">
+            <tr>
+              <th>카테고리</th>
+              <th>팩 수</th>
+              <th>PNG 수</th>
+              <th>활용</th>
+            </tr>
+            <tr>
+              <td>캐릭터 (영웅/NPC)</td>
+              <td>18</td>
+              <td>833</td>
+              <td class="warning">3/18</td>
+            </tr>
+            <tr>
+              <td>적 유닛</td>
+              <td>19</td>
+              <td>650</td>
+              <td class="warning">4/19</td>
+            </tr>
+            <tr>
+              <td>보스</td>
+              <td>15</td>
+              <td>486</td>
+              <td class="warning">1/15</td>
+            </tr>
+            <tr>
+              <td>배경 (8개 구역)</td>
+              <td>1</td>
+              <td>80</td>
+              <td class="warning">5/80</td>
+            </tr>
+            <tr>
+              <td>이펙트</td>
+              <td>5</td>
+              <td>223</td>
+              <td class="warning">2/5</td>
+            </tr>
+            <tr>
+              <td>타일셋</td>
+              <td>21</td>
+              <td>3,188</td>
+              <td style="color: #e11d48">0</td>
+            </tr>
+            <tr>
+              <td>아이콘</td>
+              <td>46</td>
+              <td>4,981</td>
+              <td style="color: #e11d48">0</td>
+            </tr>
+            <tr>
+              <td>UI 요소</td>
+              <td>4</td>
+              <td>1,602</td>
+              <td style="color: #e11d48">0</td>
+            </tr>
+            <tr>
+              <td>장식/소품</td>
+              <td>11</td>
+              <td>774</td>
+              <td style="color: #e11d48">0</td>
+            </tr>
+            <tr>
+              <td>차량/메카</td>
+              <td>4</td>
+              <td>125</td>
+              <td style="color: #e11d48">0</td>
+            </tr>
+            <tr>
+              <td>컨스트럭터</td>
+              <td>8</td>
+              <td>1,449</td>
+              <td style="color: #e11d48">0</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Asset → Game Feature Mapping — span 2, tall -->
+      <div class="card span-2 tall bg-blue">
+        <div>
+          <div class="icon-circle blue">&#128279;</div>
+          <div class="card-heading lg">에셋 → 게임 기능 매핑</div>
+          <ul class="feature-list">
+            <li>
+              <span class="dot" style="background: #0071e3"></span>
+              <div>
+                <strong>18 캐릭터 팩</strong> → 플레이어블 히어로 + 동료 NPC
+                시스템
+              </div>
+            </li>
+            <li>
+              <span class="dot" style="background: #e11d48"></span>
+              <div>
+                <strong>19 적 팩</strong> → 구역별 테마 적: 차이나타운, 바거리,
+                하수구, 사막 등
+              </div>
+            </li>
+            <li>
+              <span class="dot" style="background: #7c3aed"></span>
+              <div>
+                <strong>15 보스 팩</strong> → 챕터당 고유 보스 (다양한 공격 패턴
+                애니메이션 보유)
+              </div>
+            </li>
+            <li>
+              <span class="dot" style="background: #188038"></span>
+              <div>
+                <strong>8 배경 (Day/Night)</strong> → 8개 구역, 각 5 패럴렉스
+                레이어 → 사이버펑크 도시 월드맵
+              </div>
+            </li>
+            <li>
+              <span class="dot" style="background: #b45309"></span>
+              <div>
+                <strong>46 아이콘 팩 (4,981장)</strong> → 무기, 장비, 스킬,
+                아이템, 재료 아이콘 즉시 활용
+              </div>
+            </li>
+            <li>
+              <span class="dot" style="background: #0891b2"></span>
+              <div>
+                <strong>4 UI 팩</strong> → 사이버펑크 테마 버튼, 바, 프레임,
+                숫자 폰트
+              </div>
+            </li>
+            <li>
+              <span class="dot" style="background: #d946ef"></span>
+              <div>
+                <strong>5 이펙트 팩</strong> → 연기, 폭발, 불꽃, 에너지,
+                오버레이
+              </div>
+            </li>
+            <li>
+              <span class="dot" style="background: #ea580c"></span>
+              <div>
+                <strong>199 오디오</strong> → BGM + SFX 완전 커버 (미배포 상태)
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="callout success" style="margin-top: 12px">
+          <strong>결론</strong>: 불릿 헤븐 장르에 필요한 모든 에셋 카테고리를
+          이미 보유. 추가 에셋 구매 없이 완성 가능.
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION: Competitive Analysis -->
+      <!-- ════════════════════════════════════════════ -->
+
+      <div class="section-divider">
+        <h2>&#9878;&#65039; 경쟁 분석 & 차별화</h2>
+      </div>
+
+      <!-- Competitive Comparison — span 2, tall -->
+      <div class="card span-2 tall">
+        <div>
+          <div class="icon-circle rose">&#128640;</div>
+          <div class="card-heading lg">경쟁작 대비 포지셔닝</div>
+          <table class="data-table">
+            <tr>
+              <th>요소</th>
+              <th>Survivor.io</th>
+              <th>Archero</th>
+              <th style="color: #0071e3">Neon Survivors</th>
+            </tr>
+            <tr>
+              <td>아트 스타일</td>
+              <td>미니멀 2D</td>
+              <td>카툰 3D</td>
+              <td class="highlight">사이버펑크 픽셀아트</td>
+            </tr>
+            <tr>
+              <td>세계관</td>
+              <td>좀비/판타지</td>
+              <td>판타지 던전</td>
+              <td class="highlight">홍콩 사이버펑크</td>
+            </tr>
+            <tr>
+              <td>조작</td>
+              <td>조이스틱</td>
+              <td>조이스틱</td>
+              <td>조이스틱 (동일)</td>
+            </tr>
+            <tr>
+              <td>런 시간</td>
+              <td>15분</td>
+              <td>5~10분</td>
+              <td>10분 (이상적)</td>
+            </tr>
+            <tr>
+              <td>캐릭터 수</td>
+              <td>6+</td>
+              <td>15+</td>
+              <td class="highlight">18 (Day 1)</td>
+            </tr>
+            <tr>
+              <td>배경 수</td>
+              <td>40+</td>
+              <td>20+</td>
+              <td>8 (확장 가능)</td>
+            </tr>
+            <tr>
+              <td>보스 종류</td>
+              <td>다수</td>
+              <td>챕터별</td>
+              <td class="highlight">15 고유 보스</td>
+            </tr>
+            <tr>
+              <td>분위기</td>
+              <td>밝고 캐주얼</td>
+              <td>밝고 캐주얼</td>
+              <td class="highlight">무디 네온 다크</td>
+            </tr>
+          </table>
+        </div>
+        <div class="callout" style="margin-top: 12px">
+          <strong>핵심 차별점</strong>: 경쟁작 대부분이 밝고 캐주얼한 아트.
+          사이버펑크 무드의 불릿 헤븐은 모바일에서 <strong>사실상 부재</strong>.
+          미학적 차별화가 가장 큰 무기.
+        </div>
+      </div>
+
+      <!-- Differentiation Strategy — span 2, tall -->
+      <div class="card span-2 tall bg-purple">
+        <div>
+          <div class="icon-circle purple">&#128161;</div>
+          <div class="card-heading lg">3대 차별화 전략</div>
+
+          <div style="margin-top: 18px">
+            <div style="font-weight: 700; font-size: 16px; color: #6b21a8">
+              1. 사이버펑크 분위기 — "Moody Neon"
+            </div>
+            <div style="font-size: 14px; margin-top: 6px; line-height: 1.7">
+              2026 트렌드: 사이버펑크가 "시끄러운 네온"에서
+              <strong>"무디하고 촉각적인"</strong> 방향으로 진화 중. 쾌적한 카툰
+              스타일 경쟁작 사이에서 분위기로 차별화. Day/Night 시스템으로 같은
+              구역도 다른 느낌.
+            </div>
+          </div>
+
+          <div style="margin-top: 18px">
+            <div style="font-weight: 700; font-size: 16px; color: #6b21a8">
+              2. 홍콩 구역 월드맵
+            </div>
+            <div style="font-size: 14px; margin-top: 6px; line-height: 1.7">
+              8개 실존 구역(심수이포, 왕각, 란타우 등)을 사이버펑크로 재해석.
+              단순 "스테이지 1, 2, 3"이 아닌
+              <strong>장소 기반 내러티브</strong>. 구역별 고유 적/보스/배경이
+              에셋으로 이미 준비됨.
+            </div>
+          </div>
+
+          <div style="margin-top: 18px">
+            <div style="font-weight: 700; font-size: 16px; color: #6b21a8">
+              3. 웹 퍼스트 배포
+            </div>
+            <div style="font-size: 14px; margin-top: 6px; line-height: 1.7">
+              Phaser 3 → 즉시 플레이 가능 (설치 불필요).
+              <strong
+                >Discord Activities, Telegram Games, YouTube Playables</strong
+              >
+              등 새로운 배포 채널에서 무료 UA 획득. 검증 후 네이티브
+              래핑(Capacitor)으로 스토어 출시.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION: Monetization -->
+      <!-- ════════════════════════════════════════════ -->
+
+      <div class="section-divider"><h2>&#128176; 수익화 전략</h2></div>
+
+      <!-- Monetization Model — span 2 -->
+      <div class="card span-2">
+        <div class="icon-circle green">&#128178;</div>
+        <div class="card-heading lg">하이브리드 수익화 모델</div>
+        <div class="card-secondary">
+          Survivor.io 검증 모델 기반 — 점진적 수익화 (Progressive Monetization)
+        </div>
+
+        <table class="data-table" style="margin-top: 18px">
+          <tr>
+            <th>수익원</th>
+            <th>비중</th>
+            <th>구현 방식</th>
+          </tr>
+          <tr>
+            <td><strong>배틀패스</strong></td>
+            <td class="highlight">35%</td>
+            <td>시즌 30일, 무료/프리미엄($4.99) 이중 트랙</td>
+          </tr>
+          <tr>
+            <td><strong>보상형 광고</strong></td>
+            <td>30%</td>
+            <td>부활 1회, 보너스 전리품, 에너지 충전</td>
+          </tr>
+          <tr>
+            <td><strong>스타터팩</strong></td>
+            <td>15%</td>
+            <td>$0.99~$4.99 초기 전환 패키지</td>
+          </tr>
+          <tr>
+            <td><strong>월정액</strong></td>
+            <td>12%</td>
+            <td>$2.99/월 일일 다이아 + 에너지 보너스</td>
+          </tr>
+          <tr>
+            <td><strong>코스메틱</strong></td>
+            <td>8%</td>
+            <td>캐릭터 스킨, 무기 이펙트, 트레일</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Monetization Principles — span 2 -->
+      <div class="card span-2 bg-green">
+        <div class="icon-circle green">&#9989;</div>
+        <div class="card-heading">수익화 원칙 (Survivor.io 교훈)</div>
+        <ul class="feature-list">
+          <li>
+            <span class="dot" style="background: #188038"></span
+            ><strong>재미 먼저</strong> — 수익화 요소는 게임 플레이와 함께
+            점진적 해금
+          </li>
+          <li>
+            <span class="dot" style="background: #188038"></span
+            ><strong>페이월 없는 코어</strong> — 핵심 게임 플레이는 100% 무료
+          </li>
+          <li>
+            <span class="dot" style="background: #188038"></span
+            ><strong>저가 고빈도</strong> — $1~$5 범위, 고래 의존 지양
+          </li>
+          <li>
+            <span class="dot" style="background: #188038"></span
+            ><strong>광고 = 보상</strong> — 강제 광고 없음. 시청 = 혜택
+          </li>
+          <li>
+            <span class="dot" style="background: #188038"></span
+            ><strong>LiveOps 주기</strong> — 주 1회 이벤트 로테이션으로 복귀
+            유도
+          </li>
+        </ul>
+
+        <div class="callout success" style="margin-top: 14px">
+          <strong>목표 ARPDAU</strong>: $0.05~$0.15 (런칭 초기) → $0.20+
+          (LiveOps 안정화 후)<br />
+          <strong>목표 과금률</strong>: 3~5% (업계 평균 2~3% 대비 높은 목표)
+        </div>
+      </div>
+
+      <!-- Revenue Projection — span 2 -->
+      <div class="card span-2">
+        <div class="icon-circle amber">&#128202;</div>
+        <div class="card-heading">수익 시나리오 (월간, 런칭 6개월 후)</div>
+        <table class="data-table">
+          <tr>
+            <th>시나리오</th>
+            <th>DAU</th>
+            <th>ARPDAU</th>
+            <th>월 매출</th>
+          </tr>
+          <tr>
+            <td>보수적</td>
+            <td>5,000</td>
+            <td>$0.05</td>
+            <td class="warning">$7,500</td>
+          </tr>
+          <tr>
+            <td>기본</td>
+            <td>20,000</td>
+            <td>$0.10</td>
+            <td class="highlight">$60,000</td>
+          </tr>
+          <tr>
+            <td>낙관적</td>
+            <td>100,000</td>
+            <td>$0.15</td>
+            <td class="success">$450,000</td>
+          </tr>
+          <tr>
+            <td style="color: #e11d48">바이럴 히트</td>
+            <td>500,000</td>
+            <td>$0.20</td>
+            <td style="color: #e11d48; font-weight: 700">$3,000,000</td>
+          </tr>
+        </table>
+        <div class="card-secondary" style="margin-top: 10px">
+          * Survivor.io 피크: DAU 수백만, 월 $15M+ / Capybara Go: 런칭 2개월
+          $40M
+        </div>
+      </div>
+
+      <!-- Break-even Analysis — span 2 -->
+      <div class="card span-2 bg-amber">
+        <div class="icon-circle amber">&#128176;</div>
+        <div class="card-heading">손익분기 분석</div>
+        <div class="card-body">
+          <div class="comp-row">
+            <div class="comp-name">에셋 비용</div>
+            <div class="comp-val">$0 (이미 보유)</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-name">개발 비용 (인건비)</div>
+            <div class="comp-val">AI 에이전트 (최소화)</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-name">인프라 (Vercel)</div>
+            <div class="comp-val">~$20/월 (Pro)</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-name">네이티브 래핑 (Capacitor)</div>
+            <div class="comp-val">$0 (오픈소스)</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-name">Apple Developer</div>
+            <div class="comp-val">$99/년</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-name">Google Play Developer</div>
+            <div class="comp-val">$25 (1회)</div>
+          </div>
+          <div
+            class="comp-row"
+            style="font-weight: 700; border-top: 2px solid rgba(0, 0, 0, 0.1)"
+          >
+            <div class="comp-name">총 초기 비용</div>
+            <div class="comp-val" style="color: #b45309">~$400</div>
+          </div>
+        </div>
+        <div class="callout success" style="margin-top: 10px">
+          보수적 시나리오(DAU 5,000)에서도 <strong>1개월 이내 손익분기</strong>.
+          리스크 극히 낮음.
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION: Retention & KPI Targets -->
+      <!-- ════════════════════════════════════════════ -->
+
+      <div class="section-divider"><h2>&#128200; 리텐션 & KPI 목표</h2></div>
+
+      <!-- Retention Targets — span 2 -->
+      <div class="card span-2">
+        <div class="icon-circle blue">&#128202;</div>
+        <div class="card-heading lg">리텐션 목표 vs 업계 벤치마크</div>
+
+        <div class="bar-row" style="margin-top: 18px">
+          <div class="bar-label" style="font-weight: 600; color: #1d1d1f">
+            D1
+          </div>
+          <div class="bar-track" style="height: 20px; position: relative">
+            <div
+              class="bar-fill"
+              style="width: 40%; background: #0071e3; border-radius: 4px"
+            ></div>
+            <div
+              style="
+                position: absolute;
+                left: 23%;
+                top: 0;
+                height: 100%;
+                border-left: 2px dashed #e11d48;
+              "
+            ></div>
+          </div>
+          <div class="bar-value"><strong>40%</strong></div>
+        </div>
+        <div
+          style="
+            display: flex;
+            gap: 10px;
+            font-size: 11px;
+            color: #86868b;
+            padding-left: 112px;
+            margin-top: 2px;
+          "
+        >
+          <span>&#9608; 목표 40%</span>
+          <span style="color: #e11d48">&#9474; 업계 중앙값 23%</span>
+        </div>
+
+        <div class="bar-row" style="margin-top: 14px">
+          <div class="bar-label" style="font-weight: 600; color: #1d1d1f">
+            D7
+          </div>
+          <div class="bar-track" style="height: 20px; position: relative">
+            <div
+              class="bar-fill"
+              style="width: 65%; background: #7c3aed; border-radius: 4px"
+            ></div>
+            <div
+              style="
+                position: absolute;
+                left: 17%;
+                top: 0;
+                height: 100%;
+                border-left: 2px dashed #e11d48;
+              "
+            ></div>
+          </div>
+          <div class="bar-value"><strong>15%</strong></div>
+        </div>
+        <div
+          style="
+            display: flex;
+            gap: 10px;
+            font-size: 11px;
+            color: #86868b;
+            padding-left: 112px;
+            margin-top: 2px;
+          "
+        >
+          <span>&#9608; 목표 15%</span>
+          <span style="color: #e11d48">&#9474; 업계 중앙값 4.2%</span>
+        </div>
+
+        <div class="bar-row" style="margin-top: 14px">
+          <div class="bar-label" style="font-weight: 600; color: #1d1d1f">
+            D30
+          </div>
+          <div class="bar-track" style="height: 20px; position: relative">
+            <div
+              class="bar-fill"
+              style="width: 50%; background: #188038; border-radius: 4px"
+            ></div>
+            <div
+              style="
+                position: absolute;
+                left: 4%;
+                top: 0;
+                height: 100%;
+                border-left: 2px dashed #e11d48;
+              "
+            ></div>
+          </div>
+          <div class="bar-value"><strong>5%</strong></div>
+        </div>
+        <div
+          style="
+            display: flex;
+            gap: 10px;
+            font-size: 11px;
+            color: #86868b;
+            padding-left: 112px;
+            margin-top: 2px;
+          "
+        >
+          <span>&#9608; 목표 5%</span>
+          <span style="color: #e11d48">&#9474; 업계 중앙값 0.85%</span>
+        </div>
+
+        <div class="callout warning" style="margin-top: 18px">
+          <strong>생존 조건</strong>: D1 &ge; 35%가 되어야 UA 경제성이 성립. 이
+          수치 미달 시 코어 루프 재설계 후 재런칭 필요.
+        </div>
+      </div>
+
+      <!-- KPI Dashboard — span 2 -->
+      <div class="card span-2 bg-blue">
+        <div class="icon-circle blue">&#127919;</div>
+        <div class="card-heading lg">핵심 KPI 대시보드</div>
+        <table class="data-table" style="margin-top: 14px">
+          <tr>
+            <th>지표</th>
+            <th>런칭 1주</th>
+            <th>1개월</th>
+            <th>3개월</th>
+          </tr>
+          <tr>
+            <td>DAU</td>
+            <td>1,000</td>
+            <td>5,000</td>
+            <td class="highlight">20,000</td>
+          </tr>
+          <tr>
+            <td>D1 리텐션</td>
+            <td class="warning">&ge;35%</td>
+            <td>&ge;38%</td>
+            <td class="success">&ge;40%</td>
+          </tr>
+          <tr>
+            <td>D7 리텐션</td>
+            <td>-</td>
+            <td class="warning">&ge;12%</td>
+            <td class="success">&ge;15%</td>
+          </tr>
+          <tr>
+            <td>세션 시간</td>
+            <td>&ge;8분</td>
+            <td>&ge;10분</td>
+            <td>&ge;12분</td>
+          </tr>
+          <tr>
+            <td>과금률</td>
+            <td>1%</td>
+            <td>2%</td>
+            <td class="highlight">3~5%</td>
+          </tr>
+          <tr>
+            <td>ARPDAU</td>
+            <td>$0.02</td>
+            <td>$0.05</td>
+            <td class="highlight">$0.10</td>
+          </tr>
+          <tr>
+            <td>세션/일</td>
+            <td>1.5</td>
+            <td>2.0</td>
+            <td>2.5</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION: Technical Architecture -->
+      <!-- ════════════════════════════════════════════ -->
+
+      <div class="section-divider"><h2>&#9881;&#65039; 기술 아키텍처</h2></div>
+
+      <!-- Tech Stack — span 2 -->
+      <div class="card span-2">
+        <div class="icon-circle dark">&#128187;</div>
+        <div class="card-heading lg">기술 스택</div>
+        <table class="data-table" style="margin-top: 14px">
+          <tr>
+            <th>레이어</th>
+            <th>기술</th>
+            <th>이유</th>
+          </tr>
+          <tr>
+            <td>엔진</td>
+            <td class="highlight">Phaser 3.90+</td>
+            <td>웹 네이티브, 즉시 플레이, 크로스 플랫폼</td>
+          </tr>
+          <tr>
+            <td>언어</td>
+            <td>TypeScript 5.7+ (strict)</td>
+            <td>타입 안전성, 리팩토링 용이</td>
+          </tr>
+          <tr>
+            <td>빌드</td>
+            <td>Vite 6</td>
+            <td>HMR, 빌드 속도</td>
+          </tr>
+          <tr>
+            <td>테스트</td>
+            <td>Vitest 3</td>
+            <td>코어 로직 100% 테스트</td>
+          </tr>
+          <tr>
+            <td>배포 (웹)</td>
+            <td>Vercel</td>
+            <td>무료 티어, CDN, 자동 배포</td>
+          </tr>
+          <tr>
+            <td>네이티브 래핑</td>
+            <td>Capacitor</td>
+            <td>iOS/Android 스토어 출시</td>
+          </tr>
+          <tr>
+            <td>애널리틱스</td>
+            <td>GameAnalytics</td>
+            <td>무료, 게임 특화 퍼널</td>
+          </tr>
+          <tr>
+            <td>광고 SDK</td>
+            <td>AdMob + IronSource</td>
+            <td>보상형 광고 메디에이션</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Architecture Pattern — span 2 -->
+      <div class="card span-2 bg-dark">
+        <div class="card-label" style="color: #00f5ff">아키텍처 패턴</div>
+        <div class="card-heading lg" style="color: #f5f5f7">
+          Core / Scene 분리
+        </div>
+        <div
+          class="card-body"
+          style="
+            color: #a1a1a6;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 2;
+          "
+        >
+          <div style="color: #00f5ff">src/core/</div>
+          <div style="padding-left: 20px">
+            &#9500;&#9472; GameLoop.ts &nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6b9d"># 순수 TS, Phaser 의존 없음</span>
+          </div>
+          <div style="padding-left: 20px">&#9500;&#9472; WeaponSystem.ts</div>
+          <div style="padding-left: 20px">&#9500;&#9472; EnemyAI.ts</div>
+          <div style="padding-left: 20px">
+            &#9500;&#9472; ProgressionCalc.ts
+          </div>
+          <div style="padding-left: 20px">&#9492;&#9472; DropTable.ts</div>
+          <br />
+          <div style="color: #00f5ff">src/scenes/</div>
+          <div style="padding-left: 20px">
+            &#9500;&#9472; GameScene.ts &nbsp;&nbsp;
+            <span style="color: #ff6b9d"># 렌더링만, 로직 X</span>
+          </div>
+          <div style="padding-left: 20px">&#9500;&#9472; MenuScene.ts</div>
+          <div style="padding-left: 20px">&#9492;&#9472; ShopScene.ts</div>
+          <br />
+          <div style="color: #00e676">
+            &#10003; EventBus로 통신 &nbsp; &#10003; 코어 100% 유닛 테스트
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION: Distribution Strategy -->
+      <!-- ════════════════════════════════════════════ -->
+
+      <div class="section-divider"><h2>&#127760; 배포 전략</h2></div>
+
+      <!-- Distribution Channels — span 4 -->
+      <div class="card span-4" style="padding: 36px 40px">
+        <div
+          class="card-heading xl"
+          style="text-align: center; margin-bottom: 24px"
+        >
+          웹 퍼스트 → 네이티브 확장
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+          "
+        >
+          <div
+            style="
+              flex: 1;
+              min-width: 200px;
+              max-width: 240px;
+              padding: 20px;
+              background: #e0f7fa;
+              border-radius: 16px;
+              text-align: center;
+            "
+          >
+            <div style="font-size: 32px; margin-bottom: 8px">&#127760;</div>
+            <div style="font-weight: 700; font-size: 15px">Phase 1: 웹</div>
+            <div style="font-size: 13px; color: #86868b; margin-top: 8px">
+              Vercel 배포<br />
+              Discord Activities<br />
+              Telegram Games<br />
+              YouTube Playables<br />
+              CrazyGames / Poki
+            </div>
+            <div class="tag tag-cyan" style="margin-top: 10px">무료 UA</div>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              font-size: 28px;
+              color: #86868b;
+            "
+          >
+            &#8594;
+          </div>
+          <div
+            style="
+              flex: 1;
+              min-width: 200px;
+              max-width: 240px;
+              padding: 20px;
+              background: #e8f0fe;
+              border-radius: 16px;
+              text-align: center;
+            "
+          >
+            <div style="font-size: 32px; margin-bottom: 8px">&#128241;</div>
+            <div style="font-weight: 700; font-size: 15px">Phase 2: 모바일</div>
+            <div style="font-size: 13px; color: #86868b; margin-top: 8px">
+              Capacitor 래핑<br />
+              App Store (iOS)<br />
+              Google Play (Android)<br />
+              IAP + AdMob 통합
+            </div>
+            <div class="tag tag-blue" style="margin-top: 10px">수익화 본격</div>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              font-size: 28px;
+              color: #86868b;
+            "
+          >
+            &#8594;
+          </div>
+          <div
+            style="
+              flex: 1;
+              min-width: 200px;
+              max-width: 240px;
+              padding: 20px;
+              background: #f3e8ff;
+              border-radius: 16px;
+              text-align: center;
+            "
+          >
+            <div style="font-size: 32px; margin-bottom: 8px">&#128421;</div>
+            <div style="font-weight: 700; font-size: 15px">Phase 3: PC</div>
+            <div style="font-size: 13px; color: #86868b; margin-top: 8px">
+              Steam (Electron 래핑)<br />
+              프리미엄 가격 $4.99<br />
+              키보드+마우스 지원<br />
+              실적 기반 결정
+            </div>
+            <div class="tag tag-purple" style="margin-top: 10px">확장 옵션</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION: Roadmap -->
+      <!-- ════════════════════════════════════════════ -->
+
+      <div class="section-divider"><h2>&#128197; 개발 로드맵</h2></div>
+
+      <!-- Roadmap — span 3 -->
+      <div class="card span-3">
+        <div class="card-heading lg">마일스톤</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker neon"></div>
+            <div class="timeline-text">
+              <strong>Week 1~2 &mdash; 코어 루프 프로토타입</strong>
+              자동 공격, 이동, XP 수집, 레벨업 선택 3종. 1개 구역, 3적 + 1보스.
+              <br /><span class="tag tag-cyan" style="margin-top: 4px"
+                >Gate: D1 &ge; 35% (내부 테스트)</span
+              >
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker neon"></div>
+            <div class="timeline-text">
+              <strong>Week 3~4 &mdash; 콘텐츠 확장</strong>
+              5개 무기, 10개 패시브, 3개 구역, 6적 유형, 3보스. UI/사운드 통합.
+              <br /><span class="tag tag-green" style="margin-top: 4px"
+                >Gate: 10분 세션 완주 가능</span
+              >
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker pink"></div>
+            <div class="timeline-text">
+              <strong>Week 5~6 &mdash; 메타 & 수익화</strong>
+              장비 시스템, 캐릭터 해금, 배틀패스, 보상형 광고 통합.
+              <br /><span class="tag tag-amber" style="margin-top: 4px"
+                >Gate: 수익화 플로우 완성</span
+              >
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker pink"></div>
+            <div class="timeline-text">
+              <strong>Week 7~8 &mdash; 웹 소프트 런칭</strong>
+              CrazyGames/Poki 배포. Discord Activities 출시. 실 유저 데이터
+              수집.
+              <br /><span class="tag tag-rose" style="margin-top: 4px"
+                >Gate: D1 &ge; 35%, 세션 &ge; 8분</span
+              >
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-text">
+              <strong>Week 9~12 &mdash; 모바일 스토어 출시</strong>
+              Capacitor 래핑, IAP/AdMob 통합, 스토어 심사. App Store + Google
+              Play 런칭.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-text">
+              <strong>Month 4+ &mdash; LiveOps & 성장</strong>
+              주간 이벤트, 시즌 배틀패스, 신규 구역/보스 추가, 커뮤니티 빌딩.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Risk Assessment — span 1 -->
+      <div class="card bg-rose">
+        <div class="icon-circle rose">&#9888;&#65039;</div>
+        <div class="card-heading">리스크 & 대응</div>
+        <div style="margin-top: 12px; font-size: 13px; line-height: 1.7">
+          <div style="margin-bottom: 10px">
+            <strong style="color: #be123c">R1: 리텐션 미달</strong><br />
+            D1 &lt; 35% 시 코어 루프 재설계. 웹 배포로 빠른 이터레이션.
+          </div>
+          <div style="margin-bottom: 10px">
+            <strong style="color: #be123c">R2: 웹 퍼포먼스</strong><br />
+            저사양 Android WebView 성능 이슈. 파티클 LOD + 오브젝트 풀링으로
+            대응.
+          </div>
+          <div style="margin-bottom: 10px">
+            <strong style="color: #be123c">R3: 발견성</strong><br />
+            UA 예산 없음. TikTok 바이럴 + 웹 플랫폼 노출 + 커뮤니티 전략으로
+            보완.
+          </div>
+          <div>
+            <strong style="color: #be123c">R4: 콘텐츠 소진</strong><br />
+            에셋 활용률 0.25% → 40배 확장 여력. 최소 12개월 콘텐츠 로드맵 확보.
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION: Why This Will Work -->
+      <!-- ════════════════════════════════════════════ -->
+
+      <div class="section-divider"><h2>&#10004;&#65039; 성공 근거</h2></div>
+
+      <!-- Success Formula — span 4 -->
+      <div class="card span-4" style="padding: 40px">
+        <div
+          class="card-heading xl"
+          style="text-align: center; margin-bottom: 28px"
+        >
+          검증된 공식 &times; 미개척 교차점
+        </div>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+          "
+        >
+          <div
+            style="
+              padding: 24px;
+              background: #e8f0fe;
+              border-radius: 16px;
+              text-align: center;
+            "
+          >
+            <div style="font-size: 40px; margin-bottom: 12px">&#128170;</div>
+            <div style="font-weight: 700; font-size: 17px">
+              검증된 코어 루프
+            </div>
+            <div
+              style="
+                font-size: 14px;
+                color: #86868b;
+                margin-top: 8px;
+                line-height: 1.6;
+              "
+            >
+              Kill → Collect → Upgrade는 $2B+ 매출을 만든 공식. Survivor.io,
+              Archero, Capybara Go가 증명.
+              <strong>발명이 아닌 실행의 문제.</strong>
+            </div>
+          </div>
+          <div
+            style="
+              padding: 24px;
+              background: #f3e8ff;
+              border-radius: 16px;
+              text-align: center;
+            "
+          >
+            <div style="font-size: 40px; margin-bottom: 12px">&#127912;</div>
+            <div style="font-weight: 700; font-size: 17px">미학적 차별화</div>
+            <div
+              style="
+                font-size: 14px;
+                color: #86868b;
+                margin-top: 8px;
+                line-height: 1.6;
+              "
+            >
+              모바일 불릿 헤븐 = 밝은 캐주얼 아트 일색. 무디 사이버펑크
+              픽셀아트는 <strong>시각적으로 즉시 구분</strong>되는 포지션.
+              14,391 에셋이 이미 준비됨.
+            </div>
+          </div>
+          <div
+            style="
+              padding: 24px;
+              background: #e6f4ea;
+              border-radius: 16px;
+              text-align: center;
+            "
+          >
+            <div style="font-size: 40px; margin-bottom: 12px">&#128640;</div>
+            <div style="font-weight: 700; font-size: 17px">
+              제로 코스트 배포
+            </div>
+            <div
+              style="
+                font-size: 14px;
+                color: #86868b;
+                margin-top: 8px;
+                line-height: 1.6;
+              "
+            >
+              웹 퍼스트로 UA 비용 $0. Discord/Telegram/YouTube 즉시 플레이. 검증
+              후 스토어 출시 → <strong>리스크 최소화</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Final CTA — span 4 -->
+      <div
+        class="card span-4 bg-neon"
+        style="text-align: center; padding: 56px 40px"
+      >
+        <div class="card-heading xl" style="color: #f5f5f7; font-size: 32px">
+          Neon Survivors &mdash; 다음 단계
+        </div>
+        <div
+          class="card-secondary"
+          style="
+            font-size: 16px;
+            margin-top: 12px;
+            color: #a1a1a6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        >
+          검증된 장르 &times; 보유 에셋 &times; 제로 코스트 인프라.<br />
+          2주 프로토타입으로 코어 루프 검증, 8주 내 웹 소프트런칭.
+        </div>
+        <div
+          style="
+            margin-top: 28px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+          "
+        >
+          <div
+            style="
+              background: rgba(0, 245, 255, 0.15);
+              border: 1.5px solid rgba(0, 245, 255, 0.4);
+              color: #00f5ff;
+              padding: 14px 28px;
+              border-radius: 980px;
+              font-weight: 600;
+              font-size: 15px;
+            "
+          >
+            &#9654; 프로토타입 시작
+          </div>
+          <div
+            style="
+              background: rgba(255, 107, 157, 0.15);
+              border: 1.5px solid rgba(255, 107, 157, 0.4);
+              color: #ff6b9d;
+              padding: 14px 28px;
+              border-radius: 980px;
+              font-weight: 600;
+              font-size: 15px;
+            "
+          >
+            &#128172; 아이디어 논의
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      style="
+        text-align: center;
+        margin-top: 40px;
+        font-size: 12px;
+        color: #86868b;
+      "
+    >
+      ShamShuiPo Game Proposal &mdash; HKD852 Studio &middot; 2026-03-12
+    </div>
+  </body>
+</html>

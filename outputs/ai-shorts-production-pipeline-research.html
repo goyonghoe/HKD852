@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 에이전트 기반 YouTube 쇼츠 생산 라인 구축 리서치</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #faf9f6;
+    color: #2a2a2a;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.8;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  .hero {
+    padding: 100px 0 60px;
+    text-align: center;
+    border-bottom: 1px solid #d4d0c8;
+  }
+  .hero-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c0392b;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.12;
+    color: #1a1a1a;
+    margin-bottom: 24px;
+    letter-spacing: -1.5px;
+  }
+  .hero .subtitle {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 21px;
+    color: #666;
+    line-height: 1.5;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .hero-meta {
+    margin-top: 32px;
+    font-size: 13px;
+    color: #999;
+    letter-spacing: 0.5px;
+  }
+
+  /* Sections */
+  .section {
+    padding: 48px 0;
+    border-bottom: 1px solid #e8e4dc;
+  }
+  .section:last-of-type { border-bottom: none; }
+  .section-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: #c0392b;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+  .section h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 28px 0 12px;
+  }
+
+  .body-text { font-size: 17px; line-height: 1.85; color: #3a3a3a; }
+  .body-text p { margin-bottom: 16px; }
+  .body-text strong { color: #1a1a1a; }
+
+  /* Lead paragraph */
+  .lead {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22px;
+    line-height: 1.65;
+    color: #2a2a2a;
+    margin-bottom: 24px;
+  }
+
+  /* Pull quote */
+  .pullquote {
+    margin: 40px 0;
+    padding: 32px 40px;
+    border-left: 4px solid #c0392b;
+    background: #f5f3ef;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22px;
+    line-height: 1.6;
+    color: #2a2a2a;
+    font-style: italic;
+  }
+  .pullquote cite {
+    display: block;
+    margin-top: 12px;
+    font-style: normal;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 13px;
+    color: #888;
+  }
+
+  /* Stat grid */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: #fff;
+    border: 1px solid #e8e4dc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: #c0392b;
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.4;
+  }
+
+  /* Table */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 24px 0;
+  }
+  .comp-table thead th {
+    background: #1a1a1a;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .comp-table tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e8e4dc;
+    vertical-align: top;
+  }
+  .comp-table tbody tr:last-child td { border-bottom: none; }
+  .comp-table tbody tr:nth-child(even) { background: #f9f7f3; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+  .tag.best { background: #27ae60; color: #fff; }
+  .tag.good { background: #2980b9; color: #fff; }
+  .tag.mid { background: #f39c12; color: #fff; }
+  .tag.warn { background: #e74c3c; color: #fff; }
+
+  /* Pipeline diagram */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 32px 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .pipeline-step {
+    flex-shrink: 0;
+    background: #fff;
+    border: 2px solid #e8e4dc;
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-align: center;
+    min-width: 130px;
+  }
+  .pipeline-step.active { border-color: #c0392b; background: #fef2f0; }
+  .pipeline-icon { font-size: 28px; margin-bottom: 6px; }
+  .pipeline-name { font-size: 13px; font-weight: 700; color: #1a1a1a; }
+  .pipeline-tool { font-size: 11px; color: #888; margin-top: 2px; }
+  .pipeline-arrow {
+    flex-shrink: 0;
+    font-size: 20px;
+    color: #ccc;
+    padding: 0 6px;
+  }
+
+  /* Card grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 24px 0;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid #e8e4dc;
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+  .card p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+  }
+  .card .card-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+
+  /* Checklist */
+  .checklist { list-style: none; padding: 0; margin: 20px 0; }
+  .checklist li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    font-size: 15px;
+    border-bottom: 1px solid #f0ece4;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 14px;
+    width: 16px; height: 16px;
+    border: 2px solid #c0392b;
+    border-radius: 3px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 32px 0;
+    border-top: 2px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #999;
+  }
+
+  /* Sources */
+  .sources {
+    padding: 32px 0;
+    border-top: 1px solid #e8e4dc;
+  }
+  .sources h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+  }
+  .sources ol {
+    padding-left: 20px;
+    font-size: 13px;
+    color: #666;
+    line-height: 2;
+  }
+  .sources a { color: #c0392b; text-decoration: none; }
+  .sources a:hover { text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 36px; }
+    .section h2 { font-size: 28px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .card-grid { grid-template-columns: 1fr; }
+    .pipeline { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-label">NotebookLM 리서치 브리핑</div>
+    <h1>AI 에이전트로 YouTube 쇼츠<br>생산 라인을 만드는 법</h1>
+    <div class="subtitle">1인 크리에이터가 인공지능 에이전트 파이프라인으로 일 1편 이상의 쇼츠를 자동 생산하는 방법론 — 프레임워크, 도구, 수익화, 정책 리스크까지</div>
+    <div class="hero-meta">HKD852 전략분석실 | 2026년 3월 7일 | 리서치 v1.0</div>
+  </div>
+
+  <!-- ========== 1. 시장 현황 ========== -->
+  <div class="section">
+    <div class="section-num">SECTION 01</div>
+    <h2>시장 현황: 왜 지금인가</h2>
+
+    <p class="lead">Faceless(얼굴 없는) YouTube 채널이 2025년 한 해에만 <strong>23억 달러</strong>의 AdSense 수익을 올렸다. 83%의 크리에이터가 AI를 워크플로우에 도입했고, 절반 이상이 영상 제작에 직접 사용한다.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-value">$2.3B</div>
+        <div class="stat-label">Faceless 채널<br>2025 총 수익</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">83%</div>
+        <div class="stat-label">크리에이터<br>AI 도입률</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">217%</div>
+        <div class="stat-label">Faceless 채널<br>성장 속도 (2026)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">80%</div>
+        <div class="stat-label">AI 자동화<br>제작 시간 절감</div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      <p>2026년 YouTube 자동화는 아이디어 발굴, 스크립트 작성, 편집, SEO, 게시, 분석까지 전 과정을 AI로 커버한다. 특히 <strong>쇼츠는 길이가 짧고 템플릿화하기 쉬워</strong> 자동화 효율이 가장 높은 포맷이다.</p>
+      <p>실제 사례: 한 크리에이터가 AI 에이전트에 YouTube 채널 운영을 6주간 위임한 결과, <strong>52편 게시, 30,000+ 조회수, 29명 구독자, 좋아요율 4~5%</strong>를 달성했다. 또 다른 크리에이터는 "AI 비즈니스 도구" 채널을 4개월 운영하여 32편으로 <strong>85,000 구독자, 월 $4,200 광고 수익</strong>을 기록했다.</p>
+    </div>
+
+    <div class="pullquote">
+      "AI 에이전트의 목표는 콘텐츠 '슬롭'이 아니다. 지속적 기억, 도메인 전문성, 인간 감독을 갖춘 에이전트가 사람들이 몰랐던 것을 가르치는 — 진짜 가치 있는 콘텐츠를 만드는 것이다."
+      <cite>— DEV Community, AI 에이전트 YouTube 채널 운영 6주 보고서</cite>
+    </div>
+  </div>
+
+  <!-- ========== 2. 생산 라인 아키텍처 ========== -->
+  <div class="section">
+    <div class="section-num">SECTION 02</div>
+    <h2>생산 라인 아키텍처</h2>
+
+    <p class="lead">YouTube 쇼츠 자동화 파이프라인의 핵심은 <strong>5단계 조립 라인</strong>이다. 각 단계를 전문 AI 에이전트 또는 API가 담당하며, 오케스트레이터가 전체를 조율한다.</p>
+
+    <!-- Pipeline Diagram -->
+    <div class="pipeline">
+      <div class="pipeline-step active">
+        <div class="pipeline-icon">&#128269;</div>
+        <div class="pipeline-name">토픽 발굴</div>
+        <div class="pipeline-tool">GPT / Gemini</div>
+      </div>
+      <div class="pipeline-arrow">&#10132;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#9997;</div>
+        <div class="pipeline-name">스크립트</div>
+        <div class="pipeline-tool">Claude / GPT</div>
+      </div>
+      <div class="pipeline-arrow">&#10132;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#127908;</div>
+        <div class="pipeline-name">음성 생성</div>
+        <div class="pipeline-tool">ElevenLabs / EdgeTTS</div>
+      </div>
+      <div class="pipeline-arrow">&#10132;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#127912;</div>
+        <div class="pipeline-name">비주얼 생성</div>
+        <div class="pipeline-tool">Flux / Kling / Sora</div>
+      </div>
+      <div class="pipeline-arrow">&#10132;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#127910;</div>
+        <div class="pipeline-name">영상 합성</div>
+        <div class="pipeline-tool">FFmpeg / Creatomate</div>
+      </div>
+      <div class="pipeline-arrow">&#10132;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#128640;</div>
+        <div class="pipeline-name">업로드</div>
+        <div class="pipeline-tool">YouTube API</div>
+      </div>
+    </div>
+
+    <h3>2-A. 오케스트레이션 접근 방식 비교</h3>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>접근 방식</th>
+          <th>도구</th>
+          <th>장점</th>
+          <th>단점</th>
+          <th>적합한 경우</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>노코드 워크플로우</strong></td>
+          <td>n8n, Make.com</td>
+          <td>시각적 편집, 빠른 셋업, 커뮤니티 템플릿</td>
+          <td>복잡한 로직 한계, 디버깅 어려움</td>
+          <td>빠른 MVP, 비개발자</td>
+        </tr>
+        <tr>
+          <td><strong>Python 프레임워크</strong></td>
+          <td>ShortGPT, 커스텀</td>
+          <td>완전한 커스터마이징, FFmpeg 직접 제어</td>
+          <td>코딩 필요, 유지보수</td>
+          <td>개발자, 대량 생산</td>
+        </tr>
+        <tr>
+          <td><strong>AI 에이전트 프레임워크</strong></td>
+          <td>CrewAI, LangGraph</td>
+          <td>역할 분담, 자율 판단, 확장성</td>
+          <td>복잡한 셋업, 비용</td>
+          <td>멀티 채널, 고품질</td>
+        </tr>
+        <tr>
+          <td><strong>Claude Code 기반</strong></td>
+          <td>Claude Code + Skills</td>
+          <td>코드와 워크플로우 통합, MCP 연동</td>
+          <td>API 비용, 로컬 의존</td>
+          <td>HKD852 같은 에이전트 조직</td>
+        </tr>
+        <tr>
+          <td><strong>SaaS 올인원</strong></td>
+          <td>AutoShorts, Invideo</td>
+          <td>원클릭, 학습 비용 0</td>
+          <td>커스터마이징 불가, 차별화 어려움</td>
+          <td>초보자, 실험용</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>2-B. n8n 워크플로우 템플릿 (가장 빠른 시작)</h3>
+
+    <div class="body-text">
+      <p>n8n에는 이미 검증된 쇼츠 자동화 템플릿이 <strong>10개 이상</strong> 공개되어 있다:</p>
+    </div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>템플릿</th>
+          <th>구성</th>
+          <th>특징</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>YouTube Shorts + OpenAI + ElevenLabs</td>
+          <td>GPT 스크립트 → ElevenLabs TTS → 자동 업로드</td>
+          <td>가장 기본적인 파이프라인</td>
+        </tr>
+        <tr>
+          <td>OpenAI + Flux + Kling + ElevenLabs</td>
+          <td>5단계 AI 파이프라인, 이미지+영상+음성 전자동</td>
+          <td>풀 AI 비주얼 생성</td>
+        </tr>
+        <tr>
+          <td>Seedance + Fal AI + GPT-4</td>
+          <td>ASMR 쇼츠 특화, AI 영상 생성</td>
+          <td>니치 콘텐츠 특화</td>
+        </tr>
+        <tr>
+          <td>Veo3 + Blotato 멀티플랫폼</td>
+          <td>Google Veo3 영상 → TikTok/YouTube/Instagram 동시 게시</td>
+          <td>크로스 플랫폼 배포</td>
+        </tr>
+        <tr>
+          <td>Whisper + Gemini 롱폼→쇼츠</td>
+          <td>긴 영상 자동 분할 → 3~6개 쇼츠 클립 추출</td>
+          <td>기존 콘텐츠 재활용</td>
+        </tr>
+        <tr>
+          <td>AI Director (커뮤니티)</td>
+          <td>자율 판단 AI 디렉터 → 영상 기획~렌더</td>
+          <td>에이전트형 워크플로우</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ========== 3. 핵심 도구 스택 ========== -->
+  <div class="section">
+    <div class="section-num">SECTION 03</div>
+    <h2>핵심 도구 스택 (2026)</h2>
+
+    <h3>3-A. 스크립트 생성 (LLM)</h3>
+    <table class="comp-table">
+      <thead>
+        <tr><th>도구</th><th>강점</th><th>비용</th><th>추천</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Claude API (Sonnet)</td>
+          <td>한글 품질 최상, 긴 맥락, 구조적 출력</td>
+          <td>$3/$15 (MTok)</td>
+          <td><span class="tag best">최우선</span></td>
+        </tr>
+        <tr>
+          <td>GPT-4o</td>
+          <td>멀티모달, 이미지 이해, 빠른 속도</td>
+          <td>$2.50/$10 (MTok)</td>
+          <td><span class="tag good">병행</span></td>
+        </tr>
+        <tr>
+          <td>Gemini 2.0 Flash</td>
+          <td>초저비용, 긴 맥락, Google 생태계</td>
+          <td>거의 무료</td>
+          <td><span class="tag good">대량 생산용</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>3-B. 음성 합성 (TTS)</h3>
+    <table class="comp-table">
+      <thead>
+        <tr><th>도구</th><th>강점</th><th>비용</th><th>추천</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ElevenLabs</td>
+          <td>최고 품질, 보이스 클론, 감정 제어</td>
+          <td>$5~$99/월</td>
+          <td><span class="tag best">최우선</span></td>
+        </tr>
+        <tr>
+          <td>Microsoft EdgeTTS</td>
+          <td>무료, 다국어 200+, 로컬 실행</td>
+          <td>무료</td>
+          <td><span class="tag good">비용 절감용</span></td>
+        </tr>
+        <tr>
+          <td>OpenAI TTS</td>
+          <td>자연스러운 영어, API 간편</td>
+          <td>$15/MTok</td>
+          <td><span class="tag mid">영어 전용</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>3-C. 비주얼 생성</h3>
+    <table class="comp-table">
+      <thead>
+        <tr><th>구분</th><th>도구</th><th>용도</th><th>비용 (2026)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>이미지 생성</td>
+          <td>Flux, DALL-E 3, Midjourney</td>
+          <td>장면별 이미지 프롬프트</td>
+          <td>$0.02~$0.06/장</td>
+        </tr>
+        <tr>
+          <td>AI 영상 생성</td>
+          <td>Kling 3.0, Sora 2, Seedance 2.0</td>
+          <td>5~10초 클립, Image-to-Video</td>
+          <td>$0.10~$0.80/클립</td>
+        </tr>
+        <tr>
+          <td>스톡 영상</td>
+          <td>Pexels (무료), Storyblocks</td>
+          <td>배경 영상, B-roll</td>
+          <td>무료~$15/월</td>
+        </tr>
+        <tr>
+          <td>영상 편집 API</td>
+          <td>Creatomate, Shotstack</td>
+          <td>템플릿 기반 자동 합성</td>
+          <td>$0.05~$0.50/편</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>3-D. 영상 합성 및 배포</h3>
+    <table class="comp-table">
+      <thead>
+        <tr><th>도구</th><th>역할</th><th>비용</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FFmpeg + MoviePy</td>
+          <td>로컬 영상 합성, 자막 삽입, 트랜지션</td>
+          <td>무료 (오픈소스)</td>
+        </tr>
+        <tr>
+          <td>YouTube Data API v3</td>
+          <td>자동 업로드, 메타데이터 설정</td>
+          <td>무료 (할당량 내)</td>
+        </tr>
+        <tr>
+          <td>Blotato / Buffer</td>
+          <td>멀티플랫폼 동시 배포 (TikTok, Reels)</td>
+          <td>$10~$30/월</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ========== 4. AI 에이전트 프레임워크 ========== -->
+  <div class="section">
+    <div class="section-num">SECTION 04</div>
+    <h2>AI 에이전트 프레임워크 심층 비교</h2>
+
+    <p class="lead">단순 자동화를 넘어 "에이전트"가 자율적으로 판단하며 영상을 만들려면, 전문 프레임워크가 필요하다.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-tag" style="background:#c0392b;color:#fff;">Python 프레임워크</div>
+        <h4>ShortGPT</h4>
+        <p>YouTube 쇼츠/TikTok 자동화 전용. ContentShortEngine, ContentVideoEngine, ContentTranslationEngine 3가지 엔진 내장. LLM + ElevenLabs/EdgeTTS + Pexels + FFmpeg 통합. 2025년 Gemini API 지원 추가.</p>
+      </div>
+      <div class="card">
+        <div class="card-tag" style="background:#2980b9;color:#fff;">에이전트 오케스트레이션</div>
+        <h4>CrewAI</h4>
+        <p>역할 기반 자율 에이전트 팀. Content Researcher, Scriptwriter, Keyword Researcher, Title Writer 등 역할 분담. 순차적 파이프라인에 강점. YouTube 채널 자동화 튜토리얼 다수.</p>
+      </div>
+      <div class="card">
+        <div class="card-tag" style="background:#27ae60;color:#fff;">그래프 기반 워크플로우</div>
+        <h4>LangGraph</h4>
+        <p>DAG(방향 비순환 그래프) 기반 워크플로우. 각 노드가 에이전트 액션, 엣지가 데이터 흐름. 복잡한 분기/조건 로직에 강점. 상태 관리와 체크포인트 내장.</p>
+      </div>
+      <div class="card">
+        <div class="card-tag" style="background:#8e44ad;color:#fff;">HKD852 현재 방식</div>
+        <h4>Claude Code + Skills</h4>
+        <p>ShortsFactory_Agent가 6개 스킬로 파이프라인 운영 중. topic-mine → shorts-script → shorts-render → shorts-review. MCP 서버 연동, 로컬 FFmpeg 렌더링. 24개 에이전트 생태계와 통합.</p>
+      </div>
+    </div>
+
+    <h3>프레임워크 선택 기준</h3>
+    <table class="comp-table">
+      <thead>
+        <tr><th>기준</th><th>ShortGPT</th><th>CrewAI</th><th>LangGraph</th><th>Claude Code</th><th>n8n</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>학습 곡선</td><td><span class="tag good">보통</span></td><td><span class="tag mid">높음</span></td><td><span class="tag warn">매우 높음</span></td><td><span class="tag good">보통</span></td><td><span class="tag best">낮음</span></td>
+        </tr>
+        <tr>
+          <td>커스터마이징</td><td><span class="tag good">높음</span></td><td><span class="tag best">매우 높음</span></td><td><span class="tag best">매우 높음</span></td><td><span class="tag best">매우 높음</span></td><td><span class="tag mid">보통</span></td>
+        </tr>
+        <tr>
+          <td>한글 지원</td><td><span class="tag mid">제한적</span></td><td><span class="tag good">LLM 의존</span></td><td><span class="tag good">LLM 의존</span></td><td><span class="tag best">네이티브</span></td><td><span class="tag good">LLM 의존</span></td>
+        </tr>
+        <tr>
+          <td>영상 렌더링</td><td><span class="tag best">내장</span></td><td><span class="tag warn">외부 필요</span></td><td><span class="tag warn">외부 필요</span></td><td><span class="tag best">FFmpeg 통합</span></td><td><span class="tag good">API 연동</span></td>
+        </tr>
+        <tr>
+          <td>멀티 채널</td><td><span class="tag mid">수동</span></td><td><span class="tag good">가능</span></td><td><span class="tag good">가능</span></td><td><span class="tag best">ShortsFleet</span></td><td><span class="tag good">워크플로우 복제</span></td>
+        </tr>
+        <tr>
+          <td>비용</td><td><span class="tag best">무료+API</span></td><td><span class="tag good">무료+API</span></td><td><span class="tag good">무료+API</span></td><td><span class="tag mid">Claude 구독</span></td><td><span class="tag good">셀프호스트 무료</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ========== 5. 수익화 & 정책 ========== -->
+  <div class="section">
+    <div class="section-num">SECTION 05</div>
+    <h2>수익화 조건 및 YouTube 정책</h2>
+
+    <h3>5-A. YouTube 수익화 요건 (2026)</h3>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-value">1,000</div>
+        <div class="stat-label">구독자<br>(정식 YPP)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">10M</div>
+        <div class="stat-label">쇼츠 조회수<br>(90일 이내)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">500</div>
+        <div class="stat-label">구독자<br>(조기 접근)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">3M</div>
+        <div class="stat-label">쇼츠 조회수<br>(조기 접근, 90일)</div>
+      </div>
+    </div>
+
+    <h3>5-B. AI 콘텐츠 정책 핵심</h3>
+
+    <div class="pullquote">
+      "YouTube는 AI 사용 자체를 금지하지 않는다. 금지하는 것은 '비진정 콘텐츠(Inauthentic Content)'다 — 템플릿 변형만 최소화한 대량 생산, 쉽게 복제 가능한 콘텐츠가 타겟이다."
+      <cite>— YouTube 정책 업데이트, 2025년 7월 15일</cite>
+    </div>
+
+    <div class="body-text">
+      <p><strong>안전한 방법:</strong> AI를 도구로 활용하되, 자체 인사이트·코멘터리·스토리텔링을 주입하면 수익화에 문제없다.</p>
+      <p><strong>위험한 방법:</strong> Wikipedia나 Reddit을 그대로 긁어 AI 나레이션만 입힌 콘텐츠 팜 운영 — "비진정 콘텐츠"로 분류, 수익화 거부.</p>
+      <p><strong>공개 의무:</strong> 2025년 5월 21일부터, 실제 인물·장소·사건으로 오해할 수 있는 합성 콘텐츠는 반드시 AI 생성 공개 필요.</p>
+    </div>
+
+    <h3>5-C. 니치별 RPM (수익성)</h3>
+
+    <table class="comp-table">
+      <thead>
+        <tr><th>니치</th><th>RPM (1,000 조회)</th><th>월 30만 조회 시</th><th>난이도</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>금융/투자</td><td>$15~$40</td><td>$4,500~$12,000</td><td><span class="tag warn">높음</span></td>
+        </tr>
+        <tr>
+          <td>테크/AI 도구</td><td>$8~$15</td><td>$2,400~$4,500</td><td><span class="tag mid">보통</span></td>
+        </tr>
+        <tr>
+          <td>B2B 전략</td><td>$15~$30</td><td>$4,500~$9,000</td><td><span class="tag warn">높음</span></td>
+        </tr>
+        <tr>
+          <td>교육/학습</td><td>$5~$12</td><td>$1,500~$3,600</td><td><span class="tag good">낮음</span></td>
+        </tr>
+        <tr>
+          <td>엔터테인먼트</td><td>$2~$8</td><td>$600~$2,400</td><td><span class="tag best">매우 낮음</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ========== 6. 실전 구축 가이드 ========== -->
+  <div class="section">
+    <div class="section-num">SECTION 06</div>
+    <h2>실전 구축 가이드: 30일 플랜</h2>
+
+    <h3>추천 아키텍처 (HKD852 기준)</h3>
+
+    <div class="body-text">
+      <p>HKD852는 이미 ShortsFactory_Agent와 ShortsFleet를 운영 중이다. 이를 기반으로 <strong>외부 판매 가능한 "쇼츠 생산 라인 as-a-Service"</strong>로 확장하는 것이 최적 경로다.</p>
+    </div>
+
+    <div class="pipeline">
+      <div class="pipeline-step active">
+        <div class="pipeline-icon">&#129302;</div>
+        <div class="pipeline-name">토픽 마이너</div>
+        <div class="pipeline-tool">Claude + WebSearch</div>
+      </div>
+      <div class="pipeline-arrow">&#10132;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#128221;</div>
+        <div class="pipeline-name">스크립트 에이전트</div>
+        <div class="pipeline-tool">Claude Sonnet</div>
+      </div>
+      <div class="pipeline-arrow">&#10132;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#127908;</div>
+        <div class="pipeline-name">TTS 엔진</div>
+        <div class="pipeline-tool">ElevenLabs</div>
+      </div>
+      <div class="pipeline-arrow">&#10132;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#127912;</div>
+        <div class="pipeline-name">이미지 생성</div>
+        <div class="pipeline-tool">Flux / DALL-E 3</div>
+      </div>
+      <div class="pipeline-arrow">&#10132;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#127910;</div>
+        <div class="pipeline-name">비디오 컴포저</div>
+        <div class="pipeline-tool">FFmpeg + Python</div>
+      </div>
+      <div class="pipeline-arrow">&#10132;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#128270;</div>
+        <div class="pipeline-name">품질 게이트</div>
+        <div class="pipeline-tool">Claude Opus</div>
+      </div>
+      <div class="pipeline-arrow">&#10132;</div>
+      <div class="pipeline-step">
+        <div class="pipeline-icon">&#128640;</div>
+        <div class="pipeline-name">업로드 큐</div>
+        <div class="pipeline-tool">YouTube API</div>
+      </div>
+    </div>
+
+    <h3>30일 실행 체크리스트</h3>
+
+    <ul class="checklist">
+      <li><strong>1~3일차</strong> — 니치 확정 + 채널 개설. 고RPM 니치 (금융/AI/교육) 중 택 1. 채널 브랜딩 완료.</li>
+      <li><strong>4~7일차</strong> — 파이프라인 MVP 구축. n8n 또는 ShortGPT로 최소 파이프라인 완성. 수동으로 1편 완주하여 전체 흐름 검증.</li>
+      <li><strong>8~14일차</strong> — 일일 1편 생산 시작. 자동화 비율 70% 이상 목표. 인간 검수(품질 게이트)는 유지.</li>
+      <li><strong>15~21일차</strong> — 분석 + 최적화. 조회수 상위 5편 패턴 분석. 훅·썸네일·제목 A/B 테스트. TTS 속도/톤 미세 조정.</li>
+      <li><strong>22~28일차</strong> — 멀티 채널 또는 다국어 확장. 성과 좋은 스크립트를 영어/일본어로 번역 게시. 또는 2번째 니치 채널 론칭.</li>
+      <li><strong>29~30일차</strong> — 월간 리뷰 + 수익화 체크. 총 조회수, 구독자 성장, RPM 추정. 수익화 조건(500/3M) 달성률 점검.</li>
+    </ul>
+  </div>
+
+  <!-- ========== 7. 리스크 & 주의사항 ========== -->
+  <div class="section">
+    <div class="section-num">SECTION 07</div>
+    <h2>리스크 및 주의사항</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-tag" style="background:#e74c3c;color:#fff;">정책 리스크</div>
+        <h4>"비진정 콘텐츠" 판정</h4>
+        <p>템플릿 변형만 최소화한 대량 생산 시 수익화 거부. 대응: 각 에피소드마다 고유 인사이트/코멘터리 삽입, 스크립트 다양성 확보.</p>
+      </div>
+      <div class="card">
+        <div class="card-tag" style="background:#e74c3c;color:#fff;">품질 리스크</div>
+        <h4>"AI 슬롭" 인식</h4>
+        <p>시청자가 AI 생성물을 저품질로 인식할 위험. 대응: 품질 게이트 필수, 인간 감수, 차별화된 스토리텔링.</p>
+      </div>
+      <div class="card">
+        <div class="card-tag" style="background:#f39c12;color:#fff;">비용 리스크</div>
+        <h4>API 비용 누적</h4>
+        <p>ElevenLabs + 이미지 생성 + LLM API가 편당 $0.50~$3.00. 일 1편 기준 월 $15~$90. 대응: EdgeTTS + Flux 오픈소스로 비용 절감.</p>
+      </div>
+      <div class="card">
+        <div class="card-tag" style="background:#f39c12;color:#fff;">저작권 리스크</div>
+        <h4>AI 생성물 저작권</h4>
+        <p>AI 생성 이미지/영상의 저작권 소유권 불명확. 대응: 상업용 라이선스 명시된 도구만 사용, 오리지널 프롬프트 보관.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 8. 결론 ========== -->
+  <div class="section">
+    <div class="section-num">SECTION 08</div>
+    <h2>결론: 핵심 권고</h2>
+
+    <div class="pullquote">
+      채널을 조립 라인처럼 운영하라 — 전문 AI 도구가 스크립트, 음성, 비주얼, 음악을 만들고, 자동화 엔진이 합성한다. 이렇게 하면 주 1편에서 일 1편으로 스케일링할 수 있다.
+      <cite>— Thinkpeak AI, YouTube Automations 2026 Guide</cite>
+    </div>
+
+    <div class="body-text">
+      <p><strong>1. 시작은 n8n + ShortGPT로 빠르게.</strong> 기존 검증된 템플릿으로 MVP를 48시간 내에 구축하고, 첫 10편을 수동 감수와 함께 게시한다.</p>
+      <p><strong>2. 확장은 에이전트 프레임워크로.</strong> CrewAI 또는 Claude Code Skills 기반으로 토픽 선정·스크립트·렌더링·업로드를 자율 에이전트 파이프라인으로 전환한다.</p>
+      <p><strong>3. 품질 게이트는 절대 건너뛰지 마라.</strong> YouTube의 "비진정 콘텐츠" 정책은 2025년 7월부터 강화됐다. AI를 도구로 쓰되, 각 영상에 고유 인사이트를 반드시 삽입한다.</p>
+      <p><strong>4. 고RPM 니치를 선점하라.</strong> 금융/AI/B2B 니치는 RPM $15~$40으로, 월 30만 조회 시 $4,500~$12,000 수익이 가능하다.</p>
+      <p><strong>5. HKD852 자산을 최대 활용하라.</strong> 이미 ShortsFactory_Agent + ShortsFleet + 112개 스킬이 있다. 이것 자체가 "쇼츠 생산 라인 구축 서비스"로 판매 가능한 포트폴리오다.</p>
+    </div>
+  </div>
+
+  <!-- Sources -->
+  <div class="sources">
+    <h3>참고 자료 (Sources)</h3>
+    <ol>
+      <li><a href="https://dev.to/wcamon/i-let-ai-agents-run-my-youtube-channel-for-6-weeks-heres-what-actually-happened-21b1">I Let AI Agents Run My YouTube Channel for 6 Weeks — DEV Community</a></li>
+      <li><a href="https://github.com/RayVentura/ShortGPT">ShortGPT — GitHub (RayVentura)</a></li>
+      <li><a href="https://shotstack.io/learn/best-ai-tools-for-youtube-automation/">8 Best AI Tools for YouTube Automation in 2026 — Shotstack</a></li>
+      <li><a href="https://n8n.io/workflows/3553-ai-powered-youtube-shorts-automation-create-and-publish-with-openai-and-elevenlabs/">AI-powered YouTube Shorts Automation — n8n</a></li>
+      <li><a href="https://medium.com/@didierlacroix/how-i-automated-my-youtube-shorts-creation-with-ai-agents-4e31eeaa5c9a">How I Automated My YouTube Shorts Creation with AI Agents — Medium</a></li>
+      <li><a href="https://thinkpeak.ai/youtube-automations-2026-guide/">YouTube Automations 2026 Guide — Thinkpeak AI</a></li>
+      <li><a href="https://n8n.io/workflows/3121-ai-powered-short-form-video-generator-with-openai-flux-kling-and-elevenlabs/">AI Short-form Video Generator (OpenAI+Flux+Kling+ElevenLabs) — n8n</a></li>
+      <li><a href="https://www.revid.ai/blog/youtube-automation">The Ultimate Guide to YouTube Automation (2026) — Revid.ai</a></li>
+      <li><a href="https://medium.com/kronecker-ai-research/crewai-tutorial-by-example-automate-youtube-channel-with-ai-agents-part-1-4-8bb27cd89c84">CrewAI Tutorial: Automate YouTube Channel with AI Agents — Medium</a></li>
+      <li><a href="https://o-mega.ai/articles/langgraph-vs-crewai-vs-autogen-top-10-agent-frameworks-2026">Top 10 AI Agent Frameworks 2026 — o-mega.ai</a></li>
+      <li><a href="https://github.com/digitalsamba/claude-code-video-toolkit">Claude Code Video Toolkit — GitHub</a></li>
+      <li><a href="https://stormy.ai/blog/scale-creator-video-ads-claude-code-video-ai">Scale Video Ads Using Claude Code and Video AI APIs — Stormy AI</a></li>
+      <li><a href="https://devtk.ai/en/blog/ai-video-generation-pricing-2026/">AI Video API Pricing 2026 — DevTk.AI</a></li>
+      <li><a href="https://elevenlabs.io/image-video">ElevenLabs Image & Video Generation</a></li>
+      <li><a href="https://www.supertone.ai/en/work/youtube-ai-monetization-policy-2025-eng">YouTube Shorts AI Monetization Policy (July 2025 Update) — Supertone</a></li>
+      <li><a href="https://virvid.ai/blog/ai-youtube-shorts-monetization-guide-2026">AI YouTube Shorts Monetization Guide 2026 — VirVid.ai</a></li>
+      <li><a href="https://vidiq.com/blog/post/youtube-shorts-monetization/">YouTube Shorts Monetization in 2026 — vidIQ</a></li>
+      <li><a href="https://www.nexlev.io/faceless-youtube-channel-profitable">Faceless YouTube Channel Profitable? 2026 — NexLev</a></li>
+      <li><a href="https://www.mixcord.co/blogs/content-creators/faceless-youtube-monetization-ai-automation">Faceless YouTube Monetization 2026: AI Automation Guide — Mixcord</a></li>
+      <li><a href="https://community.n8n.io/t/ai-director-an-n8n-workflow-for-automated-short-form-video-creation/163396">AI Director — n8n Community</a></li>
+    </ol>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>HKD852 전략분석실 | NotebookLM 리서치 소스 문서</div>
+    <div>템플릿: editorial | v1.0 | 2026.03.07</div>
+  </div>
+
+</div>
+
+</body>
+</html>

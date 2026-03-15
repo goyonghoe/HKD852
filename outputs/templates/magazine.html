@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKD852 스튜디오 매거진 - 창간호</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --coral: #f43f5e;
+    --coral-light: #fda4af;
+    --black: #0f172a;
+    --gray-900: #1e293b;
+    --gray-700: #334155;
+    --gray-400: #94a3b8;
+    --gray-200: #e2e8f0;
+    --gray-100: #f1f5f9;
+    --white: #ffffff;
+  }
+
+  html {
+    font-size: 15px;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--black);
+    background: var(--white);
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Masthead ── */
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .masthead-left {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+  }
+
+  .masthead-center {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .masthead-center span {
+    color: var(--coral);
+  }
+
+  .masthead-right {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    text-align: right;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    background: linear-gradient(135deg, #f43f5e 0%, #fb923c 40%, #f97316 100%);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 48px;
+    max-width: 720px;
+  }
+
+  .hero-issue {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--coral);
+    padding: 6px 14px;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  .hero-title {
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+  }
+
+  .hero-subtitle {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.85);
+    max-width: 560px;
+  }
+
+  .hero-date {
+    margin-top: 24px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+  }
+
+  /* ── Section Header ── */
+  .section-header {
+    padding: 56px 40px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .section-header h2 {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .section-header .section-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+  }
+
+  /* ── Feature Grid ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 0 40px 56px;
+  }
+
+  .feature-card {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .feature-card.span-2 {
+    grid-column: span 2;
+    min-height: 400px;
+  }
+
+  .feature-card .card-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 60%);
+    z-index: 1;
+  }
+
+  .card-content {
+    position: relative;
+    z-index: 2;
+    padding: 28px;
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--coral-light);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--white);
+    margin-bottom: 8px;
+    word-break: keep-all;
+  }
+
+  .span-2 .card-title {
+    font-size: 28px;
+  }
+
+  .card-excerpt {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    word-break: keep-all;
+  }
+
+  /* ── Gradient Variants ── */
+  .grad-warm { background: linear-gradient(135deg, #f43f5e, #fb923c); }
+  .grad-cool { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
+  .grad-dark { background: linear-gradient(135deg, #1e293b, #334155); }
+  .grad-teal { background: linear-gradient(135deg, #14b8a6, #06b6d4); }
+  .grad-pink { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+  .grad-indigo { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+  .grad-amber { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+  .grad-emerald { background: linear-gradient(135deg, #10b981, #3b82f6); }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: var(--gray-200);
+    margin: 0 40px;
+  }
+
+  /* ── Article Section ── */
+  .article-section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 40px;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+
+  .article-meta .meta-tag {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--coral);
+    font-weight: 700;
+  }
+
+  .article-meta .meta-date {
+    font-size: 13px;
+    color: var(--gray-400);
+  }
+
+  .article-title {
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    margin-bottom: 32px;
+    word-break: keep-all;
+  }
+
+  .article-body p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--gray-700);
+    margin-bottom: 24px;
+    word-break: keep-all;
+  }
+
+  .article-body p:first-of-type::first-letter {
+    float: left;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 0.85;
+    color: var(--coral);
+    margin-right: 12px;
+    margin-top: 4px;
+  }
+
+  .pull-quote {
+    border-left: 4px solid var(--coral);
+    padding: 24px 32px;
+    margin: 40px 0;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--black);
+    word-break: keep-all;
+  }
+
+  .pull-quote cite {
+    display: block;
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--gray-400);
+  }
+
+  /* ── Photo Strip ── */
+  .photo-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    padding: 0 40px;
+  }
+
+  .photo-strip .strip-item {
+    height: 240px;
+    border-radius: 2px;
+  }
+
+  /* ── Credits Bar ── */
+  .credits-bar {
+    padding: 48px 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    border-top: 1px solid var(--gray-200);
+    margin-top: 56px;
+  }
+
+  .credits-bar .credit-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .credits-bar .credit-role {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    font-weight: 700;
+  }
+
+  .credits-bar .credit-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+  }
+
+  /* ── Back Cover ── */
+  .back-cover {
+    background: var(--black);
+    padding: 80px 40px;
+    text-align: center;
+    color: var(--white);
+  }
+
+  .back-cover .next-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--coral);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .back-cover .next-title {
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+
+  .back-cover .next-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--gray-400);
+    max-width: 480px;
+    margin: 0 auto 32px;
+    word-break: keep-all;
+  }
+
+  .back-cover .next-date {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+  }
+
+  .back-cover .logo-mark {
+    margin-top: 48px;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--gray-700);
+  }
+
+  .back-cover .logo-mark span {
+    color: var(--coral);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .masthead {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+      padding: 16px 20px;
+    }
+
+    .hero {
+      height: 380px;
+    }
+
+    .hero-content {
+      padding: 28px 20px;
+    }
+
+    .hero-title {
+      font-size: 32px;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+    }
+
+    .section-header {
+      padding: 40px 20px 16px;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+      padding: 0 20px 40px;
+    }
+
+    .feature-card.span-2 {
+      grid-column: span 1;
+      min-height: 320px;
+    }
+
+    .span-2 .card-title {
+      font-size: 22px;
+    }
+
+    .divider {
+      margin: 0 20px;
+    }
+
+    .article-section {
+      padding: 40px 20px;
+    }
+
+    .article-title {
+      font-size: 26px;
+    }
+
+    .pull-quote {
+      font-size: 17px;
+      padding: 20px 24px;
+    }
+
+    .photo-strip {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 20px;
+    }
+
+    .credits-bar {
+      padding: 32px 20px;
+      gap: 24px;
+    }
+
+    .back-cover {
+      padding: 56px 20px;
+    }
+
+    .back-cover .next-title {
+      font-size: 26px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Masthead -->
+<header class="masthead">
+  <div class="masthead-left">Vol. 01 / 창간호</div>
+  <div class="masthead-center">HKD852 <span>Magazine</span></div>
+  <div class="masthead-right">2026년 3월</div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-issue">창간호 특집</div>
+    <h1 class="hero-title">스튜디오의 첫 번째 이야기,<br>게임과 AI가 만나는 지점</h1>
+    <p class="hero-subtitle">24명의 AI 에이전트가 하나의 게임을 만들어가는 과정. 기획부터 런칭까지, 우리가 걸어온 길과 앞으로의 방향을 담았습니다.</p>
+    <div class="hero-date">March 2026 / Issue 001</div>
+  </div>
+</section>
+
+<!-- Feature Grid -->
+<div class="section-header">
+  <h2>이번 호 특집</h2>
+  <span class="section-label">Featured Stories</span>
+</div>
+
+<div class="feature-grid">
+
+  <!-- Feature 1: Large -->
+  <div class="feature-card span-2">
+    <div class="card-bg grad-cool"></div>
+    <div class="card-content">
+      <div class="card-tag">커버 스토리</div>
+      <h3 class="card-title">WanChai: 로그라이크 슈터의 탄생기</h3>
+      <p class="card-excerpt">홍콩의 뒷골목에서 시작된 게임 세계관. Phaser 엔진 위에 구축된 자동 슈팅 로그라이크가 어떻게 만들어지고 있는지, 기획의 첫 스케치부터 현재의 플레이어블 빌드까지를 추적합니다.</p>
+    </div>
+  </div>
+
+  <!-- Feature 2 -->
+  <div class="feature-card">
+    <div class="card-bg grad-warm"></div>
+    <div class="card-content">
+      <div class="card-tag">AI 에이전트</div>
+      <h3 class="card-title">24인의 에이전트, 하나의 조직</h3>
+    </div>
+  </div>
+
+  <!-- Feature 3 -->
+  <div class="feature-card">
+    <div class="card-bg grad-dark"></div>
+    <div class="card-content">
+      <div class="card-tag">개발 일지</div>
+      <h3 class="card-title">칸반 보드로 운영되는 게임 개발</h3>
+    </div>
+  </div>
+
+  <!-- Feature 4 -->
+  <div class="feature-card">
+    <div class="card-bg grad-teal"></div>
+    <div class="card-content">
+      <div class="card-tag">디자인</div>
+      <h3 class="card-title">손그림풍 스프라이트의 비밀</h3>
+    </div>
+  </div>
+
+  <!-- Feature 5 -->
+  <div class="feature-card">
+    <div class="card-bg grad-pink"></div>
+    <div class="card-content">
+      <div class="card-tag">콘텐츠</div>
+      <h3 class="card-title">쇼츠 공장이 돌아가는 법</h3>
+    </div>
+  </div>
+
+  <!-- Feature 6: Large -->
+  <div class="feature-card span-2">
+    <div class="card-bg grad-indigo"></div>
+    <div class="card-content">
+      <div class="card-tag">인터뷰</div>
+      <h3 class="card-title">품질 게이트와 레드팀: AI 조직의 자정 시스템</h3>
+      <p class="card-excerpt">모든 산출물은 자동 품질 검증과 적대적 리뷰를 거칩니다. Shield Agent와 RedTeam Agent가 이끄는 보안 체계와 그 실효성에 대해 들어봅니다.</p>
+    </div>
+  </div>
+
+  <!-- Feature 7 -->
+  <div class="feature-card">
+    <div class="card-bg grad-amber"></div>
+    <div class="card-content">
+      <div class="card-tag">사업</div>
+      <h3 class="card-title">수익화 파이프라인의 구조</h3>
+    </div>
+  </div>
+
+  <!-- Feature 8 -->
+  <div class="feature-card">
+    <div class="card-bg grad-emerald"></div>
+    <div class="card-content">
+      <div class="card-tag">기술</div>
+      <h3 class="card-title">Unity 6에서 WebGL까지</h3>
+    </div>
+  </div>
+
+</div>
+
+<div class="divider"></div>
+
+<!-- Photo Strip -->
+<div class="section-header">
+  <h2>비하인드 컷</h2>
+  <span class="section-label">Behind the Scenes</span>
+</div>
+
+<div class="photo-strip">
+  <div class="strip-item grad-dark"></div>
+  <div class="strip-item grad-cool"></div>
+  <div class="strip-item grad-warm"></div>
+  <div class="strip-item grad-teal"></div>
+</div>
+
+<div class="divider" style="margin-top: 56px;"></div>
+
+<!-- Article Section -->
+<article class="article-section">
+  <div class="article-meta">
+    <span class="meta-tag">에디터 노트</span>
+    <span class="meta-date">2026년 3월 7일</span>
+  </div>
+
+  <h2 class="article-title">사람 한 명과 에이전트 스물넷이 만드는 게임 스튜디오</h2>
+
+  <div class="article-body">
+    <p>처음에는 단순한 실험이었습니다. Claude Code 위에서 하나의 에이전트를 만들어 기획 문서를 작성하게 했고, 그 결과물이 놀라울 정도로 쓸 만했습니다. 그때부터 생각이 바뀌었습니다. 한 명이 아니라 여러 명의 에이전트가 각자의 전문 영역을 맡는다면 어떨까.</p>
+
+    <p>지금 HKD852 스튜디오에는 기획팀장, 아트디렉터, 개발팀장, QA팀장이 있고, 마케팅 매니저와 커뮤니티 매니저가 있습니다. 비서실장이 매일 브리핑을 올리고, 보안책임자가 코드베이스를 감시합니다. 이들은 모두 AI 에이전트입니다.</p>
+
+    <blockquote class="pull-quote">
+      우리는 도구를 쓰는 것이 아니라 팀을 구성하고 있습니다. 각 에이전트는 고유한 스킬셋과 판단 기준을 가지며, 서로의 작업을 검증합니다.
+      <cite>HKD852 스튜디오</cite>
+    </blockquote>
+
+    <p>이 매거진은 그 여정의 기록입니다. 매 호마다 개발 진행 상황, 새로운 에이전트의 도입, 실패한 실험과 성공한 전략을 솔직하게 공유합니다. 게임 개발의 미래가 어떤 모습일지, 우리 스스로가 그 답을 찾아가는 중입니다.</p>
+
+    <p>창간호에서는 WanChai 프로젝트의 현재 상태, 24인 에이전트 조직의 구조, 그리고 쇼츠 콘텐츠 파이프라인의 운영 방식을 집중 조명합니다. 앞으로 함께 해주세요.</p>
+  </div>
+</article>
+
+<div class="divider"></div>
+
+<!-- Credits Bar -->
+<div class="credits-bar">
+  <div class="credit-group">
+    <span class="credit-role">편집장</span>
+    <span class="credit-name">Secretary Agent</span>
+  </div>
+  <div class="credit-group">
+    <span class="credit-role">아트 디렉션</span>
+    <span class="credit-name">team-kowloon</span>
+  </div>
+  <div class="credit-group">
+    <span class="credit-role">커버 스토리</span>
+    <span class="credit-name">GameDesign Agent</span>
+  </div>
+  <div class="credit-group">
+    <span class="credit-role">기술 칼럼</span>
+    <span class="credit-name">GameDev Agent</span>
+  </div>
+  <div class="credit-group">
+    <span class="credit-role">콘텐츠 기획</span>
+    <span class="credit-name">ShortsFactory Agent</span>
+  </div>
+  <div class="credit-group">
+    <span class="credit-role">품질 검증</span>
+    <span class="credit-name">Quality Gate</span>
+  </div>
+  <div class="credit-group">
+    <span class="credit-role">발행</span>
+    <span class="credit-name">HKD852 스튜디오</span>
+  </div>
+</div>
+
+<!-- Back Cover -->
+<section class="back-cover">
+  <div class="next-label">다음 호 예고</div>
+  <h2 class="next-title">WanChai 알파 빌드 리포트</h2>
+  <p class="next-desc">첫 플레이테스트 결과와 밸런스 데이터 분석. 7개 챕터 월드맵의 전체 구조와 보스 메카닉 설계 과정을 공개합니다.</p>
+  <div class="next-date">2026년 4월호 / Vol. 02</div>
+  <div class="logo-mark">HKD852 <span>Magazine</span></div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,1317 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>인게임 점수 공식 — 누구나 이해하는 가이드</title>
+    <style>
+      @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css");
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg: #fafafa;
+        --surface: #fff;
+        --border: #e5e5e5;
+        --text: #1a1a2e;
+        --text-sub: #64748b;
+        --accent: #6366f1;
+        --accent-light: #eef2ff;
+        --green: #10b981;
+        --green-light: #ecfdf5;
+        --orange: #f59e0b;
+        --orange-light: #fffbeb;
+        --red: #ef4444;
+        --red-light: #fef2f2;
+        --blue: #3b82f6;
+        --blue-light: #eff6ff;
+        --purple: #8b5cf6;
+        --purple-light: #f5f3ff;
+        --pink: #ec4899;
+        --pink-light: #fdf2f8;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          "Pretendard",
+          -apple-system,
+          sans-serif;
+        font-size: 15px;
+        line-height: 1.8;
+        word-break: keep-all;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      /* ── Header ── */
+      .page-header {
+        text-align: center;
+        margin-bottom: 56px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid var(--border);
+      }
+      .page-header .badge {
+        display: inline-block;
+        background: var(--accent-light);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 100px;
+        margin-bottom: 16px;
+        letter-spacing: 0.02em;
+      }
+      .page-header h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 12px;
+        letter-spacing: -0.5px;
+        line-height: 1.3;
+      }
+      .page-header .subtitle {
+        font-size: 16px;
+        color: var(--text-sub);
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      /* ── Section ── */
+      .section {
+        margin-bottom: 48px;
+      }
+      .section-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        margin-right: 10px;
+        flex-shrink: 0;
+      }
+      .section h2 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.3px;
+      }
+
+      /* ── Card ── */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 16px;
+      }
+      .card.accent-border {
+        border-left: 4px solid var(--accent);
+      }
+      .card.green-border {
+        border-left: 4px solid var(--green);
+      }
+      .card.orange-border {
+        border-left: 4px solid var(--orange);
+      }
+      .card.blue-border {
+        border-left: 4px solid var(--blue);
+      }
+      .card.purple-border {
+        border-left: 4px solid var(--purple);
+      }
+      .card.pink-border {
+        border-left: 4px solid var(--pink);
+      }
+
+      .card-title {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* ── Big Formula ── */
+      .formula-big {
+        background: linear-gradient(135deg, #1e1b4b, #312e81);
+        border-radius: 16px;
+        padding: 32px;
+        margin-bottom: 24px;
+        color: #fff;
+        text-align: center;
+      }
+      .formula-big .label {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 16px;
+      }
+      .formula-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 2.2;
+      }
+      .formula-row .op {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 18px;
+        margin: 0 2px;
+      }
+      .f-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+        cursor: default;
+      }
+      .f-chip.c1 {
+        background: rgba(99, 102, 241, 0.3);
+        color: #a5b4fc;
+      }
+      .f-chip.c2 {
+        background: rgba(16, 185, 129, 0.3);
+        color: #6ee7b7;
+      }
+      .f-chip.c3 {
+        background: rgba(245, 158, 11, 0.3);
+        color: #fcd34d;
+      }
+      .f-chip.c4 {
+        background: rgba(236, 72, 153, 0.3);
+        color: #f9a8d4;
+      }
+      .f-chip.c5 {
+        background: rgba(59, 130, 246, 0.3);
+        color: #93c5fd;
+      }
+      .f-chip.c6 {
+        background: rgba(139, 92, 246, 0.3);
+        color: #c4b5fd;
+      }
+      .f-chip.c7 {
+        background: rgba(239, 68, 68, 0.3);
+        color: #fca5a5;
+      }
+
+      .formula-paren {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 20px;
+        font-weight: 300;
+      }
+
+      /* ── Analogy ── */
+      .analogy {
+        background: var(--blue-light);
+        border: 1px solid #bfdbfe;
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin-bottom: 24px;
+      }
+      .analogy .icon {
+        font-size: 20px;
+        margin-right: 8px;
+      }
+      .analogy .title {
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--blue);
+        margin-bottom: 8px;
+      }
+      .analogy p {
+        color: #1e40af;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      /* ── Visual Blocks ── */
+      .block-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      @media (max-width: 600px) {
+        .block-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .block {
+        border-radius: 10px;
+        padding: 16px 18px;
+      }
+      .block .block-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 4px;
+      }
+      .block .block-name {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .block .block-desc {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      .block.indigo {
+        background: #eef2ff;
+        color: #3730a3;
+      }
+      .block.indigo .block-label {
+        color: #6366f1;
+      }
+      .block.emerald {
+        background: #ecfdf5;
+        color: #065f46;
+      }
+      .block.emerald .block-label {
+        color: #10b981;
+      }
+      .block.amber {
+        background: #fffbeb;
+        color: #78350f;
+      }
+      .block.amber .block-label {
+        color: #f59e0b;
+      }
+      .block.rose {
+        background: #fdf2f8;
+        color: #831843;
+      }
+      .block.rose .block-label {
+        color: #ec4899;
+      }
+      .block.sky {
+        background: #eff6ff;
+        color: #1e3a5f;
+      }
+      .block.sky .block-label {
+        color: #3b82f6;
+      }
+      .block.violet {
+        background: #f5f3ff;
+        color: #4c1d95;
+      }
+      .block.violet .block-label {
+        color: #8b5cf6;
+      }
+      .block.slate {
+        background: #f1f5f9;
+        color: #1e293b;
+      }
+      .block.slate .block-label {
+        color: #64748b;
+      }
+
+      /* ── Tables ── */
+      .nice-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 14px;
+        margin: 12px 0;
+      }
+      .nice-table th {
+        background: #f8fafc;
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-sub);
+        padding: 10px 14px;
+        text-align: left;
+        border-bottom: 2px solid var(--border);
+      }
+      .nice-table td {
+        padding: 10px 14px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .nice-table tr:last-child td {
+        border-bottom: none;
+      }
+      .nice-table .highlight {
+        background: #fffbeb;
+        font-weight: 600;
+      }
+
+      /* ── Example Flow ── */
+      .flow {
+        position: relative;
+        padding-left: 32px;
+        margin: 16px 0;
+      }
+      .flow::before {
+        content: "";
+        position: absolute;
+        left: 11px;
+        top: 4px;
+        bottom: 4px;
+        width: 2px;
+        background: var(--border);
+        border-radius: 2px;
+      }
+      .flow-step {
+        position: relative;
+        margin-bottom: 20px;
+      }
+      .flow-step::before {
+        content: "";
+        position: absolute;
+        left: -27px;
+        top: 6px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        background: #fff;
+      }
+      .flow-step.done::before {
+        background: var(--accent);
+      }
+      .flow-step .step-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 2px;
+      }
+      .flow-step .step-calc {
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 14px;
+        background: #f8fafc;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-top: 6px;
+        color: var(--text);
+      }
+      .flow-step .step-calc .result {
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* ── Interactive Calculator ── */
+      .calc-container {
+        background: linear-gradient(135deg, #f8fafc, #eef2ff);
+        border: 2px solid #c7d2fe;
+        border-radius: 16px;
+        padding: 28px;
+      }
+      .calc-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .calc-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 20px;
+      }
+      @media (max-width: 600px) {
+        .calc-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .calc-field label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-sub);
+        margin-bottom: 4px;
+      }
+      .calc-field select,
+      .calc-field input {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #c7d2fe;
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: inherit;
+        background: #fff;
+        color: var(--text);
+        transition: border-color 0.15s;
+      }
+      .calc-field select:focus,
+      .calc-field input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      }
+      .calc-result {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        border: 1px solid #c7d2fe;
+      }
+      .calc-result .label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-sub);
+        margin-bottom: 4px;
+      }
+      .calc-result .value {
+        font-size: 36px;
+        font-weight: 800;
+        color: var(--accent);
+        font-family: "SF Mono", "Fira Code", monospace;
+      }
+      .calc-result .breakdown {
+        font-size: 12px;
+        color: var(--text-sub);
+        margin-top: 8px;
+        line-height: 1.6;
+      }
+
+      /* ── Callout ── */
+      .callout {
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin: 16px 0;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      .callout.tip {
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        color: #065f46;
+      }
+      .callout.warn {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        color: #78350f;
+      }
+      .callout.info {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        color: #1e3a5f;
+      }
+      .callout strong {
+        font-weight: 700;
+      }
+
+      /* ── Summary Box ── */
+      .summary-box {
+        background: linear-gradient(135deg, #1e1b4b, #312e81);
+        border-radius: 16px;
+        padding: 32px;
+        color: #fff;
+      }
+      .summary-box h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .summary-box ul {
+        list-style: none;
+        padding: 0;
+      }
+      .summary-box li {
+        padding: 8px 0;
+        font-size: 14px;
+        line-height: 1.7;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .summary-box li:last-child {
+        border: none;
+      }
+      .summary-box .li-icon {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        margin-top: 2px;
+      }
+
+      /* ── Footer ── */
+      .footer {
+        text-align: center;
+        padding-top: 40px;
+        border-top: 1px solid var(--border);
+        color: var(--text-sub);
+        font-size: 12px;
+      }
+
+      /* ── Misc ── */
+      p {
+        margin-bottom: 12px;
+      }
+      p:last-child {
+        margin-bottom: 0;
+      }
+      strong {
+        font-weight: 600;
+      }
+      code {
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 13px;
+        background: #f1f5f9;
+        padding: 2px 6px;
+        border-radius: 4px;
+        color: var(--accent);
+      }
+      .text-sub {
+        color: var(--text-sub);
+      }
+      .text-sm {
+        font-size: 13px;
+      }
+      .mt-8 {
+        margin-top: 8px;
+      }
+      .mt-16 {
+        margin-top: 16px;
+      }
+      .mb-8 {
+        margin-bottom: 8px;
+      }
+      .mb-16 {
+        margin-bottom: 16px;
+      }
+
+      .tag {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+      .tag.indigo {
+        background: #eef2ff;
+        color: #4338ca;
+      }
+      .tag.emerald {
+        background: #ecfdf5;
+        color: #047857;
+      }
+      .tag.amber {
+        background: #fffbeb;
+        color: #b45309;
+      }
+      .tag.rose {
+        background: #fdf2f8;
+        color: #be185d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- ═══ Header ═══ -->
+      <div class="page-header">
+        <div class="badge">Score Formula Guide</div>
+        <h1>인게임 점수 공식,<br />이렇게 이해하면 쉽습니다</h1>
+        <p class="subtitle">
+          복잡해 보이는 공식을 하나씩 풀어보고,<br />직접 계산기로 확인해
+          보세요.
+        </p>
+      </div>
+
+      <!-- ═══ 0. 한 줄 요약 ═══ -->
+      <div class="section">
+        <h2>
+          <span class="section-num" style="background: #eef2ff; color: #4338ca"
+            >0</span
+          >
+          결론부터 말하면
+        </h2>
+        <div class="analogy">
+          <div class="title"><span class="icon">💡</span> 핵심 한 줄</div>
+          <p>
+            <strong
+              >노트 하나를 칠 때마다 점수를 받고, 그걸 전부 더하면 최종
+              점수</strong
+            >입니다.<br />
+            노트 하나의 점수는 "내 카드가 얼마나 강한지" × "얼마나 정확히
+            쳤는지" × "난이도 보정"으로 결정됩니다.
+          </p>
+        </div>
+
+        <div class="card">
+          <p style="font-size: 14px; color: var(--text-sub)">
+            최종 점수는 <strong>세 가지의 합</strong>입니다:
+          </p>
+          <div
+            class="block-grid mt-16"
+            style="grid-template-columns: 1fr 1fr 1fr"
+          >
+            <div class="block indigo" style="text-align: center">
+              <div class="block-label">Part 1</div>
+              <div class="block-name" style="font-size: 14px">
+                인게임 플레이<br />결과 점수
+              </div>
+              <div class="block-desc" style="font-size: 11px">
+                이 문서의 핵심
+              </div>
+            </div>
+            <div class="block emerald" style="text-align: center">
+              <div class="block-label">Part 2</div>
+              <div class="block-name" style="font-size: 14px">
+                앨범 레벨<br />추가 점수
+              </div>
+              <div class="block-desc" style="font-size: 11px">
+                앨범 수집 보너스
+              </div>
+            </div>
+            <div class="block amber" style="text-align: center">
+              <div class="block-label">Part 3</div>
+              <div class="block-name" style="font-size: 14px">
+                테마 카드<br />보너스
+              </div>
+              <div class="block-desc" style="font-size: 11px">
+                동일 테마 보너스
+              </div>
+            </div>
+          </div>
+          <p class="text-sm text-sub">
+            이 가이드에서는
+            <strong style="color: var(--accent)"
+              >Part 1 — 인게임 플레이 결과 점수</strong
+            >를 집중적으로 설명합니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══ 1. 비유로 이해하기 ═══ -->
+      <div class="section">
+        <h2>
+          <span class="section-num" style="background: #ecfdf5; color: #047857"
+            >1</span
+          >
+          비유로 먼저 이해하기
+        </h2>
+
+        <div class="analogy">
+          <div class="title"><span class="icon">🍕</span> 피자 비유</div>
+          <p>
+            곡 전체를 <strong>피자 한 판</strong>이라고 생각하세요.<br />
+            노트가 200개면 피자를 <strong>200조각</strong>으로 자른 겁니다.<br />
+            매 노트를 칠 때마다 한 조각씩 먹는데,
+            <strong>잘 치면 꽉 찬 조각</strong>, 못 치면 반쪽짜리, MISS면 빈
+            조각을 먹는 겁니다.<br /><br />
+            그리고 <strong>좋은 카드</strong>를 가지고 있으면 조각 하나하나가 더
+            커지고,<br />
+            <strong>어려운 난이도</strong>를 플레이하면 보너스로 조각이 더
+            커지는 구조입니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══ 2. 공식 전체 보기 ═══ -->
+      <div class="section">
+        <h2>
+          <span class="section-num" style="background: #fffbeb; color: #b45309"
+            >2</span
+          >
+          공식 전체 보기
+        </h2>
+
+        <p class="text-sub mb-16">
+          노트 하나를 칠 때 받는 점수입니다. 이걸 모든 노트에 대해 더합니다.
+        </p>
+
+        <div class="formula-big">
+          <div class="label">노트 1개의 점수</div>
+          <div class="formula-row">
+            <span class="f-chip c1">① 기본 몫</span>
+            <span class="op">×</span>
+            <span class="f-chip c2">② 노트밸런스</span>
+            <span class="op">×</span>
+            <span class="f-chip c3">③ 카드 파워</span>
+            <span class="op">×</span>
+            <span class="f-chip c4">④ 판정+레이브</span>
+            <span class="op">×</span>
+            <span class="f-chip c5">⑤ 난이도</span>
+          </div>
+        </div>
+
+        <p
+          class="text-sm text-sub"
+          style="text-align: center; margin-top: -12px; margin-bottom: 24px"
+        >
+          <strong>최종 점수</strong> = 위 값을 모든 노트에 대해 더한 뒤 →
+          <strong>뒤 1자리를 버림</strong> (ROUNDDOWN)<br />
+          예) 32,567 → <strong>32,560</strong>
+        </p>
+
+        <div class="callout info">
+          <strong>왜 5개나 곱하나요?</strong><br />
+          각 요소가 독립적으로 점수에 영향을 주기 때문입니다. 노트를 정확히
+          쳐도(④) 카드가 약하면(③) 점수가 낮고, 카드가 강해도 MISS하면 점수가
+          0이 됩니다.
+        </div>
+      </div>
+
+      <!-- ═══ 3. 요소별 상세 ═══ -->
+      <div class="section">
+        <h2>
+          <span class="section-num" style="background: #fdf2f8; color: #be185d"
+            >3</span
+          >
+          7가지 요소, 하나씩 뜯어보기
+        </h2>
+
+        <!-- ① 기본 몫 -->
+        <div class="card accent-border mb-16">
+          <div class="card-title">
+            <span class="f-chip c1" style="font-size: 12px">①</span>
+            기본 몫 = 1 ÷ 전체노트수
+          </div>
+          <p class="text-sm">
+            곡에 노트가 <strong>200개</strong>면 → <code>1 / 200 = 0.005</code
+            ><br />
+            곡에 노트가 <strong>500개</strong>면 → <code>1 / 500 = 0.002</code>
+          </p>
+          <div class="callout tip mt-8" style="margin-bottom: 0">
+            <strong>역할:</strong> 노트 수가 많은 곡이든 적은 곡이든
+            <strong>만점이 같은 수준</strong>으로 맞춰주는 역할입니다. 피자
+            비유에서 "조각 수"를 정하는 것과 같습니다.
+          </div>
+        </div>
+
+        <!-- ② 노트밸런스점수 -->
+        <div class="card green-border mb-16">
+          <div class="card-title">
+            <span class="f-chip c2" style="font-size: 12px">②</span>
+            노트밸런스점수
+          </div>
+          <p class="text-sm">
+            노트 수에 따른 <strong>점수 밸런스 조정값</strong>입니다.<br />
+            서버 설정값이며 <code>GameConfigData.code = 15102</code>에서
+            가져옵니다.
+          </p>
+          <div class="callout tip mt-8" style="margin-bottom: 0">
+            <strong>쉽게 말하면:</strong> ①에서 1/노트수로 나눴기 때문에 기본
+            점수가 매우 작아집니다. 이 값이
+            <strong>그걸 다시 적절한 크기로 키워주는 배수</strong>입니다.
+            고정값이라 플레이어가 신경 쓸 필요 없습니다.
+          </div>
+        </div>
+
+        <!-- ③ 카드 파워 -->
+        <div class="card orange-border mb-16">
+          <div class="card-title">
+            <span class="f-chip c3" style="font-size: 12px">③</span>
+            카드 파워 = (카드스코어 ×
+            <span class="tag amber">카드스코어계수</span>) + 카드밸런스점수
+          </div>
+          <p class="text-sm mb-8">
+            이 부분이 <strong>이번 개편의 핵심</strong>입니다. 세 가지가
+            조합됩니다:
+          </p>
+
+          <div class="block-grid">
+            <div class="block amber">
+              <div class="block-label">카드스코어</div>
+              <div class="block-desc">
+                장착한 포토카드의 <strong>랭크 × 레벨</strong>에 따른 수치.
+                카드가 강할수록 높음.
+              </div>
+            </div>
+            <div class="block amber">
+              <div class="block-label">
+                카드스코어계수
+                <span class="tag amber" style="font-size: 10px">NEW</span>
+              </div>
+              <div class="block-desc">
+                카드스코어에 곱해지는 <strong>조절 계수</strong>. 카드 영향력이
+                너무 세지지 않도록 <strong>완화</strong>해주는 역할.
+              </div>
+            </div>
+          </div>
+          <div class="block slate" style="margin-top: 8px">
+            <div class="block-label">카드밸런스점수</div>
+            <div class="block-desc">
+              카드 성능 밸런스를 위한 보정값. 서버 설정
+              <code style="background: rgba(0, 0, 0, 0.06)"
+                >GameConfigData.code = 15101</code
+              >
+            </div>
+          </div>
+
+          <div class="callout warn mt-16" style="margin-bottom: 0">
+            <strong>왜 카드스코어계수를 새로 추가했나요?</strong><br />
+            앨범 레벨이 올라가면 카드스코어도 올라가는데, 그러면 총 점수가
+            <strong>과도하게 뛰는 현상</strong>이 생깁니다. 카드스코어계수(예:
+            0.7)를 곱해서 <strong>카드 영향력을 일정 수준으로 억제</strong>하는
+            겁니다.
+          </div>
+        </div>
+
+        <!-- ④ 판정 + 레이브 -->
+        <div class="card pink-border mb-16">
+          <div class="card-title">
+            <span class="f-chip c4" style="font-size: 12px">④</span>
+            판정배율 + 레이브배율
+          </div>
+          <p class="text-sm mb-8">
+            노트를 <strong>얼마나 정확히 쳤는지</strong> +
+            <strong>레이브(피버) 상태</strong>에 따른 보너스입니다.
+          </p>
+
+          <div class="block-grid">
+            <div class="block rose">
+              <div class="block-label">판정배율 — 얼마나 정확히?</div>
+              <table class="nice-table mt-8" style="font-size: 13px">
+                <tr>
+                  <th>판정</th>
+                  <th>배율</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>MISS</td>
+                  <td><strong>0</strong></td>
+                  <td style="color: #ef4444">점수 없음!</td>
+                </tr>
+                <tr>
+                  <td>Good</td>
+                  <td><strong>0.5</strong></td>
+                  <td style="color: #f59e0b">절반</td>
+                </tr>
+                <tr>
+                  <td>Perfect</td>
+                  <td><strong>1</strong></td>
+                  <td style="color: #10b981">기본값</td>
+                </tr>
+                <tr class="highlight">
+                  <td>S-Perfect</td>
+                  <td><strong>2</strong></td>
+                  <td style="color: #6366f1">2배!</td>
+                </tr>
+              </table>
+            </div>
+            <div class="block rose">
+              <div class="block-label">레이브배율 — 피버 레벨</div>
+              <table class="nice-table mt-8" style="font-size: 13px">
+                <tr>
+                  <th>레이브</th>
+                  <th>배율</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>Lv.1</td>
+                  <td><strong>0.3</strong></td>
+                  <td>RAVE</td>
+                </tr>
+                <tr>
+                  <td>Lv.2</td>
+                  <td><strong>0.5</strong></td>
+                  <td>SUPER RAVE</td>
+                </tr>
+                <tr>
+                  <td>Lv.3</td>
+                  <td><strong>0.7</strong></td>
+                  <td>HYPER RAVE</td>
+                </tr>
+                <tr class="highlight">
+                  <td>Lv.4</td>
+                  <td><strong>0.9</strong></td>
+                  <td>ULTRA RAVE</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="callout tip" style="margin-bottom: 0">
+            <strong>이 둘을 더합니다!</strong><br />
+            예) Perfect + ULTRA RAVE = <code>1 + 0.9 = 1.9</code><br />
+            예) S-Perfect + ULTRA RAVE = <code>2 + 0.9 = 2.9</code> ← 최대!<br />
+            예) MISS면 <code>0 + 0.9 = 0.9</code>가 아니라,
+            <strong>판정이 0이므로 해당 노트 점수 자체가 0</strong>이 됩니다.
+          </div>
+        </div>
+
+        <!-- ⑤ 난이도 -->
+        <div class="card blue-border mb-16">
+          <div class="card-title">
+            <span class="f-chip c5" style="font-size: 12px">⑤</span>
+            난이도배율
+          </div>
+          <table class="nice-table">
+            <tr>
+              <th>난이도</th>
+              <th>배율</th>
+              <th>의미</th>
+            </tr>
+            <tr>
+              <td>Easy</td>
+              <td><strong>0.8</strong></td>
+              <td>점수 80%만 인정</td>
+            </tr>
+            <tr>
+              <td>Normal</td>
+              <td><strong>0.9</strong></td>
+              <td>점수 90%만 인정</td>
+            </tr>
+            <tr class="highlight">
+              <td>Hard</td>
+              <td><strong>1.0</strong></td>
+              <td>점수 100% (기본)</td>
+            </tr>
+          </table>
+          <div class="callout info mt-8" style="margin-bottom: 0">
+            <strong>간단합니다:</strong> 어려운 곡을 플레이하면 점수를 더 많이
+            받습니다. Hard가 기준(1.0)이고, Easy는 20% 깎입니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 4. 실제 예시 ═══ -->
+      <div class="section">
+        <h2>
+          <span class="section-num" style="background: #f5f3ff; color: #6d28d9"
+            >4</span
+          >
+          실제 예시로 따라가기
+        </h2>
+
+        <div class="card" style="margin-bottom: 20px">
+          <div class="card-title">🎵 상황 설정</div>
+          <div class="block-grid" style="grid-template-columns: 1fr 1fr 1fr">
+            <div class="block sky">
+              <div class="block-label">곡 정보</div>
+              <div class="block-desc">
+                <strong>총 노트 200개</strong><br />난이도: Hard
+              </div>
+            </div>
+            <div class="block violet">
+              <div class="block-label">내 카드</div>
+              <div class="block-desc">
+                <strong>카드스코어 500</strong><br />카드스코어계수 0.7
+              </div>
+            </div>
+            <div class="block emerald">
+              <div class="block-label">서버 설정값</div>
+              <div class="block-desc">
+                노트밸런스 <strong>10,000</strong><br />카드밸런스
+                <strong>200</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="mb-8">
+          <strong>Perfect + RAVE Lv.3으로 노트 1개를 쳤을 때:</strong>
+        </p>
+
+        <div class="flow">
+          <div class="flow-step done">
+            <div class="step-label">Step 1 — 기본 몫</div>
+            <div class="step-calc">
+              1 ÷ 200 = <span class="result">0.005</span>
+            </div>
+          </div>
+          <div class="flow-step done">
+            <div class="step-label">Step 2 — 노트밸런스</div>
+            <div class="step-calc">
+              고정값 = <span class="result">10,000</span>
+            </div>
+          </div>
+          <div class="flow-step done">
+            <div class="step-label">Step 3 — 카드 파워</div>
+            <div class="step-calc">
+              (500 × 0.7) + 200 = 350 + 200 = <span class="result">550</span>
+            </div>
+          </div>
+          <div class="flow-step done">
+            <div class="step-label">Step 4 — 판정 + 레이브</div>
+            <div class="step-calc">
+              Perfect(1) + HYPER RAVE(0.7) = <span class="result">1.7</span>
+            </div>
+          </div>
+          <div class="flow-step done">
+            <div class="step-label">Step 5 — 난이도</div>
+            <div class="step-calc">Hard = <span class="result">1.0</span></div>
+          </div>
+          <div class="flow-step done">
+            <div class="step-label">최종 계산</div>
+            <div class="step-calc">
+              0.005 × 10,000 × 550 × 1.7 × 1.0<br />
+              = 50 × 550 × 1.7<br />
+              = 27,500 × 1.7<br />
+              = <span class="result" style="font-size: 18px">46,750</span> ← 이
+              노트 1개의 점수
+            </div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <strong>이걸 200개 노트 전부에 대해 더합니다.</strong><br />
+          전부 Perfect + HYPER RAVE로 치면 → 46,750 × 200 = 9,350,000<br />
+          마지막에 뒤 1자리를 버림 → <strong>9,350,000</strong> (이 경우 이미
+          0이므로 변화 없음)
+        </div>
+      </div>
+
+      <!-- ═══ 5. 인터랙티브 계산기 ═══ -->
+      <div class="section">
+        <h2>
+          <span class="section-num" style="background: #eff6ff; color: #1d4ed8"
+            >5</span
+          >
+          직접 계산해 보기
+        </h2>
+
+        <div class="calc-container">
+          <div class="calc-title">🧮 노트 1개 점수 계산기</div>
+
+          <div class="calc-grid">
+            <div class="calc-field">
+              <label>전체 노트 수</label>
+              <input
+                type="number"
+                id="totalNotes"
+                value="200"
+                min="1"
+                oninput="calc()"
+              />
+            </div>
+            <div class="calc-field">
+              <label>노트밸런스점수</label>
+              <input
+                type="number"
+                id="noteBalance"
+                value="10000"
+                oninput="calc()"
+              />
+            </div>
+            <div class="calc-field">
+              <label>카드스코어</label>
+              <input
+                type="number"
+                id="cardScore"
+                value="500"
+                oninput="calc()"
+              />
+            </div>
+            <div class="calc-field">
+              <label>카드스코어계수</label>
+              <input
+                type="number"
+                id="cardCoeff"
+                value="0.7"
+                step="0.1"
+                min="0"
+                max="2"
+                oninput="calc()"
+              />
+            </div>
+            <div class="calc-field">
+              <label>카드밸런스점수</label>
+              <input
+                type="number"
+                id="cardBalance"
+                value="200"
+                oninput="calc()"
+              />
+            </div>
+            <div class="calc-field">
+              <label>판정</label>
+              <select id="judgement" onchange="calc()">
+                <option value="0">MISS (0)</option>
+                <option value="0.5">Good (0.5)</option>
+                <option value="1" selected>Perfect (1)</option>
+                <option value="2">S-Perfect (2)</option>
+              </select>
+            </div>
+            <div class="calc-field">
+              <label>레이브 레벨</label>
+              <select id="rave" onchange="calc()">
+                <option value="0">없음 (0)</option>
+                <option value="0.3">Lv.1 — RAVE (0.3)</option>
+                <option value="0.5">Lv.2 — SUPER RAVE (0.5)</option>
+                <option value="0.7" selected>Lv.3 — HYPER RAVE (0.7)</option>
+                <option value="0.9">Lv.4 — ULTRA RAVE (0.9)</option>
+              </select>
+            </div>
+            <div class="calc-field">
+              <label>난이도</label>
+              <select id="difficulty" onchange="calc()">
+                <option value="0.8">Easy (0.8)</option>
+                <option value="0.9">Normal (0.9)</option>
+                <option value="1" selected>Hard (1.0)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-result">
+            <div class="label">노트 1개 점수</div>
+            <div class="value" id="resultOne">46,750</div>
+            <div style="height: 16px"></div>
+            <div class="label">전부 이 판정으로 치면 (총점 추정)</div>
+            <div
+              class="value"
+              id="resultTotal"
+              style="font-size: 28px; color: #10b981"
+            >
+              9,350,000
+            </div>
+            <div class="breakdown" id="resultBreakdown">
+              (1/200) × 10,000 × (500×0.7 + 200) × (1 + 0.7) × 1.0 = 46,750
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 6. 핵심 요약 ═══ -->
+      <div class="section">
+        <h2>
+          <span class="section-num" style="background: #fef2f2; color: #dc2626"
+            >6</span
+          >
+          핵심 요약
+        </h2>
+
+        <div class="summary-box">
+          <h3>점수를 높이려면?</h3>
+          <ul>
+            <li>
+              <span
+                class="li-icon"
+                style="background: rgba(236, 72, 153, 0.3); color: #f9a8d4"
+                >1</span
+              >
+              <span
+                ><strong>S-Perfect를 많이 치세요.</strong> Perfect의 2배입니다.
+                MISS는 0점이니 콤보를 유지하세요.</span
+              >
+            </li>
+            <li>
+              <span
+                class="li-icon"
+                style="background: rgba(245, 158, 11, 0.3); color: #fcd34d"
+                >2</span
+              >
+              <span
+                ><strong>카드를 키우세요.</strong> 카드스코어가 올라가면 노트
+                하나의 기본 점수가 올라갑니다. 단, 카드스코어계수 때문에 무한정
+                올라가진 않습니다.</span
+              >
+            </li>
+            <li>
+              <span
+                class="li-icon"
+                style="background: rgba(139, 92, 246, 0.3); color: #c4b5fd"
+                >3</span
+              >
+              <span
+                ><strong>ULTRA RAVE를 유지하세요.</strong> 레이브 Lv.4면 판정에
+                +0.9가 추가됩니다. Perfect + ULTRA RAVE = 1.9배!</span
+              >
+            </li>
+            <li>
+              <span
+                class="li-icon"
+                style="background: rgba(59, 130, 246, 0.3); color: #93c5fd"
+                >4</span
+              >
+              <span
+                ><strong>Hard 난이도를 플레이하세요.</strong> Easy는 점수의
+                80%만 인정됩니다.</span
+              >
+            </li>
+            <li>
+              <span
+                class="li-icon"
+                style="background: rgba(16, 185, 129, 0.3); color: #6ee7b7"
+                >5</span
+              >
+              <span
+                ><strong>앨범 레벨도 올리세요.</strong> Part 2(앨범 레벨 추가
+                점수)에서 보너스가 붙습니다. 단, 무한정 올라가지 않고
+                수렴합니다.</span
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="callout warn mt-16">
+          <strong>카드스코어계수(CARD_SCORE_COEFFICIENT)가 추가된 이유:</strong
+          ><br />
+          앨범 레벨 → 카드스코어 상승 → 총 점수 과도 증가 문제를 억제합니다.<br />
+          계수가 예를 들어 <strong>0.7</strong>이면, 카드스코어의
+          <strong>70%만 반영</strong>된다는 뜻입니다.
+        </div>
+      </div>
+
+      <!-- ═══ Footer ═══ -->
+      <div class="footer">
+        <p>인게임 결과 점수 공식 개편 — 이해 가이드</p>
+        <p>원본 기획서: 박상헌 (게임디자인)</p>
+      </div>
+    </div>
+
+    <script>
+      function calc() {
+        const n = parseFloat(document.getElementById("totalNotes").value) || 1;
+        const nb =
+          parseFloat(document.getElementById("noteBalance").value) || 0;
+        const cs = parseFloat(document.getElementById("cardScore").value) || 0;
+        const cc = parseFloat(document.getElementById("cardCoeff").value) || 0;
+        const cb =
+          parseFloat(document.getElementById("cardBalance").value) || 0;
+        const j = parseFloat(document.getElementById("judgement").value);
+        const r = parseFloat(document.getElementById("rave").value);
+        const d = parseFloat(document.getElementById("difficulty").value);
+
+        const base = 1 / n;
+        const cardPower = cs * cc + cb;
+        const timing = j + r;
+        const perNote = base * nb * cardPower * timing * d;
+        const total = perNote * n;
+        const totalRound = Math.floor(total / 10) * 10;
+
+        document.getElementById("resultOne").textContent =
+          perNote.toLocaleString("ko-KR", { maximumFractionDigits: 1 });
+        document.getElementById("resultTotal").textContent =
+          totalRound.toLocaleString("ko-KR");
+
+        const csTimesCC = (cs * cc).toLocaleString("ko-KR", {
+          maximumFractionDigits: 1,
+        });
+        document.getElementById("resultBreakdown").textContent =
+          `(1/${n}) × ${nb.toLocaleString()} × (${cs}×${cc} + ${cb}) × (${j} + ${r}) × ${d} = ${perNote.toLocaleString("ko-KR", { maximumFractionDigits: 1 })}`;
+      }
+      calc();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>프로젝트 현황 보고서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0f;
+    color: #e4e4e7;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px;
+  }
+
+  /* Header */
+  .page-header { margin-bottom: 48px; }
+  .page-header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #e4e4e7;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .page-header .meta {
+    font-size: 13px;
+    color: #71717a;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .page-header .meta span { display: flex; align-items: center; gap: 4px; }
+
+  /* Section */
+  .section { margin-bottom: 40px; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #71717a;
+    margin-bottom: 16px;
+  }
+  .divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin-bottom: 40px;
+  }
+
+  /* Card */
+  .card {
+    background: #15151f;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  /* Overview paragraph */
+  .overview-text {
+    color: #a1a1aa;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .overview-text strong { color: #e4e4e7; font-weight: 500; }
+
+  /* Metrics row */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .metric-item {
+    background: #15151f;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .metric-item:first-child { border-radius: 10px 0 0 10px; }
+  .metric-item:last-child { border-radius: 0 10px 10px 0; }
+  .metric-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: #e4e4e7;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+  .metric-value.positive { color: #34d399; }
+  .metric-value.negative { color: #f43f5e; }
+  .metric-value.accent { color: #8b5cf6; }
+  .metric-label {
+    font-size: 12px;
+    color: #71717a;
+  }
+
+  /* Issue list */
+  .issue-list { list-style: none; }
+  .issue-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-left: 2px solid transparent;
+    border-radius: 6px;
+    transition: background 0.15s, border-color 0.15s;
+    cursor: default;
+  }
+  .issue-item:hover {
+    background: rgba(255,255,255,0.02);
+    border-left-color: #8b5cf6;
+  }
+  .issue-id {
+    font-size: 13px;
+    font-weight: 500;
+    color: #71717a;
+    min-width: 56px;
+    font-variant-numeric: tabular-nums;
+  }
+  .issue-title {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 400;
+    color: #e4e4e7;
+  }
+  .issue-assignee {
+    font-size: 12px;
+    color: #3f3f46;
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+  .badge-urgent {
+    background: rgba(244,63,94,0.12);
+    color: #f43f5e;
+  }
+  .badge-progress {
+    background: rgba(139,92,246,0.12);
+    color: #8b5cf6;
+  }
+  .badge-todo {
+    background: rgba(113,113,122,0.12);
+    color: #71717a;
+  }
+  .badge-done {
+    background: rgba(52,211,153,0.12);
+    color: #34d399;
+  }
+
+  /* Priority dots */
+  .priority-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .priority-dot.critical { background: #f43f5e; }
+  .priority-dot.high { background: #f97316; }
+  .priority-dot.medium { background: #eab308; }
+  .priority-dot.low { background: #71717a; }
+
+  /* Timeline */
+  .timeline-list { list-style: none; }
+  .timeline-item {
+    display: flex;
+    gap: 16px;
+    padding: 12px 0;
+    position: relative;
+  }
+  .timeline-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 51px;
+    top: 36px;
+    bottom: -4px;
+    width: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+  .timeline-date {
+    font-size: 12px;
+    font-weight: 500;
+    color: #71717a;
+    min-width: 72px;
+    padding-top: 1px;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  .timeline-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #3f3f46;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .timeline-dot.active { background: #8b5cf6; }
+  .timeline-dot.complete { background: #34d399; }
+  .timeline-content { flex: 1; }
+  .timeline-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #e4e4e7;
+    margin-bottom: 2px;
+  }
+  .timeline-desc {
+    font-size: 13px;
+    color: #71717a;
+  }
+
+  /* Next steps */
+  .step-list { list-style: none; counter-reset: steps; }
+  .step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    counter-increment: steps;
+  }
+  .step-item::before {
+    content: counter(steps);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: rgba(139,92,246,0.12);
+    color: #8b5cf6;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-content { flex: 1; }
+  .step-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #e4e4e7;
+    margin-bottom: 2px;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: #71717a;
+  }
+
+  /* Kbd */
+  kbd {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 11px;
+    color: #71717a;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .page-footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 12px;
+    color: #3f3f46;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .page-footer .shortcuts { display: flex; gap: 16px; }
+  .page-footer .shortcut { display: flex; align-items: center; gap: 6px; color: #3f3f46; }
+
+  /* Links */
+  a { color: #8b5cf6; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .metric-item:first-child { border-radius: 10px 0 0 0; }
+    .metric-item:nth-child(2) { border-radius: 0 10px 0 0; }
+    .metric-item:nth-child(3) { border-radius: 0 0 0 10px; }
+    .metric-item:last-child { border-radius: 0 0 10px 0; }
+    .container { padding: 40px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1>프로젝트 현황 보고서</h1>
+    <div class="meta">
+      <span>스프린트 12</span>
+      <span>&middot;</span>
+      <span>2026년 3월 7일</span>
+      <span>&middot;</span>
+      <span><span class="badge badge-progress">진행 중</span></span>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <div class="section">
+    <div class="section-label">개요</div>
+    <p class="overview-text">
+      스프린트 12는 전 플랫폼 <strong>런칭 준비</strong>에 집중하고 있습니다. 핵심 게임플레이 루프는 안정화 상태입니다.
+      이번 주 팀은 <strong>23건의 이슈를 종료</strong>했으며, 마일스톤 동결 전 7건이 남아 있습니다.
+      빌드 파이프라인은 정상 가동 중이며, 티어1 기기 전체에서 성능 목표를 달성했습니다.
+      결제 연동 플로우에 <strong>크리티컬 블로커 1건</strong>이 잔존합니다.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Key Metrics -->
+  <div class="section">
+    <div class="section-label">핵심 지표</div>
+    <div class="metrics-grid">
+      <div class="metric-item">
+        <div class="metric-value">94%</div>
+        <div class="metric-label">스프린트 진행률</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value positive">+23</div>
+        <div class="metric-label">종료된 이슈</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value negative">7</div>
+        <div class="metric-label">미해결 이슈</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value accent">16ms</div>
+        <div class="metric-label">평균 프레임 타임</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Open Issues -->
+  <div class="section">
+    <div class="section-label">미해결 이슈</div>
+    <ul class="issue-list">
+      <li class="issue-item">
+        <span class="priority-dot critical"></span>
+        <span class="issue-id">WC-342</span>
+        <span class="issue-title">결제 Webhook 30초 초과 시 타임아웃 실패</span>
+        <span class="badge badge-urgent">긴급</span>
+        <span class="issue-assignee">개발팀</span>
+      </li>
+      <li class="issue-item">
+        <span class="priority-dot high"></span>
+        <span class="issue-id">WC-339</span>
+        <span class="issue-title">iOS 빌드 용량이 App Store 200MB 제한 초과</span>
+        <span class="badge badge-progress">진행 중</span>
+        <span class="issue-assignee">DevOps</span>
+      </li>
+      <li class="issue-item">
+        <span class="priority-dot high"></span>
+        <span class="issue-id">WC-335</span>
+        <span class="issue-title">일본어 튜토리얼 플로우 현지화 문자열 누락</span>
+        <span class="badge badge-progress">진행 중</span>
+        <span class="issue-assignee">현지화팀</span>
+      </li>
+      <li class="issue-item">
+        <span class="priority-dot medium"></span>
+        <span class="issue-id">WC-331</span>
+        <span class="issue-title">저사양 Android에서 월드맵 스크롤 끊김 현상</span>
+        <span class="badge badge-todo">대기</span>
+        <span class="issue-assignee">개발팀</span>
+      </li>
+      <li class="issue-item">
+        <span class="priority-dot medium"></span>
+        <span class="issue-id">WC-328</span>
+        <span class="issue-title">보스 Aero 히트박스가 스프라이트보다 약간 큼</span>
+        <span class="badge badge-done">완료</span>
+        <span class="issue-assignee">QA</span>
+      </li>
+      <li class="issue-item">
+        <span class="priority-dot low"></span>
+        <span class="issue-id">WC-324</span>
+        <span class="issue-title">Steam 업적 아이콘 레티나 대응 이미지 필요</span>
+        <span class="badge badge-todo">대기</span>
+        <span class="issue-assignee">아트팀</span>
+      </li>
+      <li class="issue-item">
+        <span class="priority-dot low"></span>
+        <span class="issue-id">WC-319</span>
+        <span class="issue-title">애널리틱스 이벤트 네이밍 불일치</span>
+        <span class="badge badge-todo">대기</span>
+        <span class="issue-assignee">개발팀</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Timeline -->
+  <div class="section">
+    <div class="section-label">타임라인</div>
+    <ul class="timeline-list">
+      <li class="timeline-item">
+        <span class="timeline-date">2월 24일</span>
+        <span class="timeline-dot complete"></span>
+        <div class="timeline-content">
+          <div class="timeline-title">기능 동결</div>
+          <div class="timeline-desc">전체 게임플레이 기능 확정. 이후 버그 수정만 진행.</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">3월 3일</span>
+        <span class="timeline-dot complete"></span>
+        <div class="timeline-content">
+          <div class="timeline-title">QA 테스트 완료</div>
+          <div class="timeline-desc">iOS, Android, Steam 전체 리그레션 완료. 이슈 23건 발견, 16건 해결.</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">3월 7일</span>
+        <span class="timeline-dot active"></span>
+        <div class="timeline-content">
+          <div class="timeline-title">스프린트 12 리뷰</div>
+          <div class="timeline-desc">현재 마일스톤. RC 빌드 전 미해결 이슈 7건 잔존.</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">3월 14일</span>
+        <span class="timeline-dot"></span>
+        <div class="timeline-content">
+          <div class="timeline-title">릴리스 후보(RC)</div>
+          <div class="timeline-desc">RC 빌드를 전 플랫폼 심사 큐에 제출.</div>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-date">3월 21일</span>
+        <span class="timeline-dot"></span>
+        <div class="timeline-content">
+          <div class="timeline-title">글로벌 런칭</div>
+          <div class="timeline-desc">iOS, Android, Steam 동시 출시.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Next Steps -->
+  <div class="section">
+    <div class="section-label">다음 단계</div>
+    <ol class="step-list">
+      <li class="step-item">
+        <div class="step-content">
+          <div class="step-title">결제 Webhook 블로커 해결</div>
+          <div class="step-desc">타임아웃을 60초로 확대하고, 지수 백오프 재시도 로직 추가. 목표: 3월 8일.</div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-content">
+          <div class="step-title">iOS 빌드 용량 200MB 이하로 축소</div>
+          <div class="step-desc">미사용 에셋 제거, 텍스처를 ASTC 6x6으로 압축. 목표: 3월 10일.</div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-content">
+          <div class="step-title">일본어 현지화 작업 완료</div>
+          <div class="step-desc">튜토리얼 및 온보딩에서 누락된 문자열 32건 처리. 목표: 3월 9일.</div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-content">
+          <div class="step-title">RC 빌드 플랫폼 심사 제출</div>
+          <div class="step-desc">Apple 24~48시간, Google 2~6시간, Steam 영업일 3~5일 소요. 목표: 3월 14일.</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <span>HKD852 PMO 자동 생성</span>
+    <div class="shortcuts">
+      <span class="shortcut"><kbd>Ctrl</kbd><kbd>K</kbd> 명령</span>
+      <span class="shortcut"><kbd>Ctrl</kbd><kbd>P</kbd> 인쇄</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

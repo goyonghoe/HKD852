@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKD852 위클리</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #fff5ee;
+    color: #1a1a1a;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    word-break: keep-all;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 40px 60px;
+  }
+
+  /* === MASTHEAD === */
+  .masthead {
+    text-align: center;
+    border-bottom: 4px double #1a1a1a;
+    padding-bottom: 12px;
+    margin-bottom: 0;
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #555;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #1a1a1a;
+    margin-bottom: 10px;
+  }
+
+  .masthead-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .masthead-subtitle {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 13px;
+    font-style: italic;
+    color: #555;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  /* === EDITION BAR === */
+  .edition-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #1a1a1a;
+    border-bottom: 2px solid #1a1a1a;
+    padding: 6px 0;
+    margin-bottom: 24px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #555;
+  }
+
+  /* === HEADLINE === */
+  .headline-section {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .main-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  .sub-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: italic;
+    color: #333;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .byline {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+  }
+
+  .byline strong {
+    color: #1a1a1a;
+  }
+
+  /* === ARTICLE BODY (COLUMNS) === */
+  .article-body {
+    column-count: 3;
+    column-gap: 30px;
+    column-rule: 1px solid #ccc;
+    margin-bottom: 30px;
+  }
+
+  .article-body p {
+    margin-bottom: 14px;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .article-body p:first-of-type::first-letter {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 52px;
+    font-weight: 700;
+    float: left;
+    line-height: 0.85;
+    margin-right: 6px;
+    margin-top: 4px;
+    color: #1a1a1a;
+  }
+
+  .dateline {
+    font-weight: 700;
+    font-variant: small-caps;
+    letter-spacing: 0.5px;
+  }
+
+  /* === SIDEBAR BOX === */
+  .sidebar-box {
+    border: 2px solid #1a1a1a;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    break-inside: avoid;
+    background: #fff;
+  }
+
+  .sidebar-box h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #1a1a1a;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+
+  .sidebar-box .stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px dotted #ccc;
+    font-size: 14px;
+  }
+
+  .sidebar-box .stat-row:last-child {
+    border-bottom: none;
+  }
+
+  .sidebar-box .stat-value {
+    font-weight: 700;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+  }
+
+  /* === DATA TABLE === */
+  .data-section {
+    margin-bottom: 30px;
+    border-top: 2px solid #1a1a1a;
+    padding-top: 16px;
+  }
+
+  .data-section h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .data-table thead th {
+    background: #1a1a1a;
+    color: #fff5ee;
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+
+  .data-table tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .data-table tbody tr:hover {
+    background: #fff1e5;
+  }
+
+  .data-table .num {
+    text-align: right;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-weight: 600;
+  }
+
+  /* === PULLQUOTE === */
+  .pullquote {
+    border-top: 3px solid #1a1a1a;
+    border-bottom: 3px solid #1a1a1a;
+    padding: 14px 0;
+    margin: 18px 0;
+    text-align: center;
+    break-inside: avoid;
+  }
+
+  .pullquote p {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: center !important;
+  }
+
+  .pullquote cite {
+    display: block;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    margin-top: 6px;
+  }
+
+  /* === RELATED STORIES === */
+  .related-section {
+    border-top: 2px solid #1a1a1a;
+    padding-top: 16px;
+    margin-top: 10px;
+  }
+
+  .related-section h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .related-item {
+    border-left: 2px solid #1a1a1a;
+    padding-left: 14px;
+  }
+
+  .related-item h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .related-item p {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .related-item .related-meta {
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 6px;
+  }
+
+  /* === FOOTER === */
+  .footer {
+    border-top: 4px double #1a1a1a;
+    margin-top: 30px;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 0.5px;
+  }
+
+  /* === PRINT === */
+  @media print {
+    body { background: #fff; padding: 10px; }
+    .data-table tbody tr:hover { background: none; }
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 16px; }
+    .masthead-title { font-size: 36px; }
+    .main-headline { font-size: 28px; }
+    .article-body { column-count: 1; }
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-top">
+    <span>서울판</span>
+    <span>2026년 창간</span>
+    <span>hkd852.studio</span>
+  </div>
+  <div class="masthead-title">HKD852 Weekly</div>
+  <div class="masthead-subtitle">AI 기반 게임 개발 및 디지털 콘텐츠의 전문 매체</div>
+</header>
+
+<div class="edition-bar">
+  <span>2026년 3월 7일 금요일</span>
+  <span>제1권 &middot; 제12호</span>
+  <span>무료 배포</span>
+</div>
+
+<!-- HEADLINE -->
+<section class="headline-section">
+  <h1 class="main-headline">언어 학습 앱 시장,<br>HSK 3.0 전환으로 격변</h1>
+  <p class="sub-headline">새로운 중국어 능력 표준이 경쟁 구도를 재편하며, 개발사들은 커리큘럼, 평가 엔진, 콘텐츠 파이프라인 업데이트에 분주</p>
+  <p class="byline"><strong>전문 기자</strong> &middot; HKD852 인텔리전스 데스크</p>
+</section>
+
+<!-- ARTICLE BODY -->
+<div class="article-body">
+  <p><span class="dateline">서울 &mdash; </span>2025년 187억 달러로 평가된 글로벌 언어 학습 시장이 10년 만에 가장 중대한 구조적 전환에 직면해 있다. HSK 3.0(개정 한어수평고시 체계)의 본격 시행으로 숙련도 등급이 6단계에서 9단계로 확대되었으며, 이는 전 세계적으로 중국어 능력의 측정, 교수, 인증 방식을 근본적으로 변화시키고 있다.</p>
+
+  <p>앱 개발사와 에드테크 기업에게 이번 전환은 존재론적 도전이자 세대적 기회를 동시에 의미한다. 6단계 HSK 2.0 체계를 기반으로 구축된 레거시 플랫폼들은 전체 콘텐츠 아키텍처를 개편해야 하는 반면, 민첩한 신규 진입자들은 HSK 3.0 네이티브 대안으로 자리매김하고 있다.</p>
+
+  <div class="sidebar-box">
+    <h3>주요 수치</h3>
+    <div class="stat-row">
+      <span>HSK 3.0 어휘 수</span>
+      <span class="stat-value">11,092</span>
+    </div>
+    <div class="stat-row">
+      <span>HSK 2.0 어휘 수</span>
+      <span class="stat-value">5,000</span>
+    </div>
+    <div class="stat-row">
+      <span>새로운 숙련도 등급</span>
+      <span class="stat-value">9단계</span>
+    </div>
+    <div class="stat-row">
+      <span>글로벌 응시자 수 (2025)</span>
+      <span class="stat-value">420만</span>
+    </div>
+    <div class="stat-row">
+      <span>시장 성장률</span>
+      <span class="stat-value">14.3%</span>
+    </div>
+  </div>
+
+  <p>&ldquo;어휘만 해도 2배 이상 늘어났습니다.&rdquo; 베이징어언대학교 전산언어학과 천메이린 교수는 이렇게 말했다. &ldquo;하지만 진정한 변화는 교육학적인 것입니다. HSK 3.0은 음절 단위 음성 평가와 필기 인식 요구 사항을 도입했는데, 대부분의 앱은 이를 처리할 수 없습니다.&rdquo;</p>
+
+  <p>업계 분석가들은 기존 중국어 학습 앱의 15% 미만만이 HSK 3.0 완전 통합을 완료한 것으로 추정한다. 나머지는 기존 표준도 새로운 표준도 충족하지 못하는, 불완전하게 업데이트된 콘텐츠로 위태로운 과도기를 보내고 있다.</p>
+
+  <div class="pullquote">
+    <p>&ldquo;이것은 점진적 업데이트가 아닙니다. HSK 3.0은 진지한 플랫폼과 취미용 도구를 갈라놓을 패러다임 전환입니다.&rdquo;</p>
+    <cite>천메이린 교수, 베이징어언대학교</cite>
+  </div>
+
+  <p>글로벌 언어 앱 매출의 32%를 차지하는 북미 시장의 대응이 특히 느리다. Duolingo, HelloChinese, Pleco 등 주요 플랫폼이 단계적 업데이트를 발표했지만, 올해 4분기 이전에 완전 준수를 약속한 곳은 없다.</p>
+
+  <p>한편 아시아 기반 스타트업들이 선제적으로 움직였다. LangMaster, SuperChinese, Hanzi Hero 등은 확대된 9단계 과정과 새로 지정된 한자 세트를 포함한 HSK 3.0 네이티브 커리큘럼을 이미 출시했다.</p>
+
+  <p>재무적 영향도 상당하다. Sensor Tower 데이터에 따르면 HSK 3.0 대비 콘텐츠를 제공하는 앱의 전환율이 1분기에 23% 급등했다. 중국어 학습 버티컬의 프리미엄 구독 매출은 전년 대비 18% 증가하여, 에드테크 시장 전체 성장률을 약 7%포인트 상회했다.</p>
+
+  <p>다각화된 콘텐츠 전략의 일환으로 AI 기반 언어 학습 도구를 개발해 온 HKD852 스튜디오에게, 이번 전환은 명확한 시장 진입 기회를 제공한다. 스튜디오의 독자적인 간격 반복 엔진과 Claude 기반 평가 파이프라인은 HSK 3.0의 적응형 테스트 요구 사항에 적합하다.</p>
+
+  <p>규제 요인도 복잡성을 더한다. 중국 교육부는 2027년까지 대학 입학에 HSK 3.0 인증을 의무화할 것을 시사했으며, 이는 전 세계적으로 약 4천만 명에 달하는 중국어 능력 시험 준비 학생들에게 긴급한 수요를 창출하고 있다.</p>
+
+  <p>경쟁 구도는 향후 12~18개월 내에 급격히 재편될 것으로 예상되며, HSK 3.0 대응 수준이 성장하는 플랫폼과 정체하는 플랫폼을 가르는 핵심 차별화 요소가 될 전망이다.</p>
+</div>
+
+<!-- DATA TABLE -->
+<section class="data-section">
+  <h2>HSK 3.0 등급별 비교</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>등급</th>
+        <th>어휘 수</th>
+        <th>한자 수</th>
+        <th>문법 항목</th>
+        <th>CEFR 대응</th>
+        <th>응시자 수 (추정)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>HSK 1</td>
+        <td class="num">500</td>
+        <td class="num">300</td>
+        <td class="num">48</td>
+        <td>A1</td>
+        <td class="num">1,200,000</td>
+      </tr>
+      <tr>
+        <td>HSK 2</td>
+        <td class="num">1,272</td>
+        <td class="num">600</td>
+        <td class="num">129</td>
+        <td>A2</td>
+        <td class="num">890,000</td>
+      </tr>
+      <tr>
+        <td>HSK 3</td>
+        <td class="num">2,245</td>
+        <td class="num">900</td>
+        <td class="num">210</td>
+        <td>B1</td>
+        <td class="num">720,000</td>
+      </tr>
+      <tr>
+        <td>HSK 4</td>
+        <td class="num">3,245</td>
+        <td class="num">1,200</td>
+        <td class="num">286</td>
+        <td>B1+</td>
+        <td class="num">480,000</td>
+      </tr>
+      <tr>
+        <td>HSK 5</td>
+        <td class="num">4,316</td>
+        <td class="num">1,500</td>
+        <td class="num">357</td>
+        <td>B2</td>
+        <td class="num">350,000</td>
+      </tr>
+      <tr>
+        <td>HSK 6</td>
+        <td class="num">5,456</td>
+        <td class="num">1,800</td>
+        <td class="num">424</td>
+        <td>B2+</td>
+        <td class="num">260,000</td>
+      </tr>
+      <tr>
+        <td>HSK 7</td>
+        <td class="num">7,685</td>
+        <td class="num">2,400</td>
+        <td class="num">512</td>
+        <td>C1</td>
+        <td class="num">180,000</td>
+      </tr>
+      <tr>
+        <td>HSK 8</td>
+        <td class="num">9,300</td>
+        <td class="num">2,800</td>
+        <td class="num">580</td>
+        <td>C1+</td>
+        <td class="num">85,000</td>
+      </tr>
+      <tr>
+        <td>HSK 9</td>
+        <td class="num">11,092</td>
+        <td class="num">3,000</td>
+        <td class="num">648</td>
+        <td>C2</td>
+        <td class="num">35,000</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- RELATED STORIES -->
+<section class="related-section">
+  <h2>관련 기사</h2>
+  <div class="related-grid">
+    <div class="related-item">
+      <h4>AI 기반 간격 반복, 기존 학습법 대비 34% 높은 효과 입증</h4>
+      <p>캠브리지 대학의 새로운 연구에서 적응형 알고리즘이 중국어 학습자의 장기 한자 기억 유지율을 유의미하게 향상시키는 것으로 나타났다.</p>
+      <div class="related-meta">리서치 &middot; 3분 분량</div>
+    </div>
+    <div class="related-item">
+      <h4>Duolingo, 아시아 언어 부문 부진으로 4분기 매출 예상치 하회</h4>
+      <p>언어 학습 대기업은 HSK 3.0 통합 지연과 중국어 버티컬 경쟁 심화를 매출 부진 원인으로 지목했다.</p>
+      <div class="related-meta">시장 &middot; 4분 분량</div>
+    </div>
+    <div class="related-item">
+      <h4>교육부, 2027년 대학 입학 HSK 3.0 의무화 시한 확정</h4>
+      <p>중국 대학에 지원하는 모든 외국인 학생은 2027년 가을 학기부터 HSK 3.0 인증을 보유해야 한다.</p>
+      <div class="related-meta">정책 &middot; 2분 분량</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>HKD852 WEEKLY &middot; HKD852 스튜디오 인텔리전스 데스크 발행 &middot; 서울, 대한민국 &middot; &copy; 2026 All Rights Reserved</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 에이전트 수익화 전략 대시보드</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --base: #1e1e2e;
+    --mantle: #181825;
+    --crust: #11111b;
+    --surface0: #313244;
+    --surface1: #45475a;
+    --surface2: #585b70;
+    --overlay0: #6c7086;
+    --text: #cdd6f4;
+    --subtext0: #a6adc8;
+    --subtext1: #bac2de;
+    --mauve: #cba6f7;
+    --blue: #89b4fa;
+    --green: #a6e3a1;
+    --peach: #fab387;
+    --red: #f38ba8;
+    --yellow: #f9e2af;
+    --teal: #94e2d5;
+    --lavender: #b4befe;
+  }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    background: var(--base);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.8;
+    word-break: keep-all;
+  }
+
+  .dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .header h1 span { color: var(--mauve); }
+  .header-meta {
+    font-size: 13px;
+    color: var(--overlay0);
+  }
+
+  /* Tabs */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    background: var(--mantle);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 24px;
+    width: fit-content;
+  }
+  .tab {
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--subtext0);
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    transition: all 0.2s;
+  }
+  .tab:hover { color: var(--text); background: var(--surface0); }
+  .tab.active {
+    background: var(--surface0);
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  /* Tab Panels */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* KPI Cards */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .kpi-card {
+    background: var(--mantle);
+    border: 1px solid var(--surface0);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .kpi-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--overlay0);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .kpi-delta {
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .kpi-delta.up { color: var(--green); }
+  .kpi-delta.down { color: var(--red); }
+  .kpi-delta.neutral { color: var(--yellow); }
+
+  /* Chart Grid */
+  .chart-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .chart-card {
+    background: var(--mantle);
+    border: 1px solid var(--surface0);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .chart-card.wide { grid-column: span 2; }
+  .chart-card.full { grid-column: span 3; }
+  .chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--subtext1);
+    margin-bottom: 16px;
+  }
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+  }
+  .chart-wrap canvas { width: 100% !important; }
+
+  /* Insight Cards */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .insight-card {
+    background: var(--mantle);
+    border: 1px solid var(--surface0);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .insight-card .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .badge.critical { background: rgba(243,139,168,0.15); color: var(--red); }
+  .badge.recommend { background: rgba(166,227,161,0.15); color: var(--green); }
+  .badge.info { background: rgba(137,180,250,0.15); color: var(--blue); }
+  .badge.warn { background: rgba(249,226,175,0.15); color: var(--yellow); }
+
+  .insight-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .insight-card p {
+    font-size: 14px;
+    color: var(--subtext0);
+    line-height: 1.7;
+  }
+  .insight-card .metric {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--mauve);
+    margin: 12px 0 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .insight-card .metric-label {
+    font-size: 12px;
+    color: var(--overlay0);
+  }
+
+  /* Body Text (for analysis sections) */
+  .body-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--subtext0);
+  }
+  .body-text p { margin-bottom: 12px; }
+  .body-text p:last-child { margin-bottom: 0; }
+  .body-text strong { color: var(--text); }
+
+  /* Data Table */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .data-table thead th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--overlay0);
+    border-bottom: 1px solid var(--surface0);
+    letter-spacing: 0.5px;
+  }
+  .data-table tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--surface0);
+    color: var(--subtext1);
+    vertical-align: top;
+  }
+  .data-table tbody tr:last-child td { border-bottom: none; }
+  .data-table tbody tr:hover { background: rgba(203,166,247,0.04); }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .tag.best { background: rgba(166,227,161,0.15); color: var(--green); }
+  .tag.good { background: rgba(137,180,250,0.15); color: var(--blue); }
+  .tag.mid { background: rgba(249,226,175,0.15); color: var(--yellow); }
+  .tag.low { background: rgba(243,139,168,0.15); color: var(--red); }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: var(--surface0);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--mauve);
+    background: var(--mantle);
+  }
+  .timeline-item.done::before { background: var(--green); border-color: var(--green); }
+  .timeline-item.active::before { background: var(--mauve); border-color: var(--mauve); }
+  .timeline-phase {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--overlay0);
+    margin-bottom: 2px;
+  }
+  .timeline-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--subtext0);
+    line-height: 1.7;
+  }
+  .timeline-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .timeline-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--surface0);
+    color: var(--subtext0);
+  }
+
+  /* Callout */
+  .callout {
+    background: rgba(203,166,247,0.08);
+    border-left: 3px solid var(--mauve);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 24px;
+  }
+  .callout-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--mauve);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .callout p {
+    font-size: 14px;
+    color: var(--subtext1);
+    line-height: 1.7;
+  }
+  .callout strong { color: var(--text); }
+
+  /* Footer */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--overlay0);
+    padding-top: 16px;
+    border-top: 1px solid var(--surface0);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .chart-grid { grid-template-columns: repeat(2, 1fr); }
+    .chart-card.wide { grid-column: span 2; }
+    .chart-card.full { grid-column: span 2; }
+    .insight-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .chart-grid { grid-template-columns: 1fr; }
+    .chart-card.wide, .chart-card.full { grid-column: span 1; }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- Header -->
+  <div class="header">
+    <h1><span>AI 에이전트</span> 수익화 전략 대시보드</h1>
+    <div class="header-meta">최종 업데이트: 2026년 3월 7일 | HKD852 전략분석실</div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab active" data-tab="overview">시장 개요</button>
+    <button class="tab" data-tab="models">수익 모델</button>
+    <button class="tab" data-tab="roadmap">실행 로드맵</button>
+    <button class="tab" data-tab="risk">리스크</button>
+  </div>
+
+  <!-- ==================== TAB 1: 시장 개요 ==================== -->
+  <div class="tab-panel active" id="panel-overview">
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-label">AI 에이전트 시장 규모 (2025)</div>
+        <div class="kpi-value">$15B</div>
+        <div class="kpi-delta up">&#9650; 2030년까지 $418B 전망</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">수요 대 공급 비율</div>
+        <div class="kpi-value">10 : 1</div>
+        <div class="kpi-delta up">&#9650; 전문 인력 부족 지속</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">연평균 성장률 (CAGR)</div>
+        <div class="kpi-value">45%</div>
+        <div class="kpi-delta up">&#9650; SaaS 평균(18%) 대비 2.5배</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">$1M ARR 도달 속도</div>
+        <div class="kpi-value">11개월</div>
+        <div class="kpi-delta up">&#9650; SaaS 평균 대비 4개월 빠름</div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card wide">
+        <div class="chart-title">AI 에이전트 시장 성장 추이 ($B)</div>
+        <div class="chart-wrap"><canvas id="chartGrowth"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">HKD852 경쟁력 vs 신규 진입자</div>
+        <div class="chart-wrap"><canvas id="chartRadar"></canvas></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">핵심 인사이트</div>
+      <p>AI 에이전트 스타트업은 기존 SaaS보다 <strong>4개월 빠르게</strong> 연 $1M 매출에 도달한다. Cognition AI(Devin)는 9개월 만에 <strong>$73M ARR</strong>을 기록했으며, 마이크로 SaaS 상위 12%는 월 $5K 이상을 벌고 <strong>95%가 12개월 내 흑자</strong>를 달성한다. 한국 시장은 SaaS 3조원 규모로 소규모이나, '구축형' 선호 문화가 에이전시 모델에 유리하게 작용한다.</p>
+    </div>
+
+    <!-- HKD852 보유 자산 -->
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="badge critical">핵심 자산</div>
+        <h3>24개 에이전트 시스템</h3>
+        <p>기획, 개발, 마케팅, QA, 보안까지 풀스택 에이전트 운영 경험. 경쟁사 대비 6~12개월 선행.</p>
+        <div class="metric">112+</div>
+        <div class="metric-label">보유 스킬 수</div>
+      </div>
+      <div class="insight-card">
+        <div class="badge critical">핵심 자산</div>
+        <h3>품질 파이프라인</h3>
+        <p>Quality Gate → Shield(보안) → RedTeam(적대적 리뷰) 3단계 자동 검증 체계 구축 완료.</p>
+        <div class="metric">3단계</div>
+        <div class="metric-label">자동 품질 검증</div>
+      </div>
+      <div class="insight-card">
+        <div class="badge critical">핵심 자산</div>
+        <h3>멀티 도메인 레퍼런스</h3>
+        <p>게임, 콘텐츠, 투자, 인사, 마케팅 — 다양한 업종 에이전트 실전 운영 포트폴리오.</p>
+        <div class="metric">7+</div>
+        <div class="metric-label">도메인 레퍼런스</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== TAB 2: 수익 모델 ==================== -->
+  <div class="tab-panel" id="panel-models">
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-label">에이전시 건당 수익</div>
+        <div class="kpi-value">$5~15K</div>
+        <div class="kpi-delta up">&#9650; 마진율 60~70%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">SaaS 월 구독 단가</div>
+        <div class="kpi-value">$49~299</div>
+        <div class="kpi-delta up">&#9650; MRR 누적 구조</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">AI 래퍼 초기 자본</div>
+        <div class="kpi-value">$200~</div>
+        <div class="kpi-delta neutral">&#9679; 저자본 고효율</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">12개월 목표 MRR</div>
+        <div class="kpi-value">$20K</div>
+        <div class="kpi-delta neutral">&#9679; 에이전시+SaaS 하이브리드</div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card wide">
+        <div class="chart-title">수익화 경로별 비교 (10점 만점)</div>
+        <div class="chart-wrap"><canvas id="chartPaths"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">권장 매출 구성 (12개월 후)</div>
+        <div class="chart-wrap"><canvas id="chartMix"></canvas></div>
+      </div>
+    </div>
+
+    <!-- 상세 비교 테이블 -->
+    <div class="chart-card" style="margin-bottom: 24px;">
+      <div class="chart-title">수익화 경로 상세 비교</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>경로</th>
+            <th>첫 매출</th>
+            <th>월 수익 범위</th>
+            <th>장점</th>
+            <th>단점</th>
+            <th>판정</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:var(--text)">A. 버티컬 AI 에이전시</strong></td>
+            <td>2~4주</td>
+            <td>$5K~$50K</td>
+            <td>즉시 현금, 고마진 60~70%</td>
+            <td>노동 집약적, 확장 한계</td>
+            <td><span class="tag best">최우선</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--text)">B. 니치 마이크로 SaaS</strong></td>
+            <td>2~3개월</td>
+            <td>$1K~$10K</td>
+            <td>반복 매출(MRR), 마진 70%+</td>
+            <td>초기 고객 확보 시간</td>
+            <td><span class="tag good">병행 필수</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--text)">C. AI 래퍼 제품</strong></td>
+            <td>1~2개월</td>
+            <td>$500~$50K</td>
+            <td>자본 효율적, 빠른 MVP</td>
+            <td>경쟁 심화, 진입장벽 낮음</td>
+            <td><span class="tag mid">선택적</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--text)">D. MCP 서버 판매</strong></td>
+            <td>3개월+</td>
+            <td>$100~$500</td>
+            <td>기술 깊이 어필</td>
+            <td>시장 미성숙, 사례 부재</td>
+            <td><span class="tag low">비추천</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="badge recommend">최우선 전략</div>
+        <h3>버티컬 AI 에이전시</h3>
+        <p>특정 업종(치과, 법률, 커머스)에 특화된 AI 자동화 구축 서비스. 첫 매출까지 2~4주 소요.</p>
+        <div class="metric">$5K~$50K</div>
+        <div class="metric-label">월 수익 범위</div>
+      </div>
+      <div class="insight-card">
+        <div class="badge info">병행 필수</div>
+        <h3>니치 마이크로 SaaS</h3>
+        <p>에이전시에서 발견한 반복 패턴을 제품화. 월 구독 모델로 전환하여 반복 매출 확보.</p>
+        <div class="metric">$1K~$10K</div>
+        <div class="metric-label">월 수익 범위 (안정화 후)</div>
+      </div>
+      <div class="insight-card">
+        <div class="badge warn">선택적</div>
+        <h3>AI 래퍼 제품</h3>
+        <p>Claude API 기반 특화 도구. 자본 효율적이나 경쟁 진입장벽이 낮아 차별화 필요.</p>
+        <div class="metric">$500~$50K</div>
+        <div class="metric-label">편차 큼 — 틈새 선점 시 유효</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">권고안</div>
+      <p><strong>경로 A+B 하이브리드 전략을 즉시 실행</strong>한다. 1~3개월차에 에이전시로 현금을 확보하면서 반복 패턴을 발견하고, 4개월차부터 해당 패턴을 마이크로 SaaS로 제품화한다. HKD852의 기존 24개 에이전트 운영 경험과 품질 파이프라인을 포트폴리오로 활용하면 <strong>경쟁사 대비 6~12개월 선행</strong>이 가능하다.</p>
+    </div>
+
+  </div>
+
+  <!-- ==================== TAB 3: 실행 로드맵 ==================== -->
+  <div class="tab-panel" id="panel-roadmap">
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-label">Phase 1 목표 (1~3개월)</div>
+        <div class="kpi-value">$5~10K</div>
+        <div class="kpi-delta neutral">&#9679; 에이전시 월 매출</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Phase 2 목표 (4~6개월)</div>
+        <div class="kpi-value">MVP</div>
+        <div class="kpi-delta neutral">&#9679; SaaS 제품화 시작</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Phase 3 목표 (7~9개월)</div>
+        <div class="kpi-value">$8~15K</div>
+        <div class="kpi-delta up">&#9650; SaaS + 에이전시 MRR</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Phase 4 목표 (10~12개월)</div>
+        <div class="kpi-value">$20K+</div>
+        <div class="kpi-delta up">&#9650; 하이브리드 안정화</div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card full">
+        <div class="chart-title">월별 예상 MRR 성장 곡선</div>
+        <div class="chart-wrap"><canvas id="chartMRR"></canvas></div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-bottom: 24px;">
+      <div class="chart-title">12개월 실행 로드맵</div>
+      <div class="timeline">
+        <div class="timeline-item active">
+          <div class="timeline-phase">PHASE 1 — 1~3개월차</div>
+          <div class="timeline-title">에이전시 모델 가동</div>
+          <div class="timeline-desc">타겟 업종 확정 → 랜딩 페이지 제작 → 첫 고객 아웃리치 → 1건 수주 및 납품 완료. 목표 매출 월 $5K~$10K.</div>
+          <div class="timeline-tags">
+            <span class="timeline-tag">업종 선정</span>
+            <span class="timeline-tag">포트폴리오</span>
+            <span class="timeline-tag">아웃리치</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase">PHASE 2 — 4~6개월차</div>
+          <div class="timeline-title">패턴 발견 → SaaS MVP</div>
+          <div class="timeline-desc">에이전시 프로젝트 3~5건 반복 납품하며 공통 패턴 추출. 가장 재사용성 높은 워크플로우를 SaaS MVP로 제품화.</div>
+          <div class="timeline-tags">
+            <span class="timeline-tag">패턴 분석</span>
+            <span class="timeline-tag">MVP 빌드</span>
+            <span class="timeline-tag">베타 런칭</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase">PHASE 3 — 7~9개월차</div>
+          <div class="timeline-title">SaaS 성장 + 에이전시 고도화</div>
+          <div class="timeline-desc">SaaS 초기 고객 20~50명 확보. 에이전시는 고단가 프로젝트만 선별 수주. 월 MRR $8K~$15K 목표.</div>
+          <div class="timeline-tags">
+            <span class="timeline-tag">고객 확보</span>
+            <span class="timeline-tag">요금 최적화</span>
+            <span class="timeline-tag">자동화</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase">PHASE 4 — 10~12개월차</div>
+          <div class="timeline-title">하이브리드 안정화</div>
+          <div class="timeline-desc">SaaS MRR $10K+ 달성. 에이전시 수익을 SaaS 마케팅에 재투자. 연간 매출 $150K~$250K 궤도 진입.</div>
+          <div class="timeline-tags">
+            <span class="timeline-tag">스케일링</span>
+            <span class="timeline-tag">재투자</span>
+            <span class="timeline-tag">$20K MRR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 다음 단계 액션 -->
+    <div class="chart-card" style="margin-bottom: 24px;">
+      <div class="chart-title">즉시 실행 항목 (다음 30일)</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>액션</th>
+            <th>담당</th>
+            <th>기한</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:var(--mauve)">1</strong></td>
+            <td>전문 영역 선정: 에이전시 타겟 업종 1~2개 확정 (치과/법률/커머스)</td>
+            <td>CEO</td>
+            <td>2026.03.14</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--mauve)">2</strong></td>
+            <td>랜딩 페이지 + 서비스 소개서 제작 (HKD852 에이전트 시스템 레퍼런스)</td>
+            <td>Marketing_Agent</td>
+            <td>2026.03.21</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--mauve)">3</strong></td>
+            <td>첫 고객 파이프라인 구축: 중소기업 AI 자동화 니즈 조사 + 직접 아웃리치</td>
+            <td>Income_Factory</td>
+            <td>2026.03.28</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--mauve)">4</strong></td>
+            <td>에이전시 프로젝트 1건 수주 → 납품 완료 (n8n + Claude API 기반)</td>
+            <td>CEO + 에이전트팀</td>
+            <td>2026.04.15</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--mauve)">5</strong></td>
+            <td>반복 패턴 분석 → 마이크로 SaaS MVP 기획서 작성</td>
+            <td>Growth_Agent</td>
+            <td>2026.05.01</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ==================== TAB 4: 리스크 ==================== -->
+  <div class="tab-panel" id="panel-risk">
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-label">최고 리스크 요인</div>
+        <div class="kpi-value" style="font-size:22px;">API 비용</div>
+        <div class="kpi-delta down">&#9660; 점수 8.5/10</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">1인 운영 리스크</div>
+        <div class="kpi-value">8.0</div>
+        <div class="kpi-delta down">&#9660; 대체 인력 없음</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">경쟁 추격 리스크</div>
+        <div class="kpi-value">7.8</div>
+        <div class="kpi-delta down">&#9660; 진입장벽 낮음</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">전체 리스크 평균</div>
+        <div class="kpi-value">7.0</div>
+        <div class="kpi-delta neutral">&#9679; 관리 가능 수준</div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card full">
+        <div class="chart-title">리스크 요인 평가 점수</div>
+        <div class="chart-wrap"><canvas id="chartRisk" style="max-height:280px;"></canvas></div>
+      </div>
+    </div>
+
+    <!-- 리스크 대응 -->
+    <div class="chart-card" style="margin-bottom: 24px;">
+      <div class="chart-title">리스크 대응 전략</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>리스크</th>
+            <th>점수</th>
+            <th>대응 전략</th>
+            <th>등급</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AI API 비용 급등</td>
+            <td>8.5</td>
+            <td>멀티 모델 전략 (Claude + Gemini + 오픈소스), 캐싱 레이어 도입</td>
+            <td><span class="tag low">심각</span></td>
+          </tr>
+          <tr>
+            <td>1인 운영 의존도</td>
+            <td>8.0</td>
+            <td>에이전트 자동화 극대화, 반복 업무 SOP 문서화</td>
+            <td><span class="tag low">심각</span></td>
+          </tr>
+          <tr>
+            <td>경쟁사 빠른 추격</td>
+            <td>7.8</td>
+            <td>버티컬 전문성 선점, 고객 성공 사례 축적으로 해자 구축</td>
+            <td><span class="tag low">심각</span></td>
+          </tr>
+          <tr>
+            <td>고객 획득 비용 상승</td>
+            <td>7.2</td>
+            <td>콘텐츠 마케팅 + 레퍼럴, 에이전시 클라이언트를 SaaS로 전환</td>
+            <td><span class="tag mid">주의</span></td>
+          </tr>
+          <tr>
+            <td>기술 변화 속도</td>
+            <td>6.8</td>
+            <td>모델 추상화 레이어, 프레임워크 독립적 설계</td>
+            <td><span class="tag mid">주의</span></td>
+          </tr>
+          <tr>
+            <td>규제 강화</td>
+            <td>6.5</td>
+            <td>GDPR/AI법 준수 기본 내장, Shield_Agent 보안 파이프라인 활용</td>
+            <td><span class="tag mid">주의</span></td>
+          </tr>
+          <tr>
+            <td>MCP 시장 미성숙</td>
+            <td>4.5</td>
+            <td>MCP 직접 판매 비추천 — 서비스 내 기술로만 활용</td>
+            <td><span class="tag good">낮음</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">리스크 종합 판단</div>
+      <p>전체 리스크 평균 <strong>7.0/10</strong>으로 "관리 가능" 수준이다. 최대 리스크인 API 비용과 1인 의존도는 <strong>멀티 모델 전략</strong>과 <strong>에이전트 자동화</strong>로 완화 가능하며, 경쟁 추격은 <strong>버티컬 전문성 선점</strong>이 핵심 대응이다. MCP 서버 직접 판매는 시장 미성숙으로 <strong>비추천</strong> — 기술 역량으로만 활용한다.</p>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>HKD852 전략분석실 | 데이터 기준: 2026년 3월</div>
+    <div>템플릿: dashboard | v2.0</div>
+  </div>
+
+</div>
+
+<script>
+// -- Globals --
+const COLORS = {
+  mauve: '#cba6f7', blue: '#89b4fa', green: '#a6e3a1',
+  peach: '#fab387', red: '#f38ba8', yellow: '#f9e2af',
+  teal: '#94e2d5', lavender: '#b4befe'
+};
+const GRID_COLOR = 'rgba(108,112,134,0.15)';
+const FONT = { family: "'Pretendard', 'Noto Sans KR', sans-serif" };
+
+Chart.defaults.color = '#a6adc8';
+Chart.defaults.font.family = FONT.family;
+Chart.defaults.font.size = 12;
+
+// -- Tab switching --
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.tab-panel');
+const chartInstances = {};
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    const target = tab.getAttribute('data-tab');
+    document.getElementById('panel-' + target).classList.add('active');
+
+    // Chart.js needs resize after display:none -> block
+    Object.values(chartInstances).forEach(c => c.resize());
+  });
+});
+
+// -- 1. 시장 성장 곡선 (Line) --
+chartInstances.growth = new Chart(document.getElementById('chartGrowth'), {
+  type: 'line',
+  data: {
+    labels: ['2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+    datasets: [
+      {
+        label: '시장 규모 ($B)',
+        data: [4.1, 7.4, 15, 32, 68, 140, 270, 418],
+        borderColor: COLORS.mauve,
+        backgroundColor: 'rgba(203,166,247,0.08)',
+        fill: true,
+        tension: 0.4,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        borderWidth: 2.5
+      },
+      {
+        label: '보수적 추정 ($B)',
+        data: [4.1, 6.8, 12, 22, 40, 72, 130, 220],
+        borderColor: '#6c7086',
+        borderDash: [6, 4],
+        backgroundColor: 'transparent',
+        tension: 0.4,
+        pointRadius: 3,
+        pointHoverRadius: 6,
+        borderWidth: 1.5
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { intersect: false, mode: 'index' },
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, padding: 16 } },
+      tooltip: {
+        backgroundColor: '#181825', borderColor: '#313244', borderWidth: 1, padding: 12,
+        callbacks: { label: ctx => `${ctx.dataset.label}: $${ctx.parsed.y}B` }
+      }
+    },
+    scales: {
+      x: { grid: { color: GRID_COLOR } },
+      y: { grid: { color: GRID_COLOR }, ticks: { callback: v => '$' + v + 'B' } }
+    }
+  }
+});
+
+// -- 2. HKD852 경쟁력 Radar --
+chartInstances.radar = new Chart(document.getElementById('chartRadar'), {
+  type: 'radar',
+  data: {
+    labels: ['에이전트 운영', '품질 시스템', '도메인 다양성', '기술 스택', '실전 경험', '자동화 수준'],
+    datasets: [
+      {
+        label: 'HKD852',
+        data: [9, 9, 8, 8, 9, 8],
+        borderColor: COLORS.mauve,
+        backgroundColor: 'rgba(203,166,247,0.15)',
+        pointBackgroundColor: COLORS.mauve,
+        borderWidth: 2
+      },
+      {
+        label: '신규 진입자 (평균)',
+        data: [3, 2, 3, 5, 2, 3],
+        borderColor: COLORS.peach,
+        backgroundColor: 'rgba(250,179,135,0.10)',
+        pointBackgroundColor: COLORS.peach,
+        borderWidth: 2
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
+      tooltip: { backgroundColor: '#181825', borderColor: '#313244', borderWidth: 1 }
+    },
+    scales: {
+      r: {
+        min: 0, max: 10,
+        ticks: { stepSize: 2, backdropColor: 'transparent', color: '#6c7086' },
+        grid: { color: GRID_COLOR },
+        angleLines: { color: GRID_COLOR },
+        pointLabels: { font: { size: 11 } }
+      }
+    }
+  }
+});
+
+// -- 3. 수익화 경로 비교 (Grouped Bar) --
+chartInstances.paths = new Chart(document.getElementById('chartPaths'), {
+  type: 'bar',
+  data: {
+    labels: ['버티컬 에이전시', '마이크로 SaaS', 'AI 래퍼', 'MCP 서버 판매'],
+    datasets: [
+      { label: '수익 잠재력', data: [9, 7, 6, 2], backgroundColor: COLORS.mauve },
+      { label: '실행 속도', data: [8, 5, 7, 3], backgroundColor: COLORS.blue },
+      { label: '확장 가능성', data: [5, 9, 6, 4], backgroundColor: COLORS.green },
+      { label: '진입 장벽', data: [7, 6, 3, 8], backgroundColor: COLORS.peach }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, padding: 16 } },
+      tooltip: {
+        backgroundColor: '#181825', borderColor: '#313244', borderWidth: 1,
+        callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}/10` }
+      }
+    },
+    scales: {
+      x: { grid: { display: false } },
+      y: { grid: { color: GRID_COLOR }, min: 0, max: 10, ticks: { stepSize: 2 } }
+    }
+  }
+});
+
+// -- 4. 매출 구성 (Doughnut) --
+chartInstances.mix = new Chart(document.getElementById('chartMix'), {
+  type: 'doughnut',
+  data: {
+    labels: ['에이전시 프로젝트', 'SaaS 구독', 'AI 래퍼 판매', '컨설팅/교육'],
+    datasets: [{
+      data: [40, 35, 15, 10],
+      backgroundColor: [COLORS.mauve, COLORS.green, COLORS.blue, COLORS.peach],
+      borderColor: '#181825',
+      borderWidth: 3,
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '62%',
+    plugins: {
+      legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
+      tooltip: {
+        backgroundColor: '#181825', borderColor: '#313244', borderWidth: 1,
+        callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` }
+      }
+    }
+  }
+});
+
+// -- 5. MRR 성장 곡선 (Line + Bar Combo) --
+chartInstances.mrr = new Chart(document.getElementById('chartMRR'), {
+  type: 'bar',
+  data: {
+    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    datasets: [
+      {
+        type: 'line',
+        label: '누적 MRR ($K)',
+        data: [0, 2, 5, 6, 7.5, 9, 11, 13, 15, 17, 19, 22],
+        borderColor: COLORS.mauve,
+        backgroundColor: 'rgba(203,166,247,0.08)',
+        fill: true,
+        tension: 0.35,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        borderWidth: 2.5,
+        yAxisID: 'y'
+      },
+      {
+        label: '에이전시 수익 ($K)',
+        data: [0, 5, 8, 5, 6, 5, 8, 5, 4, 3, 3, 2],
+        backgroundColor: COLORS.blue,
+        borderRadius: 4,
+        yAxisID: 'y'
+      },
+      {
+        label: 'SaaS 수익 ($K)',
+        data: [0, 0, 0, 0.5, 1, 2, 3, 5, 7, 9, 11, 14],
+        backgroundColor: COLORS.green,
+        borderRadius: 4,
+        yAxisID: 'y'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { intersect: false, mode: 'index' },
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, padding: 16 } },
+      tooltip: {
+        backgroundColor: '#181825', borderColor: '#313244', borderWidth: 1, padding: 12,
+        callbacks: { label: ctx => `${ctx.dataset.label}: $${ctx.parsed.y}K` }
+      }
+    },
+    scales: {
+      x: { grid: { display: false } },
+      y: { grid: { color: GRID_COLOR }, ticks: { callback: v => '$' + v + 'K' } }
+    }
+  }
+});
+
+// -- 6. 리스크 평가 (Horizontal Bar) --
+chartInstances.risk = new Chart(document.getElementById('chartRisk'), {
+  type: 'bar',
+  data: {
+    labels: [
+      'AI API 비용 급등 (LLM 추론)',
+      '핵심 인력 의존도 (1인 리스크)',
+      '경쟁사 빠른 추격 (진입장벽 낮음)',
+      '고객 획득 비용 상승',
+      '기술 변화 속도 (모델 세대교체)',
+      '규제 강화 (GDPR, AI법)',
+      'MCP 시장 미성숙'
+    ],
+    datasets: [{
+      label: '리스크 점수',
+      data: [8.5, 8.0, 7.8, 7.2, 6.8, 6.5, 4.5],
+      backgroundColor: ctx => {
+        const v = ctx.parsed.x;
+        if (v >= 7.5) return COLORS.red;
+        if (v >= 6.0) return COLORS.peach;
+        return COLORS.yellow;
+      },
+      borderRadius: 6,
+      barThickness: 22
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#181825', borderColor: '#313244', borderWidth: 1,
+        callbacks: { label: ctx => ` 리스크: ${ctx.parsed.x}/10` }
+      }
+    },
+    scales: {
+      x: { grid: { color: GRID_COLOR }, min: 0, max: 10, ticks: { stepSize: 2 } },
+      y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>

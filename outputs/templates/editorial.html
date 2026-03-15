@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20억 달러짜리 질문</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #faf9f6;
+    color: #2a2a2a;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.8;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Hero ─────────────────────────────────────── */
+  .hero {
+    padding: 100px 0 60px;
+    text-align: center;
+    border-bottom: 1px solid #d4d0c8;
+  }
+  .hero-label {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #8b2252;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1.08;
+    color: #1a1a1a;
+    margin-bottom: 24px;
+    letter-spacing: -1.5px;
+  }
+  .hero .subtitle {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22px;
+    font-weight: 400;
+    font-style: italic;
+    color: #555;
+    max-width: 640px;
+    margin: 0 auto 32px;
+    line-height: 1.5;
+  }
+  .hero .byline {
+    font-size: 13px;
+    color: #888;
+    letter-spacing: 0.5px;
+  }
+  .hero .byline strong { color: #2a2a2a; font-weight: 600; }
+
+  /* ── Photo Placeholder ────────────────────────── */
+  .photo-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #e8e5de;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 48px 0;
+    border-radius: 2px;
+  }
+  .photo-placeholder span {
+    font-size: 13px;
+    color: #aaa;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── Section ──────────────────────────────────── */
+  .section { padding: 48px 0; }
+  .section + .section { border-top: 1px solid #d4d0c8; }
+
+  .section-number {
+    font-family: Georgia, serif;
+    font-size: 13px;
+    color: #8b2252;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a1a;
+    margin-bottom: 28px;
+    letter-spacing: -0.5px;
+  }
+
+  /* ── Two-Column Body ──────────────────────────── */
+  .two-col {
+    column-count: 2;
+    column-gap: 48px;
+    column-rule: 1px solid #e8e5de;
+  }
+  .two-col p { margin-bottom: 18px; break-inside: avoid; }
+
+  @media (max-width: 720px) {
+    .two-col { column-count: 1; }
+    .hero h1 { font-size: 40px; }
+    h2 { font-size: 28px; }
+    .stats-grid { grid-template-columns: 1fr !important; }
+  }
+
+  /* ── Drop Cap ─────────────────────────────────── */
+  .drop-cap::first-letter {
+    font-family: Georgia, serif;
+    font-size: 72px;
+    float: left;
+    line-height: 0.8;
+    margin: 6px 12px 0 0;
+    color: #1a1a1a;
+    font-weight: 700;
+  }
+
+  /* ── Pull Quote ───────────────────────────────── */
+  .pull-quote {
+    border-left: 3px solid #8b2252;
+    padding: 8px 0 8px 28px;
+    margin: 36px 0;
+    break-inside: avoid;
+  }
+  .pull-quote p {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    font-style: italic;
+    line-height: 1.45;
+    color: #3a3a3a;
+    margin-bottom: 10px;
+  }
+  .pull-quote cite {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    color: #888;
+  }
+
+  /* ── Stats Grid ───────────────────────────────── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 48px 0;
+  }
+  .stat-box {
+    border: 1px solid #d4d0c8;
+    padding: 32px 24px;
+    text-align: center;
+    background: #fff;
+  }
+  .stat-box .number {
+    font-family: Georgia, serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: #8b2252;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .stat-box .label {
+    font-size: 13px;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── Divider ──────────────────────────────────── */
+  hr.elegant {
+    border: none;
+    border-top: 1px solid #d4d0c8;
+    margin: 48px auto;
+    max-width: 120px;
+  }
+
+  /* ── Footer ───────────────────────────────────── */
+  .article-footer {
+    border-top: 1px solid #d4d0c8;
+    padding: 36px 0 80px;
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+    line-height: 1.8;
+  }
+  .article-footer strong { color: #2a2a2a; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ════════════ HERO ════════════ -->
+  <header class="hero">
+    <div class="hero-label">시장 분석</div>
+    <h1>20억 달러짜리 질문</h1>
+    <p class="subtitle">하이퍼캐주얼 게임이 중국어 학습 시장을 공략할 수 있을까?</p>
+    <p class="byline"><strong>HKD852 리서치 데스크</strong> &middot; 2026년 3월 7일 &middot; 12분 분량</p>
+  </header>
+
+  <!-- ════════════ LEAD IMAGE ════════════ -->
+  <div class="photo-placeholder">
+    <span>대표 이미지 &mdash; 16 : 9</span>
+  </div>
+
+  <!-- ════════════ SECTION 1 ════════════ -->
+  <section class="section">
+    <div class="section-number">Part I</div>
+    <h2>아무도 주목하지 않는 시장</h2>
+    <div class="two-col">
+      <p class="drop-cap">선전의 화려한 광고판과 서울의 조용한 독서실 사이 어딘가에서, 수십억 달러 규모의 시장이 거의 눈에 띄지 않게 성장해 왔다. 서구 중심 플랫폼이 오랫동안 지배해 온 글로벌 언어 학습 산업에 구조적 전환이 일어나고 있다. 대중 게이미피케이션이 불가능하다고 여겨졌던 중국어가, 모바일 학습 분야에서 가장 빠르게 성장하는 언어로 부상하고 있다.</p>
+      <p>이러한 변화의 촉매는 교육학적 혁신만이 아니다. 세 가지 힘의 수렴이다. 엔터테인먼트급 UX를 기대하는 모바일 네이티브 학습자 세대, 동남아시아와 아프리카 전역에서 커지는 중국의 경제적 영향력, 그리고 일일 리텐션 향상에 놀라울 정도로 효과적인 하이퍼캐주얼 게임 메카닉스가 그것이다.</p>
+      <p>기존 언어 앱들은 알파벳 유사성 덕분에 초기 학습 진전이 빠르게 느껴지는 서유럽 언어에 최적화되어 있었다. 성조 체계와 표의문자를 가진 중국어는 이런 접근법에 저항해 왔다. 결과적으로, 수요는 거대하지만 제대로 작동하는 제품은 극히 드문 시장이 형성되었다.</p>
+      <p>투자자들도 이를 감지했다. 지난 18개월간, 중국어를 제2외국어로 가르치는 에드테크 스타트업에 대한 시드 및 시리즈 A 투자가 3배로 증가했다. 그러나 투자와 제품-시장 적합성 사이의 격차는 여전히 크다. 대부분의 투자받은 스타트업은 아직 매출 전 단계이며, 출시한 소수도 높은 다운로드에 비해 D7 리텐션이 처참한, 익숙한 패턴을 보이고 있다.</p>
+    </div>
+  </section>
+
+  <!-- ════════════ STATS ════════════ -->
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="number">$2.1B</div>
+      <div class="label">시장 규모 (2026년 추정)</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">84M</div>
+      <div class="label">활성 학습자 수</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">3.2%</div>
+      <div class="label">무료→유료 전환율</div>
+    </div>
+  </div>
+
+  <!-- ════════════ PULL QUOTE 1 ════════════ -->
+  <div class="pull-quote">
+    <p>&ldquo;이 시장을 점령할 기업은 최고의 커리큘럼을 가진 곳이 아닐 것이다. 사용자가 공부하고 있다는 사실을 잊게 만드는 곳이 될 것이다.&rdquo;</p>
+    <cite>&mdash; 주요 에드테크 펀드 프로덕트 부문 부사장</cite>
+  </div>
+
+  <hr class="elegant">
+
+  <!-- ════════════ SECTION 2 ════════════ -->
+  <section class="section">
+    <div class="section-number">Part II</div>
+    <h2>하이퍼캐주얼 메카닉스가 모든 것을 바꾸는 이유</h2>
+    <div class="two-col">
+      <p>하이퍼캐주얼 게임 산업은 지난 10년간 하나의 기술을 완벽하게 다듬어 왔다. 바로 사람들이 화면을 한 번 더 터치하게 만드는 것이다. 세션 시간은 짧고, 진입 장벽은 없으며, 즉각적이고 시각적이며 도파민에 정밀하게 조율된 피드백 루프는 대부분의 교육 소프트웨어 설계자들이 부러워할 수준이다.</p>
+      <p>이러한 메카닉스를 한자 인식에 적용하면 어떻게 될까? 초기 데이터는 인상적이다. 내부 테스트에 따르면, 스와이프 기반 부수 매칭 게임이 기존 플래시카드 방식 대비 48시간 후 기억 유지율을 40% 이상 높이는 것으로 나타났다. 핵심 인사이트는 반복이 아니라, 학습의 실체를 가리는 놀이의 환상이다.</p>
+      <p>문제는 깊이다. 하이퍼캐주얼 게임은 정의상 얕다. 언어 학습은 그렇지 않다. 설계 문제는 구조적인 것이 된다: 캐주얼 게임만큼 가볍게 느껴지면서도 성조 표의문자 언어의 진정한 복잡성을 담아내는 진행 시스템을 어떻게 만들 것인가?</p>
+      <p>여러 스튜디오가 &ldquo;레이어드 뎁스(layered depth)&rdquo;라 부르는 방식을 실험하고 있다. 버스 통근 시간에도 충분히 가벼운 표면 메카닉에, 숙련도 임계값 달성 후 잠금 해제되는 심화 모드를 결합하는 것이다. 이 접근법의 경제성은 유망하다: 심화 레이어에 참여하는 사용자는 표면 전용 플레이어보다 거의 3배 높은 유료 구독 전환율을 보인다.</p>
+    </div>
+  </section>
+
+  <!-- ════════════ INLINE IMAGE ════════════ -->
+  <div class="photo-placeholder">
+    <span>인포그래픽 &mdash; 16 : 9</span>
+  </div>
+
+  <!-- ════════════ PULL QUOTE 2 ════════════ -->
+  <div class="pull-quote">
+    <p>&ldquo;D1 리텐션은 디자인 문제다. D30 리텐션은 콘텐츠 문제다. D90 리텐션은 커뮤니티 문제다. 대부분의 팀은 첫 번째만 해결한다.&rdquo;</p>
+    <cite>&mdash; HKD852 스튜디오 그로스 총괄</cite>
+  </div>
+
+  <hr class="elegant">
+
+  <!-- ════════════ SECTION 3 ════════════ -->
+  <section class="section">
+    <div class="section-number">Part III</div>
+    <h2>규제의 미로와 앞으로의 길</h2>
+    <div class="two-col">
+      <p>중국어 학습 시장 분석에서 빠뜨릴 수 없는 것이 바로 규제다. 2021년 중국의 사교육 단속은 글로벌 에드테크 업계에 충격파를 보냈다. 해당 정책이 K-12 학원 교육을 겨냥한 것이었지만, 외국인 대상 언어 학습 제품에 대한 위축 효과는 즉각적이고 지속적이었다.</p>
+      <p>뉘앙스가 중요하다. 중국어를 배우는 외국인을 대상으로 하는 제품은 다른 규제 범주에 속한다. 사실상 문화 수출 도구이며, 베이징은 전 세계적 중국어 사용 능력을 높이는 소프트파워 이니셔티브를 일관되게 지원해 왔다. 논란에도 불구하고 공자학원 네트워크가 그 전략적 우선순위의 증거다.</p>
+      <p>게임 스튜디오에게 주는 실질적 시사점은 명확하다. 제품은 국내 교육 서비스가 아닌 글로벌 도구로 포지셔닝해야 한다. 유통은 중국 본토가 아닌, 동남아시아, 아프리카, 라틴아메리카 시장을 우선 공략한 후 현지 파트너를 통해 중국 진출을 시도해야 한다.</p>
+      <p>이를 올바르게 헤쳐나가는 스튜디오는 독특한 포지션에 서게 될 것이다. 주요 정부가 전략적으로 성공을 바라는 제품을, 기존 강자들이 제품-시장 적합성을 달성하지 못한 시장에서, 인접 카테고리에서 검증된 게임 메카닉스를 활용해 만드는 것이다. 20억 달러짜리 질문은 이 시장이 정복될지 여부가 아니다. 누가, 얼마나 빠르게 정복하느냐다.</p>
+    </div>
+  </section>
+
+  <!-- ════════════ FOOTER ════════════ -->
+  <footer class="article-footer">
+    <strong>HKD852 리서치 데스크</strong><br>
+    시장 분석 부문 &middot; 2026년 3월 7일<br>
+    본 보고서는 내부 전략 목적으로 작성되었습니다. 배포 시 CEO 승인이 필요합니다.
+  </footer>
+
+</div>
+
+</body>
+</html>

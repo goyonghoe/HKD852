@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangMaster 개요 — Bento Grid</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  body{
+    font-family:'Pretendard','Noto Sans KR',-apple-system,sans-serif;
+    background:#fafafa;
+    color:#1d1d1f;
+    padding:40px 24px;
+    font-size:15px;
+    line-height:1.8;
+    word-break:keep-all;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  .page-header{
+    max-width:1080px;
+    margin:0 auto 32px;
+    text-align:center;
+  }
+  .page-header h1{
+    font-size:15px;
+    font-weight:600;
+    color:#86868b;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+  }
+
+  /* ── Bento Grid ── */
+  .bento{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    max-width:1080px;
+    margin:0 auto;
+  }
+
+  /* ── Card Base ── */
+  .card{
+    background:#f5f5f7;
+    border-radius:20px;
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    transition:transform .25s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .card:hover{
+    transform:scale(1.01);
+  }
+
+  /* ── Span helpers ── */
+  .span-2{grid-column:span 2}
+  .span-3{grid-column:span 3}
+  .span-4{grid-column:span 4}
+  .tall{grid-row:span 2}
+
+  /* ── Color Variants ── */
+  .bg-blue{background:#e8f0fe}
+  .bg-green{background:#e6f4ea}
+  .bg-purple{background:#f3e8ff}
+  .bg-amber{background:#fef3c7}
+  .bg-dark{background:#1d1d1f;color:#f5f5f7}
+  .bg-dark .card-label{color:#a1a1a6}
+  .bg-dark .card-secondary{color:#a1a1a6}
+
+  /* ── Typography ── */
+  .card-label{
+    font-size:13px;
+    font-weight:600;
+    color:#86868b;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    margin-bottom:8px;
+  }
+  .card-heading{
+    font-size:22px;
+    font-weight:700;
+    letter-spacing:-.5px;
+    line-height:1.25;
+  }
+  .card-heading.lg{font-size:28px}
+  .card-body{
+    font-size:15px;
+    font-weight:400;
+    color:#1d1d1f;
+    line-height:1.8;
+    margin-top:10px;
+  }
+  .card-secondary{
+    font-size:14px;
+    color:#86868b;
+    line-height:1.5;
+    margin-top:6px;
+  }
+
+  /* ── Big Number ── */
+  .big-number{
+    font-size:56px;
+    font-weight:800;
+    letter-spacing:-2px;
+    line-height:1;
+    margin-top:auto;
+  }
+  .big-number.xl{font-size:64px}
+
+  /* ── Icon Circle ── */
+  .icon-circle{
+    width:56px;height:56px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;
+    margin-bottom:14px;
+    flex-shrink:0;
+  }
+  .icon-circle.blue{background:#d1e0fc}
+  .icon-circle.green{background:#c6e9cc}
+  .icon-circle.purple{background:#e4d0fc}
+  .icon-circle.amber{background:#fde68a}
+  .icon-circle.dark{background:#333;color:#fff}
+
+  /* ── Hero ── */
+  .hero-statement{
+    font-size:36px;
+    font-weight:700;
+    letter-spacing:-.8px;
+    line-height:1.2;
+    max-width:640px;
+  }
+  .hero-sub{
+    font-size:17px;
+    color:#86868b;
+    margin-top:12px;
+    line-height:1.8;
+    max-width:540px;
+  }
+
+  /* ── List ── */
+  .feature-list{list-style:none;margin-top:14px}
+  .feature-list li{
+    padding:8px 0;
+    border-bottom:1px solid rgba(0,0,0,.06);
+    font-size:15px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .feature-list li:last-child{border:none}
+  .feature-list .dot{
+    width:8px;height:8px;border-radius:50%;flex-shrink:0;
+  }
+
+  /* ── Timeline ── */
+  .timeline{margin-top:14px}
+  .timeline-item{
+    display:flex;gap:14px;align-items:flex-start;
+    padding:10px 0;
+  }
+  .timeline-marker{
+    width:10px;height:10px;border-radius:50%;
+    margin-top:5px;flex-shrink:0;
+    background:#86868b;
+  }
+  .timeline-marker.active{background:#0071e3}
+  .timeline-text{font-size:14px;line-height:1.45}
+  .timeline-text strong{display:block;font-size:15px}
+
+  /* ── CTA ── */
+  .cta-btn{
+    display:inline-block;
+    background:#0071e3;color:#fff;
+    font-size:15px;font-weight:600;
+    padding:14px 32px;border-radius:980px;
+    text-decoration:none;
+    margin-top:18px;
+    transition:background .2s;
+    border:none;cursor:pointer;
+  }
+  .cta-btn:hover{background:#0077ed}
+  .cta-outline{
+    background:transparent;color:#0071e3;
+    border:1.5px solid #0071e3;
+    margin-left:12px;
+  }
+  .cta-outline:hover{background:#e8f0fe}
+
+  /* ── Bar chart ── */
+  .bar-row{display:flex;align-items:center;gap:10px;margin-top:10px}
+  .bar-label{font-size:13px;width:80px;color:#86868b;text-align:right;flex-shrink:0}
+  .bar-track{flex:1;height:8px;background:rgba(0,0,0,.06);border-radius:4px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
+
+  /* ── Responsive ── */
+  @media(max-width:768px){
+    .bento{grid-template-columns:repeat(2,1fr)}
+    .span-3,.span-4{grid-column:span 2}
+    .hero-statement{font-size:26px}
+    .big-number{font-size:44px}
+    .big-number.xl{font-size:50px}
+  }
+  @media(max-width:480px){
+    .bento{grid-template-columns:1fr}
+    .span-2,.span-3,.span-4{grid-column:span 1}
+    body{padding:24px 16px}
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>제품 개요</h1>
+</div>
+
+<div class="bento">
+
+  <!-- Hero — full width -->
+  <div class="card span-4 bg-dark" style="padding:48px 40px;min-height:200px">
+    <div>
+      <div class="card-label" style="color:#a1a1a6">소개</div>
+      <p class="hero-statement" style="color:#f5f5f7">
+        LangMaster는 언어 학습을 손에서 놓을 수 없는 게임처럼 만듭니다.
+      </p>
+      <p class="hero-sub">
+        AI 기반 레슨, 실시간 발음 코칭, 적응형 난이도 조절 &mdash; 모두 60초 마이크로 세션으로 제공됩니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- Metric 1 -->
+  <div class="card bg-blue">
+    <div class="card-label">일간 활성 사용자</div>
+    <div class="big-number xl" style="color:#0071e3">1.2M</div>
+    <div class="card-secondary">전 분기 대비 +34% 성장</div>
+  </div>
+
+  <!-- Metric 2 -->
+  <div class="card bg-green">
+    <div class="card-label">7일 리텐션</div>
+    <div class="big-number" style="color:#188038">68%</div>
+    <div class="card-secondary">업계 평균: 22%</div>
+  </div>
+
+  <!-- Metric 3 -->
+  <div class="card bg-purple">
+    <div class="card-label">지원 언어</div>
+    <div class="big-number" style="color:#7c3aed">24</div>
+    <div class="card-secondary">지역 방언 4종 포함</div>
+  </div>
+
+  <!-- Metric 4 -->
+  <div class="card bg-amber">
+    <div class="card-label">평균 세션 시간</div>
+    <div class="big-number" style="color:#b45309">8.4<span style="font-size:28px;font-weight:600"> 분</span></div>
+    <div class="card-secondary">경쟁사 대비 3배 길어</div>
+  </div>
+
+  <!-- Feature Highlights — span 2, tall -->
+  <div class="card span-2 tall">
+    <div>
+      <div class="icon-circle blue">&#9889;</div>
+      <div class="card-heading lg">주요 기능</div>
+      <ul class="feature-list">
+        <li><span class="dot" style="background:#0071e3"></span>AI 튜터가 학습 속도에 맞춰 실시간 적응</li>
+        <li><span class="dot" style="background:#188038"></span>스펙트럼 분석 기반 발음 채점</li>
+        <li><span class="dot" style="background:#7c3aed"></span>Transformer 모델 기반 간격 반복 학습</li>
+        <li><span class="dot" style="background:#b45309"></span>모든 표현에 대한 문화적 맥락 레슨</li>
+        <li><span class="dot" style="background:#e11d48"></span>멀티플레이어 어휘 대결 모드</li>
+        <li><span class="dot" style="background:#0891b2"></span>온디바이스 추론으로 오프라인 모드 지원</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Competition Snapshot — span 2, tall -->
+  <div class="card span-2 tall" style="background:#f5f5f7">
+    <div>
+      <div class="icon-circle purple">&#9878;</div>
+      <div class="card-heading lg">경쟁사 현황</div>
+      <div class="card-secondary" style="margin-bottom:8px">MAU 기준 시장 점유율 (백만 명)</div>
+
+      <div class="bar-row">
+        <div class="bar-label">LangMaster</div>
+        <div class="bar-track"><div class="bar-fill" style="width:85%;background:#0071e3"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Duolingo</div>
+        <div class="bar-track"><div class="bar-fill" style="width:72%;background:#86868b"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Babbel</div>
+        <div class="bar-track"><div class="bar-fill" style="width:35%;background:#86868b"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Busuu</div>
+        <div class="bar-track"><div class="bar-fill" style="width:22%;background:#86868b"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Rosetta</div>
+        <div class="bar-track"><div class="bar-fill" style="width:18%;background:#86868b"></div></div>
+      </div>
+    </div>
+    <div class="card-secondary" style="margin-top:16px">
+      LangMaster는 전체 측정 코호트에서 인게이지먼트 지표 1위를 유지하고 있습니다.
+    </div>
+  </div>
+
+  <!-- Vision statement — span 2 -->
+  <div class="card span-2 bg-green" style="min-height:160px">
+    <div class="icon-circle green">&#127793;</div>
+    <div class="card-heading">지구상의 모든 사람에게 유창함을 선물하는 것이 우리의 미션입니다.</div>
+    <div class="card-secondary">핵심 학습에는 유료 장벽이 없습니다. 프리미엄은 고급 AI 코칭과 실시간 튜터를 제공합니다.</div>
+  </div>
+
+  <!-- Tech stack -->
+  <div class="card">
+    <div class="icon-circle dark">&#9881;</div>
+    <div class="card-heading">차별화된 기술</div>
+    <div class="card-body">50MB 이하 온디바이스 AI 모델. 오프라인 동작. 지연 없는 피드백 루프.</div>
+  </div>
+
+  <!-- Global reach -->
+  <div class="card bg-purple">
+    <div class="icon-circle purple">&#127758;</div>
+    <div class="card-heading">글로벌 서비스</div>
+    <div class="card-body">142개국 출시. 18개 언어 현지화 온보딩. RTL(오른쪽에서 왼쪽) 지원 포함.</div>
+  </div>
+
+  <!-- Timeline — span 3 -->
+  <div class="card span-3">
+    <div class="card-heading lg">로드맵</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker active"></div>
+        <div class="timeline-text"><strong>2026 Q1 &mdash; 런칭</strong>iOS &amp; Android 글로벌 출시, 12개 언어 지원</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker active"></div>
+        <div class="timeline-text"><strong>2026 Q2 &mdash; 확장</strong>12개 언어 추가, 실시간 튜터 마켓플레이스 베타</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-text"><strong>2026 Q3 &mdash; 기업용</strong>B2B 기업 어학 교육 솔루션 출시</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-text"><strong>2026 Q4 &mdash; 플랫폼</strong>서드파티 코스 제작자를 위한 오픈 SDK 공개</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick stat -->
+  <div class="card bg-amber" style="text-align:center;justify-content:center;align-items:center">
+    <div class="card-label">App Store</div>
+    <div class="big-number" style="color:#b45309">4.9</div>
+    <div class="card-secondary">12,000건 이상 평가</div>
+  </div>
+
+  <!-- CTA — full width -->
+  <div class="card span-4" style="text-align:center;padding:48px 40px;background:#fff">
+    <div class="card-heading lg" style="font-size:28px">직접 체험해 보시겠습니까?</div>
+    <div class="card-secondary" style="font-size:16px;margin-top:8px">
+      데모를 예약하거나 지금 바로 앱을 다운로드하세요.
+    </div>
+    <div style="margin-top:24px">
+      <a href="#" class="cta-btn">시작하기</a>
+      <a href="#" class="cta-btn cta-outline">데모 보기</a>
+    </div>
+  </div>
+
+</div>
+
+<div style="text-align:center;margin-top:40px;font-size:12px;color:#86868b">
+  Bento Grid 템플릿 &mdash; HKD852 Studio
+</div>
+
+</body>
+</html>

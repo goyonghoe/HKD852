@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HKD852 v7 현황 보고서 - 2026-02-18</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #0d1117;
+        --surface: #161b22;
+        --border: #30363d;
+        --text: #e6edf3;
+        --dim: #8b949e;
+        --accent: #58a6ff;
+        --green: #3fb950;
+        --orange: #d29922;
+        --red: #f85149;
+        --purple: #bc8cff;
+      }
+      body {
+        font-family:
+          "SF Pro Display",
+          -apple-system,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      .page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 24px;
+      }
+      h1 {
+        font-size: 2em;
+        letter-spacing: -0.5px;
+        margin-bottom: 4px;
+      }
+      h1 span {
+        color: var(--accent);
+      }
+      h2 {
+        font-size: 1.3em;
+        color: var(--accent);
+        margin: 32px 0 16px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+      h3 {
+        font-size: 1.05em;
+        margin: 20px 0 10px;
+        color: var(--text);
+      }
+      .meta {
+        color: var(--dim);
+        font-size: 0.9em;
+        margin-bottom: 32px;
+      }
+      .badge {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 10px;
+        font-size: 0.75em;
+        font-weight: 600;
+      }
+      .b-live {
+        background: rgba(63, 185, 80, 0.15);
+        color: var(--green);
+      }
+      .b-partial {
+        background: rgba(210, 153, 34, 0.15);
+        color: var(--orange);
+      }
+      .b-planned {
+        background: rgba(139, 148, 158, 0.15);
+        color: var(--dim);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0 20px;
+      }
+      th,
+      td {
+        padding: 10px 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9em;
+      }
+      th {
+        color: var(--dim);
+        font-weight: 600;
+        font-size: 0.8em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      tr:hover {
+        background: rgba(88, 166, 255, 0.04);
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px;
+        margin: 12px 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+      .kpi {
+        text-align: center;
+        padding: 16px;
+      }
+      .kpi .num {
+        font-size: 2em;
+        font-weight: 700;
+        line-height: 1;
+      }
+      .kpi .label {
+        color: var(--dim);
+        font-size: 0.82em;
+        margin-top: 4px;
+      }
+      .kpi.blue .num {
+        color: var(--accent);
+      }
+      .kpi.green .num {
+        color: var(--green);
+      }
+      .kpi.orange .num {
+        color: var(--orange);
+      }
+      .kpi.red .num {
+        color: var(--red);
+      }
+      .kpi.purple .num {
+        color: var(--purple);
+      }
+
+      .bar-container {
+        margin: 6px 0;
+      }
+      .bar-bg {
+        height: 8px;
+        background: var(--bg);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .bar-fg {
+        height: 100%;
+        border-radius: 4px;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 30px;
+        color: var(--dim);
+        font-size: 0.78em;
+        margin-top: 40px;
+        border-top: 1px solid var(--border);
+      }
+
+      @media print {
+        body {
+          background: #fff;
+          color: #000;
+        }
+        .card {
+          border: 1px solid #ccc;
+        }
+        th {
+          color: #666;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <h1><span>HKD852</span> v7 현황 보고서</h1>
+      <div class="meta">
+        2026-02-18 | CEO 브리핑 | 작성: HR_Agent /org-chart
+      </div>
+
+      <!-- KPI -->
+      <div class="card">
+        <div class="grid">
+          <div class="kpi blue">
+            <div class="num">20</div>
+            <div class="label">전체 에이전트</div>
+          </div>
+          <div class="kpi green">
+            <div class="num">54</div>
+            <div class="label">구현된 스킬</div>
+          </div>
+          <div class="kpi orange">
+            <div class="num">~100</div>
+            <div class="label">목표 스킬</div>
+          </div>
+          <div class="kpi purple">
+            <div class="num">54%</div>
+            <div class="label">구현율</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>1. 요약</h2>
+      <div class="card">
+        <p>
+          HKD852 Studio v7 업데이트가 완료되었습니다. 조직은
+          <strong>20개 에이전트, ~100개 스킬</strong> 체계로 확장되었으며,
+          멀티플랫폼 게임 개발 파이프라인(Unity 6000.3.6f1 &mdash;
+          iOS/Android/Steam/WebGL)이 구축되었습니다.
+        </p>
+        <br />
+        <p><strong>주요 변경사항 (v5 &rarr; v7):</strong></p>
+        <ul style="margin: 8px 0 0 20px; color: var(--dim)">
+          <li>
+            신규 에이전트 8개 추가 (Growth, PMO, Shield, RedTeam, GameDev,
+            QATest, Community, DevOps)
+          </li>
+          <li>
+            기존 에이전트 스킬 확장 (Translate +3, Marketing +2, Secretary +2)
+          </li>
+          <li>공유 스킬 2개 추가 (debate-synthesize, quality-gate 강화)</li>
+          <li>Orchestrator Case 확장 (I/J/K/RT)</li>
+          <li>
+            자동 품질 파이프라인 구축 (Quality Gate &rarr; Shield &rarr;
+            RedTeam)
+          </li>
+        </ul>
+      </div>
+
+      <h2>2. 부서별 에이전트 현황</h2>
+
+      <h3>CEO 직속 (7개 에이전트)</h3>
+      <table>
+        <tr>
+          <th>에이전트</th>
+          <th>직책</th>
+          <th>스킬</th>
+          <th>구현</th>
+          <th>상태</th>
+        </tr>
+        <tr>
+          <td><strong>Secretary_Agent</strong></td>
+          <td>비서실장</td>
+          <td>4</td>
+          <td>2/4</td>
+          <td><span class="badge b-partial">일부</span></td>
+        </tr>
+        <tr>
+          <td><strong>Orchestrator</strong></td>
+          <td>운영총괄</td>
+          <td>1</td>
+          <td>1/1</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td><strong>Quality Gate</strong></td>
+          <td>품질관리</td>
+          <td>1</td>
+          <td>1/1</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td><strong>Growth_Agent</strong></td>
+          <td>성장전략</td>
+          <td>3</td>
+          <td>3/3</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td><strong>PMO_Agent</strong></td>
+          <td>프로젝트매니저</td>
+          <td>7</td>
+          <td>0/7</td>
+          <td><span class="badge b-planned">예정</span></td>
+        </tr>
+        <tr>
+          <td><strong>Shield_Agent</strong></td>
+          <td>보안책임자</td>
+          <td>6</td>
+          <td>0/6</td>
+          <td><span class="badge b-planned">예정</span></td>
+        </tr>
+        <tr>
+          <td><strong>RedTeam_Agent</strong></td>
+          <td>레드팀</td>
+          <td>6</td>
+          <td>0/6</td>
+          <td><span class="badge b-planned">예정</span></td>
+        </tr>
+      </table>
+
+      <h3>게임본부 (4개 에이전트)</h3>
+      <table>
+        <tr>
+          <th>에이전트</th>
+          <th>직책</th>
+          <th>스킬</th>
+          <th>구현</th>
+          <th>상태</th>
+        </tr>
+        <tr>
+          <td><strong>GameDesign_Agent</strong></td>
+          <td>기획팀장</td>
+          <td>12</td>
+          <td>12/12</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td><strong>team-kowloon</strong></td>
+          <td>아트디렉터</td>
+          <td>6</td>
+          <td>6/6</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td><strong>GameDev_Agent</strong></td>
+          <td>개발팀장</td>
+          <td>9</td>
+          <td>0/9</td>
+          <td><span class="badge b-planned">예정</span></td>
+        </tr>
+        <tr>
+          <td><strong>QATest_Agent</strong></td>
+          <td>QA팀장</td>
+          <td>6</td>
+          <td>0/6</td>
+          <td><span class="badge b-planned">예정</span></td>
+        </tr>
+      </table>
+
+      <h3>사업본부 (3개 에이전트)</h3>
+      <table>
+        <tr>
+          <th>에이전트</th>
+          <th>직책</th>
+          <th>스킬</th>
+          <th>구현</th>
+          <th>상태</th>
+        </tr>
+        <tr>
+          <td><strong>Income_Factory</strong></td>
+          <td>사업개발</td>
+          <td>9</td>
+          <td>9/9</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td><strong>Marketing_Agent</strong></td>
+          <td>마케팅</td>
+          <td>5</td>
+          <td>3/5</td>
+          <td><span class="badge b-partial">일부</span></td>
+        </tr>
+        <tr>
+          <td><strong>Community_Agent</strong></td>
+          <td>커뮤니티</td>
+          <td>5</td>
+          <td>0/5</td>
+          <td><span class="badge b-planned">예정</span></td>
+        </tr>
+      </table>
+
+      <h3>지원본부 (5개 에이전트)</h3>
+      <table>
+        <tr>
+          <th>에이전트</th>
+          <th>직책</th>
+          <th>스킬</th>
+          <th>구현</th>
+          <th>상태</th>
+        </tr>
+        <tr>
+          <td><strong>PT_Agent</strong></td>
+          <td>커뮤니케이션</td>
+          <td>10</td>
+          <td>10/10</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td><strong>Translate_Agent</strong></td>
+          <td>현지화</td>
+          <td>5</td>
+          <td>5/5</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td><strong>HR_Agent</strong></td>
+          <td>인사</td>
+          <td>2</td>
+          <td>2/2</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td><strong>Video_Analyzer</strong></td>
+          <td>기술지원</td>
+          <td>1</td>
+          <td>0/1</td>
+          <td><span class="badge b-partial">최소</span></td>
+        </tr>
+        <tr>
+          <td><strong>DevOps_Agent</strong></td>
+          <td>빌드엔지니어</td>
+          <td>8</td>
+          <td>0/8</td>
+          <td><span class="badge b-planned">예정</span></td>
+        </tr>
+      </table>
+
+      <h3>공유 스킬 (루트)</h3>
+      <table>
+        <tr>
+          <th>스킬</th>
+          <th>설명</th>
+          <th>상태</th>
+        </tr>
+        <tr>
+          <td>/orchestrator</td>
+          <td>작업 라우팅 및 팀 구성 (Case A~RT)</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td>/quality-gate</td>
+          <td>CFMC 매트릭스 + 자동 보안/레드팀 체인</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td>/debate-synthesize</td>
+          <td>다관점 합의 도출</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+        <tr>
+          <td>/guide-update-check</td>
+          <td>Claude Code 가이드 업데이트 확인</td>
+          <td><span class="badge b-live">운영중</span></td>
+        </tr>
+      </table>
+
+      <h2>3. 구현 요약</h2>
+      <div class="card">
+        <table>
+          <tr>
+            <th>분류</th>
+            <th>수량</th>
+            <th>진행률</th>
+          </tr>
+          <tr>
+            <td><span style="color: var(--green)">&#9679;</span> 완전 구현</td>
+            <td>10개 에이전트</td>
+            <td>
+              <div class="bar-container">
+                <div class="bar-bg">
+                  <div
+                    class="bar-fg"
+                    style="width: 50%; background: var(--green)"
+                  ></div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><span style="color: var(--orange)">&#9679;</span> 부분 구현</td>
+            <td>3개 에이전트</td>
+            <td>
+              <div class="bar-container">
+                <div class="bar-bg">
+                  <div
+                    class="bar-fg"
+                    style="width: 15%; background: var(--orange)"
+                  ></div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="color: var(--dim)">&#9675;</span> 예정 (미구현)
+            </td>
+            <td>7개 에이전트</td>
+            <td>
+              <div class="bar-container">
+                <div class="bar-bg">
+                  <div
+                    class="bar-fg"
+                    style="width: 35%; background: var(--dim)"
+                  ></div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <h2>4. 우선순위 백로그</h2>
+      <div class="card">
+        <p style="color: var(--dim); margin-bottom: 12px">
+          남은 구현 작업 (우선순위순):
+        </p>
+        <table>
+          <tr>
+            <th>#</th>
+            <th>에이전트</th>
+            <th>미구현 스킬</th>
+            <th>우선순위</th>
+            <th>사유</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>GameDev_Agent</td>
+            <td>9개 Unity 스킬</td>
+            <td style="color: var(--red)">P0</td>
+            <td>핵심 게임 개발 파이프라인</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Shield_Agent</td>
+            <td>6개 보안 스킬</td>
+            <td style="color: var(--red)">P0</td>
+            <td>품질 파이프라인 보안 게이트</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>RedTeam_Agent</td>
+            <td>6개 적대적 스킬</td>
+            <td style="color: var(--red)">P0</td>
+            <td>품질 파이프라인 적대적 게이트</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>PMO_Agent</td>
+            <td>7개 PM 스킬</td>
+            <td style="color: var(--orange)">P1</td>
+            <td>스프린트/프로젝트 관리 자동화</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>QATest_Agent</td>
+            <td>6개 QA 스킬</td>
+            <td style="color: var(--orange)">P1</td>
+            <td>자동 테스트 파이프라인</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>DevOps_Agent</td>
+            <td>8개 CI/CD 스킬</td>
+            <td style="color: var(--orange)">P1</td>
+            <td>빌드 및 배포 자동화</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Community_Agent</td>
+            <td>5개 커뮤니티 스킬</td>
+            <td style="color: var(--accent)">P2</td>
+            <td>플레이어 커뮤니케이션</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Secretary_Agent</td>
+            <td>2개 브리핑 스킬</td>
+            <td style="color: var(--accent)">P2</td>
+            <td>weekly-report, escalation-brief</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Marketing_Agent</td>
+            <td>2개 마케팅 스킬</td>
+            <td style="color: var(--accent)">P2</td>
+            <td>steam-page, influencer-brief</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Video_Analyzer</td>
+            <td>1개 기술 스킬</td>
+            <td style="color: var(--dim)">P3</td>
+            <td>영상 분석 도구</td>
+          </tr>
+        </table>
+      </div>
+
+      <h2>5. 인프라 현황</h2>
+      <div class="card">
+        <div class="grid" style="grid-template-columns: 1fr 1fr">
+          <div>
+            <h3 style="margin-top: 0">기술 스택</h3>
+            <ul style="margin-left: 16px; color: var(--dim)">
+              <li>
+                게임 엔진:
+                <strong style="color: var(--text)">Unity 6000.3.6f1</strong>
+              </li>
+              <li>
+                AI 모델:
+                <strong style="color: var(--text)">Claude Opus 4.6</strong>
+              </li>
+              <li>
+                Agent Teams: <strong style="color: var(--green)">활성화</strong>
+              </li>
+              <li>MCP 연동: Jira, Slack, Google Sheets</li>
+              <li>플랫폼: iOS, Android, Steam, WebGL</li>
+            </ul>
+          </div>
+          <div>
+            <h3 style="margin-top: 0">품질 파이프라인</h3>
+            <ul style="margin-left: 16px; color: var(--dim)">
+              <li>
+                Quality Gate:
+                <strong style="color: var(--green)">운영중</strong>
+              </li>
+              <li>
+                Shield 보안: <span style="color: var(--orange)">예정</span>
+              </li>
+              <li>
+                RedTeam 적대적: <span style="color: var(--orange)">예정</span>
+              </li>
+              <li>
+                자동 에스컬레이션:
+                <strong style="color: var(--green)">설정 완료</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h2>6. 자율 운영 모델</h2>
+      <div class="card">
+        <table>
+          <tr>
+            <th>요일</th>
+            <th>작업</th>
+            <th>담당 에이전트</th>
+          </tr>
+          <tr>
+            <td style="font-weight: 600">월요일</td>
+            <td>스프린트 계획</td>
+            <td>PMO_Agent /sprint-plan</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 600">매일</td>
+            <td>일일 브리핑 + 스탠드업</td>
+            <td>Secretary /daily-brief + PMO /standup</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 600">주중</td>
+            <td>태스크 수행</td>
+            <td>전체 에이전트</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 600">금요일</td>
+            <td>스프린트 회고</td>
+            <td>PMO_Agent /sprint-review</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 600">주간</td>
+            <td>CEO 요약 리뷰</td>
+            <td>Secretary /weekly-report</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="footer">
+        <p>HKD852 Studio &mdash; v7 현황 보고서</p>
+        <p>생성일: 2026-02-18 | 다음 리뷰: 스프린트 종료 시</p>
+      </div>
+    </div>
+  </body>
+</html>

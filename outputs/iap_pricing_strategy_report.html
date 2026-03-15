@@ -1,0 +1,3204 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>인앱 가격 정책 종합 분석 보고서</title>
+    <style>
+      @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css");
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #faf9f6;
+        color: #2a2a2a;
+        font-family:
+          "Pretendard",
+          "Noto Sans KR",
+          -apple-system,
+          sans-serif;
+        font-size: 16px;
+        line-height: 1.8;
+        word-break: keep-all;
+        -webkit-font-smoothing: antialiased;
+      }
+      .container {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      .hero {
+        padding: 80px 0 48px;
+        text-align: center;
+        border-bottom: 1px solid #d4d0c8;
+      }
+      .hero-label {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #8b2252;
+        margin-bottom: 24px;
+      }
+      .hero h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 48px;
+        font-weight: 700;
+        line-height: 1.15;
+        color: #1a1a1a;
+        margin-bottom: 20px;
+        letter-spacing: -1.5px;
+      }
+      .hero .subtitle {
+        font-family: Georgia, serif;
+        font-size: 19px;
+        font-weight: 400;
+        font-style: italic;
+        color: #555;
+        max-width: 720px;
+        margin: 0 auto 28px;
+        line-height: 1.5;
+      }
+      .hero .byline {
+        font-size: 13px;
+        color: #888;
+        letter-spacing: 0.5px;
+      }
+      .hero .byline strong {
+        color: #2a2a2a;
+        font-weight: 600;
+      }
+      .toc {
+        padding: 36px 0;
+        border-bottom: 1px solid #d4d0c8;
+      }
+      .toc h3 {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #8b2252;
+        margin-bottom: 16px;
+      }
+      .toc-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 32px;
+      }
+      .toc-item {
+        font-size: 14px;
+        color: #555;
+        padding: 4px 0;
+      }
+      .toc-item a {
+        color: #555;
+        text-decoration: none;
+      }
+      .toc-item a:hover {
+        color: #8b2252;
+      }
+      .toc-num {
+        color: #8b2252;
+        font-weight: 600;
+        margin-right: 8px;
+      }
+      .section {
+        padding: 48px 0;
+      }
+      .section + .section {
+        border-top: 1px solid #d4d0c8;
+      }
+      .section-number {
+        font-family: Georgia, serif;
+        font-size: 13px;
+        color: #8b2252;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      h2 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #1a1a1a;
+        margin-bottom: 24px;
+        letter-spacing: -0.5px;
+      }
+      h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 32px 0 16px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e8e5de;
+      }
+      h4 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #333;
+        margin: 24px 0 12px;
+      }
+      p {
+        margin-bottom: 16px;
+      }
+      .pull-quote {
+        border-left: 3px solid #8b2252;
+        padding: 8px 0 8px 24px;
+        margin: 28px 0;
+      }
+      .pull-quote p {
+        font-family: Georgia, serif;
+        font-size: 20px;
+        font-style: italic;
+        line-height: 1.45;
+        color: #3a3a3a;
+        margin-bottom: 8px;
+      }
+      .pull-quote cite {
+        font-size: 13px;
+        font-style: normal;
+        color: #888;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin: 32px 0;
+      }
+      .stats-grid.six {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .stat-box {
+        border: 1px solid #d4d0c8;
+        padding: 24px 16px;
+        text-align: center;
+        background: #fff;
+      }
+      .stat-box .number {
+        font-family: Georgia, serif;
+        font-size: 34px;
+        font-weight: 700;
+        color: #8b2252;
+        line-height: 1.1;
+        margin-bottom: 6px;
+      }
+      .stat-box .label {
+        font-size: 11px;
+        color: #777;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 14px;
+      }
+      th {
+        background: #f5f3ee;
+        font-weight: 700;
+        text-align: left;
+        padding: 12px 14px;
+        border-bottom: 2px solid #d4d0c8;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #555;
+        white-space: nowrap;
+      }
+      td {
+        padding: 10px 14px;
+        border-bottom: 1px solid #e8e5de;
+        vertical-align: top;
+      }
+      tr:hover td {
+        background: #faf8f4;
+      }
+      .num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+      .highlight-row td {
+        background: #fef7f0;
+      }
+      .money {
+        font-weight: 600;
+        color: #8b2252;
+      }
+      .matrix {
+        overflow-x: auto;
+        margin: 24px 0;
+      }
+      .matrix table {
+        min-width: 900px;
+      }
+      .matrix th:first-child,
+      .matrix td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        font-weight: 600;
+      }
+      .matrix th:first-child {
+        background: #f5f3ee;
+      }
+      .matrix td:first-child {
+        background: #fff;
+      }
+      .matrix tr:hover td:first-child {
+        background: #faf8f4;
+      }
+      .insight-box {
+        background: #f0ede6;
+        border-left: 4px solid #8b2252;
+        padding: 20px 24px;
+        margin: 28px 0;
+        border-radius: 0 4px 4px 0;
+      }
+      .insight-box .title {
+        font-weight: 700;
+        font-size: 14px;
+        color: #8b2252;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+      .warning-box {
+        background: #fef3e8;
+        border-left: 4px solid #c45000;
+        padding: 20px 24px;
+        margin: 28px 0;
+        border-radius: 0 4px 4px 0;
+      }
+      .warning-box .title {
+        font-weight: 700;
+        font-size: 14px;
+        color: #c45000;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+      .rec-box {
+        background: #eef5ee;
+        border-left: 4px solid #2d7d46;
+        padding: 20px 24px;
+        margin: 28px 0;
+        border-radius: 0 4px 4px 0;
+      }
+      .rec-box .title {
+        font-weight: 700;
+        font-size: 14px;
+        color: #2d7d46;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+      .sources {
+        background: #f8f7f4;
+        padding: 24px;
+        margin: 32px 0;
+        border-radius: 4px;
+      }
+      .sources h4 {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #666;
+        margin: 0 0 12px;
+        border: none;
+        padding: 0;
+      }
+      .sources ul {
+        list-style: none;
+        padding: 0;
+      }
+      .sources li {
+        font-size: 13px;
+        color: #666;
+        padding: 4px 0;
+        line-height: 1.5;
+      }
+      .sources a {
+        color: #8b2252;
+        text-decoration: none;
+      }
+      .sources a:hover {
+        text-decoration: underline;
+      }
+      .tag {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 3px;
+        margin-right: 4px;
+      }
+      .tag-green {
+        background: #e6f4ea;
+        color: #1e7e34;
+      }
+      .tag-blue {
+        background: #e8f0fe;
+        color: #1a56db;
+      }
+      .tag-red {
+        background: #fde8e0;
+        color: #c43e00;
+      }
+      .tag-purple {
+        background: #f3e8ff;
+        color: #7c3aed;
+      }
+      .tag-gray {
+        background: #f0ede6;
+        color: #666;
+      }
+      .tag-orange {
+        background: #fff3e0;
+        color: #e65100;
+      }
+      .article-footer {
+        border-top: 1px solid #d4d0c8;
+        padding: 36px 0 80px;
+        text-align: center;
+        font-size: 13px;
+        color: #999;
+        line-height: 1.8;
+      }
+      .article-footer strong {
+        color: #2a2a2a;
+      }
+      hr.elegant {
+        border: none;
+        border-top: 1px solid #d4d0c8;
+        margin: 48px auto;
+        max-width: 120px;
+      }
+      .bar-chart {
+        margin: 16px 0;
+      }
+      .bar-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .bar-label {
+        width: 120px;
+        font-size: 13px;
+        color: #555;
+        flex-shrink: 0;
+      }
+      .bar-track {
+        flex: 1;
+        height: 24px;
+        background: #f0ede6;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+      }
+      .bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #fff;
+        min-width: 32px;
+      }
+      .bar-fill.wine {
+        background: #8b2252;
+      }
+      .bar-fill.blue {
+        background: #1a56db;
+      }
+      .bar-fill.green {
+        background: #2d7d46;
+      }
+      .bar-fill.orange {
+        background: #c45000;
+      }
+      .bar-fill.purple {
+        background: #7c3aed;
+      }
+      .game-card {
+        border: 1px solid #d4d0c8;
+        padding: 24px;
+        margin: 20px 0;
+        background: #fff;
+        border-radius: 4px;
+      }
+      .game-card .game-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 16px;
+      }
+      .game-card .game-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a1a1a;
+      }
+      .game-card .game-pub {
+        font-size: 13px;
+        color: #888;
+      }
+      .game-card .game-revenue {
+        font-family: Georgia, serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: #8b2252;
+      }
+      .game-card .game-subtitle {
+        font-size: 12px;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin: 20px 0;
+      }
+      @media (max-width: 720px) {
+        .hero h1 {
+          font-size: 30px;
+        }
+        h2 {
+          font-size: 24px;
+        }
+        .stats-grid,
+        .stats-grid.six {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .matrix table {
+          min-width: 600px;
+        }
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .toc-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- ═══════════════════════════════════════════════ HERO -->
+      <div class="hero">
+        <div class="hero-label">HKD852 Studio &middot; Strategic Research</div>
+        <h1>글로벌 모바일 게임<br />인앱 가격 정책 종합 분석</h1>
+        <div class="subtitle">
+          10개 퍼블리셔 &middot; 20+ 게임 &middot; $81.7B 시장의 가격 구조,
+          행동경제학, 전환 전략, 지역별 최적화를 망라한 CEO 의사결정 보고서
+        </div>
+        <div class="byline">
+          <strong>HKD852 비서실</strong> &middot; 2026년 3월 10일 &middot; v2.0
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ TOC -->
+      <div class="toc">
+        <h3>목차</h3>
+        <div class="toc-grid">
+          <div class="toc-item">
+            <span class="toc-num">01</span>글로벌 IAP 시장 현황 2025–2026
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">09</span>시즌 · 이벤트 가격 전략
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">02</span>퍼블리셔별 가격 정책 비교
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">10</span>지역별 가격 최적화
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">03</span>게임별 IAP 상세 해부 (5대 게임)
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">11</span>VIP · 로열티 시스템
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">04</span>핵심 가격대 심층 분석
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">12</span>인앱 ID 발급 전략
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">05</span>행동경제학 기반 가격 심리학
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">13</span>KRW 기준통화 전략
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">06</span>전환율 · ARPU · ARPPU 벤치마크
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">14</span>D2C 웹샵 전략
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">07</span>피기뱅크 · 축적형 수익 모델
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">15</span>SSBL 가격 정책 종합 권장안
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">08</span>리듬게임 특화 분석
+          </div>
+          <div class="toc-item">
+            <span class="toc-num">A</span>Apple 표준 가격 티어 참조표
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ EXECUTIVE SUMMARY -->
+      <div class="section">
+        <div class="section-number">Executive Summary</div>
+        <h2>핵심 발견</h2>
+
+        <div class="stats-grid six">
+          <div class="stat-box">
+            <div class="number">$81.7B</div>
+            <div class="label">2025 글로벌 IAP 매출</div>
+          </div>
+          <div class="stat-box">
+            <div class="number">$98B</div>
+            <div class="label">2026 예상 IAP 매출</div>
+          </div>
+          <div class="stat-box">
+            <div class="number">2~5%</div>
+            <div class="label">무료→유료 전환율</div>
+          </div>
+          <div class="stat-box">
+            <div class="number">$4.99</div>
+            <div class="label">업계 표준 앵커 가격</div>
+          </div>
+          <div class="stat-box">
+            <div class="number">48%</div>
+            <div class="label">상위 5% 유저 매출 비중</div>
+          </div>
+          <div class="stat-box">
+            <div class="number">+46%</div>
+            <div class="label">D2C 웹샵 YoY 성장</div>
+          </div>
+        </div>
+
+        <div class="pull-quote">
+          <p>
+            상위 1%의 앱이 전체 IAP 매출의 92.2%를 생성한다. 가격 정책은 "얼마를
+            받느냐"가 아니라 "누구에게, 언제, 어떤 심리로 받느냐"의 문제다.
+          </p>
+        </div>
+
+        <div class="insight-box">
+          <div class="title">5대 전략 권고</div>
+          <p>
+            <strong>1.</strong> 스타터팩은 $4.99로 — $0.99는 앵커를 너무 낮게
+            설정. LTV 손실.
+          </p>
+          <p>
+            <strong>2.</strong> 피기뱅크를 $2.99에 도입 — Playrix 전 타이틀
+            검증. 비과금 전환 최강.
+          </p>
+          <p>
+            <strong>3.</strong> D2C 웹샵을 DAU 10만 시점에 런칭 — 마진 25%+
+            개선, 재구매율 80%.
+          </p>
+          <p>
+            <strong>4.</strong> 고래(상위 5%)용 $49.99/$99.99 번들 설계 — 매출의
+            48%.
+          </p>
+          <p>
+            <strong>5.</strong> Epic v Apple 판결 주시 — 2026년 외부결제
+            수수료율 확정 예정.
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 01: MARKET OVERVIEW -->
+      <div class="section">
+        <div class="section-number">Section 01</div>
+        <h2>글로벌 IAP 시장 현황 2025–2026</h2>
+
+        <h3>시장 규모 추이</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>연도</th>
+              <th>글로벌 IAP 매출</th>
+              <th>성장률</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2024</td>
+              <td class="money">$81.0B</td>
+              <td class="num">+4%</td>
+              <td>코로나 후 회복</td>
+            </tr>
+            <tr>
+              <td>2025</td>
+              <td class="money">$81.75B</td>
+              <td class="num">+0.9%</td>
+              <td>정체기 — D2C 이동 시작</td>
+            </tr>
+            <tr>
+              <td>2026 (전망)</td>
+              <td class="money">$98B</td>
+              <td class="num">+20%</td>
+              <td>Epic v Apple 효과 + D2C 폭발</td>
+            </tr>
+            <tr>
+              <td>2027 (전망)</td>
+              <td class="money">$103B+</td>
+              <td class="num">+5%</td>
+              <td>안정적 성장 전환</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>장르별 IAP 매출 (2025 H1)</h3>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="bar-label">전략 (SLG/4X)</div>
+            <div class="bar-track">
+              <div class="bar-fill wine" style="width: 100%">$17.5B</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">RPG</div>
+            <div class="bar-track">
+              <div class="bar-fill blue" style="width: 66%">$11.6B ▼15%</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">퍼즐/매치3</div>
+            <div class="bar-track">
+              <div class="bar-fill green" style="width: 87%">$15.2B</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">캐주얼 전체</div>
+            <div class="bar-track">
+              <div class="bar-fill purple" style="width: 86%">$15B+</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">카지노</div>
+            <div class="bar-track">
+              <div class="bar-fill orange" style="width: 67%">$11.7B</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="warning-box">
+          <div class="title">RPG IAP 급감 경고</div>
+          <p>
+            RPG 장르 IAP가 YoY <strong>-15.4%</strong> 급감. Google Play에서만
+            <strong>-29%</strong>. 카지노는 <strong>-50%</strong>. 원인: D2C
+            이동 + 시장 포화. 반면 캐주얼/퍼즐은 안정적 성장.
+          </p>
+        </div>
+
+        <h3>Epic v Apple 판결 타임라인</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>시점</th>
+              <th>이벤트</th>
+              <th>영향</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2025.04</td>
+              <td>Rogers 판사: Apple 금지명령 위반 판결</td>
+              <td>외부 결제 링크 허용, 27% 우회수수료 금지</td>
+            </tr>
+            <tr>
+              <td>2025.04</td>
+              <td>앱 외부 수수료 금지</td>
+              <td>개발사가 자체 결제 경험 소유 가능</td>
+            </tr>
+            <tr>
+              <td>2025.12</td>
+              <td>9th Circuit 항소심</td>
+              <td>Apple은 "합리적 수수료" 부과 가능 (금액 미정)</td>
+            </tr>
+            <tr>
+              <td>2026 (예정)</td>
+              <td>지방법원 수수료율 결정</td>
+              <td>27%보다 <strong>상당히 낮을 것</strong>으로 예상</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Google Play 변화</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>변경 사항</th>
+              <th>상세</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>수수료 인하</td>
+              <td>30% → <strong>20% 이하</strong></td>
+            </tr>
+            <tr>
+              <td>미국 특례</td>
+              <td>
+                Epic v Google 금지명령으로 2026.04까지 <strong>0%</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>안티스티어링 해제</td>
+              <td>
+                가격 비교 표시, 웹 전용 할인 홍보, 외부 결제 링크
+                <strong>전세계 허용</strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="sources">
+          <h4>출처</h4>
+          <ul>
+            <li>
+              <a
+                href="https://sensortower.com/blog/state-of-mobile-2026"
+                target="_blank"
+                >Sensor Tower — State of Mobile 2026</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.blog.udonis.co/mobile-marketing/mobile-games/mobile-game-revenue"
+                target="_blank"
+                >Udonis — Mobile Game Revenue Report 2026</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.pocketgamer.biz/strategy-games-surge-as-rpg-revenue-tumbles-h1-2025s-top-genres-revealed/"
+                target="_blank"
+                >PocketGamer — H1 2025 Genre Analysis</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.macrumors.com/2025/12/11/apple-app-store-fees-external-payment-links/"
+                target="_blank"
+                >MacRumors — Apple App Store Fees Appeals Ruling</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.stash.gg/blog/google-android-policy-update-what-it-means-for-your-dtc-strategy"
+                target="_blank"
+                >Stash.gg — Google Play Fee Policy Update</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 02: PUBLISHER COMPARISON -->
+      <div class="section">
+        <div class="section-number">Section 02</div>
+        <h2>퍼블리셔별 가격 정책 비교</h2>
+
+        <div class="matrix">
+          <table>
+            <thead>
+              <tr>
+                <th>퍼블리셔</th>
+                <th>대표 게임</th>
+                <th>누적 매출</th>
+                <th>가격 범위</th>
+                <th>핵심 SKU</th>
+                <th>총 SKU</th>
+                <th>배틀패스</th>
+                <th>피기뱅크</th>
+                <th>D2C 웹샵</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Supercell</td>
+                <td>Clash of Clans</td>
+                <td class="num">$20B+</td>
+                <td class="num">$0.99~$499.99</td>
+                <td class="num">8</td>
+                <td class="num">~10/게임</td>
+                <td>Gold Pass $6.99</td>
+                <td><span class="tag tag-gray">X</span></td>
+                <td><span class="tag tag-green">O</span></td>
+              </tr>
+              <tr class="highlight-row">
+                <td>Scopely</td>
+                <td>Monopoly GO!</td>
+                <td class="num">$6B+</td>
+                <td class="num">$1.99~$99.99</td>
+                <td class="num">6</td>
+                <td class="num">40~50+</td>
+                <td>이벤트 기반</td>
+                <td><span class="tag tag-gray">X</span></td>
+                <td><span class="tag tag-green">O</span></td>
+              </tr>
+              <tr class="highlight-row">
+                <td>Dream Games</td>
+                <td>Royal Match</td>
+                <td class="num">$5.8B</td>
+                <td class="num">$0.99~$99.99</td>
+                <td class="num">7</td>
+                <td class="num">25~35</td>
+                <td>Royal Pass $9.99</td>
+                <td><span class="tag tag-green">O</span></td>
+                <td><span class="tag tag-blue">준비중</span></td>
+              </tr>
+              <tr>
+                <td>HoYoverse</td>
+                <td>Genshin Impact</td>
+                <td class="num">$5B+</td>
+                <td class="num">$0.99~$99.99</td>
+                <td class="num">6</td>
+                <td class="num">~10</td>
+                <td>Welkin $4.99</td>
+                <td><span class="tag tag-gray">X</span></td>
+                <td><span class="tag tag-green">O</span></td>
+              </tr>
+              <tr>
+                <td>Playrix</td>
+                <td>Gardenscapes</td>
+                <td class="num">$7B+</td>
+                <td class="num">$0.99~$99.99</td>
+                <td class="num">6~7</td>
+                <td class="num">20~40/게임</td>
+                <td>Golden Ticket $4.99</td>
+                <td><span class="tag tag-green">O</span></td>
+                <td><span class="tag tag-gray">X</span></td>
+              </tr>
+              <tr>
+                <td>Niantic</td>
+                <td>Pokemon GO</td>
+                <td class="num">$7B+</td>
+                <td class="num">$0.99~$99.99</td>
+                <td class="num">6</td>
+                <td class="num">~6</td>
+                <td>없음</td>
+                <td><span class="tag tag-gray">X</span></td>
+                <td><span class="tag tag-green">O</span></td>
+              </tr>
+              <tr class="highlight-row">
+                <td>Century Games</td>
+                <td>Whiteout Survival</td>
+                <td class="num">$3B+</td>
+                <td class="num">$0.99~$399.99</td>
+                <td class="num">6~8</td>
+                <td class="num">60~100+</td>
+                <td>다중 패스</td>
+                <td><span class="tag tag-gray">X</span></td>
+                <td><span class="tag tag-green">O</span></td>
+              </tr>
+              <tr>
+                <td>Peak Games</td>
+                <td>Toon Blast</td>
+                <td class="num">$2.6B</td>
+                <td class="num">$0.49~$199.99</td>
+                <td class="num">6~7</td>
+                <td class="num">20~30</td>
+                <td>Toon Pass $9.99</td>
+                <td><span class="tag tag-green">O</span></td>
+                <td><span class="tag tag-gray">X</span></td>
+              </tr>
+              <tr>
+                <td>Com2uS</td>
+                <td>Summoners War</td>
+                <td class="num">$2B+</td>
+                <td class="num">$3.99~$139.99</td>
+                <td class="num">6</td>
+                <td class="num">15~25</td>
+                <td>있음</td>
+                <td><span class="tag tag-gray">X</span></td>
+                <td><span class="tag tag-gray">X</span></td>
+              </tr>
+              <tr>
+                <td>Dalcomsoft</td>
+                <td>SuperStar SMTOWN</td>
+                <td class="num">비공개</td>
+                <td class="num">$0.85~$85</td>
+                <td class="num">6~8</td>
+                <td class="num">6~8/게임</td>
+                <td>없음</td>
+                <td><span class="tag tag-gray">X</span></td>
+                <td><span class="tag tag-green">O</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="insight-box">
+          <div class="title">패턴 분석</div>
+          <p>
+            <strong>공통점:</strong> 10개 퍼블리셔 모두 6~8개 핵심 가격대 중심
+            운영. 수백 개 SKU를 만들지 않는다.
+          </p>
+          <p>
+            <strong>차이점:</strong> SLG 장르(Century, Com2uS)는 $100+ 고가 팩
+            활용. 캐주얼(Playrix, Dream Games)은 $99.99 상한.
+          </p>
+          <p>
+            <strong>D2C 트렌드:</strong> 10개 중 6개(60%)가 D2C 웹샵 운영.
+            2025년 상위 100개 게임 중 62개가 D2C 보유.
+          </p>
+        </div>
+
+        <div class="sources">
+          <h4>출처</h4>
+          <ul>
+            <li>
+              <a
+                href="https://sensortower.com/blog/monopoly-go-app-revenue-milestone"
+                target="_blank"
+                >Sensor Tower — Monopoly GO! $6B Milestone</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.businessofapps.com/data/royal-match-statistics/"
+                target="_blank"
+                >Business of Apps — Royal Match Statistics</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.stash.gg/blog/supercell-store"
+                target="_blank"
+                >Stash.gg — Supercell Store Revenue</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.blog.udonis.co/mobile-marketing/mobile-games/royal-match-analysis"
+                target="_blank"
+                >Udonis — Royal Match Analysis</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://business.mistplay.com/resources/direct-to-consumer-mobile-game-monetization"
+                target="_blank"
+                >Mistplay — D2C Mobile Game Monetization 2025</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 03: GAME-BY-GAME DEEP DIVE -->
+      <div class="section">
+        <div class="section-number">Section 03</div>
+        <h2>게임별 IAP 상세 해부</h2>
+        <p>
+          매출 상위 5개 게임의 실제 가격 구조, SKU 설계, 수익화 전략을
+          해부합니다.
+        </p>
+
+        <!-- MONOPOLY GO -->
+        <div class="game-card">
+          <div class="game-header">
+            <div>
+              <div class="game-name">Monopoly GO!</div>
+              <div class="game-pub">
+                Scopely &middot; 역대 최단기 $6B 돌파 (1,275일)
+              </div>
+            </div>
+            <div style="text-align: right">
+              <div class="game-revenue">$6B+</div>
+              <div class="game-subtitle">월 $200M+</div>
+            </div>
+          </div>
+
+          <h4>주사위 팩 구조 (인앱 vs 웹샵)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>가격</th>
+                <th>인앱 주사위</th>
+                <th>웹샵 주사위</th>
+                <th>웹샵 보너스</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="money">$1.99</td>
+                <td class="num">~30</td>
+                <td class="num">~35</td>
+                <td class="num">+16%</td>
+              </tr>
+              <tr>
+                <td class="money">$4.99</td>
+                <td class="num">~100</td>
+                <td class="num">~116</td>
+                <td class="num">+16%</td>
+              </tr>
+              <tr>
+                <td class="money">$9.99</td>
+                <td class="num">~220</td>
+                <td class="num">~255</td>
+                <td class="num">+16%</td>
+              </tr>
+              <tr>
+                <td class="money">$19.99</td>
+                <td class="num">~525</td>
+                <td class="num">~610</td>
+                <td class="num">+16%</td>
+              </tr>
+              <tr>
+                <td class="money">$49.99</td>
+                <td class="num">~1,700</td>
+                <td class="num">~1,970</td>
+                <td class="num">+16%</td>
+              </tr>
+              <tr class="highlight-row">
+                <td class="money">$99.99</td>
+                <td class="num">~3,700</td>
+                <td class="num">~4,300</td>
+                <td class="num">+16%</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="two-col">
+            <div class="insight-box" style="margin: 0">
+              <div class="title">Tycoon Club (D2C 로열티)</div>
+              <p>
+                <strong>가입비 무료.</strong> 일일 무료 휠 (50~100 주사위).
+                로열티 포인트 적립. 한정 스티커팩 개별 구매. 시즌별 독점
+                코스메틱.
+              </p>
+            </div>
+            <div class="insight-box" style="margin: 0">
+              <div class="title">수익화 특징</div>
+              <p>
+                <strong>광고 0%</strong> — 순수 IAP 모델. 이중 재화 (주사위 +
+                현금). 이벤트 기반 번들 회전. 첫 구매 보너스 전 티어 적용.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROYAL MATCH -->
+        <div class="game-card">
+          <div class="game-header">
+            <div>
+              <div class="game-name">Royal Match</div>
+              <div class="game-pub">
+                Dream Games &middot; 매치3 IAP 매출의 51% 독점
+              </div>
+            </div>
+            <div style="text-align: right">
+              <div class="game-revenue">$5.8B</div>
+              <div class="game-subtitle">월 $130M · RPD $55</div>
+            </div>
+          </div>
+
+          <h4>코인팩 · 번들 가격표</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>상품</th>
+                <th>가격</th>
+                <th>용도</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tiny Concept Offer</td>
+                <td class="money">$0.99</td>
+                <td>첫 구매 유도</td>
+              </tr>
+              <tr>
+                <td>Mini Coin Package</td>
+                <td class="money">$1.99</td>
+                <td>소형 코인</td>
+              </tr>
+              <tr>
+                <td>Mini Offer / Piggy Bank</td>
+                <td class="money">$2.99</td>
+                <td>피기뱅크 해제</td>
+              </tr>
+              <tr>
+                <td>Duke's Treasure</td>
+                <td class="money">$5.99</td>
+                <td>중소형 번들</td>
+              </tr>
+              <tr>
+                <td>Normal Concept / Royal Favor</td>
+                <td class="money">$6.99</td>
+                <td>이벤트 번들</td>
+              </tr>
+              <tr>
+                <td>Prince's Treasure / Royal Pass</td>
+                <td class="money">$9.99</td>
+                <td>시즌패스 30티어</td>
+              </tr>
+              <tr>
+                <td>Queen's Treasure</td>
+                <td class="money">$19.99</td>
+                <td>대형 번들</td>
+              </tr>
+              <tr>
+                <td>Large Coin Pack</td>
+                <td class="money">$29.99~$99.99</td>
+                <td>재화팩 (5K~100K 코인)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="warning-box">
+            <div class="title">업계 최고 단가</div>
+            <p>
+              추가 5무브에 <strong>$2</strong> — 매치3 장르 역대 최고가. 이후
+              $4.35 → $6.65 → $8.95로 점진적 인상. 이 대담한 가격 설정이 RPD
+              $55를 만듦.
+            </p>
+          </div>
+        </div>
+
+        <!-- GENSHIN IMPACT -->
+        <div class="game-card">
+          <div class="game-header">
+            <div>
+              <div class="game-name">Genshin Impact</div>
+              <div class="game-pub">
+                HoYoverse &middot; 3개 게임 통합 재화 구조
+              </div>
+            </div>
+            <div style="text-align: right">
+              <div class="game-revenue">$5B+</div>
+              <div class="game-subtitle">가챠 + 패스 하이브리드</div>
+            </div>
+          </div>
+
+          <h4>창세결정(Genesis Crystal) 가격 사다리</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>가격</th>
+                <th>결정 수량</th>
+                <th>첫구매 보너스</th>
+                <th>결정당 비용</th>
+                <th>보너스 후 비용</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="money">$0.99</td>
+                <td class="num">60</td>
+                <td class="num">+60</td>
+                <td class="num">$0.0165</td>
+                <td class="num">$0.0083</td>
+              </tr>
+              <tr>
+                <td class="money">$4.99</td>
+                <td class="num">300</td>
+                <td class="num">+300</td>
+                <td class="num">$0.0166</td>
+                <td class="num">$0.0083</td>
+              </tr>
+              <tr>
+                <td class="money">$14.99</td>
+                <td class="num">980</td>
+                <td class="num">+980</td>
+                <td class="num">$0.0153</td>
+                <td class="num">$0.0077</td>
+              </tr>
+              <tr>
+                <td class="money">$29.99</td>
+                <td class="num">1,980</td>
+                <td class="num">+1,980</td>
+                <td class="num">$0.0151</td>
+                <td class="num">$0.0076</td>
+              </tr>
+              <tr>
+                <td class="money">$49.99</td>
+                <td class="num">3,280</td>
+                <td class="num">+3,280</td>
+                <td class="num">$0.0152</td>
+                <td class="num">$0.0076</td>
+              </tr>
+              <tr class="highlight-row">
+                <td class="money">$99.99</td>
+                <td class="num">6,480</td>
+                <td class="num">+6,480</td>
+                <td class="num">$0.0154</td>
+                <td class="num">$0.0077</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="rec-box">
+            <div class="title">Welkin Moon — 업계 교과서 모델</div>
+            <p>
+              <strong>$4.99/월</strong> — 즉시 300결정 + 매일 90원석 (30일간
+              2,700원석). 총 가치 $19.99+ 상당. 습관성 소비 유도의 정석. SSBL
+              참고 필수.
+            </p>
+          </div>
+        </div>
+
+        <!-- WHITEOUT SURVIVAL -->
+        <div class="game-card">
+          <div class="game-header">
+            <div>
+              <div class="game-name">Whiteout Survival</div>
+              <div class="game-pub">
+                Century Games &middot; SLG 최강 고래 타겟팅
+              </div>
+            </div>
+            <div style="text-align: right">
+              <div class="game-revenue">$3B+</div>
+              <div class="game-subtitle">VIP 12까지 $10,000+</div>
+            </div>
+          </div>
+
+          <h4>팩 구조 (최저~최고)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>티어</th>
+                <th>가격 범위</th>
+                <th>콘텐츠</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tag tag-green">스타터</span></td>
+                <td class="money">$0.99</td>
+                <td>기본 자원</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-blue">스탠다드</span></td>
+                <td class="money">$4.99</td>
+                <td>Frost Stars + 기본 아이템 + ~2,500 VIP 포인트</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-blue">미드</span></td>
+                <td class="money">$9.99~$19.99</td>
+                <td>Frost Stars + 가속 아이템</td>
+              </tr>
+              <tr>
+                <td><span class="tag tag-purple">프리미엄</span></td>
+                <td class="money">$49.99~$99.99</td>
+                <td>올인원 팩, 이벤트 자원</td>
+              </tr>
+              <tr class="highlight-row">
+                <td><span class="tag tag-red">고래</span></td>
+                <td class="money">$199.99~$399.99</td>
+                <td>파이어 크리스탈, 미스릴, 프리미엄 번들</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            <strong>Myriad Bazaar</strong>: 9-팩 번들 ($0.99~$99.99).
+            <strong>Ultra Value Monthly Card</strong>: $5/월 VIP 특전.
+          </p>
+        </div>
+
+        <!-- CLASH OF CLANS -->
+        <div class="game-card">
+          <div class="game-header">
+            <div>
+              <div class="game-name">Clash of Clans</div>
+              <div class="game-pub">
+                Supercell &middot; 13년 장수 · 업계 최저 SKU
+              </div>
+            </div>
+            <div style="text-align: right">
+              <div class="game-revenue">$20B+</div>
+              <div class="game-subtitle">Supercell 5게임 합산</div>
+            </div>
+          </div>
+
+          <h4>젬 가격 (특이점: 균일 단가)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>젬</th>
+                <th>가격</th>
+                <th>젬/$</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="num">100</td>
+                <td class="money">$0.99</td>
+                <td class="num">~101</td>
+                <td>입문</td>
+              </tr>
+              <tr>
+                <td class="num">500</td>
+                <td class="money">$4.99</td>
+                <td class="num">~100</td>
+                <td>소액</td>
+              </tr>
+              <tr>
+                <td class="num">1,000</td>
+                <td class="money">$9.99</td>
+                <td class="num">~100</td>
+                <td>중간</td>
+              </tr>
+              <tr>
+                <td class="num">2,000</td>
+                <td class="money">$19.99</td>
+                <td class="num">~100</td>
+                <td>중고가</td>
+              </tr>
+              <tr>
+                <td class="num">5,000</td>
+                <td class="money">$49.99</td>
+                <td class="num">~100</td>
+                <td>고가</td>
+              </tr>
+              <tr>
+                <td class="num">10,000</td>
+                <td class="money">$99.99</td>
+                <td class="num">~100</td>
+                <td>최고가</td>
+              </tr>
+              <tr>
+                <td class="num">20,000</td>
+                <td class="money">$199.99</td>
+                <td class="num">~100</td>
+                <td>초고가</td>
+              </tr>
+              <tr>
+                <td class="num">50,000</td>
+                <td class="money">$499.99</td>
+                <td class="num">~100</td>
+                <td>울트라</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="insight-box">
+            <div class="title">Supercell 전략의 핵심</div>
+            <p>
+              <strong>대량 할인 없음.</strong> 모든 팩이 동일한 젬/$ 비율. 이는
+              "소액 구매해도 손해 없음" 메시지를 전달하여 저과금 유저의 구매
+              빈도를 높이는 전략.
+            </p>
+            <p>
+              <strong>Gold Pass 2.0</strong> (2026.02): $6.99/월. 40티어 보상.
+              타운홀 레벨 비례 보상. 일일 미션 추가.
+            </p>
+            <p>
+              <strong>D2C 웹샵</strong>: 인앱 대비 <strong>~10% 할인</strong>.
+              개발사 수취율 86~87% (vs 스토어 70%). Epic v Apple 판결 후 게임 내
+              웹샵 직접 링크 시작.
+            </p>
+          </div>
+        </div>
+
+        <div class="sources">
+          <h4>출처</h4>
+          <ul>
+            <li>
+              <a
+                href="https://www.stash.gg/blog/monopoly-go-store"
+                target="_blank"
+                >Stash.gg — Monopoly GO Store Analysis</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.gamemakers.com/p/royal-matchs-219-battle-pass-secret"
+                target="_blank"
+                >GameMakers — Royal Match Battle Pass Secret</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://bittopup.com/article/Genshin-Impact-Genesis-Crystals-2025-Buyers-Guide"
+                target="_blank"
+                >BitTopup — Genshin Impact Crystal Guide 2025</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.topuplive.com/news/whiteout-survival-packs.html"
+                target="_blank"
+                >TopUpLive — Whiteout Survival Pack Guide</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://clashofclans.fandom.com/wiki/In-App_Purchases"
+                target="_blank"
+                >CoC Wiki — In-App Purchases</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://supercell.com/en/games/clashofclans/blog/news/big-changes-are-coming-to-gold-pass/"
+                target="_blank"
+                >Supercell — Gold Pass 2.0 Changes</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 04: PRICE TIER ANALYSIS -->
+      <div class="section">
+        <div class="section-number">Section 04</div>
+        <h2>핵심 가격대 심층 분석</h2>
+
+        <h3>업계 공통 6단계 가격 구조</h3>
+        <p>
+          10개 퍼블리셔 모두 아래 6개 가격대를 핵심 축으로 사용. 로그 스케일
+          ($1→$5→$10→$20→$50→$100)로 각 단계 약 2~2.5배 증가.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>티어</th>
+              <th>USD</th>
+              <th>KRW</th>
+              <th>JPY</th>
+              <th>용도</th>
+              <th>사용</th>
+              <th>매출 기여</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag tag-green">입문</span></td>
+              <td class="money">$0.99</td>
+              <td class="num">₩1,500</td>
+              <td class="num">¥160</td>
+              <td>첫 구매 유도 / 스타터팩</td>
+              <td>10/10</td>
+              <td>높은 거래량, 낮은 매출</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-green">소액</span></td>
+              <td class="money">$4.99</td>
+              <td class="num">₩7,500</td>
+              <td class="num">¥800</td>
+              <td>배틀패스 / 월정액 / 소형 팩</td>
+              <td>10/10</td>
+              <td>업계 표준 앵커</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-blue">중간</span></td>
+              <td class="money">$9.99</td>
+              <td class="num">₩15,000</td>
+              <td class="num">¥1,600</td>
+              <td>중형 재화팩 / 프리미엄 패스</td>
+              <td>10/10</td>
+              <td>가장 보편적 패스 가격</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-blue">중고가</span></td>
+              <td class="money">$19.99</td>
+              <td class="num">₩29,000</td>
+              <td class="num">¥3,200</td>
+              <td>대형 재화팩 / 번들</td>
+              <td>9/10</td>
+              <td>성장하는 세그먼트</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-purple">고가</span></td>
+              <td class="money">$49.99</td>
+              <td class="num">₩69,000</td>
+              <td class="num">¥8,000</td>
+              <td>프리미엄 번들 / 대형 재화</td>
+              <td>8/10</td>
+              <td rowspan="2">이 구간이 매출의 <strong>35~40%</strong></td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-red">최고가</span></td>
+              <td class="money">$99.99</td>
+              <td class="num">₩139,000</td>
+              <td class="num">¥15,800</td>
+              <td>최대 재화팩 / 고래 대상</td>
+              <td>9/10</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>가격대별 매출 분포</h3>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="bar-label">$0.49~$9.99</div>
+            <div class="bar-track">
+              <div class="bar-fill green" style="width: 33%">~30-35%</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">$10~$49.99</div>
+            <div class="bar-track">
+              <div class="bar-fill blue" style="width: 33%">~30-35%</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">$50~$99.99</div>
+            <div class="bar-track">
+              <div class="bar-fill wine" style="width: 38%">~35-40%</div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size: 13px; color: #888">
+          $10~$49.99 세그먼트가 2017년 19%에서 2025년 26%+로 성장. 중간 지출자가
+          증가 추세.
+        </p>
+
+        <h3>사용되지 않는 가격대</h3>
+        <div class="insight-box">
+          <div class="title">업계가 의도적으로 건너뛰는 가격</div>
+          <p>
+            $7.99, $8.99, $11.99, $24.99, $34.99, $39.99, $44.99, $59.99~$89.99
+            — 대부분 미사용.
+          </p>
+          <p>
+            <strong>예외:</strong> Century Games(WoS)만 $199.99/$399.99 사용.
+            Com2uS $139.99 상한. SLG/4X 고래 전략.
+          </p>
+        </div>
+
+        <h3>보조 가격대 (패스/번들용)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>USD</th>
+              <th>KRW</th>
+              <th>사용 퍼블리셔</th>
+              <th>주 용도</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="money">$1.99</td>
+              <td class="num">₩3,300</td>
+              <td>Supercell, Playrix, Dream, Peak, Scopely</td>
+              <td>소형 코인팩 / 미니 오퍼</td>
+            </tr>
+            <tr>
+              <td class="money">$2.99</td>
+              <td class="num">₩4,400</td>
+              <td>Supercell, Playrix, Dream, Peak</td>
+              <td>피기뱅크 / 스페셜 오퍼</td>
+            </tr>
+            <tr>
+              <td class="money">$5.99</td>
+              <td class="num">₩8,800</td>
+              <td>Playrix, Dream, Scopely</td>
+              <td>중소형 번들</td>
+            </tr>
+            <tr>
+              <td class="money">$6.99</td>
+              <td class="num">₩9,900</td>
+              <td>Supercell, Playrix, Dream, Peak</td>
+              <td>시즌 패스 / 번들</td>
+            </tr>
+            <tr>
+              <td class="money">$14.99</td>
+              <td class="num">₩22,000</td>
+              <td>HoYoverse, Playrix, Dream</td>
+              <td>중형 재화팩</td>
+            </tr>
+            <tr>
+              <td class="money">$29.99</td>
+              <td class="num">₩45,000</td>
+              <td>HoYoverse, Scopely, Dream</td>
+              <td>대형 번들</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>IAP 중간 가격 추이</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>연도</th>
+              <th>중간값</th>
+              <th>변화</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2017</td>
+              <td class="money">$2.99</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>2019</td>
+              <td class="money">$3.99</td>
+              <td>+33%</td>
+            </tr>
+            <tr>
+              <td>2020~2025</td>
+              <td class="money">$4.99</td>
+              <td>+25% — 현재 업계 표준 앵커</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="sources">
+          <h4>출처</h4>
+          <ul>
+            <li>
+              <a
+                href="https://sensortower.com/blog/app-store-iap-median-price"
+                target="_blank"
+                >Sensor Tower — IAP Median Price Study</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://clashofclans.fandom.com/wiki/Gems"
+                target="_blank"
+                >CoC Wiki — Gems Pricing</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://genshin-impact.fandom.com/wiki/Genesis_Crystal"
+                target="_blank"
+                >Genshin Wiki — Genesis Crystal</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://balancy.co/blog/2023/12/28/monopoly-go-by-scopely-in-game-shop-deconstruction/"
+                target="_blank"
+                >Balancy — Monopoly GO Shop Deconstruction</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 05: BEHAVIORAL ECONOMICS -->
+      <div class="section">
+        <div class="section-number">Section 05</div>
+        <h2>행동경제학 기반 가격 심리학</h2>
+
+        <h3>핵심 원리와 게임 적용</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>원리</th>
+              <th>메커니즘</th>
+              <th>게임 적용 사례</th>
+              <th>효과</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>앵커링</strong></td>
+              <td>최초 가격이 이후 모든 가치 판단의 기준점</td>
+              <td>
+                Genshin: $0.99→$4.99 Welkin→$29.99 BP→$99.99 결정팩으로 심리적
+                사다리 구축
+              </td>
+              <td>점진적 지출 증가 유도</td>
+            </tr>
+            <tr>
+              <td><strong>디코이 효과</strong></td>
+              <td>3가지 옵션 중 '미끼'가 큰 옵션을 매력적으로 보이게 함</td>
+              <td>소/중(미끼)/대 재화팩 — 대형팩 선택률 상승</td>
+              <td>선택지 3개 제한이 최적 (선택 마비 방지)</td>
+            </tr>
+            <tr>
+              <td><strong>손실 회피</strong></td>
+              <td>얻는 기쁨보다 잃는 고통이 2배 강함</td>
+              <td>한정시간 오퍼 60초 카운트다운, 이벤트 종료 경고</td>
+              <td>FOMO로 즉시 구매 전환</td>
+            </tr>
+            <tr>
+              <td><strong>소유 효과</strong></td>
+              <td>"이미 내 것"이라 느끼면 가치를 더 높게 평가</td>
+              <td>
+                피기뱅크에 쌓인 재화 → "내 것을 꺼내는" 느낌으로 $2.99 지불
+              </td>
+              <td>비과금 유저 전환 최강 도구</td>
+            </tr>
+            <tr>
+              <td><strong>매몰비용</strong></td>
+              <td>이미 투자한 시간/돈이 이탈을 막음</td>
+              <td>VIP 레벨 시스템 — 레벨 높을수록 떠나기 어려움</td>
+              <td>장기 리텐션 + LTV 극대화</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>가격 심리학 실전 — Royal Match의 $2 추가무브</h3>
+        <div class="pull-quote">
+          <p>
+            Royal Match는 추가 5무브에 $2를 청구한다 — 매치3 역사상 최고가. 이
+            대담한 가격 설정이 다운로드당 매출 $55를 만들었다.
+          </p>
+          <cite>— Udonis Mobile Games Analysis, 2024</cite>
+        </div>
+        <p>
+          경쟁작 대비: Candy Crush $0.99, Homescapes $1.49. Royal Match는
+          <strong>2배 이상</strong> 높은 가격을 설정했지만, 매치3 IAP 매출의
+          <strong>51%</strong>를 독점. 프리미엄 앵커링의 교과서적 성공 사례.
+        </p>
+
+        <h3>개인화 가격의 기회</h3>
+        <div class="two-col">
+          <div class="insight-box" style="margin: 0">
+            <div class="title">현재 상황</div>
+            <p><strong>70%</strong>의 개발사가 가격 개인화가 필수라 응답</p>
+            <p>하지만 <strong>53.7%</strong>만 실제 시도</p>
+            <p>
+              Candy Crush: AI 기반 동적 가격으로 IAP 매출 <strong>+16%</strong>
+            </p>
+          </div>
+          <div class="rec-box" style="margin: 0">
+            <div class="title">SSBL 적용 권장</div>
+            <p>런칭 시: 고정 가격 시작 (데이터 부족)</p>
+            <p>DAU 5만+: A/B 테스트 시작 (스타터팩 $0.99 vs $4.99)</p>
+            <p>DAU 10만+: 코호트별 동적 번들 도입</p>
+          </div>
+        </div>
+
+        <div class="sources">
+          <h4>출처</h4>
+          <ul>
+            <li>
+              <a
+                href="https://www.gameanalytics.com/blog/5-effective-behavioural-economic-monetization-patterns"
+                target="_blank"
+                >GameAnalytics — 5 Behavioral Economics Monetization Patterns</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://wappier.com/5-behavioral-economics-techniques/"
+                target="_blank"
+                >wappier — Behavioral Economics in IAP</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://appwill.co/dynamic-pricing-in-mobile-games-2025-case-studies/"
+                target="_blank"
+                >Appwill — Dynamic Pricing Case Studies 2025</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.deconstructoroffun.com/blog/2024/4/8/free-to-play-starter-pack-pricing-when-conversion-is-king-we-may-price-too-low"
+                target="_blank"
+                >Deconstructor of Fun — Starter Pack Pricing</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 06: ARPU BENCHMARKS -->
+      <div class="section">
+        <div class="section-number">Section 06</div>
+        <h2>전환율 · ARPU · ARPPU 벤치마크</h2>
+
+        <h3>무료→유료 전환율</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>지표</th>
+              <th>수치</th>
+              <th>출처</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>업계 평균 전환율</td>
+              <td class="money">2~5%</td>
+              <td>Meegle KPIs</td>
+            </tr>
+            <tr>
+              <td>게임 앱 특화</td>
+              <td class="money">1.6~2%</td>
+              <td>Business of Apps</td>
+            </tr>
+            <tr>
+              <td>첫 구매까지 평균 시간</td>
+              <td class="money">1일 22시간 35분</td>
+              <td>SQ Magazine</td>
+            </tr>
+            <tr>
+              <td>첫 구매 가격대</td>
+              <td class="money">$1.01~$5.00 (다수)</td>
+              <td>Deconstructor of Fun</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>ARPU 벤치마크 (2025)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>범위</th>
+              <th>ARPU</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>미국 모바일 게임</td>
+              <td class="money">$60.58</td>
+              <td>2025 기준</td>
+            </tr>
+            <tr>
+              <td>미국 (2026 전망)</td>
+              <td class="money">$94.53</td>
+              <td>D2C 포함 시 급등</td>
+            </tr>
+            <tr>
+              <td>글로벌 평균</td>
+              <td class="money">$60.14</td>
+              <td>Statista 2025</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>장르별 ARPPU</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>장르</th>
+              <th>월 ARPPU</th>
+              <th>상위 5% 일일 ARPPU</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>캐주얼/퍼즐</td>
+              <td class="num">$2~3/월</td>
+              <td class="num">$50~60</td>
+              <td>넓은 유저 기반, 낮은 단가</td>
+            </tr>
+            <tr>
+              <td>매치3 (파티)</td>
+              <td class="num">$4.90 ARPU</td>
+              <td class="num">—</td>
+              <td>광고+IAP 하이브리드</td>
+            </tr>
+            <tr>
+              <td>클래식 (솔리테어)</td>
+              <td class="num">—</td>
+              <td class="num">$60+</td>
+              <td>전년 대비 35% 성장</td>
+            </tr>
+            <tr>
+              <td>전략/SLG</td>
+              <td class="num">높음</td>
+              <td class="num">$66+</td>
+              <td>$99 번들 보편</td>
+            </tr>
+            <tr>
+              <td>RPG</td>
+              <td class="num">최고</td>
+              <td class="num">$66+</td>
+              <td>시장 축소 중</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>Royal Match</strong></td>
+              <td colspan="2" class="money">RPD $55 · 월 $130M</td>
+              <td>매치3 역대 최고 수익성</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>플랫폼별 차이</h3>
+        <div class="two-col">
+          <div class="insight-box" style="margin: 0">
+            <div class="title">iOS</div>
+            <p>평균 거래 금액: <strong>>$15</strong></p>
+            <p>Android 대비 <strong>2배</strong> 높은 거래 단가</p>
+          </div>
+          <div class="insight-box" style="margin: 0">
+            <div class="title">Android</div>
+            <p>평균 거래 금액: <strong>~$7</strong></p>
+            <p>Google Play IAP RPG <strong>-29%</strong> 하락 중</p>
+          </div>
+        </div>
+
+        <h3>매출 집중도 (고래 경제학)</h3>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="bar-label">상위 1% 유저</div>
+            <div class="bar-track">
+              <div class="bar-fill wine" style="width: 30%">매출 30%+</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">상위 5% 유저</div>
+            <div class="bar-track">
+              <div class="bar-fill wine" style="width: 48%">매출 48%</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">상위 10% 유저</div>
+            <div class="bar-track">
+              <div class="bar-fill blue" style="width: 64%">매출 64%</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">상위 25% 유저</div>
+            <div class="bar-track">
+              <div class="bar-fill green" style="width: 77%">매출 77%</div>
+            </div>
+          </div>
+        </div>
+        <p>
+          F2P 유저 중 <strong>0.25%</strong>만이 전체 IAP 매출의
+          <strong>64%</strong>를 생성 — "고래 효과"
+        </p>
+
+        <div class="sources">
+          <h4>출처</h4>
+          <ul>
+            <li>
+              <a
+                href="https://www.businessofapps.com/data/mobile-game-conversion-rates/"
+                target="_blank"
+                >Business of Apps — Mobile Game Conversion Rates 2026</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://sqmagazine.co.uk/in-game-purchases-statistics/"
+                target="_blank"
+                >SQ Magazine — In-Game Purchase Statistics 2026</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.gamedeveloper.com/business/report-whales-gobble-up-even-more-of-the-f2p-mobile-game-revenue-pie"
+                target="_blank"
+                >GameDeveloper — Whale Revenue Report</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.pocketgamer.biz/royal-match-earned-51-of-all-match-3-revenue-in-2024/"
+                target="_blank"
+                >PocketGamer — Royal Match 51% of Match-3 Revenue</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 07: PIGGY BANK -->
+      <div class="section">
+        <div class="section-number">Section 07</div>
+        <h2>피기뱅크 · 축적형 수익 모델</h2>
+
+        <h3>작동 원리</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>단계</th>
+              <th>행동</th>
+              <th>심리 원리</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>플레이 중 재화가 "뱅크"에 자동 적립 (카운터 표시)</td>
+              <td>소유 효과 — "이미 내 것"</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>뱅크가 가득 차면 캡에 도달</td>
+              <td>손실 회피 — "넘치면 낭비"</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>$2.99~$4.99 지불하여 "깨기"</td>
+              <td>매몰비용 — 쌓인 시간 보상</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>다시 빈 뱅크 시작, 반복</td>
+              <td>습관 형성 — 주기적 소액 결제</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>퍼블리셔별 구현</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>게임</th>
+              <th>퍼블리셔</th>
+              <th>상품명</th>
+              <th>가격</th>
+              <th>특징</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Gardenscapes</td>
+              <td>Playrix</td>
+              <td>Gold Reserve</td>
+              <td class="money">$2.99</td>
+              <td>전 Playrix 타이틀 동일 구조</td>
+            </tr>
+            <tr>
+              <td>Homescapes</td>
+              <td>Playrix</td>
+              <td>Gold Reserve</td>
+              <td class="money">$2.99</td>
+              <td>포트폴리오 전체 적용</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>Royal Match</td>
+              <td>Dream Games</td>
+              <td>Endless Treasure</td>
+              <td class="money">$1.99~$2.99</td>
+              <td>"피기뱅크 2.0" — 무료→유료→무료 루프</td>
+            </tr>
+            <tr>
+              <td>Slotomania</td>
+              <td>Playtika</td>
+              <td>Piggy Bank</td>
+              <td class="money">$1.99~$4.99</td>
+              <td>메커니즘 원조</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="rec-box">
+          <div class="title">
+            Royal Match "Endless Treasure" — 피기뱅크 진화형
+          </div>
+          <p><strong>1단계:</strong> 무료 보상 시퀀스 먼저 보여줌</p>
+          <p><strong>2단계:</strong> 저가 IAP 게이트 삽입 ($1.99~$2.99)</p>
+          <p><strong>3단계:</strong> 결제 후 더 많은 무료 보상 해제</p>
+          <p>
+            <strong>심리:</strong> "무료 것을 계속 받기 위해 돈을 쓰는" 루프.
+            전통 피기뱅크보다 전환율 높음.
+          </p>
+        </div>
+
+        <div class="insight-box">
+          <div class="title">SSBL 적용 권장</div>
+          <p>
+            <strong>$2.99 피기뱅크 도입 필수.</strong> Playrix가 모든 타이틀에
+            적용하는 이유: 비과금 유저 전환 + 저과금자 구매 빈도 증가. 개발 비용
+            낮음. IAP 카테고리별 매출 9위 (가챠, 스타터팩보다 높음).
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 08: RHYTHM GAME -->
+      <div class="section">
+        <div class="section-number">Section 08</div>
+        <h2>리듬게임 특화 분석</h2>
+
+        <h3>리듬게임 시장 규모</h3>
+        <p>
+          글로벌 모바일 리듬게임 시장: <strong>2024년 $2.5B</strong>, 2033년
+          ~$5B 전망 (CAGR 8~15%). 전략($17.5B), RPG($16.8B) 대비 니치 장르이나
+          안정적 성장세.
+        </p>
+
+        <h3>경쟁작 IAP 비교</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>게임</th>
+              <th>퍼블리셔</th>
+              <th>모델</th>
+              <th>가격 범위</th>
+              <th>핵심 지표</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><strong>Beatstar</strong></td>
+              <td>Space Ape (Supercell)</td>
+              <td>광고 50% + IAP 50%</td>
+              <td class="money">$10 Tour Pass</td>
+              <td>Year 1: $73M · ARPDAU $0.14 · RPD $1.41</td>
+            </tr>
+            <tr>
+              <td><strong>Arcaea</strong></td>
+              <td>lowiro</td>
+              <td>곡팩 DLC 판매</td>
+              <td class="money">$0.99~$9.99</td>
+              <td>Memories: $0.99/100개. 스토리팩 ~$7.99</td>
+            </tr>
+            <tr>
+              <td><strong>Cytus II</strong></td>
+              <td>Rayark</td>
+              <td>유료 앱 + DLC</td>
+              <td class="money">$1.99 기본 + $9.99/팩</td>
+              <td>Play Pass $4.99/월. 250+ 곡 (50 무료)</td>
+            </tr>
+            <tr>
+              <td><strong>SuperStar SMTOWN</strong></td>
+              <td>Dalcomsoft</td>
+              <td>다이아몬드 재화</td>
+              <td class="money">$0.85~$85</td>
+              <td>100M+ 다운로드 (시리즈 합산)</td>
+            </tr>
+            <tr>
+              <td><strong>Rhythm Hive</strong></td>
+              <td>HYBE</td>
+              <td>카드 수집 + 재화</td>
+              <td class="money">비공개</td>
+              <td>BTS, SEVENTEEN, NewJeans 등 IP 기반</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Dalcomsoft SuperStar 시리즈 상세</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>상세</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>다이아몬드 가격</td>
+              <td>~$0.85 (최소) ~ ~$85 (최대). 100% 보너스 프로모션 주 1회</td>
+            </tr>
+            <tr>
+              <td>프리미엄 카드팩</td>
+              <td>50/90/240 다이아몬드 (B~S 등급 카드)</td>
+            </tr>
+            <tr>
+              <td>D2C 웹샵</td>
+              <td>
+                superstarstore.net — 크로스게임 통합. SSM/SSJ 접두사로 게임 구분
+              </td>
+            </tr>
+            <tr>
+              <td>프로모션</td>
+              <td>
+                주간 로테이션: 다이아 보너스, RP 보너스, Royal Chance 번들
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="warning-box">
+          <div class="title">리듬게임 ARPU 현실</div>
+          <p>
+            Beatstar ARPDAU $0.14 → 연간 ~$51/유저. 전체 모바일 평균 $60 대비
+            낮음. <strong>리듬게임은 ARPU가 낮은 장르</strong>. 이를 보완하려면:
+          </p>
+          <p>1) 광고 하이브리드 (Beatstar 모델: IAP 50% + 광고 50%)</p>
+          <p>2) IP 파워 극대화 (K-POP 아티스트 콜라보)</p>
+          <p>3) 컬렉션 욕구 자극 (카드 시스템, 앨범 컬렉션)</p>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 09: SEASONAL PRICING -->
+      <div class="section">
+        <div class="section-number">Section 09</div>
+        <h2>시즌 · 이벤트 가격 전략</h2>
+
+        <p>
+          상위 100개 iOS 게임 중 <strong>90%+</strong>가 시즌 이벤트로 매출
+          부스팅. 2025.12 글로벌 모바일 게임 지출 <strong>$6.9B</strong> (+3.5%
+          MoM).
+        </p>
+
+        <h3>이벤트 vs 상시 SKU 가격 패턴</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>카테고리</th>
+              <th>가격대</th>
+              <th>전략</th>
+              <th>예시</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag tag-green">스타터팩</span> (상시, 1회)</td>
+              <td class="money">$0.99~$9.99</td>
+              <td>50~90% 할인 표시. 첫 구매 촉진</td>
+              <td>Royal Match Tiny Concept $0.99</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-blue">이벤트 번들</span> (한정)</td>
+              <td class="money">$4.99~$49.99</td>
+              <td>이벤트 전용 자원. 60초 카운트다운</td>
+              <td>Monopoly GO 이벤트 주사위팩</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-purple">플래시 세일</span></td>
+              <td class="money">$0.99~$19.99</td>
+              <td>상시 아이템 깊은 할인. 24~48h</td>
+              <td>CoD Mobile "12 Days of Deals"</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-orange">홀리데이 메가번들</span></td>
+              <td class="money">$19.99~$99.99</td>
+              <td>리스킨 + 독점 코스메틱</td>
+              <td>Royal Match 크리스마스 Endless Treasure</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-red">고래 이벤트팩</span></td>
+              <td class="money">$49.99~$399.99</td>
+              <td>경쟁 이벤트 우위. 리더보드</td>
+              <td>Whiteout Survival 시즌 팩</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>진행형 오퍼 (Progression Offers)</h3>
+        <div class="insight-box">
+          <div class="title">실패 지점 → 구매 촉진</div>
+          <p>
+            유저가 스테이지에서 <strong>실패할 때</strong> 60초 타이머와 함께
+            할인 번들 노출. 좌절감 + 시간 압박 = 높은 전환율.
+          </p>
+          <p>
+            <strong>Royal Match 사례:</strong> 실패 → "$2로 5무브 추가" → 재실패
+            → "$4.35로 5무브" → 점진적 가격 인상. 손실 회피 + 매몰비용 활용.
+          </p>
+        </div>
+
+        <h3>캐치업 팩 (Post-Event)</h3>
+        <p>
+          이벤트 놓친 유저 대상. 이벤트 종료 직후 한정 판매. "놓친 보상 복구"
+          심리 활용. 이벤트 FOMO를 매출로 이중 전환.
+        </p>
+
+        <div class="sources">
+          <h4>출처</h4>
+          <ul>
+            <li>
+              <a
+                href="https://www.gamerefinery.com/drive-up-your-revenues-with-seasonal-events/"
+                target="_blank"
+                >GameRefinery — Seasonal Events Revenue</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.gamerefinery.com/best-practice-and-strategies-for-targeted-iap-offers-in-mobile-games/"
+                target="_blank"
+                >GameRefinery — Targeted IAP Offers</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://sensortower.com/blog/top-10-worldwide-mobile-games-by-revenue-and-downloads-in-december-2025"
+                target="_blank"
+                >Sensor Tower — December 2025 Top Games</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://xsolla.com/blog/how-to-drive-mobile-game-monetization-through-holiday-events"
+                target="_blank"
+                >Xsolla — Holiday Event Monetization</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 10: REGIONAL PRICING -->
+      <div class="section">
+        <div class="section-number">Section 10</div>
+        <h2>지역별 가격 최적화</h2>
+
+        <h3>시장별 지출 특성</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>시장</th>
+              <th>글로벌 비중</th>
+              <th>핵심 특성</th>
+              <th>SSBL 우선순위</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><strong>미국</strong></td>
+              <td class="num">43%</td>
+              <td>최고 절대 지출. USD 기준 표준</td>
+              <td><span class="tag tag-red">1위</span></td>
+            </tr>
+            <tr>
+              <td><strong>한국</strong></td>
+              <td class="num">9%</td>
+              <td>높은 ARPU. 가챠 친화. 확률 공시 의무</td>
+              <td><span class="tag tag-purple">4위</span></td>
+            </tr>
+            <tr>
+              <td><strong>일본</strong></td>
+              <td class="num">7%</td>
+              <td>38%가 월 다회 구매. 건당 $10+ 33%</td>
+              <td><span class="tag tag-blue">5위</span></td>
+            </tr>
+            <tr>
+              <td><strong>동남아</strong></td>
+              <td class="num">성장</td>
+              <td>Q1 2025 $625M. 태국 $162M 선두</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>유럽</strong></td>
+              <td class="num">—</td>
+              <td>VAT 포함 가격 자동 처리 (Apple)</td>
+              <td><span class="tag tag-blue">2위</span></td>
+            </tr>
+            <tr>
+              <td><strong>중국</strong></td>
+              <td class="num">—</td>
+              <td>iOS만. Android는 중국 스토어별 별도</td>
+              <td><span class="tag tag-purple">3위</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>일본 시장 — 최고 건당 지출</h3>
+        <div class="insight-box">
+          <div class="title">일본 유저 특성</div>
+          <p><strong>38%</strong>가 월 다회 구매 — 글로벌 최고 빈도</p>
+          <p><strong>33%</strong>가 건당 $10 이상 지출 — 글로벌 최고 단가</p>
+          <p>라운드 넘버 선호: ¥120, ¥480, ¥800 등 깔끔한 수치</p>
+          <p>
+            USD 대비 JPY 29% 약세 → Apple이 <strong>~30% 가격 인상</strong> 적용
+          </p>
+        </div>
+
+        <h3>지역별 가격 사례</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>게임</th>
+              <th>미국</th>
+              <th>인도</th>
+              <th>필리핀</th>
+              <th>전략</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Pokemon GO (100 코인)</td>
+              <td class="money">$0.99</td>
+              <td class="money">₹29 (~$0.35)</td>
+              <td>—</td>
+              <td>PPP 기반 차등 적용</td>
+            </tr>
+            <tr>
+              <td>Candy Crush (10 Gold Bars)</td>
+              <td class="money">$1.99</td>
+              <td>—</td>
+              <td class="money">₱99 (~$1.76)</td>
+              <td>소폭 할인</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Apple 가격 균등화 (Equalized Pricing)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>상세</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>가격 포인트</td>
+              <td><strong>900개</strong> (이전 대비 10배, 2023 확장)</td>
+            </tr>
+            <tr>
+              <td>기준국 선택</td>
+              <td>
+                175개 스토어, 44개 통화 중 <strong>어느 국가든</strong> 기준
+                가능
+              </td>
+            </tr>
+            <tr>
+              <td>자동 조정</td>
+              <td>기준국 가격 고정 + 타국 환율·세금 자동 반영</td>
+            </tr>
+            <tr>
+              <td>최근 조정</td>
+              <td>2025.08.21 — 7개국 가격 재조정</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="rec-box">
+          <div class="title">SSBL 지역 전략</div>
+          <p>
+            <strong>타겟 시장 NA > EU > CN > KR > JP</strong>이므로 USD 기준
+            설정 권장.
+          </p>
+          <p>
+            한국: 확률 공시 의무 준수. 일본: 라운드 넘버 확인. 중국: iOS 전용 +
+            별도 운영.
+          </p>
+        </div>
+
+        <div class="sources">
+          <h4>출처</h4>
+          <ul>
+            <li>
+              <a
+                href="https://business.mistplay.com/resources/global-mobile-gaming-market-trends"
+                target="_blank"
+                >Mistplay — Global Mobile Gaming Trends</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://appsamurai.com/blog/mobile-gaming-in-asia-a-dive-into-japan-south-korea-sea/"
+                target="_blank"
+                >AppSamurai — Mobile Gaming in Asia</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://sensortower.com/blog/southeast-asia-mobile-gaming-2025"
+                target="_blank"
+                >Sensor Tower — SEA Mobile Gaming 2025</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://developer.apple.com/news/?id=e1b1hcmv"
+                target="_blank"
+                >Apple Developer — Price Equalization 2025</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 11: VIP LOYALTY -->
+      <div class="section">
+        <div class="section-number">Section 11</div>
+        <h2>VIP · 로열티 시스템</h2>
+        <p>
+          상위 5% 유저가 매출의 50%를 생성. 배틀패스는 고래 지출에 캡을
+          씌우므로, "무한 지출 깊이"를 제공하는 VIP 시스템이 필요.
+        </p>
+
+        <h3>Whiteout Survival VIP (12레벨)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>VIP 레벨</th>
+              <th>혜택</th>
+              <th>예상 누적 비용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>VIP 1~4</td>
+              <td>기본 자원 생산 부스트, 창고 용량</td>
+              <td class="money">$20~100</td>
+            </tr>
+            <tr>
+              <td>VIP 5~6</td>
+              <td>강화된 일일 보상, 추가 행군 대기열</td>
+              <td class="money">$200~500</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>VIP 7</td>
+              <td><strong>핵심:</strong> 일일 미식 장군 파편, 건설 +10%</td>
+              <td class="money">$1,000~2,000</td>
+            </tr>
+            <tr>
+              <td>VIP 8~11</td>
+              <td>부대 스탯, 속도 부스트 에스컬레이션</td>
+              <td class="money">$3,000~8,000</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>VIP 12</td>
+              <td>프레스티지 상점, 최대 혜택</td>
+              <td class="money">$10,000+</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          총 4,800,000 VIP 포인트. $4.99 팩당 ~2,500 포인트. Ultra Value Monthly
+          Card $5/월.
+        </p>
+
+        <h3>AFK Arena VIP (20레벨)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>구간</th>
+              <th>필요 포인트</th>
+              <th>예상 비용</th>
+              <th>핵심 혜택</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>초기 (1~5)</td>
+              <td class="num">300~5,000</td>
+              <td class="money">$3~50</td>
+              <td>AFK 골드/경험치 부스트</td>
+            </tr>
+            <tr>
+              <td>중반 (6~10)</td>
+              <td class="num">10K~50K</td>
+              <td class="money">$100~310</td>
+              <td>추가 영웅 슬롯, 전투 배속</td>
+            </tr>
+            <tr>
+              <td>상위 (11~15)</td>
+              <td class="num">100K~150K</td>
+              <td class="money">$775~2,325</td>
+              <td>Stargazer 접근</td>
+            </tr>
+            <tr>
+              <td>최대 (16~20)</td>
+              <td class="num">200K+</td>
+              <td class="money">$3,000+</td>
+              <td>최고 등급 혜택</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="rec-box">
+          <div class="title">SSBL 적용 판단</div>
+          <p>리듬게임 특성상 SLG 수준 VIP는 과도. 대신:</p>
+          <p>
+            1) <strong>누적 구매 보상</strong> (마일스톤 $10/$50/$100 도달 시
+            보너스) — 경량 VIP
+          </p>
+          <p>
+            2) <strong>월정액</strong> (Welkin Moon 모델, $4.99/월) — 습관성
+            소비
+          </p>
+          <p>3) <strong>팬 등급</strong> (카드 수집 + 로그인) — IP 팬덤 활용</p>
+        </div>
+
+        <div class="sources">
+          <h4>출처</h4>
+          <ul>
+            <li>
+              <a href="https://www.whiteoutsurvival.wiki/vip/" target="_blank"
+                >Whiteout Survival Wiki — VIP</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://afk-arena.fandom.com/wiki/VIP_Rank"
+                target="_blank"
+                >AFK Arena Wiki — VIP Rank</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://countly.com/blog/identifying-whales-secure-revenue-analytics-for-vip-game-tiers"
+                target="_blank"
+                >Countly — Whale Analytics for VIP Tiers</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 12: SKU ID -->
+      <div class="section">
+        <div class="section-number">Section 12</div>
+        <h2>인앱 ID 발급 전략</h2>
+
+        <h3>Apple vs Google 핵심 차이</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>Apple App Store</th>
+              <th>Google Play</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>가격 체계</strong></td>
+              <td>900+ 고정 티어 ($0.29~$10,000)</td>
+              <td>자유 가격 (최소 $0.99)</td>
+            </tr>
+            <tr>
+              <td><strong>Product ID</strong></td>
+              <td>개발자 계정 전체 글로벌 고유</td>
+              <td>앱 단위 고유</td>
+            </tr>
+            <tr>
+              <td><strong>ID 재사용</strong></td>
+              <td>삭제 후 영구 불가</td>
+              <td>삭제 후 영구 불가</td>
+            </tr>
+            <tr>
+              <td><strong>앱당 최대 SKU</strong></td>
+              <td>10,000개</td>
+              <td>제한 없음</td>
+            </tr>
+            <tr>
+              <td><strong>수수료</strong></td>
+              <td>30% (소규모 15%)</td>
+              <td>15% (첫 $1M), 이후 30%</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="warning-box">
+          <div class="title">Apple Product ID — 치명적 주의사항</div>
+          <p>
+            Apple Product ID는
+            <strong>개발자 계정 전체에서 글로벌 고유</strong>. 게임 A에서
+            <code>gems_100</code>을 만들면 게임 B에서 사용 불가. 반드시 게임
+            식별자 포함.
+          </p>
+        </div>
+
+        <h3>HKD852 권장 ID 네이밍</h3>
+        <div class="rec-box">
+          <div class="title">형식: {게임코드}_{상품유형}_{식별자}</div>
+          <ul style="margin-left: 20px; margin-top: 8px">
+            <li>
+              <code>ssbl_c_diamond_100</code> — SSBL, 소모성, 다이아 100개
+            </li>
+            <li><code>ssbl_nc_removeads</code> — SSBL, 비소모성, 광고 제거</li>
+            <li><code>ssbl_s_vippass</code> — SSBL, 구독, VIP 패스</li>
+            <li><code>wanchai_c_gems_500</code> — WanChai, 소모성, 젬 500개</li>
+          </ul>
+          <p style="margin-top: 12px">
+            <strong>금지:</strong> ID에 가격 포함 (가격 변경 가능, ID 불변)
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 13: KRW STRATEGY -->
+      <div class="section">
+        <div class="section-number">Section 13</div>
+        <h2>KRW 기준통화 전략</h2>
+
+        <h3>전략 A: KRW 유지 + 수동 관리</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>티어</th>
+              <th>KRW</th>
+              <th>USD 환산</th>
+              <th>Apple USD</th>
+              <th>괴리율</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>입문</td>
+              <td class="money">₩1,500</td>
+              <td class="num">$1.03</td>
+              <td class="num">$0.99</td>
+              <td class="num">+4.5%</td>
+            </tr>
+            <tr>
+              <td>소액</td>
+              <td class="money">₩7,500</td>
+              <td class="num">$5.17</td>
+              <td class="num">$4.99</td>
+              <td class="num">+3.6%</td>
+            </tr>
+            <tr>
+              <td>중간</td>
+              <td class="money">₩15,000</td>
+              <td class="num">$10.34</td>
+              <td class="num">$9.99</td>
+              <td class="num">+3.5%</td>
+            </tr>
+            <tr>
+              <td>중고가</td>
+              <td class="money">₩29,000</td>
+              <td class="num">$20.00</td>
+              <td class="num">$19.99</td>
+              <td class="num">+0.05%</td>
+            </tr>
+            <tr>
+              <td>고가</td>
+              <td class="money">₩69,000</td>
+              <td class="num">$47.59</td>
+              <td class="num">$49.99</td>
+              <td class="num">-4.8%</td>
+            </tr>
+            <tr>
+              <td>최고가</td>
+              <td class="money">₩139,000</td>
+              <td class="num">$95.86</td>
+              <td class="num">$99.99</td>
+              <td class="num">-4.1%</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>전략 B: USD 기준 전환 (권장)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>KRW 유지</th>
+              <th>USD 전환</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>국내 가격 안정성</td>
+              <td><span class="tag tag-green">O</span></td>
+              <td><span class="tag tag-red">X</span></td>
+            </tr>
+            <tr>
+              <td>글로벌 관리</td>
+              <td><span class="tag tag-red">X</span> 수동</td>
+              <td><span class="tag tag-green">O</span> 자동</td>
+            </tr>
+            <tr>
+              <td>경쟁사 벤치마크</td>
+              <td><span class="tag tag-red">X</span></td>
+              <td><span class="tag tag-green">O</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="rec-box">
+          <div class="title">결론</div>
+          <p>
+            타겟 시장 NA > EU > CN > KR > JP →
+            <strong>런칭부터 USD 기준 강력 권장</strong>
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 14: D2C -->
+      <div class="section">
+        <div class="section-number">Section 14</div>
+        <h2>D2C 웹샵 전략</h2>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="number">+46%</div>
+            <div class="label">D2C YoY 성장</div>
+          </div>
+          <div class="stat-box">
+            <div class="number">62/100</div>
+            <div class="label">상위 100 게임 D2C</div>
+          </div>
+          <div class="stat-box">
+            <div class="number">80%</div>
+            <div class="label">웹샵 첫 구매 재구매율</div>
+          </div>
+          <div class="stat-box">
+            <div class="number">~25%</div>
+            <div class="label">마진 개선</div>
+          </div>
+        </div>
+
+        <h3>퍼블리셔별 D2C 현황</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>퍼블리셔</th>
+              <th>웹샵</th>
+              <th>보너스</th>
+              <th>효과</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Supercell</td>
+              <td>store.supercell.com</td>
+              <td>~10%</td>
+              <td>수취율 86~87%</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>Scopely</td>
+              <td>Tycoon Club</td>
+              <td>~16%</td>
+              <td>MSF 매출 50%+ D2C 이전</td>
+            </tr>
+            <tr>
+              <td>Century Games</td>
+              <td>pay.whiteoutsurvival.com</td>
+              <td>면세+보너스</td>
+              <td>서드파티 충전 포함</td>
+            </tr>
+            <tr>
+              <td>HoYoverse</td>
+              <td>통합 충전 센터</td>
+              <td>소폭</td>
+              <td>3게임 통합</td>
+            </tr>
+            <tr>
+              <td>Dalcomsoft</td>
+              <td>superstarstore.net</td>
+              <td>보너스</td>
+              <td>SSBL 직접 참조 모델</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>Roblox</td>
+              <td>roblox.com</td>
+              <td>다양</td>
+              <td>D2C = 총 매출의 30%</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="rec-box">
+          <div class="title">SSBL 웹샵</div>
+          <p>
+            DAU 10만+ 시 도입. 인앱 대비 10~16% 보너스. 수수료 30%→3~5%. 순수익
+            25%+ 증가.
+          </p>
+        </div>
+
+        <div class="sources">
+          <h4>출처</h4>
+          <ul>
+            <li>
+              <a
+                href="https://business.mistplay.com/resources/direct-to-consumer-mobile-game-monetization"
+                target="_blank"
+                >Mistplay — D2C Monetization</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://fastspring.com/blog/can-mobile-games-really-achieve-more-than-50-percent-of-revenue-from-d2c/"
+                target="_blank"
+                >FastSpring — D2C 50%+ Revenue</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.stash.gg/blog/supercell-store"
+                target="_blank"
+                >Stash.gg — Supercell Store</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ SECTION 15: SSBL RECOMMENDATION -->
+      <div class="section">
+        <div class="section-number">Section 15</div>
+        <h2>SSBL 가격 정책 종합 권장안</h2>
+
+        <h3>Phase 1: 런칭 SKU (10개)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>카테고리</th>
+              <th>상품명</th>
+              <th>USD</th>
+              <th>KRW</th>
+              <th>Product ID</th>
+              <th>전략 근거</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="6"><strong>다이아몬드</strong></td>
+              <td>다이아 60개</td>
+              <td class="money">$0.99</td>
+              <td class="num">₩1,500</td>
+              <td><code>ssbl_c_dia_060</code></td>
+              <td>입문 앵커</td>
+            </tr>
+            <tr>
+              <td>다이아 300개</td>
+              <td class="money">$4.99</td>
+              <td class="num">₩7,500</td>
+              <td><code>ssbl_c_dia_300</code></td>
+              <td>업계 표준</td>
+            </tr>
+            <tr>
+              <td>다이아 680개</td>
+              <td class="money">$9.99</td>
+              <td class="num">₩15,000</td>
+              <td><code>ssbl_c_dia_680</code></td>
+              <td>중간</td>
+            </tr>
+            <tr>
+              <td>다이아 1,400개</td>
+              <td class="money">$19.99</td>
+              <td class="num">₩29,000</td>
+              <td><code>ssbl_c_dia_1400</code></td>
+              <td>성장 구간</td>
+            </tr>
+            <tr>
+              <td>다이아 3,600개</td>
+              <td class="money">$49.99</td>
+              <td class="num">₩69,000</td>
+              <td><code>ssbl_c_dia_3600</code></td>
+              <td>고가</td>
+            </tr>
+            <tr>
+              <td>다이아 7,500개</td>
+              <td class="money">$99.99</td>
+              <td class="num">₩139,000</td>
+              <td><code>ssbl_c_dia_7500</code></td>
+              <td>고래</td>
+            </tr>
+            <tr style="border-top: 2px solid #d4d0c8">
+              <td rowspan="2"><strong>시즌 패스</strong></td>
+              <td>SSBL Pass</td>
+              <td class="money">$4.99</td>
+              <td class="num">₩7,500</td>
+              <td><code>ssbl_s_pass_std</code></td>
+              <td>Welkin 모델</td>
+            </tr>
+            <tr>
+              <td>SSBL Pass+</td>
+              <td class="money">$9.99</td>
+              <td class="num">₩15,000</td>
+              <td><code>ssbl_s_pass_plus</code></td>
+              <td>프리미엄</td>
+            </tr>
+            <tr style="border-top: 2px solid #d4d0c8">
+              <td><strong>스타터팩</strong></td>
+              <td>웰컴 팩</td>
+              <td class="money">$4.99</td>
+              <td class="num">₩7,500</td>
+              <td><code>ssbl_c_welcome</code></td>
+              <td>LTV 최적화</td>
+            </tr>
+            <tr>
+              <td><strong>광고 제거</strong></td>
+              <td>광고 제거 (영구)</td>
+              <td class="money">$4.99</td>
+              <td class="num">₩7,500</td>
+              <td><code>ssbl_nc_noads</code></td>
+              <td>Beatstar 모델</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="two-col">
+          <div class="rec-box" style="margin: 0">
+            <div class="title">첫 구매 2배 보너스</div>
+            <p>
+              HoYoverse 3게임 검증. 각 다이아 팩 최초 1회 수량 2배. 전 티어 구매
+              유도.
+            </p>
+          </div>
+          <div class="rec-box" style="margin: 0">
+            <div class="title">피기뱅크 $2.99</div>
+            <p>
+              Playrix 전 타이틀 검증. 비과금 전환 최강. Royal Match Endless
+              Treasure 모델.
+            </p>
+          </div>
+        </div>
+
+        <h3>Phase 2: 라이브 서비스 (3개월~)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>카테고리</th>
+              <th>SKU</th>
+              <th>가격대</th>
+              <th>전략</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>이벤트 번들</td>
+              <td class="num">5~10 (회전)</td>
+              <td class="money">$4.99~$49.99</td>
+              <td>시즌 한정, 카운트다운</td>
+            </tr>
+            <tr>
+              <td>콜라보 팩</td>
+              <td class="num">3~5</td>
+              <td class="money">$9.99~$29.99</td>
+              <td>K-POP IP 한정 카드/테마</td>
+            </tr>
+            <tr>
+              <td>피기뱅크</td>
+              <td class="num">1</td>
+              <td class="money">$2.99</td>
+              <td>축적→해제 루프</td>
+            </tr>
+            <tr>
+              <td>월정액</td>
+              <td class="num">1</td>
+              <td class="money">$4.99/월</td>
+              <td>즉시 300다이아 + 일일 보너스</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>총 SKU: <strong>30개 이내</strong> (캐주얼 표준)</p>
+
+        <h3>Phase 3: D2C 웹샵 (DAU 10만+)</h3>
+        <div class="insight-box">
+          <div class="title">D2C 체크리스트</div>
+          <p>
+            1) Dalcomsoft SuperStar Store 참조 · 2) 인앱 대비 10~16% 보너스 · 3)
+            웹 전용 독점 번들 · 4) Stripe/Xsolla (3~5%) · 5) Epic v Apple 판결
+            후 인앱 링크 가능 여부
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ APPENDIX -->
+      <div class="section">
+        <div class="section-number">Appendix</div>
+        <h2>Apple 표준 가격 티어 참조표</h2>
+        <p>Apple Equalized Pricing 주요 매핑 (2026.03 기준 근사값)</p>
+        <table>
+          <thead>
+            <tr>
+              <th>USD</th>
+              <th>KRW</th>
+              <th>JPY</th>
+              <th>EUR</th>
+              <th>GBP</th>
+              <th>CNY</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="money">$0.99</td>
+              <td>₩1,500</td>
+              <td>¥160</td>
+              <td>€1.19</td>
+              <td>£0.99</td>
+              <td>¥8</td>
+            </tr>
+            <tr>
+              <td class="money">$1.99</td>
+              <td>₩3,300</td>
+              <td>¥320</td>
+              <td>€2.29</td>
+              <td>£1.99</td>
+              <td>¥15</td>
+            </tr>
+            <tr>
+              <td class="money">$2.99</td>
+              <td>₩4,400</td>
+              <td>¥480</td>
+              <td>€3.49</td>
+              <td>£2.99</td>
+              <td>¥23</td>
+            </tr>
+            <tr>
+              <td class="money">$4.99</td>
+              <td>₩7,500</td>
+              <td>¥800</td>
+              <td>€5.99</td>
+              <td>£4.99</td>
+              <td>¥38</td>
+            </tr>
+            <tr>
+              <td class="money">$6.99</td>
+              <td>₩9,900</td>
+              <td>¥1,100</td>
+              <td>€7.99</td>
+              <td>£6.99</td>
+              <td>¥53</td>
+            </tr>
+            <tr>
+              <td class="money">$9.99</td>
+              <td>₩15,000</td>
+              <td>¥1,600</td>
+              <td>€11.99</td>
+              <td>£9.99</td>
+              <td>¥78</td>
+            </tr>
+            <tr>
+              <td class="money">$14.99</td>
+              <td>₩22,000</td>
+              <td>¥2,400</td>
+              <td>€17.99</td>
+              <td>£14.99</td>
+              <td>¥118</td>
+            </tr>
+            <tr>
+              <td class="money">$19.99</td>
+              <td>₩29,000</td>
+              <td>¥3,200</td>
+              <td>€23.99</td>
+              <td>£19.99</td>
+              <td>¥158</td>
+            </tr>
+            <tr>
+              <td class="money">$29.99</td>
+              <td>₩45,000</td>
+              <td>¥4,800</td>
+              <td>€35.99</td>
+              <td>£29.99</td>
+              <td>¥233</td>
+            </tr>
+            <tr>
+              <td class="money">$49.99</td>
+              <td>₩69,000</td>
+              <td>¥8,000</td>
+              <td>€59.99</td>
+              <td>£49.99</td>
+              <td>¥388</td>
+            </tr>
+            <tr>
+              <td class="money">$99.99</td>
+              <td>₩139,000</td>
+              <td>¥15,800</td>
+              <td>€119.99</td>
+              <td>£99.99</td>
+              <td>¥768</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr class="elegant" />
+
+      <div class="article-footer">
+        <strong>HKD852 Studio</strong> &middot; 인앱 가격 정책 종합 분석 보고서
+        v2.0<br />
+        2026년 3월 10일 &middot; 비서실 작성<br /><br />
+        분석 대상: Supercell, Playrix, Scopely, Dream Games, Century Games, Peak
+        Games,<br />
+        HoYoverse, Niantic, Com2uS, Dalcomsoft (10개 퍼블리셔, 20+ 게임)<br />
+        추가: Beatstar, Arcaea, Cytus II, Rhythm Hive (리듬게임 4종)<br /><br />
+        데이터: Sensor Tower, Business of Apps, GameRefinery, Naavik,
+        Stash.gg,<br />
+        Deconstructor of Fun, PocketGamer, Mistplay, wappier, 각 게임 Wiki<br /><br />
+        환율은 2026년 3월 기준. Apple/Google Equalized Price와 차이 가능.
+      </div>
+    </div>
+  </body>
+</html>

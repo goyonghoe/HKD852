@@ -1,0 +1,3338 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neon Warden — Concept Exploration Report</title>
+    <style>
+      @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css");
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg: #faf9f6;
+        --bg-card: #ffffff;
+        --bg-hover: #f5f3ef;
+        --text: #2a2a2a;
+        --text-secondary: #666;
+        --text-muted: #999;
+        --border: #e8e5de;
+        --border-light: #f0ede6;
+        --accent: #6c5ce7;
+        --accent-light: #a29bfe;
+        --accent-bg: #f0eefa;
+        --red: #e74c3c;
+        --red-bg: #fef0ee;
+        --green: #27ae60;
+        --green-bg: #eefaf3;
+        --orange: #f39c12;
+        --orange-bg: #fef8e8;
+        --blue: #3498db;
+        --blue-bg: #edf5fd;
+        --teal: #00b894;
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+        --radius: 12px;
+        --radius-sm: 8px;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          "Pretendard",
+          "Noto Sans KR",
+          -apple-system,
+          sans-serif;
+        font-size: 15px;
+        line-height: 1.8;
+        word-break: keep-all;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Layout ── */
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* ── Hero ── */
+      .hero {
+        padding: 80px 0 48px;
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 0;
+      }
+      .hero-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 20px;
+      }
+      .hero h1 {
+        font-size: 48px;
+        font-weight: 800;
+        line-height: 1.15;
+        color: var(--text);
+        margin-bottom: 16px;
+        letter-spacing: -1.5px;
+      }
+      .hero .subtitle {
+        font-size: 18px;
+        font-weight: 400;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto 24px;
+        line-height: 1.6;
+      }
+      .hero .meta {
+        font-size: 12px;
+        color: var(--text-muted);
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .hero .meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      /* ── TOC ── */
+      .toc {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 28px 32px;
+        margin: 40px 0;
+        box-shadow: var(--shadow-sm);
+      }
+      .toc h2 {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 16px;
+      }
+      .toc ol {
+        list-style: none;
+        counter-reset: toc;
+      }
+      .toc ol li {
+        counter-increment: toc;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--border-light);
+      }
+      .toc ol li:last-child {
+        border-bottom: none;
+      }
+      .toc ol li a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: color 0.15s;
+      }
+      .toc ol li a:hover {
+        color: var(--accent);
+      }
+      .toc ol li a::before {
+        content: counter(toc, decimal-leading-zero);
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--accent);
+        width: 28px;
+        flex-shrink: 0;
+      }
+
+      /* ── Section ── */
+      .section {
+        padding: 56px 0 40px;
+        border-bottom: 1px solid var(--border);
+      }
+      .section:last-of-type {
+        border-bottom: none;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .section-number {
+        font-size: 36px;
+        font-weight: 800;
+        color: var(--accent-light);
+        line-height: 1;
+        flex-shrink: 0;
+      }
+      .section-title {
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: -0.5px;
+      }
+
+      h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-top: 32px;
+        margin-bottom: 12px;
+        color: var(--text);
+      }
+
+      p {
+        margin-bottom: 14px;
+      }
+
+      /* ── Cards ── */
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+        margin: 16px 0;
+        box-shadow: var(--shadow-sm);
+        transition:
+          box-shadow 0.2s,
+          transform 0.2s;
+      }
+      .card:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateY(-1px);
+      }
+      .card-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* ── Grid ── */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 16px 0;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        margin: 16px 0;
+      }
+      .grid-5 {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        margin: 16px 0;
+      }
+
+      @media (max-width: 720px) {
+        .grid-2,
+        .grid-3,
+        .grid-5 {
+          grid-template-columns: 1fr;
+        }
+        .hero h1 {
+          font-size: 32px;
+        }
+        .section-title {
+          font-size: 22px;
+        }
+        .section-number {
+          font-size: 28px;
+        }
+        .funnel {
+          flex-direction: column;
+        }
+        .funnel-stage {
+          width: 100% !important;
+        }
+      }
+
+      /* ── Tags & Badges ── */
+      .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+      .badge-pass {
+        background: var(--green-bg);
+        color: var(--green);
+      }
+      .badge-fail {
+        background: var(--red-bg);
+        color: var(--red);
+      }
+      .badge-caution {
+        background: var(--orange-bg);
+        color: var(--orange);
+      }
+      .badge-deep {
+        background: var(--accent-bg);
+        color: var(--accent);
+      }
+      .badge-shallow {
+        background: #f5f5f5;
+        color: #888;
+      }
+      .badge-kill {
+        background: var(--red-bg);
+        color: var(--red);
+      }
+      .badge-adapt {
+        background: var(--blue-bg);
+        color: var(--blue);
+      }
+      .badge-critical {
+        background: var(--red-bg);
+        color: var(--red);
+        border: 1px solid var(--red);
+      }
+      .badge-high {
+        background: var(--orange-bg);
+        color: #e67e22;
+      }
+      .badge-medium {
+        background: #fef8e8;
+        color: #d4a017;
+      }
+
+      /* ── Tables ── */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+        font-size: 13px;
+      }
+      th,
+      td {
+        padding: 10px 14px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-light);
+      }
+      th {
+        font-weight: 700;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        background: #f9f8f5;
+      }
+      tr:hover td {
+        background: var(--bg-hover);
+      }
+
+      /* ── Pull Quote ── */
+      .pull-quote {
+        border-left: 3px solid var(--accent);
+        padding: 12px 0 12px 24px;
+        margin: 28px 0;
+      }
+      .pull-quote p {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+      .pull-quote cite {
+        font-size: 12px;
+        font-style: normal;
+        color: var(--text-muted);
+      }
+
+      /* ── Callout ── */
+      .callout {
+        border-radius: var(--radius-sm);
+        padding: 18px 20px;
+        margin: 20px 0;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      .callout-accent {
+        background: var(--accent-bg);
+        border-left: 3px solid var(--accent);
+      }
+      .callout-red {
+        background: var(--red-bg);
+        border-left: 3px solid var(--red);
+      }
+      .callout-green {
+        background: var(--green-bg);
+        border-left: 3px solid var(--green);
+      }
+      .callout-orange {
+        background: var(--orange-bg);
+        border-left: 3px solid var(--orange);
+      }
+      .callout strong {
+        font-weight: 700;
+      }
+
+      /* ── Toggle ── */
+      .toggle {
+        margin: 12px 0;
+      }
+      .toggle-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 10px 16px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 14px;
+        user-select: none;
+        transition: background 0.15s;
+      }
+      .toggle-header:hover {
+        background: var(--bg-hover);
+      }
+      .toggle-arrow {
+        display: inline-block;
+        transition: transform 0.2s;
+        font-size: 10px;
+        color: var(--text-muted);
+      }
+      .toggle-content {
+        display: none;
+        padding: 16px 20px;
+        border: 1px solid var(--border);
+        border-top: none;
+        border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        background: var(--bg-card);
+        font-size: 14px;
+      }
+      .toggle.open .toggle-content {
+        display: block;
+      }
+      .toggle.open .toggle-arrow {
+        transform: rotate(90deg);
+      }
+
+      /* ── Tabs ── */
+      .tabs {
+        margin: 20px 0;
+      }
+      .tab-bar {
+        display: flex;
+        border-bottom: 2px solid var(--border);
+        gap: 0;
+        overflow-x: auto;
+      }
+      .tab-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        background: none;
+        color: var(--text-muted);
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        transition: all 0.15s;
+        white-space: nowrap;
+        font-family: inherit;
+      }
+      .tab-btn:hover {
+        color: var(--text);
+      }
+      .tab-btn.active {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+      }
+      .tab-panel {
+        display: none;
+        padding: 20px 0;
+      }
+      .tab-panel.active {
+        display: block;
+      }
+
+      /* ── SVG Charts ── */
+      .chart-container {
+        margin: 24px 0;
+        text-align: center;
+      }
+      .chart-container svg {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* ── Progress Bar ── */
+      .progress-bar {
+        height: 8px;
+        background: var(--border-light);
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 6px 0;
+      }
+      .progress-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.6s ease;
+      }
+
+      /* ── Funnel ── */
+      .funnel {
+        display: flex;
+        align-items: stretch;
+        gap: 0;
+        margin: 24px 0;
+      }
+      .funnel-stage {
+        flex: 1;
+        text-align: center;
+        padding: 20px 12px;
+        position: relative;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+      }
+      .funnel-stage:first-child {
+        border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+      }
+      .funnel-stage:last-child {
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      }
+      .funnel-stage + .funnel-stage {
+        border-left: none;
+      }
+      .funnel-number {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--accent);
+      }
+      .funnel-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 4px;
+      }
+      .funnel-arrow {
+        display: flex;
+        align-items: center;
+        color: var(--text-muted);
+        font-size: 18px;
+        padding: 0 4px;
+      }
+
+      /* ── Stat Box ── */
+      .stat-box {
+        text-align: center;
+        padding: 20px 16px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+      .stat-value {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--accent);
+        line-height: 1.1;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: var(--text-muted);
+        font-weight: 500;
+        margin-top: 6px;
+      }
+
+      /* ── Score Meter ── */
+      .score-meter {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 8px 0;
+      }
+      .score-meter-label {
+        width: 100px;
+        font-size: 13px;
+        font-weight: 600;
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .score-meter-bar {
+        flex: 1;
+        height: 12px;
+        background: var(--border-light);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .score-meter-fill {
+        height: 100%;
+        border-radius: 6px;
+      }
+      .score-meter-value {
+        width: 40px;
+        font-size: 14px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      /* ── Timeline ── */
+      .timeline {
+        position: relative;
+        margin: 24px 0;
+        padding-left: 28px;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 4px;
+        bottom: 4px;
+        width: 2px;
+        background: var(--border);
+      }
+      .timeline-item {
+        position: relative;
+        margin-bottom: 24px;
+      }
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -24px;
+        top: 6px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid var(--bg);
+        box-shadow: 0 0 0 2px var(--accent-light);
+      }
+      .timeline-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--accent);
+        text-transform: uppercase;
+      }
+      .timeline-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin: 2px 0 4px;
+      }
+      .timeline-desc {
+        font-size: 13px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      /* ── Creature Role Cards ── */
+      .role-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 18px;
+        text-align: center;
+      }
+      .role-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 10px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+      }
+      .role-name {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .role-desc {
+        font-size: 11px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      /* ── Footer ── */
+      .footer {
+        padding: 40px 0;
+        text-align: center;
+        font-size: 12px;
+        color: var(--text-muted);
+        border-top: 1px solid var(--border);
+        margin-top: 40px;
+      }
+
+      /* ── Verdict Banner ── */
+      .verdict-banner {
+        background: linear-gradient(135deg, #f0eefa 0%, #e8f4fd 100%);
+        border: 2px solid var(--accent-light);
+        border-radius: var(--radius);
+        padding: 32px;
+        margin: 24px 0;
+        text-align: center;
+      }
+      .verdict-banner .verdict-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .verdict-banner .verdict-text {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      .verdict-banner .verdict-sub {
+        font-size: 14px;
+        color: var(--text-secondary);
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      /* ── Comparison Chart ── */
+      .comparison-row {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border-light);
+        font-size: 13px;
+      }
+      .comparison-label {
+        width: 140px;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      .comparison-bars {
+        flex: 1;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .comparison-bar-vs,
+      .comparison-bar-nw {
+        height: 20px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        font-size: 10px;
+        font-weight: 700;
+        color: #fff;
+        min-width: 30px;
+      }
+      .comparison-bar-vs {
+        background: #e74c3c;
+      }
+      .comparison-bar-nw {
+        background: var(--accent);
+      }
+
+      /* ── Emoji proxy ── */
+      .icon-circle {
+        display: inline-flex;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 800;
+        color: #fff;
+        flex-shrink: 0;
+      }
+
+      .divider {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 32px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============================================================ -->
+    <!-- HERO -->
+    <!-- ============================================================ -->
+    <div class="container">
+      <div class="hero">
+        <div class="hero-label">ShamShuiPo Concept Exploration Report</div>
+        <h1>Neon Warden</h1>
+        <div class="subtitle">
+          VS 클론에서 벗어나 "에코시스템 큐레이션 로그라이크"에 도달하기까지 --
+          3라운드 컨셉 탐색의 전체 기록
+        </div>
+        <div class="meta">
+          <span>HKD852 Studio</span>
+          <span>2026-03-14</span>
+          <span>12개 분석 문서 종합</span>
+        </div>
+      </div>
+
+      <!-- TOC -->
+      <div class="toc">
+        <h2>Contents</h2>
+        <ol>
+          <li><a href="#s1">VS가 왜 중독적인가 -- 5대 중독 엔진 해부</a></li>
+          <li><a href="#s2">CEO Directive: Selection Only</a></li>
+          <li><a href="#s3">3라운드 컨셉 필터링 여정</a></li>
+          <li><a href="#s4">Neon Warden -- 최종 컨셉 해설</a></li>
+          <li><a href="#s5">밸런스 모델과 수치 설계</a></li>
+          <li><a href="#s6">Red Team 리뷰 -- 냉정한 약점 분석</a></li>
+          <li><a href="#s7">Next Steps: MVP 제안과 의사결정 포인트</a></li>
+        </ol>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- EXECUTIVE SUMMARY -->
+      <!-- ============================================================ -->
+      <div
+        class="section"
+        style="padding: 36px 0; border-bottom: 2px solid var(--accent-light)"
+      >
+        <h3
+          style="
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 16px;
+          "
+        >
+          Executive Summary
+        </h3>
+        <div class="callout callout-accent" style="margin: 0">
+          <p style="margin-bottom: 10px">
+            <strong>현재 상황:</strong> ShamShuiPo의 Neon Survivors는 Vampire
+            Survivors의 직접적 클론입니다. 한 손가락 조이스틱, 자동 공격,
+            Kill-Collect-Upgrade 루프 — 이 모든 것이 VS의 공식을 그대로
+            따릅니다. 2024-2026년 사이 200개 이상의 VS 클론이 출시되었고, 차별화
+            없는 클론은 시장에서 사라지고 있습니다.
+          </p>
+          <p style="margin-bottom: 10px">
+            <strong>탐색 결과:</strong> 3라운드, 17개 후보 평가를 거쳐
+            <strong>"Neon Warden"</strong> — 에코시스템 큐레이션 로그라이크 — 을
+            최종 선정. 선행 게임이 없는 완전히 새로운 장르입니다.
+          </p>
+          <p style="margin-bottom: 10px">
+            <strong>Red Team 판정:</strong> 컨셉 9/10, 모바일 실행 품질 6/10.
+            <strong>CONDITIONAL PASS</strong> — 단순화 필수.
+          </p>
+          <p style="margin-bottom: 10px">
+            <strong>핵심 리스크:</strong> 인지 부하 과다, 관전 구간
+            과도(66-80%), 시각적 흥분 부족.
+          </p>
+          <p style="margin-bottom: 10px">
+            <strong>솔직한 평가:</strong> Red Team은 "재미없을 수도
+            있다(possibly not fun to play)"고 직접 지적했습니다. 에코시스템
+            큐레이션이 모바일에서 충분한 도파민을 제공하는지는 프로토타입 전까지
+            검증 불가능합니다. 컨셉의 독창성이 높다는 것이 재미를 보장하지는
+            않습니다.
+          </p>
+          <p style="margin-bottom: 0">
+            <strong>권고:</strong> MVP(3역할/10생물/5분)로 2-3주 내 프로토타입.
+            페이퍼 프로토 먼저. "다시 하고 싶은가?" 테스트가 Go/No-Go 결정 기준.
+          </p>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- SECTION 1: VS 엔진 해부 -->
+      <!-- ============================================================ -->
+      <div class="section" id="s1">
+        <div class="section-header">
+          <div class="section-number">01</div>
+          <div class="section-title">Vampire Survivors는 왜 중독적인가</div>
+        </div>
+
+        <div
+          class="callout"
+          style="
+            background: var(--red-bg);
+            border-left: 3px solid var(--red);
+            margin-bottom: 24px;
+          "
+        >
+          <strong>문제 인식:</strong> ShamShuiPo의 현재 게임 Neon Survivors는
+          VS의 직접적 클론입니다. 한 손가락 조이스틱 이동, 자동 공격,
+          Kill→Collect→Upgrade 루프, 레벨업 3개 중 1개 선택 — 모든 핵심 메카닉이
+          VS와 동일합니다. 3개 신규 메카닉(네온 간판 콤보, 대배당 버프 스테이션,
+          크로노핵 슬로우모션)을 추가했지만, 에이전트 팀 분석 결과 이들은 "VS
+          위에 데코레이션을 얹은 것"에 불과했습니다. 완전히 새로운 코어 루프가
+          필요합니다.
+        </div>
+
+        <p>
+          Neon Warden 컨셉에 도달하기 위해 가장 먼저 한 작업은 VS(Vampire
+          Survivors)의 성공 원인을 표면적 메카닉이 아닌
+          <strong>심리적 원리</strong> 수준에서 해부하는 것이었습니다. 분석 결과
+          5개의 "중독 엔진"이 식별되었고, 이것이 이후 모든 컨셉 평가의 기준이
+          됩니다.
+        </p>
+
+        <div class="grid-5">
+          <div class="stat-box">
+            <div class="stat-value" style="font-size: 20px; color: #e74c3c">
+              E1
+            </div>
+            <div class="stat-label">압축된 영웅 서사</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="font-size: 20px; color: #f39c12">
+              E2
+            </div>
+            <div class="stat-label">통제된 무작위성</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="font-size: 20px; color: #27ae60">
+              E3
+            </div>
+            <div class="stat-label">시스템 서프라이즈</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="font-size: 20px; color: #3498db">
+              E4
+            </div>
+            <div class="stat-label">감각 과부하</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="font-size: 20px; color: #6c5ce7">
+              E5
+            </div>
+            <div class="stat-label">누적적 마스터리</div>
+          </div>
+        </div>
+
+        <div class="toggle">
+          <div
+            class="toggle-header"
+            onclick="this.parentElement.classList.toggle('open')"
+          >
+            <span class="toggle-arrow">&#9654;</span>
+            5대 엔진 상세 설명 (클릭하여 펼치기)
+          </div>
+          <div class="toggle-content">
+            <table>
+              <thead>
+                <tr>
+                  <th>엔진</th>
+                  <th>표면적 이해</th>
+                  <th>심층 원리</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>E1 압축 영웅 서사</strong></td>
+                  <td>"약한 시작, 강한 끝"</td>
+                  <td>
+                    한 세션 안에서 플레이어와 시스템의 관계가
+                    <strong>역전</strong>되어야 함. 처음엔 시스템이 플레이어를
+                    위협하고, 끝에는 플레이어가 시스템을 압도
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>E2 통제된 무작위</strong></td>
+                  <td>"3개 중 1개 선택"</td>
+                  <td>
+                    플레이어가 자기 선택의 영향력을
+                    <strong>실제보다 높게</strong> 인식해야 함. 시스템이 제약된
+                    랜덤을 생성하면 플레이어는 "내가 이 빌드를 만들었다"고
+                    느끼는 것
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>E3 시스템 서프라이즈</strong></td>
+                  <td>"아이템 콤보"</td>
+                  <td>
+                    게임이 플레이어의 멘탈 모델을
+                    <strong>주기적으로 위반</strong>해야 함. "이것도 가능해?"
+                    하는 순간이 모델 수정을 유발하고, 호기심을 갱신
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>E4 감각 과부하</strong></td>
+                  <td>"화면 가득 폭발"</td>
+                  <td>
+                    분석적 사고를 <strong>압도</strong>하여 패턴 인식/몰입
+                    상태로 전환. 분석하는 뇌는 비평가, 패턴 인식 뇌는 참여자
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>E5 누적 마스터리</strong></td>
+                  <td>"캐릭터 해금"</td>
+                  <td>
+                    실패를 <strong>투자로 재해석</strong>. 모든 실패한 런이 미래
+                    런을 "다르게" (단순히 더 쉽게가 아니라) 만들어야 함
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="callout callout-accent">
+              <strong>핵심 통찰:</strong> 5대 엔진은 하나의 공통 기반을
+              공유합니다 -- "플레이어가 완전히 이해하지 못하는 시스템을 구축한
+              뒤, 그 시스템이 자율적으로 동작하는 것을 지켜보는 것." 내가 설계한
+              것과 실제 결과 사이의 간극에서 모든 엔진이 점화됩니다.
+            </div>
+          </div>
+        </div>
+
+        <h3>제거 가능한 것 vs. 필수 불가결한 것</h3>
+        <div class="grid-2">
+          <div class="card" style="border-left: 3px solid var(--green)">
+            <div class="card-title">제거 가능</div>
+            <p style="font-size: 13px; margin-bottom: 0">
+              자동 공격, 탑다운 시점, 30분 세션 길이, 조이스틱 이동, 픽셀 아트
+              스타일, 특정 장르 표면(뱀파이어/고딕)
+            </p>
+          </div>
+          <div class="card" style="border-left: 3px solid var(--red)">
+            <div class="card-title">필수 불가결 (15개 최소 요소)</div>
+            <p style="font-size: 13px; margin-bottom: 0">
+              압축된 성장, 랜덤 선택, 콤보 발견, 감각 만족, 메타 진행, 클리어한
+              피드백 루프, 원핸드 조작 가능성 등
+            </p>
+          </div>
+        </div>
+
+        <h3>장르 호환성 매트릭스</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>조합 장르</th>
+              <th>VS 엔진 호환도</th>
+              <th>판정</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>타워 디펜스</td>
+              <td>높음 (E1, E2, E4 자연 보존)</td>
+              <td><span class="badge badge-pass">호환</span></td>
+            </tr>
+            <tr>
+              <td>오토배틀러</td>
+              <td>높음 (E2, E3, E5 강점)</td>
+              <td><span class="badge badge-pass">호환</span></td>
+            </tr>
+            <tr>
+              <td>덱빌딩</td>
+              <td>매우 높음 (Balatro가 증명)</td>
+              <td><span class="badge badge-pass">호환</span></td>
+            </tr>
+            <tr>
+              <td>순수 턴제</td>
+              <td>낮음 (E4 감각 과부하 불가)</td>
+              <td><span class="badge badge-caution">위험</span></td>
+            </tr>
+            <tr>
+              <td>PvP</td>
+              <td>낮음 (밸런스 부담 + 세션 길이 고정 어려움)</td>
+              <td><span class="badge badge-caution">위험</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- SECTION 2: CEO DIRECTIVE -->
+      <!-- ============================================================ -->
+      <div class="section" id="s2">
+        <div class="section-header">
+          <div class="section-number">02</div>
+          <div class="section-title">CEO Directive: "Selection Only"</div>
+        </div>
+
+        <div class="pull-quote">
+          <p>
+            "조작 제로. 선택만. Anticipation + Selection에 집중하라. 클론은 절대
+            안 된다."
+          </p>
+          <cite>-- CEO Directive, 2026-03-14</cite>
+        </div>
+
+        <p>
+          VS 엔진 해부를 마친 뒤, CEO는 결정적 방향을 제시했습니다. 기존 VS
+          클론(WanChai)이 아닌 완전히 새로운 게임을 만들되,
+          <strong>조이스틱 조작을 완전히 제거</strong>하고 오직 "선택"만으로
+          게임을 구성하라는 것이었습니다.
+        </p>
+
+        <h3>Selection-Only 게임의 성공 사례 분석</h3>
+        <p>
+          이 방향의 타당성을 검증하기 위해 6개 Selection-Only 게임을 깊이
+          분석했습니다.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>게임</th>
+              <th>선택 메카닉</th>
+              <th>핵심 발견</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Balatro</strong></td>
+              <td>포커 핸드 + 조커 선택</td>
+              <td>기존 지식(포커) 위에 새 시스템 얹기. 3초 결정</td>
+            </tr>
+            <tr>
+              <td><strong>Slay the Spire</strong></td>
+              <td>카드 선택 + 경로 선택</td>
+              <td>선택의 결과가 3-10턴 뒤에 발현. 지연된 보상</td>
+            </tr>
+            <tr>
+              <td><strong>TFT</strong></td>
+              <td>유닛 드래프트 + 배치</td>
+              <td>선택 후 관전. 사회적 비교가 관전 지속력 제공</td>
+            </tr>
+            <tr>
+              <td><strong>Luck Be a Landlord</strong></td>
+              <td>슬롯 심볼 큐레이션</td>
+              <td>도박 메카닉의 기대감 극대화</td>
+            </tr>
+            <tr>
+              <td><strong>Dicey Dungeons</strong></td>
+              <td>주사위 배분</td>
+              <td>제한된 자원의 최적 분배 퍼즐</td>
+            </tr>
+            <tr>
+              <td><strong>VS (재분석)</strong></td>
+              <td>레벨업 선택</td>
+              <td>VS 자체가 90% Selection 게임이라는 놀라운 발견</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-accent">
+          <strong>Selection-Only의 황금 비율:</strong> 3가지 옵션, 3초 결정,
+          즉각적 피드백. 기대감(Anticipation) = 지연 x 불확실성 x 연출 품질.
+          "결과를 기다리는 시간"이 곧 게임의 재미.
+        </div>
+
+        <h3>Anticipation 5단계 스펙트럼</h3>
+        <div class="funnel">
+          <div class="funnel-stage">
+            <div class="funnel-number" style="font-size: 18px">1</div>
+            <div class="funnel-label">Selection</div>
+            <div
+              style="
+                font-size: 11px;
+                color: var(--text-secondary);
+                margin-top: 4px;
+              "
+            >
+              선택하는 순간
+            </div>
+          </div>
+          <div class="funnel-arrow">&rarr;</div>
+          <div class="funnel-stage">
+            <div class="funnel-number" style="font-size: 18px">2</div>
+            <div class="funnel-label">Accumulation</div>
+            <div
+              style="
+                font-size: 11px;
+                color: var(--text-secondary);
+                margin-top: 4px;
+              "
+            >
+              선택이 쌓이는 구간
+            </div>
+          </div>
+          <div class="funnel-arrow">&rarr;</div>
+          <div class="funnel-stage">
+            <div class="funnel-number" style="font-size: 18px">3</div>
+            <div class="funnel-label">Premonition</div>
+            <div
+              style="
+                font-size: 11px;
+                color: var(--text-secondary);
+                margin-top: 4px;
+              "
+            >
+              결과가 올 것 같은 예감
+            </div>
+          </div>
+          <div class="funnel-arrow">&rarr;</div>
+          <div class="funnel-stage">
+            <div class="funnel-number" style="font-size: 18px">4</div>
+            <div class="funnel-label">Trigger</div>
+            <div
+              style="
+                font-size: 11px;
+                color: var(--text-secondary);
+                margin-top: 4px;
+              "
+            >
+              결과 발현의 시작
+            </div>
+          </div>
+          <div class="funnel-arrow">&rarr;</div>
+          <div class="funnel-stage">
+            <div class="funnel-number" style="font-size: 18px">5</div>
+            <div class="funnel-label">Explosion</div>
+            <div
+              style="
+                font-size: 11px;
+                color: var(--text-secondary);
+                margin-top: 4px;
+              "
+            >
+              결과의 폭발적 연출
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- SECTION 3: 3라운드 필터링 -->
+      <!-- ============================================================ -->
+      <div class="section" id="s3">
+        <div class="section-header">
+          <div class="section-number">03</div>
+          <div class="section-title">3라운드 컨셉 필터링 여정</div>
+        </div>
+
+        <p>
+          다수의 소스 문서, 17개 후보 컨셉, 3라운드의 필터링을 거쳐 최종 Neon
+          Warden에 도달했습니다. 각 라운드의 진행 과정과 탈락/생존 이유를
+          기록합니다.
+        </p>
+
+        <!-- Funnel overview -->
+        <div class="funnel" style="margin: 32px 0">
+          <div class="funnel-stage" style="background: var(--accent-bg)">
+            <div class="funnel-number">17</div>
+            <div class="funnel-label">총 후보</div>
+          </div>
+          <div class="funnel-arrow">&rarr;</div>
+          <div class="funnel-stage">
+            <div class="funnel-number">5</div>
+            <div class="funnel-label">Round 1</div>
+          </div>
+          <div class="funnel-arrow">&rarr;</div>
+          <div class="funnel-stage">
+            <div class="funnel-number">5</div>
+            <div class="funnel-label">Round 2</div>
+          </div>
+          <div class="funnel-arrow">&rarr;</div>
+          <div class="funnel-stage">
+            <div class="funnel-number">7</div>
+            <div class="funnel-label">Round 3</div>
+          </div>
+          <div class="funnel-arrow">&rarr;</div>
+          <div class="funnel-stage" style="background: var(--green-bg)">
+            <div class="funnel-number">1</div>
+            <div class="funnel-label">최종 선정</div>
+          </div>
+        </div>
+        <p
+          style="
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: -8px;
+          "
+        >
+          * Round 3에서 후보가 7개로 증가한 이유: Round 1-2의 교훈을 반영하여
+          완전히 새로운 7개 컨셉을 처음부터 설계
+        </p>
+
+        <!-- ROUND 1 -->
+        <div class="tabs">
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab(event, 'round1')">
+              Round 1: 하이브리드
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'round2')">
+              Round 2: Selection Filter
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'round3')">
+              Round 3: Novel + 최종 필터
+            </button>
+          </div>
+
+          <div class="tab-panel active" id="round1">
+            <p>
+              <strong>SPEC-035</strong>: VS 5대 엔진 + 홍콩 문화를 결합한 5개
+              하이브리드 컨셉 설계. 각 컨셉에 10분 런 시뮬레이션, 엔진 적합도,
+              리스크 평가 수행.
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>컨셉</th>
+                  <th>장르 조합</th>
+                  <th>차별화</th>
+                  <th>Selection-Only?</th>
+                  <th>판정</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Mahjong Survivor</strong></td>
+                  <td>마작 + VS</td>
+                  <td>높음</td>
+                  <td>80% 보존 가능</td>
+                  <td><span class="badge badge-adapt">ADAPT</span></td>
+                </tr>
+                <tr>
+                  <td>Neon Circuit</td>
+                  <td>프로그래밍 + VS</td>
+                  <td>중간</td>
+                  <td>불가 (실시간 배선)</td>
+                  <td><span class="badge badge-kill">KILL</span></td>
+                </tr>
+                <tr>
+                  <td>Midnight Kitchen</td>
+                  <td>쿠킹 + VS</td>
+                  <td>중간</td>
+                  <td>대규모 개조 필요</td>
+                  <td><span class="badge badge-adapt">ADAPT(major)</span></td>
+                </tr>
+                <tr>
+                  <td>Beat Crasher</td>
+                  <td>리듬 + VS</td>
+                  <td>높음</td>
+                  <td>불가 (타이밍 핵심)</td>
+                  <td><span class="badge badge-kill">KILL</span></td>
+                </tr>
+                <tr>
+                  <td>Neon Stack</td>
+                  <td>스택빌딩 + VS</td>
+                  <td>중간</td>
+                  <td>대규모 개조 필요</td>
+                  <td><span class="badge badge-adapt">ADAPT(major)</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="callout callout-orange">
+              <strong>Round 1 교훈:</strong> 기존 게임 장르를 VS에 "볼트온"하면
+              5대 엔진 중 2-3개가 인위적으로 붙는다. "깊은 융합(Deep Fusion)"이
+              아닌 "표면 접합(Surface Bolting)"이 된다. CEO의 "Selection Only"
+              필터를 적용하자 5개 중 2개 즉사, 2개 대규모 개조 필요.
+            </div>
+          </div>
+
+          <div class="tab-panel" id="round2">
+            <p>
+              <strong>SPEC-036</strong>: CEO Directive를 완전히 수용하고,
+              Anticipation-Resolution 프레임워크 위에 5개 신규 컨셉을 설계.
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>컨셉</th>
+                  <th>핵심 메카닉</th>
+                  <th>장점</th>
+                  <th>문제점</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Neon Slots</strong></td>
+                  <td>슬롯 릴 큐레이션</td>
+                  <td>기대감 극대화, 도박 감성</td>
+                  <td>Luck Be a Landlord와 유사</td>
+                </tr>
+                <tr>
+                  <td><strong>Neon Jury</strong></td>
+                  <td>재판관 판결 + 여파</td>
+                  <td>서사적 깊이, 도덕적 딜레마</td>
+                  <td>VS 엔진 E4(감각 과부하) 부재</td>
+                </tr>
+                <tr>
+                  <td><strong>Neon Fortune</strong></td>
+                  <td>점술사 예측 + 검증</td>
+                  <td>예측의 쾌감</td>
+                  <td>수동적 관전 과다</td>
+                </tr>
+                <tr>
+                  <td><strong>Neon Architect</strong></td>
+                  <td>도시 구역 배치</td>
+                  <td>공간적 전략</td>
+                  <td>시뮬시티류와 유사</td>
+                </tr>
+                <tr>
+                  <td><strong>Neon Heist</strong></td>
+                  <td>팀 편성 + 침투 관전</td>
+                  <td>긴장감 있는 관전</td>
+                  <td>Into the Breach와 유사</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="callout callout-orange">
+              <strong>Round 2 교훈:</strong> "기존 게임 X + 로그라이크 래퍼"의
+              함정에 여전히 빠짐. Slots=LBAL, Jury=Reigns, Architect=SimCity.
+              근본적으로 새로운 메카닉이 필요하다는 결론.
+            </div>
+          </div>
+
+          <div class="tab-panel" id="round3">
+            <p>
+              <strong>SPEC-037</strong>: 기존 게임 레퍼런스를 완전히 배제하고,
+              <strong>추상적 원리</strong>에서 출발한 7개 컨셉 + Clone Audit +
+              Fusion Depth Analysis.
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>컨셉</th>
+                  <th>핵심 아이디어</th>
+                  <th style="width: 80px">Clone</th>
+                  <th style="width: 80px">Fusion</th>
+                  <th>최종</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Neon Underwriter</strong></td>
+                  <td>보험 리스크 가격 책정</td>
+                  <td><span class="badge badge-pass">3/10</span></td>
+                  <td>7/10</td>
+                  <td>후보</td>
+                </tr>
+                <tr>
+                  <td>Neon Bazaar</td>
+                  <td>시장 가격 균형</td>
+                  <td><span class="badge badge-caution">5/10</span></td>
+                  <td>6/10</td>
+                  <td>탈락</td>
+                </tr>
+                <tr>
+                  <td><strong>Neon Triage</strong></td>
+                  <td>응급 분류 의사결정</td>
+                  <td><span class="badge badge-caution">4/10</span></td>
+                  <td>8/10 DEEP</td>
+                  <td>후보</td>
+                </tr>
+                <tr>
+                  <td>Neon Forecast</td>
+                  <td>점술 해석 + 자원 투자</td>
+                  <td><span class="badge badge-pass">3/10</span></td>
+                  <td>7/10</td>
+                  <td>후보</td>
+                </tr>
+                <tr>
+                  <td>Neon Editor</td>
+                  <td>편집장 뉴스 편집</td>
+                  <td><span class="badge badge-fail">6/10</span></td>
+                  <td>6/10 SHALLOW</td>
+                  <td>탈락</td>
+                </tr>
+                <tr>
+                  <td><strong>Neon Catalyst</strong></td>
+                  <td>화학 촉매 반응 설계</td>
+                  <td><span class="badge badge-caution">4/10</span></td>
+                  <td>9/10 DEEP</td>
+                  <td>후보</td>
+                </tr>
+                <tr style="background: var(--accent-bg)">
+                  <td><strong>Neon Warden</strong></td>
+                  <td>생태계 큐레이션</td>
+                  <td><span class="badge badge-pass">3/10</span></td>
+                  <td>8/10 DEEP</td>
+                  <td style="font-weight: 800; color: var(--accent)">선정</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="callout callout-accent" style="margin: 16px 0">
+              <strong
+                >왜 Catalyst(융합 9/10)가 아닌 Warden(융합 8/10)인가?</strong
+              ><br />
+              Fusion Depth 분석에서는 Neon Catalyst가 가장 높은 점수(9/10)를
+              받았고, 분석가의 1순위 권고였습니다. 그러나 최종 선정에서는 세
+              가지 요인을 종합했습니다: (1) Warden의 Clone Risk가 더 낮음(3 vs 4
+              — Catalyst는 Rogue Voltage(2025-2026)와 경쟁 우려), (2) 구룡성채의
+              문화적 공명이 가장 깊음 — 메카닉 자체가 구룡성의 역사적
+              본질(자치적 생태계), (3) 이머전트 복잡도가 가장 높아 리플레이
+              수명이 가장 김. 참고: Catalyst와 Triage는 차순위 후보로 별도
+              프로토타입 검토 가능합니다.
+            </div>
+
+            <h3>최종 선정 근거: 3중 필터 통과</h3>
+            <div class="grid-3">
+              <div class="card" style="border-top: 3px solid var(--green)">
+                <div class="card-title">Clone Audit</div>
+                <p style="font-size: 13px">
+                  <strong>3/10</strong> -- "가장 진정으로 새로운 컨셉." Papers
+                  Please와의 비교는 표면적. 직접적 선조 게임이 없음.
+                </p>
+              </div>
+              <div class="card" style="border-top: 3px solid var(--accent)">
+                <div class="card-title">Fusion Depth</div>
+                <p style="font-size: 13px">
+                  <strong>8/10 DEEP</strong> -- 생태계 중재가 가장 긴 인과
+                  사슬을 생성. "거절한 생물이 적이 된다"는 전례 없는 메카닉.
+                </p>
+              </div>
+              <div class="card" style="border-top: 3px solid var(--blue)">
+                <div class="card-title">VS 엔진 통합</div>
+                <p style="font-size: 13px">
+                  5대 엔진 중 4개 "자연 발생." E4(감각 과부하)만 약점으로, VFX
+                  투자로 보강 필요. 에코시스템 자체가 E1~E3, E5를 유기적으로
+                  생산하는 구조.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- SECTION 4: NEON WARDEN 컨셉 -->
+      <!-- ============================================================ -->
+      <div class="section" id="s4">
+        <div class="section-header">
+          <div class="section-number">04</div>
+          <div class="section-title">Neon Warden -- 최종 컨셉</div>
+        </div>
+
+        <div class="pull-quote">
+          <p>
+            "당신은 무너져가는 구룡성 사이버펑크 구역의 워든입니다. 생물들이 문
+            앞에 줄을 서고, 당신은 누구를 들일지 결정합니다. 안에서 그들은
+            살아있는 생태계를 이룹니다. 당신의 유일한 힘은 누구를
+            들이느냐입니다."
+          </p>
+          <cite>-- Elevator Pitch, SPEC-038 GDD</cite>
+        </div>
+
+        <h3>현재 게임 vs. 제안 게임</h3>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Neon Survivors (현재)</th>
+              <th>Neon Warden (제안)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>장르</strong></td>
+              <td>불릿 헤븐 액션</td>
+              <td>에코시스템 큐레이션 로그라이크</td>
+            </tr>
+            <tr>
+              <td><strong>조작</strong></td>
+              <td>조이스틱 이동 + 자동 공격</td>
+              <td>탭만 (ADMIT / REJECT)</td>
+            </tr>
+            <tr>
+              <td><strong>핵심 루프</strong></td>
+              <td>Kill → Collect → Upgrade</td>
+              <td>Select → Observe → Defend</td>
+            </tr>
+            <tr>
+              <td><strong>플레이어 역할</strong></td>
+              <td>전사 (직접 전투)</td>
+              <td>정원사 (생태계 설계)</td>
+            </tr>
+            <tr>
+              <td><strong>차별화</strong></td>
+              <td>VS 클론 (200+ 경쟁)</td>
+              <td>전례 없는 장르 (0 경쟁)</td>
+            </tr>
+            <tr>
+              <td><strong>타겟</strong></td>
+              <td>VS/Survivor.io 유저</td>
+              <td>전략 모바일 유저 (Balatro/StS)</td>
+            </tr>
+            <tr>
+              <td><strong>코드 재활용</strong></td>
+              <td>—</td>
+              <td>~0% (완전 신규)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Core Fantasy</h3>
+        <p
+          style="
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 8px;
+          "
+        >
+          "I am the architect of a living world."
+        </p>
+        <p>
+          플레이어는 테라리움을 가꾸는 정원사입니다 -- 다만 이 테라리움은
+          반격하고, 놀라게 하고, 때로는 폭발합니다.
+        </p>
+
+        <h3>감정 곡선: 10분 세션</h3>
+
+        <!-- SVG Emotion Arc -->
+        <div class="chart-container">
+          <svg
+            viewBox="0 0 800 250"
+            xmlns="http://www.w3.org/2000/svg"
+            style="max-width: 100%"
+          >
+            <!-- Grid -->
+            <line
+              x1="80"
+              y1="30"
+              x2="80"
+              y2="210"
+              stroke="#e8e5de"
+              stroke-width="1"
+            />
+            <line
+              x1="80"
+              y1="210"
+              x2="760"
+              y2="210"
+              stroke="#e8e5de"
+              stroke-width="1"
+            />
+            <line
+              x1="80"
+              y1="150"
+              x2="760"
+              y2="150"
+              stroke="#f0ede6"
+              stroke-width="1"
+              stroke-dasharray="4"
+            />
+            <line
+              x1="80"
+              y1="90"
+              x2="760"
+              y2="90"
+              stroke="#f0ede6"
+              stroke-width="1"
+              stroke-dasharray="4"
+            />
+
+            <!-- Y axis labels -->
+            <text
+              x="70"
+              y="215"
+              text-anchor="end"
+              fill="#999"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              LOW
+            </text>
+            <text
+              x="70"
+              y="155"
+              text-anchor="end"
+              fill="#999"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              MID
+            </text>
+            <text
+              x="70"
+              y="95"
+              text-anchor="end"
+              fill="#999"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              HIGH
+            </text>
+            <text
+              x="70"
+              y="40"
+              text-anchor="end"
+              fill="#999"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              PEAK
+            </text>
+
+            <!-- X axis labels -->
+            <text
+              x="120"
+              y="232"
+              text-anchor="middle"
+              fill="#999"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              0min
+            </text>
+            <text
+              x="255"
+              y="232"
+              text-anchor="middle"
+              fill="#999"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              2min
+            </text>
+            <text
+              x="390"
+              y="232"
+              text-anchor="middle"
+              fill="#999"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              5min
+            </text>
+            <text
+              x="525"
+              y="232"
+              text-anchor="middle"
+              fill="#999"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              7min
+            </text>
+            <text
+              x="660"
+              y="232"
+              text-anchor="middle"
+              fill="#999"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              9min
+            </text>
+            <text
+              x="740"
+              y="232"
+              text-anchor="middle"
+              fill="#999"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              10min
+            </text>
+
+            <!-- Emotion curve -->
+            <path
+              d="M 120,170 C 160,150 200,120 255,105 C 310,90 340,80 390,85 C 430,88 460,130 490,145 C 520,160 540,140 580,100 C 620,60 660,50 700,55 C 720,58 730,45 740,40"
+              fill="none"
+              stroke="#6c5ce7"
+              stroke-width="3"
+              stroke-linecap="round"
+            />
+
+            <!-- Dots and labels -->
+            <circle cx="120" cy="170" r="5" fill="#6c5ce7" />
+            <text
+              x="120"
+              y="188"
+              text-anchor="middle"
+              fill="#6c5ce7"
+              font-size="10"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              호기심
+            </text>
+
+            <circle cx="255" cy="105" r="5" fill="#6c5ce7" />
+            <text
+              x="255"
+              y="98"
+              text-anchor="middle"
+              fill="#6c5ce7"
+              font-size="10"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              자부심
+            </text>
+
+            <circle cx="490" cy="145" r="5" fill="#e74c3c" />
+            <text
+              x="490"
+              y="165"
+              text-anchor="middle"
+              fill="#e74c3c"
+              font-size="10"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              공포
+            </text>
+
+            <circle cx="660" cy="50" r="5" fill="#27ae60" />
+            <text
+              x="660"
+              y="42"
+              text-anchor="middle"
+              fill="#27ae60"
+              font-size="10"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              심판의 날
+            </text>
+
+            <!-- Phase annotations -->
+            <rect x="90" y="18" width="150" height="16" rx="3" fill="#edf5fd" />
+            <text
+              x="165"
+              y="29"
+              text-anchor="middle"
+              fill="#3498db"
+              font-size="9"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              CURIOSITY PHASE
+            </text>
+
+            <rect
+              x="260"
+              y="70"
+              width="120"
+              height="16"
+              rx="3"
+              fill="#eefaf3"
+            />
+            <text
+              x="320"
+              y="81"
+              text-anchor="middle"
+              fill="#27ae60"
+              font-size="9"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              PRIDE PHASE
+            </text>
+
+            <rect
+              x="440"
+              y="130"
+              width="110"
+              height="16"
+              rx="3"
+              fill="#fef0ee"
+            />
+            <text
+              x="495"
+              y="141"
+              text-anchor="middle"
+              fill="#e74c3c"
+              font-size="9"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              DREAD PHASE
+            </text>
+
+            <rect
+              x="600"
+              y="18"
+              width="150"
+              height="16"
+              rx="3"
+              fill="#f0eefa"
+            />
+            <text
+              x="675"
+              y="29"
+              text-anchor="middle"
+              fill="#6c5ce7"
+              font-size="9"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              JUDGMENT PHASE
+            </text>
+          </svg>
+        </div>
+
+        <h3>3-Phase Heartbeat: 게이트 / 에코시스템 / 위협</h3>
+
+        <!-- SVG Loop Diagram -->
+        <div class="chart-container">
+          <svg
+            viewBox="0 0 800 160"
+            xmlns="http://www.w3.org/2000/svg"
+            style="max-width: 100%"
+          >
+            <!-- Gate Phase -->
+            <rect
+              x="20"
+              y="30"
+              width="220"
+              height="100"
+              rx="12"
+              fill="#edf5fd"
+              stroke="#3498db"
+              stroke-width="2"
+            />
+            <text
+              x="130"
+              y="60"
+              text-anchor="middle"
+              fill="#3498db"
+              font-size="12"
+              font-weight="700"
+              font-family="Pretendard"
+            >
+              GATE PHASE
+            </text>
+            <text
+              x="130"
+              y="78"
+              text-anchor="middle"
+              fill="#2a2a2a"
+              font-size="11"
+              font-family="Pretendard"
+            >
+              15-20초 | 선택
+            </text>
+            <text
+              x="130"
+              y="95"
+              text-anchor="middle"
+              fill="#666"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              도착 생물 ADMIT / REJECT
+            </text>
+            <text
+              x="130"
+              y="115"
+              text-anchor="middle"
+              fill="#3498db"
+              font-size="11"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              AGENCY
+            </text>
+
+            <!-- Arrow 1 -->
+            <path
+              d="M 245,80 L 278,80"
+              fill="none"
+              stroke="#ccc"
+              stroke-width="2"
+              marker-end="url(#arrowhead)"
+            />
+
+            <!-- Ecosystem Phase -->
+            <rect
+              x="285"
+              y="30"
+              width="220"
+              height="100"
+              rx="12"
+              fill="#eefaf3"
+              stroke="#27ae60"
+              stroke-width="2"
+            />
+            <text
+              x="395"
+              y="60"
+              text-anchor="middle"
+              fill="#27ae60"
+              font-size="12"
+              font-weight="700"
+              font-family="Pretendard"
+            >
+              ECOSYSTEM PHASE
+            </text>
+            <text
+              x="395"
+              y="78"
+              text-anchor="middle"
+              fill="#2a2a2a"
+              font-size="11"
+              font-family="Pretendard"
+            >
+              30-40초 | 관전
+            </text>
+            <text
+              x="395"
+              y="95"
+              text-anchor="middle"
+              fill="#666"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              생태계 자율 상호작용
+            </text>
+            <text
+              x="395"
+              y="115"
+              text-anchor="middle"
+              fill="#27ae60"
+              font-size="11"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              ANTICIPATION
+            </text>
+
+            <!-- Arrow 2 -->
+            <path
+              d="M 510,80 L 543,80"
+              fill="none"
+              stroke="#ccc"
+              stroke-width="2"
+              marker-end="url(#arrowhead2)"
+            />
+
+            <!-- Threat Phase -->
+            <rect
+              x="550"
+              y="30"
+              width="220"
+              height="100"
+              rx="12"
+              fill="#f0eefa"
+              stroke="#6c5ce7"
+              stroke-width="2"
+            />
+            <text
+              x="660"
+              y="60"
+              text-anchor="middle"
+              fill="#6c5ce7"
+              font-size="12"
+              font-weight="700"
+              font-family="Pretendard"
+            >
+              THREAT PHASE
+            </text>
+            <text
+              x="660"
+              y="78"
+              text-anchor="middle"
+              fill="#2a2a2a"
+              font-size="11"
+              font-family="Pretendard"
+            >
+              15-20초 | 결과
+            </text>
+            <text
+              x="660"
+              y="95"
+              text-anchor="middle"
+              fill="#666"
+              font-size="10"
+              font-family="Pretendard"
+            >
+              방어 자동 전투
+            </text>
+            <text
+              x="660"
+              y="115"
+              text-anchor="middle"
+              fill="#6c5ce7"
+              font-size="11"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              PAYOFF
+            </text>
+
+            <!-- Loop arrow -->
+            <path
+              d="M 770,100 C 790,100 790,145 660,150 C 530,155 130,155 50,150 C 10,145 10,100 20,95"
+              fill="none"
+              stroke="#ddd"
+              stroke-width="1.5"
+              stroke-dasharray="4"
+              marker-end="url(#arrowhead3)"
+            />
+            <text
+              x="400"
+              y="155"
+              text-anchor="middle"
+              fill="#999"
+              font-size="9"
+              font-family="Pretendard"
+            >
+              60-90초 사이클 반복
+            </text>
+
+            <defs>
+              <marker
+                id="arrowhead"
+                markerWidth="8"
+                markerHeight="6"
+                refX="8"
+                refY="3"
+                orient="auto"
+              >
+                <polygon points="0 0, 8 3, 0 6" fill="#ccc" />
+              </marker>
+              <marker
+                id="arrowhead2"
+                markerWidth="8"
+                markerHeight="6"
+                refX="8"
+                refY="3"
+                orient="auto"
+              >
+                <polygon points="0 0, 8 3, 0 6" fill="#ccc" />
+              </marker>
+              <marker
+                id="arrowhead3"
+                markerWidth="8"
+                markerHeight="6"
+                refX="8"
+                refY="3"
+                orient="auto"
+              >
+                <polygon points="0 0, 8 3, 0 6" fill="#ddd" />
+              </marker>
+            </defs>
+          </svg>
+        </div>
+
+        <h3>5개 생물 역할 (Creature Roles)</h3>
+        <div class="grid-5">
+          <div class="role-card">
+            <div class="role-icon" style="background: #eefaf3">P</div>
+            <div class="role-name">Producer</div>
+            <div class="role-desc">
+              에너지 생성. 생태계의 기반. 포식자의 먹이.
+            </div>
+          </div>
+          <div class="role-card">
+            <div class="role-icon" style="background: #fef0ee">H</div>
+            <div class="role-name">Predator</div>
+            <div class="role-desc">생산자를 사냥하고 외부 위협을 방어.</div>
+          </div>
+          <div class="role-card">
+            <div class="role-icon" style="background: #edf5fd">S</div>
+            <div class="role-name">Symbiont</div>
+            <div class="role-desc">인접 생물 버프. 치유, 방어력 강화.</div>
+          </div>
+          <div class="role-card">
+            <div class="role-icon" style="background: #fef8e8">X</div>
+            <div class="role-name">Parasite</div>
+            <div class="role-desc">
+              숙주에 기생. 리스크 높지만 폭발적 시너지 가능.
+            </div>
+          </div>
+          <div class="role-card">
+            <div class="role-icon" style="background: #f0eefa">C</div>
+            <div class="role-name">Catalyst</div>
+            <div class="role-desc">역할 변환, 진화 촉진. 게임체인저.</div>
+          </div>
+        </div>
+
+        <h3>핵심 메카닉: "거절당한 자가 적이 된다"</h3>
+        <div class="callout callout-red">
+          <strong>전례 없는 메카닉:</strong> 게이트에서 REJECT한 생물은 사라지지
+          않습니다. 분 7 이후 적대적 위협으로 돌아옵니다. "누구를 거절했는가"가
+          곧 "어떤 적과 싸울 것인가"가 됩니다. 모든 거절은 미래의 전투를
+          형성하고, 이것이 선택에 진정한 무게를 부여합니다.
+        </div>
+
+        <h3>VS 5대 엔진 자연 통합 검증</h3>
+
+        <!-- SVG Radar/Bar chart for engine scores -->
+        <div class="chart-container">
+          <svg
+            viewBox="0 0 700 200"
+            xmlns="http://www.w3.org/2000/svg"
+            style="max-width: 600px"
+          >
+            <!-- E1 -->
+            <text
+              x="60"
+              y="35"
+              text-anchor="end"
+              fill="#2a2a2a"
+              font-size="11"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              E1 영웅서사
+            </text>
+            <rect x="70" y="22" width="500" height="18" rx="4" fill="#f0ede6" />
+            <rect
+              x="70"
+              y="22"
+              width="450"
+              height="18"
+              rx="4"
+              fill="#6c5ce7"
+              opacity="0.8"
+            />
+            <text
+              x="530"
+              y="35"
+              fill="#6c5ce7"
+              font-size="11"
+              font-weight="700"
+              font-family="Pretendard"
+            >
+              90%
+            </text>
+            <text
+              x="580"
+              y="35"
+              fill="#27ae60"
+              font-size="10"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              GENUINE
+            </text>
+
+            <!-- E2 -->
+            <text
+              x="60"
+              y="70"
+              text-anchor="end"
+              fill="#2a2a2a"
+              font-size="11"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              E2 통제 랜덤
+            </text>
+            <rect x="70" y="57" width="500" height="18" rx="4" fill="#f0ede6" />
+            <rect
+              x="70"
+              y="57"
+              width="475"
+              height="18"
+              rx="4"
+              fill="#6c5ce7"
+              opacity="0.8"
+            />
+            <text
+              x="555"
+              y="70"
+              fill="#6c5ce7"
+              font-size="11"
+              font-weight="700"
+              font-family="Pretendard"
+            >
+              95%
+            </text>
+            <text
+              x="580"
+              y="70"
+              fill="#27ae60"
+              font-size="10"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              GENUINE
+            </text>
+
+            <!-- E3 -->
+            <text
+              x="60"
+              y="105"
+              text-anchor="end"
+              fill="#2a2a2a"
+              font-size="11"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              E3 서프라이즈
+            </text>
+            <rect x="70" y="92" width="500" height="18" rx="4" fill="#f0ede6" />
+            <rect
+              x="70"
+              y="92"
+              width="500"
+              height="18"
+              rx="4"
+              fill="#6c5ce7"
+              opacity="0.8"
+            />
+            <text
+              x="580"
+              y="105"
+              fill="#6c5ce7"
+              font-size="11"
+              font-weight="700"
+              font-family="Pretendard"
+            >
+              100%
+            </text>
+            <text
+              x="610"
+              y="105"
+              fill="#27ae60"
+              font-size="10"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              DEEP
+            </text>
+
+            <!-- E4 -->
+            <text
+              x="60"
+              y="140"
+              text-anchor="end"
+              fill="#2a2a2a"
+              font-size="11"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              E4 감각과부하
+            </text>
+            <rect
+              x="70"
+              y="127"
+              width="500"
+              height="18"
+              rx="4"
+              fill="#f0ede6"
+            />
+            <rect
+              x="70"
+              y="127"
+              width="300"
+              height="18"
+              rx="4"
+              fill="#f39c12"
+              opacity="0.8"
+            />
+            <text
+              x="380"
+              y="140"
+              fill="#f39c12"
+              font-size="11"
+              font-weight="700"
+              font-family="Pretendard"
+            >
+              60%
+            </text>
+            <text
+              x="415"
+              y="140"
+              fill="#f39c12"
+              font-size="10"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              WEAK POINT
+            </text>
+
+            <!-- E5 -->
+            <text
+              x="60"
+              y="175"
+              text-anchor="end"
+              fill="#2a2a2a"
+              font-size="11"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              E5 마스터리
+            </text>
+            <rect
+              x="70"
+              y="162"
+              width="500"
+              height="18"
+              rx="4"
+              fill="#f0ede6"
+            />
+            <rect
+              x="70"
+              y="162"
+              width="450"
+              height="18"
+              rx="4"
+              fill="#6c5ce7"
+              opacity="0.8"
+            />
+            <text
+              x="530"
+              y="175"
+              fill="#6c5ce7"
+              font-size="11"
+              font-weight="700"
+              font-family="Pretendard"
+            >
+              90%
+            </text>
+            <text
+              x="580"
+              y="175"
+              fill="#27ae60"
+              font-size="10"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              GENUINE
+            </text>
+          </svg>
+        </div>
+        <p
+          style="
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center;
+          "
+        >
+          E4(감각 과부하)만 약점. 생태계 관전은 폭발적이기보다 관조적. Red
+          Team의 핵심 지적사항.
+        </p>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- SECTION 5: 밸런스 모델 -->
+      <!-- ============================================================ -->
+      <div class="section" id="s5">
+        <div class="section-header">
+          <div class="section-number">05</div>
+          <div class="section-title">밸런스 모델과 수치 설계</div>
+        </div>
+
+        <p>
+          GDD와 함께 완전한 수치 프레임워크가 설계되었습니다. 코어 20종
+          생물(런칭 목표 40종+), 6개 핵심 스탯, 에너지 경제, 위협 스케일링
+          공식이 포함됩니다.
+        </p>
+
+        <div class="grid-3">
+          <div class="stat-box">
+            <div class="stat-value">20</div>
+            <div class="stat-label">생물 종류</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value">6</div>
+            <div class="stat-label">핵심 스탯/생물</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value">10분</div>
+            <div class="stat-label">세션 길이</div>
+          </div>
+        </div>
+
+        <h3>Ecosystem Health 공식</h3>
+        <div
+          class="card"
+          style="font-family: monospace; font-size: 13px; background: #f9f8f5"
+        >
+          <code>EH = Diversity_Score × Chain_Balance × Population_Ratio</code>
+          <br />
+          <span style="font-size: 11px; color: var(--text-muted)"
+            >밸런스 모델 기준 곱셈형 공식. GDD 초안의 가산형
+            가중치(30%/25%/25%/10%/10%)와 다름 — 프로토타입에서 어떤 공식이 더
+            직관적인지 A/B 테스트 필요.</span
+          >
+        </div>
+
+        <h3>역할별 기본 스탯 범위</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>역할</th>
+              <th>POP</th>
+              <th>CP</th>
+              <th>FR</th>
+              <th>OR</th>
+              <th>RES</th>
+              <th>특수 능력</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Producer</td>
+              <td>1-3</td>
+              <td>0</td>
+              <td>0-2</td>
+              <td>2-10</td>
+              <td>2-8</td>
+              <td>에너지 생성, 재생산</td>
+            </tr>
+            <tr>
+              <td>Predator</td>
+              <td>2-4</td>
+              <td>4-22</td>
+              <td>2-8</td>
+              <td>0</td>
+              <td>4-18</td>
+              <td>사냥, 구역 방어</td>
+            </tr>
+            <tr>
+              <td>Symbiont</td>
+              <td>1-2</td>
+              <td>0-3</td>
+              <td>1-3</td>
+              <td>0-2</td>
+              <td>2-7</td>
+              <td>인접 버프, 미러</td>
+            </tr>
+            <tr>
+              <td>Parasite</td>
+              <td>1</td>
+              <td>0-6</td>
+              <td>0*</td>
+              <td>0</td>
+              <td>1-4</td>
+              <td>숙주 드레인, 감염 전파</td>
+            </tr>
+            <tr>
+              <td>Catalyst</td>
+              <td>1-5</td>
+              <td>0-2</td>
+              <td>1-6</td>
+              <td>0-8</td>
+              <td>2-15</td>
+              <td>변이 촉진, 테라포밍</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size: 12px; color: var(--text-muted)">
+          POP=인구비용, CP=전투력, FR=먹이소모율, OR=생산율, RES=내구력.
+          *Parasite FR=0: 에너지 풀이 아닌 숙주에서 먹이를 얻음. 출처:
+          neon-warden-balance-model.md (코어 20종 실제 데이터 기반)
+        </p>
+
+        <h3>10분 런 시뮬레이션: 파워 커브</h3>
+
+        <!-- SVG Power Curve -->
+        <div class="chart-container">
+          <svg
+            viewBox="0 0 700 220"
+            xmlns="http://www.w3.org/2000/svg"
+            style="max-width: 600px"
+          >
+            <!-- Grid -->
+            <line
+              x1="60"
+              y1="20"
+              x2="60"
+              y2="190"
+              stroke="#e8e5de"
+              stroke-width="1"
+            />
+            <line
+              x1="60"
+              y1="190"
+              x2="680"
+              y2="190"
+              stroke="#e8e5de"
+              stroke-width="1"
+            />
+            <line
+              x1="60"
+              y1="130"
+              x2="680"
+              y2="130"
+              stroke="#f0ede6"
+              stroke-width="1"
+              stroke-dasharray="3"
+            />
+            <line
+              x1="60"
+              y1="70"
+              x2="680"
+              y2="70"
+              stroke="#f0ede6"
+              stroke-width="1"
+              stroke-dasharray="3"
+            />
+
+            <!-- Player Power (purple) -->
+            <path
+              d="M 80,180 C 140,175 200,160 260,140 C 320,120 370,105 400,95 C 440,82 500,65 560,50 C 600,40 640,35 660,32"
+              fill="none"
+              stroke="#6c5ce7"
+              stroke-width="2.5"
+            />
+            <text
+              x="665"
+              y="28"
+              fill="#6c5ce7"
+              font-size="10"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              Player
+            </text>
+
+            <!-- Threat Level (red) -->
+            <path
+              d="M 80,185 C 140,183 200,178 260,165 C 320,148 370,125 400,110 C 440,88 500,60 560,42 C 600,32 640,28 660,25"
+              fill="none"
+              stroke="#e74c3c"
+              stroke-width="2.5"
+              stroke-dasharray="6"
+            />
+            <text
+              x="665"
+              y="20"
+              fill="#e74c3c"
+              font-size="10"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              Threat
+            </text>
+
+            <!-- Sweet spot annotation -->
+            <rect
+              x="350"
+              y="80"
+              width="120"
+              height="26"
+              rx="4"
+              fill="#fef8e8"
+              stroke="#f39c12"
+              stroke-width="1"
+            />
+            <text
+              x="410"
+              y="97"
+              text-anchor="middle"
+              fill="#f39c12"
+              font-size="9"
+              font-weight="600"
+              font-family="Pretendard"
+            >
+              TENSION PEAK
+            </text>
+            <line
+              x1="410"
+              y1="106"
+              x2="410"
+              y2="120"
+              stroke="#f39c12"
+              stroke-width="1"
+              stroke-dasharray="2"
+            />
+
+            <!-- X labels -->
+            <text
+              x="80"
+              y="207"
+              fill="#999"
+              font-size="9"
+              font-family="Pretendard"
+            >
+              0
+            </text>
+            <text
+              x="200"
+              y="207"
+              fill="#999"
+              font-size="9"
+              font-family="Pretendard"
+            >
+              2min
+            </text>
+            <text
+              x="340"
+              y="207"
+              fill="#999"
+              font-size="9"
+              font-family="Pretendard"
+            >
+              5min
+            </text>
+            <text
+              x="500"
+              y="207"
+              fill="#999"
+              font-size="9"
+              font-family="Pretendard"
+            >
+              7min
+            </text>
+            <text
+              x="640"
+              y="207"
+              fill="#999"
+              font-size="9"
+              font-family="Pretendard"
+            >
+              10min
+            </text>
+          </svg>
+        </div>
+        <p
+          style="
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center;
+          "
+        >
+          플레이어 파워와 위협 레벨이 거의 동일한 속도로 상승하여 지속적 긴장
+          유지. 분 5-7 구간이 최대 긴장 포인트.
+        </p>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- SECTION 6: RED TEAM -->
+      <!-- ============================================================ -->
+      <div class="section" id="s6">
+        <div class="section-header">
+          <div class="section-number">06</div>
+          <div class="section-title">Red Team 리뷰 -- 냉정한 약점 분석</div>
+        </div>
+
+        <p>
+          Red Team은 "이 게임이 실패할 것이라 가정하고, 왜 실패하는지
+          증명하라"는 미션으로 운영되었습니다. 결론은
+          <strong>CONDITIONAL PASS</strong> -- 컨셉 자체는 9/10이지만 모바일용
+          GDD 실행 품질은 6/10입니다.
+        </p>
+
+        <div class="verdict-banner">
+          <div class="verdict-label">Red Team Verdict</div>
+          <div class="verdict-text">CONDITIONAL PASS</div>
+          <div class="verdict-sub">
+            컨셉 9/10 | GDD 실행 품질 6/10 (모바일 기준)<br />단순화 없이
+            출시하면 실패 확률 높음
+          </div>
+        </div>
+
+        <h3>5대 치명적/심각 결함</h3>
+
+        <div class="card" style="border-left: 3px solid var(--red)">
+          <div class="card-title">
+            <span class="badge badge-critical">CRITICAL</span>
+            #1 복잡도의 벽 -- Ecosystem Math는 직관적이지 않다
+          </div>
+          <p style="font-size: 13px">
+            5개 역할, 3-4개 서브 변형, 히든 특성, 인접 보너스, 과밀 페널티...
+            이것은 모바일 게임이 아니라 스프레드시트입니다. Balatro의 "3초
+            결정"과 달리, Neon Warden의 게이트 결정은 30초 숙고를 요구합니다.
+            카드 하나에 평가해야 할 변수가 7개입니다.
+          </p>
+        </div>
+
+        <div class="card" style="border-left: 3px solid var(--orange)">
+          <div class="card-title">
+            <span class="badge badge-high">HIGH</span>
+            #2 관전 문제 -- "보는 것"은 "플레이하는 것"이 아니다
+          </div>
+          <p style="font-size: 13px">
+            75초 사이클 중 50-60초가 수동적 관전. 플레이어가 66-80% 시간을
+            "보기만" 합니다. VS는 항상 조이스틱 참여가 있고, TFT는 8명 PvP
+            사회적 비교가 관전을 지탱하지만, Neon Warden은 혼자서 개미 농장을
+            봅니다.
+          </p>
+        </div>
+
+        <div class="card" style="border-left: 3px solid var(--orange)">
+          <div class="card-title">
+            <span class="badge badge-high">HIGH</span>
+            #3 시각적 흥분 부족 -- 생태계는 폭발이 아니다
+          </div>
+          <p style="font-size: 13px">
+            VS의 화면 가득 번개, 성서 회전, 마늘 펄스 vs. Neon Warden의 40px짜리
+            생물 18마리가 돌아다니는 디오라마. TikTok 광고에서 엄지를 멈출
+            비주얼이 아닙니다. "디지털 테라리움 로그라이크"에 매력을 느끼는
+            사람은 전 세계 약 5만 명.
+          </p>
+        </div>
+
+        <div class="card" style="border-left: 3px solid var(--orange)">
+          <div class="card-title">
+            <span class="badge badge-high">HIGH</span>
+            #4 스프레드시트 문제 -- 실패 원인이 불투명하다
+          </div>
+          <p style="font-size: 13px">
+            Ecosystem Health가 떨어질 때 플레이어는 "왜?"를 모릅니다. 포식자
+            과다? 생산자 부족? 히든 기생충? Balatro는 "핸드가 약했다"고 즉시
+            알지만, Neon Warden은 5개 가중치 인자의 비선형 상호작용 결과입니다.
+            디자인 원칙 #6("모든 죽음은 내 실수로 납득 가능해야 한다") 위반.
+          </p>
+        </div>
+
+        <div class="card" style="border-left: 3px solid #d4a017">
+          <div class="card-title">
+            <span class="badge badge-medium">MEDIUM-HIGH</span>
+            #5 에이전시 격차 -- 플레이어가 관중처럼 느낀다
+          </div>
+          <p style="font-size: 13px">
+            결정과 결과 사이 30-60초 간격. 에코시스템이 자동 해결, 방어가 자동
+            발사, 포식자가 자동 사냥. 플레이어는 "내가 뭘 한 거지?"라고
+            자문합니다. Emergency Edict(런당 1회)의 존재 자체가 "게이트
+            결정만으로는 에이전시가 부족하다"는 디자인 불안의 고백.
+          </p>
+        </div>
+
+        <h3>VS vs. Neon Warden 비교</h3>
+        <div style="margin: 20px 0">
+          <div class="comparison-row">
+            <div class="comparison-label">선택 빈도</div>
+            <div class="comparison-bars">
+              <div class="comparison-bar-vs" style="width: 70%">
+                VS: 15-30초
+              </div>
+              <div
+                class="comparison-bar-nw"
+                style="width: 30%; background: var(--orange)"
+              >
+                NW: 75초
+              </div>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-label">능동적 참여</div>
+            <div class="comparison-bars">
+              <div class="comparison-bar-vs" style="width: 95%">VS: ~100%</div>
+              <div
+                class="comparison-bar-nw"
+                style="width: 35%; background: var(--orange)"
+              >
+                NW: 20-34%
+              </div>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-label">인지 부하</div>
+            <div class="comparison-bars">
+              <div class="comparison-bar-vs" style="width: 25%">VS: 낮음</div>
+              <div
+                class="comparison-bar-nw"
+                style="width: 85%; background: var(--red)"
+              >
+                NW: 높음
+              </div>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-label">시각 흥분도</div>
+            <div class="comparison-bars">
+              <div class="comparison-bar-vs" style="width: 90%">VS: 폭발적</div>
+              <div
+                class="comparison-bar-nw"
+                style="width: 40%; background: var(--orange)"
+              >
+                NW: 관조적
+              </div>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-label">이머전트 다양성</div>
+            <div class="comparison-bars">
+              <div class="comparison-bar-vs" style="width: 20%">VS: 낮음</div>
+              <div class="comparison-bar-nw" style="width: 90%">
+                NW: 매우 높음
+              </div>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-label">메타 진행 깊이</div>
+            <div class="comparison-bars">
+              <div class="comparison-bar-vs" style="width: 30%">VS: 얕음</div>
+              <div class="comparison-bar-nw" style="width: 85%">
+                NW: 종 도감 축적
+              </div>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-label">선택 무게감</div>
+            <div class="comparison-bars">
+              <div class="comparison-bar-vs" style="width: 25%">VS: 가벼움</div>
+              <div class="comparison-bar-nw" style="width: 90%">NW: 높음</div>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-label">컨셉 독창성</div>
+            <div class="comparison-bars">
+              <div class="comparison-bar-vs" style="width: 30%">
+                VS: 낮음 (클론 다수)
+              </div>
+              <div class="comparison-bar-nw" style="width: 95%">
+                NW: 전례 없음
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="border-left: 3px solid var(--orange)">
+          <div class="card-title">
+            <span class="badge badge-caution">MEDIUM</span>
+            #6 세이프 빌드 수렴 — 15번 런 이후 매너리즘
+          </div>
+          <p style="font-size: 13px">
+            "Producer 4 + Predator 2 + Symbiont 2, 나머지 거절" — 이 빌드가
+            지루하지만 효과적. 카운터 메카닉(보스)이 있지만, 처벌은 동기부여가
+            아닙니다. Red Team은
+            <strong>"15회 런까지 재미있지만 100회는 어렵다"</strong>고 평가.
+            MVP에서 검증 필요.
+          </p>
+        </div>
+
+        <div class="card" style="border-left: 3px solid var(--orange)">
+          <div class="card-title">
+            <span class="badge badge-caution">MEDIUM</span>
+            #7 기술적 위험 — Phaser에서 20+ AI 엔티티
+          </div>
+          <p style="font-size: 13px">
+            각 생물이 개별 행동 트리 + 공간 인식 + 상태 머신 필요. Phaser의
+            싱글스레드 JS 환경에서 저사양 기기 기준 30fps 미달 우려. 에코시스템
+            틱 레이트 저감(60fps → 10tps)으로 해결 가능하나 "살아있는 디오라마"
+            판매 포인트와의 균형이 필요.
+          </p>
+        </div>
+
+        <div class="card" style="border-left: 3px solid var(--orange)">
+          <div class="card-title">
+            <span class="badge badge-high">HIGH</span>
+            #8 시장 공백의 경고 신호
+          </div>
+          <p style="font-size: 13px">
+            직접 경쟁자가 없다는 것은 두 가지 의미: (1) 블루오션이거나 (2)
+            아무도 원하지 않는 시장. Steam의 에코시스템 시뮬 게임(Ecosystem,
+            Equilinox, Terra Nil)은 모두 니치 매출에 그침. 장르 자체에 자연적
+            천장이 있을 가능성. <em>(Red Team 원문 Section 2.4 기반)</em>
+          </p>
+        </div>
+
+        <div class="toggle">
+          <div
+            class="toggle-header"
+            onclick="this.parentElement.classList.toggle('open')"
+          >
+            <span class="toggle-arrow">&#9654;</span>
+            문화적 리스크 상세 (클릭하여 펼치기)
+          </div>
+          <div class="toggle-content">
+            <table>
+              <thead>
+                <tr>
+                  <th>리스크</th>
+                  <th>설명</th>
+                  <th>심각도</th>
+                  <th>완화책</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>구룡성 낭만화</td>
+                  <td>
+                    서양 미디어가 구룡성을 미화한 역사. 실제 거주민의 삶은
+                    열악했음
+                  </td>
+                  <td>NA/EU: LOW<br />HK/CN: MEDIUM</td>
+                  <td>
+                    마케팅에서 "영감" 표현 주의. 크레딧에 역사적 맥락 포함
+                  </td>
+                </tr>
+                <tr>
+                  <td>이민 게이트키퍼</td>
+                  <td>"누구를 들이고 누구를 거절하느냐" = 이민 정책 은유</td>
+                  <td>MEDIUM</td>
+                  <td>
+                    생물을 동물/로봇으로 유지. "immigration" 단어 절대 사용 금지
+                  </td>
+                </tr>
+                <tr>
+                  <td>생물 역할 = 사회 계급</td>
+                  <td>
+                    Producer=노동자, Predator=군경, Parasite=하층민 은유 불가피
+                  </td>
+                  <td>MEDIUM</td>
+                  <td>"Parasite"를 "Symbiote-B" 등으로 리브랜딩 검토</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- SECTION 7: NEXT STEPS -->
+      <!-- ============================================================ -->
+      <div class="section" id="s7">
+        <div class="section-header">
+          <div class="section-number">07</div>
+          <div class="section-title">
+            Next Steps: MVP 제안과 의사결정 포인트
+          </div>
+        </div>
+
+        <p>
+          Red Team의 조건부 합격을 바탕으로, GDD의 복잡도를 모바일에 맞게
+          단순화한 MVP 제안과 CEO가 결정해야 할 핵심 포인트를 정리합니다.
+        </p>
+
+        <h3>Red Team 권고: MVP Spec</h3>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">GDD 원안</div>
+            <table style="font-size: 12px; margin: 0">
+              <tr>
+                <td>역할</td>
+                <td>5종</td>
+              </tr>
+              <tr>
+                <td>생물</td>
+                <td>20종 + 히든 특성</td>
+              </tr>
+              <tr>
+                <td>섹터</td>
+                <td>4개 + 환경 효과</td>
+              </tr>
+              <tr>
+                <td>세션</td>
+                <td>10분</td>
+              </tr>
+              <tr>
+                <td>관전 구간</td>
+                <td>30-40초</td>
+              </tr>
+              <tr>
+                <td>튜토리얼 개념</td>
+                <td>9개</td>
+              </tr>
+            </table>
+          </div>
+          <div class="card" style="border: 2px solid var(--accent)">
+            <div class="card-title" style="color: var(--accent)">
+              MVP 권고안
+            </div>
+            <table style="font-size: 12px; margin: 0">
+              <tr>
+                <td>역할</td>
+                <td><strong>3종</strong> (Producer, Predator, Symbiont)</td>
+              </tr>
+              <tr>
+                <td>생물</td>
+                <td><strong>10종</strong>, 히든 특성 제거</td>
+              </tr>
+              <tr>
+                <td>섹터</td>
+                <td><strong>1개</strong></td>
+              </tr>
+              <tr>
+                <td>세션</td>
+                <td><strong>5분</strong></td>
+              </tr>
+              <tr>
+                <td>관전 구간</td>
+                <td><strong>15초</strong> (마이크로 인터랙션 추가)</td>
+              </tr>
+              <tr>
+                <td>튜토리얼 개념</td>
+                <td><strong>3개</strong></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <h3>Red Team 7대 개선 권고</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-label">PRIORITY 1</div>
+            <div class="timeline-title">관전 구간 압축</div>
+            <div class="timeline-desc">
+              30-40초 &rarr; 15초. 속도 조절 버튼 + 스킵 옵션. "Phone Check
+              Test" 통과 필수.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-label">PRIORITY 2</div>
+            <div class="timeline-title">마이크로 인터랙션 추가</div>
+            <div class="timeline-desc">
+              관전 중 탭 가능한 소규모 결정 삽입. 에너지 수동 배분, 생물 위치
+              미세 조정 등.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-label">PRIORITY 3</div>
+            <div class="timeline-title">초기 역할 3종으로 단순화</div>
+            <div class="timeline-desc">
+              Producer + Predator + Symbiont만으로 시작. Parasite와 Catalyst는
+              메타 진행으로 해금.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-label">PRIORITY 4</div>
+            <div class="timeline-title">실패 원인 명시화</div>
+            <div class="timeline-desc">
+              사망 화면에서 "주요 실패 원인 3가지"를 그래픽으로 표시. 인과관계를
+              플레이어가 즉시 파악 가능하도록.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-label">PRIORITY 5</div>
+            <div class="timeline-title">비주얼 주스 강화</div>
+            <div class="timeline-desc">
+              생물 상호작용에 파티클, 화면 흔들림, 연쇄 반응 이펙트 추가.
+              "테라리움"에서 "네온 폭죽"으로.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-label">PRIORITY 6</div>
+            <div class="timeline-title">판타지 리프레이밍</div>
+            <div class="timeline-desc">
+              "생태계 관리자" &rarr; "네온 가드너(Neon Gardener)". 같은
+              메카닉이지만 프레이밍을 자연과 성장 중심으로.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-label">PRIORITY 7</div>
+            <div class="timeline-title">배속 버튼</div>
+            <div class="timeline-desc">
+              1x / 2x / 3x 관전 속도 조절. 숙련 플레이어의 답답함 해소.
+            </div>
+          </div>
+        </div>
+
+        <h3>프로토타입 타임라인</h3>
+        <div style="margin: 20px 0">
+          <div
+            class="card"
+            style="border-left: 3px solid var(--teal); margin-bottom: 8px"
+          >
+            <div class="card-title" style="font-size: 13px">
+              <span class="badge" style="background: var(--teal); color: #fff"
+                >WEEK 1-2</span
+              >
+              페이퍼 프로토타입
+            </div>
+            <p style="font-size: 13px; margin: 0">
+              카드 기반 테이블탑 테스트. 핵심 가설 검증: "에코시스템 큐레이션이
+              재미있는가?" 비용: 0원.
+            </p>
+          </div>
+          <div
+            class="card"
+            style="border-left: 3px solid var(--blue); margin-bottom: 8px"
+          >
+            <div class="card-title" style="font-size: 13px">
+              <span class="badge" style="background: var(--blue); color: #fff"
+                >WEEK 3-5</span
+              >
+              Phaser MVP 프로토타입
+            </div>
+            <p style="font-size: 13px; margin: 0">
+              3역할/10생물/5분 런. 아트 불필요 — 색상 원 + 역할 문자로 충분.
+              개발팀 2-3주.
+            </p>
+          </div>
+          <div
+            class="card"
+            style="border-left: 3px solid var(--orange); margin-bottom: 8px"
+          >
+            <div class="card-title" style="font-size: 13px">
+              <span class="badge" style="background: var(--orange); color: #fff"
+                >WEEK 6</span
+              >
+              내부 플레이테스트
+            </div>
+            <p style="font-size: 13px; margin: 0">
+              5명 이상 테스터. 핵심 질문: "다시 하고 싶은가?"
+            </p>
+          </div>
+          <div
+            class="card"
+            style="border-left: 3px solid var(--accent); margin-bottom: 8px"
+          >
+            <div class="card-title" style="font-size: 13px">
+              <span class="badge" style="background: var(--accent); color: #fff"
+                >WEEK 7-8</span
+              >
+              Go / No-Go 결정
+            </div>
+            <p style="font-size: 13px; margin: 0">
+              플레이테스트 결과 기반 CEO 최종 판단. 진행 시 풀 GDD 개발 착수.
+            </p>
+          </div>
+        </div>
+
+        <h3>유저 획득(UA) 전략 과제</h3>
+        <div
+          class="callout"
+          style="
+            background: var(--orange-bg);
+            border-left: 3px solid var(--orange);
+          "
+        >
+          <strong>미해결:</strong> Neon Warden의 코어 루프(게이트 큐레이션 →
+          생태계 관전)는 5초 TikTok 광고로 전달하기 어렵습니다. Red Team 분석에
+          따르면 "디지털 테라리움 로그라이크"에 매력을 느끼는 사람은 전 세계 약
+          5만 명 수준. UA 전략은 프로토타입 이후 "보여줄 수 있는 순간(스크린
+          타임)"이 확보된 뒤 수립해야 합니다. 현재로서는 유기적 입소문(Reddit,
+          Discord)과 게임 미디어 노출이 현실적 채널입니다.
+        </div>
+
+        <h3>수익 예측</h3>
+        <div class="grid-3">
+          <div class="stat-box">
+            <div class="stat-value" style="font-size: 20px">$1-5M</div>
+            <div class="stat-label">현실적 매출 천장<br />(Red Team 추정)</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="font-size: 20px">$5-10M</div>
+            <div class="stat-label">낙관적 시나리오<br />(StS 모바일 급)</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" style="font-size: 20px">~$9M</div>
+            <div class="stat-label">
+              Balatro 모바일 추정<br />(Red Team 출처)
+            </div>
+          </div>
+        </div>
+        <p
+          style="font-size: 13px; color: var(--text-secondary); margin-top: 8px"
+        >
+          <strong>$1-5M 시나리오:</strong> 니치 시장(시스템 로그라이크 팬) +
+          유료 모델($4.99) + 입소문. Luck Be a Landlord 급.<br />
+          <strong>$5-10M 시나리오:</strong> Steam Early Access 성공 + 모바일
+          확장 + 미디어 관심. 컨셉 독창성으로 StS 모바일 수준 가능하나, Balatro
+          급 $30M+는 비현실적.<br />
+          <strong>참고:</strong> Balatro 총 매출은 $45M+ 추정(전 플랫폼)이나,
+          Red Team은 모바일 한정 ~$9M으로 분석. Neon Warden의 현실적 비교 대상은
+          모바일 성과임.
+        </p>
+
+        <hr class="divider" />
+
+        <h3>CEO 의사결정 포인트</h3>
+
+        <div class="callout callout-accent">
+          <strong>결정 1:</strong> Neon Warden 컨셉을 프로토타입 단계로 진행할
+          것인가?<br />
+          <strong>결정 2:</strong> MVP Spec(3역할/10생물/5분)으로 축소할 것인가,
+          GDD 원안(5역할/20생물/10분)을 고수할 것인가?<br />
+          <strong>결정 3:</strong> WanChai(기존 VS 클론)와 병행할 것인가, 완전
+          전환할 것인가?<br />
+          <strong>결정 4:</strong> "Parasite" 등 문화적으로 민감한 용어를
+          리브랜딩할 것인가?
+        </div>
+
+        <div
+          class="callout"
+          style="
+            background: var(--orange-bg);
+            border-left: 3px solid var(--orange);
+            margin-top: 16px;
+          "
+        >
+          <strong>매몰 비용 고려:</strong> 현재 Neon Survivors(ShamShuiPo)에는
+          130개 이상의 소스 파일, 60개 이상의 테스트, 완성된 밸런스 시스템이
+          존재합니다. Neon Warden 전환 시 이 코드베이스의 대부분은 재사용
+          불가합니다. Phaser 엔진과 인프라(Vite, Vitest, Vercel)만 공유 가능.
+          기존 무기/적/레벨업 시스템은 생태계 메카닉과 호환되지 않습니다. 전환
+          비용을 과소평가하지 마십시오.
+        </div>
+
+        <div class="grid-2" style="margin-top: 16px">
+          <div class="card">
+            <div class="card-title" style="font-size: 14px">
+              Option A: 병행 개발
+            </div>
+            <p style="font-size: 13px; margin: 0">
+              WanChai 유지 + Neon Warden MVP 병렬. 리소스 분산 but 리스크 헷지.
+              WanChai가 단기 수익 제공 가능.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 14px">
+              Option B: 완전 전환
+            </div>
+            <p style="font-size: 13px; margin: 0">
+              WanChai 중단, 전 리소스 Neon Warden에 투입. 집중도 높으나 실패 시
+              전부 잃음. Neon Warden 가설이 틀리면 복구 어려움.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="callout"
+          style="
+            background: var(--red-bg);
+            border-left: 3px solid var(--red);
+            margin-top: 16px;
+          "
+        >
+          <strong>팀 역량 리스크:</strong> HKD852는 AI 에이전트 팀으로 구성되어
+          있습니다. 실시간 생태계 시뮬레이션 + 행동 트리 + 공간 쿼리를 Phaser
+          위에 구현하는 것은 전문 게임 프로그래머의 영역입니다. AI 에이전트 팀이
+          이 수준의 시스템 프로그래밍을 신뢰성 있게 수행할 수 있는지
+          프로토타입에서 반드시 검증해야 합니다.
+        </div>
+
+        <div class="pull-quote">
+          <p>
+            "Neon Warden은 선택만으로 돌아가는 최초의 에코시스템 큐레이션
+            로그라이크입니다. 진정으로 새로운 게임이지만, 모바일 캐주얼 시장에
+            맞추려면 냉정한 단순화가 필수입니다."
+          </p>
+          <cite>-- Red Team 최종 코멘트</cite>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        HKD852 Studio &middot; ShamShuiPo Project &middot; Neon Warden Concept
+        Exploration Report<br />
+        Generated 2026-03-14 &middot; Multiple source documents &middot; 3
+        rounds of filtering &middot; 17 concepts evaluated
+      </div>
+    </div>
+
+    <script>
+      // Toggle functionality
+      document.querySelectorAll(".toggle-header").forEach((h) => {
+        // Already handled by inline onclick
+      });
+
+      // Tab switching
+      function switchTab(e, tabId) {
+        const tabs = e.target.closest(".tabs");
+        tabs
+          .querySelectorAll(".tab-btn")
+          .forEach((b) => b.classList.remove("active"));
+        tabs
+          .querySelectorAll(".tab-panel")
+          .forEach((p) => p.classList.remove("active"));
+        e.target.classList.add("active");
+        document.getElementById(tabId).classList.add("active");
+      }
+
+      // Smooth scroll for TOC links
+      document.querySelectorAll(".toc a").forEach((a) => {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target)
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+    </script>
+  </body>
+</html>

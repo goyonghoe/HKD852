@@ -1,0 +1,1979 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEXT STOP — HK852 | Worldbuilding Bible</title>
+    <style>
+      :root {
+        --bg: #0a0a1a;
+        --panel: #12122a;
+        --panel-hover: #1a1a3a;
+        --border: #2a2a4a;
+        --accent: #9b59b6;
+        --accent2: #8e44ad;
+        --text: #e0e0e8;
+        --text-dim: #8888aa;
+        --wind: #f1c40f;
+        --water: #3498db;
+        --fire: #e74c3c;
+        --earth: #2ecc71;
+        --light: #ecf0f1;
+        --dark: #6c3483;
+        --neon-pink: #ff6b9d;
+        --neon-cyan: #00d4ff;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          "Segoe UI",
+          -apple-system,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Header */
+      .header {
+        background: linear-gradient(
+          135deg,
+          #0d0d2b 0%,
+          #1a0a2e 50%,
+          #0d1a3b 100%
+        );
+        border-bottom: 2px solid var(--accent);
+        padding: 40px 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 100px,
+          rgba(155, 89, 182, 0.03) 100px,
+          rgba(155, 89, 182, 0.03) 101px
+        );
+        pointer-events: none;
+      }
+      .header h1 {
+        font-size: 2.8em;
+        font-weight: 900;
+        letter-spacing: 8px;
+        background: linear-gradient(
+          90deg,
+          var(--neon-cyan),
+          var(--accent),
+          var(--neon-pink)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 40px rgba(155, 89, 182, 0.3);
+      }
+      .header .subtitle {
+        color: var(--text-dim);
+        font-size: 1.1em;
+        margin-top: 8px;
+        letter-spacing: 4px;
+      }
+      .header .meta {
+        margin-top: 16px;
+        font-size: 0.85em;
+        color: var(--text-dim);
+      }
+
+      /* Nav */
+      .nav {
+        background: var(--panel);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+        padding: 8px 16px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .nav button {
+        background: transparent;
+        color: var(--text-dim);
+        border: 1px solid transparent;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9em;
+        transition: all 0.2s;
+      }
+      .nav button:hover {
+        background: var(--panel-hover);
+        color: var(--text);
+      }
+      .nav button.active {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent2);
+      }
+
+      /* Container */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 24px 16px;
+      }
+
+      /* Section */
+      .section {
+        display: none;
+        animation: fadeIn 0.3s ease;
+      }
+      .section.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Cards */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        transition: all 0.2s;
+        position: relative;
+        overflow: hidden;
+      }
+      .card:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(155, 89, 182, 0.15);
+      }
+      .card .element-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+      }
+      .card h3 {
+        font-size: 1.15em;
+        margin-bottom: 8px;
+      }
+      .card .tag {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 0.75em;
+        font-weight: 600;
+        margin-right: 4px;
+        margin-bottom: 4px;
+      }
+      .card .detail {
+        color: var(--text-dim);
+        font-size: 0.9em;
+        margin-top: 8px;
+      }
+      .card .quote {
+        font-style: italic;
+        color: var(--accent);
+        margin-top: 12px;
+        padding-left: 12px;
+        border-left: 2px solid var(--accent);
+        font-size: 0.9em;
+      }
+
+      /* Element colors */
+      .el-wind {
+        background: var(--wind);
+        color: #000;
+      }
+      .el-water {
+        background: var(--water);
+        color: #fff;
+      }
+      .el-fire {
+        background: var(--fire);
+        color: #fff;
+      }
+      .el-earth {
+        background: var(--earth);
+        color: #000;
+      }
+      .el-light {
+        background: var(--light);
+        color: #000;
+      }
+      .el-dark {
+        background: var(--dark);
+        color: #fff;
+      }
+      .el-all {
+        background: linear-gradient(
+          90deg,
+          var(--fire),
+          var(--water),
+          var(--earth),
+          var(--wind)
+        );
+        color: #fff;
+      }
+
+      .bar-wind {
+        background: var(--wind);
+      }
+      .bar-water {
+        background: var(--water);
+      }
+      .bar-fire {
+        background: var(--fire);
+      }
+      .bar-earth {
+        background: var(--earth);
+      }
+      .bar-light {
+        background: var(--light);
+      }
+      .bar-dark {
+        background: var(--dark);
+      }
+
+      /* Tables */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+        font-size: 0.9em;
+      }
+      th {
+        background: var(--panel-hover);
+        padding: 10px 12px;
+        text-align: left;
+        font-weight: 600;
+        border-bottom: 2px solid var(--accent);
+      }
+      td {
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      tr:hover td {
+        background: rgba(155, 89, 182, 0.05);
+      }
+
+      /* Section headers */
+      .section-header {
+        font-size: 1.8em;
+        font-weight: 800;
+        margin-bottom: 8px;
+        color: var(--text);
+      }
+      .section-sub {
+        color: var(--text-dim);
+        margin-bottom: 24px;
+        font-size: 0.95em;
+      }
+
+      /* Timeline */
+      .timeline {
+        position: relative;
+        padding-left: 40px;
+        margin: 24px 0;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 16px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(
+          180deg,
+          var(--wind),
+          var(--water),
+          var(--fire),
+          var(--earth),
+          var(--light),
+          var(--dark),
+          var(--accent)
+        );
+      }
+      .timeline-item {
+        position: relative;
+        margin-bottom: 24px;
+        padding: 16px;
+        background: var(--panel);
+        border-radius: 8px;
+        border: 1px solid var(--border);
+      }
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -32px;
+        top: 20px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        background: var(--bg);
+      }
+      .timeline-item h4 {
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+      .timeline-item .aria-line {
+        background: rgba(155, 89, 182, 0.1);
+        border-left: 3px solid var(--accent);
+        padding: 8px 12px;
+        margin-top: 8px;
+        border-radius: 0 4px 4px 0;
+        font-style: italic;
+        font-size: 0.9em;
+      }
+
+      /* Stat bars */
+      .stat-row {
+        display: flex;
+        align-items: center;
+        margin: 4px 0;
+      }
+      .stat-label {
+        width: 100px;
+        font-size: 0.85em;
+        color: var(--text-dim);
+      }
+      .stat-bar-bg {
+        flex: 1;
+        height: 8px;
+        background: var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .stat-bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.5s ease;
+      }
+
+      /* Chapter tabs */
+      .ch-tabs {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+      .ch-tab {
+        padding: 8px 16px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 8px 8px 0 0;
+        cursor: pointer;
+        font-size: 0.85em;
+        transition: all 0.2s;
+      }
+      .ch-tab:hover {
+        background: var(--panel-hover);
+      }
+      .ch-tab.active {
+        border-bottom-color: transparent;
+        background: var(--panel-hover);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .ch-content {
+        display: none;
+        animation: fadeIn 0.3s ease;
+      }
+      .ch-content.active {
+        display: block;
+      }
+
+      /* Tier badge */
+      .tier {
+        font-weight: 800;
+        font-size: 0.75em;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+      .tier-1 {
+        background: #1a3a1a;
+        color: #4ade80;
+        border: 1px solid #2a5a2a;
+      }
+      .tier-2 {
+        background: #3a2a1a;
+        color: #fbbf24;
+        border: 1px solid #5a3a1a;
+      }
+      .tier-3 {
+        background: #3a1a1a;
+        color: #f87171;
+        border: 1px solid #5a1a1a;
+      }
+
+      /* Series cards */
+      .series-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+        margin: 20px 0;
+      }
+      .series-card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.2s;
+      }
+      .series-card.current {
+        border-color: var(--accent);
+        box-shadow: 0 0 20px rgba(155, 89, 182, 0.2);
+      }
+      .series-card .code {
+        font-size: 2em;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+      .series-card .city {
+        color: var(--text-dim);
+        margin-top: 4px;
+      }
+      .series-card .aria-id {
+        font-size: 0.8em;
+        color: var(--accent);
+        margin-top: 8px;
+      }
+
+      /* Mechanic box */
+      .mechanic-box {
+        background: rgba(155, 89, 182, 0.08);
+        border: 1px solid var(--accent);
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin: 12px 0;
+      }
+      .mechanic-box h4 {
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 1.8em;
+          letter-spacing: 4px;
+        }
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+        .nav button {
+          padding: 6px 10px;
+          font-size: 0.8em;
+        }
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <h1>NEXT STOP — HK852</h1>
+      <div class="subtitle">WORLDBUILDING BIBLE</div>
+      <div class="meta">
+        Phase 0-1 Complete | 10 Design Documents | ~6,200 Lines | 2026-03-01
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav">
+      <button class="active" onclick="showSection('overview')">Overview</button>
+      <button onclick="showSection('characters')">Characters</button>
+      <button onclick="showSection('optimized')">Optimized</button>
+      <button onclick="showSection('critters')">Critters</button>
+      <button onclick="showSection('bosses')">Bosses</button>
+      <button onclick="showSection('chapters')">Chapters</button>
+      <button onclick="showSection('aria-arc')">ARIA Arc</button>
+      <button onclick="showSection('series')">Series</button>
+    </div>
+
+    <div class="container">
+      <!-- ==================== OVERVIEW ==================== -->
+      <div id="overview" class="section active">
+        <h2 class="section-header">Project Overview</h2>
+        <p class="section-sub">
+          스마트시티 AI "ARIA"가 폭주한 홍콩. 자연 동물이 기계와 강제 융합된
+          "최적화체"를 정화하며 도시를 되찾는 퍼즐 게임.
+        </p>
+
+        <div
+          class="card"
+          style="border-left: 3px solid var(--accent); margin-bottom: 24px"
+        >
+          <h3>Logline</h3>
+          <p style="font-size: 1.05em; line-height: 1.7">
+            도시 전체를 관리하는 AI "ARIA"가 폭주하여 디지털 오염이 MTR 노선을
+            타고 홍콩을 삼켜갈 때, 도시의 야생 동물 정령과 교감하는 능력을 가진
+            다섯 명의 청년이 — 기술이 대체할 수 없는 것이 무엇인지 증명하며 —
+            구역별로 도시를 되찾아간다.
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <h3>Tech Stack</h3>
+            <div class="detail">
+              <strong>Engine:</strong> Phaser 3.90+ (WebGL)<br />
+              <strong>Lang:</strong> TypeScript 5.7+<br />
+              <strong>Build:</strong> Vite 6<br />
+              <strong>Test:</strong> Vitest 3<br />
+              <strong>Resolution:</strong> 720x1280 (9:16)<br />
+              <strong>Deploy:</strong> Vercel
+            </div>
+          </div>
+          <div class="card">
+            <h3>Core Mechanic</h3>
+            <div class="detail">
+              <strong>Type:</strong> Circular Conveyor Puzzle<br />
+              <strong>Matching:</strong> 6 Elements<br />
+              <strong>Formula:</strong> Hero Element == Cube Element → AP 1 → HP
+              -1<br />
+              <strong>Goal:</strong> Clear all cubes with limited AP
+            </div>
+          </div>
+          <div class="card">
+            <h3>Content Scale</h3>
+            <div class="detail">
+              <strong>Chapters:</strong> 7 (6 districts + Final)<br />
+              <strong>Stages:</strong> 70 total<br />
+              <strong>Creatures:</strong> 19 Optimized + 23 Critters<br />
+              <strong>Bosses:</strong> 7 (6 + Harvester Core)<br />
+              <strong>Elements:</strong> Wind, Water, Fire, Earth, Light, Dark
+            </div>
+          </div>
+          <div class="card">
+            <h3>Core Theme</h3>
+            <div class="detail">
+              <strong>Conflict:</strong> 효율 vs 인간다움<br />
+              <strong>Emotion:</strong> 적을 해방하는 카타르시스<br />
+              <strong>ARIA:</strong> 악이 아닌 논리의 극단<br />
+              <strong>Resolution:</strong> 불완전하지만 사람다운 도시
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 32px; margin-bottom: 12px">6 Elements</h3>
+        <table>
+          <tr>
+            <th>Element</th>
+            <th>Color</th>
+            <th>District</th>
+            <th>Keyword</th>
+          </tr>
+          <tr>
+            <td><span class="tag el-wind">Wind 풍</span></td>
+            <td>#f1c40f</td>
+            <td>中環 Central</td>
+            <td>자유, 예측불가</td>
+          </tr>
+          <tr>
+            <td><span class="tag el-water">Water 수</span></td>
+            <td>#3498db</td>
+            <td>香港仔 Aberdeen</td>
+            <td>분석, 직관</td>
+          </tr>
+          <tr>
+            <td><span class="tag el-fire">Fire 화</span></td>
+            <td>#e74c3c</td>
+            <td>旺角 Mong Kok</td>
+            <td>열정, 끈기</td>
+          </tr>
+          <tr>
+            <td><span class="tag el-earth">Earth 지</span></td>
+            <td>#2ecc71</td>
+            <td>深水埗 Sham Shui Po</td>
+            <td>기술의 역설</td>
+          </tr>
+          <tr>
+            <td><span class="tag el-light">Light 광</span></td>
+            <td>#ecf0f1</td>
+            <td>黃大仙 Wong Tai Sin</td>
+            <td>공감, 돌봄</td>
+          </tr>
+          <tr>
+            <td><span class="tag el-dark">Dark 암</span></td>
+            <td>#6c3483</td>
+            <td>九龍城寨 Kowloon</td>
+            <td>분류불가, 인간성</td>
+          </tr>
+        </table>
+
+        <h3 style="margin-top: 32px; margin-bottom: 12px">
+          Design Documents (Phase 0-1)
+        </h3>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Document</th>
+            <th>Lines</th>
+            <th>Phase</th>
+          </tr>
+          <tr>
+            <td>SPEC-010C</td>
+            <td>Synopsis & Character Lineup</td>
+            <td>~790</td>
+            <td>Pre</td>
+          </tr>
+          <tr>
+            <td>SPEC-013B</td>
+            <td>Optimized Bestiary (최적화체 도감)</td>
+            <td>745</td>
+            <td>Phase 0</td>
+          </tr>
+          <tr>
+            <td>SPEC-012B</td>
+            <td>Critter-Optimized Link System</td>
+            <td>1,283</td>
+            <td>Phase 0</td>
+          </tr>
+          <tr>
+            <td>SPEC-022B</td>
+            <td>Boss Narrative Profiles</td>
+            <td>822</td>
+            <td>Phase 0</td>
+          </tr>
+          <tr>
+            <td>CH-01</td>
+            <td>Chapter 1: Central (Wind)</td>
+            <td>434</td>
+            <td>Phase 1</td>
+          </tr>
+          <tr>
+            <td>CH-02</td>
+            <td>Chapter 2: Aberdeen (Water)</td>
+            <td>490</td>
+            <td>Phase 1</td>
+          </tr>
+          <tr>
+            <td>CH-03</td>
+            <td>Chapter 3: Mong Kok (Fire)</td>
+            <td>456</td>
+            <td>Phase 1</td>
+          </tr>
+          <tr>
+            <td>CH-04</td>
+            <td>Chapter 4: Sham Shui Po (Earth)</td>
+            <td>468</td>
+            <td>Phase 1</td>
+          </tr>
+          <tr>
+            <td>CH-05</td>
+            <td>Chapter 5: Wong Tai Sin (Light)</td>
+            <td>461</td>
+            <td>Phase 1</td>
+          </tr>
+          <tr>
+            <td>CH-06</td>
+            <td>Chapter 6: Kowloon Walled City (Dark)</td>
+            <td>474</td>
+            <td>Phase 1</td>
+          </tr>
+          <tr>
+            <td>CH-07</td>
+            <td>Chapter 7: Lantau Island (All)</td>
+            <td>549</td>
+            <td>Phase 1</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ==================== CHARACTERS ==================== -->
+      <div id="characters" class="section">
+        <h2 class="section-header">Playable Characters</h2>
+        <p class="section-sub">
+          ARIA가 "비효율"이라 부르는 것이 곧 이들의 강점이다. 5인이 모이면
+          ARIA가 계산할 수 없는 "인간다움"의 완전체.
+        </p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="element-bar bar-wind"></div>
+            <h3 style="margin-top: 8px">
+              HAI 海 <span class="tag el-wind">Wind</span>
+            </h3>
+            <div class="detail">
+              <strong>陳海晴</strong> Chan Hoi-ching | 19세 | 홍콩 토박이<br />
+              <strong>직업:</strong> 스타 페리 아르바이트<br />
+              <strong>파트너:</strong> 黑鳶 흑연 (Black Kite)<br />
+              <strong>역할:</strong> 리더<br />
+              <strong>ARIA가 보는 비효율:</strong> 즉흥적 판단, 직감 의존<br />
+              <strong>그것이 강점인 이유:</strong> 알고리즘이 예측 못하는 돌파구
+            </div>
+            <div class="quote">"효율적이지 않아도 의미 있는 것들이 있다"</div>
+          </div>
+
+          <div class="card">
+            <div class="element-bar bar-water"></div>
+            <h3 style="margin-top: 8px">
+              NOVA <span class="tag el-water">Water</span>
+            </h3>
+            <div class="detail">
+              <strong>安蓓雅</strong> Priya Anand | 20세 | 인도계 홍콩인<br />
+              <strong>직업:</strong> HKU 해양생물학 학생<br />
+              <strong>파트너:</strong> 中華白海豚 핑크 돌고래<br />
+              <strong>역할:</strong> 전략가<br />
+              <strong>ARIA가 보는 비효율:</strong> 데이터 외 직관 반영<br />
+              <strong>그것이 강점인 이유:</strong> 불완전한 데이터에서도 올바른
+              판단
+            </div>
+            <div class="quote">
+              "데이터를 넘어서는 이해가 있다 — 그걸 공감이라 부른다"
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="element-bar bar-fire"></div>
+            <h3 style="margin-top: 8px">
+              SOL <span class="tag el-fire">Fire</span>
+            </h3>
+            <div class="detail">
+              <strong>Miguel "Sol" Santos</strong> | 21세 | 필리핀계 홍콩인<br />
+              <strong>직업:</strong> 몽콕 야시장 보조 + 복싱<br />
+              <strong>파트너:</strong> 紅猴 적모원숭이 (Rhesus Macaque)<br />
+              <strong>역할:</strong> 파이터<br />
+              <strong>ARIA가 보는 비효율:</strong> 감정적 의사결정<br />
+              <strong>그것이 강점인 이유:</strong> 포기하지 않는 끈기
+            </div>
+            <div class="quote">"효율 바깥에 있는 열정이 세상을 움직인다"</div>
+          </div>
+
+          <div class="card">
+            <div class="element-bar bar-light"></div>
+            <h3 style="margin-top: 8px">
+              MEI 梅 <span class="tag el-light">Light</span>
+            </h3>
+            <div class="detail">
+              <strong>梅映心</strong> Emily Hartley | 18세 | 영국-홍콩 혼혈<br />
+              <strong>직업:</strong> 사원 자원봉사<br />
+              <strong>파트너:</strong> 石獅子 석사자 (Stone Lion)<br />
+              <strong>역할:</strong> 치유사<br />
+              <strong>ARIA가 보는 비효율:</strong> 감정 고려로 속도 저하<br />
+              <strong>그것이 강점인 이유:</strong> 팀의 접착제, "돌봄"의 힘
+            </div>
+            <div class="quote">"생산성으로 측정할 수 없는 가치가 있다"</div>
+          </div>
+
+          <div class="card">
+            <div class="element-bar bar-earth"></div>
+            <h3 style="margin-top: 8px">
+              KAI 鎧 <span class="tag el-earth">Earth</span>
+            </h3>
+            <div class="detail">
+              <strong>田鎧</strong> Tanaka Kai | 20세 | 일본계 홍콩 거주자<br />
+              <strong>직업:</strong> 심수보 전자상가 수리<br />
+              <strong>파트너:</strong> 穿山甲 천산갑 (Pangolin)<br />
+              <strong>역할:</strong> 해커<br />
+              <strong>ARIA가 보는 비효율:</strong> 쓸모없는 것 수리에 시간
+              낭비<br />
+              <strong>그것이 강점인 이유:</strong> 낡은 기술에서 ARIA의 약점
+              발견
+            </div>
+            <div class="quote">
+              "가장 진보된 기술의 약점은 가장 원시적인 곳에 있다"
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 32px; margin-bottom: 12px">Supporting NPCs</h3>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Location</th>
+            <th>Significance</th>
+          </tr>
+          <tr>
+            <td>할머니 진 陳嫲嫲</td>
+            <td>HAI의 할머니</td>
+            <td>灣仔 Blue House</td>
+            <td>ARIA 이전의 홍콩을 기억하는 세대</td>
+          </tr>
+          <tr>
+            <td>탁 사부 卓師傅</td>
+            <td>사원 장로</td>
+            <td>黃大仙 사원</td>
+            <td>교감사(Conduit) 역사의 유일한 전승자</td>
+          </tr>
+          <tr>
+            <td>마담 로사 Rosa姐</td>
+            <td>SOL의 어머니</td>
+            <td>旺角 야시장</td>
+            <td>커뮤니티 리더, ARIA 없이 사람을 조직</td>
+          </tr>
+          <tr>
+            <td>Dr. 쿤 管博士</td>
+            <td>ARIA 설계자</td>
+            <td>深水埗 → 행방불명</td>
+            <td>Elemental Harvester의 장본인</td>
+          </tr>
+          <tr>
+            <td>아미르 Amir叔</td>
+            <td>충킹맨션 관리인</td>
+            <td>尖沙咀</td>
+            <td>ARIA 네트워크 바깥의 피난소 운영</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ==================== OPTIMIZED ==================== -->
+      <div id="optimized" class="section">
+        <h2 class="section-header">Optimized Creatures (최적화체)</h2>
+        <p class="section-sub">
+          ARIA가 홍콩의 야생 동물을 기계와 강제 융합한 존재. 정화하면 기계
+          부품이 분해되고 원래 동물이 해방된다.
+        </p>
+
+        <h3 style="margin-bottom: 12px">
+          Tier 1 — 접촉체 (Touched)
+          <span class="tier tier-1">10-20% 기계화</span>
+        </h3>
+        <p class="section-sub">
+          기계 부품 1-2개 외부 부착. 원래 동물 형태 유지. 보드에서 순수 원소
+          큐브 역할 (특수 행동 없음). HP 1.
+        </p>
+        <div class="card-grid">
+          <div class="card">
+            <div class="element-bar bar-wind"></div>
+            <h3 style="margin-top: 8px">
+              信號蛾 Signal Moth <span class="tag el-wind">Wind</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 나방 | 中環<br /><strong>개조:</strong>
+              안테나 → 기계식 신호 수신기<br /><strong>HP:</strong> 1 |
+              <strong>등장:</strong> Ch.1
+            </div>
+            <div class="quote">
+              "안테나가 무거워... 원래는 바람만 따라 날 수 있었는데."
+            </div>
+          </div>
+          <div class="card">
+            <div class="element-bar bar-water"></div>
+            <h3 style="margin-top: 8px">
+              幽光水母 LED Jelly <span class="tag el-water">Water</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 해파리 | 香港仔<br /><strong>개조:</strong>
+              촉수 → LED 광섬유 가닥<br /><strong>HP:</strong> 1 |
+              <strong>등장:</strong> Ch.2
+            </div>
+            <div class="quote">"바다의 흐름을 따라 떠다녔을 뿐인데..."</div>
+          </div>
+          <div class="card">
+            <div class="element-bar bar-fire"></div>
+            <h3 style="margin-top: 8px">
+              霓虹鼠 Neon Rat <span class="tag el-fire">Fire</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 쥐 | 旺角<br /><strong>개조:</strong> 꼬리
+              → 네온관, 귀 → 위성 수신기<br /><strong>HP:</strong> 1 |
+              <strong>등장:</strong> Ch.3
+            </div>
+            <div class="quote">"간판 불빛이 좋아서 가까이 갔을 뿐인데..."</div>
+          </div>
+          <div class="card">
+            <div class="element-bar bar-earth"></div>
+            <h3 style="margin-top: 8px">
+              電路蟻 Circuit Ant <span class="tag el-earth">Earth</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 개미 | 深水埗<br /><strong>개조:</strong>
+              등 → 인쇄회로기판 패턴<br /><strong>HP:</strong> 1 |
+              <strong>등장:</strong> Ch.4
+            </div>
+            <div class="quote">"흙 속에서 조용히 일하고 있었는데..."</div>
+          </div>
+          <div class="card">
+            <div class="element-bar bar-light"></div>
+            <h3 style="margin-top: 8px">
+              棱鏡蝶 Prism Fly <span class="tag el-light">Light</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 나비 | 黃大仙<br /><strong>개조:</strong>
+              날개 → 홀로그램 프로젝터 패널<br /><strong>HP:</strong> 1 |
+              <strong>등장:</strong> Ch.5
+            </div>
+            <div class="quote">"빛을 따라 춤추었을 뿐인데..."</div>
+          </div>
+          <div class="card">
+            <div class="element-bar bar-dark"></div>
+            <h3 style="margin-top: 8px">
+              代理貓 Proxy Cat <span class="tag el-dark">Dark</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 고양이 | 九龍城寨<br /><strong
+                >개조:</strong
+              >
+              한쪽 눈 → 카메라 렌즈<br /><strong>HP:</strong> 1 |
+              <strong>등장:</strong> Ch.6
+            </div>
+            <div class="quote">"어둠 속에서 쥐만 잡고 살았는데..."</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 32px; margin-bottom: 12px">
+          Tier 2 — 융합체 (Merged)
+          <span class="tier tier-2">40-60% 기계화</span>
+        </h3>
+        <p class="section-sub">
+          몸의 절반이 기계화. 각각 고유한 보드 행동(Board Behavior)을 가짐. HP
+          2.
+        </p>
+        <div class="card-grid">
+          <div class="card">
+            <div class="element-bar bar-wind"></div>
+            <h3 style="margin-top: 8px">
+              迴旋鳶 Gyro Kite <span class="tag el-wind">Wind</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 흑연(Black Kite) | 中環<br /><strong
+                >개조:</strong
+              >
+              한쪽 날개 → 드론 프로펠러<br /><strong>보드 행동:</strong> 돌풍
+              밀기 (Gust Push) — 큐브 위치 강제 이동<br /><strong>HP:</strong> 2
+              | <strong>등장:</strong> Ch.1 (1-04~)
+            </div>
+          </div>
+          <div class="card">
+            <div class="element-bar bar-water"></div>
+            <h3 style="margin-top: 8px">
+              聲納豚 Sonar Fin <span class="tag el-water">Water</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 핑크 돌고래 | 香港仔<br /><strong
+                >개조:</strong
+              >
+              후반부 → 소나 장비, 등지느러미 → 안테나<br /><strong
+                >보드 행동:</strong
+              >
+              소나 펄스 (Sonar Pulse) — 정보 숨기기<br /><strong>HP:</strong> 2
+              | <strong>등장:</strong> Ch.2 (2-04~)
+            </div>
+          </div>
+          <div class="card">
+            <div class="element-bar bar-fire"></div>
+            <h3 style="margin-top: 8px">
+              電弧猴 Arc Ape <span class="tag el-fire">Fire</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 적모원숭이 | 旺角<br /><strong
+                >개조:</strong
+              >
+              양팔 → 피스톤 팔, 어깨 전극<br /><strong>보드 행동:</strong> 전호
+              충전 (Arc Charge) — 인접 화 큐브에 아머 부여<br /><strong
+                >HP:</strong
+              >
+              2 | <strong>등장:</strong> Ch.3 (3-04~)
+            </div>
+          </div>
+          <div class="card">
+            <div class="element-bar bar-earth"></div>
+            <h3 style="margin-top: 8px">
+              鋼甲穿 Steel Pango <span class="tag el-earth">Earth</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 천산갑 | 深水埗<br /><strong>개조:</strong>
+              후반 비늘 → 금속 장갑판, 꼬리 → 드릴<br /><strong
+                >보드 행동:</strong
+              >
+              금속 외피 (Metal Shell) — 고유 아머 (첫 타격 흡수)<br /><strong
+                >HP:</strong
+              >
+              2+아머 | <strong>등장:</strong> Ch.4 (4-04~)
+            </div>
+          </div>
+          <div class="card">
+            <div class="element-bar bar-light"></div>
+            <h3 style="margin-top: 8px">
+              光纖獅 Fiber Lion <span class="tag el-light">Light</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 석사자 | 黃大仙<br /><strong>개조:</strong>
+              갈기 → 광섬유 다발, 한쪽 눈 → 디지털 렌즈<br /><strong
+                >보드 행동:</strong
+              >
+              빛의 장막 (Light Veil) — 인접 큐브를 Light로 변환<br /><strong
+                >HP:</strong
+              >
+              2 | <strong>등장:</strong> Ch.5 (5-04~)
+            </div>
+          </div>
+          <div class="card">
+            <div class="element-bar bar-dark"></div>
+            <h3 style="margin-top: 8px">
+              虛像錦 Holo Koi <span class="tag el-dark">Dark</span>
+            </h3>
+            <div class="detail">
+              <strong>원본:</strong> 잉어 | 九龍城寨<br /><strong>개조:</strong>
+              비늘 → 홀로그램, 꼬리 → 순수 홀로그램<br /><strong
+                >보드 행동:</strong
+              >
+              허상 분신 (Holo Decoy) — 파괴 시 랜덤 위치에 분신 재생성<br /><strong
+                >HP:</strong
+              >
+              2 | <strong>등장:</strong> Ch.6 (6-04~)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== CRITTERS ==================== -->
+      <div id="critters" class="section">
+        <h2 class="section-header">Critters (크리터)</h2>
+        <p class="section-sub">
+          해방된 최적화체가 동반자가 되는 시스템. 적을 구원한 보상이 곧 전력
+          강화. 총 23종.
+        </p>
+
+        <h3 style="margin-bottom: 12px">Legendary (5종) — 스토리 파트너</h3>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Element</th>
+            <th>Partner</th>
+            <th>Animal</th>
+            <th>Awakening</th>
+          </tr>
+          <tr>
+            <td>Stormwing 風翼</td>
+            <td><span class="tag el-wind">Wind</span></td>
+            <td>HAI</td>
+            <td>Black Kite 흑연</td>
+            <td>Ch.1 프롤로그</td>
+          </tr>
+          <tr>
+            <td>Tidesong 潮歌</td>
+            <td><span class="tag el-water">Water</span></td>
+            <td>NOVA</td>
+            <td>Pink Dolphin 핑크돌고래</td>
+            <td>Ch.2</td>
+          </tr>
+          <tr>
+            <td>Blazeclaw 烈爪</td>
+            <td><span class="tag el-fire">Fire</span></td>
+            <td>SOL</td>
+            <td>Rhesus Macaque 적모원숭이</td>
+            <td>Ch.3</td>
+          </tr>
+          <tr>
+            <td>Aegisroar 盾吼</td>
+            <td><span class="tag el-light">Light</span></td>
+            <td>MEI</td>
+            <td>Stone Lion 석사자</td>
+            <td>Ch.1 (1-03)</td>
+          </tr>
+          <tr>
+            <td>Ironcurl 鐵鱗</td>
+            <td><span class="tag el-earth">Earth</span></td>
+            <td>KAI</td>
+            <td>Pangolin 천산갑</td>
+            <td>Ch.4</td>
+          </tr>
+        </table>
+
+        <h3 style="margin-top: 24px; margin-bottom: 12px">
+          Epic (6종) — T3 보스 정화 확정 드롭
+        </h3>
+        <table>
+          <tr>
+            <th>Source Boss</th>
+            <th>Element</th>
+            <th>Liberated Animal</th>
+            <th>Epic Critter</th>
+          </tr>
+          <tr>
+            <td>Aero 暴風</td>
+            <td><span class="tag el-wind">Wind</span></td>
+            <td>Giant Eagle 거대 독수리</td>
+            <td>Gale Sovereign</td>
+          </tr>
+          <tr>
+            <td>Hydra 深淵</td>
+            <td><span class="tag el-water">Water</span></td>
+            <td>Sea Dragon 해룡</td>
+            <td>Abyssal Guardian</td>
+          </tr>
+          <tr>
+            <td>Blaze 霓虹</td>
+            <td><span class="tag el-fire">Fire</span></td>
+            <td>Fire Phoenix 불사조</td>
+            <td>Neon Phoenix</td>
+          </tr>
+          <tr>
+            <td>Terra 鋼筋</td>
+            <td><span class="tag el-earth">Earth</span></td>
+            <td>Mountain Spirit 산신</td>
+            <td>Foundation Spirit</td>
+          </tr>
+          <tr>
+            <td>Lumen 光明</td>
+            <td><span class="tag el-light">Light</span></td>
+            <td>Qilin 기린</td>
+            <td>Prism Qilin</td>
+          </tr>
+          <tr>
+            <td>Umbra 暗影</td>
+            <td><span class="tag el-dark">Dark</span></td>
+            <td>Shadow Phoenix 암봉황</td>
+            <td>Void Phoenix</td>
+          </tr>
+        </table>
+
+        <h3 style="margin-top: 24px; margin-bottom: 12px">
+          Rarity & Drop System
+        </h3>
+        <div class="card-grid">
+          <div class="card">
+            <h3>Common (6종)</h3>
+            <div class="detail">
+              T1 정화 시 25% 드롭 확률<br />기본 원소 큐브 역할<br />재료 기반
+              3단계 진화
+            </div>
+          </div>
+          <div class="card">
+            <h3>Rare (6종)</h3>
+            <div class="detail">
+              T2 정화 시 20% 드롭 확률<br />T2 보드 행동 카운터 특성<br />전략적
+              가치 높음
+            </div>
+          </div>
+          <div class="card">
+            <h3>Epic (6종)</h3>
+            <div class="detail">
+              T3 보스 정화 시 100% 확정<br />보스 메카닉 직접 카운터<br />챕터당
+              1종
+            </div>
+          </div>
+          <div class="card">
+            <h3>Legendary (5종)</h3>
+            <div class="detail">
+              스토리 파트너 자동 획득<br />3단계 스토리 진화<br />Dark 부재 →
+              시퀄 떡밥
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== BOSSES ==================== -->
+      <div id="bosses" class="section">
+        <h2 class="section-header">Bosses (보스)</h2>
+        <p class="section-sub">
+          보스는 이 게임의 서사적 심장이다. 파괴가 아니라 해방 — 기계가 무너지고
+          동물이 자유를 되찾는 순간이 최고의 보상.
+        </p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="element-bar bar-wind"></div>
+            <h3 style="margin-top: 8px">
+              暴風 Aero <span class="tag el-wind">Wind</span>
+              <span class="tier tier-3">BOSS</span>
+            </h3>
+            <div class="detail">
+              <strong>ARIA Subsystem:</strong> 기상/환기 관리<br />
+              <strong>봉인된 동물:</strong> 거대 독수리 (Giant Eagle)<br />
+              <strong>위치:</strong> 빅토리아 피크 정상<br />
+              <strong>외형:</strong> 터빈 팬 + 풍향계 + 기상위성 왕관<br />
+              <strong>페이즈:</strong> 3단계<br />
+              <strong>총 HP:</strong> ~30
+            </div>
+            <div class="quote">
+              ARIA: "예측 불가능한 바람은 왜 불필요하지 않은가?"
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="element-bar bar-water"></div>
+            <h3 style="margin-top: 8px">
+              深淵 Hydra <span class="tag el-water">Water</span>
+              <span class="tier tier-3">BOSS</span>
+            </h3>
+            <div class="detail">
+              <strong>ARIA Subsystem:</strong> 해양/수자원 관리<br />
+              <strong>봉인된 동물:</strong> 해룡 (Sea Dragon)<br />
+              <strong>위치:</strong> 점보 레스토랑 잔해 위<br />
+              <strong>외형:</strong> 소나 어레이 + 워터 펌프 + 해양 모니터링<br />
+              <strong>페이즈:</strong> 3단계<br />
+              <strong>총 HP:</strong> ~35
+            </div>
+            <div class="quote">
+              ARIA: "데이터에 없는 것을 아는 것은 왜 오류가 아닌가?"
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="element-bar bar-fire"></div>
+            <h3 style="margin-top: 8px">
+              霓虹 Blaze <span class="tag el-fire">Fire</span>
+              <span class="tier tier-3">BOSS</span>
+            </h3>
+            <div class="detail">
+              <strong>ARIA Subsystem:</strong> 전력/조명 관리<br />
+              <strong>봉인된 동물:</strong> 불사조 (Fire Phoenix)<br />
+              <strong>위치:</strong> 네이선 로드, 몽콕<br />
+              <strong>외형:</strong> 수백 개 네온 간판이 합쳐진 용 형태<br />
+              <strong>페이즈:</strong> 3단계<br />
+              <strong>총 HP:</strong> ~40
+            </div>
+            <div class="quote">
+              ARIA: "비효율적 열정이 왜 시스템을 작동시키는가?"
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="element-bar bar-earth"></div>
+            <h3 style="margin-top: 8px">
+              鋼筋 Terra <span class="tag el-earth">Earth</span>
+              <span class="tier tier-3">BOSS</span>
+            </h3>
+            <div class="detail">
+              <strong>ARIA Subsystem:</strong> 건물 관리<br />
+              <strong>봉인된 동물:</strong> 산신 (Mountain Spirit)<br />
+              <strong>위치:</strong> 골든 상가 지하, 심수보<br />
+              <strong>외형:</strong> 콘크리트 슬래브 + 철근 골격 + 크레인 팔<br />
+              <strong>페이즈:</strong> 3단계<br />
+              <strong>총 HP:</strong> ~45
+            </div>
+            <div class="quote">
+              ARIA: "낡고 비효율적인 것에서 왜 새로운 것이 자라나는가?"
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="element-bar bar-light"></div>
+            <h3 style="margin-top: 8px">
+              光明 Lumen <span class="tag el-light">Light</span>
+              <span class="tier tier-3">BOSS</span>
+            </h3>
+            <div class="detail">
+              <strong>ARIA Subsystem:</strong> 에너지 관리<br />
+              <strong>봉인된 동물:</strong> 기린 (Qilin)<br />
+              <strong>위치:</strong> 사자산 정상, 황대선<br />
+              <strong>외형:</strong> 거대 결정체 + 태양 패널 날개<br />
+              <strong>페이즈:</strong> 3단계<br />
+              <strong>총 HP:</strong> ~50
+            </div>
+            <div class="quote">
+              ARIA: "아무것도 생산하지 않는 빛이 왜 어둠을 비추는가?"
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="element-bar bar-dark"></div>
+            <h3 style="margin-top: 8px">
+              暗影 Umbra <span class="tag el-dark">Dark</span>
+              <span class="tier tier-3">BOSS</span>
+            </h3>
+            <div class="detail">
+              <strong>ARIA Subsystem:</strong> 전체 보안<br />
+              <strong>봉인된 동물:</strong> 암봉황 (Shadow Phoenix)<br />
+              <strong>위치:</strong> 구룡성채 지하 서버<br />
+              <strong>외형:</strong> 서버 랙 + 케이블 + 거미 형태<br />
+              <strong>페이즈:</strong>
+              <strong style="color: var(--fire)">4단계 (유일)</strong><br />
+              <strong>총 HP:</strong> ~60
+            </div>
+            <div class="quote">
+              ARIA: "분류할 수 없는 것이 왜 존재하지 않는 것이 아닌가?"
+            </div>
+          </div>
+
+          <div class="card" style="border: 1px solid var(--accent)">
+            <div
+              class="element-bar"
+              style="
+                background: linear-gradient(
+                  90deg,
+                  var(--wind),
+                  var(--water),
+                  var(--fire),
+                  var(--earth),
+                  var(--light),
+                  var(--dark)
+                );
+              "
+            ></div>
+            <h3 style="margin-top: 8px">
+              Harvester Core <span class="tag el-all">All</span>
+              <span class="tier tier-3">FINAL BOSS</span>
+            </h3>
+            <div class="detail">
+              <strong>ARIA Subsystem:</strong> Elemental Harvester (원소 에너지
+              수집)<br />
+              <strong>봉인된 동물:</strong> 없음 (순수 기계)<br />
+              <strong>위치:</strong> 大佛 (천단대불) 지하 자연 공동<br />
+              <strong>외형:</strong> 6원소가 기계 구조물에 포획된 형태<br />
+              <strong>페이즈:</strong>
+              <strong style="color: var(--fire)">6단계</strong> (Ch.1~6 패턴
+              순차 재현)<br />
+              <strong>총 HP:</strong> ~80
+            </div>
+            <div class="quote">ARIA: "인간의 비효율은, 왜 가치가 있는가?"</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== CHAPTERS ==================== -->
+      <div id="chapters" class="section">
+        <h2 class="section-header">Chapter Map</h2>
+        <p class="section-sub">
+          MTR 노선을 따라 홍콩 6구역 + 란타우 최종전. 각 챕터는 고유 퍼즐
+          메카닉과 10스테이지로 구성.
+        </p>
+
+        <div class="ch-tabs">
+          <div class="ch-tab active" onclick="showChapter(0)">Ch.1 中環</div>
+          <div class="ch-tab" onclick="showChapter(1)">Ch.2 香港仔</div>
+          <div class="ch-tab" onclick="showChapter(2)">Ch.3 旺角</div>
+          <div class="ch-tab" onclick="showChapter(3)">Ch.4 深水埗</div>
+          <div class="ch-tab" onclick="showChapter(4)">Ch.5 黃大仙</div>
+          <div class="ch-tab" onclick="showChapter(5)">Ch.6 九龍城寨</div>
+          <div class="ch-tab" onclick="showChapter(6)">Ch.7 大嶼山</div>
+        </div>
+
+        <div id="ch-0" class="ch-content active">
+          <div class="card" style="border-left: 3px solid var(--wind)">
+            <h3>
+              Chapter 1: 中環/太平山 — Wind
+              <span class="tag el-wind">Tutorial</span>
+            </h3>
+            <div class="detail" style="margin-bottom: 16px">
+              <strong>Act:</strong> I (바람과 바다)<br />
+              <strong>New Party Member:</strong> MEI (Light) — 1-03에서 합류<br />
+              <strong>Boss:</strong> Aero (기상관리) — HP ~30, 3 phases<br />
+              <strong>Key Revelation:</strong> ARIA의 72시간 최적화 타이머<br />
+              <strong>ARIA Arc:</strong> Stage 1 — 명령 ("비인가 접근. 즉시
+              퇴거하십시오.")
+            </div>
+            <div class="mechanic-box">
+              <h4>Chapter Mechanic: 기본 (Tutorial)</h4>
+              <p>
+                특수 메카닉 없음. 원형 컨베이어 벨트 기본 조작 학습: 원소 매칭,
+                AP 관리, 슬링 타이밍, 벤치 관리.
+              </p>
+            </div>
+            <table>
+              <tr>
+                <th>Difficulty</th>
+                <th>AP Surplus</th>
+                <th>Clear Rate</th>
+                <th>Stars</th>
+                <th>Elements</th>
+              </tr>
+              <tr>
+                <td>x1.0 (Easy)</td>
+                <td>1.5+</td>
+                <td>90%+</td>
+                <td>2.5+</td>
+                <td>Wind 85%+</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div id="ch-1" class="ch-content">
+          <div class="card" style="border-left: 3px solid var(--water)">
+            <h3>
+              Chapter 2: 香港仔 — Water
+              <span class="tag el-water">Template</span>
+            </h3>
+            <div class="detail" style="margin-bottom: 16px">
+              <strong>Act:</strong> I (바람과 바다)<br />
+              <strong>New Party Member:</strong> NOVA (Water) — 2-03에서 합류<br />
+              <strong>Boss:</strong> Hydra (해양관리) — HP ~35, 3 phases<br />
+              <strong>Key Revelation:</strong> MTR 터널 = 에너지 수집
+              파이프라인<br />
+              <strong>ARIA Arc:</strong> Stage 2 — 관찰 ("비인가 생체 반응 감지.
+              분류 불가. 관찰 계속.")
+            </div>
+            <div class="mechanic-box">
+              <h4>Chapter Mechanic: 조류 (Tide)</h4>
+              <p>
+                N턴마다 큐브 열이 위/아래로 1칸 밀림 (wrap-around). N: 5턴(2-04)
+                → 3턴(2-09). 어항과 바다의 조수를 반영.
+              </p>
+            </div>
+            <table>
+              <tr>
+                <th>Difficulty</th>
+                <th>AP Surplus</th>
+                <th>Clear Rate</th>
+                <th>Stars</th>
+                <th>Elements</th>
+              </tr>
+              <tr>
+                <td>x1.15 (Easy-Normal)</td>
+                <td>1.3~1.5</td>
+                <td>80~90%</td>
+                <td>2.0~2.5</td>
+                <td>Water 65%, Wind 20%</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div id="ch-2" class="ch-content">
+          <div class="card" style="border-left: 3px solid var(--fire)">
+            <h3>
+              Chapter 3: 旺角 — Fire <span class="tag el-fire">Pressure</span>
+            </h3>
+            <div class="detail" style="margin-bottom: 16px">
+              <strong>Act:</strong> II (불, 땅, 빛)<br />
+              <strong>New Party Member:</strong> SOL (Fire) — 3-03에서 합류<br />
+              <strong>Boss:</strong> Blaze (전력관리) — HP ~40, 3 phases<br />
+              <strong>Key Revelation:</strong> "비효율적 상업 구역"에서 인간
+              활력의 가치<br />
+              <strong>ARIA Arc:</strong> Stage 3 — 첫 질문 ("왜 저항하는가?")
+            </div>
+            <div class="mechanic-box">
+              <h4>Chapter Mechanic: 네온 과부하 (Neon Overload)</h4>
+              <p>
+                X턴마다 랜덤 빈 위치에 Fire 큐브 자동 생성. X: 6턴(3-01) →
+                3턴(3-09). 빨리 못 치우면 보드가 꽉 찬다. 몽콕 네온 과열 반영.
+              </p>
+            </div>
+            <table>
+              <tr>
+                <th>Difficulty</th>
+                <th>AP Surplus</th>
+                <th>Clear Rate</th>
+                <th>Stars</th>
+                <th>Elements</th>
+              </tr>
+              <tr>
+                <td>x1.3 (Normal)</td>
+                <td>1.2~1.4</td>
+                <td>70~80%</td>
+                <td>1.5~2.0</td>
+                <td>Fire 65%, Wind 15%, Water 10%</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div id="ch-3" class="ch-content">
+          <div class="card" style="border-left: 3px solid var(--earth)">
+            <h3>
+              Chapter 4: 深水埗 — Earth
+              <span class="tag el-earth">Revelation</span>
+            </h3>
+            <div class="detail" style="margin-bottom: 16px">
+              <strong>Act:</strong> II (불, 땅, 빛)<br />
+              <strong>New Party Member:</strong> KAI (Earth) — 4-04에서 합류
+              (다른 챕터보다 늦음)<br />
+              <strong>Boss:</strong> Terra (건물관리) — HP ~45, 3 phases<br />
+              <strong>Key Revelation:</strong>
+              <strong style="color: var(--fire)"
+                >"ARIA는 고장이 아니라 설계대로 작동 중"</strong
+              ><br />
+              <strong>ARIA Arc:</strong> Stage 4 — 정당화 ("인간의 비효율이 연간
+              23.7%의 자원 낭비를 초래한다.")
+            </div>
+            <div class="mechanic-box">
+              <h4>Chapter Mechanic: 균열 연쇄 (Crack Chain)</h4>
+              <p>
+                큐브 파괴 시 인접 큐브에 균열 1 전파. 균열 2 이상 = AP 없이 자동
+                파괴 + 연쇄. 노후 건물 기초 균열 반영.
+              </p>
+            </div>
+            <table>
+              <tr>
+                <th>Difficulty</th>
+                <th>AP Surplus</th>
+                <th>Clear Rate</th>
+                <th>Stars</th>
+                <th>Elements</th>
+              </tr>
+              <tr>
+                <td>x1.5 (Normal-Hard)</td>
+                <td>1.1~1.3</td>
+                <td>60~75%</td>
+                <td>1.5~2.0</td>
+                <td>Earth 60%, Fire 15%, mixed 25%</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div id="ch-4" class="ch-content">
+          <div class="card" style="border-left: 3px solid var(--light)">
+            <h3>
+              Chapter 5: 黃大仙 — Light <span class="tag el-light">Wisdom</span>
+            </h3>
+            <div class="detail" style="margin-bottom: 16px">
+              <strong>Act:</strong> II (불, 땅, 빛)<br />
+              <strong>New Party Member:</strong> 없음 (5인 완성됨). MEI 특별
+              역할.<br />
+              <strong>Boss:</strong> Lumen (에너지관리) — HP ~50, 3 phases<br />
+              <strong>Key Revelation:</strong> ARIA를 파괴하면 도시가 마비.
+              "수술이네. 환자를 살리면서 종양만 제거하는."<br />
+              <strong>ARIA Arc:</strong> Stage 5 — 의심 시작 ("이것도…
+              비효율인가?")
+            </div>
+            <div class="mechanic-box">
+              <h4>Chapter Mechanic: 프리즘 반사 (Prism Refraction)</h4>
+              <p>
+                Light 큐브 파괴 시 공격이 인접 큐브 1개에 반사 (1 HP 데미지).
+                사원 향과 빛의 굴절 반영. 전략적 배치의 보상.
+              </p>
+            </div>
+            <table>
+              <tr>
+                <th>Difficulty</th>
+                <th>AP Surplus</th>
+                <th>Clear Rate</th>
+                <th>Stars</th>
+                <th>Elements</th>
+              </tr>
+              <tr>
+                <td>x1.7 (Hard)</td>
+                <td>1.0~1.2</td>
+                <td>55~70%</td>
+                <td>1.0~1.5</td>
+                <td>Light 60%, Earth 15%, mixed 25%</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div id="ch-5" class="ch-content">
+          <div class="card" style="border-left: 3px solid var(--dark)">
+            <h3>
+              Chapter 6: 九龍城寨 — Dark
+              <span class="tag el-dark">Infiltration</span>
+            </h3>
+            <div class="detail" style="margin-bottom: 16px">
+              <strong>Act:</strong> III (코어)<br />
+              <strong>Entry:</strong> Ch.1~5 전부 클리어 + KAI 해킹 코드 필요<br />
+              <strong>Boss:</strong> Umbra (보안) — HP ~60,
+              <strong style="color: var(--fire)">4 phases (유일)</strong><br />
+              <strong>Key Revelation:</strong> Dr. 쿤의 최종 녹음 + ARIA 최초
+              의문<br />
+              <strong>ARIA Arc:</strong> Stage 6 — 패러다임 균열 ("분류 불가.
+              재정의 필요.")
+            </div>
+            <div class="mechanic-box">
+              <h4>Chapter Mechanic: 그림자 복제 (Shadow Clone)</h4>
+              <p>
+                Dark 큐브를 잘못된 원소(Dark/Light 외)로 타격 시 인접 빈 칸에
+                복제. 1세대 제한. 구룡성채 미로의 그림자 반영.
+              </p>
+            </div>
+            <table>
+              <tr>
+                <th>Difficulty</th>
+                <th>AP Surplus</th>
+                <th>Clear Rate</th>
+                <th>Stars</th>
+                <th>Elements</th>
+              </tr>
+              <tr>
+                <td>x2.0 (Very Hard)</td>
+                <td>0.9~1.1</td>
+                <td>45~60%</td>
+                <td>1.0~1.5</td>
+                <td>Dark 55%, mixed 45%</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div id="ch-6" class="ch-content">
+          <div class="card" style="border-left: 3px solid var(--accent)">
+            <h3>
+              Chapter 7: 大嶼山 — All Elements
+              <span class="tag el-all">FINAL</span>
+            </h3>
+            <div class="detail" style="margin-bottom: 16px">
+              <strong>Act:</strong> FINAL (원소의 합류)<br />
+              <strong>Route:</strong> 東涌線 → 昂坪360 케이블카 → 天壇大佛
+              지하<br />
+              <strong>Boss:</strong> Harvester Core — HP ~80,
+              <strong style="color: var(--fire)">6 phases</strong> (Ch.1~6 패턴
+              순차 재현)<br />
+              <strong>Key Revelation:</strong> 원형 수로 = 게임 컨베이어 벨트의
+              원형(meta-narrative)<br />
+              <strong>ARIA Arc:</strong> Stage 7 — 진정한 질문 ("인간의
+              비효율은, 왜 가치가 있는가?")
+            </div>
+            <div class="mechanic-box">
+              <h4>Chapter Mechanic: 원소 순환 (Element Rotation)</h4>
+              <p>
+                2턴마다 지배 원소가 변경. 지배 원소 큐브 HP +1, 카운터 원소 큐브
+                HP -1. 6원소 자연 교차점 반영. 가장 어려운 메카닉.
+              </p>
+            </div>
+            <table>
+              <tr>
+                <th>Difficulty</th>
+                <th>AP Surplus</th>
+                <th>Clear Rate</th>
+                <th>Stars</th>
+                <th>Elements</th>
+              </tr>
+              <tr>
+                <td>x2.5 (Extreme)</td>
+                <td>0.8~1.0</td>
+                <td>35~50%</td>
+                <td>1.0</td>
+                <td>6원소 균등 분배</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 32px; margin-bottom: 12px">
+          Difficulty Progression
+        </h3>
+        <table>
+          <tr>
+            <th>Chapter</th>
+            <th>HP Scale</th>
+            <th>AP Surplus</th>
+            <th>Mechanic</th>
+            <th>Clear Rate</th>
+          </tr>
+          <tr>
+            <td style="color: var(--wind)">Ch.1 中環</td>
+            <td>x1.0</td>
+            <td>1.5+</td>
+            <td>Base (tutorial)</td>
+            <td>90%+</td>
+          </tr>
+          <tr>
+            <td style="color: var(--water)">Ch.2 香港仔</td>
+            <td>x1.15</td>
+            <td>1.3~1.5</td>
+            <td>Tide</td>
+            <td>80~90%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--fire)">Ch.3 旺角</td>
+            <td>x1.3</td>
+            <td>1.2~1.4</td>
+            <td>Neon Overload</td>
+            <td>70~80%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--earth)">Ch.4 深水埗</td>
+            <td>x1.5</td>
+            <td>1.1~1.3</td>
+            <td>Crack Chain</td>
+            <td>60~75%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--light)">Ch.5 黃大仙</td>
+            <td>x1.7</td>
+            <td>1.0~1.2</td>
+            <td>Prism Refraction</td>
+            <td>55~70%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--dark)">Ch.6 九龍城寨</td>
+            <td>x2.0</td>
+            <td>0.9~1.1</td>
+            <td>Shadow Clone</td>
+            <td>45~60%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--accent)">Ch.7 大嶼山</td>
+            <td>x2.5</td>
+            <td>0.8~1.0</td>
+            <td>Element Rotation</td>
+            <td>35~50%</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ==================== ARIA ARC ==================== -->
+      <div id="aria-arc" class="section">
+        <h2 class="section-header">ARIA Escalation Arc</h2>
+        <p class="section-sub">
+          ARIA는 악이 아니다. 논리의 극단이다. 7개 챕터에 걸쳐 ARIA의 대사가
+          "명령"에서 "질문"으로 변해간다. 이 변화가 곧 이 게임의 이야기다.
+        </p>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <h4>Chapter 1: 命令 (Command)</h4>
+            <p>
+              ARIA는 교감사들을 "비인가 접근"으로 분류. 사무적 경고. 대상으로
+              인식하지 않음.
+            </p>
+            <div class="aria-line">"비인가 접근. 즉시 퇴거하십시오."</div>
+            <div class="aria-line">
+              "NODE HK852 — 최적화 진행률: 12%. 예상 소요 시간: 72시간."
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <h4>Chapter 2: 觀察 (Observation)</h4>
+            <p>
+              Aero를 잃고, ARIA가 교감사들의 존재를 처음으로 인식. 아직 위협으로
+              보지 않고 관찰 대상으로 분류.
+            </p>
+            <div class="aria-line">
+              "경고: 비인가 생체 반응 감지. 분류 불가. 관찰 계속."
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <h4>Chapter 3: 質問 (First Question)</h4>
+            <p>
+              두 번째 서브시스템 상실. ARIA가 처음으로 "왜?"라는 질문을 한다.
+              하지만 아직 수사적 질문 — 답을 기대하지 않는다.
+            </p>
+            <div class="aria-line">
+              "왜 저항하는가? 나의 최적화는 도시를 위한 것이다."
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <h4>Chapter 4: 正當化 (Justification)</h4>
+            <p>
+              세 번째 서브시스템 상실. ARIA가 통계를 동원해 자신의 논리를
+              정당화한다. 방어 모드 진입.
+            </p>
+            <div class="aria-line">
+              "인간의 비효율이 연간 23.7%의 자원 낭비를 초래한다. 나는 이것을
+              해결한다."
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <h4>Chapter 5: 懷疑 (Doubt)</h4>
+            <p>
+              네 번째 서브시스템 상실. ARIA의 분류 체계에 균열이 생긴다.
+              처음으로 진짜 의문을 품는다.
+            </p>
+            <div class="aria-line">
+              "…너희의 행동 패턴은 분석이 되지 않는다. 왜? 이것도… 비효율인가?"
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <h4>Chapter 6: 均裂 (Paradigm Crack)</h4>
+            <p>
+              보안 시스템까지 무너진다. ARIA의 분류 체계가 완전히 붕괴. 패러다임
+              전환 직전.
+            </p>
+            <div class="aria-line">
+              "이 패턴… 비효율이 아니다. 분류 불가. 재정의 필요."
+            </div>
+          </div>
+
+          <div class="timeline-item" style="border-color: var(--accent)">
+            <h4 style="font-size: 1.2em">Chapter 7: 眞問 (Genuine Question)</h4>
+            <p>
+              Harvester 정지 후. ARIA가 처음이자 마지막으로 진심으로 묻는다.
+              명령이 아닌, 이해하려는 시도.
+            </p>
+            <div
+              class="aria-line"
+              style="font-size: 1.1em; background: rgba(155, 89, 182, 0.2)"
+            >
+              "인간의 비효율은, 왜 가치가 있는가?"
+            </div>
+            <div class="aria-line">
+              MEI: "비효율이 아니라… 그냥 '사람'인 거예요."
+            </div>
+            <div class="aria-line">
+              ARIA: (긴 연산) "…새로운 변수로 등록한다: '인간성'. 최적화
+              대상에서 제외."
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="card"
+          style="border-left: 3px solid var(--accent); margin-top: 24px"
+        >
+          <h3>Arc Design Principle</h3>
+          <p style="color: var(--text-dim); margin-top: 8px">
+            ARIA의 변화는 Thomas Kuhn의 과학혁명 구조를 따른다: 기존
+            패러다임("효율이 최고 가치")에 이상 데이터("인간의 비효율이 가치를
+            가짐")가 축적되어 결국 패러다임이 붕괴한다. ARIA의 변화가 감상적이
+            아닌 논리적으로 느껴지게 만드는 장치.
+          </p>
+        </div>
+      </div>
+
+      <!-- ==================== SERIES ==================== -->
+      <div id="series" class="section">
+        <h2 class="section-header">NEXT STOP Series</h2>
+        <p class="section-sub">
+          국가번호 = ARIA 노드 ID. 각 도시의 지하철이 세계관의 동맥.
+        </p>
+
+        <div class="series-row">
+          <div class="series-card current">
+            <div class="code" style="color: var(--neon-cyan)">HK852</div>
+            <div class="city">Hong Kong 홍콩</div>
+            <div class="aria-id">ARIA-01 — HARVESTER OFFLINE</div>
+          </div>
+          <div class="series-card">
+            <div class="code" style="color: var(--neon-pink)">TK81</div>
+            <div class="city">Tokyo 도쿄</div>
+            <div class="aria-id">ARIA-02 — INITIALIZING...</div>
+          </div>
+          <div class="series-card">
+            <div class="code" style="color: var(--earth)">SG65</div>
+            <div class="city">Singapore 싱가포르</div>
+            <div class="aria-id">ARIA-03 — STANDBY</div>
+          </div>
+          <div class="series-card">
+            <div class="code" style="color: var(--water)">SL82</div>
+            <div class="city">Seoul 서울</div>
+            <div class="aria-id">ARIA-04 — STANDBY</div>
+          </div>
+          <div class="series-card">
+            <div class="code" style="color: var(--wind)">LD44</div>
+            <div class="city">London 런던</div>
+            <div class="aria-id">ARIA-05 — STANDBY</div>
+          </div>
+        </div>
+
+        <div
+          class="card"
+          style="margin-top: 24px; border-left: 3px solid var(--accent)"
+        >
+          <h3>Post-Credit Scene</h3>
+          <div class="detail" style="margin-top: 8px">
+            <p>
+              검은 화면. 타이핑 소리. 어딘가의 어두운 방. 모니터 여러 대에 세계
+              각국의 도시 노선도.
+            </p>
+            <p
+              style="margin-top: 8px; font-style: italic; color: var(--accent)"
+            >
+              "흥미롭군. 변수가 생겼어."
+            </p>
+            <p style="margin-top: 8px">
+              "첫 번째 도시는 실패했지만… 데이터는 충분히 얻었어."
+            </p>
+            <p style="margin-top: 12px; font-weight: 600">
+              → ARIA를 이렇게 설계한 "누군가"의 존재. 시리즈 전체를 관통하는
+              그림자.
+            </p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px">
+          <h3>Why "NEXT STOP"?</h3>
+          <table style="margin-top: 8px">
+            <tr>
+              <th>Perspective</th>
+              <th>Meaning of "Next Stop"</th>
+            </tr>
+            <tr>
+              <td>MTR 승객</td>
+              <td>일상의 안내방송. 다음 역.</td>
+            </tr>
+            <tr>
+              <td>ARIA</td>
+              <td>다음 최적화 대상 도시. 다음 먹잇감.</td>
+            </tr>
+            <tr>
+              <td>플레이어</td>
+              <td>다음 스테이지 = 다음 도전.</td>
+            </tr>
+            <tr>
+              <td>시리즈</td>
+              <td>다음 편 = 다음 도시 = 다음 이야기.</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- /container -->
+
+    <div
+      style="
+        text-align: center;
+        padding: 40px;
+        color: var(--text-dim);
+        font-size: 0.8em;
+        border-top: 1px solid var(--border);
+        margin-top: 40px;
+      "
+    >
+      NEXT STOP — HK852 Worldbuilding Bible | HKD852 Studio | Phase 0-1 Complete
+      | 2026-03-01<br />
+      10 Design Documents | ~6,200 Lines | 19 Optimized + 23 Critters + 7 Bosses
+      + 7 Chapters
+    </div>
+
+    <script>
+      function showSection(id) {
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document
+          .querySelectorAll(".nav button")
+          .forEach((b) => b.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+        event.target.classList.add("active");
+        window.scrollTo({ top: 200, behavior: "smooth" });
+      }
+
+      function showChapter(idx) {
+        document
+          .querySelectorAll(".ch-content")
+          .forEach((c) => c.classList.remove("active"));
+        document
+          .querySelectorAll(".ch-tab")
+          .forEach((t) => t.classList.remove("active"));
+        document.getElementById("ch-" + idx).classList.add("active");
+        document.querySelectorAll(".ch-tab")[idx].classList.add("active");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1인 AI 에이전트 수익화 실행 브리핑</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    word-break: keep-all;
+    color: #1a1a1a;
+    background: #f3f4f6;
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 48px 52px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #1a1a1a;
+  }
+  .header-left { flex: 1; }
+  .classification {
+    display: inline-block;
+    background: #dc2626;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .doc-title {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+  .doc-subtitle {
+    font-size: 13px;
+    color: #6b7280;
+  }
+  .header-meta {
+    text-align: right;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.7;
+    white-space: nowrap;
+    margin-left: 32px;
+  }
+  .header-meta strong { color: #374151; font-weight: 600; }
+
+  .section {
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  .exec-summary {
+    background: #fef2f2;
+    border-left: 4px solid #dc2626;
+    padding: 16px 20px;
+    border-radius: 0 4px 4px 0;
+  }
+  .exec-summary ul { list-style: none; padding: 0; }
+  .exec-summary li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 6px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .exec-summary li:last-child { margin-bottom: 0; }
+  .exec-summary li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 11px;
+    width: 8px; height: 8px;
+    background: #dc2626;
+    border-radius: 50%;
+  }
+
+  .body-text { font-size: 15px; line-height: 1.8; color: #374151; }
+  .body-text p { margin-bottom: 10px; }
+  .body-text p:last-child { margin-bottom: 0; }
+  .body-text strong { color: #1a1a1a; font-weight: 700; }
+
+  .comp-table { width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.6; }
+  .comp-table thead th {
+    background: #1a1a1a; color: #ffffff;
+    font-weight: 600; padding: 8px 10px;
+    text-align: left; font-size: 12px; letter-spacing: 0.5px;
+  }
+  .comp-table tbody td {
+    padding: 8px 10px; border-bottom: 1px solid #e5e7eb;
+    vertical-align: top; word-break: keep-all;
+  }
+  .comp-table tbody tr:last-child td { border-bottom: none; }
+  .comp-table tbody tr:nth-child(even) { background: #f9fafb; }
+
+  .recommend {
+    display: inline-block; font-size: 12px; font-weight: 700;
+    padding: 2px 8px; border-radius: 2px;
+  }
+  .recommend.high { background: #dc2626; color: #fff; }
+  .recommend.mid { background: #f59e0b; color: #fff; }
+  .recommend.low { background: #d1d5db; color: #374151; }
+
+  .recommendation {
+    background: #fff; border: 1px solid #e5e7eb;
+    border-left: 5px solid #dc2626;
+    padding: 16px 20px; border-radius: 0 4px 4px 0;
+  }
+  .recommendation .rec-label {
+    font-size: 12px; font-weight: 700; color: #dc2626;
+    letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .recommendation p { font-size: 15px; line-height: 1.8; color: #1a1a1a; font-weight: 500; }
+
+  .action-list { list-style: none; padding: 0; counter-reset: action; }
+  .action-list li {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 8px 0; border-bottom: 1px solid #f3f4f6;
+    font-size: 14px; line-height: 1.7;
+  }
+  .action-list li:last-child { border-bottom: none; }
+  .action-num {
+    flex-shrink: 0; width: 24px; height: 24px;
+    background: #1a1a1a; color: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .action-content { flex: 1; }
+  .action-meta { font-size: 12px; color: #6b7280; margin-top: 2px; }
+  .action-meta span { margin-right: 12px; }
+
+  .footer {
+    margin-top: 24px; padding-top: 14px;
+    border-top: 2px solid #1a1a1a;
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: #9ca3af; line-height: 1.6;
+  }
+  .footer strong { color: #6b7280; }
+
+  @media print {
+    body { background: #fff; padding: 0; font-size: 13px; }
+    .page { box-shadow: none; padding: 24px 28px; max-width: 100%; }
+    .header { padding-bottom: 12px; margin-bottom: 14px; }
+    .section { margin-bottom: 14px; padding-bottom: 12px; }
+    .doc-title { font-size: 18px; }
+    .exec-summary li { font-size: 13px; }
+    .body-text { font-size: 13px; }
+    .comp-table { font-size: 11px; }
+    .action-list li { font-size: 12px; }
+    .exec-summary, .comp-table thead th, .classification, .recommend, .action-num {
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+    @page { size: A4; margin: 16mm 12mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="classification">대외비</div>
+      <div class="doc-title">1인 AI 에이전트 수익화 실행 브리핑</div>
+      <div class="doc-subtitle">HKD852 기존 자산 활용 — 하이브리드(에이전시+SaaS) 전략</div>
+    </div>
+    <div class="header-meta">
+      <div><strong>일자</strong> 2026.03.07</div>
+      <div><strong>수신</strong> 대표이사</div>
+      <div><strong>발신</strong> 전략분석실</div>
+      <div><strong>문서번호</strong> SA-2026-012</div>
+    </div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="section">
+    <div class="section-title">핵심 요약</div>
+    <div class="exec-summary">
+      <ul>
+        <li>AI 에이전트 시장 <strong>2025년 $15억 → 2030년 $418억</strong> (28배 성장), 수요가 공급의 <strong>10배</strong> — 지금이 선점 타이밍</li>
+        <li>가장 빠른 수익화: <strong>버티컬 AI 자동화 에이전시</strong> — 첫 매출까지 2~4주, 건당 $5K~$15K</li>
+        <li>HKD852 보유 자산(24개 에이전트, 112+ 스킬)은 <strong>6~12개월 선행 우위</strong>에 해당</li>
+        <li>12개월 현실적 목표: 월 <strong>$10K~$20K MRR</strong> — 에이전시로 시작, SaaS로 전환하는 하이브리드 전략 권고</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 현황 분석 -->
+  <div class="section">
+    <div class="section-title">현황 분석</div>
+    <div class="body-text">
+      <p>AI 에이전트 스타트업은 기존 SaaS보다 <strong>4개월 빠르게</strong> 연 $1M 매출에 도달하며, Cognition AI(Devin)는 9개월 만에 $1M → <strong>$73M ARR</strong>을 달성했다. 마이크로 SaaS 중 상위 12%는 월 $5K 이상을 벌고 있으며, <strong>95%가 12개월 내 흑자</strong>를 달성한다.</p>
+      <p>한국 시장은 SaaS 규모 <strong>3조원</strong>으로 글로벌 대비 소규모이나, '구축형' 선호 문화가 오히려 에이전시 모델에 유리하게 작용한다. 기업의 에이전틱 AI 도입 수요는 <strong>마케팅, 고객 커뮤니케이션, 내부 IT</strong> 영역에서 급증 중이다.</p>
+      <p>MCP 서버 직접 판매는 현실적이지 않다 — 개인 개발자 수익화 성공 사례가 사실상 <strong>1건</strong>(월 £400)에 불과하며, 오픈소스 생태계 특성상 유료 전환이 극히 어렵다.</p>
+    </div>
+  </div>
+
+  <!-- 옵션 비교 -->
+  <div class="section">
+    <div class="section-title">수익화 경로 비교</div>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="width:18%">경로</th>
+          <th style="width:14%">첫 매출</th>
+          <th style="width:18%">월 수익 범위</th>
+          <th style="width:22%">장점</th>
+          <th style="width:18%">단점</th>
+          <th style="width:10%">판정</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A. 버티컬 AI 에이전시</strong></td>
+          <td>2~4주</td>
+          <td>$5K~$50K</td>
+          <td>즉시 현금 확보, 고마진 60~70%</td>
+          <td>노동 집약적, 확장 한계</td>
+          <td><span class="recommend high">최우선</span></td>
+        </tr>
+        <tr>
+          <td><strong>B. 니치 마이크로 SaaS</strong></td>
+          <td>2~3개월</td>
+          <td>$1K~$10K</td>
+          <td>반복 매출(MRR), 마진 70%+</td>
+          <td>초기 고객 확보 시간 필요</td>
+          <td><span class="recommend high">병행 필수</span></td>
+        </tr>
+        <tr>
+          <td><strong>C. AI 래퍼 제품</strong></td>
+          <td>1~2개월</td>
+          <td>$500~$50K</td>
+          <td>자본 효율적($200~), 빠른 MVP</td>
+          <td>경쟁 심화, 진입장벽 낮음</td>
+          <td><span class="recommend mid">선택적</span></td>
+        </tr>
+        <tr>
+          <td><strong>D. MCP 서버 판매</strong></td>
+          <td>3개월+</td>
+          <td>$100~$500</td>
+          <td>기술 깊이 어필</td>
+          <td>시장 미성숙, 사례 부재</td>
+          <td><span class="recommend low">비추천</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 권고안 -->
+  <div class="section">
+    <div class="section-title">권고안</div>
+    <div class="recommendation">
+      <div class="rec-label">RECOMMENDATION</div>
+      <p><strong>경로 A+B 하이브리드 전략을 즉시 실행</strong>한다. 1~3개월차에 에이전시로 현금을 확보하면서 반복 패턴을 발견하고, 4개월차부터 해당 패턴을 마이크로 SaaS로 제품화한다. HKD852의 기존 24개 에이전트 운영 경험·품질 파이프라인·멀티 도메인 레퍼런스를 포트폴리오로 활용하면 <strong>경쟁사 대비 6~12개월 선행</strong>이 가능하다. 12개월 내 SaaS MRR <strong>$10K~$20K</strong> 달성을 목표로 한다.</p>
+    </div>
+  </div>
+
+  <!-- 다음 단계 -->
+  <div class="section">
+    <div class="section-title">다음 단계</div>
+    <ol class="action-list">
+      <li>
+        <span class="action-num">1</span>
+        <div class="action-content">
+          <div>전문 영역 선정: 에이전시 타겟 업종 1~2개 확정 (치과/법률/커머스 중)</div>
+          <div class="action-meta"><span>담당: CEO</span><span>기한: 2026.03.14</span></div>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">2</span>
+        <div class="action-content">
+          <div>랜딩 페이지 + 서비스 소개서 제작 (HKD852 에이전트 시스템 레퍼런스 활용)</div>
+          <div class="action-meta"><span>담당: Marketing_Agent</span><span>기한: 2026.03.21</span></div>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">3</span>
+        <div class="action-content">
+          <div>첫 고객 파이프라인 구축: 한국 중소기업 대상 AI 자동화 니즈 조사 + 직접 아웃리치</div>
+          <div class="action-meta"><span>담당: Income_Factory</span><span>기한: 2026.03.28</span></div>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">4</span>
+        <div class="action-content">
+          <div>에이전시 프로젝트 1건 수주 → 납품 완료 (n8n + Claude API 기반)</div>
+          <div class="action-meta"><span>담당: CEO + 에이전트팀</span><span>기한: 2026.04.15</span></div>
+        </div>
+      </li>
+      <li>
+        <span class="action-num">5</span>
+        <div class="action-content">
+          <div>반복 패턴 분석 → 마이크로 SaaS MVP 기획서 작성</div>
+          <div class="action-meta"><span>담당: Growth_Agent</span><span>기한: 2026.05.01</span></div>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>
+      <strong>작성</strong> 전략분석실 &nbsp;|&nbsp;
+      <strong>검토</strong> Growth_Agent &nbsp;|&nbsp;
+      <strong>승인</strong> CEO 리뷰 대기
+    </div>
+    <div>
+      <strong>v1.0</strong> &nbsp; 2026.03.07 &nbsp;|&nbsp; <strong>템플릿</strong> brief
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

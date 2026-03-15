@@ -1,0 +1,1409 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neon Warden Pivot Report — HKD852</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #fafafa;
+        --bg-card: #ffffff;
+        --bg-dark: #0f172a;
+        --bg-hero: #0a0a1a;
+        --text: #1e293b;
+        --text-dim: #64748b;
+        --text-bright: #0f172a;
+        --accent: #6366f1;
+        --accent-light: #a5b4fc;
+        --accent-bg: #eef2ff;
+        --green: #10b981;
+        --green-bg: #ecfdf5;
+        --green-border: #a7f3d0;
+        --red: #ef4444;
+        --red-bg: #fef2f2;
+        --red-border: #fecaca;
+        --yellow: #f59e0b;
+        --yellow-bg: #fffbeb;
+        --yellow-border: #fde68a;
+        --blue: #3b82f6;
+        --blue-bg: #eff6ff;
+        --blue-border: #bfdbfe;
+        --purple: #8b5cf6;
+        --purple-bg: #f5f3ff;
+        --border: #e2e8f0;
+        --border-dark: #cbd5e1;
+        --radius: 12px;
+      }
+      html {
+        font-size: 15px;
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family:
+          "Pretendard",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        line-height: 1.75;
+        color: var(--text);
+        background: var(--bg);
+        word-break: keep-all;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Hero ── */
+      .hero {
+        background: var(--bg-hero);
+        color: white;
+        padding: 80px 24px 60px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 30% 50%,
+            rgba(99, 102, 241, 0.15) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 70% 30%,
+            rgba(139, 92, 246, 0.1) 0%,
+            transparent 50%
+          );
+      }
+      .hero-badge {
+        display: inline-block;
+        padding: 4px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 100px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 24px;
+        position: relative;
+      }
+      .hero h1 {
+        font-size: clamp(32px, 5vw, 52px);
+        font-weight: 900;
+        line-height: 1.15;
+        letter-spacing: -1.5px;
+        margin-bottom: 16px;
+        position: relative;
+      }
+      .hero h1 em {
+        font-style: normal;
+        color: var(--accent-light);
+      }
+      .hero-sub {
+        font-size: 17px;
+        color: rgba(255, 255, 255, 0.5);
+        position: relative;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* ── Layout ── */
+      .wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      .section {
+        padding: 64px 0;
+      }
+      .section + .section {
+        border-top: 1px solid var(--border);
+      }
+      .section-label {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .section h2 {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--text-bright);
+        letter-spacing: -0.5px;
+        margin-bottom: 8px;
+        line-height: 1.3;
+      }
+      .section .lead {
+        color: var(--text-dim);
+        margin-bottom: 32px;
+        font-size: 15px;
+      }
+
+      /* ── Cards ── */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        margin: 24px 0;
+      }
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+        transition:
+          box-shadow 0.2s,
+          border-color 0.2s;
+      }
+      .card:hover {
+        border-color: var(--accent);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
+      }
+      .card h3 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--text-bright);
+      }
+      .card p {
+        font-size: 14px;
+        color: var(--text-dim);
+        line-height: 1.7;
+      }
+      .card .tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      /* ── Stat Row ── */
+      .stat-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+        margin: 24px 0;
+      }
+      .stat-box {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        text-align: center;
+      }
+      .stat-box .val {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--accent);
+        line-height: 1;
+      }
+      .stat-box .label {
+        font-size: 12px;
+        color: var(--text-dim);
+        margin-top: 6px;
+      }
+
+      /* ── Table ── */
+      .table-wrap {
+        overflow-x: auto;
+        margin: 24px 0;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      th {
+        background: #f8fafc;
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+      td {
+        padding: 12px 16px;
+        border-bottom: 1px solid #f1f5f9;
+        color: var(--text);
+      }
+      tr:hover td {
+        background: #f8fafc;
+      }
+
+      /* ── Callout ── */
+      .callout {
+        border-radius: var(--radius);
+        padding: 20px 24px;
+        margin: 24px 0;
+        border: 1px solid;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .callout.info {
+        background: var(--blue-bg);
+        border-color: var(--blue-border);
+      }
+      .callout.success {
+        background: var(--green-bg);
+        border-color: var(--green-border);
+      }
+      .callout.warn {
+        background: var(--yellow-bg);
+        border-color: var(--yellow-border);
+      }
+      .callout.danger {
+        background: var(--red-bg);
+        border-color: var(--red-border);
+      }
+      .callout .icon {
+        font-size: 20px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .callout .body {
+        font-size: 14px;
+        color: var(--text);
+      }
+      .callout .body strong {
+        color: var(--text-bright);
+      }
+
+      /* ── Concept Showcase ── */
+      .concept {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 32px;
+        margin: 24px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .concept.pick {
+        border-color: var(--accent);
+        border-width: 2px;
+      }
+      .concept.pick::before {
+        content: "TOP PICK";
+        position: absolute;
+        top: 16px;
+        right: -32px;
+        background: var(--accent);
+        color: white;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        padding: 4px 40px;
+        transform: rotate(45deg);
+      }
+      .concept .rank {
+        font-size: 48px;
+        font-weight: 900;
+        color: var(--accent);
+        opacity: 0.15;
+        position: absolute;
+        top: 16px;
+        right: 24px;
+        line-height: 1;
+      }
+      .concept h3 {
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 4px;
+      }
+      .concept .pitch {
+        font-size: 16px;
+        color: var(--accent);
+        font-weight: 600;
+        margin-bottom: 16px;
+        font-style: italic;
+      }
+      .concept .details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 16px;
+      }
+      @media (max-width: 640px) {
+        .concept .details {
+          grid-template-columns: 1fr;
+        }
+      }
+      .concept .detail-item h4 {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--text-dim);
+        margin-bottom: 4px;
+      }
+      .concept .detail-item p {
+        font-size: 14px;
+        color: var(--text);
+      }
+
+      /* ── Score Bar ── */
+      .score-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 4px 0;
+      }
+      .score-label {
+        font-size: 12px;
+        color: var(--text-dim);
+        width: 80px;
+        flex-shrink: 0;
+      }
+      .score-bar {
+        flex: 1;
+        height: 8px;
+        background: #e2e8f0;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .score-fill {
+        height: 100%;
+        border-radius: 4px;
+      }
+      .score-val {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-bright);
+        width: 24px;
+        text-align: right;
+      }
+
+      /* ── Compare ── */
+      .compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 24px 0;
+      }
+      @media (max-width: 640px) {
+        .compare {
+          grid-template-columns: 1fr;
+        }
+      }
+      .compare-box {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+      }
+      .compare-box h4 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .compare-box ul {
+        list-style: none;
+        padding: 0;
+      }
+      .compare-box ul li {
+        font-size: 13px;
+        color: var(--text-dim);
+        padding: 6px 0;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .compare-box ul li:last-child {
+        border-bottom: none;
+      }
+
+      /* ── Timeline ── */
+      .roadmap {
+        position: relative;
+        margin: 32px 0;
+        padding-left: 28px;
+      }
+      .roadmap::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--border);
+      }
+      .rm-item {
+        position: relative;
+        margin-bottom: 24px;
+      }
+      .rm-item::before {
+        content: "";
+        position: absolute;
+        left: -24px;
+        top: 6px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid white;
+      }
+      .rm-item .rm-time {
+        font-size: 12px;
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .rm-item .rm-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-bright);
+      }
+      .rm-item .rm-desc {
+        font-size: 13px;
+        color: var(--text-dim);
+      }
+
+      /* ── Footer ── */
+      .footer {
+        text-align: center;
+        padding: 40px 24px;
+        color: var(--text-dim);
+        font-size: 12px;
+        border-top: 1px solid var(--border);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="hero">
+      <div class="hero-badge">Agent Team Report &middot; 2026-03-15</div>
+      <h1>Neon Warden<br /><em>Pivot Strategy</em></h1>
+      <p class="hero-sub">
+        4명의 에이전트가 시장 트렌드, 경쟁 갭, 신규 메카닉, 플레이어 심리를
+        분석한 종합 보고서
+      </p>
+    </section>
+
+    <!-- ═══════════ EXECUTIVE SUMMARY ═══════════ -->
+    <div class="wrap">
+      <section class="section">
+        <div class="section-label">Executive Summary</div>
+        <h2>핵심 결론</h2>
+        <p class="lead">
+          기존 "Papers Please + 생태계 시뮬"은 복잡하고 차별화 부족. 시장
+          데이터와 메카닉 탐색을 종합한 결과, 3가지 유력 피봇 방향을
+          도출했습니다.
+        </p>
+
+        <div class="callout success">
+          <div class="icon">&#9733;</div>
+          <div class="body">
+            <strong>가장 큰 기회:</strong> "세로 모드 + 원터치 조작 + 5분 세션 +
+            사이버펑크" 교차점은 현재 모바일 시장에서
+            <strong>거의 비어 있습니다</strong>. Survivor.io($500M+ 매출)는 가로
+            모드, Block Blast(368M DL)은 퍼즐, Balatro($9M+ 모바일)는 카드. 세로
+            모드에서 깊이 있는 액션 게임은 공백입니다.
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="val">$4.2B</div>
+            <div class="label">하이브리드 캐주얼 시장<br />2024년 37% 성장</div>
+          </div>
+          <div class="stat-box">
+            <div class="val">77%</div>
+            <div class="label">Day 1 이탈률<br />온보딩이 전부</div>
+          </div>
+          <div class="stat-box">
+            <div class="val">$1B</div>
+            <div class="label">
+              Pixel Flow 인수가<br />2인 팀, 신규 메카닉 1개
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="val">5-6분</div>
+            <div class="label">
+              모바일 세션 중앙값<br />NW의 타겟과 정확히 일치
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="val">675%</div>
+            <div class="label">"Cozy" 키워드 급등<br />Steam 2022→2025</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ MARKET INSIGHTS ═══════════ -->
+      <section class="section">
+        <div class="section-label">01 — Market Intelligence</div>
+        <h2>시장이 말해주는 것</h2>
+        <p class="lead">
+          Market Analyst + Competitive Analyst가 도출한 핵심 인사이트
+        </p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div
+              class="tag"
+              style="background: var(--green-bg); color: var(--green)"
+            >
+              성장 중
+            </div>
+            <h3>하이브리드 캐주얼</h3>
+            <p>
+              Pixel Flow($1B 인수), Block Blast(368M DL). 단순 코어 + 깊은 메타.
+              2024년 37% 성장. <strong>핵심: 신규 메카닉 1개</strong>가
+              카테고리를 만든다.
+            </p>
+          </div>
+          <div class="card">
+            <div
+              class="tag"
+              style="background: var(--green-bg); color: var(--green)"
+            >
+              성장 중
+            </div>
+            <h3>코지 게임</h3>
+            <p>
+              $973M(2025) → $1.5B(2032) 예상. Steam "cozy" 태그 675% 급증.
+              하지만 <strong>"코지 + 전략적 깊이"</strong>는 아직 미개척.
+            </p>
+          </div>
+          <div class="card">
+            <div
+              class="tag"
+              style="background: var(--red-bg); color: var(--red)"
+            >
+              포화
+            </div>
+            <h3>뱀파이어 서바이버 클론</h3>
+            <p>
+              불릿 헤이븐 장르 자체는 $3.2B이지만 모방작 범람. Survivor.io가
+              이미 $500M+ 장악. <strong>같은 공식으로는 진입 불가.</strong>
+            </p>
+          </div>
+          <div class="card">
+            <div
+              class="tag"
+              style="background: var(--yellow-bg); color: var(--yellow)"
+            >
+              기회
+            </div>
+            <h3>순수 네온 사이버펑크 피로</h3>
+            <p>
+              2026년 트렌드: "무디한 대기감, 깊은 그림자, 선택적 네온 악센트"로
+              진화 중. 번쩍이는 네온 벽은 옛날 스타일.
+            </p>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 40px; margin-bottom: 16px">
+          성공 사례가 증명한 것
+        </h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>게임</th>
+                <th>팀 규모</th>
+                <th>결과</th>
+                <th>핵심 교훈</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Pixel Flow</strong></td>
+                <td>2인</td>
+                <td>$1B 인수, 7자리 일매출</td>
+                <td>진짜 새로운 메카닉 1개 = 카테고리 창출</td>
+              </tr>
+              <tr>
+                <td><strong>Block Blast</strong></td>
+                <td>소규모</td>
+                <td>368M DL, 70M DAU</td>
+                <td>드래그-배치-클리어. 적응형 난이도. 도파민 트리거</td>
+              </tr>
+              <tr>
+                <td><strong>Balatro</strong></td>
+                <td>1인</td>
+                <td>5M+ 판매, $9.99 프리미엄</td>
+                <td>익숙한 시스템(포커) + 규칙 파괴 = 바이럴</td>
+              </tr>
+              <tr>
+                <td><strong>Vampire Survivors</strong></td>
+                <td>1인</td>
+                <td>모바일 3M+ DL</td>
+                <td>조작 1개(이동), 나머지 자동, 파워 판타지</td>
+              </tr>
+              <tr>
+                <td><strong>Gnomes TD</strong></td>
+                <td>1인</td>
+                <td>$367K / $700 예산</td>
+                <td>인크리멘탈 + TD 하이브리드, 틈새 장르 개척</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout info">
+          <div class="icon">&#128161;</div>
+          <div class="body">
+            <strong>Phaser Web-First 전략:</strong> Poki(60M MAU),
+            CrazyGames(30M MAU)에 웹 버전 먼저 출시 → D1 리텐션 30%+ 검증 →
+            Capacitor로 모바일 래핑. UA 비용 0으로 핵심 루프 검증 가능. Vampire
+            Survivors가 이 경로를 증명했습니다.
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ PLAYER PSYCHOLOGY ═══════════ -->
+      <section class="section">
+        <div class="section-label">02 — Player Psychology</div>
+        <h2>재미의 과학</h2>
+        <p class="lead">Player Psychologist가 도출한 핵심 원칙</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h3>30초 온보딩 법칙</h3>
+            <p>
+              77% Day 1 이탈. 튜토리얼 텍스트 = 사망 선고.
+              <strong>"Do, Don't Read"</strong> — 첫 3초 안에 코어 메카닉을
+              행동으로 가르쳐야 함. Flappy Bird는 실패한 탭 1번으로 전체 게임을
+              가르침.
+            </p>
+          </div>
+          <div class="card">
+            <h3>원 메카닉 멀티 퍼포즈</h3>
+            <p>
+              Downwell의 건부츠: 이동 + 공격 + 콤보 + 자원관리를
+              <strong>버튼 1개</strong>로. 메카닉 수가 아니라 메카닉 간
+              <strong>상호작용</strong>이 깊이를 만든다.
+            </p>
+          </div>
+          <div class="card">
+            <h3>주스(Juice) 스택</h3>
+            <p>
+              히트스톱(2-5프레임) → 방향성 스크린 셰이크(2-4px) → 파티클
+              버스트(8-16개) → 햅틱 피드백 → 오디오 16ms 내 동기화. 이 5단계가
+              "탭 한 번"을 만족감으로 바꿈.
+            </p>
+          </div>
+          <div class="card">
+            <h3>5분 플로우 스테이트</h3>
+            <p>
+              Nature Communications(2024): <strong>적응형 난이도</strong>가
+              플로우 유도의 핵심. 매 0.5-2초 피드백. 세션 내 난이도 상승. 중단
+              없는 연속 플레이.
+            </p>
+          </div>
+          <div class="card">
+            <h3>프로시저럴 = 프리미엄</h3>
+            <p>
+              Geometry Wars 증명: 벡터 셰이프 + 블룸/글로우 + 파티클 =
+              스프라이트 없이 고급스러운 느낌. 4-6색 팔레트, 이징 애니메이션,
+              여백이 핵심.
+            </p>
+          </div>
+          <div class="card">
+            <h3>스크린샷 테스트</h3>
+            <p>
+              Monument Valley: 아무 프레임이나 일시정지해도 배경화면 품질.
+              <strong>모든 프레임이 공유 가능한 이미지</strong>여야 바이럴. 점수
+              + 아름다운 배경 = 공유 트리거.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout warn">
+          <div class="icon">&#9888;</div>
+          <div class="body">
+            <strong>이전 Neon Warden이 실패한 이유 (심리학 관점):</strong> 6개
+            스탯 읽기 요구 (Do, Don't Read 위반), EH 공식 이해 필요 (30초 온보딩
+            실패), Papers Please 클론 느낌 (신규 메카닉 부재), 20초 대기 후 첫
+            게이트 (즉각 만족감 부재).
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ GAME CONCEPTS ═══════════ -->
+      <section class="section">
+        <div class="section-label">03 — Pivot Concepts</div>
+        <h2>10개 컨셉 중 Top 5</h2>
+        <p class="lead">
+          Game Designer가 발명한 10개 컨셉을 시장성, 기술 실현성, 독창성, 감정
+          곡선 기준으로 평가하여 상위 5개를 선정했습니다.
+        </p>
+
+        <!-- #1 TENDRIL -->
+        <div class="concept pick">
+          <div class="rank">#1</div>
+          <h3>TENDRIL</h3>
+          <div class="pitch">
+            "네온 토양에 뿌리를 그려서 생명체들을 연결하라. 부패가 가장자리에서
+            침식해 온다."
+          </div>
+          <p>
+            손가락으로 드래그하여 빛나는 줄기(텐드릴)를 그리면, 연결된
+            생명체끼리 에너지를 공유합니다. 줄기는 시간이 지나면 소멸하고, 화면
+            가장자리에서 부패가 침식해 옵니다. 당신의 줄기는 부패를 차단하는
+            방벽이기도 합니다.
+          </p>
+
+          <div class="details">
+            <div class="detail-item">
+              <h4>코어 메카닉</h4>
+              <p>
+                드래그로 빛나는 줄기 그리기. 줄기 = 에너지 공유 + 부패 차단.
+                동시에 두 가지 역할.
+              </p>
+            </div>
+            <div class="detail-item">
+              <h4>30초 온보딩</h4>
+              <p>
+                밝은 점(에너지 있음)과 어두운 점(죽어가는 중). 드래그로 연결 →
+                에너지 흐름 → 부패 등장 → 줄기로 차단. 텍스트 0.
+              </p>
+            </div>
+            <div class="detail-item">
+              <h4>독창성</h4>
+              <p>
+                그리기 자체가 게임플레이. Flight Control은 경로 지시, 여기서는
+                인프라 자체를 그린다. 줄기가 서로 교차하면 노드 생성 → 에너지
+                부스트.
+              </p>
+            </div>
+            <div class="detail-item">
+              <h4>왜 #1인가</h4>
+              <p>
+                프로시저럴 그래픽 최적 (빛나는 선 on 어두운 배경). 스크린샷 =
+                네온 캘리그래피. 터치에 최적화. 세션마다 고유한 패턴.
+              </p>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px">
+            <div class="score-row">
+              <span class="score-label">시장성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 85%; background: var(--green)"
+                ></div>
+              </div>
+              <span class="score-val">8.5</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">독창성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 90%; background: var(--accent)"
+                ></div>
+              </div>
+              <span class="score-val">9.0</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">기술 실현</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 90%; background: var(--blue)"
+                ></div>
+              </div>
+              <span class="score-val">9.0</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">감정 곡선</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 80%; background: var(--purple)"
+                ></div>
+              </div>
+              <span class="score-val">8.0</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">공유성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 95%; background: var(--yellow)"
+                ></div>
+              </div>
+              <span class="score-val">9.5</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- #2 PULSE -->
+        <div class="concept">
+          <div class="rank">#2</div>
+          <h3>PULSE</h3>
+          <div class="pitch">
+            "당신이 네온 도시의 심장박동이다 — 탭으로 리듬을 유지하면 생태계가
+            살고, 리듬을 놓치면 죽는다."
+          </div>
+          <p>
+            화면을 탭하면 에너지 파동이 방사됩니다. 리듬에 맞춰 탭하면 생명체가
+            번성하고, 박자를 놓치면 죽기 시작합니다. 핵심: 정해진 BPM이 없습니다
+            — 당신이 템포를 정하고, 생태계가 적응합니다. 느리면 안정적이지만
+            취약, 빠르면 강하지만 위험.
+          </p>
+
+          <div class="details">
+            <div class="detail-item">
+              <h4>코어 메카닉</h4>
+              <p>
+                탭으로 리듬 생성. 생태계가 플레이어의 템포에 동기화. 속도 조절 =
+                전략.
+              </p>
+            </div>
+            <div class="detail-item">
+              <h4>왜 #2인가</h4>
+              <p>
+                감정 곡선 최강 (절박한 탭 → 리듬 발견 → 위기 통과 → 몰입). 리듬
+                게임이지만 정답이 없는 리듬 게임 = 전무후무.
+              </p>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px">
+            <div class="score-row">
+              <span class="score-label">시장성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 75%; background: var(--green)"
+                ></div>
+              </div>
+              <span class="score-val">7.5</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">독창성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 95%; background: var(--accent)"
+                ></div>
+              </div>
+              <span class="score-val">9.5</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">기술 실현</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 85%; background: var(--blue)"
+                ></div>
+              </div>
+              <span class="score-val">8.5</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">감정 곡선</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 95%; background: var(--purple)"
+                ></div>
+              </div>
+              <span class="score-val">9.5</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">공유성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 70%; background: var(--yellow)"
+                ></div>
+              </div>
+              <span class="score-val">7.0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- #3 SPLIT -->
+        <div class="concept">
+          <div class="rank">#3</div>
+          <h3>SPLIT</h3>
+          <div class="pitch">
+            "화면을 가르는 장벽을 그어서 생태계를 분할하라. 격리된 종은 서로
+            다르게 진화한다."
+          </div>
+          <p>
+            드래그로 빛나는 장벽을 그으면 화면이 구역으로 나뉩니다. 각 구역의
+            생명체는 독립적으로 진화 — 밀집 구역은 공격적(빨강), 넓은 구역은
+            생산적(초록). 장벽을 제거하면 진화한 종들이 만나 예측 불가능한
+            상호작용 발생.
+          </p>
+
+          <div class="details">
+            <div class="detail-item">
+              <h4>코어 메카닉</h4>
+              <p>
+                선 그리기 하나. 장벽 = 분할 + 진화 유도. 제거 = 재결합. 지리적
+                큐레이션.
+              </p>
+            </div>
+            <div class="detail-item">
+              <h4>왜 #3인가</h4>
+              <p>
+                극도로 단순한 조작 (선 긋기)에서 무한한 다양성. "다르게
+                갈랐으면?" = 리플레이. 실제 생물학 원리(이소 종분화)를 게임화.
+              </p>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px">
+            <div class="score-row">
+              <span class="score-label">시장성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 70%; background: var(--green)"
+                ></div>
+              </div>
+              <span class="score-val">7.0</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">독창성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 95%; background: var(--accent)"
+                ></div>
+              </div>
+              <span class="score-val">9.5</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">기술 실현</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 80%; background: var(--blue)"
+                ></div>
+              </div>
+              <span class="score-val">8.0</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">감정 곡선</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 75%; background: var(--purple)"
+                ></div>
+              </div>
+              <span class="score-val">7.5</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">공유성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 80%; background: var(--yellow)"
+                ></div>
+              </div>
+              <span class="score-val">8.0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- #4 BLOOM -->
+        <div class="concept">
+          <div class="rank">#4</div>
+          <h3>BLOOM</h3>
+          <div class="pitch">
+            "꾹 누르면 네온 태양이 충전되고, 놓으면 빛이 퍼진다. 짧게 = 성장,
+            길게 = 돌연변이, 너무 길게 = 소멸."
+          </div>
+          <p>
+            프레스-앤-홀드 하나로 연속적인 스펙트럼의 결과. 빛의 강도에 따라
+            생명체가 성장/돌연변이/소멸. 화면은 당신의 빛 이력을 기억 — 과다
+            조사 구역은 "소각지", 미조사 구역은 "야생지".
+          </p>
+
+          <div style="margin-top: 24px">
+            <div class="score-row">
+              <span class="score-label">시장성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 70%; background: var(--green)"
+                ></div>
+              </div>
+              <span class="score-val">7.0</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">독창성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 85%; background: var(--accent)"
+                ></div>
+              </div>
+              <span class="score-val">8.5</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">기술 실현</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 90%; background: var(--blue)"
+                ></div>
+              </div>
+              <span class="score-val">9.0</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">감정 곡선</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 80%; background: var(--purple)"
+                ></div>
+              </div>
+              <span class="score-val">8.0</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">공유성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 75%; background: var(--yellow)"
+                ></div>
+              </div>
+              <span class="score-val">7.5</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- #5 CONDUCTOR -->
+        <div class="concept">
+          <div class="rank">#5</div>
+          <h3>CONDUCTOR</h3>
+          <div class="pitch">
+            "회로판 위에 전선을 그어서 에너지를 생명체에게 전달하라. 모든 전선은
+            다른 경로를 차단한다."
+          </div>
+          <p>
+            에너지원에서 생명체까지 선을 드래그하여 연결. 하지만 전선은 교차할
+            수 없어서, 매번 그을 때마다 미래의 경로 옵션이 줄어듭니다. 실시간
+            제약 만족 퍼즐 + 살아있는 생명체의 긴박감.
+          </p>
+
+          <div style="margin-top: 24px">
+            <div class="score-row">
+              <span class="score-label">시장성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 80%; background: var(--green)"
+                ></div>
+              </div>
+              <span class="score-val">8.0</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">독창성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 80%; background: var(--accent)"
+                ></div>
+              </div>
+              <span class="score-val">8.0</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">기술 실현</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 85%; background: var(--blue)"
+                ></div>
+              </div>
+              <span class="score-val">8.5</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">감정 곡선</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 75%; background: var(--purple)"
+                ></div>
+              </div>
+              <span class="score-val">7.5</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">공유성</span>
+              <div class="score-bar">
+                <div
+                  class="score-fill"
+                  style="width: 85%; background: var(--yellow)"
+                ></div>
+              </div>
+              <span class="score-val">8.5</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ COMPARISON ═══════════ -->
+      <section class="section">
+        <div class="section-label">04 — Comparison Matrix</div>
+        <h2>컨셉 비교</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>기준</th>
+                <th>TENDRIL</th>
+                <th>PULSE</th>
+                <th>SPLIT</th>
+                <th>BLOOM</th>
+                <th>CONDUCTOR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>조작</strong></td>
+                <td>드래그(선 그리기)</td>
+                <td>탭(리듬)</td>
+                <td>드래그(장벽)</td>
+                <td>롱프레스</td>
+                <td>드래그(배선)</td>
+              </tr>
+              <tr>
+                <td><strong>학습 시간</strong></td>
+                <td>5초</td>
+                <td>3초</td>
+                <td>5초</td>
+                <td>8초</td>
+                <td>10초</td>
+              </tr>
+              <tr>
+                <td><strong>레퍼런스</strong></td>
+                <td>Flight Control + GoL</td>
+                <td>Bit.Trip + 명상</td>
+                <td>Cell Lab + 장벽</td>
+                <td>Osmos + 손전등</td>
+                <td>Mini Motorways + 테라리움</td>
+              </tr>
+              <tr>
+                <td><strong>프로시저럴 적합도</strong></td>
+                <td style="color: var(--green); font-weight: 700">최적</td>
+                <td style="color: var(--green)">좋음</td>
+                <td style="color: var(--green)">좋음</td>
+                <td style="color: var(--green); font-weight: 700">최적</td>
+                <td style="color: var(--green); font-weight: 700">최적</td>
+              </tr>
+              <tr>
+                <td><strong>핵심 리스크</strong></td>
+                <td>손가락 가림</td>
+                <td>단조로움</td>
+                <td>진화 체감 약</td>
+                <td>변주 부족</td>
+                <td>너무 퍼즐적</td>
+              </tr>
+              <tr>
+                <td><strong>스크린샷 매력</strong></td>
+                <td style="color: var(--green); font-weight: 700">
+                  네온 캘리그래피
+                </td>
+                <td>파동 패턴</td>
+                <td>색상 구역 분할</td>
+                <td>빛/그림자 맵</td>
+                <td style="color: var(--green); font-weight: 700">
+                  네온 회로 아트
+                </td>
+              </tr>
+              <tr>
+                <td><strong>종합 점수</strong></td>
+                <td style="font-weight: 800">8.8</td>
+                <td style="font-weight: 800">8.4</td>
+                <td>8.0</td>
+                <td>7.8</td>
+                <td>7.9</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ═══════════ RECOMMENDATION ═══════════ -->
+      <section class="section">
+        <div class="section-label">05 — Recommendation</div>
+        <h2>최종 제안</h2>
+
+        <div class="callout success">
+          <div class="icon">&#10004;</div>
+          <div class="body">
+            <strong>1순위: TENDRIL</strong> — 가장 안전하면서도 신선한 선택.
+            터치 드래그는 모바일에서 가장 자연스러운 조작이고, 빛나는 줄기 on
+            어두운 배경은 프로시저럴 그래픽으로 최고의 비주얼을 만듭니다.
+            세션마다 고유한 "네온 캘리그래피"가 생성되어 스크린샷 공유성이 매우
+            높습니다.<br /><br />
+            <strong>2순위: PULSE</strong> — 감정 곡선이 가장 강력. 리스크도 가장
+            높지만 성공 시 천장도 가장 높음. "정답 없는 리듬 게임"은 전례 없는
+            카테고리.<br /><br />
+            <strong>참고: CONDUCTOR</strong> — 시장성은 TENDRIL과 동급이지만
+            "퍼즐" 느낌이 강해서 하이브리드 캐주얼 시장과 더 가까움. TENDRIL보다
+            Block Blast 유저층에 어필.
+          </div>
+        </div>
+
+        <h3 style="margin-top: 32px; margin-bottom: 16px">
+          실행 로드맵 (TENDRIL 기준)
+        </h3>
+        <div class="roadmap">
+          <div class="rm-item">
+            <div class="rm-time">Week 1-2</div>
+            <div class="rm-title">코어 루프 프로토타입</div>
+            <div class="rm-desc">
+              기존 NeonWarden Phaser 스캐폴드 재활용. 드래그→줄기→에너지
+              흐름→부패 침식만 구현. 그래픽: 빛나는 선 + 원 + 글로우 셰이더.
+            </div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-time">Week 3</div>
+            <div class="rm-title">주스(Juice) 레이어</div>
+            <div class="rm-desc">
+              줄기 연결 시 파티클 버스트 + 햅틱. 부패 침식 시 스크린 셰이크.
+              에너지 흐름 이징 애니메이션. 사운드 동기화.
+            </div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-time">Week 4</div>
+            <div class="rm-title">Poki/CrazyGames 출시</div>
+            <div class="rm-desc">
+              웹 버전으로 핵심 루프 검증. D1 리텐션 30%+ 목표. 플레이 데이터
+              수집.
+            </div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-time">Week 5-8</div>
+            <div class="rm-title">메타 진행 + 모바일 래핑</div>
+            <div class="rm-desc">
+              리텐션 데이터 기반 난이도 조정. 로그라이크 업그레이드 추가.
+              Capacitor로 iOS/Android 빌드.
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 32px; margin-bottom: 16px">수익화 전략</h3>
+        <div class="compare">
+          <div class="compare-box">
+            <h4 style="color: var(--green)">권장 모델</h4>
+            <ul>
+              <li>웹: 무료 + 리워드 광고 (CrazyGames SDK)</li>
+              <li>모바일: 무료 + 서포터 팩 $4.99 (광고 제거 + 코스메틱)</li>
+              <li>코스메틱 IAP: 줄기 스킨, 배경 테마</li>
+              <li>배틀패스 (리텐션 확인 후, Week 8+)</li>
+            </ul>
+          </div>
+          <div class="compare-box">
+            <h4 style="color: var(--red)">절대 금지</h4>
+            <ul>
+              <li>에너지 시스템 / 시간 제한</li>
+              <li>Pay-to-Win IAP</li>
+              <li>강제 광고 (리워드만 허용)</li>
+              <li>첫 3~5판 동안 수익화 노출</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ DESIGN PRINCIPLES ═══════════ -->
+      <section class="section">
+        <div class="section-label">06 — Design Principles</div>
+        <h2>피봇 후 지켜야 할 원칙</h2>
+
+        <div class="card-grid" style="grid-template-columns: 1fr">
+          <div class="card">
+            <h3>1. 한 문장으로 설명 안 되면 만들지 마라</h3>
+            <p>
+              이전 NW: "생태계 큐레이션 로그라이크에서 생명체를 입장/거절하여
+              자율 방어 시스템을 구축하는..." → 이미 실패. TENDRIL: "빛나는
+              줄기를 그려서 생명체를 연결하고 부패를 막아라." 끝.
+            </p>
+          </div>
+          <div class="card">
+            <h3>2. 읽기 전에 하기 (Do Before Read)</h3>
+            <p>
+              화면 터치 후 3초 안에 "아, 이렇게 하는 거구나" 느낌. 텍스트
+              튜토리얼 0개. UI에 숫자 최소화. 시각적 피드백으로 모든 것을 전달.
+            </p>
+          </div>
+          <div class="card">
+            <h3>3. 스크린샷이 아름다워야 한다</h3>
+            <p>
+              매 프레임이 공유 가능한 이미지. 네온 줄기가 어두운 배경 위에
+              만드는 패턴은 프로시저럴이지만 예술적. TikTok/인스타 바이럴의
+              전제조건.
+            </p>
+          </div>
+          <div class="card">
+            <h3>4. 웹에서 먼저 검증</h3>
+            <p>
+              Poki/CrazyGames에서 D1 리텐션 30%+ 확인 후 모바일 투자. 97%의
+              모바일 게임이 실패 — 웹 검증으로 이 리스크를 0원에 제거 가능.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ SOURCES ═══════════ -->
+      <section class="section">
+        <div class="section-label">07 — Sources</div>
+        <h2>참고 자료</h2>
+        <p class="lead">4명의 에이전트가 수집한 주요 출처</p>
+        <div
+          style="
+            font-size: 12px;
+            color: var(--text-dim);
+            column-count: 2;
+            column-gap: 24px;
+            line-height: 2;
+          "
+        >
+          Sensor Tower State of Gaming 2026 &middot; Udonis Mobile Gaming Market
+          Trends 2026 &middot; Deconstructor of Fun: Pixel Flow Analysis
+          &middot; PocketGamer: Loom Games Rise &middot; BusinessWire: Block
+          Blast 368M Downloads &middot; GameAnalytics 2026 Benchmarks &middot;
+          Nature Communications: Flow State Framework (2024) &middot; CHI 2021:
+          Juicy Haptic Design &middot; Nealen et al: Towards Minimalist Game
+          Design &middot; GDC Vault: Polishing the Boots (Downwell) &middot;
+          Scientific American: Flappy Bird Flow Science &middot; Monument Valley
+          Design Analysis &middot; Gamesforum: Survivor.io $5M/month &middot;
+          Survivor.io Progressive Monetization (Gamigion) &middot; PocketGamer:
+          Balatro $4.4M Mobile &middot; Game Developer: Balatro 5M Copies
+          &middot; Vampire Survivors Gambling Psychology (Univ. Portsmouth)
+          &middot; Movies Games and Tech: Cyberpunk Aesthetic Shift 2026
+          &middot; Steam Cozy Keyword +675% (Outlookindia) &middot; Game
+          Developer: Hidden Web Game Market &middot; Phaser + Capacitor Mobile
+          Deployment Tutorial &middot; Reddit Sentiment Analysis: 376K Mobile
+          Reviews
+        </div>
+      </section>
+    </div>
+
+    <div class="footer">
+      <strong>Neon Warden Pivot Strategy Report</strong><br />
+      HKD852 Studio &middot; Agent Team (Market Analyst + Game Designer +
+      Competitive Analyst + Player Psychologist)<br />
+      Generated 2026-03-15
+    </div>
+  </body>
+</html>

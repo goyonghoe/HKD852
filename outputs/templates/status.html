@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKD852 에이전트 운영 현황</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #22c55e;
+    --green-bg: #f0fdf4;
+    --green-border: #bbf7d0;
+    --yellow: #eab308;
+    --yellow-bg: #fefce8;
+    --yellow-border: #fef08a;
+    --red: #ef4444;
+    --red-bg: #fef2f2;
+    --red-border: #fecaca;
+    --gray: #9ca3af;
+    --gray-bg: #f9fafb;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-muted: #9ca3af;
+    --border: #e5e7eb;
+    --bg: #ffffff;
+    --bg-page: #f9fafb;
+  }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-primary);
+    background: var(--bg-page);
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ── Overall Status Banner ── */
+  .status-banner {
+    padding: 48px 20px;
+    text-align: center;
+    background: var(--green);
+    color: #fff;
+    transition: background 0.3s;
+  }
+  .status-banner.degraded { background: var(--yellow); color: var(--text-primary); }
+  .status-banner.major { background: var(--red); }
+
+  .status-banner .status-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+
+  .status-banner h1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+
+  .status-banner p {
+    font-size: 14px;
+    opacity: 0.85;
+  }
+
+  /* ── Section ── */
+  .section {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 24px auto;
+    overflow: hidden;
+  }
+
+  .section-header {
+    padding: 20px 24px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── Component Row ── */
+  .component {
+    border-bottom: 1px solid var(--border);
+  }
+  .component:last-child { border-bottom: none; }
+
+  .component summary {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    cursor: pointer;
+    list-style: none;
+    gap: 12px;
+    transition: background 0.15s;
+  }
+  .component summary:hover { background: var(--bg-page); }
+  .component summary::-webkit-details-marker { display: none; }
+
+  .component .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot.up { background: var(--green); box-shadow: 0 0 6px rgba(34,197,94,0.4); }
+  .dot.degraded { background: var(--yellow); box-shadow: 0 0 6px rgba(234,179,8,0.4); }
+  .dot.down { background: var(--red); box-shadow: 0 0 6px rgba(239,68,68,0.4); }
+  .dot.unknown { background: var(--gray); }
+
+  .component .comp-name {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .component .comp-status {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-right: 12px;
+  }
+
+  .component .comp-uptime {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    min-width: 52px;
+    text-align: right;
+  }
+
+  .component .chevron {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .component[open] .chevron { transform: rotate(90deg); }
+
+  .component .detail-panel {
+    padding: 0 24px 20px 46px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .detail-panel .event-item {
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .detail-panel .event-item:last-child { border-bottom: none; }
+  .detail-panel .event-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-right: 8px;
+  }
+
+  /* ── Uptime Bar ── */
+  .uptime-section { padding: 20px 24px; }
+  .uptime-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .uptime-label span { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
+  .uptime-bar {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 6px;
+  }
+  .uptime-bar .day {
+    flex: 1;
+    height: 28px;
+    border-radius: 3px;
+    position: relative;
+    transition: opacity 0.15s;
+  }
+  .day.up-day { background: var(--green); }
+  .day.partial-day { background: var(--yellow); }
+  .day.down-day { background: var(--red); }
+  .day.no-data { background: #e5e7eb; }
+
+  .day:hover { opacity: 0.7; }
+  .day .day-tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text-primary);
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .day:hover .day-tooltip { display: block; }
+
+  .uptime-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ── Incident Timeline ── */
+  .incident {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .incident:last-child { border-bottom: none; }
+
+  .incident-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .severity-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.03em;
+  }
+  .severity-badge.critical {
+    background: var(--red-bg);
+    color: var(--red);
+    border: 1px solid var(--red-border);
+  }
+  .severity-badge.warning {
+    background: var(--yellow-bg);
+    color: #a16207;
+    border: 1px solid var(--yellow-border);
+  }
+  .severity-badge.info {
+    background: var(--green-bg);
+    color: #15803d;
+    border: 1px solid var(--green-border);
+  }
+
+  .incident-title {
+    font-size: 15px;
+    font-weight: 700;
+    flex: 1;
+  }
+
+  .incident-time {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .incident-body {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    padding-left: 16px;
+    border-left: 3px solid var(--border);
+  }
+  .incident.sev-critical .incident-body { border-left-color: var(--red); }
+  .incident.sev-warning .incident-body { border-left-color: var(--yellow); }
+  .incident.sev-info .incident-body { border-left-color: var(--green); }
+
+  .incident-status {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .incident-status.resolved { background: var(--green-bg); color: #15803d; }
+  .incident-status.monitoring { background: var(--yellow-bg); color: #a16207; }
+  .incident-status.investigating { background: var(--red-bg); color: var(--red); }
+
+  /* ── Footer ── */
+  .page-footer {
+    text-align: center;
+    padding: 32px 20px 48px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .page-footer a {
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .container { padding: 0 12px; }
+    .section-header, .component summary, .incident, .uptime-section { padding-left: 16px; padding-right: 16px; }
+    .component .detail-panel { padding-left: 38px; padding-right: 16px; }
+    .status-banner h1 { font-size: 20px; }
+    .day { height: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== Overall Status Banner ====== -->
+<div class="status-banner">
+  <div class="status-icon">&#10003;</div>
+  <h1>모든 시스템 정상 운영중</h1>
+  <p>2026-03-07 14:00 KST 기준</p>
+</div>
+
+<div class="container">
+
+  <!-- ====== Component Status ====== -->
+  <div class="section">
+    <div class="section-header">구성 요소 현황</div>
+
+    <details class="component">
+      <summary>
+        <span class="dot up"></span>
+        <span class="comp-name">Secretary Agent (비서실장)</span>
+        <span class="comp-status">정상</span>
+        <span class="comp-uptime">99.98%</span>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+      </summary>
+      <div class="detail-panel">
+        <div class="event-item"><span class="event-date">03-07</span>일일 브리핑 정상 발행</div>
+        <div class="event-item"><span class="event-date">03-06</span>작업 일지 자동 정리 완료</div>
+        <div class="event-item"><span class="event-date">03-05</span>주간 보고서 생성 완료</div>
+      </div>
+    </details>
+
+    <details class="component">
+      <summary>
+        <span class="dot up"></span>
+        <span class="comp-name">GameDesign Agent (기획팀장)</span>
+        <span class="comp-status">정상</span>
+        <span class="comp-uptime">99.95%</span>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+      </summary>
+      <div class="detail-panel">
+        <div class="event-item"><span class="event-date">03-07</span>SPEC-024 신규 메카닉 문서 작성중</div>
+        <div class="event-item"><span class="event-date">03-06</span>PD 리뷰 2건 완료</div>
+      </div>
+    </details>
+
+    <details class="component">
+      <summary>
+        <span class="dot degraded"></span>
+        <span class="comp-name">ShortsFactory Agent (쇼츠공장)</span>
+        <span class="comp-status">성능 저하</span>
+        <span class="comp-uptime">97.42%</span>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+      </summary>
+      <div class="detail-panel">
+        <div class="event-item"><span class="event-date">03-07</span>TTS 렌더링 지연 발생 (평균 +45초)</div>
+        <div class="event-item"><span class="event-date">03-06</span>EP058 렌더링 완료, 업로드 대기</div>
+        <div class="event-item"><span class="event-date">03-05</span>다국어 자막 싱크 이슈 패치 적용</div>
+      </div>
+    </details>
+
+    <details class="component">
+      <summary>
+        <span class="dot up"></span>
+        <span class="comp-name">WanChai (게임 개발)</span>
+        <span class="comp-status">정상</span>
+        <span class="comp-uptime">99.87%</span>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+      </summary>
+      <div class="detail-panel">
+        <div class="event-item"><span class="event-date">03-07</span>Sprint 5 진행중 (완료율 40%)</div>
+        <div class="event-item"><span class="event-date">03-06</span>보스 충돌박스 수정 배포 완료</div>
+      </div>
+    </details>
+
+    <details class="component">
+      <summary>
+        <span class="dot up"></span>
+        <span class="comp-name">PMO Agent (프로젝트매니저)</span>
+        <span class="comp-status">정상</span>
+        <span class="comp-uptime">99.99%</span>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+      </summary>
+      <div class="detail-panel">
+        <div class="event-item"><span class="event-date">03-07</span>칸반 대시보드 동기화 정상</div>
+        <div class="event-item"><span class="event-date">03-06</span>태스크 히스토리 날짜 보정 완료</div>
+      </div>
+    </details>
+
+    <details class="component">
+      <summary>
+        <span class="dot up"></span>
+        <span class="comp-name">Invest Agent (투자 대시보드)</span>
+        <span class="comp-status">정상</span>
+        <span class="comp-uptime">99.91%</span>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+      </summary>
+      <div class="detail-panel">
+        <div class="event-item"><span class="event-date">03-07</span>KRX 데이터 수집 정상</div>
+        <div class="event-item"><span class="event-date">03-05</span>배당 캘린더 업데이트 완료</div>
+      </div>
+    </details>
+
+    <details class="component">
+      <summary>
+        <span class="dot up"></span>
+        <span class="comp-name">Saju Agent (사주 서비스)</span>
+        <span class="comp-status">정상</span>
+        <span class="comp-uptime">99.94%</span>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+      </summary>
+      <div class="detail-panel">
+        <div class="event-item"><span class="event-date">03-07</span>만세력 계산 엔진 정상 가동</div>
+        <div class="event-item"><span class="event-date">03-06</span>결제 웹훅 정상 처리</div>
+      </div>
+    </details>
+
+    <details class="component">
+      <summary>
+        <span class="dot up"></span>
+        <span class="comp-name">SSBL (런칭 프로젝트)</span>
+        <span class="comp-status">정상</span>
+        <span class="comp-uptime">99.96%</span>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+      </summary>
+      <div class="detail-panel">
+        <div class="event-item"><span class="event-date">03-07</span>런칭 대시보드 클라우드 동기화 가동</div>
+        <div class="event-item"><span class="event-date">03-06</span>담당자 필터 기능 추가 배포</div>
+      </div>
+    </details>
+
+    <details class="component">
+      <summary>
+        <span class="dot up"></span>
+        <span class="comp-name">Shield Agent (보안책임자)</span>
+        <span class="comp-status">정상</span>
+        <span class="comp-uptime">100.0%</span>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+      </summary>
+      <div class="detail-panel">
+        <div class="event-item"><span class="event-date">03-07</span>시크릿 스캔 정상 완료 (위반 0건)</div>
+        <div class="event-item"><span class="event-date">03-04</span>GDPR 컴플라이언스 체크 통과</div>
+      </div>
+    </details>
+
+    <details class="component">
+      <summary>
+        <span class="dot unknown"></span>
+        <span class="comp-name">Translate Agent (현지화)</span>
+        <span class="comp-status">유지보수</span>
+        <span class="comp-uptime">98.71%</span>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+      </summary>
+      <div class="detail-panel">
+        <div class="event-item"><span class="event-date">03-07</span>용어집 업데이트 작업중 (예정 완료: 18:00)</div>
+        <div class="event-item"><span class="event-date">03-06</span>중국어 번체 번역 10건 완료</div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- ====== 30-Day Uptime ====== -->
+  <div class="section">
+    <div class="section-header">30일 가동률</div>
+    <div class="uptime-section">
+      <div class="uptime-label">
+        전체 시스템
+        <span>99.73% 가동률</span>
+      </div>
+      <div class="uptime-bar">
+        <div class="day up-day"><span class="day-tooltip">02-06 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-07 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-08 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-09 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-10 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-11 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-12 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-13 : 정상</span></div>
+        <div class="day partial-day"><span class="day-tooltip">02-14 : 일부 장애</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-15 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-16 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-17 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-18 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-19 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-20 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-21 : 정상</span></div>
+        <div class="day down-day"><span class="day-tooltip">02-22 : 장애 발생</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-23 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-24 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-25 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-26 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-27 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">02-28 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">03-01 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">03-02 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">03-03 : 정상</span></div>
+        <div class="day partial-day"><span class="day-tooltip">03-04 : 일부 장애</span></div>
+        <div class="day up-day"><span class="day-tooltip">03-05 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">03-06 : 정상</span></div>
+        <div class="day up-day"><span class="day-tooltip">03-07 : 정상</span></div>
+      </div>
+      <div class="uptime-footer">
+        <span>30일 전</span>
+        <span>오늘</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Incident Timeline ====== -->
+  <div class="section">
+    <div class="section-header">최근 장애 이력</div>
+
+    <div class="incident sev-warning">
+      <div class="incident-header">
+        <span class="severity-badge warning">경고</span>
+        <span class="incident-title">ShortsFactory TTS 렌더링 지연</span>
+      </div>
+      <div class="incident-time">2026-03-07 11:23 KST</div>
+      <div class="incident-body">
+        TTS 엔진 응답 시간이 평균 대비 45초 증가하여 렌더링 파이프라인에 지연이 발생했습니다. 외부 TTS API 서버의 부하로 인한 것으로 확인되었으며, 재시도 로직을 통해 처리중입니다.
+        <br><span class="incident-status monitoring">모니터링중</span>
+      </div>
+    </div>
+
+    <div class="incident sev-critical">
+      <div class="incident-header">
+        <span class="severity-badge critical">심각</span>
+        <span class="incident-title">WanChai 빌드 실패 - 보스 충돌박스 회귀</span>
+      </div>
+      <div class="incident-time">2026-02-22 09:15 KST</div>
+      <div class="incident-body">
+        Sprint 4 병합 과정에서 보스 충돌박스 스프라이트 비례 설정이 초기화되어 프로덕션 빌드가 실패했습니다. 긴급 핫픽스를 적용하여 같은 날 11:40에 복구 완료되었습니다.
+        <br><span class="incident-status resolved">해결 완료</span>
+      </div>
+    </div>
+
+    <div class="incident sev-info">
+      <div class="incident-header">
+        <span class="severity-badge info">정보</span>
+        <span class="incident-title">Translate Agent 정기 유지보수</span>
+      </div>
+      <div class="incident-time">2026-03-04 14:00 KST</div>
+      <div class="incident-body">
+        용어집(glossary.json) 대규모 업데이트를 위한 계획된 유지보수가 진행되었습니다. 약 2시간 동안 번역 요청이 큐에 대기했으며, 16:10에 정상 복구되었습니다.
+        <br><span class="incident-status resolved">해결 완료</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ====== Footer ====== -->
+  <div class="page-footer">
+    최종 업데이트: 2026-03-07 14:00 KST<br>
+    상태 변경 알림을 받으려면 <a href="#">Slack #ops-alerts</a> 채널을 구독하세요.<br>
+    <span style="margin-top:8px;display:inline-block;font-size:12px;color:#d1d5db;">HKD852 Studio &middot; 에이전트 운영 모니터링</span>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangMaster 분석 대시보드</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --base: #1e1e2e;
+    --mantle: #181825;
+    --crust: #11111b;
+    --surface0: #313244;
+    --surface1: #45475a;
+    --surface2: #585b70;
+    --overlay0: #6c7086;
+    --text: #cdd6f4;
+    --subtext0: #a6adc8;
+    --subtext1: #bac2de;
+    --mauve: #cba6f7;
+    --blue: #89b4fa;
+    --green: #a6e3a1;
+    --peach: #fab387;
+    --red: #f38ba8;
+    --yellow: #f9e2af;
+    --teal: #94e2d5;
+    --lavender: #b4befe;
+  }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    background: var(--base);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.8;
+    word-break: keep-all;
+  }
+
+  .dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .header h1 span { color: var(--mauve); }
+  .header-meta {
+    font-size: 13px;
+    color: var(--overlay0);
+  }
+
+  /* Tabs */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    background: var(--mantle);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 24px;
+    width: fit-content;
+  }
+  .tab {
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--subtext0);
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    transition: all 0.2s;
+  }
+  .tab:hover { color: var(--text); background: var(--surface0); }
+  .tab.active {
+    background: var(--surface0);
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  /* KPI Cards */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .kpi-card {
+    background: var(--mantle);
+    border: 1px solid var(--surface0);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .kpi-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--overlay0);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .kpi-delta {
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .kpi-delta.up { color: var(--green); }
+  .kpi-delta.down { color: var(--red); }
+
+  /* Chart Grid */
+  .chart-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+  .chart-card {
+    background: var(--mantle);
+    border: 1px solid var(--surface0);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .chart-card.wide { grid-column: span 2; }
+  .chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--subtext1);
+    margin-bottom: 16px;
+  }
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+  }
+  .chart-wrap canvas { width: 100% !important; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .chart-grid { grid-template-columns: repeat(2, 1fr); }
+    .chart-card.wide { grid-column: span 2; }
+  }
+  @media (max-width: 768px) {
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .chart-grid { grid-template-columns: 1fr; }
+    .chart-card.wide { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- Header -->
+  <div class="header">
+    <h1><span>LangMaster</span> 분석 대시보드</h1>
+    <div class="header-meta">최종 업데이트: 2026년 3월 7일 09:00 KST</div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab active" onclick="setTab(this)">개요</button>
+    <button class="tab" onclick="setTab(this)">매출</button>
+    <button class="tab" onclick="setTab(this)">사용자</button>
+    <button class="tab" onclick="setTab(this)">시장</button>
+    <button class="tab" onclick="setTab(this)">리스크</button>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">일간 활성 사용자</div>
+      <div class="kpi-value">84.2K</div>
+      <div class="kpi-delta up">&#9650; 전월 대비 12.4%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">전환율</div>
+      <div class="kpi-value">4.7%</div>
+      <div class="kpi-delta up">&#9650; 전월 대비 0.8pp</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">ARPU (월간)</div>
+      <div class="kpi-value">$6.30</div>
+      <div class="kpi-delta down">&#9660; 전월 대비 3.1%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">D30 리텐션</div>
+      <div class="kpi-value">28.5%</div>
+      <div class="kpi-delta up">&#9650; 전월 대비 2.1pp</div>
+    </div>
+  </div>
+
+  <!-- Chart Grid -->
+  <div class="chart-grid">
+
+    <!-- 1. Revenue Projection (Line) - wide -->
+    <div class="chart-card wide">
+      <div class="chart-title">매출 전망 (12개월)</div>
+      <div class="chart-wrap"><canvas id="chartRevenue"></canvas></div>
+    </div>
+
+    <!-- 2. Market Share (Doughnut) -->
+    <div class="chart-card">
+      <div class="chart-title">언어 학습 시장 점유율</div>
+      <div class="chart-wrap"><canvas id="chartMarket"></canvas></div>
+    </div>
+
+    <!-- 3. Feature Comparison (Bar) - wide -->
+    <div class="chart-card wide">
+      <div class="chart-title">경쟁사 기능 비교</div>
+      <div class="chart-wrap"><canvas id="chartFeatures"></canvas></div>
+    </div>
+
+    <!-- 4. Product Radar -->
+    <div class="chart-card">
+      <div class="chart-title">LangMaster vs Duolingo</div>
+      <div class="chart-wrap"><canvas id="chartRadar"></canvas></div>
+    </div>
+
+    <!-- 5. Risk Assessment (Horizontal Bar) - full width -->
+    <div class="chart-card" style="grid-column: span 3;">
+      <div class="chart-title">리스크 평가 점수</div>
+      <div class="chart-wrap"><canvas id="chartRisk" style="max-height:260px;"></canvas></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// -- Globals --
+const COLORS = {
+  mauve: '#cba6f7', blue: '#89b4fa', green: '#a6e3a1',
+  peach: '#fab387', red: '#f38ba8', yellow: '#f9e2af',
+  teal: '#94e2d5', lavender: '#b4befe'
+};
+const GRID_COLOR = 'rgba(108,112,134,0.15)';
+const FONT = { family: "'Pretendard', 'Noto Sans KR', sans-serif" };
+
+Chart.defaults.color = '#a6adc8';
+Chart.defaults.font.family = FONT.family;
+Chart.defaults.font.size = 12;
+
+// -- Tab switching --
+function setTab(el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// -- 1. Revenue Line Chart --
+const months = ['4월','5월','6월','7월','8월','9월','10월','11월','12월','1월','2월','3월'];
+new Chart(document.getElementById('chartRevenue'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: '예상 매출 ($K)',
+        data: [42, 58, 79, 105, 134, 168, 210, 248, 295, 340, 382, 430],
+        borderColor: COLORS.mauve,
+        backgroundColor: 'rgba(203,166,247,0.08)',
+        fill: true,
+        tension: 0.35,
+        pointRadius: 4,
+        pointHoverRadius: 7,
+        borderWidth: 2.5
+      },
+      {
+        label: '보수적 추정 ($K)',
+        data: [42, 52, 64, 80, 98, 118, 140, 160, 185, 210, 230, 255],
+        borderColor: COLORS.overlay0,
+        borderDash: [6, 4],
+        backgroundColor: 'transparent',
+        tension: 0.35,
+        pointRadius: 3,
+        pointHoverRadius: 6,
+        borderWidth: 1.5
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { intersect: false, mode: 'index' },
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, padding: 16 } },
+      tooltip: {
+        backgroundColor: '#181825',
+        borderColor: '#313244',
+        borderWidth: 1,
+        padding: 12,
+        callbacks: { label: ctx => `${ctx.dataset.label}: $${ctx.parsed.y}K` }
+      }
+    },
+    scales: {
+      x: { grid: { color: GRID_COLOR } },
+      y: { grid: { color: GRID_COLOR }, ticks: { callback: v => '$' + v + 'K' } }
+    }
+  }
+});
+
+// -- 2. Market Share Doughnut --
+new Chart(document.getElementById('chartMarket'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Duolingo', 'Babbel', 'Rosetta Stone', 'Busuu', 'LangMaster', '기타'],
+    datasets: [{
+      data: [38, 14, 11, 8, 3, 26],
+      backgroundColor: [
+        COLORS.green, COLORS.blue, COLORS.peach,
+        COLORS.yellow, COLORS.mauve, COLORS.lavender
+      ],
+      borderColor: '#181825',
+      borderWidth: 3,
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '62%',
+    plugins: {
+      legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
+      tooltip: {
+        backgroundColor: '#181825',
+        borderColor: '#313244',
+        borderWidth: 1,
+        callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` }
+      }
+    }
+  }
+});
+
+// -- 3. Feature Comparison Bar --
+new Chart(document.getElementById('chartFeatures'), {
+  type: 'bar',
+  data: {
+    labels: ['Duolingo', 'Babbel', 'Rosetta Stone', 'Busuu', 'LangMaster'],
+    datasets: [
+      { label: 'AI 개인화', data: [7, 5, 4, 6, 9], backgroundColor: COLORS.mauve },
+      { label: '콘텐츠 깊이', data: [6, 8, 9, 7, 8], backgroundColor: COLORS.blue },
+      { label: '게이미피케이션', data: [9, 5, 3, 6, 8], backgroundColor: COLORS.green },
+      { label: '스피킹 연습', data: [6, 7, 8, 5, 9], backgroundColor: COLORS.peach }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, padding: 16 } },
+      tooltip: {
+        backgroundColor: '#181825',
+        borderColor: '#313244',
+        borderWidth: 1,
+        callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}/10` }
+      }
+    },
+    scales: {
+      x: { grid: { display: false } },
+      y: { grid: { color: GRID_COLOR }, min: 0, max: 10, ticks: { stepSize: 2 } }
+    }
+  }
+});
+
+// -- 4. Radar Chart --
+new Chart(document.getElementById('chartRadar'), {
+  type: 'radar',
+  data: {
+    labels: ['AI 튜터링', '콘텐츠 라이브러리', 'UX / 참여도', '가격 경쟁력', '음성 기술', '리텐션'],
+    datasets: [
+      {
+        label: 'LangMaster',
+        data: [9, 7, 8, 8, 9, 7],
+        borderColor: COLORS.mauve,
+        backgroundColor: 'rgba(203,166,247,0.15)',
+        pointBackgroundColor: COLORS.mauve,
+        borderWidth: 2
+      },
+      {
+        label: 'Duolingo',
+        data: [6, 6, 9, 7, 5, 8],
+        borderColor: COLORS.green,
+        backgroundColor: 'rgba(166,227,161,0.10)',
+        pointBackgroundColor: COLORS.green,
+        borderWidth: 2
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
+      tooltip: { backgroundColor: '#181825', borderColor: '#313244', borderWidth: 1 }
+    },
+    scales: {
+      r: {
+        min: 0, max: 10,
+        ticks: { stepSize: 2, backdropColor: 'transparent', color: '#6c7086' },
+        grid: { color: GRID_COLOR },
+        angleLines: { color: GRID_COLOR },
+        pointLabels: { font: { size: 11 } }
+      }
+    }
+  }
+});
+
+// -- 5. Risk Assessment Horizontal Bar --
+new Chart(document.getElementById('chartRisk'), {
+  type: 'bar',
+  data: {
+    labels: [
+      '시장 포화 (Duolingo 독점)',
+      'AI 비용 확대 (LLM 추론)',
+      '사용자 획득 비용 상승',
+      '규제 / 데이터 프라이버시 (GDPR, COPPA)',
+      '콘텐츠 현지화 지연',
+      '경쟁사 AI 기능 동등화',
+      '무료 플랜 제한으로 인한 이탈'
+    ],
+    datasets: [{
+      label: '리스크 점수',
+      data: [8.2, 7.5, 7.1, 5.8, 5.3, 6.9, 6.4],
+      backgroundColor: ctx => {
+        const v = ctx.parsed.x;
+        if (v >= 7.5) return COLORS.red;
+        if (v >= 6.0) return COLORS.peach;
+        return COLORS.yellow;
+      },
+      borderRadius: 6,
+      barThickness: 22
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#181825',
+        borderColor: '#313244',
+        borderWidth: 1,
+        callbacks: { label: ctx => ` 리스크: ${ctx.parsed.x}/10` }
+      }
+    },
+    scales: {
+      x: { grid: { color: GRID_COLOR }, min: 0, max: 10, ticks: { stepSize: 2 } },
+      y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>

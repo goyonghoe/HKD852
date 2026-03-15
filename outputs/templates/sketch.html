@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangMaster 브레인스토밍 - 스케치 템플릿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.min.js"></script>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  :root {
+    --paper: #f5f0e8;
+    --pencil: #555;
+    --highlight-yellow: #fff176;
+    --red-pen: #e57373;
+    --blue-pen: #64b5f6;
+    --sticky-pink: #f8bbd0;
+    --sticky-green: #c8e6c9;
+    --sticky-blue: #bbdefb;
+    --sticky-orange: #ffe0b2;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    background-color: var(--paper);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    color: var(--pencil);
+    min-height: 100vh;
+    padding: 2rem;
+    font-size: 15px;
+    line-height: 1.8;
+    word-break: keep-all;
+  }
+
+  .page-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* Ruled lines background */
+  .page-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 60px;
+    width: 2px;
+    height: 100%;
+    background: rgba(229, 115, 115, 0.25);
+    z-index: 0;
+  }
+
+  h1, h2, h3 { font-family: 'Caveat', cursive; }
+
+  .title-area {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .title-area h1 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: var(--pencil);
+    letter-spacing: -1px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .title-area h1::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: -5px;
+    right: -5px;
+    height: 14px;
+    background: var(--highlight-yellow);
+    opacity: 0.6;
+    z-index: -1;
+    transform: rotate(-0.5deg);
+  }
+
+  .subtitle {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.3rem;
+    color: #888;
+    margin-top: 0.3rem;
+  }
+
+  .date-stamp {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--red-pen);
+    position: absolute;
+    top: -10px;
+    right: 0;
+    transform: rotate(3deg);
+  }
+
+  /* Sticky notes */
+  .sticky-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0 3rem;
+  }
+
+  .sticky-note {
+    padding: 1.4rem 1.2rem;
+    border-radius: 2px;
+    min-height: 160px;
+    position: relative;
+    box-shadow: 3px 4px 8px rgba(0,0,0,0.12);
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    transition: transform 0.2s;
+  }
+
+  .sticky-note:hover { transform: scale(1.03) rotate(0deg) !important; z-index: 5; }
+
+  .sticky-note:nth-child(1) { background: var(--sticky-pink); transform: rotate(-1.5deg); }
+  .sticky-note:nth-child(2) { background: var(--sticky-green); transform: rotate(1deg); }
+  .sticky-note:nth-child(3) { background: var(--sticky-blue); transform: rotate(-0.5deg); }
+  .sticky-note:nth-child(4) { background: var(--sticky-orange); transform: rotate(2deg); }
+
+  .sticky-note h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px dashed rgba(0,0,0,0.15);
+    padding-bottom: 0.3rem;
+  }
+
+  .sticky-note .note-icon {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    opacity: 0.35;
+  }
+
+  /* Section headers */
+  .section-header {
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    margin: 2.5rem 0 1rem;
+    position: relative;
+    display: inline-block;
+    color: var(--pencil);
+  }
+
+  .section-header::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: var(--blue-pen);
+    opacity: 0.2;
+    transform: rotate(-0.3deg);
+  }
+
+  /* Chart containers */
+  .charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 1.5rem 0 2.5rem;
+  }
+
+  @media (max-width: 700px) {
+    .charts-row { grid-template-columns: 1fr; }
+  }
+
+  .chart-card {
+    background: rgba(255,255,255,0.5);
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    padding: 1.2rem;
+    position: relative;
+    transform: rotate(-0.3deg);
+  }
+
+  .chart-card:nth-child(2) { transform: rotate(0.4deg); }
+
+  .chart-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: var(--pencil);
+  }
+
+  .chart-card canvas { width: 100%; display: block; }
+
+  /* Margin note */
+  .margin-note {
+    position: absolute;
+    right: -30px;
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem;
+    color: var(--red-pen);
+    max-width: 140px;
+    transform: rotate(4deg);
+    line-height: 1.3;
+  }
+
+  .margin-note-inline {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--red-pen);
+    transform: rotate(1deg);
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+
+  /* Connection arrows (SVG) */
+  .arrows-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Doodle separator */
+  .doodle-sep {
+    text-align: center;
+    margin: 2rem 0;
+    opacity: 0.3;
+    font-size: 1.5rem;
+    letter-spacing: 1rem;
+    color: var(--pencil);
+  }
+
+  /* Ideas list */
+  .idea-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 2rem;
+  }
+
+  .idea-list li {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 1.05rem;
+    padding: 0.5rem 0 0.5rem 2rem;
+    position: relative;
+    border-bottom: 1px dashed rgba(0,0,0,0.08);
+  }
+
+  .idea-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--pencil);
+    border-radius: 3px;
+    transform: translateY(-50%) rotate(1deg);
+  }
+
+  .idea-list li.checked::before {
+    background:
+      linear-gradient(45deg, transparent 40%, var(--pencil) 40%, var(--pencil) 45%, transparent 45%),
+      linear-gradient(-45deg, transparent 40%, var(--pencil) 40%, var(--pencil) 45%, transparent 45%);
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.8rem;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 0.85rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .legend-swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.2);
+  }
+
+  /* Footer */
+  .footer-note {
+    text-align: center;
+    margin-top: 3rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: #aaa;
+    border-top: 1px dashed #ccc;
+    padding-top: 1rem;
+  }
+
+  /* Tape decoration */
+  .tape {
+    position: absolute;
+    width: 80px;
+    height: 26px;
+    background: rgba(255, 241, 118, 0.55);
+    border: 1px solid rgba(200, 190, 130, 0.3);
+    z-index: 2;
+  }
+
+  .tape-tl { top: -12px; left: 20px; transform: rotate(-8deg); }
+  .tape-tr { top: -10px; right: 15px; transform: rotate(5deg); }
+</style>
+</head>
+<body>
+
+<div class="page-container">
+
+  <!-- Title -->
+  <div class="title-area">
+    <span class="date-stamp">2026년 3월 7일 *</span>
+    <h1>LangMaster 브레인스토밍</h1>
+    <div class="subtitle">언어 학습 앱 &mdash; 아이디에이션 세션 #3</div>
+  </div>
+
+  <!-- Sticky Notes: Key Ideas -->
+  <h2 class="section-header">핵심 아이디어</h2>
+
+  <div class="sticky-grid">
+    <div class="sticky-note">
+      <svg class="note-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+      <h3>AI 대화 파트너</h3>
+      AI 튜터와 실시간 음성 채팅. 난이도 조절 가능. 12개 이상 언어의 억양 연습. <em>최우선 과제!</em>
+    </div>
+    <div class="sticky-note">
+      <svg class="note-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      <h3>간격 반복 2.0</h3>
+      맥락 인식 플래시카드. 사용자의 실제 읽기 기록에서 어휘 추출. MZ세대를 위한 밈 형식 카드.
+    </div>
+    <div class="sticky-note">
+      <svg class="note-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <h3>스토리 모드 레슨</h3>
+      내러티브 기반 문법 퀘스트. 선택형 대화 어드벤처. 국가별 문화 체험 챕터.
+    </div>
+    <div class="sticky-note">
+      <svg class="note-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      <h3>소셜 챌린지</h3>
+      친구와 주간 언어 대결. 연속 학습 + 정확도 기반 리더보드. 커뮤니티 문장 첨삭.
+    </div>
+  </div>
+
+  <div class="doodle-sep">~ ~ ~ ~ ~ ~</div>
+
+  <!-- Charts Section -->
+  <h2 class="section-header">경쟁사 현황</h2>
+  <span class="margin-note-inline">* App Annie 2026년 1분기 추정치 기준</span>
+
+  <div class="charts-row">
+    <div class="chart-card" style="position:relative;">
+      <div class="tape tape-tl"></div>
+      <h3>DAU 비교 (백만)</h3>
+      <canvas id="barChart" width="460" height="300"></canvas>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-swatch" style="background:#64b5f6"></div> Duolingo</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#e57373"></div> Babbel</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#fff176"></div> Busuu</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#c8e6c9"></div> Rosetta</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#ce93d8"></div> LangMaster</div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="position:relative;">
+      <div class="tape tape-tr"></div>
+      <h3>목표 시장 점유율</h3>
+      <canvas id="pieChart" width="460" height="300"></canvas>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-swatch" style="background:#64b5f6"></div> Duolingo 38%</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#e57373"></div> Babbel 18%</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#fff176"></div> Busuu 12%</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#c8e6c9"></div> 기타 22%</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#ce93d8"></div> LangMaster 10%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doodle-sep">~ ~ ~ ~ ~ ~</div>
+
+  <!-- Next Steps -->
+  <h2 class="section-header">다음 단계</h2>
+
+  <ul class="idea-list">
+    <li class="checked">MVP 기능 세트 확정 (AI 음성 채팅 + SRS 카드)</li>
+    <li class="checked">브랜드 아이덴티티 및 로고 컨셉 확정</li>
+    <li>사용자 리서치: 언어 학습자 30명 인터뷰</li>
+    <li>AI 대화 엔진 프로토타입 구현 (Claude API)</li>
+    <li>게이미피케이션 루프 및 보상 스케줄 설계</li>
+    <li>경쟁사 가격 분석 (프리미엄 vs. 구독제)</li>
+  </ul>
+
+  <!-- Doodle arrows SVG -->
+  <svg class="arrows-layer" viewBox="0 0 1100 200" preserveAspectRatio="none" style="position:relative; height:80px; width:100%; margin: -1rem 0 1rem;">
+    <defs>
+      <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#e57373" opacity="0.5"/>
+      </marker>
+    </defs>
+    <path d="M 150,60 C 250,10 350,90 500,40" stroke="#e57373" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#arrowhead)" opacity="0.45"/>
+    <path d="M 500,50 C 600,100 700,20 850,55" stroke="#64b5f6" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#arrowhead)" opacity="0.45"/>
+    <text x="320" y="25" font-family="Caveat, cursive" font-size="16" fill="#e57373" opacity="0.6" transform="rotate(-5, 320, 25)">연결됨</text>
+    <text x="680" y="30" font-family="Caveat, cursive" font-size="16" fill="#64b5f6" opacity="0.6" transform="rotate(3, 680, 30)">검증</text>
+  </svg>
+
+  <!-- Footer -->
+  <div class="footer-note">
+    Rough.js로 스케치 &bull; HKD852 스튜디오 &bull; 템플릿: sketch.html
+  </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ── Bar Chart: Competitor DAU ──
+  const barCanvas = document.getElementById('barChart');
+  const barRc = rough.canvas(barCanvas);
+  const barCtx = barCanvas.getContext('2d');
+
+  const barData = [
+    { label: 'Duolingo', value: 24, color: '#64b5f6' },
+    { label: 'Babbel',   value: 10, color: '#e57373' },
+    { label: 'Busuu',    value: 6,  color: '#fff176' },
+    { label: 'Rosetta',  value: 4,  color: '#c8e6c9' },
+    { label: 'LangMaster', value: 2, color: '#ce93d8' },
+  ];
+
+  const barPadding = { top: 20, right: 30, bottom: 50, left: 50 };
+  const barW = barCanvas.width - barPadding.left - barPadding.right;
+  const barH = barCanvas.height - barPadding.top - barPadding.bottom;
+  const maxVal = 28;
+  const barWidth = barW / barData.length - 16;
+
+  // Grid lines
+  for (let i = 0; i <= 4; i++) {
+    const y = barPadding.top + barH - (barH / 4) * i;
+    barRc.line(barPadding.left, y, barPadding.left + barW, y, {
+      stroke: '#ccc', strokeWidth: 0.8, roughness: 1.5
+    });
+    barCtx.font = '14px Caveat, cursive';
+    barCtx.fillStyle = '#999';
+    barCtx.textAlign = 'right';
+    barCtx.fillText((maxVal / 4 * i).toFixed(0) + 'M', barPadding.left - 8, y + 4);
+  }
+
+  // Axes
+  barRc.line(barPadding.left, barPadding.top, barPadding.left, barPadding.top + barH, {
+    stroke: '#555', strokeWidth: 2, roughness: 1.2
+  });
+  barRc.line(barPadding.left, barPadding.top + barH, barPadding.left + barW, barPadding.top + barH, {
+    stroke: '#555', strokeWidth: 2, roughness: 1.2
+  });
+
+  // Bars
+  barData.forEach((d, i) => {
+    const x = barPadding.left + i * (barW / barData.length) + 8;
+    const h = (d.value / maxVal) * barH;
+    const y = barPadding.top + barH - h;
+
+    barRc.rectangle(x, y, barWidth, h, {
+      fill: d.color,
+      fillStyle: 'hachure',
+      fillWeight: 2,
+      hachureGap: 5,
+      stroke: '#555',
+      strokeWidth: 1.5,
+      roughness: 2,
+    });
+
+    barCtx.font = '15px "Patrick Hand", cursive';
+    barCtx.fillStyle = '#555';
+    barCtx.textAlign = 'center';
+    barCtx.fillText(d.label, x + barWidth / 2, barPadding.top + barH + 22);
+
+    barCtx.font = 'bold 16px Caveat, cursive';
+    barCtx.fillText(d.value + 'M', x + barWidth / 2, y - 8);
+  });
+
+
+  // ── Pie Chart: Market Share ──
+  const pieCanvas = document.getElementById('pieChart');
+  const pieRc = rough.canvas(pieCanvas);
+  const pieCtx = pieCanvas.getContext('2d');
+
+  const pieData = [
+    { label: 'Duolingo', value: 38, color: '#64b5f6' },
+    { label: 'Babbel',   value: 18, color: '#e57373' },
+    { label: 'Busuu',    value: 12, color: '#fff176' },
+    { label: '기타',   value: 22, color: '#c8e6c9' },
+    { label: 'LangMaster', value: 10, color: '#ce93d8' },
+  ];
+
+  const cx = pieCanvas.width / 2;
+  const cy = pieCanvas.height / 2 - 5;
+  const radius = 115;
+  let startAngle = -Math.PI / 2;
+
+  pieData.forEach((d) => {
+    const sweep = (d.value / 100) * Math.PI * 2;
+    const endAngle = startAngle + sweep;
+
+    pieRc.arc(cx, cy, radius * 2, radius * 2, startAngle, endAngle, true, {
+      fill: d.color,
+      fillStyle: 'cross-hatch',
+      fillWeight: 1.5,
+      hachureGap: 4,
+      stroke: '#555',
+      strokeWidth: 1.5,
+      roughness: 1.8,
+    });
+
+    // Label
+    const midAngle = startAngle + sweep / 2;
+    const labelR = radius * 0.62;
+    const lx = cx + Math.cos(midAngle) * labelR;
+    const ly = cy + Math.sin(midAngle) * labelR;
+
+    pieCtx.font = 'bold 15px Caveat, cursive';
+    pieCtx.fillStyle = '#333';
+    pieCtx.textAlign = 'center';
+    pieCtx.textBaseline = 'middle';
+    pieCtx.fillText(d.value + '%', lx, ly);
+
+    startAngle = endAngle;
+  });
+
+  // Center doodle circle
+  pieRc.circle(cx, cy, 50, {
+    stroke: '#555', strokeWidth: 1, roughness: 2, fill: 'rgba(245,240,232,0.8)', fillStyle: 'solid'
+  });
+  pieCtx.font = '13px Caveat, cursive';
+  pieCtx.fillStyle = '#555';
+  pieCtx.textAlign = 'center';
+  pieCtx.fillText('2026', cx, cy - 4);
+  pieCtx.fillText('목표', cx, cy + 12);
+
+});
+</script>
+
+</body>
+</html>

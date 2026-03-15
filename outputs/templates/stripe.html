@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시장 분석 문서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3c4257;
+    background: #fff;
+    word-break: keep-all;
+  }
+
+  /* --- Layout --- */
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* --- Sidebar --- */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    background: #f6f9fc;
+    border-right: 1px solid #e3e8ee;
+    overflow-y: auto;
+    padding: 32px 0;
+    z-index: 100;
+  }
+
+  .sidebar-header {
+    padding: 0 24px 24px;
+    border-bottom: 1px solid #e3e8ee;
+    margin-bottom: 16px;
+  }
+
+  .sidebar-logo {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0a2540;
+    text-decoration: none;
+    letter-spacing: -0.3px;
+  }
+
+  .sidebar-logo span {
+    color: #635bff;
+  }
+
+  .sidebar nav { padding: 0 12px; }
+
+  .toc-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #8898aa;
+    padding: 0 12px;
+    margin-bottom: 8px;
+  }
+
+  .toc-link {
+    display: block;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #506690;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+    margin-bottom: 2px;
+  }
+
+  .toc-link:hover {
+    color: #0a2540;
+    background: rgba(99, 91, 255, 0.06);
+  }
+
+  .toc-link.active {
+    color: #635bff;
+    background: rgba(99, 91, 255, 0.08);
+    font-weight: 600;
+  }
+
+  .toc-link.sub {
+    padding-left: 28px;
+    font-size: 12.5px;
+    font-weight: 400;
+    color: #8898aa;
+  }
+
+  .toc-link.sub.active {
+    color: #635bff;
+    font-weight: 500;
+  }
+
+  /* --- Main content --- */
+  .main {
+    margin-left: 240px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0 48px;
+  }
+
+  .content {
+    max-width: 680px;
+    width: 100%;
+    padding: 40px 0 120px;
+  }
+
+  /* --- Breadcrumbs --- */
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #8898aa;
+    margin-bottom: 32px;
+  }
+
+  .breadcrumbs a {
+    color: #506690;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .breadcrumbs a:hover { color: #635bff; }
+
+  .breadcrumbs .sep { color: #c1c9d2; font-size: 11px; }
+
+  .breadcrumbs .current { color: #0a2540; font-weight: 500; }
+
+  /* --- Typography --- */
+  h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #0a2540;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: #506690;
+    line-height: 1.8;
+    margin-bottom: 48px;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0a2540;
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+    margin-top: 64px;
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e3e8ee;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0a2540;
+    line-height: 1.4;
+    margin-top: 40px;
+    margin-bottom: 12px;
+  }
+
+  p { margin-bottom: 20px; color: #3c4257; }
+
+  a { color: #635bff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  strong { font-weight: 600; color: #0a2540; }
+
+  ul, ol {
+    margin-bottom: 20px;
+    padding-left: 24px;
+  }
+
+  li { margin-bottom: 6px; }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e3e8ee;
+    margin: 48px 0;
+  }
+
+  /* --- Code --- */
+  code {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 13.5px;
+    background: #f6f9fc;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #3c4257;
+  }
+
+  pre {
+    background: #f6f9fc;
+    border-radius: 8px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    margin-bottom: 24px;
+    border: 1px solid #e3e8ee;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #e3e8ee;
+    border-radius: 8px 8px 0 0;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #506690;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .code-header + pre {
+    border-radius: 0 0 8px 8px;
+    border-top: none;
+    margin-top: 0;
+  }
+
+  /* Syntax colors */
+  .syn-key { color: #635bff; }
+  .syn-str { color: #0e6245; }
+  .syn-num { color: #c41d7f; }
+  .syn-bool { color: #d4380d; }
+  .syn-null { color: #8898aa; }
+  .syn-comment { color: #8898aa; font-style: italic; }
+
+  /* --- Callout boxes --- */
+  .callout {
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    line-height: 1.65;
+    border-left: 4px solid;
+  }
+
+  .callout-title {
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .callout.info {
+    background: #eff6ff;
+    border-left-color: #3b82f6;
+    color: #1e40af;
+  }
+  .callout.info .callout-title { color: #1d4ed8; }
+
+  .callout.warning {
+    background: #fffbeb;
+    border-left-color: #f59e0b;
+    color: #92400e;
+  }
+  .callout.warning .callout-title { color: #b45309; }
+
+  .callout.danger {
+    background: #fef2f2;
+    border-left-color: #ef4444;
+    color: #991b1b;
+  }
+  .callout.danger .callout-title { color: #dc2626; }
+
+  /* --- Tables --- */
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #e3e8ee;
+    margin-bottom: 24px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  thead th {
+    background: #f6f9fc;
+    text-align: left;
+    padding: 10px 16px;
+    font-weight: 600;
+    color: #0a2540;
+    border-bottom: 1px solid #e3e8ee;
+    white-space: nowrap;
+  }
+
+  tbody td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #f0f3f7;
+    color: #3c4257;
+  }
+
+  tbody tr:nth-child(even) { background: #fafbfc; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* --- Badge --- */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .badge.green { background: #e6f9f0; color: #0e6245; }
+  .badge.yellow { background: #fff7e0; color: #92400e; }
+  .badge.red { background: #fef2f2; color: #991b1b; }
+  .badge.blue { background: #eff6ff; color: #1e40af; }
+
+  /* --- Mobile hamburger --- */
+  .menu-toggle {
+    display: none;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 200;
+    background: #fff;
+    border: 1px solid #e3e8ee;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #0a2540;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 90;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 860px) {
+    .menu-toggle { display: block; }
+
+    .sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+    }
+
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-overlay.open { display: block; }
+
+    .main {
+      margin-left: 0;
+      padding: 0 20px;
+    }
+
+    .content { padding-top: 64px; }
+
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; margin-top: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Mobile toggle -->
+<button class="menu-toggle" id="menuToggle">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="#" class="sidebar-logo"><span>//</span> HKD852 Docs</a>
+    </div>
+    <nav>
+      <div class="toc-label">목차</div>
+      <a href="#overview" class="toc-link active" data-section="overview">개요</a>
+      <a href="#methodology" class="toc-link" data-section="methodology">분석 방법론</a>
+      <a href="#methodology-sources" class="toc-link sub" data-section="methodology-sources">데이터 소스</a>
+      <a href="#methodology-framework" class="toc-link sub" data-section="methodology-framework">분석 프레임워크</a>
+      <a href="#findings" class="toc-link" data-section="findings">핵심 발견</a>
+      <a href="#findings-growth" class="toc-link sub" data-section="findings-growth">성장 지표</a>
+      <a href="#findings-segments" class="toc-link sub" data-section="findings-segments">시장 세그먼트</a>
+      <a href="#data" class="toc-link" data-section="data">데이터 레퍼런스</a>
+      <a href="#recommendations" class="toc-link" data-section="recommendations">전략 제안</a>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <article class="content">
+
+      <!-- Breadcrumbs -->
+      <div class="breadcrumbs">
+        <a href="#">문서</a>
+        <span class="sep">&#8250;</span>
+        <a href="#">분석</a>
+        <span class="sep">&#8250;</span>
+        <span class="current">시장 보고서</span>
+      </div>
+
+      <h1>시장 분석 문서</h1>
+      <p class="subtitle">
+        시장 분석 방법론, 5개 타겟 지역에 걸친 핵심 발견사항, 그리고 2026년 제품 포지셔닝을 위한
+        전략적 제안을 종합적으로 다루는 가이드입니다.
+      </p>
+
+      <!-- Section 1: Overview -->
+      <h2 id="overview">개요</h2>
+      <p>
+        이 문서는 5개 우선순위 지역인 <strong>북미</strong>, <strong>유럽</strong>,
+        <strong>중국</strong>, <strong>한국</strong>, <strong>일본</strong>에서 수행된
+        모바일 게임 시장 분석을 개괄합니다. 2025년 4분기부터 2026년 1분기까지의 장르 트렌드,
+        수익화 모델, 유저 획득 벤치마크에 초점을 맞추고 있습니다.
+      </p>
+      <p>
+        앱 인텔리전스 플랫폼의 정량 데이터와 플레이어 커뮤니티의 정성적 인사이트를 결합한 접근 방식을 사용합니다.
+        이를 통해 기능 우선순위, 가격 전략, 지역별 런칭 순서에 대한 데이터 기반 의사결정이 가능합니다.
+      </p>
+
+      <div class="callout info">
+        <div class="callout-title">참고</div>
+        이 보고서의 모든 매출 수치는 USD로 통일되어 있으며, 플랫폼 수수료(Apple/Google 표준 30%) 차감 전
+        총매출 기준입니다. 순매출 계산 시 플랫폼 및 지역별 적절한 수수료율을 적용해야 합니다.
+      </div>
+
+      <!-- Section 2: Methodology -->
+      <h2 id="methodology">분석 방법론</h2>
+      <p>
+        편향을 최소화하고 실행 가능한 인사이트를 극대화하기 위해 3단계 분석 접근법을 적용합니다.
+        각 단계에서 생성된 구조화된 산출물은 다음 단계의 입력으로 사용됩니다.
+      </p>
+
+      <h3 id="methodology-sources">데이터 소스</h3>
+      <p>
+        시장 역학의 신뢰할 수 있는 전체상을 구축하기 위해 다양한 소스의 데이터를 집계합니다.
+        주요 소스에는 앱 스토어 인텔리전스, 광고 네트워크 벤치마크, 포트폴리오 내 유사 타이틀의
+        자사 데이터가 포함됩니다.
+      </p>
+      <ul>
+        <li><strong>앱 인텔리전스</strong> &mdash; iOS 및 Google Play에서의 다운로드 추정치, 매출 추적, 키워드 순위</li>
+        <li><strong>광고 네트워크</strong> &mdash; CPI/CPA 벤치마크, 크리에이티브 성과 데이터, 오디언스 타겟팅 인사이트</li>
+        <li><strong>커뮤니티 시그널</strong> &mdash; Reddit, Discord, 지역 포럼(네이버 카페, Bilibili)의 감성 분석</li>
+        <li><strong>자사 데이터</strong> &mdash; 기존 타이틀의 리텐션 곡선, LTV 모델, 코호트 분석</li>
+      </ul>
+
+      <h3 id="methodology-framework">분석 프레임워크</h3>
+      <p>
+        각 시장은 가중 점수 모델을 사용하여 4가지 차원에서 평가됩니다.
+        가중치는 현재 제품 사이클의 전략적 우선순위를 반영합니다.
+      </p>
+      <ol>
+        <li><strong>시장 규모</strong> (30%) &mdash; 전체 주소 가능 시장(TAM) 및 성장 궤적</li>
+        <li><strong>경쟁 밀도</strong> (25%) &mdash; 유사 타이틀 수 및 상위 10개 집중도</li>
+        <li><strong>수익화 적합성</strong> (25%) &mdash; 하이브리드 IAP + 광고 모델과의 정합성</li>
+        <li><strong>현지화 비용</strong> (20%) &mdash; 문화적 적응 복잡도 및 QA 소요</li>
+      </ol>
+
+      <!-- Section 3: Key Findings -->
+      <h2 id="findings">핵심 발견</h2>
+      <p>
+        분석 결과, 지역 간 기회의 편차가 상당합니다. 북미는 매출 기준 최대 단일 시장으로 유지되지만,
+        동남아시아와 특정 유럽 하위 시장의 성장률이 매력적인 확장 기회를 제시합니다.
+      </p>
+
+      <h3 id="findings-growth">성장 지표</h3>
+      <p>
+        전년 대비 성장률은 성숙 시장과 신흥 시장 간에 뚜렷한 차이를 보입니다.
+        아래 표는 타겟 지역별 핵심 성과 지표(KPI)를 요약한 것입니다.
+      </p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>지역</th>
+              <th>매출 (2026 Q1)</th>
+              <th>전년 대비 성장</th>
+              <th>평균 CPI</th>
+              <th>D7 리텐션</th>
+              <th>우선순위</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>북미</td>
+              <td>$4.2B</td>
+              <td>+6.8%</td>
+              <td>$3.20</td>
+              <td>22.1%</td>
+              <td><span class="badge green">1순위</span></td>
+            </tr>
+            <tr>
+              <td>유럽</td>
+              <td>$3.1B</td>
+              <td>+9.2%</td>
+              <td>$2.40</td>
+              <td>19.8%</td>
+              <td><span class="badge green">1순위</span></td>
+            </tr>
+            <tr>
+              <td>중국</td>
+              <td>$8.7B</td>
+              <td>+3.1%</td>
+              <td>$1.80</td>
+              <td>25.4%</td>
+              <td><span class="badge yellow">2순위</span></td>
+            </tr>
+            <tr>
+              <td>한국</td>
+              <td>$1.9B</td>
+              <td>+5.5%</td>
+              <td>$2.10</td>
+              <td>24.0%</td>
+              <td><span class="badge blue">3순위</span></td>
+            </tr>
+            <tr>
+              <td>일본</td>
+              <td>$2.6B</td>
+              <td>+2.3%</td>
+              <td>$3.80</td>
+              <td>26.7%</td>
+              <td><span class="badge blue">3순위</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">중요</div>
+        중국 시장 진입 시 유료 게임의 경우 ISBN 라이선스가 필요하며, 유통을 위해 현지 퍼블리셔와의
+        파트너십이 필수입니다. 중국 우선 런칭 계획에는 6~12개월의 규제 리드타임을 반영해야 합니다.
+        매출 수치는 iOS + 서드파티 Android 스토어 합산 기준입니다.
+      </div>
+
+      <h3 id="findings-segments">시장 세그먼트</h3>
+      <p>
+        각 지역 내에서 행동 패턴이 구별되는 3개의 플레이어 세그먼트를 식별했습니다.
+        세그먼트 분포는 지역에 따라 크게 달라지며, 이는 수익화 설계에 직접적인 영향을 미칩니다.
+      </p>
+      <ul>
+        <li><strong>코어 유저</strong> (18~25%) &mdash; 높은 인게이지먼트, 경쟁 우위를 위한 결제 의향. 한국, 일본에서 과대 대표.</li>
+        <li><strong>캐주얼 소비자</strong> (40~50%) &mdash; 중간 수준 인게이지먼트, 코스메틱 IAP 및 배틀패스에 반응. 북미, 유럽에서 가장 큰 비중.</li>
+        <li><strong>광고 기반 유저</strong> (30~38%) &mdash; 보상형 동영상 광고를 통해 가치를 창출하는 무과금 유저. 신흥 시장에서 최대 세그먼트.</li>
+      </ul>
+
+      <!-- Section 4: Data Reference -->
+      <h2 id="data">데이터 레퍼런스</h2>
+      <p>
+        원시 분석 데이터는 내부 대시보드 및 보고 파이프라인과의 통합을 위해 JSON으로 구조화되어 있습니다.
+        아래는 전체 분석 산출물에서 사용되는 지역 요약 스키마 샘플입니다.
+      </p>
+
+      <div class="code-header">
+        <span>JSON</span>
+        <span>regional_summary.json</span>
+      </div>
+      <pre><code>{
+  <span class="syn-key">"report_id"</span>: <span class="syn-str">"MKT-2026-Q1-001"</span>,
+  <span class="syn-key">"generated_at"</span>: <span class="syn-str">"2026-03-07T09:00:00Z"</span>,
+  <span class="syn-key">"regions"</span>: [
+    {
+      <span class="syn-key">"code"</span>: <span class="syn-str">"NA"</span>,
+      <span class="syn-key">"name"</span>: <span class="syn-str">"North America"</span>,
+      <span class="syn-key">"revenue_usd"</span>: <span class="syn-num">4200000000</span>,
+      <span class="syn-key">"yoy_growth"</span>: <span class="syn-num">0.068</span>,
+      <span class="syn-key">"avg_cpi"</span>: <span class="syn-num">3.20</span>,
+      <span class="syn-key">"d7_retention"</span>: <span class="syn-num">0.221</span>,
+      <span class="syn-key">"priority"</span>: <span class="syn-str">"primary"</span>,
+      <span class="syn-key">"requires_local_partner"</span>: <span class="syn-bool">false</span>
+    },
+    {
+      <span class="syn-key">"code"</span>: <span class="syn-str">"CN"</span>,
+      <span class="syn-key">"name"</span>: <span class="syn-str">"China"</span>,
+      <span class="syn-key">"revenue_usd"</span>: <span class="syn-num">8700000000</span>,
+      <span class="syn-key">"yoy_growth"</span>: <span class="syn-num">0.031</span>,
+      <span class="syn-key">"avg_cpi"</span>: <span class="syn-num">1.80</span>,
+      <span class="syn-key">"d7_retention"</span>: <span class="syn-num">0.254</span>,
+      <span class="syn-key">"priority"</span>: <span class="syn-str">"secondary"</span>,
+      <span class="syn-key">"requires_local_partner"</span>: <span class="syn-bool">true</span>,
+      <span class="syn-key">"regulatory_notes"</span>: <span class="syn-str">"ISBN required for paid distribution"</span>
+    }
+  ],
+  <span class="syn-key">"metadata"</span>: {
+    <span class="syn-key">"analyst"</span>: <span class="syn-str">"Growth_Agent"</span>,
+    <span class="syn-key">"confidence"</span>: <span class="syn-num">0.87</span>,
+    <span class="syn-key">"next_update"</span>: <span class="syn-str">"2026-06-15"</span>
+  }
+}</code></pre>
+
+      <p>
+        <code>confidence</code> 필드는 데이터 완전성과 소스 간 일치도를 반영합니다.
+        <code>0.80</code> 이상이면 신뢰도가 높은 것으로 판단합니다.
+        <code>0.60</code> 미만인 보고서는 배포 전 수동 검토 대상으로 플래그 처리됩니다.
+      </p>
+
+      <!-- Section 5: Recommendations -->
+      <h2 id="recommendations">전략 제안</h2>
+      <p>
+        분석 결과를 바탕으로, 다음 제품 사이클에 대해 아래 전략적 우선순위를 제안합니다.
+        각 제안에는 예상 영향 범위와 구현 복잡도 평가가 포함되어 있습니다.
+      </p>
+
+      <ol>
+        <li>
+          <strong>북미 + 유럽 동시 런칭</strong> &mdash; 시장 커버리지를 결합하여 첫날 노출을 극대화하고,
+          가장 가치 높은 지역 전반에 걸쳐 UA 비용을 분산합니다.
+          예상 매출 상승: 순차 런칭 대비 15~22%.
+        </li>
+        <li>
+          <strong>첫날부터 하이브리드 수익화 구현</strong> &mdash; 과금 유저에게는 배틀패스 + 코스메틱 IAP,
+          무과금 유저에게는 보상형 동영상 광고를 제공합니다. 어떤 지역에서든 핵심 게임플레이를
+          유료 벽 뒤에 두지 않습니다.
+        </li>
+        <li>
+          <strong>중국 진입은 2단계로 연기</strong> &mdash; 규제 복잡성과 파트너 온보딩으로 인해
+          첫날 중국 런칭은 현실적이지 않습니다. 2026년 3분기 출시를 목표로 ISBN 신청을 즉시 시작합니다.
+        </li>
+        <li>
+          <strong>한국/일본을 현지화 우선순위로 설정</strong> &mdash; 높은 리텐션과 강력한 과금 패턴을 감안하여
+          단순 번역이 아닌 완전한 문화적 적응 현지화를 진행합니다.
+        </li>
+      </ol>
+
+      <div class="callout danger">
+        <div class="callout-title">리스크</div>
+        다지역 동시 런칭은 시간대별 고객지원 인력 배치가 필수입니다. 런칭 최소 4주 전에
+        CS 인력 배치 계획을 확정하세요. 런칭 시 지원 역량이 부족하면 첫 72시간 동안
+        부정적 리뷰가 2~3배 증가한 사례가 있습니다.
+      </div>
+
+      <hr>
+
+      <p style="color: #8898aa; font-size: 13px;">
+        최종 업데이트: 2026년 3월 7일 &middot; Growth_Agent 자동 생성 &middot;
+        보고서 ID: MKT-2026-Q1-001
+      </p>
+
+    </article>
+  </main>
+</div>
+
+<script>
+(function() {
+  // --- Mobile sidebar toggle ---
+  const toggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  toggle.addEventListener('click', function() {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+  });
+
+  overlay.addEventListener('click', function() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  });
+
+  // --- Active TOC highlight via IntersectionObserver ---
+  const tocLinks = document.querySelectorAll('.toc-link[data-section]');
+  const sections = [];
+
+  tocLinks.forEach(function(link) {
+    const id = link.getAttribute('data-section');
+    const el = document.getElementById(id);
+    if (el) sections.push({ id: id, el: el });
+  });
+
+  if (!sections.length) return;
+
+  function setActive(id) {
+    tocLinks.forEach(function(link) {
+      if (link.getAttribute('data-section') === id) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        setActive(entry.target.id);
+      }
+    });
+  }, {
+    rootMargin: '-20% 0px -75% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(function(s) {
+    observer.observe(s.el);
+  });
+
+  // --- Close sidebar on TOC click (mobile) ---
+  tocLinks.forEach(function(link) {
+    link.addEventListener('click', function() {
+      if (window.innerWidth <= 860) {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('open');
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

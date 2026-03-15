@@ -1,0 +1,2189 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WanChai NeonSurvivor — 종합 평가 보고서</title>
+    <style>
+      /* ===================== RESET & BASE ===================== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bg: #0a0a1a;
+        --panel: #1a1a2e;
+        --panel-glass: rgba(26, 26, 46, 0.72);
+        --primary: #e94560;
+        --secondary: #4a6fa5;
+        --tertiary: #00d2ff;
+        --text: #e0e0e0;
+        --text-dim: #8892b0;
+        --text-bright: #ffffff;
+        --success: #00c853;
+        --warning: #ffc107;
+        --danger: #ff5252;
+        --border: rgba(233, 69, 96, 0.18);
+        --glow: 0 0 20px rgba(233, 69, 96, 0.25);
+        --radius: 12px;
+        --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      html {
+        scroll-behavior: smooth;
+        font-size: 15px;
+      }
+      body {
+        font-family:
+          -apple-system, "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+      a {
+        color: var(--tertiary);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 3px;
+      }
+
+      /* ===================== LAYOUT ===================== */
+      .page-wrapper {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* --- Sidebar Nav --- */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 240px;
+        height: 100vh;
+        background: rgba(10, 10, 26, 0.95);
+        backdrop-filter: blur(16px);
+        border-right: 1px solid var(--border);
+        z-index: 100;
+        padding: 20px 0;
+        overflow-y: auto;
+        transition: transform 0.3s ease;
+      }
+      .sidebar .logo {
+        text-align: center;
+        padding: 16px 20px 24px;
+        border-bottom: 1px solid var(--border);
+      }
+      .sidebar .logo h3 {
+        color: var(--primary);
+        font-size: 1rem;
+        letter-spacing: 2px;
+      }
+      .sidebar .logo span {
+        color: var(--text-dim);
+        font-size: 0.7rem;
+        display: block;
+        margin-top: 4px;
+      }
+      .sidebar nav {
+        padding: 12px 0;
+      }
+      .sidebar nav a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 24px;
+        color: var(--text-dim);
+        font-size: 0.82rem;
+        transition: var(--transition);
+        border-left: 3px solid transparent;
+      }
+      .sidebar nav a:hover,
+      .sidebar nav a.active {
+        color: var(--primary);
+        background: rgba(233, 69, 96, 0.06);
+        border-left-color: var(--primary);
+        text-decoration: none;
+      }
+      .sidebar nav a .nav-num {
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+        line-height: 22px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 0.65rem;
+        background: rgba(233, 69, 96, 0.12);
+        color: var(--primary);
+        flex-shrink: 0;
+      }
+
+      /* mobile hamburger */
+      .hamburger {
+        display: none;
+        position: fixed;
+        top: 14px;
+        left: 14px;
+        z-index: 200;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 8px 10px;
+        cursor: pointer;
+        color: var(--primary);
+        font-size: 1.2rem;
+      }
+
+      /* --- Main Content --- */
+      .main-content {
+        margin-left: 240px;
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* ===================== SECTIONS ===================== */
+      section {
+        padding: 60px 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      section:nth-child(even) {
+        background: rgba(26, 26, 46, 0.3);
+      }
+      .section-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--text-bright);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .section-title .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), #c73e54);
+        color: #fff;
+        font-size: 0.9rem;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .section-subtitle {
+        color: var(--text-dim);
+        font-size: 0.9rem;
+        margin-bottom: 32px;
+      }
+
+      /* ===================== HERO ===================== */
+      .hero {
+        position: relative;
+        padding: 100px 40px 80px;
+        text-align: center;
+        background: linear-gradient(
+          180deg,
+          rgba(233, 69, 96, 0.08) 0%,
+          var(--bg) 100%
+        );
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(233, 69, 96, 0.12) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .hero h1 {
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--primary), var(--tertiary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 8px;
+        position: relative;
+      }
+      .hero .subtitle {
+        color: var(--text-dim);
+        font-size: 1rem;
+        margin-bottom: 6px;
+      }
+      .hero .date {
+        color: var(--text-dim);
+        font-size: 0.85rem;
+        margin-bottom: 40px;
+      }
+
+      /* circular score */
+      .score-ring {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        margin: 0 auto 16px;
+      }
+      .score-ring svg {
+        transform: rotate(-90deg);
+      }
+      .score-ring .track {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.06);
+        stroke-width: 10;
+      }
+      .score-ring .progress {
+        fill: none;
+        stroke: url(#scoreGrad);
+        stroke-width: 10;
+        stroke-linecap: round;
+        transition: stroke-dashoffset 1.5s ease;
+      }
+      .score-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+      .score-center .grade {
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: var(--primary);
+      }
+      .score-center .pts {
+        font-size: 0.85rem;
+        color: var(--text-dim);
+      }
+
+      /* ===================== GLASS CARD ===================== */
+      .glass {
+        background: var(--panel-glass);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+        transition: var(--transition);
+      }
+      .glass:hover {
+        border-color: rgba(233, 69, 96, 0.35);
+        box-shadow: var(--glow);
+      }
+
+      /* ===================== METRICS GRID ===================== */
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 16px;
+      }
+      .metric-card {
+        text-align: center;
+        padding: 20px 12px;
+      }
+      .metric-card .val {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary);
+      }
+      .metric-card .label {
+        font-size: 0.75rem;
+        color: var(--text-dim);
+        margin-top: 4px;
+      }
+
+      /* ===================== RADAR CHART ===================== */
+      .radar-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 40px;
+      }
+      .radar-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .radar-legend .item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.82rem;
+      }
+      .radar-legend .item .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .radar-legend .item .bar {
+        height: 6px;
+        border-radius: 3px;
+        transition: width 0.8s ease;
+      }
+      .radar-legend .item .score-val {
+        font-weight: 700;
+        min-width: 30px;
+        text-align: right;
+      }
+
+      /* ===================== TABLES ===================== */
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.82rem;
+      }
+      thead {
+        background: rgba(233, 69, 96, 0.1);
+      }
+      th {
+        padding: 12px 16px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--text-bright);
+        cursor: pointer;
+        white-space: nowrap;
+        user-select: none;
+        border-bottom: 1px solid var(--border);
+      }
+      th:hover {
+        color: var(--primary);
+      }
+      th .sort-arrow {
+        margin-left: 4px;
+        font-size: 0.65rem;
+        opacity: 0.5;
+      }
+      td {
+        padding: 10px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+      tbody tr:hover {
+        background: rgba(233, 69, 96, 0.04);
+      }
+      .status-ok {
+        color: var(--success);
+      }
+      .status-warn {
+        color: var(--warning);
+      }
+      .status-danger {
+        color: var(--danger);
+      }
+
+      /* ===================== CHARACTER CARDS ===================== */
+      .char-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+      .char-card {
+        padding: 24px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .char-card .element-badge {
+        display: inline-block;
+        padding: 3px 14px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      .char-card .char-name {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: var(--text-bright);
+        margin-bottom: 4px;
+      }
+      .char-card .char-info {
+        font-size: 0.75rem;
+        color: var(--text-dim);
+        margin-bottom: 4px;
+      }
+      .elem-wind {
+        background: rgba(0, 210, 255, 0.15);
+        color: #00d2ff;
+      }
+      .elem-water {
+        background: rgba(74, 111, 165, 0.2);
+        color: #4a8fff;
+      }
+      .elem-fire {
+        background: rgba(233, 69, 96, 0.15);
+        color: #e94560;
+      }
+      .elem-light {
+        background: rgba(255, 193, 7, 0.15);
+        color: #ffc107;
+      }
+      .elem-earth {
+        background: rgba(0, 200, 83, 0.15);
+        color: #00c853;
+      }
+
+      /* ===================== DPS BAR CHART ===================== */
+      .dps-chart {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .dps-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.78rem;
+      }
+      .dps-row .name {
+        width: 110px;
+        text-align: right;
+        flex-shrink: 0;
+        color: var(--text-dim);
+      }
+      .dps-row .bar-bg {
+        flex: 1;
+        height: 18px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+      }
+      .dps-row .bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 1s ease;
+        position: relative;
+      }
+      .dps-row .bar-fill.t1 {
+        background: linear-gradient(90deg, var(--secondary), var(--tertiary));
+      }
+      .dps-row .bar-fill.t2 {
+        background: linear-gradient(90deg, var(--primary), #ff8a65);
+      }
+      .dps-row .bar-fill.danger {
+        background: linear-gradient(90deg, #ff5252, #ff1744);
+      }
+      .dps-row .dps-val {
+        width: 60px;
+        font-weight: 600;
+        color: var(--text-bright);
+        font-size: 0.75rem;
+      }
+
+      /* ===================== LINE CHART ===================== */
+      .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* ===================== COMPETITOR BAR ===================== */
+      .comp-category {
+        margin-bottom: 24px;
+      }
+      .comp-category .cat-label {
+        font-weight: 600;
+        color: var(--text-bright);
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+      }
+      .comp-bars {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .comp-bar-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.78rem;
+      }
+      .comp-bar-row .game-label {
+        width: 120px;
+        text-align: right;
+        color: var(--text-dim);
+        flex-shrink: 0;
+      }
+      .comp-bar-row .bar-bg {
+        flex: 1;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .comp-bar-row .bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #fff;
+        transition: width 1s ease;
+      }
+      .comp-bar-row .bar-fill.wanchai {
+        background: linear-gradient(90deg, var(--primary), #ff8a65);
+      }
+      .comp-bar-row .bar-fill.vampire {
+        background: linear-gradient(90deg, var(--secondary), var(--tertiary));
+      }
+      .comp-bar-row .bar-fill.archero {
+        background: linear-gradient(90deg, #00c853, #69f0ae);
+      }
+
+      /* ===================== TWO COL ===================== */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .sw-list {
+        list-style: none;
+        counter-reset: sw;
+      }
+      .sw-list li {
+        counter-increment: sw;
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        font-size: 0.82rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .sw-list li::before {
+        content: counter(sw);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        font-size: 0.65rem;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .strengths-list li::before {
+        background: rgba(0, 200, 83, 0.15);
+        color: var(--success);
+      }
+      .weakness-list li::before {
+        background: rgba(255, 82, 82, 0.15);
+        color: var(--danger);
+      }
+
+      /* ===================== PRIORITY CARDS ===================== */
+      .priority-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .priority-card {
+        padding: 20px 24px;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .priority-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+      }
+      .p0 {
+        background: rgba(255, 82, 82, 0.15);
+        color: #ff5252;
+      }
+      .p1 {
+        background: rgba(255, 152, 0, 0.15);
+        color: #ff9800;
+      }
+      .p2 {
+        background: rgba(255, 193, 7, 0.15);
+        color: #ffc107;
+      }
+      .p3 {
+        background: rgba(0, 200, 83, 0.15);
+        color: #00c853;
+      }
+      .priority-card .pc-title {
+        font-weight: 700;
+        color: var(--text-bright);
+        font-size: 0.95rem;
+      }
+      .priority-card .pc-desc {
+        font-size: 0.8rem;
+        color: var(--text-dim);
+        margin-top: 4px;
+      }
+
+      /* ===================== READINESS ===================== */
+      .readiness-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+      }
+      .readiness-card {
+        text-align: center;
+        padding: 24px 16px;
+      }
+      .readiness-card .rc-count {
+        font-size: 2rem;
+        font-weight: 800;
+      }
+      .readiness-card .rc-label {
+        font-size: 0.78rem;
+        color: var(--text-dim);
+        margin-top: 4px;
+      }
+      .readiness-card .rc-items {
+        font-size: 0.7rem;
+        color: var(--text-dim);
+        margin-top: 8px;
+        text-align: left;
+      }
+      .rc-blocker .rc-count {
+        color: #ff5252;
+      }
+      .rc-critical .rc-count {
+        color: #ff9800;
+      }
+      .rc-high .rc-count {
+        color: #ffc107;
+      }
+
+      /* ===================== VERDICT ===================== */
+      .verdict-box {
+        background: linear-gradient(
+          135deg,
+          rgba(233, 69, 96, 0.1),
+          rgba(0, 210, 255, 0.06)
+        );
+        border: 1px solid var(--primary);
+        border-radius: var(--radius);
+        padding: 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .verdict-box::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle at center,
+          rgba(233, 69, 96, 0.05) 0%,
+          transparent 60%
+        );
+        pointer-events: none;
+      }
+      .verdict-box blockquote {
+        font-size: 1.1rem;
+        font-style: italic;
+        color: var(--text-bright);
+        line-height: 1.8;
+        position: relative;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      .verdict-box blockquote::before {
+        content: "\201C";
+        font-size: 3rem;
+        color: var(--primary);
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        opacity: 0.5;
+      }
+
+      /* ===================== ARCH DIAGRAM ===================== */
+      .arch-diagram {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        padding: 20px 0;
+      }
+      .arch-layer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 40px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        min-width: 220px;
+        text-align: center;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .arch-arrow {
+        width: 2px;
+        height: 28px;
+        background: linear-gradient(180deg, var(--primary), transparent);
+        position: relative;
+      }
+      .arch-arrow::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 6px solid var(--primary);
+      }
+      .arch-layer:nth-child(1) {
+        background: rgba(233, 69, 96, 0.12);
+        color: var(--primary);
+      }
+      .arch-layer:nth-child(3) {
+        background: rgba(0, 210, 255, 0.1);
+        color: var(--tertiary);
+      }
+      .arch-layer:nth-child(5) {
+        background: rgba(74, 111, 165, 0.12);
+        color: var(--secondary);
+      }
+      .arch-layer:nth-child(7) {
+        background: rgba(255, 193, 7, 0.1);
+        color: var(--warning);
+      }
+      .arch-layer:nth-child(9) {
+        background: rgba(0, 200, 83, 0.1);
+        color: var(--success);
+      }
+      .arch-layer:nth-child(11) {
+        background: rgba(233, 69, 96, 0.08);
+        color: #ff8a65;
+      }
+
+      .arch-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 16px;
+        margin-top: 32px;
+      }
+      .arch-stat {
+        padding: 16px;
+        font-size: 0.82rem;
+        border-left: 3px solid var(--primary);
+      }
+      .arch-stat .as-val {
+        font-weight: 700;
+        color: var(--text-bright);
+      }
+
+      /* ===================== COLLAPSIBLE ===================== */
+      .collapsible {
+        cursor: pointer;
+        position: relative;
+        padding-right: 30px;
+      }
+      .collapsible::after {
+        content: "▾";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary);
+        font-size: 1rem;
+        transition: transform 0.3s;
+      }
+      .collapsible.collapsed::after {
+        transform: translateY(-50%) rotate(-90deg);
+      }
+      .collapsible-content {
+        overflow: hidden;
+        transition:
+          max-height 0.4s ease,
+          opacity 0.4s ease;
+        max-height: 2000px;
+        opacity: 1;
+      }
+      .collapsible-content.hidden {
+        max-height: 0;
+        opacity: 0;
+      }
+
+      /* ===================== FOOTER ===================== */
+      .footer {
+        text-align: center;
+        padding: 40px;
+        border-top: 1px solid var(--border);
+        color: var(--text-dim);
+        font-size: 0.75rem;
+      }
+      .footer .powered {
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      /* ===================== FADE IN ===================== */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ===================== RESPONSIVE ===================== */
+      @media (max-width: 900px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+        .hamburger {
+          display: block;
+        }
+        .main-content {
+          margin-left: 0;
+        }
+        section {
+          padding: 40px 20px;
+        }
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .radar-wrap {
+          flex-direction: column;
+        }
+      }
+      @media (max-width: 600px) {
+        .metrics-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .char-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero h1 {
+          font-size: 1.6rem;
+        }
+      }
+
+      /* ===================== PRINT ===================== */
+      @media print {
+        .sidebar,
+        .hamburger {
+          display: none !important;
+        }
+        .main-content {
+          margin-left: 0 !important;
+        }
+        body {
+          background: #fff;
+          color: #222;
+        }
+        .glass {
+          background: #f5f5f5;
+          border: 1px solid #ddd;
+          backdrop-filter: none;
+        }
+        section {
+          padding: 20px 0;
+          page-break-inside: avoid;
+        }
+        .hero {
+          background: none;
+          padding: 40px 0;
+        }
+        .hero h1 {
+          -webkit-text-fill-color: #e94560;
+          background: none;
+        }
+        .fade-in {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .score-center .grade {
+          color: #e94560;
+        }
+        th,
+        td {
+          color: #222;
+        }
+        thead {
+          background: #f0f0f0;
+        }
+        .verdict-box {
+          background: #fafafa;
+          border: 2px solid #e94560;
+        }
+        .footer {
+          border-top: 1px solid #ddd;
+          color: #888;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hamburger -->
+    <button
+      class="hamburger"
+      onclick="document.querySelector('.sidebar').classList.toggle('open')"
+      aria-label="메뉴 열기"
+    >
+      &#9776;
+    </button>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="logo">
+        <h3>NEONSURVIVOR</h3>
+        <span>Comprehensive Evaluation</span>
+      </div>
+      <nav>
+        <a href="#hero"><span class="nav-num">H</span> 종합 평가</a>
+        <a href="#score"><span class="nav-num">1</span> 점수 대시보드</a>
+        <a href="#metrics"><span class="nav-num">2</span> 프로젝트 지표</a>
+        <a href="#arch"><span class="nav-num">3</span> 아키텍처</a>
+        <a href="#weapons"><span class="nav-num">4</span> 무기 밸런스</a>
+        <a href="#characters"><span class="nav-num">5</span> 캐릭터 비교</a>
+        <a href="#difficulty"><span class="nav-num">6</span> 난이도 스케일링</a>
+        <a href="#competitors"><span class="nav-num">7</span> 경쟁 비교</a>
+        <a href="#swot"><span class="nav-num">8</span> 강점 & 약점</a>
+        <a href="#recommendations"><span class="nav-num">9</span> 전략 권고</a>
+        <a href="#readiness"><span class="nav-num">10</span> 프로덕션 준비</a>
+        <a href="#verdict"><span class="nav-num">11</span> 최종 평결</a>
+      </nav>
+    </aside>
+
+    <div class="page-wrapper">
+      <div class="main-content">
+        <!-- ==================== HERO ==================== -->
+        <section class="hero" id="hero">
+          <h1>WanChai NeonSurvivor</h1>
+          <p class="subtitle">
+            종합 평가 보고서 &mdash; Comprehensive Game Evaluation Report
+          </p>
+          <p class="date">2026-03-06</p>
+          <div class="score-ring">
+            <svg width="180" height="180" viewBox="0 0 180 180">
+              <defs>
+                <linearGradient
+                  id="scoreGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stop-color="#e94560" />
+                  <stop offset="100%" stop-color="#00d2ff" />
+                </linearGradient>
+              </defs>
+              <circle class="track" cx="90" cy="90" r="78" />
+              <circle
+                class="progress"
+                cx="90"
+                cy="90"
+                r="78"
+                stroke-dasharray="490"
+                stroke-dashoffset="490"
+                id="scoreCircle"
+              />
+            </svg>
+            <div class="score-center">
+              <div class="grade">B+</div>
+              <div class="pts">82 / 100</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== 1. SCORE DASHBOARD ==================== -->
+        <section id="score" class="fade-in">
+          <h2 class="section-title">
+            <span class="num">1</span> 점수 대시보드
+          </h2>
+          <p class="section-subtitle">9개 차원 평가 — Score Dashboard</p>
+          <div class="radar-wrap">
+            <canvas
+              id="radarCanvas"
+              width="420"
+              height="420"
+              style="max-width: 100%; height: auto"
+            ></canvas>
+            <div class="radar-legend" id="radarLegend"></div>
+          </div>
+        </section>
+
+        <!-- ==================== 2. METRICS ==================== -->
+        <section id="metrics" class="fade-in">
+          <h2 class="section-title">
+            <span class="num">2</span> 프로젝트 지표
+          </h2>
+          <p class="section-subtitle">Project Metrics</p>
+          <div class="metrics-grid">
+            <div class="glass metric-card">
+              <div class="val" data-count="89">0</div>
+              <div class="label">소스 파일</div>
+            </div>
+            <div class="glass metric-card">
+              <div class="val" data-count="2643">0</div>
+              <div class="label">테스트 (73 파일)</div>
+            </div>
+            <div class="glass metric-card">
+              <div class="val" data-count="108">0</div>
+              <div class="label">스프라이트</div>
+            </div>
+            <div class="glass metric-card">
+              <div class="val" data-count="62">0</div>
+              <div class="label">설계 문서</div>
+            </div>
+            <div class="glass metric-card">
+              <div class="val" data-count="18">0</div>
+              <div class="label">무기 (T1:10+T2:8)</div>
+            </div>
+            <div class="glass metric-card">
+              <div class="val" data-count="5">0</div>
+              <div class="label">캐릭터</div>
+            </div>
+            <div class="glass metric-card">
+              <div class="val" data-count="14">0</div>
+              <div class="label">적 (11+보스3)</div>
+            </div>
+            <div class="glass metric-card">
+              <div class="val" data-count="16">0</div>
+              <div class="label">스테이지 (8구역)</div>
+            </div>
+            <div class="glass metric-card">
+              <div class="val" data-count="6">0</div>
+              <div class="label">크리터</div>
+            </div>
+            <div class="glass metric-card">
+              <div class="val" data-count="12">0</div>
+              <div class="label">패시브</div>
+            </div>
+            <div class="glass metric-card">
+              <div class="val" data-count="5">0</div>
+              <div class="label">궁극기</div>
+            </div>
+            <div class="glass metric-card">
+              <div class="val" data-count="8">0</div>
+              <div class="label">날씨</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== 3. ARCHITECTURE ==================== -->
+        <section id="arch" class="fade-in">
+          <h2 class="section-title">
+            <span class="num">3</span> 아키텍처 분석
+          </h2>
+          <p class="section-subtitle">
+            Architecture Analysis &mdash; Quality:
+            <strong style="color: var(--success)">A (95/100)</strong>
+          </p>
+
+          <div class="arch-diagram">
+            <div class="arch-layer">Scenes</div>
+            <div class="arch-arrow"></div>
+            <div class="arch-layer">EventBus</div>
+            <div class="arch-arrow"></div>
+            <div class="arch-layer">Core (24 files)</div>
+            <div class="arch-arrow"></div>
+            <div class="arch-layer">Config</div>
+            <div class="arch-arrow"></div>
+            <div class="arch-layer">Managers (11)</div>
+            <div class="arch-arrow"></div>
+            <div class="arch-layer">Systems</div>
+          </div>
+
+          <div class="arch-stats">
+            <div class="glass arch-stat">
+              <div class="as-val">순수 코어 계층: src/core/ 24개 파일</div>
+              <div
+                style="
+                  color: var(--text-dim);
+                  font-size: 0.75rem;
+                  margin-top: 4px;
+                "
+              >
+                Phaser import 제로 &mdash; 완전 분리
+              </div>
+            </div>
+            <div class="glass arch-stat">
+              <div class="as-val">11개 전문 매니저</div>
+              <div
+                style="
+                  color: var(--text-dim);
+                  font-size: 0.75rem;
+                  margin-top: 4px;
+                "
+              >
+                매니저 간 직접 결합 제로
+              </div>
+            </div>
+            <div class="glass arch-stat">
+              <div class="as-val">프로덕션 의존성: phaser 1개</div>
+              <div
+                style="
+                  color: var(--text-dim);
+                  font-size: 0.75rem;
+                  margin-top: 4px;
+                "
+              >
+                외부 라이브러리 의존 최소
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== 4. WEAPON BALANCE ==================== -->
+        <section id="weapons" class="fade-in">
+          <h2 class="section-title">
+            <span class="num">4</span> 무기 밸런스 분석
+          </h2>
+          <p class="section-subtitle">Weapon Balance Analysis</p>
+
+          <!-- T1 Table -->
+          <h3
+            class="collapsible"
+            onclick="toggleCollapse(this)"
+            style="color: var(--tertiary); margin-bottom: 12px; font-size: 1rem"
+          >
+            T1 Weapons (10종)
+          </h3>
+          <div class="collapsible-content" style="margin-bottom: 32px">
+            <div class="table-wrap">
+              <table id="t1Table">
+                <thead>
+                  <tr>
+                    <th onclick="sortTable('t1Table', 0)">
+                      Weapon <span class="sort-arrow">&#9650;&#9660;</span>
+                    </th>
+                    <th onclick="sortTable('t1Table', 1)">
+                      Damage <span class="sort-arrow">&#9650;&#9660;</span>
+                    </th>
+                    <th onclick="sortTable('t1Table', 2)">
+                      Cooldown(ms)
+                      <span class="sort-arrow">&#9650;&#9660;</span>
+                    </th>
+                    <th onclick="sortTable('t1Table', 3)">
+                      DPS <span class="sort-arrow">&#9650;&#9660;</span>
+                    </th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Energy Shot</td>
+                    <td>10</td>
+                    <td>800</td>
+                    <td>12.5</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Napalm</td>
+                    <td>12</td>
+                    <td>2500</td>
+                    <td>4.8</td>
+                    <td class="status-warn">&#9888;&#65039; 최약</td>
+                  </tr>
+                  <tr>
+                    <td>Laser Beam</td>
+                    <td>25</td>
+                    <td>2000</td>
+                    <td>12.5</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Shuriken</td>
+                    <td>12</td>
+                    <td>1000</td>
+                    <td>12</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Shotgun</td>
+                    <td>10&times;3</td>
+                    <td>1200</td>
+                    <td>25</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Lightning</td>
+                    <td>22&times;3</td>
+                    <td>1200</td>
+                    <td>55</td>
+                    <td class="status-warn">&#9888;&#65039; 최강</td>
+                  </tr>
+                  <tr>
+                    <td>Missile</td>
+                    <td>30</td>
+                    <td>2500</td>
+                    <td>12</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Bomb</td>
+                    <td>50</td>
+                    <td>4000</td>
+                    <td>12.5</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Railgun</td>
+                    <td>45</td>
+                    <td>3500</td>
+                    <td>12.9</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Rapid Fire</td>
+                    <td>3</td>
+                    <td>200</td>
+                    <td>15</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- T2 Table -->
+          <h3
+            class="collapsible"
+            onclick="toggleCollapse(this)"
+            style="color: var(--tertiary); margin-bottom: 12px; font-size: 1rem"
+          >
+            T2 Weapons (7종 — 조합 진화)
+          </h3>
+          <div class="collapsible-content" style="margin-bottom: 32px">
+            <div class="table-wrap">
+              <table id="t2Table">
+                <thead>
+                  <tr>
+                    <th onclick="sortTable('t2Table', 0)">
+                      Weapon <span class="sort-arrow">&#9650;&#9660;</span>
+                    </th>
+                    <th>Recipe</th>
+                    <th onclick="sortTable('t2Table', 2)">
+                      DPS <span class="sort-arrow">&#9650;&#9660;</span>
+                    </th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Plasma Gatling</td>
+                    <td>Energy + Rapid</td>
+                    <td>625</td>
+                    <td class="status-danger">&#128308; 오타 의심</td>
+                  </tr>
+                  <tr>
+                    <td>Tesla Arc</td>
+                    <td>Laser + Lightning</td>
+                    <td>250</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Scatter Storm</td>
+                    <td>Shotgun + Shuriken</td>
+                    <td>360</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Cluster Warhead</td>
+                    <td>Missile + Bomb</td>
+                    <td>45.8</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Inferno Beam</td>
+                    <td>Laser + Napalm</td>
+                    <td>77.8</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Viper Salvo</td>
+                    <td>Rapid + Missile</td>
+                    <td>150</td>
+                    <td class="status-ok">OK</td>
+                  </tr>
+                  <tr>
+                    <td>Thunder Bomb</td>
+                    <td>Lightning + Bomb</td>
+                    <td>30</td>
+                    <td class="status-danger">&#128308; T1보다 약함</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- DPS Bar Chart -->
+          <h3
+            style="
+              color: var(--text-bright);
+              margin-bottom: 16px;
+              font-size: 1rem;
+            "
+          >
+            DPS 비교 차트
+          </h3>
+          <div class="glass" style="padding: 24px">
+            <div class="dps-chart" id="dpsChart"></div>
+          </div>
+        </section>
+
+        <!-- ==================== 5. CHARACTERS ==================== -->
+        <section id="characters" class="fade-in">
+          <h2 class="section-title"><span class="num">5</span> 캐릭터 비교</h2>
+          <p class="section-subtitle">Character Comparison</p>
+          <div class="char-grid" id="charGrid"></div>
+        </section>
+
+        <!-- ==================== 6. DIFFICULTY ==================== -->
+        <section id="difficulty" class="fade-in">
+          <h2 class="section-title">
+            <span class="num">6</span> 난이도 스케일링
+          </h2>
+          <p class="section-subtitle">
+            Difficulty Scaling &mdash; Stage Progression Multipliers
+          </p>
+          <div class="glass chart-container">
+            <canvas
+              id="difficultyCanvas"
+              width="800"
+              height="400"
+              style="width: 100%; height: auto"
+            ></canvas>
+          </div>
+          <div
+            style="
+              display: flex;
+              gap: 20px;
+              justify-content: center;
+              margin-top: 16px;
+              flex-wrap: wrap;
+            "
+          >
+            <span style="color: var(--primary); font-size: 0.8rem"
+              >&#9632; HP</span
+            >
+            <span style="color: var(--tertiary); font-size: 0.8rem"
+              >&#9632; Speed</span
+            >
+            <span style="color: var(--warning); font-size: 0.8rem"
+              >&#9632; Damage</span
+            >
+          </div>
+        </section>
+
+        <!-- ==================== 7. COMPETITORS ==================== -->
+        <section id="competitors" class="fade-in">
+          <h2 class="section-title"><span class="num">7</span> 경쟁 비교</h2>
+          <p class="section-subtitle">Content Comparison vs Competitors</p>
+          <div class="glass" style="padding: 28px" id="compChart"></div>
+          <div
+            style="
+              display: flex;
+              gap: 20px;
+              justify-content: center;
+              margin-top: 16px;
+              flex-wrap: wrap;
+            "
+          >
+            <span style="font-size: 0.8rem"
+              ><span style="color: var(--primary)">&#9632;</span> WanChai</span
+            >
+            <span style="font-size: 0.8rem"
+              ><span style="color: var(--secondary)">&#9632;</span> Vampire
+              Survivors</span
+            >
+            <span style="font-size: 0.8rem"
+              ><span style="color: var(--success)">&#9632;</span> Archero</span
+            >
+          </div>
+        </section>
+
+        <!-- ==================== 8. STRENGTHS & WEAKNESSES ==================== -->
+        <section id="swot" class="fade-in">
+          <h2 class="section-title"><span class="num">8</span> 강점 & 약점</h2>
+          <p class="section-subtitle">Strengths & Weaknesses</p>
+          <div class="two-col">
+            <div class="glass">
+              <h3
+                style="
+                  color: var(--success);
+                  font-size: 1rem;
+                  margin-bottom: 16px;
+                "
+              >
+                &#x2714; 강점 (Strengths)
+              </h3>
+              <ol class="sw-list strengths-list">
+                <li>오브젝트 풀링 (Enemy/Projectile)</li>
+                <li>SpatialHash 충돌 최적화</li>
+                <li>5단계 FTUE 튜토리얼</li>
+                <li>챌린지 모드 (시드 기반 주간 런)</li>
+                <li>62개 설계 문서</li>
+                <li>XSS/인젝션 벡터 제로</li>
+                <li>에셋 프로시저럴 폴백</li>
+                <li>순수 코어/Phaser 분리</li>
+                <li>16건 실수 레지스트리</li>
+                <li>8단계 검증 게이트</li>
+              </ol>
+            </div>
+            <div class="glass">
+              <h3
+                style="
+                  color: var(--danger);
+                  font-size: 1rem;
+                  margin-bottom: 16px;
+                "
+              >
+                &#x2718; 약점 (Weaknesses)
+              </h3>
+              <ol class="sw-list weakness-list">
+                <li>메타 진행 부재 (D7+ 리텐션 위험)</li>
+                <li>콘텐츠 양 경쟁작의 20%</li>
+                <li>골드 경제 깊이 부족</li>
+                <li>보스 3종 재활용</li>
+                <li>코스메틱/스킨 없음</li>
+                <li>무기 DPS 불균형 (Lightning 독주)</li>
+                <li>Plasma Gatling DPS 오타 의심</li>
+                <li>i18n 2개 언어만 (8개 필요)</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== 9. RECOMMENDATIONS ==================== -->
+        <section id="recommendations" class="fade-in">
+          <h2 class="section-title"><span class="num">9</span> 전략 권고</h2>
+          <p class="section-subtitle">
+            Strategic Recommendations &mdash; TOP 5
+          </p>
+          <div class="priority-list">
+            <div class="glass priority-card">
+              <div class="priority-badge p0">P0</div>
+              <div>
+                <div class="pc-title">메타 진행 시스템 구축</div>
+                <div class="pc-desc">
+                  리텐션 해결의 핵심. 영구 업그레이드, 캐릭터 레벨링, 언락 트리
+                  등 D7+ 리텐션을 위한 장기 목표 부여 필수.
+                </div>
+              </div>
+            </div>
+            <div class="glass priority-card">
+              <div class="priority-badge p1">P1</div>
+              <div>
+                <div class="pc-title">무기 밸런스 패치</div>
+                <div class="pc-desc">
+                  Lightning DPS 55 독주 해결, Thunder Bomb T1 이하 문제 수정,
+                  Plasma Gatling DPS 625 오타 검증.
+                </div>
+              </div>
+            </div>
+            <div class="glass priority-card">
+              <div class="priority-badge p2">P2</div>
+              <div>
+                <div class="pc-title">콘텐츠 확장</div>
+                <div class="pc-desc">
+                  보스 5종 추가, 무기 10종 추가, 적 다양성 증가. 경쟁작 대비
+                  콘텐츠 볼륨 최소 50%까지 확대.
+                </div>
+              </div>
+            </div>
+            <div class="glass priority-card">
+              <div class="priority-badge p2">P2</div>
+              <div>
+                <div class="pc-title">경제 깊이 추가</div>
+                <div class="pc-desc">
+                  골드 싱크 다양화, 상점 확장, 소프트/하드 통화 이원화로 F2P
+                  수익화 기반 마련.
+                </div>
+              </div>
+            </div>
+            <div class="glass priority-card">
+              <div class="priority-badge p3">P3</div>
+              <div>
+                <div class="pc-title">게임 필(Juice) 폴리시</div>
+                <div class="pc-desc">
+                  화면 흔들림, 파티클 이펙트, 히트 스톱, 사운드 강화 등 감각적
+                  피드백 레이어 추가.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== 10. READINESS ==================== -->
+        <section id="readiness" class="fade-in">
+          <h2 class="section-title">
+            <span class="num">10</span> 프로덕션 준비 현황
+          </h2>
+          <p class="section-subtitle">Production Readiness Summary</p>
+          <div class="readiness-grid">
+            <div class="glass readiness-card rc-blocker">
+              <div class="rc-count">4</div>
+              <div class="rc-label">Blocker</div>
+              <div class="rc-items">
+                에러 모니터링<br />애널리틱스<br />법률 (개인정보/이용약관)<br />수익화
+              </div>
+            </div>
+            <div class="glass readiness-card rc-critical">
+              <div class="rc-count">5</div>
+              <div class="rc-label">Critical</div>
+              <div class="rc-items">
+                세이브 보안<br />콘솔 노출<br />i18n 확장<br />하드코딩
+                문자열<br />리모트 컨피그
+              </div>
+            </div>
+            <div class="glass readiness-card rc-high">
+              <div class="rc-count">6</div>
+              <div class="rc-label">High</div>
+              <div class="rc-items">
+                PWA 지원<br />백엔드 구축<br />클라우드 세이브<br />오디오
+                관리<br />SaveManager 성능<br />splice 핫루프
+              </div>
+            </div>
+            <div
+              class="glass readiness-card"
+              style="border-left: 3px solid var(--success)"
+            >
+              <div class="rc-count" style="color: var(--success)">37</div>
+              <div class="rc-label">총 태스크</div>
+              <div class="rc-items">Sprint 012~017<br />로드맵 등록 완료</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== 11. VERDICT ==================== -->
+        <section id="verdict" class="fade-in">
+          <h2 class="section-title"><span class="num">11</span> 최종 평결</h2>
+          <p class="section-subtitle">Final Verdict</p>
+          <div class="verdict-box">
+            <blockquote>
+              WanChai는 아키텍처적으로 A급이지만, 콘텐츠와 경제에서 C급인
+              게임입니다.<br />
+              빌딩은 완벽하게 지었지만, 아직 가구가 부족한 집에 가깝습니다.
+            </blockquote>
+          </div>
+        </section>
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="footer">
+          <p>
+            Generated by <strong>HKD852 PMO Agent</strong> &mdash; 2026-03-06
+          </p>
+          <p class="powered">Powered by Claude Code</p>
+        </footer>
+      </div>
+      <!-- /main-content -->
+    </div>
+    <!-- /page-wrapper -->
+
+    <script>
+      /* ===================== DATA ===================== */
+      const radarDims = [
+        { label: "아키텍처 & 코드 품질", score: 95 },
+        { label: "테스트 & QA 프로세스", score: 92 },
+        { label: "설계 문서 완성도", score: 98 },
+        { label: "게임 메카닉 & 코어 루프", score: 85 },
+        { label: "콘텐츠 다양성", score: 68 },
+        { label: "밸런스", score: 75 },
+        { label: "경제 & 메타 진행", score: 60 },
+        { label: "게임 필(Juice)", score: 78 },
+        { label: "시장 경쟁력", score: 65 },
+      ];
+
+      const t1Weapons = [
+        { name: "Energy Shot", dps: 12.5, tier: "t1" },
+        { name: "Napalm", dps: 4.8, tier: "t1" },
+        { name: "Laser Beam", dps: 12.5, tier: "t1" },
+        { name: "Shuriken", dps: 12, tier: "t1" },
+        { name: "Shotgun", dps: 25, tier: "t1" },
+        { name: "Lightning", dps: 55, tier: "t1" },
+        { name: "Missile", dps: 12, tier: "t1" },
+        { name: "Bomb", dps: 12.5, tier: "t1" },
+        { name: "Railgun", dps: 12.9, tier: "t1" },
+        { name: "Rapid Fire", dps: 15, tier: "t1" },
+      ];
+      const t2Weapons = [
+        { name: "Plasma Gatling", dps: 625, tier: "t2", danger: true },
+        { name: "Tesla Arc", dps: 250, tier: "t2" },
+        { name: "Scatter Storm", dps: 360, tier: "t2" },
+        { name: "Cluster Warhead", dps: 45.8, tier: "t2" },
+        { name: "Inferno Beam", dps: 77.8, tier: "t2" },
+        { name: "Viper Salvo", dps: 150, tier: "t2" },
+        { name: "Thunder Bomb", dps: 30, tier: "t2", danger: true },
+      ];
+
+      const characters = [
+        {
+          name: "HAI",
+          element: "WIND",
+          elemClass: "elem-wind",
+          weapon: "Energy Shot",
+          passive: "+15% 이동속도",
+          unlock: "스타터",
+        },
+        {
+          name: "NOVA",
+          element: "WATER",
+          elemClass: "elem-water",
+          weapon: "Shotgun",
+          passive: "+10% 크리티컬",
+          unlock: "스타터",
+        },
+        {
+          name: "SOL",
+          element: "FIRE",
+          elemClass: "elem-fire",
+          weapon: "Napalm",
+          passive: "+10% 데미지",
+          unlock: "3런 완료",
+        },
+        {
+          name: "MEI",
+          element: "LIGHT",
+          elemClass: "elem-light",
+          weapon: "Laser Beam",
+          passive: "-10% 쿨다운",
+          unlock: "500골드",
+        },
+        {
+          name: "KAI",
+          element: "EARTH",
+          elemClass: "elem-earth",
+          weapon: "Missile",
+          passive: "+20% HP",
+          unlock: "200킬",
+        },
+      ];
+
+      const diffData = [
+        { stage: 1, hp: 1.0, speed: 1.0, dmg: 1.0 },
+        { stage: 4, hp: 2.46, speed: 1.33, dmg: 1.52 },
+        { stage: 8, hp: 6.27, speed: 1.77, dmg: 2.31 },
+        { stage: 12, hp: 16.0, speed: 2.36, dmg: 3.52 },
+        { stage: 16, hp: 27.0, speed: 2.8, dmg: 8.14 },
+      ];
+
+      const compData = [
+        { cat: "무기", wanchai: 18, vampire: 100, archero: 50 },
+        { cat: "캐릭터", wanchai: 5, vampire: 100, archero: 20 },
+        { cat: "적", wanchai: 14, vampire: 20, archero: 30 },
+        { cat: "패시브", wanchai: 12, vampire: 50, archero: 30 },
+      ];
+
+      /* ===================== RADAR CHART (Canvas) ===================== */
+      function drawRadar() {
+        const canvas = document.getElementById("radarCanvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const W = canvas.width,
+          H = canvas.height;
+        const cx = W / 2,
+          cy = H / 2;
+        const R = Math.min(cx, cy) - 50;
+        const n = radarDims.length;
+        const angleStep = (Math.PI * 2) / n;
+        const startAngle = -Math.PI / 2;
+
+        ctx.clearRect(0, 0, W, H);
+
+        // grid rings
+        for (let ring = 1; ring <= 5; ring++) {
+          const r = (R * ring) / 5;
+          ctx.beginPath();
+          for (let i = 0; i <= n; i++) {
+            const a = startAngle + i * angleStep;
+            const x = cx + r * Math.cos(a);
+            const y = cy + r * Math.sin(a);
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+          }
+          ctx.closePath();
+          ctx.strokeStyle = "rgba(255,255,255,.07)";
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // spokes
+        for (let i = 0; i < n; i++) {
+          const a = startAngle + i * angleStep;
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(cx + R * Math.cos(a), cy + R * Math.sin(a));
+          ctx.strokeStyle = "rgba(255,255,255,.06)";
+          ctx.stroke();
+        }
+
+        // labels
+        ctx.font = "12px -apple-system, Pretendard, sans-serif";
+        ctx.fillStyle = "#8892b0";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        for (let i = 0; i < n; i++) {
+          const a = startAngle + i * angleStep;
+          const lx = cx + (R + 32) * Math.cos(a);
+          const ly = cy + (R + 32) * Math.sin(a);
+          ctx.fillText(radarDims[i].label, lx, ly);
+        }
+
+        // data polygon
+        ctx.beginPath();
+        for (let i = 0; i <= n; i++) {
+          const idx = i % n;
+          const a = startAngle + idx * angleStep;
+          const r = (R * radarDims[idx].score) / 100;
+          const x = cx + r * Math.cos(a);
+          const y = cy + r * Math.sin(a);
+          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+        grad.addColorStop(0, "rgba(233,69,96,.35)");
+        grad.addColorStop(1, "rgba(0,210,255,.15)");
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.strokeStyle = "#e94560";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // dots
+        for (let i = 0; i < n; i++) {
+          const a = startAngle + i * angleStep;
+          const r = (R * radarDims[i].score) / 100;
+          const x = cx + r * Math.cos(a);
+          const y = cy + r * Math.sin(a);
+          ctx.beginPath();
+          ctx.arc(x, y, 4, 0, Math.PI * 2);
+          ctx.fillStyle = "#e94560";
+          ctx.fill();
+          ctx.strokeStyle = "#fff";
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+
+        // legend
+        const legend = document.getElementById("radarLegend");
+        legend.innerHTML = "";
+        const colors = [
+          "#e94560",
+          "#00d2ff",
+          "#4a6fa5",
+          "#ffc107",
+          "#00c853",
+          "#ff9800",
+          "#ff5252",
+          "#ab47bc",
+          "#26a69a",
+        ];
+        radarDims.forEach((d, i) => {
+          const item = document.createElement("div");
+          item.className = "item";
+          const scoreColor =
+            d.score >= 90
+              ? "#00c853"
+              : d.score >= 75
+                ? "#ffc107"
+                : d.score >= 60
+                  ? "#ff9800"
+                  : "#ff5252";
+          item.innerHTML = `
+      <span class="score-val" style="color:${scoreColor}">${d.score}</span>
+      <div class="bar-bg" style="width:120px;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden">
+        <div class="bar" style="width:${d.score}%;height:100%;background:${scoreColor};border-radius:3px;transition:width 1s ease"></div>
+      </div>
+      <span style="color:var(--text-dim);font-size:.78rem">${d.label}</span>
+    `;
+          legend.appendChild(item);
+        });
+      }
+
+      /* ===================== DPS BAR CHART ===================== */
+      function renderDPSChart() {
+        const container = document.getElementById("dpsChart");
+        // Sort T1 by DPS
+        const allWeapons = [
+          ...t1Weapons.sort((a, b) => b.dps - a.dps),
+          ...t2Weapons.sort((a, b) => b.dps - a.dps),
+        ];
+        // We'll cap visual at 100 for T1 and show T2 separately
+        // T1 section
+        let html =
+          '<div style="font-size:.75rem;color:var(--text-dim);margin-bottom:8px;font-weight:600">T1 Weapons</div>';
+        const maxT1 = 55;
+        t1Weapons
+          .sort((a, b) => b.dps - a.dps)
+          .forEach((w) => {
+            const pct = Math.min((w.dps / maxT1) * 100, 100);
+            const cls = w.dps >= 50 ? "danger" : "t1";
+            html += `<div class="dps-row">
+      <span class="name">${w.name}</span>
+      <div class="bar-bg"><div class="bar-fill ${cls}" style="width:${pct}%"></div></div>
+      <span class="dps-val">${w.dps}</span>
+    </div>`;
+          });
+
+        html +=
+          '<div style="font-size:.75rem;color:var(--text-dim);margin:16px 0 8px;font-weight:600">T2 Weapons</div>';
+        const maxT2 = 625;
+        t2Weapons
+          .sort((a, b) => b.dps - a.dps)
+          .forEach((w) => {
+            const pct = Math.min((w.dps / maxT2) * 100, 100);
+            const cls = w.danger ? "danger" : "t2";
+            html += `<div class="dps-row">
+      <span class="name">${w.name}</span>
+      <div class="bar-bg"><div class="bar-fill ${cls}" style="width:${pct}%"></div></div>
+      <span class="dps-val">${w.dps}</span>
+    </div>`;
+          });
+
+        container.innerHTML = html;
+      }
+
+      /* ===================== CHARACTER CARDS ===================== */
+      function renderCharacters() {
+        const grid = document.getElementById("charGrid");
+        grid.innerHTML = characters
+          .map(
+            (c) => `
+    <div class="glass char-card">
+      <span class="element-badge ${c.elemClass}">${c.element}</span>
+      <div class="char-name">${c.name}</div>
+      <div class="char-info"><strong>시작 무기:</strong> ${c.weapon}</div>
+      <div class="char-info"><strong>패시브:</strong> ${c.passive}</div>
+      <div class="char-info" style="color:var(--tertiary)"><strong>해금:</strong> ${c.unlock}</div>
+    </div>
+  `,
+          )
+          .join("");
+      }
+
+      /* ===================== DIFFICULTY LINE CHART (Canvas) ===================== */
+      function drawDifficulty() {
+        const canvas = document.getElementById("difficultyCanvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const W = canvas.width,
+          H = canvas.height;
+        const padL = 60,
+          padR = 30,
+          padT = 30,
+          padB = 50;
+        const cW = W - padL - padR,
+          cH = H - padT - padB;
+
+        ctx.clearRect(0, 0, W, H);
+
+        const maxY = 30;
+        const stages = diffData.map((d) => d.stage);
+        const minX = 1,
+          maxX = 16;
+
+        function xPos(v) {
+          return padL + ((v - minX) / (maxX - minX)) * cW;
+        }
+        function yPos(v) {
+          return padT + cH - (v / maxY) * cH;
+        }
+
+        // grid
+        ctx.strokeStyle = "rgba(255,255,255,.06)";
+        ctx.lineWidth = 1;
+        for (let y = 0; y <= maxY; y += 5) {
+          ctx.beginPath();
+          ctx.moveTo(padL, yPos(y));
+          ctx.lineTo(W - padR, yPos(y));
+          ctx.stroke();
+          ctx.fillStyle = "#8892b0";
+          ctx.font = "11px sans-serif";
+          ctx.textAlign = "right";
+          ctx.fillText(y + "x", padL - 8, yPos(y) + 4);
+        }
+        stages.forEach((s) => {
+          ctx.beginPath();
+          ctx.moveTo(xPos(s), padT);
+          ctx.lineTo(xPos(s), padT + cH);
+          ctx.stroke();
+          ctx.fillStyle = "#8892b0";
+          ctx.textAlign = "center";
+          ctx.fillText("S" + s, xPos(s), padT + cH + 20);
+        });
+
+        // lines
+        const series = [
+          { key: "hp", color: "#e94560", label: "HP" },
+          { key: "speed", color: "#00d2ff", label: "Speed" },
+          { key: "dmg", color: "#ffc107", label: "Damage" },
+        ];
+
+        series.forEach((s) => {
+          ctx.beginPath();
+          ctx.strokeStyle = s.color;
+          ctx.lineWidth = 2.5;
+          ctx.lineJoin = "round";
+          diffData.forEach((d, i) => {
+            const x = xPos(d.stage),
+              y = yPos(d[s.key]);
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+          });
+          ctx.stroke();
+
+          // area
+          ctx.beginPath();
+          diffData.forEach((d, i) => {
+            const x = xPos(d.stage),
+              y = yPos(d[s.key]);
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+          });
+          ctx.lineTo(xPos(diffData[diffData.length - 1].stage), yPos(0));
+          ctx.lineTo(xPos(diffData[0].stage), yPos(0));
+          ctx.closePath();
+          ctx.fillStyle = s.color
+            .replace(")", ",.08)")
+            .replace("rgb", "rgba")
+            .replace("#", "");
+          // quick hex to rgba
+          const r = parseInt(s.color.slice(1, 3), 16),
+            g = parseInt(s.color.slice(3, 5), 16),
+            b = parseInt(s.color.slice(5, 7), 16);
+          ctx.fillStyle = `rgba(${r},${g},${b},.08)`;
+          ctx.fill();
+
+          // dots + values
+          diffData.forEach((d) => {
+            const x = xPos(d.stage),
+              y = yPos(d[s.key]);
+            ctx.beginPath();
+            ctx.arc(x, y, 4, 0, Math.PI * 2);
+            ctx.fillStyle = s.color;
+            ctx.fill();
+            ctx.strokeStyle = "#0a0a1a";
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            ctx.fillStyle = s.color;
+            ctx.font = "bold 10px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(d[s.key] + "x", x, y - 10);
+          });
+        });
+      }
+
+      /* ===================== COMPETITOR CHART ===================== */
+      function renderCompetitors() {
+        const container = document.getElementById("compChart");
+        const maxVal = 110;
+        let html = "";
+        compData.forEach((c) => {
+          html += `<div class="comp-category">
+      <div class="cat-label">${c.cat}</div>
+      <div class="comp-bars">
+        <div class="comp-bar-row">
+          <span class="game-label">WanChai</span>
+          <div class="bar-bg"><div class="bar-fill wanchai" style="width:${(c.wanchai / maxVal) * 100}%">${c.wanchai}</div></div>
+        </div>
+        <div class="comp-bar-row">
+          <span class="game-label">Vampire Survivors</span>
+          <div class="bar-bg"><div class="bar-fill vampire" style="width:${(c.vampire / maxVal) * 100}%">${c.vampire}+</div></div>
+        </div>
+        <div class="comp-bar-row">
+          <span class="game-label">Archero</span>
+          <div class="bar-bg"><div class="bar-fill archero" style="width:${(c.archero / maxVal) * 100}%">${c.archero}+</div></div>
+        </div>
+      </div>
+    </div>`;
+        });
+        container.innerHTML = html;
+      }
+
+      /* ===================== SCORE CIRCLE ANIMATION ===================== */
+      function animateScore() {
+        const circle = document.getElementById("scoreCircle");
+        if (!circle) return;
+        const circumference = 2 * Math.PI * 78; // ~490
+        const score = 82;
+        const offset = circumference - (circumference * score) / 100;
+        circle.style.strokeDasharray = circumference;
+        circle.style.strokeDashoffset = circumference;
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            circle.style.strokeDashoffset = offset;
+          }, 300);
+        });
+      }
+
+      /* ===================== COUNTER ANIMATION ===================== */
+      function animateCounters() {
+        document.querySelectorAll(".metric-card .val").forEach((el) => {
+          const target = parseInt(el.dataset.count);
+          const duration = 1500;
+          const start = performance.now();
+          function update(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.floor(target * eased).toLocaleString();
+            if (progress < 1) requestAnimationFrame(update);
+            else el.textContent = target.toLocaleString();
+          }
+          requestAnimationFrame(update);
+        });
+      }
+
+      /* ===================== TABLE SORT ===================== */
+      const sortDirs = {};
+      function sortTable(tableId, colIdx) {
+        const table = document.getElementById(tableId);
+        const tbody = table.querySelector("tbody");
+        const rows = Array.from(tbody.querySelectorAll("tr"));
+        const key = tableId + "-" + colIdx;
+        sortDirs[key] = !sortDirs[key];
+        const dir = sortDirs[key] ? 1 : -1;
+
+        rows.sort((a, b) => {
+          let va = a.children[colIdx].textContent.trim();
+          let vb = b.children[colIdx].textContent.trim();
+          const na = parseFloat(va.replace(/[^\d.-]/g, ""));
+          const nb = parseFloat(vb.replace(/[^\d.-]/g, ""));
+          if (!isNaN(na) && !isNaN(nb)) return (na - nb) * dir;
+          return va.localeCompare(vb) * dir;
+        });
+        rows.forEach((r) => tbody.appendChild(r));
+      }
+
+      /* ===================== COLLAPSIBLE ===================== */
+      function toggleCollapse(el) {
+        el.classList.toggle("collapsed");
+        const content = el.nextElementSibling;
+        content.classList.toggle("hidden");
+      }
+
+      /* ===================== FADE IN (Intersection Observer) ===================== */
+      function setupFadeIn() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
+          },
+          { threshold: 0.1 },
+        );
+
+        document
+          .querySelectorAll(".fade-in")
+          .forEach((el) => observer.observe(el));
+      }
+
+      /* ===================== SIDEBAR ACTIVE STATE ===================== */
+      function setupSidebarActive() {
+        const sections = document.querySelectorAll("section[id]");
+        const links = document.querySelectorAll(".sidebar nav a");
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                links.forEach((l) => l.classList.remove("active"));
+                const active = document.querySelector(
+                  `.sidebar nav a[href="#${entry.target.id}"]`,
+                );
+                if (active) active.classList.add("active");
+              }
+            });
+          },
+          { rootMargin: "-20% 0px -60% 0px" },
+        );
+
+        sections.forEach((s) => observer.observe(s));
+
+        // Close sidebar on mobile when clicking a link
+        links.forEach((l) => {
+          l.addEventListener("click", () => {
+            if (window.innerWidth <= 900) {
+              document.querySelector(".sidebar").classList.remove("open");
+            }
+          });
+        });
+      }
+
+      /* ===================== INIT ===================== */
+      document.addEventListener("DOMContentLoaded", () => {
+        animateScore();
+        drawRadar();
+        renderDPSChart();
+        renderCharacters();
+        drawDifficulty();
+        renderCompetitors();
+        setupFadeIn();
+        setupSidebarActive();
+
+        // Delay counter animation until metrics section is visible
+        const metricsObs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                animateCounters();
+                metricsObs.disconnect();
+              }
+            });
+          },
+          { threshold: 0.2 },
+        );
+        const metricsSection = document.getElementById("metrics");
+        if (metricsSection) metricsObs.observe(metricsSection);
+      });
+
+      // Redraw canvas on resize
+      window.addEventListener("resize", () => {
+        drawRadar();
+        drawDifficulty();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1인 AI 에이전트 수익화 전략 — 2026</title>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #09090b;
+  --surface: #18181b;
+  --surface2: #27272a;
+  --border: #3f3f46;
+  --text: #fafafa;
+  --text2: #a1a1aa;
+  --text3: #71717a;
+  --accent: #6366f1;
+  --accent2: #818cf8;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --red: #ef4444;
+  --cyan: #06b6d4;
+  --orange: #f97316;
+  --pink: #ec4899;
+}
+
+body {
+  font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.8;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+}
+
+/* Header */
+.report-header {
+  margin-bottom: 64px;
+}
+.report-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+.badge.type { background: var(--accent); color: #fff; }
+.badge.date { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+.badge.conf { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+
+h1 {
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.subtitle {
+  font-size: 18px;
+  color: var(--text2);
+  max-width: 700px;
+  line-height: 1.7;
+}
+
+/* Executive Summary */
+.exec-summary {
+  background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(6,182,212,0.08));
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 56px;
+}
+.exec-summary h2 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--accent2);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.exec-points {
+  list-style: none;
+}
+.exec-points li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+  color: var(--text);
+}
+.exec-points li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+  font-weight: 700;
+}
+
+/* Section */
+.section {
+  margin-bottom: 56px;
+}
+.section-num {
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--surface2);
+  line-height: 1;
+  margin-bottom: -8px;
+}
+.section h2 {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.section .section-sub {
+  font-size: 15px;
+  color: var(--text3);
+  margin-bottom: 28px;
+}
+.section p {
+  color: var(--text2);
+  margin-bottom: 16px;
+}
+.section p strong {
+  color: var(--text);
+}
+
+/* Stat Grid */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.stat-card .num {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+.stat-card .num.green { color: var(--green); }
+.stat-card .num.cyan { color: var(--cyan); }
+.stat-card .num.orange { color: var(--orange); }
+.stat-card .num.accent { color: var(--accent2); }
+.stat-card .num.pink { color: var(--pink); }
+.stat-card .label {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 6px;
+}
+
+/* Strategy Cards */
+.strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+.strategy-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  transition: border-color 0.2s;
+}
+.strategy-card:hover {
+  border-color: var(--accent);
+}
+.strategy-card .rank {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.rank.s { background: rgba(34,197,94,0.15); color: var(--green); }
+.rank.a { background: rgba(6,182,212,0.15); color: var(--cyan); }
+.rank.b { background: rgba(234,179,8,0.15); color: var(--yellow); }
+.strategy-card h3 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+}
+.strategy-card .desc {
+  font-size: 14px;
+  color: var(--text2);
+  margin-bottom: 14px;
+  line-height: 1.7;
+}
+.strategy-card .metrics {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.metric {
+  font-size: 12px;
+  color: var(--text3);
+}
+.metric span {
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Comparison Table */
+.table-wrap {
+  overflow-x: auto;
+  margin: 28px 0;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th {
+  background: var(--surface2);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: 14px 16px;
+  text-align: left;
+  white-space: nowrap;
+}
+td {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  color: var(--text2);
+}
+tr:hover td { background: rgba(255,255,255,0.02); }
+td:first-child { font-weight: 600; color: var(--text); }
+.highlight-row td { background: rgba(99,102,241,0.05); }
+.pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.pill.fast { background: rgba(34,197,94,0.15); color: var(--green); }
+.pill.mid { background: rgba(234,179,8,0.15); color: var(--yellow); }
+.pill.slow { background: rgba(239,68,68,0.15); color: var(--red); }
+.pill.high { background: rgba(6,182,212,0.15); color: var(--cyan); }
+.pill.low { background: rgba(113,113,122,0.15); color: var(--text3); }
+
+/* Timeline */
+.timeline {
+  margin: 28px 0;
+  position: relative;
+  padding-left: 32px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--border);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 24px;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -28px;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: var(--bg);
+}
+.tl-item.done::before {
+  background: var(--green);
+  border-color: var(--green);
+}
+.tl-period {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent2);
+  margin-bottom: 4px;
+}
+.tl-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.tl-desc {
+  font-size: 14px;
+  color: var(--text3);
+}
+.tl-revenue {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green);
+  margin-top: 4px;
+}
+
+/* Callout */
+.callout {
+  background: var(--surface);
+  border-left: 4px solid;
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+.callout.warn { border-color: var(--yellow); }
+.callout.info { border-color: var(--cyan); }
+.callout.danger { border-color: var(--red); }
+.callout.success { border-color: var(--green); }
+.callout .callout-title {
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+.callout.warn .callout-title { color: var(--yellow); }
+.callout.info .callout-title { color: var(--cyan); }
+.callout.danger .callout-title { color: var(--red); }
+.callout.success .callout-title { color: var(--green); }
+.callout p {
+  font-size: 14px;
+  color: var(--text2);
+  margin: 0;
+}
+
+/* Bar Chart */
+.bar-chart {
+  margin: 28px 0;
+}
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.bar-label {
+  width: 140px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+  flex-shrink: 0;
+  color: var(--text2);
+}
+.bar-track {
+  flex: 1;
+  height: 28px;
+  background: var(--surface);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  transition: width 0.6s ease;
+}
+
+/* Case Study */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+.case-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.case-card .case-name {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.case-card .case-type {
+  font-size: 12px;
+  color: var(--text3);
+  margin-bottom: 12px;
+}
+.case-card .case-revenue {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+.case-card .case-detail {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+/* Risk Matrix */
+.risk-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 28px 0;
+}
+.risk-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.risk-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.risk-icon.high { background: rgba(239,68,68,0.15); }
+.risk-icon.mid { background: rgba(234,179,8,0.15); }
+.risk-item h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.risk-item p {
+  font-size: 13px;
+  color: var(--text3);
+  margin: 0;
+}
+
+/* Verdict */
+.verdict {
+  background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(6,182,212,0.08));
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: 16px;
+  padding: 36px;
+  margin: 40px 0;
+  text-align: center;
+}
+.verdict h2 {
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 16px;
+}
+.verdict p {
+  font-size: 16px;
+  color: var(--text2);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Sources */
+.sources {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.sources h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text3);
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.sources a {
+  display: block;
+  font-size: 13px;
+  color: var(--text3);
+  text-decoration: none;
+  padding: 4px 0;
+  transition: color 0.2s;
+}
+.sources a:hover { color: var(--accent2); }
+
+/* Footer */
+.footer {
+  margin-top: 48px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 { font-size: 32px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .strategy-grid { grid-template-columns: 1fr; }
+  .case-grid { grid-template-columns: 1fr; }
+  .risk-grid { grid-template-columns: 1fr; }
+  .bar-label { width: 100px; font-size: 12px; }
+  .section-num { font-size: 48px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="report-header">
+    <div class="report-meta">
+      <span class="badge type">전략 리서치</span>
+      <span class="badge date">2026년 3월 7일</span>
+      <span class="badge conf">대외비</span>
+    </div>
+    <h1>1인 AI 에이전트<br>최속 수익화 전략</h1>
+    <div class="subtitle">인공지능 에이전트를 활용해 1인이 가장 빠르게 수익을 창출할 수 있는 경로를 분석합니다. 시장 데이터, 실제 사례, 그리고 HKD852에 최적화된 실행 로드맵.</div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="exec-summary">
+    <h2>핵심 요약</h2>
+    <ul class="exec-points">
+      <li><strong>AI 에이전트 시장은 2025년 15억 달러 → 2030년 418억 달러</strong>로 폭발 성장 중. 수요가 공급의 10배 — 지금이 선점 기회.</li>
+      <li><strong>가장 빠른 수익화 경로는 '버티컬 AI 에이전트 서비스'</strong>다. 제품(SaaS)보다 서비스가 2~4주 내 첫 매출 가능.</li>
+      <li><strong>마이크로 SaaS의 현실</strong>: 70%가 월 $1,000 미만. 하지만 니치에 집중한 상위 18%는 월 $1K~$5K, 상위 12%는 $5K 이상.</li>
+      <li><strong>AI 래퍼(Wrapper)가 가장 자본 효율적</strong>. Chatbase는 수개월 만에 월 $50K MRR 달성. 핵심은 '기술'이 아니라 '문제 정의'.</li>
+      <li><strong>한국 시장은 아직 초기</strong>. SaaS 시장 3조원 규모로 글로벌 대비 소규모이나, 에이전틱 AI 도입 수요는 급증 중.</li>
+    </ul>
+  </div>
+
+  <!-- Section 1: Market -->
+  <div class="section">
+    <div class="section-num">01</div>
+    <h2>시장 현황</h2>
+    <div class="section-sub">AI 에이전트 시장은 역대 가장 빠르게 성장하는 기술 카테고리다</div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="num green">$418억</div>
+        <div class="label">2030년 에이전트 시장 규모</div>
+      </div>
+      <div class="stat-card">
+        <div class="num cyan">28x</div>
+        <div class="label">5년간 성장 배수</div>
+      </div>
+      <div class="stat-card">
+        <div class="num orange">4개월</div>
+        <div class="label">SaaS 대비 $1M 도달 단축</div>
+      </div>
+      <div class="stat-card">
+        <div class="num accent">10:1</div>
+        <div class="label">수요 대 공급 비율</div>
+      </div>
+    </div>
+
+    <p>AI 에이전트 스타트업은 기존 SaaS보다 <strong>4개월 빠르게 연 $1M 매출에 도달</strong>하며, 일부는 SaaS의 5배 속도로 $30M까지 확장하고 있다. 2026년 현재 시장은 포화와는 거리가 멀다 — <strong>향후 2~3년간 초기 진입자가 시장을 지배</strong>할 전망.</p>
+
+    <div class="callout info">
+      <div class="callout-title">한국 시장 특수성</div>
+      <p>국내 SaaS 시장은 2026년 약 3조원 규모로, 글로벌 대비 소규모. 그러나 <strong>에이전틱 AI 도입 수요는 급증</strong> 중이며, "어떤 모델이냐보다 어떻게 쓰느냐"가 핵심 화두. 기업들은 마케팅, 고객 커뮤니케이션, 내부 IT 운영에서 AI 에이전트 효과를 빠르게 체감하고 있다.</p>
+    </div>
+  </div>
+
+  <!-- Section 2: Revenue Models -->
+  <div class="section">
+    <div class="section-num">02</div>
+    <h2>수익화 모델 비교</h2>
+    <div class="section-sub">속도 vs 확장성 — 1인 창업자에게 최적의 경로는 무엇인가</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>모델</th>
+            <th>첫 매출까지</th>
+            <th>월 수익 범위</th>
+            <th>확장성</th>
+            <th>난이도</th>
+            <th>추천도</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td>AI 자동화 에이전시</td>
+            <td><span class="pill fast">2~4주</span></td>
+            <td>$5K ~ $50K</td>
+            <td><span class="pill mid">중간</span></td>
+            <td>★★☆☆</td>
+            <td><strong style="color:var(--green)">최우선</strong></td>
+          </tr>
+          <tr class="highlight-row">
+            <td>버티컬 마이크로 SaaS</td>
+            <td><span class="pill mid">2~3개월</span></td>
+            <td>$1K ~ $10K</td>
+            <td><span class="pill high">높음</span></td>
+            <td>★★★☆</td>
+            <td><strong style="color:var(--green)">병행 추천</strong></td>
+          </tr>
+          <tr>
+            <td>AI 래퍼 제품</td>
+            <td><span class="pill mid">1~2개월</span></td>
+            <td>$500 ~ $50K</td>
+            <td><span class="pill high">높음</span></td>
+            <td>★★☆☆</td>
+            <td>추천</td>
+          </tr>
+          <tr>
+            <td>커스텀 에이전트 개발</td>
+            <td><span class="pill fast">1~2주</span></td>
+            <td>$5K ~ $150K/건</td>
+            <td><span class="pill low">낮음</span></td>
+            <td>★★★★</td>
+            <td>고수익/비반복</td>
+          </tr>
+          <tr>
+            <td>MCP 서버 판매</td>
+            <td><span class="pill slow">3개월+</span></td>
+            <td>$100 ~ $500</td>
+            <td><span class="pill low">낮음</span></td>
+            <td>★★★☆</td>
+            <td style="color:var(--red)">비추천</td>
+          </tr>
+          <tr>
+            <td>AI 교육/컨설팅</td>
+            <td><span class="pill fast">1~2주</span></td>
+            <td>$2K ~ $20K</td>
+            <td><span class="pill low">낮음</span></td>
+            <td>★☆☆☆</td>
+            <td>부수입으로</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <div class="callout-title">MCP 서버 수익화의 현실</div>
+      <p>현재 개인 개발자의 MCP 수익화 성공 사례는 <strong>사실상 1건</strong>(21st.dev의 Magic MCP, 월 £400). 오픈소스 생태계 특성상 유료 전환이 극히 어려움. Anthropic의 50% 수익 분배 모델은 매력적이나, 사용자 기반이 개발자에 한정되어 시장이 제한적.</p>
+    </div>
+  </div>
+
+  <!-- Section 3: Strategies -->
+  <div class="section">
+    <div class="section-num">03</div>
+    <h2>1인 최속 수익화 전략 TOP 4</h2>
+    <div class="section-sub">검증된 데이터 기반, HKD852에 최적화된 실행 전략</div>
+
+    <div class="strategy-grid">
+      <div class="strategy-card">
+        <span class="rank s">S등급 — 최우선</span>
+        <h3>버티컬 AI 자동화 에이전시</h3>
+        <div class="desc">특정 업종(치과, 법률사무소, 부동산, 온라인 커머스)에 특화된 AI 자동화 워크플로우를 구축해주는 서비스. 예약 관리, 고객 응대, 리드 자동 분류, 보고서 생성 등. n8n/Make 기반으로 코드 최소화.</div>
+        <div class="metrics">
+          <div class="metric">첫 매출 <span>2~4주</span></div>
+          <div class="metric">건당 <span>$5K~$15K</span></div>
+          <div class="metric">리테이너 <span>$1K~$3K/월</span></div>
+          <div class="metric">마진 <span>60~70%</span></div>
+        </div>
+      </div>
+
+      <div class="strategy-card">
+        <span class="rank s">S등급 — 병행 필수</span>
+        <h3>니치 마이크로 SaaS</h3>
+        <div class="desc">에이전시에서 반복 구축하는 워크플로우를 제품화. 예: 부동산 매물 설명 자동 생성기, 치과 예약 챗봇, 법률 문서 초안 에이전트. <strong>$29~$79/월</strong> 구독 모델. 95%가 12개월 내 흑자 달성.</div>
+        <div class="metrics">
+          <div class="metric">MVP까지 <span>2~4주</span></div>
+          <div class="metric">목표 MRR <span>$5K~$10K</span></div>
+          <div class="metric">마진 <span>70%+</span></div>
+          <div class="metric">이탈률 <span>3~5배 낮음</span></div>
+        </div>
+      </div>
+
+      <div class="strategy-card">
+        <span class="rank a">A등급 — 추천</span>
+        <h3>AI 래퍼 / 특화 도구</h3>
+        <div class="desc">LLM API 위에 특정 용도에 최적화된 UI를 씌운 제품. Chatbase(챗봇 빌더), PDF AI(문서 분석), Tactiq(회의록 요약) 등이 대표 사례. 핵심은 범용이 아닌 <strong>극도로 좁은 유스케이스</strong> 타겟.</div>
+        <div class="metrics">
+          <div class="metric">초기 투자 <span>$200~$500</span></div>
+          <div class="metric">사례 MRR <span>$3.2K~$50K</span></div>
+          <div class="metric">기반 <span>LLM API</span></div>
+          <div class="metric">핵심 <span>UX &gt; 기술</span></div>
+        </div>
+      </div>
+
+      <div class="strategy-card">
+        <span class="rank b">B등급 — 부수입</span>
+        <h3>AI 교육 + 템플릿 판매</h3>
+        <div class="desc">에이전트 구축 노하우를 교육 콘텐츠로 패키징. 유데미/클래스101 강의, 프롬프트 팩, 자동화 템플릿 번들. 에이전시/SaaS와 병행하면 브랜드 구축 + 리드 생성 효과.</div>
+        <div class="metrics">
+          <div class="metric">시작까지 <span>1주</span></div>
+          <div class="metric">범위 <span>$500~$5K/월</span></div>
+          <div class="metric">시너지 <span>리드젠</span></div>
+          <div class="metric">확장 <span>B2B 연계</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Case Studies -->
+  <div class="section">
+    <div class="section-num">04</div>
+    <h2>실제 수익 사례</h2>
+    <div class="section-sub">1인 또는 소규모 팀이 AI 에이전트로 달성한 검증된 매출</div>
+
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-name">Chatbase</div>
+        <div class="case-type">AI 래퍼 · 챗봇 빌더</div>
+        <div class="case-revenue">$50K/월</div>
+        <div class="case-detail">LLM 기반 커스텀 챗봇 빌더. 수개월 만에 MRR $50K 돌파. 웹사이트에 챗봇을 심는 단순한 유스케이스로 폭발적 성장.</div>
+      </div>
+      <div class="case-card">
+        <div class="case-name">Tactiq</div>
+        <div class="case-type">AI 래퍼 · 회의록 요약</div>
+        <div class="case-revenue">$133K/월</div>
+        <div class="case-detail">Zoom/Google Meet 회의록 자동 전사 + AI 요약. 6,000+ 고객. 연 $1.6M 매출. 봇 없는 방식으로 차별화.</div>
+      </div>
+      <div class="case-card">
+        <div class="case-name">니치 부동산 도구</div>
+        <div class="case-type">마이크로 SaaS · 1인 개발</div>
+        <div class="case-revenue">$3.2K/월</div>
+        <div class="case-detail">부동산 매물 설명 자동 생성기. 고객 112명, $29/월. 코드 한 줄 안 짜고 노코드로 구축. 6개월 만에 도달.</div>
+      </div>
+    </div>
+
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-name">주방가전 특화 도구</div>
+        <div class="case-type">마이크로 SaaS · 1인 개발</div>
+        <div class="case-revenue">$6.7K/월</div>
+        <div class="case-detail">주방가전 매장 전용 AI 도구. 89개 고객, $75/월. 극도로 좁은 니치에 집중한 결과 높은 전환율과 낮은 이탈.</div>
+      </div>
+      <div class="case-card">
+        <div class="case-name">Cognition AI (Devin)</div>
+        <div class="case-type">AI 에이전트 · 코딩 자동화</div>
+        <div class="case-revenue">$73M ARR</div>
+        <div class="case-detail">9개월 만에 $1M → $73M ARR. AI 코딩 에이전트 시장의 폭발적 성장을 보여주는 극단적 사례.</div>
+      </div>
+      <div class="case-card">
+        <div class="case-name">한국 인디 개발자</div>
+        <div class="case-type">바이브 코딩 · 앱 번들</div>
+        <div class="case-revenue">30억+/년</div>
+        <div class="case-detail">AI 코딩 도구로 앱 3개를 바이럴시킨 23세 개발자 — 엑싯으로 22억 달성. 1인이 만든 앱이 $1M 매출 후 7억에 엑싯한 사례도.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Revenue Simulator -->
+  <div class="section">
+    <div class="section-num">05</div>
+    <h2>수익 시뮬레이션</h2>
+    <div class="section-sub">하이브리드 전략(에이전시 + SaaS 병행) 12개월 매출 전망</div>
+
+    <p><strong>전략</strong>: 처음 3개월은 에이전시로 현금 확보 + 반복 패턴 발견 → 4개월차부터 마이크로 SaaS 제품화 병행 → 8개월차부터 SaaS 비중 확대.</p>
+
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">1개월차</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:8%;background:var(--accent)">$0~$2K</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">3개월차</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:20%;background:var(--accent)">$5K</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">6개월차</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:40%;background:linear-gradient(90deg,var(--accent),var(--cyan))">$10K</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">9개월차</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:65%;background:linear-gradient(90deg,var(--accent),var(--cyan))">$15~$20K</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">12개월차</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:90%;background:linear-gradient(90deg,var(--accent),var(--green))">$20~$30K</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-grid" style="grid-template-columns: repeat(3,1fr);">
+      <div class="stat-card">
+        <div class="num green">$150K+</div>
+        <div class="label">12개월 누적 매출 (낙관)</div>
+      </div>
+      <div class="stat-card">
+        <div class="num cyan">$80K</div>
+        <div class="label">12개월 누적 매출 (현실)</div>
+      </div>
+      <div class="stat-card">
+        <div class="num orange">$30K</div>
+        <div class="label">12개월 누적 매출 (보수)</div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <div class="callout-title">마이크로 SaaS 수익성의 핵심</div>
+      <p><strong>95%의 마이크로 SaaS가 12개월 내 흑자를 달성</strong>하며, 부트스트랩 마이크로 SaaS의 이익률은 70% 이상. 에이전시 수익으로 초기 비용을 충당하면 SaaS 전환 시 리스크가 거의 없다.</p>
+    </div>
+  </div>
+
+  <!-- Section 6: Execution Roadmap -->
+  <div class="section">
+    <div class="section-num">06</div>
+    <h2>HKD852 실행 로드맵</h2>
+    <div class="section-sub">기존 자산을 활용한 1인 AI 에이전트 수익화 단계별 계획</div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-period">1~2주차 — 기반 구축</div>
+        <div class="tl-title">전문 영역 선정 + 포트폴리오 구축</div>
+        <div class="tl-desc">HKD852의 기존 에이전트 시스템(24개 에이전트, 112+ 스킬)을 레퍼런스로 활용. "AI 에이전트 조직 구축" 전문가 포지셔닝. 랜딩 페이지 + 사례 문서 제작.</div>
+        <div class="tl-revenue">목표: 파이프라인 구축</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">3~4주차 — 첫 클라이언트</div>
+        <div class="tl-title">AI 자동화 에이전시 첫 프로젝트 수주</div>
+        <div class="tl-desc">한국 중소기업 대상: 고객 문의 자동응대, 리포트 자동 생성, 내부 워크플로우 자동화. 프로젝트 단가 $5K~$15K. n8n + Claude API 활용.</div>
+        <div class="tl-revenue">목표: 월 $5K~$10K</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">2~3개월차 — 패턴 발견</div>
+        <div class="tl-title">반복 요구사항 식별 → SaaS 기획</div>
+        <div class="tl-desc">에이전시 프로젝트에서 반복되는 요구사항을 발견. "매번 같은 걸 만들고 있다" = 제품화 신호. 문제 정의 → MVP 설계.</div>
+        <div class="tl-revenue">에이전시 안정화: 월 $8K~$15K</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">4~6개월차 — SaaS MVP</div>
+        <div class="tl-title">마이크로 SaaS 출시 + 초기 고객 확보</div>
+        <div class="tl-desc">바이브 코딩(Lovable/Cursor + Claude)으로 2~4주 내 MVP 출시. $29~$79/월 가격대. 에이전시 고객을 첫 SaaS 고객으로 전환.</div>
+        <div class="tl-revenue">SaaS MRR: $1K~$3K 시작</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">7~9개월차 — 하이브리드 가속</div>
+        <div class="tl-title">에이전시 고수익 프로젝트만 선별 + SaaS 성장</div>
+        <div class="tl-desc">에이전시는 고단가($10K+) 프로젝트만 수주. SaaS에 마케팅 집중. 컨텐츠 마케팅 + SEO + 인디해커 커뮤니티 활용.</div>
+        <div class="tl-revenue">복합 월수익: $15K~$25K</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">10~12개월차 — SaaS 중심 전환</div>
+        <div class="tl-title">SaaS 비중 60%+ 달성</div>
+        <div class="tl-desc">반복 매출(MRR) 중심 사업 구조 완성. 에이전시는 전략 컨설팅으로 전환. SaaS 글로벌 확장 시작 (영문 버전).</div>
+        <div class="tl-revenue">목표 MRR: $10K~$20K (SaaS 단독)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 7: HKD852 Advantage -->
+  <div class="section">
+    <div class="section-num">07</div>
+    <h2>HKD852 고유 우위</h2>
+    <div class="section-sub">이미 보유한 자산이 경쟁사 대비 6~12개월의 선행 우위를 제공한다</div>
+
+    <div class="strategy-grid">
+      <div class="strategy-card">
+        <h3>24개 에이전트 조직 운영 경험</h3>
+        <div class="desc">에이전트 설계, 스킬 체계, 품질 파이프라인, 레드팀 검증 — 대부분의 AI 에이전시가 갖지 못한 <strong>실제 운영 노하우</strong>. 이것 자체가 포트폴리오.</div>
+      </div>
+      <div class="strategy-card">
+        <h3>112+ 스킬 라이브러리</h3>
+        <div class="desc">검증된 스킬 템플릿을 클라이언트 프로젝트에 재활용. 새 프로젝트마다 처음부터 만들 필요 없음 → <strong>납기 단축 = 마진 극대화</strong>.</div>
+      </div>
+      <div class="strategy-card">
+        <h3>멀티 도메인 레퍼런스</h3>
+        <div class="desc">게임(WanChai), 투자(Invest), 콘텐츠(ShortsFactory), HR, 마케팅, 번역 — 다양한 도메인에 걸친 에이전트 구축 경험. 어떤 업종이 와도 대응 가능.</div>
+      </div>
+      <div class="strategy-card">
+        <h3>프로덕션 품질 파이프라인</h3>
+        <div class="desc">Quality Gate → Shield(보안) → RedTeam(적대적 검증) 자동 파이프라인. 클라이언트에게 "AI 에이전트도 품질 보증이 가능하다"는 차별화 메시지.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: Risks -->
+  <div class="section">
+    <div class="section-num">08</div>
+    <h2>리스크 분석</h2>
+    <div class="section-sub">냉정한 현실 점검 — 1인 AI 에이전트 사업의 장벽과 완화 전략</div>
+
+    <div class="risk-grid">
+      <div class="risk-item">
+        <div class="risk-icon high">⚠</div>
+        <div>
+          <h4>API 비용 변동성</h4>
+          <p>LLM API 가격 인하 추세이나, 사용량 급증 시 마진 압박. <strong>완화</strong>: 토큰 사용량 모니터링, 캐싱, 모델 티어링(Haiku/Sonnet/Opus 전략적 활용).</p>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-icon high">⚠</div>
+        <div>
+          <h4>빅테크 직접 진출</h4>
+          <p>구글, MS, Anthropic이 직접 버티컬 에이전트 출시 가능성. <strong>완화</strong>: 니치 깊이에서 승부. "주방가전 매장 전용"처럼 빅테크가 타겟하지 않는 영역.</p>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-icon mid">△</div>
+        <div>
+          <h4>한국 시장의 SaaS 저항</h4>
+          <p>국내 기업의 '구축형' 선호 경향. <strong>완화</strong>: 초기에는 에이전시(구축형)로 진입, 신뢰 확보 후 SaaS 전환 유도.</p>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-icon mid">△</div>
+        <div>
+          <h4>1인 운영의 번아웃</h4>
+          <p>에이전시 + SaaS 동시 운영의 부담. <strong>완화</strong>: AI 에이전트로 자체 업무 자동화(HKD852 방식). Secretary, PMO 에이전트를 실제 사업 운영에 활용.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout danger">
+      <div class="callout-title">가장 큰 실패 요인</div>
+      <p>기술이 아니라 <strong>'문제 정의'의 부재</strong>. 많은 AI 프로젝트가 실패하는 이유는 모델 성능이 아니라, 해결할 실제 비효율이 명확히 규정되지 않았기 때문. "AI 에이전트를 만들 수 있다"가 아니라 <strong>"이 업종의 이 문제를 AI로 풀 수 있다"</strong>가 시작점이어야 한다.</p>
+    </div>
+  </div>
+
+  <!-- Verdict -->
+  <div class="verdict">
+    <h2>최종 권고: 하이브리드 전략 즉시 실행</h2>
+    <p><strong>에이전시로 시작 → SaaS로 전환</strong>. HKD852의 기존 24개 에이전트 운영 경험은 이미 6~12개월 선행 우위. 시장은 수요 > 공급 10:1. 첫 매출까지 2~4주. 12개월 내 월 $10K~$20K MRR 현실적으로 달성 가능. <strong>지금이 최적의 타이밍이다.</strong></p>
+  </div>
+
+  <!-- Sources -->
+  <div class="sources">
+    <h3>참고 자료</h3>
+    <a href="https://www.snaplama.com/blog/how-to-earn-money-from-ai-agents-in-2026-complete-monetization-strategy-guide" target="_blank">AI 에이전트 수익화 전략 가이드 2026 — Snaplama</a>
+    <a href="https://wearepresta.com/ai-agent-startup-ideas-2026-15-profitable-opportunities-to-launch-now/" target="_blank">$1M+ 달성 AI 에이전트 스타트업 15선 — Presta</a>
+    <a href="https://www.cbinsights.com/research/ai-agent-startups-top-20-revenue/" target="_blank">AI 에이전트 스타트업 매출 TOP 20 — CB Insights</a>
+    <a href="https://freemius.com/blog/state-of-micro-saas-2025/" target="_blank">마이크로 SaaS 현황 2025 — Freemius</a>
+    <a href="https://ritza.co/articles/gen-articles/mcp-server-monetization-the-emerging-commercial-landscape/" target="_blank">MCP 서버 수익화의 현실 — Ritza</a>
+    <a href="https://www.raylogue.com/agentic-ai-korea-2026/" target="_blank">에이전틱 AI 원년, 한국 기업은 어디에 서 있는가 — Raylogue</a>
+    <a href="https://eopla.net/magazines/31437" target="_blank">바이브코딩으로 SaaS를 만들고 팔기 시작했습니다 — 이오플라</a>
+    <a href="https://blog.startupstash.com/how-i-built-a-3-200-month-micro-saas-without-writing-a-single-line-of-code-38bd6996347b" target="_blank">코드 없이 월 $3,200 마이크로 SaaS 구축기 — Startup Stash</a>
+    <a href="https://crazyburst.com/ai-saas-solo-founder-success-stories-2026/" target="_blank">AI SaaS 1인 창업자 성공 사례 2026 — CrazyBurst</a>
+    <a href="https://www.nxcode.io/resources/news/one-person-unicorn-context-engineering-solo-founder-guide-2026" target="_blank">1인 유니콘: AI로 10억 달러 기업 만들기 — NxCode</a>
+    <a href="https://www.aitimes.kr/news/articleView.html?idxno=37812" target="_blank">AI 에이전트, 2026년 업무 방식 근본적으로 바꾼다 — AI타임스</a>
+    <a href="https://www.cio.com/article/4139693/aws-코리아-어떤-모델이냐보다-어떻게-쓰느냐가-핵심" target="_blank">AWS 코리아 에이전트 AI 전략 — CIO</a>
+  </div>
+
+  <div class="footer">
+    HKD852 Studio · AI 에이전트 수익화 전략 리서치 v1.0<br>
+    2026-03-07 · 작성: Claude Opus 4.6 · 검증: CEO 리뷰 대기
+  </div>
+
+</div>
+</body>
+</html>

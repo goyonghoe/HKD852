@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangMaster 배포 리포트</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    color: #fff;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.8;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .announcement-bar {
+    width: 100%;
+    padding: 8px 0;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    background: #000;
+    border-bottom: 1px solid #222;
+  }
+  .announcement-bar span {
+    background: linear-gradient(90deg, #888, #fff, #888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+
+  .hero-card {
+    position: relative;
+    background: #0a0a0a;
+    border-radius: 8px;
+    padding: 40px 32px;
+    margin-bottom: 48px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #333, #111, #333, #0070f3, #333, #111, #333);
+    z-index: -1;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #0070f3;
+    border: 1px solid #0070f333;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    color: #888;
+    font-size: 15px;
+    margin-bottom: 24px;
+    line-height: 1.8;
+  }
+
+  .btn-deploy {
+    display: inline-block;
+    background: #fff;
+    color: #000;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .btn-deploy:hover { opacity: 0.85; }
+
+  .metrics {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #222;
+  }
+  .metrics .number {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .metrics .dot {
+    color: #444;
+    margin: 0 10px;
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .section { margin-bottom: 48px; }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .feature-card {
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-radius: 8px;
+    padding: 20px 16px;
+  }
+  .feature-icon {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .feature-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .feature-desc {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  thead th {
+    text-align: left;
+    color: #888;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0 0 12px;
+  }
+  tbody td {
+    padding: 12px 0;
+    border-bottom: 1px solid #222;
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  .cell-label { color: #fff; font-weight: 500; }
+  .cell-secondary { color: #888; }
+  .cell-dim { color: #444; }
+
+  .log-section { margin-bottom: 48px; }
+
+  .log-entry {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid #222;
+    font-size: 14px;
+  }
+  .log-entry:last-child { border-bottom: none; }
+  .log-time {
+    color: #444;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    flex-shrink: 0;
+    min-width: 56px;
+  }
+  .log-msg { color: #888; }
+  .log-msg strong { color: #fff; font-weight: 500; }
+
+  .code-block {
+    background: #111;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin-bottom: 48px;
+    border: 1px solid #1a1a1a;
+  }
+  .code-block .comment { color: #444; }
+  .code-block .string { color: #50e3c2; }
+  .code-block .keyword { color: #888; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #222;
+    margin: 48px 0;
+  }
+
+  .footer {
+    text-align: center;
+    color: #444;
+    font-size: 13px;
+    padding-top: 32px;
+    border-top: 1px solid #222;
+  }
+  .footer a {
+    color: #0070f3;
+    text-decoration: none;
+  }
+  .footer a:hover { text-decoration: underline; }
+
+  .status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .status-dot.green { background: #50e3c2; }
+  .status-dot.yellow { background: #f5a623; }
+  .status-dot.red { background: #e00; }
+
+  @media (max-width: 600px) {
+    .feature-grid { grid-template-columns: 1fr; }
+    .hero-card { padding: 28px 20px; }
+    h1 { font-size: 24px; }
+    .metrics .dot { margin: 0 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="announcement-bar">
+  <span>LangMaster v2.4 출시 &mdash; HSK 7~9급 모듈이 프로덕션에 배포되었습니다</span>
+</div>
+
+<div class="container">
+
+  <!-- Hero Card -->
+  <div class="hero-card">
+    <div class="badge">Production</div>
+    <h1>LangMaster 배포 리포트</h1>
+    <p class="subtitle">v2.4.0이 전체 리전에 배포되었습니다. HSK 7~9급 고급 모듈, 실시간 발음 채점, 적응형 복습 엔진이 포함됩니다.</p>
+    <a href="#" class="btn-deploy">배포 현황 보기</a>
+  </div>
+
+  <!-- Metrics -->
+  <div class="metrics">
+    <span class="number">4,200</span> 다운로드
+    <span class="dot">&middot;</span>
+    <span class="number">9.2%</span> 전환율
+    <span class="dot">&middot;</span>
+    <span class="number">$43K</span> ARR
+    <span class="dot">&middot;</span>
+    <span class="number">99.97%</span> 가동률
+    <span class="dot">&middot;</span>
+    <span class="number">142ms</span> p95 지연시간
+  </div>
+
+  <!-- Features -->
+  <div class="section">
+    <h2>새로운 기능</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F3AF;</div>
+        <div class="feature-title">HSK 7~9급</div>
+        <div class="feature-desc">2,400개 신규 어휘를 포함한 고급 숙련도 모듈</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F399;</div>
+        <div class="feature-title">발음 채점</div>
+        <div class="feature-desc">Whisper v3 기반 실시간 성조 분석 및 점수화</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F504;</div>
+        <div class="feature-title">적응형 복습</div>
+        <div class="feature-desc">망각 곡선 모델링을 적용한 간격 반복 학습</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x26A1;</div>
+        <div class="feature-title">Edge Runtime</div>
+        <div class="feature-desc">Vercel Edge의 서버리스 함수로 100ms 이하 응답 달성</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F310;</div>
+        <div class="feature-title">멀티 리전</div>
+        <div class="feature-desc">ICN, NRT, SFO, FRA, GRU 5개 리전 동시 배포</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#x1F512;</div>
+        <div class="feature-title">인증 v2</div>
+        <div class="feature-desc">WebAuthn 폴백 체인을 갖춘 Passkey 인증 지원</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison Table -->
+  <div class="section">
+    <h2>성능 비교</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>항목</th>
+          <th>v2.3</th>
+          <th>v2.4</th>
+          <th>변화</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cell-label">Cold Start</td>
+          <td class="cell-secondary">320ms</td>
+          <td class="cell-label">142ms</td>
+          <td class="cell-secondary">-55.6%</td>
+        </tr>
+        <tr>
+          <td class="cell-label">번들 크기</td>
+          <td class="cell-secondary">1.8 MB</td>
+          <td class="cell-label">1.2 MB</td>
+          <td class="cell-secondary">-33.3%</td>
+        </tr>
+        <tr>
+          <td class="cell-label">Lighthouse 점수</td>
+          <td class="cell-secondary">82</td>
+          <td class="cell-label">97</td>
+          <td class="cell-secondary">+18.3%</td>
+        </tr>
+        <tr>
+          <td class="cell-label">API 지연시간 (p95)</td>
+          <td class="cell-secondary">240ms</td>
+          <td class="cell-label">89ms</td>
+          <td class="cell-secondary">-62.9%</td>
+        </tr>
+        <tr>
+          <td class="cell-label">에러율</td>
+          <td class="cell-secondary">0.12%</td>
+          <td class="cell-label">0.03%</td>
+          <td class="cell-secondary">-75.0%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Code Block -->
+  <div class="section">
+    <h2>배포 설정</h2>
+    <div class="code-block">
+      <span class="comment">// vercel.json</span><br>
+      {<br>
+      &nbsp;&nbsp;<span class="string">"framework"</span>: <span class="string">"nextjs"</span>,<br>
+      &nbsp;&nbsp;<span class="string">"regions"</span>: [<span class="string">"icn1"</span>, <span class="string">"nrt1"</span>, <span class="string">"sfo1"</span>, <span class="string">"fra1"</span>],<br>
+      &nbsp;&nbsp;<span class="string">"build"</span>: {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"env"</span>: {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"NEXT_PUBLIC_API_URL"</span>: <span class="string">"https://api.langmaster.app"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"ENABLE_HSK_V2"</span>: <span class="string">"true"</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+      &nbsp;&nbsp;},<br>
+      &nbsp;&nbsp;<span class="string">"crons"</span>: [{<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"path"</span>: <span class="string">"/api/review-scheduler"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"schedule"</span>: <span class="string">"0 */6 * * *"</span><br>
+      &nbsp;&nbsp;}]<br>
+      }
+    </div>
+  </div>
+
+  <!-- Deployment Log -->
+  <div class="log-section">
+    <h2>배포 로그</h2>
+    <div class="log-entry">
+      <span class="log-time">09:41</span>
+      <span class="log-msg"><strong>빌드 시작</strong> &mdash; <strong>main</strong> 브랜치, 커밋 a3f8c2d</span>
+    </div>
+    <div class="log-entry">
+      <span class="log-time">09:42</span>
+      <span class="log-msg">의존성 설치 완료 <span class="cell-dim">&middot; 847개 패키지 &middot; 12.4초</span></span>
+    </div>
+    <div class="log-entry">
+      <span class="log-time">09:43</span>
+      <span class="log-msg">Next.js 빌드 완료 <span class="cell-dim">&middot; 24개 라우트 &middot; 38.1초</span></span>
+    </div>
+    <div class="log-entry">
+      <span class="log-time">09:44</span>
+      <span class="log-msg">Edge 함수 컴파일 완료 <span class="cell-dim">&middot; 6개 함수 &middot; 4.2초</span></span>
+    </div>
+    <div class="log-entry">
+      <span class="log-time">09:44</span>
+      <span class="log-msg"><strong>프리뷰 배포 완료</strong> <span class="cell-dim">&middot; langmaster-a3f8c2d.vercel.app</span></span>
+    </div>
+    <div class="log-entry">
+      <span class="log-time">09:46</span>
+      <span class="log-msg">헬스 체크 통과 <span class="cell-dim">&middot; 5/5 리전 &middot;</span> <span class="status-dot green"></span>전체 정상</span>
+    </div>
+    <div class="log-entry">
+      <span class="log-time">09:47</span>
+      <span class="log-msg"><strong>프로덕션 승격 완료</strong> <span class="cell-dim">&middot; langmaster.app</span></span>
+    </div>
+  </div>
+
+  <!-- Region Status -->
+  <div class="section">
+    <h2>리전 상태</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>리전</th>
+          <th>상태</th>
+          <th>지연시간</th>
+          <th>함수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cell-label">ICN <span class="cell-dim">&middot; 서울</span></td>
+          <td><span class="status-dot green"></span>정상 운영</td>
+          <td class="cell-secondary">12ms</td>
+          <td class="cell-secondary">6 / 6</td>
+        </tr>
+        <tr>
+          <td class="cell-label">NRT <span class="cell-dim">&middot; 도쿄</span></td>
+          <td><span class="status-dot green"></span>정상 운영</td>
+          <td class="cell-secondary">28ms</td>
+          <td class="cell-secondary">6 / 6</td>
+        </tr>
+        <tr>
+          <td class="cell-label">SFO <span class="cell-dim">&middot; 샌프란시스코</span></td>
+          <td><span class="status-dot green"></span>정상 운영</td>
+          <td class="cell-secondary">89ms</td>
+          <td class="cell-secondary">6 / 6</td>
+        </tr>
+        <tr>
+          <td class="cell-label">FRA <span class="cell-dim">&middot; 프랑크푸르트</span></td>
+          <td><span class="status-dot green"></span>정상 운영</td>
+          <td class="cell-secondary">142ms</td>
+          <td class="cell-secondary">6 / 6</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>LangMaster v2.4.0 &middot; 배포일 2026-03-07 09:47 KST &middot; <a href="#">Vercel에서 보기</a></p>
+  </div>
+
+</div>
+
+</body>
+</html>

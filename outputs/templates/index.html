@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKD852 Template Library</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f8f7f4;
+  color: #1a1a1a;
+  min-height: 100vh;
+}
+.page { max-width: 1200px; margin: 0 auto; padding: 48px 24px 80px; }
+
+.hero { margin-bottom: 48px; }
+.hero h1 {
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+}
+.hero .sub {
+  font-size: 16px;
+  color: #666;
+  margin-top: 8px;
+  max-width: 560px;
+}
+.hero .count {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #888;
+  background: #eee;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+.section-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin: 40px 0 16px;
+  padding-left: 4px;
+}
+.section-label:first-of-type { margin-top: 0; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+@media (max-width: 720px) {
+  .grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 28px; }
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  border-color: #ccc;
+}
+
+.card-preview {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+.card-preview iframe {
+  width: 200%;
+  height: 200%;
+  transform: scale(0.5);
+  transform-origin: top left;
+  border: none;
+  pointer-events: none;
+}
+.card-preview .overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  z-index: 1;
+}
+
+.card-body { padding: 20px; }
+.card-body .cb-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.card-body h3 {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+.card-body .cb-number {
+  font-size: 11px;
+  font-weight: 700;
+  color: #aaa;
+  background: #f5f5f5;
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.card-body .cb-style {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 10px;
+}
+.card-body .cb-desc {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: #f0f0f0;
+  color: #666;
+}
+.tag.theme-light { background: #fffde7; color: #f57f17; }
+.tag.theme-dark { background: #263238; color: #b0bec5; }
+.tag.theme-mixed { background: #e8eaf6; color: #3949ab; }
+.tag.lib { background: #e8f5e9; color: #2e7d32; }
+.tag.new { background: #e3f2fd; color: #1565c0; }
+
+.footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #e8e8e8;
+  font-size: 12px;
+  color: #aaa;
+  text-align: center;
+}
+
+.usage-guide {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 32px;
+}
+.usage-guide h2 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.usage-guide code {
+  background: #f5f5f5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.usage-guide .example {
+  background: #1a1a2e;
+  color: #a0ffa0;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 12px;
+  overflow-x: auto;
+}
+.usage-guide .example .dim { color: #666; }
+.usage-guide .example .hi { color: #ffd740; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <h1>Template Library</h1>
+    <div class="sub">주제에 따라 적절한 스타일을 선택하세요. 각 템플릿은 독립적인 HTML 파일로, 콘텐츠만 교체하면 바로 사용 가능합니다.</div>
+    <div class="count">24 templates</div>
+  </div>
+
+  <div class="usage-guide">
+    <h2>사용법</h2>
+    <p style="font-size:13px;color:#555;line-height:1.6">HTML 산출물 생성 시 템플릿을 지정하면 해당 스타일로 생성됩니다. 지정하지 않으면 주제에 맞게 자동 선택합니다.</p>
+    <div class="example">
+      <span class="dim"># 템플릿 지정 예시</span><br>
+      <span class="hi">"시장 분석 보고서를 editorial 템플릿으로 만들어줘"</span><br>
+      <span class="hi">"KPI 대시보드를 dashboard 템플릿으로"</span><br>
+      <span class="hi">"API 문서를 stripe 스타일로 만들어줘"</span><br>
+      <br>
+      <span class="dim"># 자동 선택</span><br>
+      <span class="hi">"이 데이터를 인포그래픽으로 만들어줘"</span> <span class="dim">&rarr; 주제 분석 후 최적 템플릿 선택</span>
+    </div>
+  </div>
+
+  <div class="section-label">Classic &mdash; 8 templates</div>
+
+  <div class="grid">
+
+    <a href="editorial.html" class="card">
+      <div class="card-preview">
+        <iframe src="editorial.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Editorial</h3>
+          <span class="cb-number">01</span>
+        </div>
+        <div class="cb-style">Magazine / Longform</div>
+        <div class="cb-desc">NYT, Bloomberg 매거진풍. 세리프 타이포, 드롭캡, 풀쿼트, 2단 레이아웃. 장문 보고서에 신뢰감을 더해줍니다.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag">시장분석</span>
+          <span class="tag">전략문서</span>
+          <span class="tag">리포트</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="sketch.html" class="card">
+      <div class="card-preview">
+        <iframe src="sketch.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Sketch</h3>
+          <span class="cb-number">02</span>
+        </div>
+        <div class="cb-style">Hand-drawn / Whiteboard</div>
+        <div class="cb-desc">Rough.js로 그린 손그림 차트, 포스트잇, 노트북 마진. 격식을 깨고 아이디어를 자유롭게 펼칠 때.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag lib">Rough.js</span>
+          <span class="tag">브레인스토밍</span>
+          <span class="tag">기획 초안</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="dashboard.html" class="card">
+      <div class="card-preview">
+        <iframe src="dashboard.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Dashboard</h3>
+          <span class="cb-number">03</span>
+        </div>
+        <div class="cb-style">Interactive Charts / KPI</div>
+        <div class="cb-desc">Chart.js 인터랙티브 차트 5종 + KPI 카드. 호버 툴팁, 실시간 데이터 시각화. 숫자가 주인공일 때.</div>
+        <div class="tags">
+          <span class="tag theme-dark">Dark</span>
+          <span class="tag lib">Chart.js</span>
+          <span class="tag">KPI</span>
+          <span class="tag">데이터 분석</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="newspaper.html" class="card">
+      <div class="card-preview">
+        <iframe src="newspaper.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Newspaper</h3>
+          <span class="cb-number">04</span>
+        </div>
+        <div class="cb-style">Broadsheet / FT Style</div>
+        <div class="cb-desc">FT 살몬 핑크 배경, 3단 컬럼, 마스트헤드, 데이트라인. 클래식한 신뢰감. 인쇄해도 멋진 레이아웃.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag">주간 브리핑</span>
+          <span class="tag">산업 분석</span>
+          <span class="tag">뉴스</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="pitch.html" class="card">
+      <div class="card-preview">
+        <iframe src="pitch.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Pitch</h3>
+          <span class="cb-number">05</span>
+        </div>
+        <div class="cb-style">Slides / Bold Statement</div>
+        <div class="cb-desc">풀스크린 슬라이드, 스크롤 스냅, 96px 숫자. 한 화면에 하나의 메시지. 임팩트가 필요할 때.</div>
+        <div class="tags">
+          <span class="tag theme-mixed">Mixed</span>
+          <span class="tag">투자 피칭</span>
+          <span class="tag">제품 발표</span>
+          <span class="tag">요약</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="terminal.html" class="card">
+      <div class="card-preview">
+        <iframe src="terminal.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Terminal</h3>
+          <span class="cb-number">06</span>
+        </div>
+        <div class="cb-style">CRT / Hacker</div>
+        <div class="cb-desc">검은 화면, 녹색 글자, 스캔라인, 타이핑 애니메이션. ASCII 차트와 프로그레스 바. 기술 감성 최고조.</div>
+        <div class="tags">
+          <span class="tag theme-dark">Dark</span>
+          <span class="tag">기술 보고서</span>
+          <span class="tag">보안 감사</span>
+          <span class="tag">시스템 상태</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="minimal.html" class="card">
+      <div class="card-preview">
+        <iframe src="minimal.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Minimal</h3>
+          <span class="cb-number">07</span>
+        </div>
+        <div class="cb-style">Swiss / Typographic</div>
+        <div class="cb-desc">극한의 여백, 120px 섹션 번호, 빨간색 하나만 악센트. 타이포그래피 자체가 디자인. 비워야 채워진다.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag">임원 메모</span>
+          <span class="tag">디자인 제안</span>
+          <span class="tag">인쇄용</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="retro.html" class="card">
+      <div class="card-preview">
+        <iframe src="retro.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Retro</h3>
+          <span class="cb-number">08</span>
+        </div>
+        <div class="cb-style">Win95 / Vaporwave</div>
+        <div class="cb-desc">Windows 95 다이얼로그, 픽셀 폰트, 베벨 보더, 마키 티커, 태스크바. 재미와 밈의 영역.</div>
+        <div class="tags">
+          <span class="tag theme-dark">Dark</span>
+          <span class="tag">크리에이티브</span>
+          <span class="tag">재미</span>
+          <span class="tag">SNS 콘텐츠</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="section-label">Modern &mdash; 8 templates</div>
+
+  <div class="grid">
+
+    <a href="linear.html" class="card">
+      <div class="card-preview">
+        <iframe src="linear.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Linear</h3>
+          <span class="cb-number">09</span>
+        </div>
+        <div class="cb-style">Linear App / Product Changelog</div>
+        <div class="cb-desc">보라색 그라디언트, 타임라인 레이아웃, 코드 블록. 제품 변경로그, 릴리즈 노트에 최적화.</div>
+        <div class="tags">
+          <span class="tag theme-dark">Dark</span>
+          <span class="tag new">New</span>
+          <span class="tag">릴리즈 노트</span>
+          <span class="tag">프로덕트</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="bento.html" class="card">
+      <div class="card-preview">
+        <iframe src="bento.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Bento</h3>
+          <span class="cb-number">10</span>
+        </div>
+        <div class="cb-style">Apple / Bento Grid</div>
+        <div class="cb-desc">다양한 크기의 카드가 격자로 배치. Apple Keynote 스타일. 기능 소개, 포트폴리오에 임팩트.</div>
+        <div class="tags">
+          <span class="tag theme-dark">Dark</span>
+          <span class="tag new">New</span>
+          <span class="tag">기능 소개</span>
+          <span class="tag">포트폴리오</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="stripe.html" class="card">
+      <div class="card-preview">
+        <iframe src="stripe.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Stripe</h3>
+          <span class="cb-number">11</span>
+        </div>
+        <div class="cb-style">Stripe Docs / API Reference</div>
+        <div class="cb-desc">사이드바 TOC, 코드 블록, 콜아웃, 탭 전환. 기술 문서, API 레퍼런스, 개발 가이드에 완벽.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag new">New</span>
+          <span class="tag">기술 문서</span>
+          <span class="tag">API 가이드</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="notion.html" class="card">
+      <div class="card-preview">
+        <iframe src="notion.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Notion</h3>
+          <span class="cb-number">12</span>
+        </div>
+        <div class="cb-style">Notion / Wiki Page</div>
+        <div class="cb-desc">넓은 여백, 토글 블록, 데이터베이스 테이블, 이모지 헤더. 위키, 팀 문서, 내부 가이드.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag new">New</span>
+          <span class="tag">위키</span>
+          <span class="tag">내부 문서</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="glass.html" class="card">
+      <div class="card-preview">
+        <iframe src="glass.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Glass</h3>
+          <span class="cb-number">13</span>
+        </div>
+        <div class="cb-style">Glassmorphism / Mesh Gradient</div>
+        <div class="cb-desc">반투명 카드, 블러 배경, 메시 그라디언트. 미래적이고 세련된 느낌. 앱 랜딩, 제품 소개.</div>
+        <div class="tags">
+          <span class="tag theme-dark">Dark</span>
+          <span class="tag new">New</span>
+          <span class="tag">랜딩 페이지</span>
+          <span class="tag">제품 소개</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="vercel.html" class="card">
+      <div class="card-preview">
+        <iframe src="vercel.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Vercel</h3>
+          <span class="cb-number">14</span>
+        </div>
+        <div class="cb-style">Vercel / Developer Portal</div>
+        <div class="cb-desc">순수 흑백 + 미니멀, 세련된 보더, 모노스페이스 코드. 개발자 친화적 문서, 기술 블로그.</div>
+        <div class="tags">
+          <span class="tag theme-dark">Dark</span>
+          <span class="tag new">New</span>
+          <span class="tag">개발자 문서</span>
+          <span class="tag">기술 블로그</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="wired.html" class="card">
+      <div class="card-preview">
+        <iframe src="wired.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Wired</h3>
+          <span class="cb-number">15</span>
+        </div>
+        <div class="cb-style">Wired / The Verge</div>
+        <div class="cb-desc">비비드 컬러 밴드, 대형 헤드라인, 그리드 피처 카드. 테크 매거진, 트렌드 분석, 산업 리뷰.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag new">New</span>
+          <span class="tag">테크 매거진</span>
+          <span class="tag">트렌드 분석</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="diagram.html" class="card">
+      <div class="card-preview">
+        <iframe src="diagram.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Diagram</h3>
+          <span class="cb-number">16</span>
+        </div>
+        <div class="cb-style">SVG Flowchart / System Map</div>
+        <div class="cb-desc">SVG 플로우차트, 커넥터 라인, 다이아몬드 분기. 시스템 아키텍처, 프로세스 맵, 워크플로우.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag new">New</span>
+          <span class="tag">아키텍처</span>
+          <span class="tag">워크플로우</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="section-label">한글 최적화 &mdash; 8 templates</div>
+
+  <div class="grid">
+
+    <a href="timeline.html" class="card">
+      <div class="card-preview">
+        <iframe src="timeline.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Timeline</h3>
+          <span class="cb-number">17</span>
+        </div>
+        <div class="cb-style">세로 타임라인 / 마일스톤</div>
+        <div class="cb-desc">중앙 타임라인에 좌우 교차 카드. 상태별 색상 코딩(완료/진행중/예정). 로드맵, 프로젝트 히스토리.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag new">한글</span>
+          <span class="tag">로드맵</span>
+          <span class="tag">히스토리</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="scorecard.html" class="card">
+      <div class="card-preview">
+        <iframe src="scorecard.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Scorecard</h3>
+          <span class="cb-number">18</span>
+        </div>
+        <div class="cb-style">게이지 + OKR 대시보드</div>
+        <div class="cb-desc">원형 게이지, 4관점 KPI 그리드, 프로그레스 바, 추세 화살표. 성과 평가, 분기 리뷰.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag new">한글</span>
+          <span class="tag">성과 평가</span>
+          <span class="tag">OKR</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="poster.html" class="card">
+      <div class="card-preview">
+        <iframe src="poster.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Poster</h3>
+          <span class="cb-number">19</span>
+        </div>
+        <div class="cb-style">대형 타이포 포스터</div>
+        <div class="cb-desc">풀스크린 스크롤 스냅, 72px+ 헤드라인, 핵심 숫자 강조. 한 장의 임팩트.</div>
+        <div class="tags">
+          <span class="tag theme-dark">Dark</span>
+          <span class="tag new">한글</span>
+          <span class="tag">핵심 메시지</span>
+          <span class="tag">한 장 요약</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="catalog.html" class="card">
+      <div class="card-preview">
+        <iframe src="catalog.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Catalog</h3>
+          <span class="cb-number">20</span>
+        </div>
+        <div class="cb-style">제품 카탈로그 / 가격표</div>
+        <div class="cb-desc">3단 카드 그리드, 비교 테이블, FAQ 아코디언. 요금제 비교, 기능 목록에 최적.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag new">한글</span>
+          <span class="tag">요금제</span>
+          <span class="tag">기능 비교</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="brief.html" class="card">
+      <div class="card-preview">
+        <iframe src="brief.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Brief</h3>
+          <span class="cb-number">21</span>
+        </div>
+        <div class="cb-style">경영진 브리핑 메모</div>
+        <div class="cb-desc">A4 비율, 핵심 요약 + 옵션 비교 + 권고안. 컨설팅 펌 스타일 의사결정 메모.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag new">한글</span>
+          <span class="tag">의사결정</span>
+          <span class="tag">브리핑</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="kanban.html" class="card">
+      <div class="card-preview">
+        <iframe src="kanban.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Kanban</h3>
+          <span class="cb-number">22</span>
+        </div>
+        <div class="cb-style">칸반 보드 / 상태 개요</div>
+        <div class="cb-desc">4열 칸반 보드, 우선순위 배지, 담당자 아바타, 태그. 프로젝트 현황 한눈에.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag new">한글</span>
+          <span class="tag">프로젝트</span>
+          <span class="tag">태스크 추적</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="magazine.html" class="card">
+      <div class="card-preview">
+        <iframe src="magazine.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Magazine</h3>
+          <span class="cb-number">23</span>
+        </div>
+        <div class="cb-style">포토 매거진 / 룩북</div>
+        <div class="cb-desc">히어로 + 그리드 피처, 드롭캡, 풀쿼트. 포트폴리오, 크리에이티브 리포트.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag new">한글</span>
+          <span class="tag">포트폴리오</span>
+          <span class="tag">크리에이티브</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="status.html" class="card">
+      <div class="card-preview">
+        <iframe src="status.html" loading="lazy"></iframe>
+        <div class="overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="cb-top">
+          <h3>Status</h3>
+          <span class="cb-number">24</span>
+        </div>
+        <div class="cb-style">시스템 상태 / 모니터링</div>
+        <div class="cb-desc">가동 상태 배너, 30일 업타임 바, 장애 타임라인. 서비스 모니터링, 운영 현황.</div>
+        <div class="tags">
+          <span class="tag theme-light">Light</span>
+          <span class="tag new">한글</span>
+          <span class="tag">운영 현황</span>
+          <span class="tag">모니터링</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="footer">
+    HKD852 Template Library v3.0 &mdash; 24 templates<br>
+    outputs/templates/ &mdash; 주제에 맞는 템플릿을 선택하면 AI 정형화를 벗어난 다양한 산출물을 만들 수 있습니다.
+  </div>
+
+</div>
+</body>
+</html>
