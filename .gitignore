@@ -1,3 +1,35 @@
 __pycache__/
 *.pyc
 *.pyo
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+.next/
+.vercel/
+*.tsbuildinfo
+
+# Build artifacts
+dist/
+build/
+
+# Media (too large for git)
+*.mp4
+*.wav
+*.mp3
+
+# Temp
+*.tmp
+.cache/
+pipeline/temp/
+pipeline/rendered/*.mp4
+test-results/
+playwright-report/
