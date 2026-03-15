@@ -1,0 +1,3 @@
+#!/bin/sh
+# Run lint-staged for WanChai staged files
+cd WanChai && npx lint-staged
