@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <!-- Lightning bolt (Ultra) -->
+  <path d="M288 64L176 272h80L208 448l160-240h-96z" fill="#FDE68A" stroke="#F59E0B" stroke-width="8" stroke-linejoin="round"/>
+  <!-- Checkmark accent -->
+  <path d="M128 384l32 32 64-64" fill="none" stroke="white" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+</svg>
