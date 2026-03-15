@@ -1,0 +1,70 @@
+{
+  "_comment": "Channel Profile Template — Copy this file and fill in all fields for a new channel.",
+
+  "id": "CHANNEL_ID",
+  "name": "채널명 (Display Name)",
+  "handle": "@youtube_handle",
+  "language": "ko | en | ja",
+  "niche": "primary-category/sub-category",
+  "niche_description": "One-line description of the channel's content focus and target audience.",
+  "status": "active | planned | paused",
+
+  "content": {
+    "tone": "Describe the speaking tone: e.g. '20대 여성, 카페에서 친구에게 수다 떠는 톤'",
+    "script_framework": "SUCCESS + Story | Lisa Cron + SUCCESS | Hero's Journey | etc",
+    "script_structure": ["Hook", "Context", "Finding", "Impact", "Closer"],
+    "hook_style": "Describe how hooks are constructed: e.g. 'Provocative what-if question targeting curiosity gap'",
+    "forbidden": [
+      "academic jargon without plain-language rewrite",
+      "numbers as digits in TTS text (spell out or use Korean reading)",
+      "minus/plus symbols in TTS text (use 마이너스/플러스)",
+      "Add channel-specific forbidden patterns here"
+    ]
+  },
+
+  "visual": {
+    "style": "Style name: e.g. '1980s manga', 'scientific infographic', 'watercolor illustration'",
+    "engine": "local_sd | flux_api | kling_video",
+    "prompt_suffix": "Style suffix appended to ALL image prompts for this channel. Define colors, shading, lighting, texture.",
+    "palette": ["#primary", "#secondary", "#accent1", "#accent2"],
+    "aspect_ratio": "9:16"
+  },
+
+  "audio": {
+    "tts_engine": "qwen3 | elevenlabs | edge",
+    "tts_preset": "preset-name (references voice config in tts engine)",
+    "sampling": {
+      "temperature": 0.75,
+      "top_p": 0.85,
+      "repetition_penalty": 1.2
+    },
+    "audio_mastering": "highpass 80Hz, EQ presence boost 2-4kHz, compressor ratio 3:1, plate reverb 0.8s, loudness -16 LUFS"
+  },
+
+  "subtitle": {
+    "max_chars_ko": 16,
+    "max_chars_en": 25,
+    "max_chars_ja": 14,
+    "font_size_ko": 52,
+    "font_size_en": 56,
+    "font_size_ja": 56
+  },
+
+  "upload": {
+    "channel_key": "key referencing channels.json registry",
+    "schedule": "daily HH:MM KST | weekly DAY HH:MM KST",
+    "default_privacy": "private | unlisted | public",
+    "auto_approve_after_hours": 24
+  },
+
+  "monetization": {
+    "rpm_range": [0, 0],
+    "target_niche_rpm": "$X-$Y/1K views (expected RPM for this niche)"
+  },
+
+  "translation": {
+    "enabled": false,
+    "target_languages": [],
+    "source_channel": null
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "id": "paperman",
+  "name": "논문맨",
+  "handle": "@paper-man-xyz",
+  "language": "ko",
+  "niche": "investment-psychology/behavioral-finance",
+  "niche_description": "투자 심리학/행동재무학 논문을 MZ세대 눈높이로 풀어주는 쇼츠 채널. 논문의 발견을 전달하되 논문의 언어를 사용하지 않는다.",
+  "status": "active",
+
+  "content": {
+    "tone": "20대 후반 남성, 친한 형이 맥주 마시면서 알려주는 톤. 쉽고 직관적이지만 근거는 확실하게.",
+    "script_framework": "SUCCESS + Story",
+    "script_structure": ["Hook", "Context", "Finding", "Impact", "Closer"],
+    "hook_style": "일상 투자 실수를 콕 집어 공감 유발. '너 이거 하고 있으면 돈 잃는 거야' 스타일.",
+    "forbidden": [
+      "학술 용어 그대로 사용 (처분 효과 → 오른 건 팔고 빠진 건 못 파는 습관)",
+      "TTS 텍스트에 -/+ 기호 (마이너스/플러스로 풀어쓰기)",
+      "1주일 (일주일로 표기)",
+      "설명체 (~입니다, ~됩니다) — 구어체 유지",
+      "논문 제목/저자명 원문 그대로 읽기 (한글 의역)"
+    ]
+  },
+
+  "visual": {
+    "style": "Nano Banana Pro infographic",
+    "engine": "local_sd",
+    "prompt_suffix": "clean scientific infographic style, deep blue and white and accent colors, Nature journal data visualization aesthetic, minimal and elegant",
+    "palette": ["#1B2A4A", "#FFFFFF", "#4ECDC4", "#FF6B6B"],
+    "aspect_ratio": "9:16"
+  },
+
+  "audio": {
+    "tts_engine": "qwen3",
+    "tts_preset": "hangout-male",
+    "sampling": {
+      "temperature": 0.75,
+      "top_p": 0.85,
+      "repetition_penalty": 1.2
+    },
+    "audio_mastering": "highpass 80Hz, EQ presence boost 2-4kHz, compressor ratio 3:1, plate reverb 0.8s, loudness -16 LUFS"
+  },
+
+  "subtitle": {
+    "max_chars_ko": 16,
+    "max_chars_en": 25,
+    "max_chars_ja": 14,
+    "font_size_ko": 52,
+    "font_size_en": 56,
+    "font_size_ja": 56
+  },
+
+  "target_duration_sec": 65,
+
+  "domain_expertise": {
+    "fields": ["behavioral-finance", "investment-psychology", "cognitive-bias", "decision-science"],
+    "validation_rule": "논문 출처(저자, 저널, 연도) 최소 1개 명시. 주장에 대한 실증 데이터 포함."
+  },
+
+  "visual_variation": {
+    "cycle_every_n_episodes": 10,
+    "variation_pool": ["dark mode infographic", "hand-drawn whiteboard", "vintage data viz", "gradient mesh abstract"],
+    "note": "기본 Nano Banana 유지하되, cycle마다 variation_pool에서 1개 믹스"
+  },
+
+  "upload": {
+    "channel_key": "paperman",
+    "schedule": "daily 18:00 KST",
+    "default_privacy": "private",
+    "auto_approve_after_hours": 24
+  },
+
+  "monetization": {
+    "rpm_range": [12, 25],
+    "target_niche_rpm": "$12-$25/1K views"
+  },
+
+  "translation": {
+    "enabled": true,
+    "target_languages": ["en", "ja"],
+    "source_channel": null
+  }
+}

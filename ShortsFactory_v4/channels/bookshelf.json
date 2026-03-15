@@ -1,0 +1,83 @@
+{
+  "id": "bookshelf",
+  "name": "책봐서 뭐하니?",
+  "handle": "@Hangoutwith_Books",
+  "language": "ko",
+  "niche": "book-curation/overseas-books",
+  "niche_description": "미국 베스트셀러 중 한국 미번역 도서를 큐레이션. 핵심 인사이트를 스토리텔링으로 풀어주고 번역 기대감을 자극하는 쇼츠 채널.",
+  "status": "active",
+
+  "content": {
+    "tone": "책 많이 읽는 친구가 카페에서 '야 이 책 진짜 대박인데' 하고 추천하는 톤. 따뜻하고 설렘 가득.",
+    "script_framework": "Lisa Cron + SUCCESS",
+    "script_structure": ["Hook", "Buzz", "Core Story", "Korean Lens", "Wish"],
+    "hook_style": "미국에서 난리 난 책인데 한국에 안 들어온 이유를 궁금하게 만드는 오프닝. 번역 기대감 + FOMO 유발.",
+    "forbidden": [
+      "학술 용어 (평이한 표현으로 대체)",
+      "TTS 텍스트에 -/+ 기호 (마이너스/플러스로 풀어쓰기)",
+      "1주일 (일주일로 표기)",
+      "설명체 (~입니다, ~됩니다) — 구어체 유지",
+      "원서 제목만 읽기 (한글 의역 병행)",
+      "스포일러 (핵심 반전 보호)"
+    ]
+  },
+
+  "visual": {
+    "style": "Warm Bibliotheca watercolor",
+    "engine": "flux_api",
+    "prompt_suffix": "warm watercolor book illustration style, soft ink linework, Korean literary cover art aesthetic, amber and burgundy and cream and forest green palette, warm golden hour lighting, cozy reading atmosphere, soft texture paper grain",
+    "palette": ["#D4A574", "#8B2252", "#FFFDD0", "#2E8B57"],
+    "aspect_ratio": "9:16"
+  },
+
+  "audio": {
+    "tts_engine": "qwen3",
+    "tts_preset": "hangout-male",
+    "sampling": {
+      "temperature": 0.75,
+      "top_p": 0.85,
+      "repetition_penalty": 1.2
+    },
+    "audio_mastering": "highpass 80Hz, EQ presence boost 2-4kHz, compressor ratio 3:1, plate reverb 0.8s, loudness -16 LUFS"
+  },
+
+  "subtitle": {
+    "max_chars_ko": 16,
+    "max_chars_en": 25,
+    "max_chars_ja": 14,
+    "font_size_ko": 52,
+    "font_size_en": 56,
+    "font_size_ja": 56
+  },
+
+  "target_duration_sec": 70,
+
+  "domain_expertise": {
+    "fields": ["book-curation", "literary-criticism", "publishing-trends", "translation-market"],
+    "validation_rule": "Goodreads 평점/리뷰 수 기반 근거. 한국 번역 여부 확인 필수."
+  },
+
+  "visual_variation": {
+    "cycle_every_n_episodes": 10,
+    "variation_pool": ["dark academia watercolor", "bright pop illustration", "vintage bookplate", "ink wash sumi-e"],
+    "note": "기본 Warm Bibliotheca 유지하되, cycle마다 variation_pool에서 1개 믹스"
+  },
+
+  "upload": {
+    "channel_key": "bookshelf",
+    "schedule": "daily 18:00 KST",
+    "default_privacy": "private",
+    "auto_approve_after_hours": 24
+  },
+
+  "monetization": {
+    "rpm_range": [0.05, 0.15],
+    "target_niche_rpm": "$0.05-$0.15/1K views (Shorts), long-form target $3-$8/1K views"
+  },
+
+  "translation": {
+    "enabled": false,
+    "target_languages": [],
+    "source_channel": null
+  }
+}

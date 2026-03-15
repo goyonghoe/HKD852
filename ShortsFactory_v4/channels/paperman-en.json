@@ -1,0 +1,81 @@
+{
+  "id": "paperman-en",
+  "name": "Today's Paper",
+  "handle": "@todays-paper-en",
+  "language": "en",
+  "niche": "investment-psychology/behavioral-finance",
+  "niche_description": "English translation of 논문맨 (paperman). Investment psychology and behavioral finance research distilled into 60-second Shorts.",
+  "status": "planned",
+
+  "content": {
+    "tone": "Late-20s guy explaining research findings to a friend over coffee. Casual but evidence-backed.",
+    "script_framework": "SUCCESS + Story",
+    "script_structure": ["Hook", "Context", "Finding", "Impact", "Closer"],
+    "hook_style": "Call out a common investing mistake that hits close to home. 'If you do this, you're losing money' energy.",
+    "forbidden": [
+      "academic jargon without plain-language rewrite (disposition effect -> selling winners too early and holding losers too long)",
+      "reading raw paper titles or author names without context",
+      "passive voice overuse",
+      "filler phrases (actually, basically, literally)"
+    ]
+  },
+
+  "visual": {
+    "style": "Nano Banana Pro infographic",
+    "engine": "local_sd",
+    "prompt_suffix": "clean scientific infographic style, deep blue and white and accent colors, Nature journal data visualization aesthetic, minimal and elegant",
+    "palette": ["#1B2A4A", "#FFFFFF", "#4ECDC4", "#FF6B6B"],
+    "aspect_ratio": "9:16"
+  },
+
+  "audio": {
+    "tts_engine": "elevenlabs",
+    "tts_preset": "default-en-male",
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.85,
+      "repetition_penalty": 1.1
+    },
+    "audio_mastering": "highpass 80Hz, EQ presence boost 2-4kHz, compressor ratio 3:1, plate reverb 0.8s, loudness -16 LUFS"
+  },
+
+  "subtitle": {
+    "max_chars_ko": 16,
+    "max_chars_en": 25,
+    "max_chars_ja": 14,
+    "font_size_ko": 52,
+    "font_size_en": 56,
+    "font_size_ja": 56
+  },
+
+  "target_duration_sec": 65,
+
+  "domain_expertise": {
+    "fields": ["behavioral-finance", "investment-psychology", "cognitive-bias"],
+    "validation_rule": "Must cite at least 1 paper source (author, journal, year). Claims need empirical backing."
+  },
+
+  "visual_variation": {
+    "cycle_every_n_episodes": 10,
+    "variation_pool": ["dark mode infographic", "hand-drawn whiteboard", "vintage data viz", "gradient mesh abstract"],
+    "note": "Inherits from paperman. Mix 1 variation per cycle."
+  },
+
+  "upload": {
+    "channel_key": "paperman-en",
+    "schedule": "daily 19:00 KST",
+    "default_privacy": "private",
+    "auto_approve_after_hours": 24
+  },
+
+  "monetization": {
+    "rpm_range": [12, 25],
+    "target_niche_rpm": "$12-$25/1K views"
+  },
+
+  "translation": {
+    "enabled": true,
+    "target_languages": ["en"],
+    "source_channel": "paperman"
+  }
+}

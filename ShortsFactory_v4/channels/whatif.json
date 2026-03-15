@@ -1,0 +1,82 @@
+{
+  "id": "whatif",
+  "name": "만약에~",
+  "handle": "@whatif-channel",
+  "language": "ko",
+  "niche": "what-if/trending",
+  "niche_description": "트렌딩 이슈를 '만약에~' 가정으로 풀어내는 호기심 자극 쇼츠 채널",
+  "status": "active",
+
+  "content": {
+    "tone": "20대 여성, 카페에서 친구에게 수다 떠는 톤. 가볍고 재미있지만 핵심은 정확하게.",
+    "script_framework": "SUCCESS + Story",
+    "script_structure": ["Hook", "Context", "Finding", "Impact", "Closer"],
+    "hook_style": "도발적인 '만약에~' 질문으로 호기심 갭 유발. 일상에서 한번쯤 궁금했던 가정을 던진다.",
+    "forbidden": [
+      "학술 용어 (평이한 표현으로 대체)",
+      "TTS 텍스트에 숫자 기호 직접 사용 (마이너스/플러스로 풀어쓰기)",
+      "1주일 (일주일로 표기)",
+      "한주일 (일주일로 표기)",
+      "설명체 (~입니다, ~됩니다) — 구어체 유지"
+    ]
+  },
+
+  "visual": {
+    "style": "1980s manga",
+    "engine": "local_sd",
+    "prompt_suffix": "1980s-90s Japanese bubble era manga style, bold ink outlines, screentone shading, retro neon color palette with hot pink cyan and sunset orange, dramatic cinematic lighting, vintage anime cel shading",
+    "palette": ["#FF69B4", "#00CED1", "#FF6347", "#1A1A2E"],
+    "aspect_ratio": "9:16"
+  },
+
+  "audio": {
+    "tts_engine": "qwen3",
+    "tts_preset": "whatif-female",
+    "sampling": {
+      "temperature": 0.75,
+      "top_p": 0.85,
+      "repetition_penalty": 1.2
+    },
+    "audio_mastering": "highpass 80Hz, EQ presence boost 2-4kHz, compressor ratio 3:1, plate reverb 0.8s, loudness -16 LUFS"
+  },
+
+  "subtitle": {
+    "max_chars_ko": 16,
+    "max_chars_en": 25,
+    "max_chars_ja": 14,
+    "font_size_ko": 52,
+    "font_size_en": 56,
+    "font_size_ja": 56
+  },
+
+  "target_duration_sec": 65,
+
+  "domain_expertise": {
+    "fields": ["trending-topics", "thought-experiments", "cultural-trends"],
+    "validation_rule": "가정 시나리오의 과학적/논리적 근거 최소 1개 이상 포함"
+  },
+
+  "visual_variation": {
+    "cycle_every_n_episodes": 10,
+    "variation_pool": ["neon-heavy retro", "muted pastel manga", "dark noir manga", "pop art manga"],
+    "note": "기본 1980s manga 유지하되, cycle마다 variation_pool에서 1개 믹스"
+  },
+
+  "upload": {
+    "channel_key": "whatif",
+    "schedule": "daily 18:00 KST",
+    "default_privacy": "private",
+    "auto_approve_after_hours": 24
+  },
+
+  "monetization": {
+    "rpm_range": [2, 15],
+    "target_niche_rpm": "$2-$15/1K views"
+  },
+
+  "translation": {
+    "enabled": false,
+    "target_languages": [],
+    "source_channel": null
+  }
+}
