@@ -1,0 +1,1427 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kowloon × Claude Code — 사용 패턴 종합 분석</title>
+    <meta
+      name="description"
+      content="Kowloon의 AI 협업 스타일 분석 — 21 에이전트 · 106 스킬 운영자의 사용 행태 평가 8.2/10"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          "Pretendard",
+          "Noto Sans KR",
+          -apple-system,
+          sans-serif;
+        font-size: 15px;
+        line-height: 1.8;
+        word-break: keep-all;
+        background: #ffffff;
+        color: #1f2937;
+        padding: 40px 20px;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+      .header .label {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #6366f1;
+        margin-bottom: 12px;
+      }
+      .header h1 {
+        font-size: 32px;
+        font-weight: 800;
+        color: #111827;
+        margin-bottom: 8px;
+      }
+      .header .subtitle {
+        font-size: 15px;
+        color: #6b7280;
+      }
+      .header .meta {
+        font-size: 13px;
+        color: #9ca3af;
+        margin-top: 8px;
+      }
+
+      /* Overall Score */
+      .overall {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 48px;
+        margin-bottom: 48px;
+        padding: 36px 24px;
+        background: #f9fafb;
+        border-radius: 16px;
+        flex-wrap: wrap;
+      }
+      .gauge-wrap {
+        position: relative;
+        width: 160px;
+        height: 160px;
+      }
+      .gauge-ring {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: conic-gradient(#6366f1 0% 82%, #e5e7eb 82% 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .gauge-inner {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #f9fafb;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .gauge-value {
+        font-size: 36px;
+        font-weight: 800;
+        color: #111827;
+        line-height: 1.2;
+      }
+      .gauge-label {
+        font-size: 13px;
+        color: #6b7280;
+        margin-top: 2px;
+      }
+      .overall-meta {
+        text-align: left;
+      }
+      .grade-badge {
+        display: inline-block;
+        font-size: 32px;
+        font-weight: 800;
+        color: #6366f1;
+        background: #e0e7ff;
+        width: 56px;
+        height: 56px;
+        line-height: 56px;
+        text-align: center;
+        border-radius: 14px;
+        margin-bottom: 12px;
+      }
+      .overall-meta .meta-row {
+        font-size: 15px;
+        color: #374151;
+        margin-bottom: 4px;
+      }
+      .overall-meta .meta-row span {
+        color: #6b7280;
+        margin-right: 8px;
+      }
+
+      /* Grid */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+      @media (max-width: 720px) {
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .overall {
+          flex-direction: column;
+          gap: 24px;
+        }
+        .overall-meta {
+          text-align: center;
+        }
+      }
+
+      /* Card */
+      .card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 24px;
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .card-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .card-icon.tools {
+        background: #dbeafe;
+      }
+      .card-icon.delegate {
+        background: #fce7f3;
+      }
+      .card-icon.system {
+        background: #d1fae5;
+      }
+      .card-icon.learn {
+        background: #fef3c7;
+      }
+      .card-icon.energy {
+        background: #fee2e2;
+      }
+      .card-icon.strategy {
+        background: #e0e7ff;
+      }
+      .card-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #111827;
+      }
+      .card-title small {
+        font-size: 13px;
+        font-weight: 400;
+        color: #9ca3af;
+        margin-left: 6px;
+      }
+
+      /* KPI Table */
+      .kpi-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .kpi-table th {
+        font-size: 12px;
+        font-weight: 600;
+        color: #9ca3af;
+        text-align: left;
+        padding: 0 0 8px 0;
+        border-bottom: 1px solid #f3f4f6;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+      .kpi-table th:nth-child(2) {
+        text-align: right;
+      }
+      .kpi-table td {
+        padding: 12px 0;
+        font-size: 14px;
+        border-bottom: 1px solid #f9fafb;
+        vertical-align: middle;
+      }
+      .kpi-table tr:last-child td {
+        border-bottom: none;
+      }
+      .kpi-name {
+        font-weight: 500;
+        color: #374151;
+      }
+      .kpi-val {
+        text-align: right;
+        font-weight: 700;
+        color: #111827;
+        font-variant-numeric: tabular-nums;
+      }
+      .bar-cell {
+        width: 100px;
+        padding-left: 12px !important;
+      }
+      .progress-wrap {
+        width: 100%;
+        height: 8px;
+        background: #f3f4f6;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        border-radius: 4px;
+      }
+      .fill-green {
+        background: linear-gradient(90deg, #34d399, #10b981);
+      }
+      .fill-yellow {
+        background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      }
+      .fill-red {
+        background: linear-gradient(90deg, #f87171, #ef4444);
+      }
+      .fill-indigo {
+        background: linear-gradient(90deg, #818cf8, #6366f1);
+      }
+
+      /* Section */
+      .section {
+        margin-bottom: 48px;
+      }
+      .section-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .section-title .num {
+        width: 32px;
+        height: 32px;
+        background: #6366f1;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .section-desc {
+        font-size: 14px;
+        color: #6b7280;
+        margin-bottom: 20px;
+      }
+
+      /* Stat row */
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+      @media (max-width: 720px) {
+        .stat-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .stat-box {
+        background: #f9fafb;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+      }
+      .stat-box .value {
+        font-size: 28px;
+        font-weight: 800;
+        color: #111827;
+      }
+      .stat-box .label {
+        font-size: 13px;
+        color: #6b7280;
+        margin-top: 4px;
+      }
+
+      /* Domain table */
+      .domain-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 24px;
+      }
+      .domain-table th {
+        font-size: 12px;
+        font-weight: 600;
+        color: #9ca3af;
+        text-align: left;
+        padding: 8px 12px;
+        border-bottom: 2px solid #e5e7eb;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+      .domain-table td {
+        padding: 14px 12px;
+        font-size: 14px;
+        border-bottom: 1px solid #f3f4f6;
+        vertical-align: middle;
+      }
+      .domain-table tr:last-child td {
+        border-bottom: none;
+      }
+      .domain-table tr:hover {
+        background: #f9fafb;
+      }
+      .depth-tag {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+      .depth-deep {
+        background: #e0e7ff;
+        color: #4338ca;
+      }
+      .depth-mid {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .depth-auto {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .depth-light {
+        background: #f3f4f6;
+        color: #6b7280;
+      }
+
+      /* Insights */
+      .insights {
+        background: #f9fafb;
+        border-radius: 16px;
+        padding: 28px 32px;
+        margin-bottom: 32px;
+      }
+      .insights ul {
+        list-style: none;
+        padding: 0;
+      }
+      .insights li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 10px;
+        font-size: 15px;
+        color: #374151;
+      }
+      .insights li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 11px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #6366f1;
+      }
+
+      /* Mistake pattern */
+      .mistake-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 24px;
+      }
+      .mistake-table th {
+        font-size: 12px;
+        font-weight: 600;
+        color: #9ca3af;
+        text-align: left;
+        padding: 8px 12px;
+        border-bottom: 2px solid #e5e7eb;
+        text-transform: uppercase;
+      }
+      .mistake-table td {
+        padding: 12px;
+        font-size: 14px;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .mistake-table tr:hover {
+        background: #fef2f2;
+      }
+      .mistake-id {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 700;
+        color: #ef4444;
+        background: #fee2e2;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* Phase cards */
+      .phase-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      .phase-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+      }
+      .phase-card.p1::before {
+        background: #6366f1;
+      }
+      .phase-card.p2::before {
+        background: #10b981;
+      }
+      .phase-card.p3::before {
+        background: #f59e0b;
+      }
+      .phase-label {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .phase-card.p1 .phase-label {
+        color: #6366f1;
+      }
+      .phase-card.p2 .phase-label {
+        color: #10b981;
+      }
+      .phase-card.p3 .phase-label {
+        color: #f59e0b;
+      }
+      .phase-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 4px;
+      }
+      .phase-period {
+        font-size: 13px;
+        color: #9ca3af;
+        margin-bottom: 16px;
+      }
+      .phase-list {
+        list-style: none;
+        padding: 0;
+      }
+      .phase-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #f3f4f6;
+        font-size: 14px;
+        color: #374151;
+      }
+      .phase-list li:last-child {
+        border-bottom: none;
+      }
+      .phase-num {
+        flex-shrink: 0;
+        width: 22px;
+        height: 22px;
+        font-size: 11px;
+        font-weight: 700;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+      }
+      .phase-card.p1 .phase-num {
+        background: #6366f1;
+      }
+      .phase-card.p2 .phase-num {
+        background: #10b981;
+      }
+      .phase-card.p3 .phase-num {
+        background: #f59e0b;
+      }
+
+      /* Prediction */
+      .pred-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .pred-table th {
+        font-size: 12px;
+        font-weight: 600;
+        color: #9ca3af;
+        text-align: left;
+        padding: 8px 12px;
+        border-bottom: 2px solid #e5e7eb;
+      }
+      .pred-table td {
+        padding: 12px;
+        font-size: 14px;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .pred-table tr:hover {
+        background: #f9fafb;
+      }
+      .prob-bar {
+        display: inline-block;
+        height: 6px;
+        border-radius: 3px;
+        background: #6366f1;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+      .time-badge {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+      .time-short {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .time-mid {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .time-long {
+        background: #fce7f3;
+        color: #9d174d;
+      }
+
+      /* Quote */
+      .quote-box {
+        background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+        border-left: 4px solid #6366f1;
+        border-radius: 0 16px 16px 0;
+        padding: 28px 32px;
+        margin: 32px 0;
+        font-size: 17px;
+        font-weight: 500;
+        color: #312e81;
+        line-height: 1.7;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        font-size: 13px;
+        color: #9ca3af;
+        padding-top: 24px;
+        border-top: 1px solid #f3f4f6;
+        margin-top: 48px;
+      }
+      .footer a {
+        color: #6366f1;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="label">HKD852 Studio — CEO Usage Intelligence Report</div>
+        <h1>Kowloon의 Claude Code 활용 패턴 분석</h1>
+        <div class="subtitle">
+          1인 CEO가 21개 AI 에이전트 · 106개 스킬을 운영하며 만든 협업 패턴의
+          기록
+        </div>
+        <div class="meta">
+          분석 기간: 2026.02 ~ 2026.03.12 | Opus 4.6 분석 | Kowloon의 메모리 7종
+          · 세션 7개 도메인 관찰 기반
+        </div>
+      </div>
+
+      <!-- Overall Score -->
+      <div class="overall">
+        <div class="gauge-wrap">
+          <div class="gauge-ring">
+            <div class="gauge-inner">
+              <div class="gauge-value">8.2</div>
+              <div class="gauge-label">/ 10</div>
+            </div>
+          </div>
+        </div>
+        <div class="overall-meta">
+          <div class="grade-badge">A</div>
+          <div class="meta-row">
+            <span>등급 기준</span>S: 9.0+ / A: 8.0+ / B: 7.0+ / C: 6.0+
+          </div>
+          <div class="meta-row"><span>최고 항목</span>체계화 수준 10/10</div>
+          <div class="meta-row"><span>개선 필요</span>에너지 관리 6/10</div>
+          <div class="meta-row"><span>평가 항목</span>6개 영역 종합</div>
+        </div>
+      </div>
+
+      <!-- Score Cards -->
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon tools">🔧</div>
+            <div class="card-title">Kowloon의 도구 활용<small>9/10</small></div>
+          </div>
+          <table class="kpi-table">
+            <tbody>
+              <tr>
+                <td class="kpi-name">메모리 시스템</td>
+                <td class="kpi-val">7종</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-green"
+                      style="width: 95%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">스킬 활용</td>
+                <td class="kpi-val">106개</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-green"
+                      style="width: 90%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">에이전트 조직</td>
+                <td class="kpi-val">21명</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-green"
+                      style="width: 92%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon delegate">🤝</div>
+            <div class="card-title">
+              Kowloon의 위임 스타일<small>8/10</small>
+            </div>
+          </div>
+          <table class="kpi-table">
+            <tbody>
+              <tr>
+                <td class="kpi-name">AI 에이전트 위임</td>
+                <td class="kpi-val">탁월</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-green"
+                      style="width: 95%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">오케스트레이터</td>
+                <td class="kpi-val">활용중</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-green"
+                      style="width: 85%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">자기 위임</td>
+                <td class="kpi-val">보완 필요</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-yellow"
+                      style="width: 60%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon system">⚙️</div>
+            <div class="card-title">
+              Kowloon의 체계화 수준<small>10/10</small>
+            </div>
+          </div>
+          <table class="kpi-table">
+            <tbody>
+              <tr>
+                <td class="kpi-name">실수 레지스트리</td>
+                <td class="kpi-val">20건</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-indigo"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">HTML 템플릿</td>
+                <td class="kpi-val">24종</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-indigo"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">품질 파이프라인</td>
+                <td class="kpi-val">3단계</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-indigo"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon learn">📚</div>
+            <div class="card-title">Kowloon의 학습 속도<small>9/10</small></div>
+          </div>
+          <table class="kpi-table">
+            <tbody>
+              <tr>
+                <td class="kpi-name">실수 재발 빈도</td>
+                <td class="kpi-val">~0건</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-green"
+                      style="width: 98%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">근본 원인 추적</td>
+                <td class="kpi-val">5 Why</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-green"
+                      style="width: 95%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">시스템 전환 속도</td>
+                <td class="kpi-val">즉시</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-green"
+                      style="width: 92%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon energy">⚡</div>
+            <div class="card-title">
+              Kowloon의 에너지 관리<small>6/10</small>
+            </div>
+          </div>
+          <table class="kpi-table">
+            <tbody>
+              <tr>
+                <td class="kpi-name">세션당 도메인</td>
+                <td class="kpi-val">7개</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-red"
+                      style="width: 45%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">위임 가능 작업</td>
+                <td class="kpi-val">직접 수행</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-yellow"
+                      style="width: 55%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">지속가능성</td>
+                <td class="kpi-val">우려</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-red"
+                      style="width: 50%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon strategy">🎯</div>
+            <div class="card-title">
+              Kowloon의 전략적 활용<small>7/10</small>
+            </div>
+          </div>
+          <table class="kpi-table">
+            <tbody>
+              <tr>
+                <td class="kpi-name">실행 도구</td>
+                <td class="kpi-val">만점</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-green"
+                      style="width: 95%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">사고 파트너</td>
+                <td class="kpi-val">성장 여지</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-yellow"
+                      style="width: 60%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="kpi-name">리서치 기반 제안</td>
+                <td class="kpi-val">개선중</td>
+                <td class="bar-cell">
+                  <div class="progress-wrap">
+                    <div
+                      class="progress-fill fill-yellow"
+                      style="width: 65%"
+                    ></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Org Snapshot -->
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="value">21</div>
+          <div class="label">에이전트</div>
+        </div>
+        <div class="stat-box">
+          <div class="value">106</div>
+          <div class="label">스킬</div>
+        </div>
+        <div class="stat-box">
+          <div class="value">20</div>
+          <div class="label">실수 레지스트리</div>
+        </div>
+        <div class="stat-box">
+          <div class="value">24</div>
+          <div class="label">HTML 템플릿</div>
+        </div>
+        <div class="stat-box">
+          <div class="value">7</div>
+          <div class="label">칸반 스킬</div>
+        </div>
+      </div>
+
+      <!-- Section 1: Domain Pattern -->
+      <div class="section">
+        <div class="section-title">
+          <div class="num">1</div>
+          도메인 전환 패턴
+        </div>
+        <div class="section-desc">
+          Kowloon은 단일 세션에서 7개 도메인을 자유롭게 전환하며, 깊이가 필요한
+          곳과 빠른 답변이 필요한 곳을 직관적으로 구분한다.
+        </div>
+        <table class="domain-table">
+          <thead>
+            <tr>
+              <th>도메인</th>
+              <th>깊이</th>
+              <th>소요 비율</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>인프라 디버깅 (ClaudeUsageMonitor)</td>
+              <td><span class="depth-tag depth-deep">깊음</span></td>
+              <td>35%</td>
+              <td>Watchdog 근본 원인까지 추적</td>
+            </tr>
+            <tr>
+              <td>게임 기획 (Score Formula HTML)</td>
+              <td><span class="depth-tag depth-mid">중간</span></td>
+              <td>20%</td>
+              <td>인터랙티브 계산기 포함 변환</td>
+            </tr>
+            <tr>
+              <td>뉴스 수집 (/ai-news-daily)</td>
+              <td><span class="depth-tag depth-auto">자동화</span></td>
+              <td>15%</td>
+              <td>스킬 호출로 완전 위임</td>
+            </tr>
+            <tr>
+              <td>자기 분석 (이 보고서)</td>
+              <td><span class="depth-tag depth-deep">깊음</span></td>
+              <td>15%</td>
+              <td>종합 보고서 요청</td>
+            </tr>
+            <tr>
+              <td>앱스토어 전략 (iOS 사전등록)</td>
+              <td><span class="depth-tag depth-light">얕음</span></td>
+              <td>10%</td>
+              <td>질문-답변 형식</td>
+            </tr>
+            <tr>
+              <td>플랫폼 심사 (Meta 시뮬레이터)</td>
+              <td><span class="depth-tag depth-light">얕음</span></td>
+              <td>3%</td>
+              <td>즉시 답변</td>
+            </tr>
+            <tr>
+              <td>도구 공유 (Statusline)</td>
+              <td><span class="depth-tag depth-light">얕음</span></td>
+              <td>2%</td>
+              <td>파일 경로 안내</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 2: Strengths -->
+      <div class="section">
+        <div class="section-title">
+          <div class="num">2</div>
+          강점 — 극대화할 것
+        </div>
+        <div class="insights">
+          <ul>
+            <li>
+              <strong>체계화 본능 ★★★★★</strong> — 경험을 시스템으로 변환하는
+              능력. 실수 레지스트리 20건, 메모리 7종, 템플릿 24종, 품질
+              파이프라인 3단계. Claude Code 사용자 상위 1% 수준.
+            </li>
+            <li>
+              <strong>위임 설계 ★★★★☆</strong> — 오케스트레이터 자동 라우팅,
+              Quality Gate → Shield → RedTeam 3단계 검증, 배치 최적화, E2E 스킬
+              파이프라인 구축.
+            </li>
+            <li>
+              <strong>실패 학습 ★★★★★</strong> — 동일 실수 재발 빈도 거의 0. 한
+              번 실수하면 "5 Why"로 근본 원인 추적 후 구조적 방지 시스템 구축.
+              시니어 엔지니어의 포스트모텀 문화와 동일.
+            </li>
+            <li>
+              <strong>UX 감각 ★★★★☆</strong> — "다들 어려워해요, 쉽게
+              만들어주세요" (팀원 관점 사고). JA 음성 4라운드 20+ 샘플 청취 후
+              선택 (품질 타협 없음).
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Section 3: Improvement -->
+      <div class="section">
+        <div class="section-title">
+          <div class="num">3</div>
+          개선 영역 — 배포-검증 갭 분석
+        </div>
+        <div class="section-desc">
+          실수 레지스트리에서 가장 빈번한 카테고리. 5건 중 4건이 "코드를 고치는
+          것"과 "사용자에게 도달하는 것" 사이의 갭에서 발생.
+        </div>
+        <table class="mistake-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>요약</th>
+              <th>공통 원인</th>
+              <th>해결 상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="mistake-id">#10</span></td>
+              <td>배포 안 하고 보고</td>
+              <td>"완료 = 코드 수정"이라는 인식</td>
+              <td>원커맨드 체인으로 해결</td>
+            </tr>
+            <tr>
+              <td><span class="mistake-id">#13</span></td>
+              <td>칸반 미반영</td>
+              <td>배포 체크리스트 스킵</td>
+              <td>배치 배포 규칙 수립</td>
+            </tr>
+            <tr>
+              <td><span class="mistake-id">#14</span></td>
+              <td>JSON 동기화 누락</td>
+              <td>수동 동기화 의존</td>
+              <td>cp 명령 체크리스트 고정</td>
+            </tr>
+            <tr>
+              <td><span class="mistake-id">#19</span></td>
+              <td>라이브 미검증</td>
+              <td>"배포 성공 = 동작 확인" 가정</td>
+              <td>curl + JS 번들 검증 도입</td>
+            </tr>
+            <tr>
+              <td><span class="mistake-id">#20</span></td>
+              <td>파이프라인 부분 수정</td>
+              <td>전체 체인 사고 부족</td>
+              <td>데이터 파이프라인 5단계 체크</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="insights" style="margin-top: 16px">
+          <ul>
+            <li>
+              <strong>태스크 눈덩이</strong> (위험도 ★★★★☆) — 한 세션에서 7개
+              도메인 → 각 도메인에서 후속 태스크 파생 → 이월 누적. 해결: "오늘의
+              TOP 3" 선언 의식.
+            </li>
+            <li>
+              <strong>데이터 레이어</strong> (위험도 ★★★★☆) — JSON 파일 기반
+              관리가 규모를 따라가지 못함. PMO 칸반 3곳 동기화 지옥. 해결: 신규
+              프로젝트 Supabase 우선.
+            </li>
+            <li>
+              <strong>에너지 관리</strong> (위험도 ★★★☆☆) — 인프라 디버깅은
+              CEO가 직접 할 필요 없음 (DevOps_Agent 위임 가능). CEO 역할:
+              의사결정, 방향 설정, 품질 승인.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Section 4: Synergy -->
+      <div class="section">
+        <div class="section-title">
+          <div class="num">4</div>
+          시너지 최적화
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title" style="margin-bottom: 16px">
+              Kowloon이 Claude Code에 바라는 것
+            </div>
+            <table class="kpi-table">
+              <thead>
+                <tr>
+                  <th>영역</th>
+                  <th style="text-align: left">현재 → 개선</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="kpi-name">배포 검증</td>
+                  <td>요청 시만 → 모든 배포 후 자동</td>
+                </tr>
+                <tr>
+                  <td class="kpi-name">태스크 관리</td>
+                  <td>수동 → TOP 3 초과 시 백로그 제안</td>
+                </tr>
+                <tr>
+                  <td class="kpi-name">에너지 체크</td>
+                  <td>규칙만 → 야간/주말 시 실제 알림</td>
+                </tr>
+                <tr>
+                  <td class="kpi-name">전략 제안</td>
+                  <td>과거 지식 → 항상 최신 리서치 선행</td>
+                </tr>
+                <tr>
+                  <td class="kpi-name">도메인 전환</td>
+                  <td>수동 → 도메인 간 연결점 선제 제안</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <div class="card-title" style="margin-bottom: 16px">
+              선제적 알림 시스템 (미구현)
+            </div>
+            <table class="kpi-table">
+              <thead>
+                <tr>
+                  <th>항목</th>
+                  <th style="text-align: left">현재 상태</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="kpi-name">좀비 프로세스</td>
+                  <td style="color: #10b981; font-weight: 600">
+                    ✓ 메모리 규칙 있음
+                  </td>
+                </tr>
+                <tr>
+                  <td class="kpi-name">이월 태스크 경고</td>
+                  <td style="color: #ef4444; font-weight: 600">✗ 미구현</td>
+                </tr>
+                <tr>
+                  <td class="kpi-name">에너지 체크</td>
+                  <td style="color: #ef4444; font-weight: 600">✗ 미구현</td>
+                </tr>
+                <tr>
+                  <td class="kpi-name">미결 의사결정</td>
+                  <td style="color: #ef4444; font-weight: 600">✗ 미구현</td>
+                </tr>
+                <tr>
+                  <td class="kpi-name">Agent Teams 제안</td>
+                  <td style="color: #f59e0b; font-weight: 600">
+                    △ 규칙만 존재
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: Predictions -->
+      <div class="section">
+        <div class="section-title">
+          <div class="num">5</div>
+          미래 예측
+        </div>
+        <table class="pred-table">
+          <thead>
+            <tr>
+              <th>시기</th>
+              <th>예측</th>
+              <th>근거</th>
+              <th>확률</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="time-badge time-short">1-3개월</span></td>
+              <td>에이전트 25명+ 확장</td>
+              <td>현재 21명, 신규 프로젝트 추가 패턴</td>
+              <td><span class="prob-bar" style="width: 54px"></span>90%</td>
+            </tr>
+            <tr>
+              <td><span class="time-badge time-short">1-3개월</span></td>
+              <td>ShortsFactory 멀티채널 본격화</td>
+              <td>Fleet 시스템 구축 완료</td>
+              <td><span class="prob-bar" style="width: 51px"></span>85%</td>
+            </tr>
+            <tr>
+              <td><span class="time-badge time-short">1-3개월</span></td>
+              <td>WanChai 앱스토어 제출</td>
+              <td>iOS 사전등록 질문에서 확인</td>
+              <td><span class="prob-bar" style="width: 45px"></span>75%</td>
+            </tr>
+            <tr>
+              <td><span class="time-badge time-mid">3-6개월</span></td>
+              <td>AI Agent 교육/컨설팅 시장 진입</td>
+              <td>리서치에서 블루오션 확인</td>
+              <td><span class="prob-bar" style="width: 42px"></span>70%</td>
+            </tr>
+            <tr>
+              <td><span class="time-badge time-mid">3-6개월</span></td>
+              <td>수익 다각화 (게임 + 쇼츠 + 교육)</td>
+              <td>채널 피봇 + 수익화 관심</td>
+              <td><span class="prob-bar" style="width: 36px"></span>60%</td>
+            </tr>
+            <tr>
+              <td><span class="time-badge time-long">6-12개월</span></td>
+              <td>HKD852 = AI 네이티브 스튜디오 레퍼런스</td>
+              <td>이미 독특한 포지셔닝</td>
+              <td><span class="prob-bar" style="width: 33px"></span>55%</td>
+            </tr>
+            <tr>
+              <td><span class="time-badge time-long">6-12개월</span></td>
+              <td>일부 에이전트 외부 서비스화</td>
+              <td>교육/컨설팅 + SaaS</td>
+              <td><span class="prob-bar" style="width: 21px"></span>35%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 6: Roadmap -->
+      <div class="section">
+        <div class="section-title">
+          <div class="num">6</div>
+          3단계 학습 로드맵
+        </div>
+        <div class="grid-3">
+          <div class="phase-card p1">
+            <div class="phase-label">Phase 1</div>
+            <div class="phase-title">기반 강화</div>
+            <div class="phase-period">지금 ~ 4월</div>
+            <ul class="phase-list">
+              <li>
+                <div class="phase-num">1</div>
+                <div>
+                  <strong>"TOP 3" 세션 시작 의식</strong> — 초과 요청은
+                  백로그에만 기록
+                </div>
+              </li>
+              <li>
+                <div class="phase-num">2</div>
+                <div>
+                  <strong>배포 = 검증 포함</strong> — curl 검증까지가 "완료"
+                </div>
+              </li>
+              <li>
+                <div class="phase-num">3</div>
+                <div>
+                  <strong>Agent Teams 기본값화</strong> — 3개+ 파일 수정 시 자동
+                  팀 구성
+                </div>
+              </li>
+              <li>
+                <div class="phase-num">4</div>
+                <div>
+                  <strong>주간 의사결정 정리</strong> — 금요일 /vault-weekly +
+                  미결 리뷰
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="phase-card p2">
+            <div class="phase-label">Phase 2</div>
+            <div class="phase-title">확장과 위임</div>
+            <div class="phase-period">4월 ~ 6월</div>
+            <ul class="phase-list">
+              <li>
+                <div class="phase-num">5</div>
+                <div>
+                  <strong>인프라 작업 위임</strong> — DevOps_Agent 우선, CEO는
+                  에스컬레이션만
+                </div>
+              </li>
+              <li>
+                <div class="phase-num">6</div>
+                <div>
+                  <strong>리서치-의사결정 분리</strong> — 리서치는 에이전트,
+                  CEO는 판단만
+                </div>
+              </li>
+              <li>
+                <div class="phase-num">7</div>
+                <div>
+                  <strong>품질 게이트 100%</strong> — 모든 산출물 Quality Gate
+                  의무화
+                </div>
+              </li>
+              <li>
+                <div class="phase-num">8</div>
+                <div>
+                  <strong>Vault = 두 번째 뇌</strong> — 의사결정/리뷰 축적 →
+                  패턴 분석
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="phase-card p3">
+            <div class="phase-label">Phase 3</div>
+            <div class="phase-title">자율 운영</div>
+            <div class="phase-period">6월 ~ 9월</div>
+            <ul class="phase-list">
+              <li>
+                <div class="phase-num">9</div>
+                <div>
+                  <strong>예외 기반 운영</strong> — 정상 흐름은 에이전트 자율
+                  처리
+                </div>
+              </li>
+              <li>
+                <div class="phase-num">10</div>
+                <div>
+                  <strong>크로스 에이전트 학습</strong> — 성공 패턴을 조직
+                  전체에 전파
+                </div>
+              </li>
+              <li>
+                <div class="phase-num">11</div>
+                <div>
+                  <strong>수익 파이프라인 자동화</strong> — 콘텐츠 생산 루프
+                  무인화
+                </div>
+              </li>
+              <li>
+                <div class="phase-num">12</div>
+                <div>
+                  <strong>외부 공유 준비</strong> — 운영 노하우 → 교육/컨설팅
+                  콘텐츠
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quote -->
+      <div class="quote-box">
+        Kowloon은 Claude Code를 "AI 네이티브 조직"의 운영체제로 사용하는
+        극소수의 CEO 중 한 명이다.<br />
+        체계화와 학습 능력은 탁월하며, 다음 성장 단계는 "직접 실행"에서 "감독과
+        의사결정"으로의 역할 전환이다.
+      </div>
+
+      <div class="footer">
+        HKD852 Studio · Claude Code Usage Intelligence Report · 2026-03-12<br />
+        Analyzed by Claude Opus 4.6 —
+        <a href="https://pmo-kanban.vercel.app" target="_blank"
+          >pmo-kanban.vercel.app</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

@@ -3,7 +3,7 @@ import { COLUMNS } from "./constants";
 
 export function getTasksForColumn(
   tasks: KanbanTask[],
-  column: ColumnConfig
+  column: ColumnConfig,
 ): KanbanTask[] {
   return tasks
     .filter((t) => column.statuses.includes(t.status))
@@ -17,17 +17,17 @@ export function getTasksForColumn(
       const pa = priorityOrder[a.priority];
       const pb = priorityOrder[b.priority];
       if (pa !== pb) return pa - pb;
-      return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+      return (
+        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+      );
     });
 }
 
-export function getColumnCounts(
-  tasks: KanbanTask[]
-): Record<string, number> {
+export function getColumnCounts(tasks: KanbanTask[]): Record<string, number> {
   const counts: Record<string, number> = {};
   for (const col of COLUMNS) {
     counts[col.id] = tasks.filter((t) =>
-      col.statuses.includes(t.status)
+      col.statuses.includes(t.status),
     ).length;
   }
   return counts;
@@ -41,16 +41,32 @@ export function filterTasks(
     priority?: Priority | "all";
     search?: string;
     sprint?: string | "all";
-  }
+  },
 ): KanbanTask[] {
   return tasks.filter((t) => {
-    if (filters.division && filters.division !== "all" && t.division !== filters.division)
+    if (
+      filters.division &&
+      filters.division !== "all" &&
+      t.division !== filters.division
+    )
       return false;
-    if (filters.assignee && filters.assignee !== "all" && t.assignee !== filters.assignee)
+    if (
+      filters.assignee &&
+      filters.assignee !== "all" &&
+      t.assignee !== filters.assignee
+    )
       return false;
-    if (filters.priority && filters.priority !== "all" && t.priority !== filters.priority)
+    if (
+      filters.priority &&
+      filters.priority !== "all" &&
+      t.priority !== filters.priority
+    )
       return false;
-    if (filters.sprint && filters.sprint !== "all" && t.sprint !== filters.sprint)
+    if (
+      filters.sprint &&
+      filters.sprint !== "all" &&
+      t.sprint !== filters.sprint
+    )
       return false;
     if (filters.search) {
       const q = filters.search.toLowerCase();
@@ -99,7 +115,11 @@ export function formatTokens(count: number): string {
   return String(count);
 }
 
-export function getTotalTokensForTasks(tasks: KanbanTask[]): { input: number; output: number; total: number } {
+export function getTotalTokensForTasks(tasks: KanbanTask[]): {
+  input: number;
+  output: number;
+  total: number;
+} {
   let input = 0;
   let output = 0;
   for (const t of tasks) {
@@ -111,4 +131,34 @@ export function getTotalTokensForTasks(tasks: KanbanTask[]): { input: number; ou
     }
   }
   return { input, output, total: input + output };
+}
+
+export function getDivisionStats(
+  tasks: KanbanTask[],
+): Record<string, { total: number; done: number; inProgress: number }> {
+  const stats: Record<
+    string,
+    { total: number; done: number; inProgress: number }
+  > = {};
+  for (const t of tasks) {
+    if (!stats[t.division])
+      stats[t.division] = { total: 0, done: 0, inProgress: 0 };
+    stats[t.division].total++;
+    if (t.status === "final_done" || t.status === "qa_passed")
+      stats[t.division].done++;
+    if (t.status === "in_progress") stats[t.division].inProgress++;
+  }
+  return stats;
+}
+
+export function isBlocked(task: KanbanTask, tasks: KanbanTask[]): boolean {
+  if (!task.blocked_by || task.blocked_by.length === 0) return false;
+  return task.blocked_by.some((id) => {
+    const blocker = tasks.find((t) => t.id === id);
+    return (
+      blocker &&
+      blocker.status !== "final_done" &&
+      blocker.status !== "qa_passed"
+    );
+  });
 }

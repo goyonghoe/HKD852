@@ -1,0 +1,102 @@
+{
+  "sections": [
+    {
+      "title": "공통 원칙",
+      "pages": [
+        { "slug": "coding-conventions", "title": "코딩 컨벤션" },
+        { "slug": "deploy-rules", "title": "배포 규칙" },
+        { "slug": "quality-standards", "title": "품질 기준" },
+        { "slug": "security-rules", "title": "보안 규칙" }
+      ]
+    },
+    {
+      "title": "WanChai",
+      "pages": [{ "slug": "overview", "title": "WanChai 소개" }]
+    },
+    {
+      "title": "WanChai — 아키텍처",
+      "pages": [
+        { "slug": "architecture", "title": "코드 구조" },
+        { "slug": "scene-flow", "title": "씬 플로우" }
+      ]
+    },
+    {
+      "title": "WanChai — 게임 시스템",
+      "pages": [
+        { "slug": "systems/combat", "title": "전투 시스템" },
+        { "slug": "systems/enemies", "title": "적 시스템" },
+        { "slug": "systems/progression", "title": "진행 시스템" },
+        { "slug": "systems/weather", "title": "날씨 시스템" },
+        { "slug": "systems/critters", "title": "크리터 시스템" }
+      ]
+    },
+    {
+      "title": "WanChai — 설계 문서",
+      "pages": [
+        { "slug": "design/world", "title": "월드관" },
+        { "slug": "design/balance", "title": "밸런스 가이드" },
+        { "slug": "design/ui-ux", "title": "UI/UX 가이드라인" }
+      ]
+    },
+    {
+      "title": "WanChai — 개발 가이드",
+      "pages": [
+        { "slug": "dev/setup", "title": "환경 설정" },
+        { "slug": "dev/conventions", "title": "코드 컨벤션" },
+        { "slug": "dev/testing", "title": "테스트 가이드" },
+        { "slug": "dev/kanban", "title": "칸반 워크플로" }
+      ]
+    },
+    {
+      "title": "WanChai — 평가",
+      "pages": [
+        {
+          "slug": "evaluation",
+          "title": "WanChai 종합 평가",
+          "description": "89개 소스, 73개 테스트, 108개 스프라이트 전수 감사 — 총점 B+ (82/100)"
+        }
+      ]
+    },
+    {
+      "title": "WanChai — 리소스",
+      "pages": [
+        {
+          "slug": "wanchai/resource-inventory",
+          "title": "그래픽 리소스 현황",
+          "description": "157팩 14,975파일 (12카테고리) | 108개 스프라이트 배포중 | Hill Defense 전환 시 94% 커버 가능 (2026-03-08)"
+        }
+      ]
+    },
+    {
+      "title": "WanChai — 이력",
+      "pages": [{ "slug": "sprints", "title": "스프린트 이력" }]
+    },
+    {
+      "title": "전략 보고서",
+      "pages": [
+        {
+          "slug": "reports/phaser-commercial",
+          "title": "Phaser 엔진 상업적 성공 분석",
+          "description": "Phaser 기반 게임의 상업적 성과, 수익 데이터, 시각 품질 한계, WanChai 전략 제안 (2026-03-08)"
+        },
+        {
+          "slug": "reports/claude-code-usage-analysis",
+          "title": "Claude Code 사용 패턴 분석",
+          "description": "21 에이전트 · 106 스킬 — 사용 행태 종합 평가 8.2/10, 개선 제안, 3단계 학습 로드맵 (2026-03-12)"
+        }
+      ]
+    },
+    {
+      "title": "ShortsFactory",
+      "pages": [{ "slug": "shorts/overview", "title": "ShortsFactory 개요" }]
+    },
+    {
+      "title": "Saju",
+      "pages": [{ "slug": "saju/overview", "title": "Saju Agent 개요" }]
+    },
+    {
+      "title": "Invest",
+      "pages": [{ "slug": "invest/overview", "title": "Invest Agent 개요" }]
+    }
+  ]
+}

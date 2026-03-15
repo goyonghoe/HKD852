@@ -1,4 +1,4 @@
-import { ColumnConfig, Division, Priority } from "./types";
+import { ColumnConfig, Division, Priority, TaskStatus } from "./types";
 
 export const COLUMNS: ColumnConfig[] = [
   {
@@ -118,11 +118,57 @@ export const STATUS_COLORS: Record<string, string> = {
   final_done: "#00CA72",
 };
 
+export const STATUS_TRANSITIONS: Record<TaskStatus, TaskStatus[]> = {
+  backlog: ["in_progress"],
+  in_progress: ["done"],
+  done: ["qa_passed", "qa_fail"],
+  qa_fail: ["in_progress"],
+  qa_passed: ["final_done", "redteam_reject"],
+  redteam_reject: ["in_progress"],
+  final_done: [],
+};
+
 export const AGENTS = [
-  { name: "game-designer", division: "game" as Division, label: "기획", initials: "GD", color: "#579BFC" },
-  { name: "programmer", division: "game" as Division, label: "개발", initials: "PG", color: "#66CCFF" },
-  { name: "art-director", division: "game" as Division, label: "아트", initials: "AD", color: "#FF642E" },
-  { name: "ui-designer", division: "game" as Division, label: "UI", initials: "UI", color: "#A25DDC" },
-  { name: "balance-designer", division: "game" as Division, label: "밸런스", initials: "BL", color: "#FDAB3D" },
-  { name: "audio-designer", division: "game" as Division, label: "오디오", initials: "AU", color: "#00CA72" },
+  {
+    name: "game-designer",
+    division: "game" as Division,
+    label: "기획",
+    initials: "GD",
+    color: "#579BFC",
+  },
+  {
+    name: "programmer",
+    division: "game" as Division,
+    label: "개발",
+    initials: "PG",
+    color: "#66CCFF",
+  },
+  {
+    name: "art-director",
+    division: "game" as Division,
+    label: "아트",
+    initials: "AD",
+    color: "#FF642E",
+  },
+  {
+    name: "ui-designer",
+    division: "game" as Division,
+    label: "UI",
+    initials: "UI",
+    color: "#A25DDC",
+  },
+  {
+    name: "balance-designer",
+    division: "game" as Division,
+    label: "밸런스",
+    initials: "BL",
+    color: "#FDAB3D",
+  },
+  {
+    name: "audio-designer",
+    division: "game" as Division,
+    label: "오디오",
+    initials: "AU",
+    color: "#00CA72",
+  },
 ];

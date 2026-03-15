@@ -67,6 +67,7 @@ export interface KanbanTask {
   status: TaskStatus;
   priority: Priority;
   assignee: string | null;
+  project: string;
   division: Division;
   created_by: string;
   created_at: string;
@@ -78,6 +79,12 @@ export interface KanbanTask {
   redteam_review: RedTeamReview | null;
   token_usage: TokenUsage | null;
   history: HistoryEntry[];
+  parent_id: string | null;
+  children: string[];
+  blocked_by: string[];
+  blocks: string[];
+  start_date: string | null;
+  estimate_hours: number | null;
 }
 
 export interface ChangelogEntry {
@@ -119,3 +126,20 @@ export interface ColumnConfig {
 }
 
 export type ViewTab = "board" | "task-history" | "version-history";
+
+export type ViewMode = "board" | "table" | "timeline" | "dashboard";
+
+export interface TreeNode {
+  task: KanbanTask;
+  children: TreeNode[];
+  depth: number;
+}
+
+export type KanbanMutation =
+  | { type: "add_task"; task: Partial<KanbanTask> & { title: string } }
+  | { type: "update_task"; taskId: string; fields: Partial<KanbanTask> }
+  | { type: "update_status"; taskId: string; newStatus: TaskStatus; by: string }
+  | { type: "delete_task"; taskId: string }
+  | { type: "add_dependency"; from: string; to: string }
+  | { type: "remove_dependency"; from: string; to: string }
+  | { type: "set_parent"; taskId: string; parentId: string | null };

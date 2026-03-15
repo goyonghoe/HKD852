@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phaser 엔진 상업적 성공 사례 보고서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #fff;
+    color: #1a1a1a;
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.8;
+    word-break: keep-all;
+    overflow-x: hidden;
+  }
+
+  /* — NAV BAR — */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px;
+    border-bottom: 3px solid #000;
+    font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px;
+  }
+  .topbar .logo { font-size: 22px; font-weight: 700; letter-spacing: 4px; }
+  .topbar nav a { margin-left: 24px; text-decoration: none; color: #1a1a1a; }
+  .topbar nav a:hover { text-decoration: underline; }
+
+  /* — HERO — */
+  .hero {
+    background: #7c3aed;
+    padding: 80px 32px 64px;
+    position: relative;
+    color: #fff;
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+  .hero-tag {
+    display: inline-block;
+    background: #000; color: #a78bfa;
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+    padding: 6px 14px; margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: 52px; font-weight: 900;
+    line-height: 1.15; letter-spacing: -2px;
+    max-width: 800px; color: #fff;
+  }
+  .hero .subtitle {
+    font-size: 20px; font-weight: 500;
+    margin-top: 20px; max-width: 700px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.8;
+  }
+
+  /* — BYLINE — */
+  .byline-bar {
+    max-width: 720px; margin: 0 auto;
+    padding: 40px 32px 0;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .byline-bar::before {
+    content: ''; display: block;
+    width: 40px; height: 4px; background: #7c3aed; flex-shrink: 0;
+  }
+  .byline-name { font-weight: 700; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; }
+  .byline-date { font-size: 13px; color: #777; }
+
+  /* — ARTICLE BODY — */
+  .article-body {
+    max-width: 720px; margin: 0 auto;
+    padding: 32px 32px 0;
+  }
+  .article-body p { margin-bottom: 24px; }
+  .article-body p.lede {
+    font-size: 21px; font-weight: 500; line-height: 1.7;
+    color: #111;
+  }
+  .article-body h3 {
+    font-size: 22px; font-weight: 800; margin: 40px 0 16px;
+    letter-spacing: -0.5px;
+  }
+  .article-body ul, .article-body ol {
+    margin-bottom: 24px; padding-left: 24px;
+  }
+  .article-body li { margin-bottom: 8px; }
+
+  /* — SECTION COLOR BANDS — */
+  .section-band {
+    width: 100%; padding: 56px 32px;
+    margin: 48px 0;
+  }
+  .section-band .band-inner {
+    max-width: 720px; margin: 0 auto;
+  }
+  .section-band h2 {
+    font-size: 36px; font-weight: 900; letter-spacing: -1.5px;
+    line-height: 1.2; margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .section-band p { margin-bottom: 20px; }
+  .band-purple { background: #7c3aed; color: #fff; }
+  .band-purple h2 { color: #fff; }
+  .band-emerald { background: #10b981; color: #fff; }
+  .band-emerald h2 { color: #fff; }
+  .band-amber { background: #f59e0b; color: #1a1a1a; }
+  .band-slate { background: #1e293b; color: #e2e8f0; }
+  .band-slate h2 { color: #fff; }
+  .band-rose { background: #f43f5e; color: #fff; }
+  .band-rose h2 { color: #fff; }
+
+  /* — PULL QUOTE — */
+  .pull-quote {
+    max-width: 720px; margin: 48px auto;
+    padding: 0 32px;
+  }
+  .pull-quote blockquote {
+    font-size: 32px; font-weight: 700;
+    line-height: 1.35; letter-spacing: -1px;
+    border: none; padding: 0;
+  }
+  .pull-quote.color-purple blockquote { color: #7c3aed; }
+  .pull-quote.color-emerald blockquote { color: #059669; }
+  .pull-quote.color-amber blockquote { color: #d97706; }
+  .pull-quote.color-rose blockquote { color: #f43f5e; }
+  .pull-quote cite {
+    display: block; margin-top: 16px;
+    font-size: 14px; font-weight: 600; color: #777;
+    font-style: normal; text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* — CASE STUDY CARD — */
+  .case-card {
+    max-width: 720px; margin: 40px auto;
+    padding: 0 32px;
+  }
+  .case-card .card-inner {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .case-card .card-header {
+    padding: 24px 28px 20px;
+    display: flex; align-items: center; gap: 16px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .case-card .card-icon {
+    width: 56px; height: 56px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; flex-shrink: 0;
+  }
+  .case-card .card-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+  .case-card .card-subtitle { font-size: 14px; color: #666; margin-top: 2px; }
+  .case-card .card-body { padding: 24px 28px; }
+  .case-card .card-body p { margin-bottom: 16px; font-size: 15px; }
+
+  /* — STAT GRID — */
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px; margin: 20px 0 24px;
+  }
+  .stat-box {
+    background: #f8fafc; border-radius: 8px; padding: 16px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 28px; font-weight: 900; letter-spacing: -1px;
+    line-height: 1.2;
+  }
+  .stat-label {
+    font-size: 12px; font-weight: 600; color: #666;
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* — DATA VIZ: BAR CHART — */
+  .chart-section {
+    max-width: 720px; margin: 0 auto;
+    padding: 0 32px 48px;
+  }
+  .chart-title {
+    font-size: 18px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 24px;
+  }
+  .bar-chart { display: flex; flex-direction: column; gap: 14px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; }
+  .bar-label {
+    width: 160px; flex-shrink: 0;
+    font-size: 13px; font-weight: 600; text-align: right;
+  }
+  .bar-track { flex: 1; height: 28px; background: #f1f5f9; border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px;
+    font-size: 12px; font-weight: 700; color: #fff; min-width: 36px; }
+  .bar-fill.c-purple { background: #7c3aed; }
+  .bar-fill.c-emerald { background: #10b981; }
+  .bar-fill.c-amber { background: #f59e0b; color: #1a1a1a; }
+  .bar-fill.c-rose { background: #f43f5e; }
+  .bar-fill.c-slate { background: #475569; }
+  .bar-fill.c-blue { background: #3b82f6; }
+
+  /* — COMPARISON TABLE — */
+  .comp-table-wrap {
+    max-width: 900px; margin: 0 auto 48px;
+    padding: 0 32px;
+    overflow-x: auto;
+  }
+  .comp-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 14px;
+  }
+  .comp-table th {
+    background: #1e293b; color: #fff;
+    padding: 12px 16px; text-align: left;
+    font-weight: 700; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .comp-table td {
+    padding: 12px 16px; border-bottom: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  .comp-table tr:nth-child(even) td { background: #f8fafc; }
+  .comp-table .highlight { background: #f5f3ff !important; font-weight: 600; }
+  .comp-table .check { color: #10b981; font-weight: 700; }
+  .comp-table .cross { color: #ef4444; font-weight: 700; }
+  .comp-table .warn { color: #f59e0b; font-weight: 700; }
+
+  /* — TIMELINE — */
+  .timeline-section {
+    max-width: 720px; margin: 0 auto;
+    padding: 0 32px 48px;
+  }
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: #e2e8f0;
+  }
+  .timeline-item { position: relative; margin-bottom: 28px; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -28px; top: 8px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #7c3aed; border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #7c3aed;
+  }
+  .timeline-item.milestone::before { background: #f59e0b; box-shadow: 0 0 0 2px #f59e0b; }
+  .timeline-year { font-size: 13px; font-weight: 700; color: #7c3aed; text-transform: uppercase; letter-spacing: 1px; }
+  .timeline-text { font-size: 15px; margin-top: 4px; }
+
+  /* — TAG PILLS — */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+  .tag-pill {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+    padding: 6px 14px; border-radius: 100px;
+    display: inline-block;
+  }
+  .tag-pill.t-purple { background: #ede9fe; color: #5b21b6; }
+  .tag-pill.t-emerald { background: #d1fae5; color: #065f46; }
+  .tag-pill.t-amber { background: #fef3c7; color: #92400e; }
+  .tag-pill.t-rose { background: #ffe4e6; color: #9f1239; }
+
+  /* — VERDICT BOX — */
+  .verdict-box {
+    max-width: 720px; margin: 48px auto;
+    padding: 0 32px;
+  }
+  .verdict-inner {
+    background: #f5f3ff;
+    border: 2px solid #7c3aed;
+    border-radius: 12px;
+    padding: 32px;
+  }
+  .verdict-inner h3 {
+    font-size: 24px; font-weight: 900; color: #5b21b6;
+    margin-bottom: 16px;
+  }
+  .verdict-inner p { margin-bottom: 16px; font-size: 16px; }
+  .verdict-inner ul { padding-left: 20px; margin-bottom: 16px; }
+  .verdict-inner li { margin-bottom: 8px; }
+  .verdict-inner .verdict-label {
+    display: inline-block; padding: 8px 20px;
+    background: #7c3aed; color: #fff;
+    font-weight: 800; font-size: 14px;
+    border-radius: 6px; letter-spacing: 1px;
+    text-transform: uppercase; margin-top: 8px;
+  }
+
+  /* — ANNOTATED SECTION — */
+  .annotated-section {
+    max-width: 960px; margin: 48px auto;
+    padding: 0 32px;
+    display: grid; grid-template-columns: 1fr 220px; gap: 40px;
+    align-items: start;
+  }
+  .annotation-box {
+    background: #f8fafc; border-left: 4px solid #7c3aed;
+    padding: 16px 20px;
+    font-size: 13px; line-height: 1.7; color: #555;
+  }
+  .annotation-box strong {
+    display: block; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #7c3aed; margin-bottom: 6px;
+  }
+
+  /* — FOOTER — */
+  .footer {
+    border-top: 3px solid #000;
+    padding: 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;
+    color: #999;
+  }
+
+  /* — MOBILE — */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 32px; letter-spacing: -1px; }
+    .hero .subtitle { font-size: 17px; }
+    .section-band h2 { font-size: 26px; }
+    .pull-quote blockquote { font-size: 24px; }
+    .annotated-section { grid-template-columns: 1fr; gap: 24px; }
+    .bar-label { width: 100px; font-size: 12px; }
+    .topbar nav { display: none; }
+    .topbar { padding: 12px 20px; }
+    .hero { padding: 48px 20px 40px; }
+    .byline-bar, .article-body, .pull-quote, .chart-section, .timeline-section { padding-left: 20px; padding-right: 20px; }
+    .annotated-section { padding: 0 20px; }
+    .case-card { padding: 0 20px; }
+    .comp-table-wrap { padding: 0 20px; }
+    .verdict-box { padding: 0 20px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="logo">HKD852</div>
+  <nav>
+    <a href="#">Strategy</a>
+    <a href="#">Engine</a>
+    <a href="#">Market</a>
+    <a href="#">Decision</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">CEO Strategic Report &middot; 2026-03-08</span>
+    <h1>Phaser 엔진으로 상업적 성공이 가능한가?</h1>
+    <p class="subtitle">Phaser 기반 게임의 상업적 성과, 수익 데이터, 시각 품질 한계, 플랫폼 전략을 종합 분석합니다. WanChai 프로젝트의 전략적 판단 근거를 제시합니다.</p>
+  </div>
+</section>
+
+<!-- BYLINE -->
+<div class="byline-bar">
+  <span class="byline-name">HKD852 리서치팀</span>
+  <span class="byline-date">2026년 3월 8일 &middot; 심층 보고서</span>
+</div>
+
+<!-- INTRO -->
+<div class="article-body">
+  <p class="lede">Phaser.js는 웹 브라우저에서 구동되는 오픈소스 2D 게임 엔진입니다. MIT 라이선스로 무료이며, JavaScript/TypeScript로 개발합니다. 질문은 단순합니다&mdash;이 엔진으로 돈을 벌 수 있는가?</p>
+  <p>결론부터 말하면, <strong>Phaser로 제작된 단 하나의 게임이 Steam에서 5,700만 달러 이상의 매출</strong>을 기록했습니다. 하지만 그 게임은 결국 Unity로 엔진을 교체했습니다. 이 보고서는 그 사이의 모든 맥락을 다룹니다.</p>
+
+  <div class="tags">
+    <span class="tag-pill t-purple">Phaser.js</span>
+    <span class="tag-pill t-emerald">Steam</span>
+    <span class="tag-pill t-amber">수익 분석</span>
+    <span class="tag-pill t-rose">WanChai</span>
+  </div>
+</div>
+
+<!-- ==================== SECTION 1: VAMPIRE SURVIVORS ==================== -->
+
+<section class="section-band band-purple">
+  <div class="band-inner">
+    <h2>1. Vampire Survivors &mdash; Phaser의 전설</h2>
+    <p>게임 역사상 가장 놀라운 인디 성공 사례 중 하나. Phaser 엔진으로 시작해 수천만 달러를 벌어들인 유일한 게임입니다. 제작 비용은 약 1,500달러(자산 팩 구매비)였습니다.</p>
+  </div>
+</section>
+
+<div class="case-card">
+  <div class="card-inner">
+    <div class="card-header">
+      <div class="card-icon" style="background:#7c3aed; color:#fff;">VS</div>
+      <div>
+        <div class="card-title">Vampire Survivors</div>
+        <div class="card-subtitle">Poncle (Luca Galante) &middot; 이탈리아/영국</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-value" style="color:#7c3aed;">$57M+</div>
+          <div class="stat-label">Steam 매출 (추정)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#10b981;">98%</div>
+          <div class="stat-label">긍정 리뷰율</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f59e0b;">260K</div>
+          <div class="stat-label">리뷰 수</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f43f5e;">$4.99</div>
+          <div class="stat-label">판매 가격</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#3b82f6;">5M+</div>
+          <div class="stat-label">모바일 다운로드</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#7c3aed;">GBP 40M</div>
+          <div class="stat-label">창업자 추정 자산</div>
+        </div>
+      </div>
+
+      <p><strong>수상</strong>: BAFTA 게임 어워드 - 게임 디자인상 (2023)</p>
+      <p><strong>플랫폼</strong>: Steam, Xbox, PS4/PS5, Switch, iOS, Android, Meta Quest VR</p>
+      <p><strong>핵심 인사이트</strong>: 2020년 실직 상태에서 개발 시작. 무료 itch.io 브라우저 버전으로 데뷔 후, Early Access $2.99로 Steam 진입. 1개월 만에 $7M 매출 달성.</p>
+    </div>
+  </div>
+</div>
+
+<!-- VS Timeline -->
+<div class="article-body">
+  <h3>Vampire Survivors 타임라인</h3>
+</div>
+<div class="timeline-section">
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">2020</div>
+      <div class="timeline-text">Luca Galante, 모바일 도박 게임 회사 퇴사 후 <strong>Phaser</strong>로 개발 시작. 자산 팩에 약 $1,500 투자.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2021년 3월</div>
+      <div class="timeline-text">itch.io에 무료 브라우저 버전 공개. 입소문 시작.</div>
+    </div>
+    <div class="timeline-item milestone">
+      <div class="timeline-year">2021년 12월</div>
+      <div class="timeline-text">Steam Early Access 출시 ($2.99). 폭발적 반응.</div>
+    </div>
+    <div class="timeline-item milestone">
+      <div class="timeline-year">2022년 10월</div>
+      <div class="timeline-text">정식 1.0 출시. 첫 달 $7M 매출. 스트리머/유튜버 바이럴.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2022년 11월</div>
+      <div class="timeline-text">Xbox + Game Pass 출시.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2022년 12월</div>
+      <div class="timeline-text">iOS/Android 모바일 출시. 첫 주 100만 다운로드.</div>
+    </div>
+    <div class="timeline-item milestone">
+      <div class="timeline-year">2023년 8월</div>
+      <div class="timeline-text"><strong>엔진을 Phaser에서 Unity로 교체</strong> (v1.6). 수천 개 동시 스프라이트 처리 한계 극복 목적.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2023년 8월</div>
+      <div class="timeline-text">Nintendo Switch 출시.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2024년 8월</div>
+      <div class="timeline-text">PS4/PS5 출시. 팀 20명 규모로 성장.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2025년 11월</div>
+      <div class="timeline-text">Meta Quest VR 출시. 자체 퍼블리싱 레이블 "Poncle Presents" 설립.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PULL QUOTE -->
+<div class="pull-quote color-purple">
+  <blockquote>"Phaser는 발사대였지, 최종 목적지는 아니었다."</blockquote>
+  <cite>&mdash; Vampire Survivors가 증명한 핵심 교훈</cite>
+</div>
+
+<!-- WHY SIMPLE GRAPHICS WORKED -->
+<div class="annotated-section">
+  <div class="article-body" style="padding:0; max-width:none;">
+    <h3>단순 그래픽이 통한 이유</h3>
+    <p>Vampire Survivors의 아트는 Castlevania 스타일 에셋 팩을 거의 그대로 사용했습니다. 그래픽 "퀄리티"는 낮았지만, <strong>수백 개의 적과 무기 이펙트가 화면을 가득 채우는 시각적 스펙터클</strong>이 그 자체로 매력이었습니다.</p>
+    <p>복잡한 아트는 오히려 게임플레이 가독성을 해쳤을 것입니다. 모든 요소(아트, 사운드, UI)가 일관된 로파이 스타일을 유지해 어색함이 없었고, <strong>게임 필(game feel)과 도파민 루프가 비주얼보다 훨씬 중요</strong>했습니다.</p>
+  </div>
+  <aside class="annotation-box">
+    <strong>WanChai 시사점</strong>
+    WanChai도 서바이버라이크 장르. 그래픽 퀄리티보다 <strong>화면을 가득 채우는 쾌감과 게임 필</strong>이 성공의 핵심. VS와 동일한 전략이 유효할 수 있음.
+  </aside>
+</div>
+
+<!-- ==================== SECTION 2: OTHER GAMES ==================== -->
+
+<section class="section-band band-emerald">
+  <div class="band-inner">
+    <h2>2. 그 외 Phaser 상업 게임</h2>
+    <p>솔직한 현실: Vampire Survivors를 제외하면 Phaser 엔진으로 Steam에서 유의미한 상업적 성공을 거둔 사례는 <strong>사실상 없습니다</strong>. SteamDB의 Phaser 엔진 사용 게임 목록을 조회해도 대형 타이틀은 VS 하나뿐입니다.</p>
+  </div>
+</section>
+
+<div class="article-body">
+  <h3>자주 혼동되는 CrossCode</h3>
+  <p>CrossCode는 HTML5 게임이지만 <strong>Impact.js</strong> 엔진을 사용합니다 (Phaser가 아님). Steam 매출 약 $14.8M, 93% 긍정 리뷰로 성공했지만 Phaser 레퍼런스로 인용하는 것은 오류입니다.</p>
+
+  <h3>웹 플랫폼 성공 사례</h3>
+  <ul>
+    <li><strong>Exhibit of Sorrows</strong> &mdash; 호러 포인트 앤 클릭. 4개월 개발. Poki/CrazyGames/itch.io에서 인기. 2025년 PC/모바일 이식</li>
+    <li><strong>Idle Breakout</strong> &mdash; 브라우저 방치형 게임. 웹 플랫폼에서 높은 플레이 수</li>
+    <li><strong>CodeCombat</strong> &mdash; 교육용 프로그래밍 게임. B2B/교육기관 모델</li>
+    <li>다수의 브랜디드 게임 &mdash; 할리우드 영화, TV 쇼, 마케팅 캠페인용 게임</li>
+  </ul>
+  <p>Phaser는 "말 그대로 수천 개의" 웹 게임에 사용되고 있지만, 대부분 무료/광고 지원 모델이며 프리미엄 상업 제품은 극소수입니다.</p>
+</div>
+
+<!-- ==================== SECTION 2B: MOBILE SUCCESS ==================== -->
+
+<section class="section-band band-rose">
+  <div class="band-inner">
+    <h2>2B. 모바일/미니게임 출신 상업적 성공 사례</h2>
+    <p>웹/미니게임에서 출발해 모바일 앱스토어로 확장하며 대형 상업 성공을 거둔 사례들입니다. 특히 위챗 미니게임 생태계는 2024년 연 매출 398억 위안(약 $5.56B)을 기록하며, <strong>미니게임 → 풀 앱</strong> 경로가 검증된 시장입니다.</p>
+  </div>
+</section>
+
+<!-- BangBang Survivor -->
+<div class="case-card">
+  <div class="card-inner">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f43f5e; color:#fff;">BB</div>
+      <div>
+        <div class="card-title">빵빵좀비단 (BangBang Survivor)</div>
+        <div class="card-subtitle">SPGame (露珠游戏) &middot; 중국 광저우 &middot; 원제: 向僵尸开炮</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f43f5e;">$600K</div>
+          <div class="stat-label">피크 일 매출</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#7c3aed;">$20.5M</div>
+          <div class="stat-label">iOS 중국 누적</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#10b981;">1.9M</div>
+          <div class="stat-label">중국 다운로드</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f59e0b;">$2.26</div>
+          <div class="stat-label">다운로드당 수익</div>
+        </div>
+      </div>
+
+      <p><strong>장르</strong>: 서바이버라이크 + 타워 디펜스 하이브리드 (WanChai와 동일 장르)</p>
+      <p><strong>엔진</strong>: Cocos Creator (위챗 미니게임 표준 엔진, 시장의 ~60% 점유)</p>
+      <p><strong>팀 규모</strong>: 약 100명 (마케팅/운영/기술/CS 포함)</p>
+      <p><strong>수익 지역</strong>: 대만 42% > 한국 18% > 일본 14% > 홍콩 10%</p>
+
+      <p style="margin-top:16px;"><strong>성공 경로</strong>:</p>
+      <ol style="padding-left:20px; font-size:15px;">
+        <li><strong>2024.01</strong> &mdash; 위챗 미니게임으로 출시 (向僵尸开炮). 설치 없이 바로 플레이.</li>
+        <li><strong>2024.04</strong> &mdash; SPGame(글로벌) + MG.OL(동남아) 퍼블리싱 계약</li>
+        <li><strong>2024.05</strong> &mdash; iOS/Android 글로벌 출시 "BangBang Survivor"</li>
+        <li>아시아 저CPI 시장(대만, 한국) 공략 → 서구 확장</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="annotated-section">
+  <div class="article-body" style="padding:0; max-width:none;">
+    <h3>빵빵좀비단이 WanChai에 주는 시사점</h3>
+    <p>빵빵좀비단은 <strong>위챗 미니게임에서 시장 검증 → 모바일 앱스토어 확장</strong>이라는 경로를 정확히 보여줍니다. WanChai와 동일한 서바이버라이크 장르이며, 웹에서 시작해 모바일로 확장한 점이 동일합니다.</p>
+    <p>다만 차이점도 있습니다: 빵빵좀비단은 Cocos Creator(위챗 전용 최적화 엔진)를 사용했고, 100명 규모 팀의 공격적 UA 마케팅(Meta/Google 광고)이 성장을 견인했습니다.</p>
+  </div>
+  <aside class="annotation-box">
+    <strong>핵심 교훈</strong>
+    미니게임 출발 → 풀 앱 확장은 <strong>검증된 경로</strong>. 위챗 대신 <strong>웹(Vercel/Poki) + Capacitor 모바일 래핑</strong>이 WanChai의 동일한 플레이북.
+  </aside>
+</div>
+
+<!-- WeChat Mini-Game Market -->
+<div class="article-body">
+  <h3>위챗 미니게임 생태계 &mdash; 폭발적 성장</h3>
+</div>
+
+<div class="chart-section">
+  <h3 class="chart-title">위챗 미니게임 시장 규모</h3>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <span class="bar-label">2024년 연 매출</span>
+      <div class="bar-track"><div class="bar-fill c-rose" style="width:100%">$5.56B (398억 위안)</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">YoY 성장률</span>
+      <div class="bar-track"><div class="bar-fill c-purple" style="width:99%">+99%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">월간 이용자</span>
+      <div class="bar-track"><div class="bar-fill c-emerald" style="width:50%">5억 명+</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">$10M+/분기 게임 수</span>
+      <div class="bar-track"><div class="bar-fill c-amber" style="width:30%">300개+ 타이틀</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Other Mobile/Mini-game successes -->
+<div class="article-body">
+  <h3>기타 미니게임 → 대형 성공 사례</h3>
+</div>
+
+<div class="case-card">
+  <div class="card-inner">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f59e0b; color:#1a1a1a;">JJ</div>
+      <div>
+        <div class="card-title">Jump Jump (跳一跳)</div>
+        <div class="card-subtitle">Tencent 내부 &middot; 2017 &middot; 위챗 미니게임의 시작</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f59e0b;">170M</div>
+          <div class="stat-label">피크 DAU</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#10b981;">390M</div>
+          <div class="stat-label">3개월 후 DAU</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#7c3aed;">52%</div>
+          <div class="stat-label">7일 리텐션</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f43f5e;">$1.58M</div>
+          <div class="stat-label">월 광고 수익</div>
+        </div>
+      </div>
+      <p>위챗 미니게임 플랫폼의 존재를 증명한 최초의 메가히트. 텐센트 소규모 내부 팀이 개발.</p>
+    </div>
+  </div>
+</div>
+
+<div class="case-card">
+  <div class="card-inner">
+    <div class="card-header">
+      <div class="card-icon" style="background:#10b981; color:#fff;">YY</div>
+      <div>
+        <div class="card-title">Sheep A Sheep (羊了个羊)</div>
+        <div class="card-subtitle">Beijing Jianyou Technology &middot; 2022 &middot; 직원 7명</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-value" style="color:#10b981;">60M</div>
+          <div class="stat-label">DAU (2주 만에)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#7c3aed;">3명</div>
+          <div class="stat-label">핵심 개발 인원</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f59e0b;">3개월</div>
+          <div class="stat-label">개발 기간</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f43f5e;">0.1%</div>
+          <div class="stat-label">클리어율 (의도적)</div>
+        </div>
+      </div>
+      <p>7명 회사, 3명이 3개월 만에 개발. 2주 만에 6,000만 DAU 달성. 소셜 미디어 해시태그 26.3억 뷰. <strong>극소규모 팀도 바이럴하면 대형 성공 가능</strong>을 증명.</p>
+    </div>
+  </div>
+</div>
+
+<div class="pull-quote color-rose">
+  <blockquote>"미니게임에서 시작해 검증하고, 성공하면 풀 앱으로 확장하라. 이 경로는 이미 수십억 달러 규모로 검증되었다."</blockquote>
+  <cite>&mdash; 위챗 미니게임 생태계가 증명한 교훈</cite>
+</div>
+
+<!-- ==================== SECTION 3: WEB GAMING PLATFORMS ==================== -->
+
+<section class="section-band band-amber">
+  <div class="band-inner">
+    <h2>3. 웹 게임 플랫폼 &mdash; 실제 수익 데이터</h2>
+    <p>Steam이 아닌 웹 플랫폼에서 Phaser 게임이 수익을 올리는 생태계가 존재합니다. Poki와 CrazyGames를 중심으로 실측 데이터를 정리합니다.</p>
+  </div>
+</section>
+
+<!-- Platform Cards -->
+<div class="case-card">
+  <div class="card-inner">
+    <div class="card-header">
+      <div class="card-icon" style="background:#10b981; color:#fff;">P</div>
+      <div>
+        <div class="card-title">Poki</div>
+        <div class="card-subtitle">웹 게임 플랫폼 1위</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-value" style="color:#10b981;">100M</div>
+          <div class="stat-label">월간 플레이어</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#7c3aed;">1B+</div>
+          <div class="stat-label">월간 플레이 수</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f59e0b;">600+</div>
+          <div class="stat-label">등록 스튜디오</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f43f5e;">$1M</div>
+          <div class="stat-label">탑 개발자 연수익</div>
+        </div>
+      </div>
+      <p><strong>수익 모델</strong>: Poki 유입 트래픽 50/50 분배. 직접 트래픽(북마크, SNS)은 개발자 100%.</p>
+      <p><strong>실제 사례</strong>: 터키의 Emolingo Games &mdash; 2명에서 5명 풀타임으로 성장, Poki 수익만으로 운영. Rainbow Obby 1억 플레이 돌파.</p>
+      <p><strong>진입 난이도</strong>: 선별적. 모든 게임이 수락되지 않음.</p>
+    </div>
+  </div>
+</div>
+
+<div class="case-card">
+  <div class="card-inner">
+    <div class="card-header">
+      <div class="card-icon" style="background:#3b82f6; color:#fff;">CG</div>
+      <div>
+        <div class="card-title">CrazyGames</div>
+        <div class="card-subtitle">웹 게임 플랫폼 2위</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-value" style="color:#3b82f6;">35M</div>
+          <div class="stat-label">월간 유저</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#10b981;">300M+</div>
+          <div class="stat-label">월간 플레이</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f59e0b;">$13.6M</div>
+          <div class="stat-label">연 매출 (2026)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#7c3aed;">100%+</div>
+          <div class="stat-label">YoY 성장률</div>
+        </div>
+      </div>
+      <p>자체 수익으로 운영(외부 투자 없음). Poki보다 진입 장벽 낮음. 월간 정산, 최소 EUR 100.</p>
+    </div>
+  </div>
+</div>
+
+<div class="article-body">
+  <h3>기타 수익화 경로</h3>
+  <ul>
+    <li><strong>HTML5 게임 라이선싱</strong>: 비독점 $200~$2,000/건, 독점 $3,000~$15,000+/건</li>
+    <li><strong>텔레그램 미니앱</strong>: 950M MAU, 수수료 0%(앱스토어 30% vs). Catizen은 $25M 매출, Hamster Kombat은 일 4~5M 신규 유저</li>
+    <li><strong>Newgrounds</strong>: 광고 기반, 1,000뷰당 약 $0.30. 커뮤니티 빌딩용</li>
+    <li><strong>itch.io</strong>: 자발적 지불 모델. 실제 수익 $982~$7,276/수년. 프로토타입 공유용</li>
+  </ul>
+</div>
+
+<!-- Ad Revenue Chart -->
+<div class="chart-section">
+  <h3 class="chart-title">웹 게임 광고 CPM 비교 (장르별)</h3>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <span class="bar-label">전략 게임</span>
+      <div class="bar-track"><div class="bar-fill c-purple" style="width:86%">$21.58</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">캐주얼 게임</span>
+      <div class="bar-track"><div class="bar-fill c-emerald" style="width:70%">$17.44</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">보상형 영상 (평균)</span>
+      <div class="bar-track"><div class="bar-fill c-amber" style="width:40%">$8~12</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">일반 인디 웹게임</span>
+      <div class="bar-track"><div class="bar-fill c-slate" style="width:12%">$1~2</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SECTION 4: VISUAL CEILING ==================== -->
+
+<section class="section-band band-slate">
+  <div class="band-inner">
+    <h2>4. Phaser 시각 품질의 천장</h2>
+    <p>Phaser 3.60 이상에서 WebGL 기반 내장 FX를 지원합니다: Bloom, Blur, Bokeh, Glow, Vignette, Shadow, Displacement 등. Normal map 기반 2D 조명(Light2D)과 유연한 파티클 시스템도 내장되어 있습니다.</p>
+    <p>2025년 출시된 <strong>Phaser 4</strong>는 GPU 기반 스프라이트 처리 "Beam" 렌더러를 탑재해 모바일 성능을 대폭 개선했고, Tauri(Electron 대체) 지원으로 데스크톱 배포 경로도 경량화되었습니다.</p>
+  </div>
+</section>
+
+<div class="article-body">
+  <h3>할 수 있는 것</h3>
+  <ul>
+    <li>셰이더 기반 후처리 (Bloom, Blur, Glow, Vignette)</li>
+    <li>Normal map 기반 2D 동적 조명</li>
+    <li>파티클 시스템 (웹 기반 편집기 제공)</li>
+    <li>카메라 이펙트 (화면 흔들림, 페이드, 플래시)</li>
+    <li>스타일라이즈드 2D (픽셀아트, 일러스트, 벡터)</li>
+    <li>"Juicy" 피드백 (대미지 넘버, 히트 이펙트, 컬러 매트릭스)</li>
+  </ul>
+
+  <h3>할 수 없는 것</h3>
+  <ul>
+    <li>복잡한 3D 파티클 시스템</li>
+    <li>Spine/DragonBones 수준의 네이티브 스켈레탈 애니메이션 (플러그인 필요)</li>
+    <li>GPU 컴퓨트 기반 대규모 시뮬레이션</li>
+    <li>포토리얼리스틱 렌더링</li>
+    <li>수천 개 동시 스프라이트에서의 안정적 성능 (VS의 엔진 교체 이유)</li>
+  </ul>
+
+  <p><strong>결론</strong>: Phaser의 시각 천장은 <strong>"잘 만든 2D 인디 게임"</strong> 수준입니다. Hollow Knight이나 Dead Cells 수준의 비주얼을 기대한다면 Unity/Godot가 더 적합합니다. 하지만 Vampire Survivors, Brotato 수준의 스타일라이즈드 픽셀아트라면 Phaser로 충분합니다.</p>
+</div>
+
+<!-- ==================== SECTION 5: ENGINE COMPARISON ==================== -->
+
+<section class="section-band band-rose">
+  <div class="band-inner">
+    <h2>5. 엔진 비교: Phaser vs Unity vs Godot vs GameMaker</h2>
+    <p>WanChai의 다음 단계를 결정하기 위한 엔진 비교입니다. 소규모 팀(1~3명) 관점에서 평가합니다.</p>
+  </div>
+</section>
+
+<div class="comp-table-wrap">
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>항목</th>
+        <th>Phaser</th>
+        <th>Unity 2D</th>
+        <th>Godot 4</th>
+        <th>GameMaker</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td><strong>비용</strong></td>
+        <td>무료 (MIT)</td>
+        <td>$100K 미만 무료<br>Pro $2,040/석/년</td>
+        <td>무료 (MIT)<br>로열티 없음</td>
+        <td>$4.99~$99.99/월</td>
+      </tr>
+      <tr>
+        <td><strong>언어</strong></td>
+        <td>JS / TypeScript</td>
+        <td>C#</td>
+        <td>GDScript / C#</td>
+        <td>GML</td>
+      </tr>
+      <tr>
+        <td><strong>Steam 배포</strong></td>
+        <td class="warn">Electron/Tauri 래핑</td>
+        <td class="check">네이티브</td>
+        <td class="check">네이티브</td>
+        <td class="check">네이티브</td>
+      </tr>
+      <tr>
+        <td><strong>모바일 배포</strong></td>
+        <td class="warn">Capacitor 래핑</td>
+        <td class="check">네이티브 (최적화 최고)</td>
+        <td class="check">네이티브</td>
+        <td class="check">네이티브</td>
+      </tr>
+      <tr>
+        <td><strong>웹 배포</strong></td>
+        <td class="check">네이티브 (최강)</td>
+        <td class="warn">WebGL 내보내기 (무거움)</td>
+        <td class="warn">WebGL 내보내기</td>
+        <td class="warn">HTML5 내보내기</td>
+      </tr>
+      <tr>
+        <td><strong>콘솔 배포</strong></td>
+        <td class="cross">미지원</td>
+        <td class="check">네이티브</td>
+        <td class="warn">커뮤니티 노력 중</td>
+        <td class="warn">상위 구독 필요</td>
+      </tr>
+      <tr>
+        <td><strong>시각 품질 상한</strong></td>
+        <td>스타일라이즈드 2D</td>
+        <td>Hollow Knight급</td>
+        <td>Dome Keeper급</td>
+        <td>Hyper Light Drifter급</td>
+      </tr>
+      <tr>
+        <td><strong>솔로 개발 적합도</strong></td>
+        <td class="check">우수 (웹 우선)</td>
+        <td class="warn">양호 (학습 곡선 높음)</td>
+        <td class="check">우수</td>
+        <td class="check">우수</td>
+      </tr>
+      <tr>
+        <td><strong>대표 게임</strong></td>
+        <td>Vampire Survivors<br>(프로토타입)</td>
+        <td>Hollow Knight<br>Cuphead</td>
+        <td>Dome Keeper<br>Cassette Beasts</td>
+        <td>Undertale<br>Hyper Light Drifter</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==================== SECTION 6: MARKET ==================== -->
+
+<section class="section-band band-amber">
+  <div class="band-inner">
+    <h2>6. HTML5 / 웹 게임 시장 동향</h2>
+    <p>HTML5 게임 시장은 2025년 약 $5.66B 규모이며, 연평균 17.4% 성장률로 2034년 $5.1B에 달할 전망입니다(H5 하위 세그먼트 기준). 모바일 웹 게이밍이 5G 확산과 함께 빠르게 성장 중입니다.</p>
+  </div>
+</section>
+
+<div class="chart-section" style="margin-top: 48px;">
+  <h3 class="chart-title">웹 게임 시장 매출 비중 (지역별)</h3>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <span class="bar-label">북미</span>
+      <div class="bar-track"><div class="bar-fill c-purple" style="width:35%">35%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">유럽</span>
+      <div class="bar-track"><div class="bar-fill c-emerald" style="width:30%">30%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">아시아태평양</span>
+      <div class="bar-track"><div class="bar-fill c-amber" style="width:25%">25%</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">기타</span>
+      <div class="bar-track"><div class="bar-fill c-slate" style="width:10%">10%</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="article-body">
+  <h3>주요 트렌드</h3>
+  <ul>
+    <li><strong>PWA 채택 증가</strong>: 오프라인 플레이, 푸시 알림, 앱스토어 30% 수수료 회피</li>
+    <li><strong>인스턴트 플레이</strong>: 다운로드 제로 경험이 앱스토어 대비 핵심 차별점</li>
+    <li><strong>텔레그램/디스코드 내장</strong>: 새로운 배포 채널로 급부상</li>
+    <li><strong>광고 지원 모델 주류</strong>: 전체 매출의 42~45%가 광고 수익 (보상형 영상 선호)</li>
+    <li><strong>AR/VR 접목</strong>: HTML5 개발자의 45%가 AR/VR 기능 탐색 중</li>
+  </ul>
+</div>
+
+<!-- ==================== SECTION 7: SURVIVOR-LIKE GENRE ==================== -->
+
+<section class="section-band band-purple">
+  <div class="band-inner">
+    <h2>7. 서바이버라이크 장르 &mdash; 시장 검증 완료</h2>
+    <p>WanChai가 속한 서바이버라이크/불릿 헤븐 장르는 이미 시장 검증이 끝난 장르입니다. 이 장르는 Phaser의 강점(많은 스프라이트, 단순한 조작, 중독성 루프)과 정확히 맞습니다.</p>
+  </div>
+</section>
+
+<div class="chart-section" style="margin-top: 48px;">
+  <h3 class="chart-title">서바이버라이크 장르 Steam 매출 (추정, 상위 타이틀)</h3>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <span class="bar-label">Vampire Survivors</span>
+      <div class="bar-track"><div class="bar-fill c-purple" style="width:100%">$57M+</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Brotato</span>
+      <div class="bar-track"><div class="bar-fill c-emerald" style="width:39%">$22M</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">DRG: Survivor</span>
+      <div class="bar-track"><div class="bar-fill c-amber" style="width:18%">500K 유닛 (1주차)</div></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">20 Minutes Till Dawn</span>
+      <div class="bar-track"><div class="bar-fill c-rose" style="width:12%">~$6M</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="article-body">
+  <h3>장르 성공 공식</h3>
+  <ul>
+    <li><strong>파워 판타지</strong>: 플레이어가 시간이 지남에 따라 압도적으로 강해지는 느낌</li>
+    <li><strong>시각적 과부하</strong>: 화면을 가득 채우는 무기/이펙트가 그 자체로 스펙터클</li>
+    <li><strong>낮은 진입 장벽</strong>: 한 손으로 플레이 가능, 복잡한 조작 없음</li>
+    <li><strong>높은 리플레이성</strong>: 로그라이크 요소, 랜덤 업그레이드, 언락 시스템</li>
+    <li><strong>충동 구매 가격</strong>: $2.99~$4.99가 최적 가격대</li>
+  </ul>
+</div>
+
+<!-- ==================== SECTION 8: ASSET STORES ==================== -->
+
+<section class="section-band band-emerald">
+  <div class="band-inner">
+    <h2>8. Phaser 호환 에셋 구매 가이드</h2>
+    <p>Vampire Survivors는 Oryx Design Lab의 "Hi-Fi Gothic" 에셋 팩으로 시작해 $57M을 벌었습니다. <strong>좋은 에셋을 잘 고르는 것</strong>이 인디 게임 개발의 핵심 역량입니다. Phaser와 호환성이 좋은 에셋 스토어와 선택 기준을 정리합니다.</p>
+  </div>
+</section>
+
+<!-- Asset Store Cards -->
+<div class="case-card">
+  <div class="card-inner">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f43f5e; color:#fff;">1</div>
+      <div>
+        <div class="card-title">itch.io 에셋 마켓</div>
+        <div class="card-subtitle">최대 2D 게임 에셋 마켓플레이스 &middot; 60,000+ 에셋</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f43f5e;">60K+</div>
+          <div class="stat-label">에셋 수</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#10b981;">무료~$60</div>
+          <div class="stat-label">가격대</div>
+        </div>
+      </div>
+      <p><strong>장점</strong>: 최대 품종, 인디 아티스트 직거래, 메가 번들($60에 237개 팩). 무료 에셋도 풍부.</p>
+      <p><strong>주의</strong>: 라이선스가 에셋마다 다름 &mdash; 반드시 개별 확인 필요. 품질 편차가 큼.</p>
+      <p><strong>추천 용도</strong>: 프로토타이핑, 특정 스타일 탐색, 번들 구매로 대량 확보</p>
+    </div>
+  </div>
+</div>
+
+<div class="case-card">
+  <div class="card-inner">
+    <div class="card-header">
+      <div class="card-icon" style="background:#10b981; color:#fff;">2</div>
+      <div>
+        <div class="card-title">Kenney.nl</div>
+        <div class="card-subtitle">CC0 완전 무료 에셋 &middot; 60,000+ 에셋 &middot; 업계 표준</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-value" style="color:#10b981;">60K+</div>
+          <div class="stat-label">에셋 수</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#7c3aed;">$0</div>
+          <div class="stat-label">가격 (전부 무료)</div>
+        </div>
+      </div>
+      <p><strong>라이선스</strong>: CC0 퍼블릭 도메인 &mdash; 저작자 표시 불필요, 상업적 사용 완전 자유.</p>
+      <p><strong>장점</strong>: 일관된 스타일, 깔끔한 디자인, 프로토타이핑의 업계 표준.</p>
+      <p><strong>한계</strong>: 스타일이 "Kenney 특유"라 다른 게임과 비슷해 보일 수 있음.</p>
+    </div>
+  </div>
+</div>
+
+<div class="case-card">
+  <div class="card-inner">
+    <div class="card-header">
+      <div class="card-icon" style="background:#7c3aed; color:#fff;">3</div>
+      <div>
+        <div class="card-title">CraftPix.net</div>
+        <div class="card-subtitle">프로페셔널 2D 에셋 &middot; 구독 $4.15/월 (연간)</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-value" style="color:#7c3aed;">1,000+</div>
+          <div class="stat-label">에셋 팩</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" style="color:#f59e0b;">$48/년</div>
+          <div class="stat-label">구독 (전체 접근)</div>
+        </div>
+      </div>
+      <p><strong>장점</strong>: 프로 수준 품질, 연간 구독 시 모든 에셋 접근 가능 ($48/년 = 가성비 최고).</p>
+      <p><strong>라이선스</strong>: 로열티 프리, 상업적 사용 가능. 개별 구매 $2~$15.</p>
+      <p><strong>추천 용도</strong>: 캐릭터, 배경, UI, 타일셋 등 프로덕션 레벨 에셋이 필요할 때.</p>
+    </div>
+  </div>
+</div>
+
+<div class="article-body">
+  <h3>기타 추천 에셋 소스</h3>
+  <ul>
+    <li><strong>OpenGameArt.org</strong> &mdash; 무료 커뮤니티 기반. 로그라이크 팩(1,700+ 타일), 930+ 크리처 스프라이트. 라이선스 다양(CC-BY, GPL 등).</li>
+    <li><strong>GameArt2D.com</strong> &mdash; 무료+유료. 타일셋, 캐릭터, GUI, 배경 100+ 항목.</li>
+    <li><strong>GraphicRiver</strong> &mdash; 프리미엄 마켓($5~$30+). 최고 품질이지만 가격대 높음.</li>
+    <li><strong>Unity Asset Store (Fab)</strong> &mdash; 많은 2D 에셋이 PNG 스프라이트시트로 제공되어 Phaser에서도 사용 가능. 단, Unity 전용 포맷은 변환 필요.</li>
+  </ul>
+
+  <p style="margin-top:24px;"><strong>Vampire Survivors가 사용한 에셋</strong>: Oryx Design Lab의 "Hi-Fi Gothic" 팩. 2006년 "Serenade of Chaos" 프로젝트용으로 커미션된 에셋을 비독점 라이선스로 사용. 이후 커뮤니티에서 Castlevania 유사성이 지적되어 일부 스프라이트를 수정했습니다.</p>
+</div>
+
+<!-- ==================== SECTION 9: ASSET SELECTION GUIDE ==================== -->
+
+<section class="section-band band-slate">
+  <div class="band-inner">
+    <h2>9. 에셋 선택 시 주의 포인트</h2>
+    <p>에셋을 잘못 고르면 나중에 전체를 교체해야 하는 최악의 상황이 옵니다. 구매 전 반드시 확인해야 할 체크리스트를 정리합니다.</p>
+  </div>
+</section>
+
+<div class="comp-table-wrap">
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>파일 포맷</th>
+        <th>Phaser 지원</th>
+        <th>비고</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td><strong>Texture Atlas (JSON + PNG)</strong></td>
+        <td class="check">네이티브 (추천)</td>
+        <td>프레임 크기 자유, 공간 효율적. <code>this.load.atlas()</code></td>
+      </tr>
+      <tr>
+        <td>PNG Sprite Sheet (균일 그리드)</td>
+        <td class="check">네이티브</td>
+        <td>고정 프레임 크기로 공간 낭비. <code>this.load.spritesheet()</code></td>
+      </tr>
+      <tr>
+        <td>XML Atlas</td>
+        <td class="check">네이티브</td>
+        <td>지원되지만 JSON 선호</td>
+      </tr>
+      <tr>
+        <td>Spine 스켈레탈 애니메이션</td>
+        <td class="warn">플러그인 필요</td>
+        <td>공식 Spine 런타임 존재. 복잡한 캐릭터 애니메이션에 적합</td>
+      </tr>
+      <tr>
+        <td>DragonBones</td>
+        <td class="warn">커뮤니티 플러그인</td>
+        <td>유지보수 불안정. 버전 간 호환성 이슈 가능</td>
+      </tr>
+      <tr>
+        <td>PSD / AI 원본 파일</td>
+        <td class="cross">직접 불가</td>
+        <td>TexturePacker로 변환 필요</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="article-body">
+  <h3>반드시 확인할 6가지 체크포인트</h3>
+</div>
+
+<div class="annotated-section">
+  <div class="article-body" style="padding:0; max-width:none;">
+    <ol style="padding-left:20px;">
+      <li style="margin-bottom:20px;">
+        <strong>스타일 일관성</strong> &mdash; 서로 다른 스토어/아티스트의 에셋을 섞으면 게임 전체가 어색해집니다. 구매 전 <strong>아트 바이블</strong>(색상 팔레트, 아웃라인 스타일, 비율)을 정하고 그에 맞는 에셋만 선택하세요. 이것이 가장 중요한 포인트입니다.
+      </li>
+      <li style="margin-bottom:20px;">
+        <strong>라이선스 확인</strong> &mdash; "무료"라고 다 같은 무료가 아닙니다.
+        <ul style="margin-top:8px;">
+          <li><strong>CC0</strong>: 가장 안전. 저작자 표시 불필요, 상업 자유.</li>
+          <li><strong>MIT/Apache</strong>: 상업 가능, 라이선스 파일 포함 필요.</li>
+          <li><strong>CC-BY</strong>: 상업 가능, 저작자 표시 필수.</li>
+          <li><strong>CC-NC</strong>: 상업적 사용 금지 &mdash; <strong>절대 사용 금지</strong>.</li>
+          <li><strong>GPL</strong>: 게임 코드 전체를 공개해야 할 수 있음 &mdash; 주의.</li>
+        </ul>
+      </li>
+      <li style="margin-bottom:20px;">
+        <strong>해상도 통일</strong> &mdash; 16&times;16 픽셀아트와 128&times;128 HD 스프라이트를 섞지 마세요. 하나의 해상도 티어를 정하고 전체에 적용합니다.
+      </li>
+      <li style="margin-bottom:20px;">
+        <strong>텍스처 아틀라스 크기</strong> &mdash; 모바일 안전 한도는 <strong>2048&times;2048</strong>. 구형 Android GPU에서 4096 이상은 렌더링 실패할 수 있습니다. TexturePacker의 멀티팩 기능으로 분할하세요.
+      </li>
+      <li style="margin-bottom:20px;">
+        <strong>애니메이션 포맷 종속</strong> &mdash; Spine 에셋 구매 시 Spine 런타임 플러그인이 필수. DragonBones는 유지보수 불안정. <strong>최대 호환성을 원하면 PNG 스프라이트시트 애니메이션</strong>을 선택하세요.
+      </li>
+      <li style="margin-bottom:20px;">
+        <strong>네이밍 컨벤션</strong> &mdash; WanChai의 기존 규칙(<code>char_</code>, <code>enemy_</code>, <code>tile_</code>, <code>ui_</code>, <code>fx_</code>, <code>bg_</code>)과 일치시키세요. 구매한 에셋의 파일명을 일괄 변환하는 작업을 예상하세요.
+      </li>
+    </ol>
+  </div>
+  <aside class="annotation-box">
+    <strong>추천 도구</strong>
+    <strong>TexturePacker</strong>: Phaser 3 전용 내보내기 포맷 지원. 피벗 포인트, 멀티팩, 트리밍. 에셋 관리의 업계 표준.<br><br>
+    <strong>Free Texture Packer</strong>: 무료 대안. Phaser 호환.<br><br>
+    <strong>Phaser Editor 2D</strong>: 아틀라스 패킹 + Spine 지원 IDE.
+  </aside>
+</div>
+
+<div class="pull-quote color-emerald">
+  <blockquote>"에셋은 싸게 사는 게 아니라, 일관성 있게 고르는 것이 핵심이다. 3개 스토어에서 10개 팩을 섞는 것보다, 1개 아티스트의 3개 팩이 낫다."</blockquote>
+  <cite>&mdash; 인디 개발 에셋 선택의 황금률</cite>
+</div>
+
+<!-- ==================== SECTION 10: WANCHAI VERDICT ==================== -->
+
+<div class="pull-quote color-amber">
+  <blockquote>"웹에서 검증하고, Steam에서 수익화하고, 성공하면 엔진을 바꿔라."</blockquote>
+  <cite>&mdash; Vampire Survivors 플레이북</cite>
+</div>
+
+<div class="verdict-box">
+  <div class="verdict-inner">
+    <h3>WanChai 프로젝트 전략적 판단</h3>
+
+    <p><strong>현재 상태</strong>: Phaser 3.90 + Vite + TypeScript, 2,955 테스트 통과, Vercel 배포 완료. 서바이버라이크 장르.</p>
+
+    <p><strong>핵심 질문에 대한 답</strong>:</p>
+    <ul>
+      <li><strong>Phaser로 돈을 벌 수 있는가?</strong> &mdash; 가능합니다. VS가 $57M을 증명했습니다. 단, 콘솔 확장 시 엔진 교체가 필요합니다.</li>
+      <li><strong>그래픽 퀄리티가 부족한데?</strong> &mdash; VS도 에셋 팩 기반이었습니다. 서바이버라이크 장르에서 그래픽은 게임 필보다 덜 중요합니다.</li>
+      <li><strong>Unity로 바꿔야 하나?</strong> &mdash; <strong>지금은 아닙니다</strong>. 먼저 현재 엔진으로 시장 반응을 검증하세요.</li>
+    </ul>
+
+    <p><strong>추천 전략 (3단계)</strong>:</p>
+    <ol>
+      <li><strong>1단계</strong>: Phaser 그대로 웹 배포 + Electron/Tauri로 Steam 출시 ($2.99~$4.99). 최소 비용으로 시장 검증.</li>
+      <li><strong>2단계</strong>: 동시에 Poki/CrazyGames 웹 배포로 광고 수익 + 유저 피드백 수집.</li>
+      <li><strong>3단계</strong>: Steam에서 긍정 리뷰 500개+ 달성 시, Unity/Godot 이식을 검토해 콘솔(Switch/Xbox) 진출.</li>
+    </ol>
+
+    <p><strong>리스크</strong>: Phaser로 Steam 성공한 게임이 VS 외에 없다는 점. 하지만 VS도 처음엔 Phaser였고, 장르 자체가 검증되었으므로 엔진보다 <strong>게임플레이 완성도가 성패를 결정</strong>합니다.</p>
+
+    <span class="verdict-label">결론: 현재 엔진 유지 + 시장 검증 우선</span>
+  </div>
+</div>
+
+<!-- SOURCES -->
+<div class="article-body" style="padding-bottom: 48px;">
+  <h3>참고 자료</h3>
+  <p style="font-size: 13px; color: #666; line-height: 1.6;">
+    Steam Revenue Calculator (Vampire Survivors, CrossCode, Brotato) &middot;
+    SteamDB Phaser Engine List &middot;
+    LEVVVEL VS Statistics &middot;
+    Barclays Games (Poncle Studio Growth) &middot;
+    PC Gamer (VS Creator Interview) &middot;
+    Poki Developer Docs &middot;
+    Mobidictum (Poki 2025) &middot;
+    GamesBeat (CrazyGames 35M) &middot;
+    Growjo (CrazyGames Revenue) &middot;
+    Genieee (HTML5 Licensing 2025, Monetization 2025) &middot;
+    Game Developer (Hidden Web Game Market) &middot;
+    Phaser.io (v4 RC4, Steam Electron Guide, Capacitor Tutorial, FX Docs) &middot;
+    Business Research Insights (HTML5/H5 Market Reports) &middot;
+    Wikipedia (Vampire Survivors, DRG Survivor) &middot;
+    GameWorldObserver (Telegram Mini Apps) &middot;
+    Sensor Tower (BangBang Survivor iOS/Android) &middot;
+    Lancaric.me (BangBang Survivor $600K/day) &middot;
+    SPGame Official Site &middot;
+    PocketGamer (WeChat Minigames $2.3B H1 2024) &middot;
+    Oreate AI (WeChat Mini Game Ecosystem 2025) &middot;
+    SCMP (Jump Jump 100M Users) &middot;
+    PingWest (Sheep A Sheep 60M) &middot;
+    CraftPix.net &middot; Kenney.nl &middot; OpenGameArt.org &middot;
+    TexturePacker (Phaser Atlas Tutorial) &middot;
+    Phaser Docs (Textures, Particles, Spine)
+  </p>
+
+  <div class="tags" style="margin-top: 40px; padding-bottom: 48px; border-bottom: 2px solid #e2e8f0;">
+    <span class="tag-pill t-purple">Phaser</span>
+    <span class="tag-pill t-emerald">Steam</span>
+    <span class="tag-pill t-amber">WanChai</span>
+    <span class="tag-pill t-rose">전략 보고서</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span>HKD852 &copy; 2026</span>
+  <span>CEO Strategic Research Report</span>
+</footer>
+
+</body>
+</html>
