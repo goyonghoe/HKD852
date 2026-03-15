@@ -13,32 +13,36 @@
 
 RunScene.ts는 **1953줄, 약 70개 인스턴스 변수**를 가진 God Object로, 게임 내 모든 런타임 로직을 단일 클래스에서 처리한다.
 
-| 문제 | 영향 |
-|------|------|
-| 단일 파일 1953줄 | 코드 탐색/이해 비용 급증, 리뷰 불가 |
-| ~70개 인스턴스 변수 | 상태 간 암묵적 의존성, 초기화 순서 버그 (M-015) |
-| Phase 상태머신이 메서드 곳곳에 분산 | 보스+레벨업 동시 발생 소프트락 (M-014) |
-| 서브시스템 간 경계 없음 | 한 영역 수정이 다른 영역에 예상치 못한 영향 |
-| 테스트 불가능 | Phaser Scene 없이 개별 로직 유닛 테스트 불가 |
+| 문제                                | 영향                                            |
+| ----------------------------------- | ----------------------------------------------- |
+| 단일 파일 1953줄                    | 코드 탐색/이해 비용 급증, 리뷰 불가             |
+| ~70개 인스턴스 변수                 | 상태 간 암묵적 의존성, 초기화 순서 버그 (M-015) |
+| Phase 상태머신이 메서드 곳곳에 분산 | 보스+레벨업 동시 발생 소프트락 (M-014)          |
+| 서브시스템 간 경계 없음             | 한 영역 수정이 다른 영역에 예상치 못한 영향     |
+| 테스트 불가능                       | Phaser Scene 없이 개별 로직 유닛 테스트 불가    |
 
 ### 1.2 인스턴스 변수 분류 (70개)
 
 #### A. 시스템 참조 (7개)
+
 ```
 weaponSystem, waveDirector, xpTable, vfx, dmgNumbers, ariaMsg, collisionHash
 ```
 
 #### B. 게임 오브젝트 (6개)
+
 ```
 player, enemyGroup, projectileGroup, enemyProjectiles[], bgSprite, baseWallGraphics
 ```
 
 #### C. 캐시/풀 (2개)
+
 ```
 activeEnemies[], activeEnemyCount
 ```
 
 #### D. 런 상태 (13개)
+
 ```
 phase, runState, weapons[], spawnEnded, passiveCounts,
 targetPoint, targetReticle, targetClearEvent,
@@ -47,6 +51,7 @@ gameSpeed, speedIndex, speedText
 ```
 
 #### E. HUD 요소 (13개)
+
 ```
 baseBar, xpBar, killText, timerText, levelText, fpsText,
 goldText, stageText, bossHpBar, bossNameText,
@@ -54,24 +59,28 @@ statsText, enemyHpBarsGfx, fpsUpdateTimer
 ```
 
 #### F. HUD 더티 캐시 (10개)
+
 ```
 prevBaseHpPct, prevXpPct, prevKills, prevLevel, prevTimerStr,
 prevBossHpPct, prevGold, prevStage, prevWeaponSlotStr, prevStatsStr
 ```
 
 #### G. 레벨업 UI (5개)
+
 ```
 upgradeContainer, autoSelectBarBg, autoSelectBarFill,
 autoSelectStartReal, autoSelectBestChoice
 ```
 
 #### H. 상점 UI (6개)
+
 ```
 midShopShown, shopContainer, shopAutoBarBg, shopAutoBarFill,
 shopAutoStartReal, shopAutoBestAction
 ```
 
 #### I. 스테이지 관리 (9개)
+
 ```
 pendingStageClear, stageClearContainer, prevStage,
 stageHpMult, stageSpeedMult, stageDamageMult,
@@ -79,53 +88,58 @@ bossStageActive, bossSpawnedThisStage, activeBoss
 ```
 
 #### J. ARIA 메시지 (3개)
+
 ```
 ariaBossShown, ariaBossWarningShown, ariaLowHpShown
 ```
 
 #### K. 메타 프로그레션 (3개)
+
 ```
 metaXpBonus, metaDamageBase, metaCritBase
 ```
 
 #### L. 무기 슬롯 HUD (3개)
+
 ```
 weaponSlotBgs[], weaponSlotTexts[], prevWeaponSlotStr
 ```
 
 #### M. 동료 시스템 (4개)
+
 ```
 allyLeftSprite, allyRightSprite, allySniperCooldown, allySpreadCooldown
 ```
 
 #### N. 기타 (3개)
+
 ```
 pauseOverlay, sfxThrottles, BG_MAP(static)
 ```
 
 ### 1.3 책임 영역 분류 (메서드 기준)
 
-| 영역 | 메서드 | 줄 수 (추정) |
-|------|--------|-------------|
-| **초기화** | `create()` | ~170 |
-| **메인 루프** | `update()` | ~180 |
-| **스폰** | `spawnEnemies()` | ~20 |
-| **충돌** | `resolveCollisions()`, `onProjectileHitEnemy()` | ~50 |
-| **적 이동/공격** | Phase 4 in `update()`, `onEnemyReachedBase()`, `applyBaseDamage()` | ~80 |
-| **적 투사체** | `spawnEnemyProjectile()`, `updateEnemyProjectiles()` | ~45 |
-| **적 사망** | `onEnemyDeath()` (스플리터 포함) | ~80 |
-| **HUD** | `createHUD()`, `updateHUD()` | ~300 |
-| **레벨업 UI** | `showLevelUpUI()`, `createUpgradeCards()`, `scoreBestChoice()`, `applyUpgrade()`, `applyPassiveEffect()` | ~180 |
-| **상점 UI** | `showMidRunShop()`, `scoreBestShopChoice()`, `applyShopChoice()`, `closeShop()` | ~180 |
-| **스테이지 전환** | `showStageClear()`, `nextStage()` | ~140 |
-| **동료** | `createAllies()`, `updateAllies()`, `findNearestEnemyFrom()`, `findNearestEnemiesFrom()`, `fireAllyProjectile()` | ~95 |
-| **입력** | `onPointerDown()`, `drawTargetReticle()` | ~25 |
-| **게임 속도/일시정지** | `cycleSpeed()`, `togglePause()` | ~20 |
-| **ARIA** | `checkARIATriggers()` | ~12 |
-| **게임 오버** | `onRunComplete()` | ~40 |
-| **배경/그리드** | `drawGrid()`, `updateBackground()` | ~40 |
-| **기지 벽** | `drawBaseWall()`, `flashBaseWall()`, `applyBaseRegen()` | ~30 |
-| **유틸** | `findNearestEnemyCached()`, `playSfx()`, `shutdown()` | ~30 |
+| 영역                   | 메서드                                                                                                           | 줄 수 (추정) |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------ |
+| **초기화**             | `create()`                                                                                                       | ~170         |
+| **메인 루프**          | `update()`                                                                                                       | ~180         |
+| **스폰**               | `spawnEnemies()`                                                                                                 | ~20          |
+| **충돌**               | `resolveCollisions()`, `onProjectileHitEnemy()`                                                                  | ~50          |
+| **적 이동/공격**       | Phase 4 in `update()`, `onEnemyReachedBase()`, `applyBaseDamage()`                                               | ~80          |
+| **적 투사체**          | `spawnEnemyProjectile()`, `updateEnemyProjectiles()`                                                             | ~45          |
+| **적 사망**            | `onEnemyDeath()` (스플리터 포함)                                                                                 | ~80          |
+| **HUD**                | `createHUD()`, `updateHUD()`                                                                                     | ~300         |
+| **레벨업 UI**          | `showLevelUpUI()`, `createUpgradeCards()`, `scoreBestChoice()`, `applyUpgrade()`, `applyPassiveEffect()`         | ~180         |
+| **상점 UI**            | `showMidRunShop()`, `scoreBestShopChoice()`, `applyShopChoice()`, `closeShop()`                                  | ~180         |
+| **스테이지 전환**      | `showStageClear()`, `nextStage()`                                                                                | ~140         |
+| **동료**               | `createAllies()`, `updateAllies()`, `findNearestEnemyFrom()`, `findNearestEnemiesFrom()`, `fireAllyProjectile()` | ~95          |
+| **입력**               | `onPointerDown()`, `drawTargetReticle()`                                                                         | ~25          |
+| **게임 속도/일시정지** | `cycleSpeed()`, `togglePause()`                                                                                  | ~20          |
+| **ARIA**               | `checkARIATriggers()`                                                                                            | ~12          |
+| **게임 오버**          | `onRunComplete()`                                                                                                | ~40          |
+| **배경/그리드**        | `drawGrid()`, `updateBackground()`                                                                               | ~40          |
+| **기지 벽**            | `drawBaseWall()`, `flashBaseWall()`, `applyBaseRegen()`                                                          | ~30          |
+| **유틸**               | `findNearestEnemyCached()`, `playSfx()`, `shutdown()`                                                            | ~30          |
 
 ### 1.4 update() 루프 Phase 흐름
 
@@ -244,17 +258,21 @@ export interface RunManager {
 **책임**: 웨이브 스폰, 보스 스폰, 적 풀 관리
 
 **이관 변수** (6개):
+
 ```
 spawnEnded, bossStageActive, bossSpawnedThisStage, waveDirector
 ```
+
 > `waveDirector`는 SpawnManager 내부에서 소유
 
 **이관 메서드** (1개):
+
 ```
 spawnEnemies(defId, count, elite)
 ```
 
 **인터페이스**:
+
 ```typescript
 // src/managers/SpawnManager.ts
 
@@ -264,7 +282,9 @@ export class SpawnManager implements RunManager {
   private bossStageActive = false;
   private bossSpawnedThisStage = false;
 
-  create(ctx: RunContext): void { /* WaveDirector 초기화 */ }
+  create(ctx: RunContext): void {
+    /* WaveDirector 초기화 */
+  }
 
   update(ctx: RunContext, scaledDelta: number): void {
     /* Phase 3 로직: 보스 스폰 or 웨이브 스폰 */
@@ -276,24 +296,33 @@ export class SpawnManager implements RunManager {
   }
 
   /** 스폰 타이머 종료 여부 (Phase 11 승리 판정에 필요) */
-  get isSpawnEnded(): boolean { return this.spawnEnded; }
+  get isSpawnEnded(): boolean {
+    return this.spawnEnded;
+  }
 
   /** 현재 보스 스테이지인지 */
-  get isBossStage(): boolean { return this.bossStageActive; }
+  get isBossStage(): boolean {
+    return this.bossStageActive;
+  }
 
   /** WaveDirector의 경과 시간 (외부 참조용) */
-  getElapsedMinutes(): number { return this.waveDirector.getElapsedMinutes(); }
+  getElapsedMinutes(): number {
+    return this.waveDirector.getElapsedMinutes();
+  }
 
-  shutdown(): void { /* cleanup */ }
+  shutdown(): void {
+    /* cleanup */
+  }
 }
 ```
 
 **RunScene과의 통신**:
+
 - SpawnManager는 `ctx.enemyGroup`에 직접 `.get()` 호출하여 적을 스폰
 - ARIA 메시지, 오디오 전환은 **콜백**으로 RunScene에 위임:
   ```typescript
   interface SpawnCallbacks {
-    onBossSpawn: () => void;    // ARIA + 사운드 + VFX
+    onBossSpawn: () => void; // ARIA + 사운드 + VFX
     onStageAudioSwitch: (track: string) => void;
   }
   ```
@@ -303,11 +332,13 @@ export class SpawnManager implements RunManager {
 **책임**: SpatialHash 관리, 투사체-적 충돌 감지, 적 투사체-기지 충돌
 
 **이관 변수** (3개):
+
 ```
 collisionHash, enemyProjectiles[], COLLISION_RADIUS/COLLISION_RADIUS_SQ (상수)
 ```
 
 **이관 메서드** (4개):
+
 ```
 resolveCollisions()
 onProjectileHitEnemy(proj, enemy)
@@ -316,6 +347,7 @@ updateEnemyProjectiles(delta)
 ```
 
 **인터페이스**:
+
 ```typescript
 // src/managers/CollisionManager.ts
 
@@ -329,28 +361,43 @@ export class CollisionManager implements RunManager {
   private collisionHash!: SpatialHash;
   private enemyProjectiles: EnemyProjectile[] = [];
 
-  create(ctx: RunContext): void { /* SpatialHash 초기화 */ }
+  create(ctx: RunContext): void {
+    /* SpatialHash 초기화 */
+  }
 
   /** Phase 1: 프레임 시작 시 SpatialHash 리빌드 */
-  rebuildSpatialHash(ctx: RunContext): void { /* ... */ }
+  rebuildSpatialHash(ctx: RunContext): void {
+    /* ... */
+  }
 
   /** Phase 4b: 적 투사체 이동 + 기지 충돌 */
-  updateEnemyProjectiles(ctx: RunContext, scaledDelta: number): void { /* ... */ }
+  updateEnemyProjectiles(ctx: RunContext, scaledDelta: number): void {
+    /* ... */
+  }
 
   /** Phase 6: 아군 투사체-적 충돌 */
-  resolveProjectileCollisions(ctx: RunContext): void { /* ... */ }
+  resolveProjectileCollisions(ctx: RunContext): void {
+    /* ... */
+  }
 
   /** 적이 투사체 발사 (적 이동 로직에서 호출) */
-  spawnEnemyProjectile(ctx: RunContext, enemy: Enemy): void { /* ... */ }
+  spawnEnemyProjectile(ctx: RunContext, enemy: Enemy): void {
+    /* ... */
+  }
 
   /** 스테이지 전환 시 모든 투사체 정리 */
-  resetForStage(): void { /* ... */ }
+  resetForStage(): void {
+    /* ... */
+  }
 
-  shutdown(): void { /* sprite.destroy() */ }
+  shutdown(): void {
+    /* sprite.destroy() */
+  }
 }
 ```
 
 **RunScene과의 통신**:
+
 - 충돌 결과는 **콜백 패턴**으로 전달 (`CollisionCallbacks`)
 - VFX, 데미지 넘버, SFX는 콜백을 통해 RunScene이 중개
 - 기지 피해는 `onBaseDamage(damage, x)` 콜백으로 올림 — RunScene이 `runState.baseHp` 갱신
@@ -360,6 +407,7 @@ export class CollisionManager implements RunManager {
 **책임**: 모든 HUD 요소 생성, 더티 플래그 기반 업데이트, 적 오버헤드 HP 바
 
 **이관 변수** (26개):
+
 ```
 baseBar, xpBar, killText, timerText, levelText, fpsText,
 goldText, stageText, bossHpBar, bossNameText,
@@ -370,12 +418,14 @@ weaponSlotBgs[], weaponSlotTexts[], speedText
 ```
 
 **이관 메서드** (2개):
+
 ```
 createHUD()
 updateHUD(rawDelta)
 ```
 
 **인터페이스**:
+
 ```typescript
 // src/managers/HUDManager.ts
 
@@ -391,21 +441,27 @@ export class HUDManager implements RunManager {
   }
 
   /** 속도 텍스트 갱신 (cycleSpeed 호출 시) */
-  setSpeedDisplay(speed: number): void { /* ... */ }
+  setSpeedDisplay(speed: number): void {
+    /* ... */
+  }
 
   /** 일시정지/속도 버튼 콜백 등록 */
-  setButtonCallbacks(callbacks: {
-    onPause: () => void;
-    onCycleSpeed: () => void;
-  }): void { /* ... */ }
+  setButtonCallbacks(callbacks: { onPause: () => void; onCycleSpeed: () => void }): void {
+    /* ... */
+  }
 
-  resetForStage(): void { /* 더티 플래그 전부 -1 */ }
+  resetForStage(): void {
+    /* 더티 플래그 전부 -1 */
+  }
 
-  shutdown(): void { /* ... */ }
+  shutdown(): void {
+    /* ... */
+  }
 }
 ```
 
 **RunScene과의 통신**:
+
 - HUDManager는 `ctx.runState`, `ctx.activeEnemies`, `ctx.activeBoss`, `ctx.weapons`, `ctx.player` 등을 **읽기 전용**으로 참조하여 표시
 - 버튼 탭 이벤트는 콜백으로 RunScene에 전달
 - HUDManager는 상태를 변경하지 않음 (순수 표시 레이어)
@@ -415,12 +471,14 @@ export class HUDManager implements RunManager {
 **책임**: 레벨업 판정, 업그레이드 카드 UI, 자동 선택 타이머, 패시브 효과 적용
 
 **이관 변수** (6개):
+
 ```
 upgradeContainer, autoSelectBarBg, autoSelectBarFill,
 autoSelectStartReal, autoSelectBestChoice, xpTable
 ```
 
 **이관 메서드** (6개):
+
 ```
 showLevelUpUI()
 createUpgradeCards(choices)
@@ -431,6 +489,7 @@ getPassiveLevels()
 ```
 
 **인터페이스**:
+
 ```typescript
 // src/managers/LevelUpManager.ts
 
@@ -449,28 +508,39 @@ export class LevelUpManager implements RunManager {
   private autoSelectStartReal = 0;
   private autoSelectBestChoice?: UpgradeChoice;
 
-  create(ctx: RunContext): void { /* XpTable 초기화 */ }
+  create(ctx: RunContext): void {
+    /* XpTable 초기화 */
+  }
 
   /** Phase 0: 레벨업 중 자동선택 바 업데이트 (update에서 호출) */
-  updateAutoSelect(ctx: RunContext): void { /* ... */ }
+  updateAutoSelect(ctx: RunContext): void {
+    /* ... */
+  }
 
   /** 적 사망 시 XP 적립 + 레벨업 체크 */
   addXpAndCheck(ctx: RunContext, xpAmount: number): boolean {
     /* returns true if levelup triggered */
   }
 
-  update(ctx: RunContext, delta: number): void { /* autoselect bar only */ }
+  update(ctx: RunContext, delta: number): void {
+    /* autoselect bar only */
+  }
 
   /** 패시브 효과를 Player에 적용 */
-  private applyPassiveEffect(ctx: RunContext, passiveId: string): void { /* ... */ }
+  private applyPassiveEffect(ctx: RunContext, passiveId: string): void {
+    /* ... */
+  }
 
-  shutdown(): void { /* container destroy */ }
+  shutdown(): void {
+    /* container destroy */
+  }
 }
 ```
 
 **핵심 설계 결정 — 보스+레벨업 직렬화 (M-014 방지)**:
 
 LevelUpManager는 `pendingStageClear` 상태를 **직접 보유하지 않는다**. 대신:
+
 1. `onLevelUpEnd(hasPendingStageClear)` 콜백으로 RunScene에 알림
 2. RunScene이 StageManager에게 스테이지 클리어 시퀀스를 위임
 3. Phase 전환 책임은 항상 RunScene에 있음 (단일 진실 소스)
@@ -488,20 +558,24 @@ LevelUpManager는 `pendingStageClear` 상태를 **직접 보유하지 않는다*
 **책임**: 스테이지 전환, 난이도 배율 관리, Stage Clear UI, 배경 교체
 
 **이관 변수** (7개):
+
 ```
 pendingStageClear, stageClearContainer,
 stageHpMult, stageSpeedMult, stageDamageMult,
 bossStageActive, bossSpawnedThisStage
 ```
+
 > `bossStageActive`, `bossSpawnedThisStage`는 SpawnManager와 공유 필요 — StageManager가 소유하고 SpawnManager가 참조
 
 **이관 메서드** (2개):
+
 ```
 showStageClear()
 nextStage()
 ```
 
 **인터페이스**:
+
 ```typescript
 // src/managers/StageManager.ts
 
@@ -521,26 +595,42 @@ export class StageManager implements RunManager {
   private stageSpeedMult = 1;
   private stageDamageMult = 1;
 
-  create(ctx: RunContext): void { /* ... */ }
-  update(ctx: RunContext, delta: number): void { /* 특별한 프레임 로직 없음 */ }
+  create(ctx: RunContext): void {
+    /* ... */
+  }
+  update(ctx: RunContext, delta: number): void {
+    /* 특별한 프레임 로직 없음 */
+  }
 
   /** 보스 사망 시 호출 — pendingStageClear 플래그 설정 */
-  markPendingStageClear(): void { this.pendingStageClear = true; }
-  get hasPendingStageClear(): boolean { return this.pendingStageClear; }
-  consumePendingStageClear(): void { this.pendingStageClear = false; }
+  markPendingStageClear(): void {
+    this.pendingStageClear = true;
+  }
+  get hasPendingStageClear(): boolean {
+    return this.pendingStageClear;
+  }
+  consumePendingStageClear(): void {
+    this.pendingStageClear = false;
+  }
 
   /** Stage Clear 오버레이 표시 */
-  showStageClear(ctx: RunContext): void { /* UI 생성, "다음 스테이지" 버튼 */ }
+  showStageClear(ctx: RunContext): void {
+    /* UI 생성, "다음 스테이지" 버튼 */
+  }
 
   /** 다음 스테이지로 진행 */
-  private nextStage(ctx: RunContext): void { /* 난이도 배율, 힐, 상태 초기화 */ }
+  private nextStage(ctx: RunContext): void {
+    /* 난이도 배율, 힐, 상태 초기화 */
+  }
 
   /** 현재 스테이지 난이도 배율 (SpawnManager에서 참조) */
   getDifficultyMults(): { hp: number; speed: number; damage: number } {
     return { hp: this.stageHpMult, speed: this.stageSpeedMult, damage: this.stageDamageMult };
   }
 
-  shutdown(): void { /* container destroy */ }
+  shutdown(): void {
+    /* container destroy */
+  }
 }
 ```
 
@@ -549,12 +639,14 @@ export class StageManager implements RunManager {
 **책임**: 중간 상점 UI, 자동 선택 타이머, 구매 적용
 
 **이관 변수** (6개):
+
 ```
 midShopShown, shopContainer, shopAutoBarBg, shopAutoBarFill,
 shopAutoStartReal, shopAutoBestAction
 ```
 
 **이관 메서드** (4개):
+
 ```
 showMidRunShop()
 scoreBestShopChoice(items)
@@ -563,6 +655,7 @@ closeShop()
 ```
 
 **인터페이스**:
+
 ```typescript
 // src/managers/ShopManager.ts
 
@@ -585,7 +678,9 @@ export class ShopManager implements RunManager {
   private shopAutoStartReal = 0;
   private shopAutoBestAction?: { action: string; cost: number } | null;
 
-  create(ctx: RunContext): void { /* ... */ }
+  create(ctx: RunContext): void {
+    /* ... */
+  }
 
   /** Phase 3b: 상점 트리거 시점 체크 */
   checkTrigger(ctx: RunContext): boolean {
@@ -593,13 +688,21 @@ export class ShopManager implements RunManager {
   }
 
   /** Phase 0: 상점 중 자동선택 바 업데이트 */
-  updateAutoSelect(ctx: RunContext): void { /* ... */ }
+  updateAutoSelect(ctx: RunContext): void {
+    /* ... */
+  }
 
-  update(ctx: RunContext, delta: number): void { /* autoselect only */ }
+  update(ctx: RunContext, delta: number): void {
+    /* autoselect only */
+  }
 
-  resetForStage(): void { this.midShopShown = false; }
+  resetForStage(): void {
+    this.midShopShown = false;
+  }
 
-  shutdown(): void { /* container destroy */ }
+  shutdown(): void {
+    /* container destroy */
+  }
 }
 ```
 
@@ -608,11 +711,13 @@ export class ShopManager implements RunManager {
 **책임**: 동료 스프라이트 생성, 위치, 쿨다운, 발사
 
 **이관 변수** (4개):
+
 ```
 allyLeftSprite, allyRightSprite, allySniperCooldown, allySpreadCooldown
 ```
 
 **이관 메서드** (5개):
+
 ```
 createAllies()
 updateAllies(delta)
@@ -622,6 +727,7 @@ fireAllyProjectile(fromX, fromY, toX, toY, damage, texture)
 ```
 
 **인터페이스**:
+
 ```typescript
 // src/managers/AllyManager.ts
 
@@ -650,12 +756,12 @@ export class AllyManager implements RunManager {
 
 ### 4.1 통신 패턴 비교
 
-| 패턴 | 장점 | 단점 | 채택 여부 |
-|------|------|------|----------|
-| **직접 참조 (RunContext)** | 단순, 성능 최적 | 양방향 의존성 가능 | **O** (읽기 위주) |
-| **콜백 (Callbacks)** | 의존성 역전, 테스트 용이 | 콜백 지옥 위험 | **O** (이벤트성 액션) |
-| **EventEmitter** | 완전 디커플링 | 디버그 어려움, 성능 오버헤드 | **X** (60fps 게임에서 불필요) |
-| **공유 이벤트 버스** | 매니저 간 통신 | 암묵적 의존성 | **X** |
+| 패턴                       | 장점                     | 단점                         | 채택 여부                     |
+| -------------------------- | ------------------------ | ---------------------------- | ----------------------------- |
+| **직접 참조 (RunContext)** | 단순, 성능 최적          | 양방향 의존성 가능           | **O** (읽기 위주)             |
+| **콜백 (Callbacks)**       | 의존성 역전, 테스트 용이 | 콜백 지옥 위험               | **O** (이벤트성 액션)         |
+| **EventEmitter**           | 완전 디커플링            | 디버그 어려움, 성능 오버헤드 | **X** (60fps 게임에서 불필요) |
+| **공유 이벤트 버스**       | 매니저 간 통신           | 암묵적 의존성                | **X**                         |
 
 ### 4.2 채택 패턴: RunContext + Callbacks
 
@@ -769,12 +875,14 @@ update(_time: number, delta: number): void {
 ### 5.2 단계별 계획
 
 #### Step 0: RunContext 인터페이스 정의
+
 - `src/types/run-context.ts` 생성
 - `src/managers/BaseRunManager.ts` 생성
 - **빌드 테스트**: 타입만 추가, 런타임 영향 없음
 - **검증**: `npm run build`
 
 #### Step 1: AllyManager 추출 (가장 독립적)
+
 - **이유**: 다른 서브시스템과 거의 의존 없음. `activeEnemies`만 읽음
 - **작업**:
   1. `src/managers/AllyManager.ts` 생성
@@ -785,6 +893,7 @@ update(_time: number, delta: number): void {
 - **위험도**: **낮음**
 
 #### Step 2: HUDManager 추출
+
 - **이유**: 순수 표시 레이어, 상태 변경 없음
 - **작업**:
   1. `src/managers/HUDManager.ts` 생성
@@ -794,6 +903,7 @@ update(_time: number, delta: number): void {
 - **위험도**: **낮음** — 단, `enemyHpBarsGfx` (월드 스페이스)는 depth 순서 주의
 
 #### Step 3: ShopManager 추출
+
 - **이유**: 레벨업과 독립적, phase='shop' 전용
 - **작업**:
   1. `src/managers/ShopManager.ts` 생성
@@ -803,6 +913,7 @@ update(_time: number, delta: number): void {
 - **위험도**: **낮음**
 
 #### Step 4: SpawnManager 추출
+
 - **이유**: 웨이브 디렉터를 캡슐화
 - **작업**:
   1. `src/managers/SpawnManager.ts` 생성
@@ -812,6 +923,7 @@ update(_time: number, delta: number): void {
 - **위험도**: **중간** — `stageHpMult`/`stageSpeedMult`/`stageDamageMult` 참조 경로 주의
 
 #### Step 5: LevelUpManager 추출 (M-014 핵심 영역)
+
 - **이유**: Phase 상태머신과 깊이 연관 — 가장 주의 필요
 - **작업**:
   1. `src/managers/LevelUpManager.ts` 생성
@@ -827,6 +939,7 @@ update(_time: number, delta: number): void {
 - **위험도**: **높음** — M-014 재발 가능
 
 #### Step 6: StageManager 추출
+
 - **이유**: Step 5 이후 해야 pendingStageClear 흐름이 안정화됨
 - **작업**:
   1. `src/managers/StageManager.ts` 생성
@@ -839,6 +952,7 @@ update(_time: number, delta: number): void {
 - **위험도**: **중간** — Step 5와의 상호작용
 
 #### Step 7: CollisionManager 추출 (마지막)
+
 - **이유**: 성능 크리티컬, SpatialHash 최적화 포함
 - **작업**:
   1. `src/managers/CollisionManager.ts` 생성
@@ -854,19 +968,19 @@ update(_time: number, delta: number): void {
 
 리팩토링 후 RunScene에 남는 책임:
 
-| 항목 | 이유 |
-|------|------|
-| `phase` 상태머신 | 단일 진실 소스 |
-| `create()` 오케스트레이션 | 매니저 조립 순서 보장 (M-015 방지) |
-| `update()` 오케스트레이션 | Phase별 매니저 호출 순서 보장 |
-| 적 이동 + 기지 도달 (Phase 4) | `Enemy.applyMovement()` 호출 + 기지 도달 판정 |
-| `onEnemyDeath()` | 여러 매니저에 걸친 사이드 이펙트 중개 |
-| `applyBaseDamage()` | `runState.baseHp` 변경 + VFX + SFX + 게임오버 체크 |
-| 기지 벽 렌더링 | `drawBaseWall()`, `flashBaseWall()` |
-| `onRunComplete()` | 씬 전환 |
-| 입력 처리 | `onPointerDown()` (타겟 포인트) |
-| `drawGrid()`, `updateBackground()` | 단순 렌더링 |
-| `playSfx()` | 공유 유틸 |
+| 항목                               | 이유                                               |
+| ---------------------------------- | -------------------------------------------------- |
+| `phase` 상태머신                   | 단일 진실 소스                                     |
+| `create()` 오케스트레이션          | 매니저 조립 순서 보장 (M-015 방지)                 |
+| `update()` 오케스트레이션          | Phase별 매니저 호출 순서 보장                      |
+| 적 이동 + 기지 도달 (Phase 4)      | `Enemy.applyMovement()` 호출 + 기지 도달 판정      |
+| `onEnemyDeath()`                   | 여러 매니저에 걸친 사이드 이펙트 중개              |
+| `applyBaseDamage()`                | `runState.baseHp` 변경 + VFX + SFX + 게임오버 체크 |
+| 기지 벽 렌더링                     | `drawBaseWall()`, `flashBaseWall()`                |
+| `onRunComplete()`                  | 씬 전환                                            |
+| 입력 처리                          | `onPointerDown()` (타겟 포인트)                    |
+| `drawGrid()`, `updateBackground()` | 단순 렌더링                                        |
+| `playSfx()`                        | 공유 유틸                                          |
 
 **예상 잔류 줄 수**: ~350-400줄
 
@@ -878,13 +992,14 @@ update(_time: number, delta: number): void {
 
 **위험도**: **높음**
 
-| 시나리오 | 위험 |
-|---------|------|
-| LevelUpManager와 StageManager 간 phase 전환 타이밍 어긋남 | 영구 소프트락 |
-| `pendingStageClear` 소유권 혼란 | 스테이지 클리어 미발생 |
-| 콜백 체인 중 phase가 예상과 다른 값 | 가드 조건에 걸림 |
+| 시나리오                                                  | 위험                   |
+| --------------------------------------------------------- | ---------------------- |
+| LevelUpManager와 StageManager 간 phase 전환 타이밍 어긋남 | 영구 소프트락          |
+| `pendingStageClear` 소유권 혼란                           | 스테이지 클리어 미발생 |
+| 콜백 체인 중 phase가 예상과 다른 값                       | 가드 조건에 걸림       |
 
 **완화 전략**:
+
 1. `pendingStageClear`는 StageManager가 소유, LevelUpManager는 `onLevelUpEnd` 콜백의 인자로만 관여
 2. Phase 전환은 **항상 RunScene에서만** 수행 — 매니저는 phase를 변경하지 않음
 3. Step 5/6 후 반드시 Gate 8 수행
@@ -894,12 +1009,13 @@ update(_time: number, delta: number): void {
 
 **위험도**: **중간**
 
-| 시나리오 | 위험 |
-|---------|------|
-| 매니저 메서드를 구현했지만 RunScene의 update()에서 호출 안 함 | 기능 미동작 |
-| 콜백 미등록 (예: `onBossSpawn` 연결 안 함) | 보스 스폰 시 ARIA/오디오 없음 |
+| 시나리오                                                      | 위험                          |
+| ------------------------------------------------------------- | ----------------------------- |
+| 매니저 메서드를 구현했지만 RunScene의 update()에서 호출 안 함 | 기능 미동작                   |
+| 콜백 미등록 (예: `onBossSpawn` 연결 안 함)                    | 보스 스폰 시 ARIA/오디오 없음 |
 
 **완화 전략**:
+
 1. 각 Step에서 "매니저 메서드 → RunScene 호출부" 1:1 매핑 확인
 2. `grep -rn '매니저메서드명' src/scenes/RunScene.ts` 로 호출 존재 확인
 3. Gate 5 (통합 배선 검증) 수행
@@ -908,12 +1024,13 @@ update(_time: number, delta: number): void {
 
 **위험도**: **중간**
 
-| 시나리오 | 위험 |
-|---------|------|
-| `create()` 내 매니저 생성 순서 잘못 | 미초기화 참조 접근 → 크래시 |
-| RunContext 조립 시점에 player/enemyGroup 미생성 | undefined 에러 |
+| 시나리오                                        | 위험                        |
+| ----------------------------------------------- | --------------------------- |
+| `create()` 내 매니저 생성 순서 잘못             | 미초기화 참조 접근 → 크래시 |
+| RunContext 조립 시점에 player/enemyGroup 미생성 | undefined 에러              |
 
 **완화 전략**:
+
 1. `create()` 내 순서를 명시적으로 주석 문서화
 2. RunContext는 모든 기본 오브젝트 생성 후 마지막에 조립
 3. `!` non-null assertion 최소화 — 가능하면 `create()`에서 즉시 할당
@@ -922,12 +1039,13 @@ update(_time: number, delta: number): void {
 
 **위험도**: **낮음**
 
-| 시나리오 | 위험 |
-|---------|------|
-| 함수 호출 오버헤드 증가 | FPS 하락 |
-| 객체 생성/GC 증가 | 프레임 스파이크 |
+| 시나리오                | 위험            |
+| ----------------------- | --------------- |
+| 함수 호출 오버헤드 증가 | FPS 하락        |
+| 객체 생성/GC 증가       | 프레임 스파이크 |
 
 **완화 전략**:
+
 1. 매니저 인스턴스는 `create()` 시 1회만 생성 (프레임 루프에서 `new` 없음)
 2. RunContext는 기존 변수의 참조만 가지므로 추가 할당 없음
 3. Step 7 (CollisionManager) 후 FPS 벤치마크 비교
@@ -938,6 +1056,7 @@ update(_time: number, delta: number): void {
 **위험도**: **낮음**
 
 현재 RunScene은 유닛 테스트 불가 (Phaser Scene 의존). 리팩토링 후:
+
 - 매니저 내부 순수 로직 (scoreBestChoice, applyPassiveEffect)은 **단독 테스트 가능**
 - Phaser 의존 부분 (UI 생성)은 여전히 통합 테스트 필요
 - 기존 테스트 수 변화 없음 (Gate 2 준수)
@@ -971,16 +1090,16 @@ src/
 
 ## 8. 수락 기준
 
-| # | 기준 | 검증 방법 |
-|---|------|----------|
-| 1 | RunScene.ts ≤ 500줄 | `wc -l` |
-| 2 | 모든 매니저가 `RunManager` 인터페이스 구현 | 타입 체크 |
-| 3 | `phase` 변경은 RunScene에서만 발생 | `grep 'this.phase =' src/managers/` → 결과 0건 |
-| 4 | 빌드+테스트 PASS | Gate 1 |
-| 5 | 보스+레벨업 동시 발생 소프트락 없음 | Gate 8 |
-| 6 | 6스테이지 전체 클리어 가능 | 수동 플레이 |
-| 7 | FPS ≥ 55 (45적 환경) | 게임 내 FPS 카운터 |
-| 8 | 기존 테스트 수 변화 없음 | Gate 2 |
+| #   | 기준                                       | 검증 방법                                      |
+| --- | ------------------------------------------ | ---------------------------------------------- |
+| 1   | RunScene.ts ≤ 500줄                        | `wc -l`                                        |
+| 2   | 모든 매니저가 `RunManager` 인터페이스 구현 | 타입 체크                                      |
+| 3   | `phase` 변경은 RunScene에서만 발생         | `grep 'this.phase =' src/managers/` → 결과 0건 |
+| 4   | 빌드+테스트 PASS                           | Gate 1                                         |
+| 5   | 보스+레벨업 동시 발생 소프트락 없음        | Gate 8                                         |
+| 6   | 6스테이지 전체 클리어 가능                 | 수동 플레이                                    |
+| 7   | FPS ≥ 55 (45적 환경)                       | 게임 내 FPS 카운터                             |
+| 8   | 기존 테스트 수 변화 없음                   | Gate 2                                         |
 
 ---
 
@@ -995,8 +1114,8 @@ src/
 
 ### 관련 태스크
 
-| 태스크 | 설명 | 의존성 |
-|--------|------|--------|
-| TASK-008 | 리팩토링 설계 문서 (이 문서) | 없음 |
-| TASK-008a | 리팩토링 구현 (Step 0~7) | TASK-008 |
-| TASK-008b | 매니저별 유닛 테스트 추가 | TASK-008a |
+| 태스크    | 설명                         | 의존성    |
+| --------- | ---------------------------- | --------- |
+| TASK-008  | 리팩토링 설계 문서 (이 문서) | 없음      |
+| TASK-008a | 리팩토링 구현 (Step 0~7)     | TASK-008  |
+| TASK-008b | 매니저별 유닛 테스트 추가    | TASK-008a |

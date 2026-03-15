@@ -5,6 +5,7 @@ export interface PassiveDef {
   readonly maxLevel: number;
   readonly effect: PassiveEffect;
   readonly valuePerLevel: number;
+  readonly characterId?: string; // if set, only appears for this character
 }
 
 export type PassiveEffect =
@@ -13,4 +14,14 @@ export type PassiveEffect =
   | 'base_armor'
   | 'hp_regen'
   | 'crit_chance'
-  | 'crit_damage';
+  | 'crit_damage'
+  | 'dash_trail'
+  | 'gust'
+  | 'frost_shot'
+  | 'torrent'
+  | 'burn'
+  | 'ignite'
+  | 'refraction'
+  | 'lightspeed'
+  | 'thorns'
+  | 'fortify';

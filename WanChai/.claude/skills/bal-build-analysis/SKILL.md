@@ -1,8 +1,8 @@
 ---
 name: bal-build-analysis
-description: "빌드 경로 분석 — 무기+패시브 조합 최적화, 지배 전략, 함정 빌드, 깨진 상호작용 탐지"
+description: '빌드 경로 분석 — 무기+패시브 조합 최적화, 지배 전략, 함정 빌드, 깨진 상호작용 탐지'
 user-invocable: true
-argument-hint: "[--focus weapon_id|passive_id|synergy]"
+argument-hint: '[--focus weapon_id|passive_id|synergy]'
 allowed-tools: Read, Write, Edit, Glob, Grep
 model: opus
 ---
@@ -10,9 +10,11 @@ model: opus
 # /bal-build-analysis — 빌드 경로 분석
 
 ## 역할
+
 무기+패시브 업그레이드 조합을 분석하여 최적 빌드, 지배 전략, 함정 빌드, 깨진 상호작용을 탐지합니다.
 
 ## 핵심 참조
+
 - `src/config/weapons.ts` — WEAPON_DEFS (8 weapons)
 - `src/config/upgrades.ts` — PASSIVE_DEFS (7 passives)
 - `src/core/MetaProgression.ts` — META_UPGRADES
@@ -23,18 +25,22 @@ model: opus
 ## 절차
 
 ### 1. 무기 시너지 매트릭스 (8×8)
+
 모든 2무기 조합(28쌍)에 대해:
+
 - 합산 DPS
 - 커버리지 (단일타겟/AOE/원거리/근거리)
 - 약점 (특정 적 타입 대응 불가?)
 
 평가 기준:
+
 - **S**: DPS + 커버리지 모두 우수
 - **A**: 하나가 우수, 하나 양호
 - **B**: 양호
 - **C**: 겹치거나 약점 존재
 
 ### 2. 패시브 우선순위 (무기별)
+
 각 무기에 대해 패시브 1레벨 투자 시 DPS 증가:
 
 ```
@@ -52,14 +58,17 @@ hp_regen lv1:     +20 HP/s (방어적)
 ### 3. 빌드 아키타입 분석
 
 **글래스캐논**: damage + crit_chance + crit_damage + laser_beam + energy_shot
+
 - 장점: 최대 DPS
 - 약점: 기지 방어 없음, 다수 적 대응 약
 
 **탱크**: base_armor + hp_regen + orbit_guard + aura_field
+
 - 장점: 기지 생존
 - 약점: 후반 DPS 부족 → 적 누적
 
 **스피드**: attack_speed + shotgun + lightning + move_speed
+
 - 장점: 다수 적 빠르게 처리
 - 약점: 보스/탱크 적 처치 느림
 
@@ -68,6 +77,7 @@ hp_regen lv1:     +20 HP/s (방어적)
 ### 4. 깨진 상호작용 탐지
 
 체크리스트:
+
 - [ ] base_armor lv5(50%) + hp_regen lv3(60/s) → 기지 무적 구간 존재?
   - 적 피해 = baseDamage × damageScale × 0.5
   - hp_regen = 60/s
@@ -84,19 +94,24 @@ hp_regen lv1:     +20 HP/s (방어적)
   - 최대: 1 + 0.75 + 0.50 = 2.25x → 과도한가?
 
 ### 5. 함정 빌드 경고
+
 겉보기와 실제 성능이 다른 조합:
+
 - move_speed 올인: 이동은 빨라지나 DPS 제로 → 후반 붕괴
 - hp_regen만: 적 수가 증가하면 regen < incoming damage
 - 특정 무기 미보유 시: 레벨업 선택지 낭비 (무기 없이 패시브만 올리기)
 
 ### 6. 빌드 다양성 평가
+
 - 최적 빌드 1개가 다른 모든 빌드를 압도하면 → 빌드 다양성 부족
 - 목표: 2-3개 아키타입이 비슷한 성과를 내는 것
 
 ### 7. 산출물
+
 `design/balance/bal-build-analysis.md`
 
 구성:
+
 1. 무기 시너지 매트릭스 (28쌍 평가)
 2. 무기별 패시브 우선순위
 3. 아키타입 비교표
@@ -106,5 +121,6 @@ hp_regen lv1:     +20 HP/s (방어적)
 7. 튜닝 권고
 
 ## 제약
+
 - `design/balance/` 폴더만 write
 - 상호작용 분석 시 실제 코드(RunScene) 참조하여 구현 확인

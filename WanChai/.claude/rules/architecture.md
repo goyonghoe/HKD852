@@ -1,6 +1,6 @@
 ---
 paths:
-  - "src/**/*.ts"
+  - 'src/**/*.ts'
 ---
 
 # Architecture Rules
@@ -8,6 +8,6 @@ paths:
 - `src/core/` = pure TypeScript. **No Phaser imports.** Must be testable without game engine.
 - `src/scenes/` = Phaser rendering layer only. No game logic here.
 - Communication between core and scenes via `EventBus` pattern.
-- 9:16 portrait mobile-first (720x1280 base resolution).
+- 16:9 landscape (1280x720 base resolution).
 - All balance constants in `src/config/balance.ts` — no magic numbers in logic.
 - Color hex literals must come from `src/config/colors.ts` — never hardcode.

@@ -1,15 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import {
-  META_UPGRADES,
-  canPurchase,
-  purchaseUpgrade,
-  getMetaBonus,
-} from '../../src/core/MetaProgression';
+import { META_UPGRADES, canPurchase, purchaseUpgrade, getMetaBonus } from '../../src/core/MetaProgression';
 import type { MetaState } from '../../src/types/game';
 
 function makeMeta(overrides: Partial<MetaState> = {}): MetaState {
   return {
     totalGold: 0,
+    totalGoldEarned: 0,
     highScore: 0,
     bestKills: 0,
     bestLevel: 0,
@@ -105,11 +101,65 @@ describe('getMetaBonus', () => {
 
   it('returns correct bonus for single upgrade', () => {
     const meta = makeMeta({ upgrades: { meta_damage: 3 } });
-    expect(getMetaBonus(meta, 'damage')).toBeCloseTo(0.30); // 0.10 * 3
+    expect(getMetaBonus(meta, 'damage')).toBeCloseTo(0.3); // 0.10 * 3
   });
 
   it('returns 0 for effects with no matching upgrades', () => {
     const meta = makeMeta({ upgrades: { meta_damage: 5 } });
     expect(getMetaBonus(meta, 'nonexistent_effect')).toBe(0);
+  });
+
+  it('returns correct bonus for meta_magnet', () => {
+    const meta = makeMeta({ upgrades: { meta_magnet: 2 } });
+    expect(getMetaBonus(meta, 'xp_magnet')).toBeCloseTo(0.4); // 0.20 * 2
+  });
+
+  it('returns correct bonus for meta_armor', () => {
+    const meta = makeMeta({ upgrades: { meta_armor: 3 } });
+    expect(getMetaBonus(meta, 'meta_armor')).toBeCloseTo(0.24); // 0.08 * 3
+  });
+
+  it('returns correct bonus for meta_luck', () => {
+    const meta = makeMeta({ upgrades: { meta_luck: 1 } });
+    expect(getMetaBonus(meta, 'rare_drop')).toBeCloseTo(0.05); // 0.05 * 1
+  });
+});
+
+describe('new meta upgrades (TASK-040)', () => {
+  it('has exactly 7 meta upgrades', () => {
+    expect(Object.keys(META_UPGRADES)).toHaveLength(7);
+  });
+
+  it('meta_magnet has correct config', () => {
+    const def = META_UPGRADES.meta_magnet;
+    expect(def).toBeDefined();
+    expect(def.maxLevel).toBe(3);
+    expect(def.costPerLevel).toEqual([100, 200, 400]);
+    expect(def.effect).toBe('xp_magnet');
+    expect(def.valuePerLevel).toBe(0.2);
+  });
+
+  it('meta_armor has correct config', () => {
+    const def = META_UPGRADES.meta_armor;
+    expect(def).toBeDefined();
+    expect(def.maxLevel).toBe(5);
+    expect(def.costPerLevel).toEqual([80, 160, 250, 400, 600]);
+    expect(def.effect).toBe('meta_armor');
+    expect(def.valuePerLevel).toBe(0.08);
+  });
+
+  it('meta_luck has correct config', () => {
+    const def = META_UPGRADES.meta_luck;
+    expect(def).toBeDefined();
+    expect(def.maxLevel).toBe(3);
+    expect(def.costPerLevel).toEqual([150, 300, 600]);
+    expect(def.effect).toBe('rare_drop');
+    expect(def.valuePerLevel).toBe(0.05);
+  });
+
+  it('can purchase new upgrades', () => {
+    expect(canPurchase(makeMeta({ totalGold: 100 }), 'meta_magnet')).toBe(true);
+    expect(canPurchase(makeMeta({ totalGold: 80 }), 'meta_armor')).toBe(true);
+    expect(canPurchase(makeMeta({ totalGold: 150 }), 'meta_luck')).toBe(true);
   });
 });

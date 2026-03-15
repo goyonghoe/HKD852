@@ -1,0 +1,188 @@
+/**
+ * Atlas frame manifest — documents which sprites exist in which texture atlas.
+ * Used by PreloadScene to skip redundant individual PNG loads when atlas frames
+ * are available, reducing HTTP requests.
+ *
+ * Generated from public/assets/atlas/*.json manifests.
+ * Update this file when atlases are rebuilt (tools/build-atlas.ts).
+ */
+
+/** Map of atlas name → set of frame filenames (with .png extension) */
+export const ATLAS_FRAME_MAP: Record<string, readonly string[]> = {
+  'char-atlas': [
+    'critter_kite_portrait',
+    'critter_macaque_portrait',
+    'critter_pangolin_portrait',
+    'hand_biker',
+    'critter_koi_portrait',
+    'critter_lion_portrait',
+    'critter_dolphin_portrait',
+    'critter_macaque',
+    'critter_koi',
+    'critter_lion',
+    'critter_pangolin',
+    'critter_dolphin',
+    'critter_kite',
+    'hand_cyborg',
+    'hand_mei',
+    'hand_kai',
+    'hand_punk',
+  ],
+  'deco-atlas': [
+    'deco_shop_front',
+    'deco_parasol',
+    'deco_sign_guitar',
+    'deco_sign_gamepad',
+    'deco_sign_star',
+    'deco_chair_1',
+    'deco_chair_2',
+    'deco_sign_open',
+    'deco_sign_ps',
+    'deco_sign_gift',
+    'deco_sign_heart',
+    'deco_sign_burger',
+    'deco_vending_5',
+    'deco_vending_6',
+    'deco_vending_2',
+    'deco_vending_4',
+    'deco_table',
+    'deco_table_round',
+    'deco_sign_icecream',
+    'deco_vending_3',
+    'deco_sign_drink',
+    'deco_vending_1',
+    'deco_sign_cocktail',
+    'deco_sign_bolt',
+    'deco_lamp_1',
+    'deco_lamp_2',
+    'deco_lamp_3',
+    'deco_chair_3',
+  ],
+  'env-atlas': [
+    'barrier_damaged',
+    'barrier_main',
+    'floor_tile_brick',
+    'barricade_barrel',
+    'barricade_box',
+    'barrier_post_1',
+    'barricade_crate',
+    'barricade_rail',
+    'barrier_metal',
+    'barrier_metal_2',
+    'barrier_metal_3',
+    'barrier_metal_4',
+    'floor_tile_blue',
+    'floor_tile_edge',
+    'env_barrel',
+    'env_box',
+  ],
+  'fx-atlas': [
+    'fx_purify_burst',
+    'fx_mech_debris',
+    'fx_stage_clear',
+    'fx_glitch_overlay',
+    'projectile_laser',
+    'projectile_bomb',
+    'fx_napalm_zone',
+    'projectile_shuriken',
+    'projectile_napalm',
+    'projectile_missile',
+    'fx_levelup',
+    'fx_enemy_shoot_flash',
+    'projectile_rapid',
+    'projectile_enemy_large',
+    'gun_default',
+    'projectile_enemy',
+    'projectile_bullet',
+  ],
+  'ui-atlas': [
+    'ui_mtr_map',
+    'logo_main',
+    'ui_aria_panel',
+    'logo_small',
+    'icon_passive_crit',
+    'icon_shop_hp',
+    'icon_shop_damage',
+    'icon_shotgun',
+    'icon_lightning',
+    'icon_passive_projectile',
+    'ui_xp_bar_frame',
+    'icon_passive_magnet',
+    'icon_shop_base_hp',
+    'ui_weapon_slot_bg',
+    'ui_weapon_slot_filled',
+    'icon_bomb',
+    'ui_hp_bar_frame',
+    'icon_passive_armor',
+    'icon_missile',
+    'icon_passive_cooldown',
+    'icon_passive_regen',
+    'icon_laser_beam',
+    'icon_energy_shot',
+    'icon_shuriken',
+    'icon_passive_area',
+    'icon_shop_armor',
+    'icon_passive_crit_dmg',
+    'icon_napalm',
+    'icon_railgun',
+    'icon_rapid_fire',
+  ],
+} as const;
+
+/**
+ * Set of all sprite keys that exist in at least one atlas.
+ * PreloadScene uses this to skip individual image() loads for these keys.
+ */
+export const ATLAS_COVERED_KEYS: ReadonlySet<string> = new Set(Object.values(ATLAS_FRAME_MAP).flat());
+
+/**
+ * Look up which atlas contains a given sprite key.
+ * Returns the atlas name or undefined if not in any atlas.
+ */
+export function getAtlasForKey(key: string): string | undefined {
+  for (const [atlasName, frames] of Object.entries(ATLAS_FRAME_MAP)) {
+    if ((frames as readonly string[]).includes(key)) return atlasName;
+  }
+  return undefined;
+}
+
+/**
+ * Resolve a sprite key to { texture, frame } for use with scene.add.image().
+ * Handles both standalone textures and atlas frames transparently.
+ *
+ * Usage: `const r = resolveTexture(scene, 'hand_biker');`
+ *        `scene.add.image(x, y, r.texture, r.frame);`
+ */
+export function resolveTexture(
+  scene: { textures: { exists(key: string): boolean } },
+  key: string,
+): { texture: string; frame?: string } | null {
+  // 1. Standalone texture exists — use directly
+  if (scene.textures.exists(key)) return { texture: key };
+  // 2. Check atlas frames
+  const atlas = getAtlasForKey(key);
+  if (atlas && scene.textures.exists(atlas)) return { texture: atlas, frame: `${key}.png` };
+  return null;
+}
+
+/**
+ * Validate that all required sprite keys are resolvable (standalone, atlas, or procedural).
+ * Call after PreloadScene finishes loading to catch missing textures at load time
+ * rather than during gameplay. Returns list of keys that cannot be resolved.
+ */
+export function validateTextureKeys(
+  scene: { textures: { exists(key: string): boolean } },
+  spriteKeys: readonly string[],
+  proceduralKeys: ReadonlySet<string>,
+): string[] {
+  const missing: string[] = [];
+  for (const key of spriteKeys) {
+    // Procedural keys are generated by TextureFactory — skip them
+    if (proceduralKeys.has(key)) continue;
+    // Check standalone or atlas availability
+    if (resolveTexture(scene, key) === null) {
+      missing.push(key);
+    }
+  }
+  return missing;
+}

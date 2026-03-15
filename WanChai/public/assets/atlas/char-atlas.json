@@ -1,0 +1,376 @@
+{
+	"textures": [
+		{
+			"image": "char-atlas.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 256,
+				"h": 1024
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "critter_kite_portrait.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 123,
+						"h": 115
+					},
+					"frame": {
+						"x": 2,
+						"y": 2,
+						"w": 123,
+						"h": 115
+					}
+				},
+				{
+					"filename": "critter_macaque_portrait.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 3,
+						"w": 114,
+						"h": 122
+					},
+					"frame": {
+						"x": 129,
+						"y": 2,
+						"w": 114,
+						"h": 122
+					}
+				},
+				{
+					"filename": "critter_pangolin_portrait.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 5,
+						"w": 111,
+						"h": 119
+					},
+					"frame": {
+						"x": 2,
+						"y": 121,
+						"w": 111,
+						"h": 119
+					}
+				},
+				{
+					"filename": "hand_biker.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 14,
+						"w": 6,
+						"h": 15
+					},
+					"frame": {
+						"x": 117,
+						"y": 121,
+						"w": 6,
+						"h": 15
+					}
+				},
+				{
+					"filename": "critter_koi_portrait.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 4,
+						"w": 109,
+						"h": 118
+					},
+					"frame": {
+						"x": 2,
+						"y": 244,
+						"w": 109,
+						"h": 118
+					}
+				},
+				{
+					"filename": "critter_lion_portrait.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 9,
+						"w": 109,
+						"h": 113
+					},
+					"frame": {
+						"x": 2,
+						"y": 366,
+						"w": 109,
+						"h": 113
+					}
+				},
+				{
+					"filename": "critter_dolphin_portrait.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 23,
+						"w": 88,
+						"h": 93
+					},
+					"frame": {
+						"x": 2,
+						"y": 483,
+						"w": 88,
+						"h": 93
+					}
+				},
+				{
+					"filename": "critter_macaque.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 5,
+						"w": 33,
+						"h": 37
+					},
+					"frame": {
+						"x": 2,
+						"y": 580,
+						"w": 33,
+						"h": 37
+					}
+				},
+				{
+					"filename": "critter_koi.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 6,
+						"w": 27,
+						"h": 36
+					},
+					"frame": {
+						"x": 2,
+						"y": 621,
+						"w": 27,
+						"h": 36
+					}
+				},
+				{
+					"filename": "critter_lion.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 31,
+						"h": 34
+					},
+					"frame": {
+						"x": 2,
+						"y": 661,
+						"w": 31,
+						"h": 34
+					}
+				},
+				{
+					"filename": "critter_pangolin.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 8,
+						"w": 30,
+						"h": 33
+					},
+					"frame": {
+						"x": 33,
+						"y": 621,
+						"w": 30,
+						"h": 33
+					}
+				},
+				{
+					"filename": "critter_dolphin.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 9,
+						"w": 26,
+						"h": 32
+					},
+					"frame": {
+						"x": 39,
+						"y": 580,
+						"w": 26,
+						"h": 32
+					}
+				},
+				{
+					"filename": "critter_kite.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 9,
+						"w": 41,
+						"h": 30
+					},
+					"frame": {
+						"x": 2,
+						"y": 699,
+						"w": 41,
+						"h": 30
+					}
+				},
+				{
+					"filename": "hand_cyborg.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 14,
+						"w": 5,
+						"h": 14
+					},
+					"frame": {
+						"x": 37,
+						"y": 658,
+						"w": 5,
+						"h": 14
+					}
+				},
+				{
+					"filename": "hand_mei.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 14,
+						"w": 5,
+						"h": 13
+					},
+					"frame": {
+						"x": 37,
+						"y": 676,
+						"w": 5,
+						"h": 13
+					}
+				},
+				{
+					"filename": "hand_kai.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 14,
+						"w": 5,
+						"h": 14
+					},
+					"frame": {
+						"x": 37,
+						"y": 658,
+						"w": 5,
+						"h": 14
+					}
+				},
+				{
+					"filename": "hand_punk.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 14,
+						"w": 5,
+						"h": 13
+					},
+					"frame": {
+						"x": 37,
+						"y": 676,
+						"w": 5,
+						"h": 13
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://github.com/odrick/free-tex-packer-core",
+		"version": "0.3.5"
+	}
+}

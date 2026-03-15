@@ -1,8 +1,8 @@
 ---
 name: ui-layout
-description: "화면 레이아웃, 글래스모피즘 패널, 컴포넌트 배치"
+description: '화면 레이아웃, 글래스모피즘 패널, 컴포넌트 배치'
 user-invocable: true
-argument-hint: "[scene-name] e.g. MainMenu, PuzzleUI, Result"
+argument-hint: '[scene-name] e.g. MainMenu, PuzzleUI, Result'
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
 ---

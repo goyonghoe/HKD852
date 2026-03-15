@@ -1,22 +1,25 @@
 import Phaser from 'phaser';
 import { BG_COLOR, NEON, NEON_CSS } from '../config/colors';
-import { GAME_WIDTH } from '../config/game-config';
+import { GAME_WIDTH, GAME_HEIGHT } from '../config/game-config';
 import { createButton } from '../ui/ButtonFactory';
 import { SaveManager } from '../managers/SaveManager';
 import { BALANCE } from '../config/balance';
 import { enableDragScroll } from '../utils/DragScroll';
+import { t } from '../lib/i18n';
+import { getMaxClearedStage, getStageStatus, getNextPlayableStage } from '../core/StageProgression';
+import { navigateScene } from '../utils/SceneNav';
+const FIXED_FOOTER_H = 80; // reserved for fixed Back button at bottom
 
 interface StageNode {
   id: number;
-  name: string;
-  subtitle: string;
+  nameKey: string;
+  subtitleKey: string;
   type: 'wave' | 'boss';
-  enemies?: string;
-  boss?: string;
-  region: string;        // region key for map highlight
+  enemiesKey?: string;
+  bossKey?: string;
+  region: string;
 }
 
-// Map region → approximate center on the HK wireframe (relative to map origin)
 interface RegionPoint {
   x: number;
   y: number;
@@ -24,40 +27,118 @@ interface RegionPoint {
 }
 
 const REGIONS: Record<string, RegionPoint> = {
-  central:    { x: 310, y: 195, label: 'Central' },
-  tsimshatsui:{ x: 310, y: 150, label: 'TST' },
-  peak:       { x: 240, y: 220, label: 'The Peak' },
+  central: { x: 310, y: 195, label: 'Central' },
+  tsimshatsui: { x: 310, y: 150, label: 'TST' },
+  peak: { x: 240, y: 220, label: 'The Peak' },
 };
 
 const STAGES: StageNode[] = [
-  { id: 1, name: '중환 구역', subtitle: '60초 웨이브', type: 'wave', enemies: '기본형, 돌격형', region: 'central' },
-  { id: 2, name: '수호자', subtitle: '보스전', type: 'boss', boss: '수호자', region: 'central' },
-  { id: 3, name: '침사추이', subtitle: '60초 웨이브', type: 'wave', enemies: '중장갑, 특수형, 분열체', region: 'tsimshatsui' },
-  { id: 4, name: '회전자', subtitle: '보스전', type: 'boss', boss: '회전자', region: 'tsimshatsui' },
-  { id: 5, name: '빅토리아 피크', subtitle: '60초 웨이브', type: 'wave', enemies: '추적자, 전 유형', region: 'peak' },
-  { id: 6, name: '돌격자', subtitle: '최종 보스', type: 'boss', boss: '돌격자', region: 'peak' },
+  {
+    id: 1,
+    nameKey: 'stage.central',
+    subtitleKey: 'stage.wave_subtitle',
+    type: 'wave',
+    enemiesKey: 'stage.enemies_1',
+    region: 'central',
+  },
+  {
+    id: 2,
+    nameKey: 'stage.guardian',
+    subtitleKey: 'stage.boss_subtitle',
+    type: 'boss',
+    bossKey: 'stage.guardian',
+    region: 'central',
+  },
+  {
+    id: 3,
+    nameKey: 'stage.tst',
+    subtitleKey: 'stage.wave_subtitle',
+    type: 'wave',
+    enemiesKey: 'stage.enemies_3',
+    region: 'tsimshatsui',
+  },
+  {
+    id: 4,
+    nameKey: 'stage.orbiter',
+    subtitleKey: 'stage.boss_subtitle',
+    type: 'boss',
+    bossKey: 'stage.orbiter',
+    region: 'tsimshatsui',
+  },
+  {
+    id: 5,
+    nameKey: 'stage.peak',
+    subtitleKey: 'stage.wave_subtitle',
+    type: 'wave',
+    enemiesKey: 'stage.enemies_5',
+    region: 'peak',
+  },
+  {
+    id: 6,
+    nameKey: 'stage.striker',
+    subtitleKey: 'stage.final_boss',
+    type: 'boss',
+    bossKey: 'stage.striker',
+    region: 'peak',
+  },
 ];
 
-// Simplified Hong Kong outline polygons (points relative to map area 0,0 at top-left)
-// Scaled to fit ~600x280 area
 const HK_ISLAND: number[][] = [
-  [140, 200], [170, 185], [210, 190], [250, 185], [280, 195],
-  [310, 190], [340, 185], [370, 190], [400, 195], [430, 200],
-  [450, 210], [440, 230], [420, 245], [390, 250], [350, 248],
-  [310, 255], [270, 250], [230, 245], [200, 238], [170, 225],
-  [150, 215], [140, 200],
+  [140, 200],
+  [170, 185],
+  [210, 190],
+  [250, 185],
+  [280, 195],
+  [310, 190],
+  [340, 185],
+  [370, 190],
+  [400, 195],
+  [430, 200],
+  [450, 210],
+  [440, 230],
+  [420, 245],
+  [390, 250],
+  [350, 248],
+  [310, 255],
+  [270, 250],
+  [230, 245],
+  [200, 238],
+  [170, 225],
+  [150, 215],
+  [140, 200],
 ];
 
 const KOWLOON: number[][] = [
-  [220, 130], [250, 120], [280, 115], [310, 112], [340, 115],
-  [370, 120], [400, 130], [410, 145], [400, 160], [380, 168],
-  [350, 172], [310, 175], [270, 172], [240, 168], [220, 160],
-  [215, 145], [220, 130],
+  [220, 130],
+  [250, 120],
+  [280, 115],
+  [310, 112],
+  [340, 115],
+  [370, 120],
+  [400, 130],
+  [410, 145],
+  [400, 160],
+  [380, 168],
+  [350, 172],
+  [310, 175],
+  [270, 172],
+  [240, 168],
+  [220, 160],
+  [215, 145],
+  [220, 130],
 ];
 
 const LANTAU: number[][] = [
-  [40, 160], [70, 140], [110, 135], [140, 145], [150, 165],
-  [140, 185], [110, 195], [80, 190], [50, 180], [40, 160],
+  [40, 160],
+  [70, 140],
+  [110, 135],
+  [140, 145],
+  [150, 165],
+  [140, 185],
+  [110, 195],
+  [80, 190],
+  [50, 180],
+  [40, 160],
 ];
 
 export class WorldMapScene extends Phaser.Scene {
@@ -70,34 +151,30 @@ export class WorldMapScene extends Phaser.Scene {
     this.cameras.main.fadeIn(300);
     const cx = GAME_WIDTH / 2;
 
-    // Title
+    // Title — fixed header (stays on screen when scrolling)
     this.add
-      .text(cx, 40, '구역 맵', {
+      .text(cx, 40, t('worldmap.title'), {
         fontSize: '34px',
         color: NEON_CSS.UI_ACCENT,
         fontFamily: 'monospace',
         fontStyle: 'bold',
       })
-      .setOrigin(0.5);
+      .setOrigin(0.5)
+      .setScrollFactor(0);
 
     const meta = SaveManager.loadMeta();
-    const maxCleared = meta.runsCompleted > 0 ? 6 : 0;
+    const maxCleared = getMaxClearedStage(meta.runsCompleted, BALANCE.STAGE.maxStages);
 
     // --- HONG KONG WIREFRAME MAP ---
     const mapOffsetX = 60;
     const mapOffsetY = 70;
     const g = this.add.graphics();
 
-    // Draw Lantau Island (dimmer, background)
     this.drawPolygon(g, LANTAU, mapOffsetX, mapOffsetY, NEON.UI_BORDER, 0.3);
-
-    // Draw Kowloon peninsula
     this.drawPolygon(g, KOWLOON, mapOffsetX, mapOffsetY, NEON.UI_BORDER, 0.5);
-
-    // Draw Hong Kong Island
     this.drawPolygon(g, HK_ISLAND, mapOffsetX, mapOffsetY, NEON.UI_BORDER, 0.5);
 
-    // Victoria Harbour (dashed line between HK Island and Kowloon)
+    // Victoria Harbour
     g.lineStyle(1, NEON.UI_ACCENT, 0.2);
     const harbourY = mapOffsetY + 180;
     for (let hx = mapOffsetX + 180; hx < mapOffsetX + 460; hx += 12) {
@@ -106,7 +183,6 @@ export class WorldMapScene extends Phaser.Scene {
     }
     g.strokePath();
 
-    // Harbour label
     this.add
       .text(mapOffsetX + 470, harbourY, 'Victoria\nHarbour', {
         fontSize: '18px',
@@ -117,32 +193,23 @@ export class WorldMapScene extends Phaser.Scene {
       .setOrigin(0, 0.5)
       .setAlpha(0.5);
 
-    // Draw region highlights
-    // Active regions are stages that haven't been cleared yet (first uncleared pair)
-    const currentStage = maxCleared + 1;
-    const currentRegion = currentStage <= 6
-      ? STAGES[currentStage - 1]?.region
-      : null;
+    const currentStage = getNextPlayableStage(maxCleared, BALANCE.STAGE.maxStages);
+    const currentRegion = currentStage <= STAGES.length ? STAGES[currentStage - 1]?.region : null;
 
     Object.entries(REGIONS).forEach(([key, region]) => {
       const rx = mapOffsetX + region.x;
       const ry = mapOffsetY + region.y;
 
-      // Determine region state
-      const regionStages = STAGES.filter(s => s.region === key);
-      const allCleared = regionStages.every(s => s.id <= maxCleared);
+      const regionStages = STAGES.filter((s) => s.region === key);
+      const allCleared = regionStages.every((s) => s.id <= maxCleared);
       const isActive = key === currentRegion;
 
-      // Region dot
       const dotG = this.add.graphics();
       if (isActive) {
-        // Pulsing highlight for current region
         dotG.fillStyle(NEON.UI_ACCENT, 0.3);
         dotG.fillCircle(rx, ry, 20);
         dotG.fillStyle(NEON.UI_ACCENT, 0.8);
         dotG.fillCircle(rx, ry, 6);
-
-        // Pulse animation
         this.tweens.add({
           targets: dotG,
           alpha: { from: 1, to: 0.4 },
@@ -158,7 +225,6 @@ export class WorldMapScene extends Phaser.Scene {
         dotG.fillCircle(rx, ry, 4);
       }
 
-      // Region label
       this.add
         .text(rx, ry - 16, region.label, {
           fontSize: '18px',
@@ -174,11 +240,16 @@ export class WorldMapScene extends Phaser.Scene {
     const listStartY = mapOffsetY + 290;
     if (meta.runsCompleted > 0) {
       this.add
-        .text(cx, listStartY, `완료 ${meta.runsCompleted}회 · 최고 Lv ${meta.bestLevel} · 최다 ${meta.bestKills}킬`, {
-          fontSize: '18px',
-          color: NEON_CSS.UI_DIM,
-          fontFamily: 'monospace',
-        })
+        .text(
+          cx,
+          listStartY,
+          t('worldmap.runs_stats', { runs: meta.runsCompleted, level: meta.bestLevel, kills: meta.bestKills }),
+          {
+            fontSize: '18px',
+            color: NEON_CSS.UI_DIM,
+            fontFamily: 'monospace',
+          },
+        )
         .setOrigin(0.5);
     }
 
@@ -186,7 +257,7 @@ export class WorldMapScene extends Phaser.Scene {
     const stageListY = listStartY + 30;
 
     this.add
-      .text(cx, stageListY, `${BALANCE.STAGE.maxStages}개 스테이지`, {
+      .text(cx, stageListY, t('worldmap.stage_count', { count: BALANCE.STAGE.maxStages }), {
         fontSize: '22px',
         color: NEON_CSS.UI_TEXT,
         fontFamily: 'monospace',
@@ -194,7 +265,6 @@ export class WorldMapScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    // Info popup elements
     let activePopup: Phaser.GameObjects.GameObject[] | null = null;
 
     const rowH = 64;
@@ -202,17 +272,16 @@ export class WorldMapScene extends Phaser.Scene {
 
     STAGES.forEach((stage, idx) => {
       const y = rowStartY + idx * rowH;
-      const cleared = stage.id <= maxCleared;
+      const stageStatus = getStageStatus(idx, maxCleared);
+      const cleared = stageStatus === 'cleared';
       const isBoss = stage.type === 'boss';
-      const isCurrentStage = stage.id === currentStage;
+      const isCurrentStage = stageStatus === 'current';
 
-      // Row background
       const rowBg = this.add
         .rectangle(cx, y, 660, rowH - 4, NEON.UI_PANEL, isCurrentStage ? 0.6 : 0.3)
-        .setStrokeStyle(1, isCurrentStage ? NEON.UI_ACCENT : (isBoss ? NEON.ENEMY_ELITE : NEON.UI_BORDER));
+        .setStrokeStyle(1, isCurrentStage ? NEON.UI_ACCENT : isBoss ? NEON.ENEMY_ELITE : NEON.UI_BORDER);
 
-      // Stage number badge
-      const badgeColor = cleared ? NEON.UI_ACCENT : (isBoss ? NEON.ENEMY_ELITE : NEON.UI_BORDER);
+      const badgeColor = cleared ? NEON.UI_ACCENT : isBoss ? NEON.ENEMY_ELITE : NEON.UI_BORDER;
       const badgeG = this.add.graphics();
       const badgeX = cx - 300;
       badgeG.fillStyle(badgeColor, cleared ? 0.5 : 0.2);
@@ -229,10 +298,9 @@ export class WorldMapScene extends Phaser.Scene {
         })
         .setOrigin(0.5);
 
-      // Stage name
-      const nameColor = cleared ? NEON_CSS.UI_ACCENT : (isBoss ? NEON_CSS.GOLD : NEON_CSS.UI_TEXT);
+      const nameColor = cleared ? NEON_CSS.UI_ACCENT : isBoss ? NEON_CSS.GOLD : NEON_CSS.UI_TEXT;
       this.add
-        .text(cx - 260, y - 10, stage.name, {
+        .text(cx - 260, y - 10, t(stage.nameKey), {
           fontSize: '22px',
           color: nameColor,
           fontFamily: 'monospace',
@@ -240,16 +308,14 @@ export class WorldMapScene extends Phaser.Scene {
         })
         .setOrigin(0, 0.5);
 
-      // Subtitle
       this.add
-        .text(cx - 260, y + 12, stage.subtitle, {
+        .text(cx - 260, y + 12, t(stage.subtitleKey), {
           fontSize: '18px',
           color: NEON_CSS.UI_DIM,
           fontFamily: 'monospace',
         })
         .setOrigin(0, 0.5);
 
-      // Type badge (right side)
       const typeLabel = isBoss ? 'BOSS' : 'WAVE';
       const typeColor = isBoss ? NEON_CSS.GOLD : NEON_CSS.UI_DIM;
       this.add
@@ -261,7 +327,6 @@ export class WorldMapScene extends Phaser.Scene {
         })
         .setOrigin(1, 0.5);
 
-      // Clear status
       if (cleared) {
         this.add
           .text(cx + 300, y + 10, 'CLEAR', {
@@ -281,11 +346,10 @@ export class WorldMapScene extends Phaser.Scene {
           .setOrigin(1, 0.5);
       }
 
-      // Tap for info
       rowBg.setInteractive({ useHandCursor: true });
       rowBg.on('pointerdown', () => {
         if (activePopup) {
-          activePopup.forEach(obj => obj.destroy());
+          activePopup.forEach((obj) => obj.destroy());
           activePopup = null;
         }
 
@@ -295,31 +359,48 @@ export class WorldMapScene extends Phaser.Scene {
         const items: Phaser.GameObjects.GameObject[] = [];
 
         items.push(
-          this.add
-            .rectangle(cx, popupY, popupW, popupH, NEON.UI_PANEL, 0.95)
-            .setStrokeStyle(2, NEON.UI_ACCENT),
+          this.add.rectangle(cx, popupY, popupW, popupH, NEON.UI_PANEL, 0.95).setStrokeStyle(2, NEON.UI_ACCENT),
         );
 
         if (stage.type === 'wave') {
           items.push(
-            this.add.text(cx - popupW / 2 + 16, popupY - 16, `출현: ${stage.enemies ?? ''}`, {
-              fontSize: '18px', color: NEON_CSS.UI_TEXT, fontFamily: 'monospace',
-            }),
+            this.add.text(
+              cx - popupW / 2 + 16,
+              popupY - 16,
+              t('worldmap.popup_enemies', { enemies: stage.enemiesKey ? t(stage.enemiesKey) : '' }),
+              {
+                fontSize: '18px',
+                color: NEON_CSS.UI_TEXT,
+                fontFamily: 'monospace',
+              },
+            ),
           );
           items.push(
-            this.add.text(cx - popupW / 2 + 16, popupY + 8, '60초 방어전', {
-              fontSize: '18px', color: NEON_CSS.UI_DIM, fontFamily: 'monospace',
+            this.add.text(cx - popupW / 2 + 16, popupY + 8, t('worldmap.popup_wave'), {
+              fontSize: '18px',
+              color: NEON_CSS.UI_DIM,
+              fontFamily: 'monospace',
             }),
           );
         } else {
           items.push(
-            this.add.text(cx - popupW / 2 + 16, popupY - 16, `보스: ${stage.boss ?? ''}`, {
-              fontSize: '18px', color: NEON_CSS.GOLD, fontFamily: 'monospace', fontStyle: 'bold',
-            }),
+            this.add.text(
+              cx - popupW / 2 + 16,
+              popupY - 16,
+              t('worldmap.popup_boss', { boss: stage.bossKey ? t(stage.bossKey) : '' }),
+              {
+                fontSize: '18px',
+                color: NEON_CSS.GOLD,
+                fontFamily: 'monospace',
+                fontStyle: 'bold',
+              },
+            ),
           );
           items.push(
-            this.add.text(cx - popupW / 2 + 16, popupY + 8, '보스 처치 시 클리어', {
-              fontSize: '18px', color: NEON_CSS.UI_DIM, fontFamily: 'monospace',
+            this.add.text(cx - popupW / 2 + 16, popupY + 8, t('worldmap.popup_boss_clear'), {
+              fontSize: '18px',
+              color: NEON_CSS.UI_DIM,
+              fontFamily: 'monospace',
             }),
           );
         }
@@ -329,7 +410,7 @@ export class WorldMapScene extends Phaser.Scene {
         this.time.delayedCall(100, () => {
           const dismiss = () => {
             if (activePopup) {
-              activePopup.forEach(obj => obj.destroy());
+              activePopup.forEach((obj) => obj.destroy());
               activePopup = null;
             }
             this.input.off('pointerdown', dismiss);
@@ -339,28 +420,40 @@ export class WorldMapScene extends Phaser.Scene {
       });
     });
 
-    // Back button
-    const btnY = rowStartY + STAGES.length * rowH + 24;
+    // Back button — FIXED at bottom of screen, OUTSIDE scroll area
+    // scrollFactor(0) ensures it stays on screen regardless of camera position
+    const backBtnScreenY = GAME_HEIGHT - FIXED_FOOTER_H / 2; // y=1240 on screen
     createButton(this, {
-      x: cx, y: btnY, width: 220, height: 52,
-      label: '돌아가기', fontSize: '26px',
+      x: cx,
+      y: backBtnScreenY,
+      width: 220,
+      height: 52,
+      label: t('codex.back'),
+      fontSize: '26px',
       variant: 'secondary',
-      onClick: () => this.scene.start('MainMenuScene'),
-    });
+      onClick: () => navigateScene(this, 'WorldMapScene', 'MainMenuScene'),
+    })
+      .setScrollFactor(0)
+      .setDepth(200);
 
-    // Enable scroll if content overflows
-    const totalHeight = btnY + 50;
-    if (totalHeight > 1280) {
-      enableDragScroll(this, totalHeight);
+    // Calculate total content height:
+    // rowStartY = stageListY+36 ≈ 426, 6 stages * 64 = 384 → last row bottom ≈ 810
+    const totalContentHeight = rowStartY + STAGES.length * rowH + 20;
+
+    // Enable drag scroll only if content overflows the scrollable viewport
+    const scrollableHeight = GAME_HEIGHT - FIXED_FOOTER_H; // 1200
+    if (totalContentHeight > scrollableHeight) {
+      enableDragScroll(this, totalContentHeight, scrollableHeight);
     }
   }
 
-  /** Draw a wireframe polygon with offset */
   private drawPolygon(
     g: Phaser.GameObjects.Graphics,
     points: number[][],
-    ox: number, oy: number,
-    color: number, alpha: number,
+    ox: number,
+    oy: number,
+    color: number,
+    alpha: number,
   ): void {
     if (points.length < 2) return;
     g.lineStyle(1.5, color, alpha);
@@ -372,7 +465,6 @@ export class WorldMapScene extends Phaser.Scene {
     g.closePath();
     g.strokePath();
 
-    // Subtle fill
     g.fillStyle(color, alpha * 0.08);
     g.beginPath();
     g.moveTo(ox + points[0][0], oy + points[0][1]);
@@ -382,5 +474,4 @@ export class WorldMapScene extends Phaser.Scene {
     g.closePath();
     g.fillPath();
   }
-
 }

@@ -62,7 +62,7 @@ describe('WaveDirector', () => {
     const cmds = fresh.update(tenMinMs + DEFAULT_CONFIG.baseIntervalMs);
     allCommands.push(...cmds);
 
-    const bossCommands = allCommands.filter(c => c.enemyId === 'boss');
+    const bossCommands = allCommands.filter((c) => c.enemyId === 'boss');
     expect(bossCommands).toHaveLength(1);
     expect(bossCommands[0].isElite).toBe(false);
   });
@@ -77,17 +77,20 @@ describe('WaveDirector', () => {
   });
 
   it('setBossId changes boss spawn ID', () => {
-    const fast = new WaveDirector({
-      ...DEFAULT_CONFIG,
-      bossTimeMinutes: 0.05, // 3 seconds for quick test
-    }, new SeededRandom(77777));
+    const fast = new WaveDirector(
+      {
+        ...DEFAULT_CONFIG,
+        bossTimeMinutes: 0.05, // 3 seconds for quick test
+      },
+      new SeededRandom(77777),
+    );
     fast.setEnemyPool(['basic']);
     fast.setBossId('boss_circle');
 
     // Advance past delay + boss time
     fast.update(DEFAULT_CONFIG.initialDelayMs);
     const cmds = fast.update(10000); // well past 3s boss time
-    const bossCmd = cmds.find(c => c.enemyId === 'boss_circle');
+    const bossCmd = cmds.find((c) => c.enemyId === 'boss_circle');
     expect(bossCmd).toBeDefined();
     expect(bossCmd!.isElite).toBe(false);
   });
@@ -98,7 +101,7 @@ describe('WaveDirector', () => {
     director.update(DEFAULT_CONFIG.initialDelayMs);
     const cmds = director.update(DEFAULT_CONFIG.baseIntervalMs);
     // Regular spawn should not use boss ID
-    const regularCmd = cmds.find(c => c.enemyId !== 'boss_burst');
+    const regularCmd = cmds.find((c) => c.enemyId !== 'boss_burst');
     expect(regularCmd).toBeDefined();
   });
 

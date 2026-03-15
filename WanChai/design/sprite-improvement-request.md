@@ -11,12 +11,14 @@
 **의도**: 사이버펑크 홍콩 센트럴 지구의 3/4 탑다운 배경 (720x1280)
 
 **문제점**:
+
 - 사이버펑크 요소 전무 — 네온, 회로, 홀로그램 없음
 - 캐릭터가 배경에 포함됨 — 배경은 순수 환경만 표현해야 함
 - 대리석 바닥은 현대 오피스 느낌으로 세계관 불일치
 - 3/4 탑다운 뷰가 아닌 정면 뷰
 
 **재제작 프롬프트 가이드**:
+
 ```
 Pixel art, 720x1280, 3/4 top-down view looking down at ground.
 Cyberpunk Central district, Hong Kong. Gleaming corporate skyscraper canyon.
@@ -35,10 +37,12 @@ NO characters, NO people, NO text on signs.
 **문제 텍스트**: "失面店", "象 酋店", "书码买古" 등 의미 없는 한자 조합
 
 **문제점**:
+
 - AI 생성 텍스트는 항상 부자연스러움 (Memory #12 규칙 위반)
 - 한국/중국/일본 시장에서 이상한 한자로 인식될 위험
 
 **수정 방법** (택 1):
+
 1. **간판을 네온 패턴/기하학적 문양으로 교체** — 텍스트 대신 추상적 네온 심볼
 2. **간판 영역을 어둡게 처리** — 글자 부분만 어두운 그라데이션으로 덮기
 3. **재제작** — 동일 구도에서 텍스트 없이 재생성
@@ -53,11 +57,13 @@ NO characters, NO people, NO text on signs.
 **의도**: 사이버펑크화된 황대선 사원 구역의 3/4 탑다운 배경
 
 **문제점**:
+
 - 다수 캐릭터가 배경에 포함됨 — 게임 오브젝트와 혼동
 - 사이버펑크 변형 부족 — 순수 전통 사원 느낌
 - 용 장식이 화면 중앙을 차지 — 플레이 영역 가독성 저해
 
 **재제작 프롬프트 가이드**:
+
 ```
 Pixel art, 720x1280, 3/4 top-down view looking down at ground.
 Cyberpunk Wong Tai Sin temple district. Ancient temple corrupted by ARIA network.
@@ -76,12 +82,14 @@ NO characters, NO people, NO text.
 **의도**: ARIA에 침식된 란타우 섬 자연+테크 융합 배경
 
 **문제점**:
+
 - 사이버펑크 요소 거의 없음 — 자연 풍경 그대로
 - 정면 뷰 (불상을 정면에서 봄) — 3/4 탑다운 뷰 필요
 - 불상이 화면 상단 중앙에 크게 차지 — 플레이 영역 침범
 - 색감이 밝고 동화적 — 게임 전체 다크 사이버펑크 톤과 불일치
 
 **재제작 프롬프트 가이드**:
+
 ```
 Pixel art, 720x1280, 3/4 top-down view looking down at ground.
 Cyberpunk Lantau Island. Nature reclaimed by ARIA network, tech-nature fusion.
@@ -109,6 +117,7 @@ NO characters, NO people, NO text, NO statues blocking center.
 **의도**: 72x72 캔버스 중앙에 균형 있게 배치된 T2 적
 
 **문제점**:
+
 - 콘텐츠가 캔버스 중심에서 벗어남
 - 빈 투명 영역이 과도 → 게임 내 히트박스 대비 시각적 크기 불일치
 

@@ -79,13 +79,13 @@ describe('SeededRandom', () => {
     }
 
     // Allow ±10% absolute tolerance for randomness
-    const tolerance = 0.10;
-    expect(counts['common'] / trials).toBeGreaterThan(0.60 - tolerance);
-    expect(counts['common'] / trials).toBeLessThan(0.60 + tolerance);
-    expect(counts['rare'] / trials).toBeGreaterThan(0.30 - tolerance);
-    expect(counts['rare'] / trials).toBeLessThan(0.30 + tolerance);
-    expect(counts['epic'] / trials).toBeGreaterThan(0.10 - tolerance);
-    expect(counts['epic'] / trials).toBeLessThan(0.10 + tolerance);
+    const tolerance = 0.1;
+    expect(counts['common'] / trials).toBeGreaterThan(0.6 - tolerance);
+    expect(counts['common'] / trials).toBeLessThan(0.6 + tolerance);
+    expect(counts['rare'] / trials).toBeGreaterThan(0.3 - tolerance);
+    expect(counts['rare'] / trials).toBeLessThan(0.3 + tolerance);
+    expect(counts['epic'] / trials).toBeGreaterThan(0.1 - tolerance);
+    expect(counts['epic'] / trials).toBeLessThan(0.1 + tolerance);
   });
 
   it('getState() returns the current internal state', () => {
@@ -94,7 +94,7 @@ describe('SeededRandom', () => {
     const savedState = rng.getState();
     const nextVal = rng.next();
     // Create a new rng with the saved state and verify it produces the same next value
-    const rng2 = new SeededRandom(savedState);
+    const _rng2 = new SeededRandom(savedState);
     // The state was already advanced past one call, so we compare states
     expect(typeof savedState).toBe('number');
     expect(savedState).not.toBe(12345); // state should have changed

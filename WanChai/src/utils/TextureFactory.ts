@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { NEON, RETRO } from '../config/colors';
+import { NEON, RETRO, TEX } from '../config/colors';
 
 /**
  * Procedural texture generator — cyberpunk neon pixel art.
@@ -18,6 +18,7 @@ export class TextureFactory {
     this.generateBossTextures(scene);
     this.generateProjectileTextures(scene);
     this.generateParticleTextures(scene);
+    this.generatePurifyTextures(scene);
     this.generateUITextures(scene);
   }
 
@@ -32,10 +33,10 @@ export class TextureFactory {
     g.fillCircle(s / 2, s / 2 + 4, 14);
 
     // Body hull
-    g.fillStyle(0x005544);
+    g.fillStyle(TEX.PLAYER_HULL_DARK);
     g.fillTriangle(s / 2, 2, 3, s - 4, s - 3, s - 4);
     // Inner hull
-    g.fillStyle(0x008866);
+    g.fillStyle(TEX.PLAYER_HULL_MID);
     g.fillTriangle(s / 2, 6, 7, s - 7, s - 7, s - 7);
 
     // Barrel (center stripe)
@@ -43,9 +44,9 @@ export class TextureFactory {
     g.fillRect(s / 2 - 2, 0, 4, s / 2);
 
     // Engine glow (bottom)
-    g.fillStyle(0x00ffcc, 0.8);
+    g.fillStyle(NEON.PLAYER, 0.8);
     g.fillCircle(s / 2, s - 6, 4);
-    g.fillStyle(0xffffff, 0.5);
+    g.fillStyle(NEON.PROJECTILE, 0.5);
     g.fillCircle(s / 2, s - 6, 2);
 
     // Neon outline
@@ -62,15 +63,15 @@ export class TextureFactory {
     if (!this.has(scene, 'ally_sniper')) {
       const s = 28;
       const g = scene.add.graphics();
-      g.fillStyle(0x4488ff, 0.15);
+      g.fillStyle(TEX.ALLY_SNIPER_GLOW, 0.15);
       g.fillCircle(s / 2, s / 2, 12);
-      g.fillStyle(0x224488);
+      g.fillStyle(TEX.ALLY_SNIPER_BARREL);
       g.fillRect(s / 2 - 4, 2, 8, s - 4);
-      g.fillStyle(0x4488ff);
+      g.fillStyle(TEX.ALLY_SNIPER_BODY);
       g.fillRect(s / 2 - 6, s / 2 - 6, 12, 12);
-      g.fillStyle(0x88ccff);
+      g.fillStyle(TEX.ALLY_SNIPER_CORE);
       g.fillRect(s / 2 - 3, s / 2 - 3, 6, 6);
-      g.lineStyle(1, 0x4488ff, 0.8);
+      g.lineStyle(1, TEX.ALLY_SNIPER_BODY, 0.8);
       g.strokeCircle(s / 2, s / 2, 11);
       g.generateTexture('ally_sniper', s, s);
       g.destroy();
@@ -80,18 +81,18 @@ export class TextureFactory {
     if (!this.has(scene, 'ally_spread')) {
       const s = 28;
       const g = scene.add.graphics();
-      g.fillStyle(0xff8844, 0.15);
+      g.fillStyle(TEX.ALLY_SPREAD_GLOW, 0.15);
       g.fillCircle(s / 2, s / 2, 12);
       // Three barrels
-      g.fillStyle(0x884422);
+      g.fillStyle(TEX.ALLY_SPREAD_BARREL);
       g.fillRect(s / 2 - 8, 2, 4, s / 2);
       g.fillRect(s / 2 - 2, 1, 4, s / 2);
       g.fillRect(s / 2 + 4, 2, 4, s / 2);
-      g.fillStyle(0xff8844);
+      g.fillStyle(TEX.ALLY_SPREAD_BODY);
       g.fillRect(s / 2 - 6, s / 2 - 6, 12, 12);
-      g.fillStyle(0xffcc88);
+      g.fillStyle(TEX.ALLY_SPREAD_CORE);
       g.fillRect(s / 2 - 3, s / 2 - 3, 6, 6);
-      g.lineStyle(1, 0xff8844, 0.8);
+      g.lineStyle(1, TEX.ALLY_SPREAD_BODY, 0.8);
       g.strokeCircle(s / 2, s / 2, 11);
       g.generateTexture('ally_spread', s, s);
       g.destroy();
@@ -108,17 +109,17 @@ export class TextureFactory {
       g.fillStyle(NEON.ENEMY_BASIC, 0.15);
       g.fillCircle(s / 2, s / 2, s / 2);
       // Body
-      g.fillStyle(0x881111);
+      g.fillStyle(TEX.ENEMY_CIRCLE_SHELL);
       g.fillCircle(s / 2, s / 2, 10);
       g.fillStyle(NEON.ENEMY_BASIC);
       g.fillCircle(s / 2, s / 2, 8);
       // Core eye
-      g.fillStyle(0x220000);
+      g.fillStyle(TEX.ENEMY_CIRCLE_EYE);
       g.fillCircle(s / 2, s / 2, 4);
-      g.fillStyle(0xff8888);
+      g.fillStyle(TEX.ENEMY_CIRCLE_IRIS);
       g.fillCircle(s / 2, s / 2, 2);
       // Outline
-      g.lineStyle(1, 0xff8888, 0.6);
+      g.lineStyle(1, TEX.ENEMY_CIRCLE_IRIS, 0.6);
       g.strokeCircle(s / 2, s / 2, 10);
       g.generateTexture('enemy_circle', s, s);
       g.destroy();
@@ -129,12 +130,12 @@ export class TextureFactory {
       const s = 24;
       const g = scene.add.graphics();
       // Body
-      g.fillStyle(0x663300);
+      g.fillStyle(TEX.ENEMY_FAST_SHELL);
       g.fillTriangle(s / 2, 1, 1, s - 2, s - 1, s - 2);
       g.fillStyle(NEON.ENEMY_FAST);
       g.fillTriangle(s / 2, 4, 4, s - 4, s - 4, s - 4);
       // Speed lines
-      g.lineStyle(1, 0xffcc66, 0.6);
+      g.lineStyle(1, TEX.ENEMY_FAST_SPEED_LINE, 0.6);
       g.moveTo(s / 2, 7);
       g.lineTo(s / 2, s - 6);
       g.strokePath();
@@ -150,20 +151,20 @@ export class TextureFactory {
       const s = 36;
       const g = scene.add.graphics();
       // Outer armor
-      g.fillStyle(0x331166);
+      g.fillStyle(TEX.ENEMY_TANK_ARMOR);
       g.fillRect(0, 0, s, s);
       // Inner plate
       g.fillStyle(NEON.ENEMY_TANK);
       g.fillRect(3, 3, s - 6, s - 6);
       // Armor cross
-      g.fillStyle(0x331166);
+      g.fillStyle(TEX.ENEMY_TANK_ARMOR);
       g.fillRect(s / 2 - 1, 3, 2, s - 6);
       g.fillRect(3, s / 2 - 1, s - 6, 2);
       // Core
-      g.fillStyle(0xcc88ff);
+      g.fillStyle(TEX.ENEMY_TANK_CORE);
       g.fillRect(s / 2 - 3, s / 2 - 3, 6, 6);
       // Outline
-      g.lineStyle(1, 0xcc88ff, 0.6);
+      g.lineStyle(1, TEX.ENEMY_TANK_CORE, 0.6);
       g.strokeRect(0, 0, s, s);
       g.generateTexture('enemy_rect', s, s);
       g.destroy();
@@ -173,24 +174,25 @@ export class TextureFactory {
     if (!this.has(scene, 'enemy_diamond')) {
       const s = 28;
       const g = scene.add.graphics();
-      const cx = s / 2, cy = s / 2;
+      const cx = s / 2,
+        cy = s / 2;
       // Glow
       g.fillStyle(NEON.ENEMY_SPECIAL, 0.12);
       g.fillCircle(cx, cy, 14);
       // Body diamond
-      g.fillStyle(0x661144);
+      g.fillStyle(TEX.ENEMY_SPECIAL_SHELL);
       g.fillTriangle(cx, 1, 1, cy, cx, s - 1);
       g.fillTriangle(cx, 1, s - 1, cy, cx, s - 1);
       g.fillStyle(NEON.ENEMY_SPECIAL);
       g.fillTriangle(cx, 4, 4, cy, cx, s - 4);
       g.fillTriangle(cx, 4, s - 4, cy, cx, s - 4);
       // Inner core
-      g.fillStyle(0xffffff, 0.4);
+      g.fillStyle(NEON.PROJECTILE, 0.4);
       g.fillCircle(cx, cy, 4);
-      g.fillStyle(0xff88cc);
+      g.fillStyle(TEX.ENEMY_SPECIAL_CORE);
       g.fillCircle(cx, cy, 2);
       // Outline
-      g.lineStyle(1, 0xff88cc, 0.7);
+      g.lineStyle(1, TEX.ENEMY_SPECIAL_CORE, 0.7);
       g.moveTo(cx, 1);
       g.lineTo(s - 1, cy);
       g.lineTo(cx, s - 1);
@@ -205,7 +207,8 @@ export class TextureFactory {
     if (!this.has(scene, 'enemy_hexagon')) {
       const s = 32;
       const g = scene.add.graphics();
-      const cx = s / 2, cy = s / 2;
+      const cx = s / 2,
+        cy = s / 2;
 
       const hexPoints = (r: number) => {
         const pts: { x: number; y: number }[] = [];
@@ -220,19 +223,19 @@ export class TextureFactory {
       g.fillStyle(NEON.ENEMY_ELITE, 0.12);
       g.fillCircle(cx, cy, 16);
       // Outer hex
-      g.fillStyle(0x665500);
+      g.fillStyle(TEX.ENEMY_ELITE_SHELL);
       g.fillPoints(hexPoints(15), true);
       // Inner hex
       g.fillStyle(NEON.ENEMY_ELITE);
       g.fillPoints(hexPoints(12), true);
       // Core hex
-      g.fillStyle(0x665500);
+      g.fillStyle(TEX.ENEMY_ELITE_SHELL);
       g.fillPoints(hexPoints(6), true);
       // Center dot
-      g.fillStyle(0xffffff, 0.7);
+      g.fillStyle(NEON.PROJECTILE, 0.7);
       g.fillCircle(cx, cy, 2);
       // Outline
-      g.lineStyle(1, 0xffee88, 0.7);
+      g.lineStyle(1, TEX.ENEMY_ELITE_OUTLINE, 0.7);
       const outerPts = hexPoints(15);
       g.moveTo(outerPts[0].x, outerPts[0].y);
       for (let i = 1; i < 6; i++) {
@@ -248,28 +251,34 @@ export class TextureFactory {
     if (!this.has(scene, 'enemy_shooter')) {
       const s = 28;
       const g = scene.add.graphics();
-      const cx = s / 2, cy = s / 2;
+      const cx = s / 2,
+        cy = s / 2;
       // Glow
       g.fillStyle(NEON.ENEMY_SPECIAL, 0.12);
       g.fillCircle(cx, cy, 14);
       // Body diamond
-      g.fillStyle(0x661122);
+      g.fillStyle(TEX.ENEMY_SHOOTER_SHELL);
       g.fillTriangle(cx, 1, 1, cy, cx, s - 1);
       g.fillTriangle(cx, 1, s - 1, cy, cx, s - 1);
-      g.fillStyle(0xcc2244);
+      g.fillStyle(TEX.ENEMY_SHOOTER_BODY);
       g.fillTriangle(cx, 4, 4, cy, cx, s - 4);
       g.fillTriangle(cx, 4, s - 4, cy, cx, s - 4);
       // Crosshair
-      g.lineStyle(1, 0xff6688, 0.8);
+      g.lineStyle(1, TEX.ENEMY_SHOOTER_CROSS, 0.8);
       g.strokeCircle(cx, cy, 5);
       g.beginPath();
-      g.moveTo(cx, cy - 8); g.lineTo(cx, cy + 8);
-      g.moveTo(cx - 8, cy); g.lineTo(cx + 8, cy);
+      g.moveTo(cx, cy - 8);
+      g.lineTo(cx, cy + 8);
+      g.moveTo(cx - 8, cy);
+      g.lineTo(cx + 8, cy);
       g.strokePath();
       // Outline
-      g.lineStyle(1, 0xff4466, 0.7);
+      g.lineStyle(1, TEX.ENEMY_SHOOTER_OUTLINE, 0.7);
       g.beginPath();
-      g.moveTo(cx, 1); g.lineTo(s - 1, cy); g.lineTo(cx, s - 1); g.lineTo(1, cy);
+      g.moveTo(cx, 1);
+      g.lineTo(s - 1, cy);
+      g.lineTo(cx, s - 1);
+      g.lineTo(1, cy);
       g.closePath();
       g.strokePath();
       g.generateTexture('enemy_shooter', s, s);
@@ -280,30 +289,36 @@ export class TextureFactory {
     if (!this.has(scene, 'enemy_teleporter')) {
       const s = 26;
       const g = scene.add.graphics();
-      const cx = s / 2, cy = s / 2;
+      const cx = s / 2,
+        cy = s / 2;
       // Glow
       g.fillStyle(NEON.ENEMY_ELITE, 0.15);
       g.fillCircle(cx, cy, 13);
       // Body diamond
-      g.fillStyle(0x665500);
+      g.fillStyle(TEX.ENEMY_ELITE_SHELL);
       g.fillTriangle(cx, 2, 2, cy, cx, s - 2);
       g.fillTriangle(cx, 2, s - 2, cy, cx, s - 2);
       g.fillStyle(NEON.ENEMY_ELITE);
       g.fillTriangle(cx, 5, 5, cy, cx, s - 5);
       g.fillTriangle(cx, 5, s - 5, cy, cx, s - 5);
       // Phase lines (horizontal dashes)
-      g.lineStyle(1, 0xffffff, 0.5);
+      g.lineStyle(1, NEON.PROJECTILE, 0.5);
       g.beginPath();
-      g.moveTo(cx - 6, cy - 3); g.lineTo(cx + 6, cy - 3);
-      g.moveTo(cx - 4, cy + 3); g.lineTo(cx + 4, cy + 3);
+      g.moveTo(cx - 6, cy - 3);
+      g.lineTo(cx + 6, cy - 3);
+      g.moveTo(cx - 4, cy + 3);
+      g.lineTo(cx + 4, cy + 3);
       g.strokePath();
       // Core
-      g.fillStyle(0xffffff, 0.7);
+      g.fillStyle(NEON.PROJECTILE, 0.7);
       g.fillCircle(cx, cy, 3);
       // Outline
-      g.lineStyle(1, 0xffee88, 0.7);
+      g.lineStyle(1, TEX.ENEMY_ELITE_OUTLINE, 0.7);
       g.beginPath();
-      g.moveTo(cx, 2); g.lineTo(s - 2, cy); g.lineTo(cx, s - 2); g.lineTo(2, cy);
+      g.moveTo(cx, 2);
+      g.lineTo(s - 2, cy);
+      g.lineTo(cx, s - 2);
+      g.lineTo(2, cy);
       g.closePath();
       g.strokePath();
       g.generateTexture('enemy_teleporter', s, s);
@@ -317,7 +332,8 @@ export class TextureFactory {
     if (!this.has(scene, 'boss_hex')) {
       const s = 48;
       const g = scene.add.graphics();
-      const cx = s / 2, cy = s / 2;
+      const cx = s / 2,
+        cy = s / 2;
 
       const hexPoints = (r: number) => {
         const pts: { x: number; y: number }[] = [];
@@ -332,13 +348,13 @@ export class TextureFactory {
       g.fillStyle(NEON.ENEMY_ELITE, 0.15);
       g.fillCircle(cx, cy, 24);
       // Outer hex
-      g.fillStyle(0x665500);
+      g.fillStyle(TEX.ENEMY_ELITE_SHELL);
       g.fillPoints(hexPoints(22), true);
       // Inner hex
       g.fillStyle(NEON.ENEMY_ELITE);
       g.fillPoints(hexPoints(18), true);
       // Core hex
-      g.fillStyle(0x665500);
+      g.fillStyle(TEX.ENEMY_ELITE_SHELL);
       g.fillPoints(hexPoints(10), true);
       // Crown (3 triangles on top)
       g.fillStyle(NEON.ENEMY_ELITE);
@@ -346,12 +362,12 @@ export class TextureFactory {
       g.fillTriangle(cx - 4, cy - 18, cx, cy - 30, cx + 4, cy - 18);
       g.fillTriangle(cx + 2, cy - 18, cx + 6, cy - 26, cx + 10, cy - 18);
       // Center eye
-      g.fillStyle(0xffffff, 0.8);
+      g.fillStyle(NEON.PROJECTILE, 0.8);
       g.fillCircle(cx, cy, 4);
       g.fillStyle(NEON.ENEMY_ELITE);
       g.fillCircle(cx, cy, 2);
       // Outline
-      g.lineStyle(2, 0xffee88, 0.9);
+      g.lineStyle(2, TEX.ENEMY_ELITE_OUTLINE, 0.9);
       const outerPts = hexPoints(22);
       g.moveTo(outerPts[0].x, outerPts[0].y);
       for (let i = 1; i < 6; i++) g.lineTo(outerPts[i].x, outerPts[i].y);
@@ -365,7 +381,8 @@ export class TextureFactory {
     if (!this.has(scene, 'boss_diamond')) {
       const s = 44;
       const g = scene.add.graphics();
-      const cx = s / 2, cy = s / 2;
+      const cx = s / 2,
+        cy = s / 2;
 
       // Glow
       g.fillStyle(NEON.ENEMY_SPECIAL, 0.15);
@@ -374,21 +391,21 @@ export class TextureFactory {
       g.lineStyle(2, NEON.ENEMY_SPECIAL, 0.5);
       g.strokeCircle(cx, cy, 20);
       // Body diamond
-      g.fillStyle(0x661144);
+      g.fillStyle(TEX.ENEMY_SPECIAL_SHELL);
       g.fillTriangle(cx, 2, 2, cy, cx, s - 2);
       g.fillTriangle(cx, 2, s - 2, cy, cx, s - 2);
       g.fillStyle(NEON.ENEMY_SPECIAL);
       g.fillTriangle(cx, 6, 6, cy, cx, s - 6);
       g.fillTriangle(cx, 6, s - 6, cy, cx, s - 6);
       // Inner eye
-      g.fillStyle(0x220022);
+      g.fillStyle(TEX.BOSS_DIAMOND_EYE_BG);
       g.fillCircle(cx, cy, 7);
-      g.fillStyle(0xff88cc);
+      g.fillStyle(TEX.ENEMY_SPECIAL_CORE);
       g.fillCircle(cx, cy, 4);
-      g.fillStyle(0xffffff, 0.6);
+      g.fillStyle(NEON.PROJECTILE, 0.6);
       g.fillCircle(cx - 1, cy - 1, 2);
       // Outline
-      g.lineStyle(2, 0xff88cc, 0.9);
+      g.lineStyle(2, TEX.ENEMY_SPECIAL_CORE, 0.9);
       g.moveTo(cx, 2);
       g.lineTo(s - 2, cy);
       g.lineTo(cx, s - 2);
@@ -408,30 +425,30 @@ export class TextureFactory {
       g.fillStyle(NEON.ENEMY_TANK, 0.12);
       g.fillCircle(s / 2, s / 2, 26);
       // Outer armor
-      g.fillStyle(0x221144);
+      g.fillStyle(TEX.BOSS_RECT_ARMOR);
       g.fillRect(0, 0, s, s);
       // Inner plate
       g.fillStyle(NEON.ENEMY_TANK);
       g.fillRect(4, 4, s - 8, s - 8);
       // Armor cross
-      g.fillStyle(0x221144);
+      g.fillStyle(TEX.BOSS_RECT_ARMOR);
       g.fillRect(s / 2 - 2, 4, 4, s - 8);
       g.fillRect(4, s / 2 - 2, s - 8, 4);
       // Corner bolts
-      g.fillStyle(0xcc88ff);
+      g.fillStyle(TEX.ENEMY_TANK_CORE);
       g.fillCircle(8, 8, 3);
       g.fillCircle(s - 8, 8, 3);
       g.fillCircle(8, s - 8, 3);
       g.fillCircle(s - 8, s - 8, 3);
       // Energy core
-      g.fillStyle(0xffffff, 0.6);
+      g.fillStyle(NEON.PROJECTILE, 0.6);
       g.fillCircle(s / 2, s / 2, 8);
-      g.fillStyle(0xcc88ff);
+      g.fillStyle(TEX.ENEMY_TANK_CORE);
       g.fillCircle(s / 2, s / 2, 5);
-      g.fillStyle(0xffffff, 0.8);
+      g.fillStyle(NEON.PROJECTILE, 0.8);
       g.fillCircle(s / 2, s / 2, 2);
       // Outline
-      g.lineStyle(2, 0xcc88ff, 0.9);
+      g.lineStyle(2, TEX.ENEMY_TANK_CORE, 0.9);
       g.strokeRect(0, 0, s, s);
       g.generateTexture('boss_rect', s, s);
       g.destroy();
@@ -475,7 +492,8 @@ export class TextureFactory {
     if (!this.has(scene, 'projectile_shuriken')) {
       const s = 16;
       const g = scene.add.graphics();
-      const cx = s / 2, cy = s / 2;
+      const cx = s / 2,
+        cy = s / 2;
       g.fillStyle(NEON.GOLD, 0.2);
       g.fillCircle(cx, cy, 8);
       g.fillStyle(NEON.GOLD);
@@ -491,7 +509,7 @@ export class TextureFactory {
       }
       g.closePath();
       g.fillPath();
-      g.fillStyle(0xffffff, 0.6);
+      g.fillStyle(NEON.PROJECTILE, 0.6);
       g.fillCircle(cx, cy, 2);
       g.generateTexture('projectile_shuriken', s, s);
       g.destroy();
@@ -511,15 +529,16 @@ export class TextureFactory {
     // Missile — elongated arrow/rocket with exhaust trail
     if (!this.has(scene, 'projectile_missile')) {
       const g = scene.add.graphics();
-      const w = 24, h = 10;
+      const w = 24,
+        h = 10;
       // Exhaust glow
       g.fillStyle(NEON.HEALTH, 0.3);
       g.fillCircle(4, h / 2, 5);
       // Body
-      g.fillStyle(0xcccccc);
+      g.fillStyle(TEX.MISSILE_BODY);
       g.fillRect(4, 1, 14, h - 2);
       // Nose cone
-      g.fillStyle(0xff4444);
+      g.fillStyle(NEON.ENEMY_BASIC);
       g.beginPath();
       g.moveTo(w, h / 2);
       g.lineTo(18, 0);
@@ -527,7 +546,7 @@ export class TextureFactory {
       g.closePath();
       g.fillPath();
       // Fins
-      g.fillStyle(0x888888);
+      g.fillStyle(TEX.MISSILE_FINS);
       g.fillTriangle(4, 0, 8, 0, 4, -2 + h / 2);
       g.fillTriangle(4, h, 8, h, 4, 2 + h / 2);
       g.generateTexture('projectile_missile', w, h);
@@ -539,13 +558,13 @@ export class TextureFactory {
       const s = 16;
       const g = scene.add.graphics();
       // Outer flame glow
-      g.fillStyle(0xff6600, 0.3);
+      g.fillStyle(TEX.NAPALM_STROKE, 0.3);
       g.fillCircle(s / 2, s / 2, 8);
       // Inner fire
-      g.fillStyle(0xff4400, 0.8);
+      g.fillStyle(TEX.NAPALM_FILL, 0.8);
       g.fillCircle(s / 2, s / 2, 5);
       // Hot core
-      g.fillStyle(0xffcc00);
+      g.fillStyle(TEX.NAPALM_CORE);
       g.fillCircle(s / 2, s / 2, 3);
       g.generateTexture('projectile_napalm', s, s);
       g.destroy();
@@ -556,7 +575,7 @@ export class TextureFactory {
   private static generateParticleTextures(scene: Phaser.Scene): void {
     if (!this.has(scene, 'particle_square')) {
       const g = scene.add.graphics();
-      g.fillStyle(0xffffff);
+      g.fillStyle(NEON.PROJECTILE);
       g.fillRect(0, 0, 6, 6);
       g.generateTexture('particle_square', 6, 6);
       g.destroy();
@@ -564,13 +583,30 @@ export class TextureFactory {
 
     if (!this.has(scene, 'particle_glow')) {
       const g = scene.add.graphics();
-      g.fillStyle(0xffffff, 0.3);
+      g.fillStyle(NEON.PROJECTILE, 0.3);
       g.fillCircle(12, 12, 12);
-      g.fillStyle(0xffffff, 0.6);
+      g.fillStyle(NEON.PROJECTILE, 0.6);
       g.fillCircle(12, 12, 8);
-      g.fillStyle(0xffffff, 0.9);
+      g.fillStyle(NEON.PROJECTILE, 0.9);
       g.fillCircle(12, 12, 4);
       g.generateTexture('particle_glow', 24, 24);
+      g.destroy();
+    }
+  }
+
+  // === PURIFY PARTICLES ===
+  private static generatePurifyTextures(scene: Phaser.Scene): void {
+    // Purify burst — soft glow circle (used for purification particles)
+    if (!this.has(scene, 'particle_purify')) {
+      const s = 16;
+      const g = scene.add.graphics();
+      g.fillStyle(NEON.PROJECTILE, 0.2);
+      g.fillCircle(s / 2, s / 2, s / 2);
+      g.fillStyle(NEON.PROJECTILE, 0.5);
+      g.fillCircle(s / 2, s / 2, (s / 2) * 0.6);
+      g.fillStyle(NEON.PROJECTILE, 0.9);
+      g.fillCircle(s / 2, s / 2, (s / 2) * 0.3);
+      g.generateTexture('particle_purify', s, s);
       g.destroy();
     }
   }
@@ -582,7 +618,13 @@ export class TextureFactory {
       btn.fillStyle(RETRO.borderColor);
       btn.fillRoundedRect(0, 0, 300, 70, RETRO.radius);
       btn.fillStyle(NEON.UI_ACCENT);
-      btn.fillRoundedRect(RETRO.borderWidth, RETRO.borderWidth, 300 - RETRO.borderWidth * 2, 70 - RETRO.borderWidth * 2, RETRO.radius);
+      btn.fillRoundedRect(
+        RETRO.borderWidth,
+        RETRO.borderWidth,
+        300 - RETRO.borderWidth * 2,
+        70 - RETRO.borderWidth * 2,
+        RETRO.radius,
+      );
       btn.generateTexture('btn_primary', 300, 70);
       btn.destroy();
     }
@@ -592,7 +634,13 @@ export class TextureFactory {
       btn2.fillStyle(RETRO.borderColor);
       btn2.fillRoundedRect(0, 0, 300, 70, RETRO.radius);
       btn2.fillStyle(RETRO.panelBg);
-      btn2.fillRoundedRect(RETRO.borderWidth, RETRO.borderWidth, 300 - RETRO.borderWidth * 2, 70 - RETRO.borderWidth * 2, RETRO.radius);
+      btn2.fillRoundedRect(
+        RETRO.borderWidth,
+        RETRO.borderWidth,
+        300 - RETRO.borderWidth * 2,
+        70 - RETRO.borderWidth * 2,
+        RETRO.radius,
+      );
       btn2.generateTexture('btn_secondary', 300, 70);
       btn2.destroy();
     }

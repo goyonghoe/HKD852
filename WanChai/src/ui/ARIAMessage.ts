@@ -1,10 +1,9 @@
 import Phaser from 'phaser';
-import { NEON, NEON_CSS } from '../config/colors';
+import { BALANCE } from '../config/balance';
+import { NEON, NEON_CSS, BG_COLOR } from '../config/colors';
 import { GAME_WIDTH, GAME_HEIGHT } from '../config/game-config';
 
-const TYPE_SPEED_MS = 25;    // ms per character (faster for center prominence)
-const DISPLAY_MS = 3500;     // total display time after typing finishes
-const GLITCH_INTERVAL = 80;  // ms between random glitch char swaps
+const GLITCH_INTERVAL = 80; // ms between random glitch char swaps
 
 /**
  * ARIA communication overlay — cyberpunk typewriter text at screen center.
@@ -26,25 +25,25 @@ export class ARIAMessage {
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
 
-    const cy = GAME_HEIGHT * 0.38;
+    const ariaConf = BALANCE.ARIA;
+    const cy = GAME_HEIGHT * ariaConf.positionYRatio;
+    const panelW = GAME_WIDTH * ariaConf.panelWidthRatio;
     this.bgRect = scene.add
-      .rectangle(GAME_WIDTH / 2, cy, GAME_WIDTH - 60, 52, 0x0a0a1a, 0.92)
-      .setStrokeStyle(2, NEON.UI_ACCENT, 0.6);
+      .rectangle(GAME_WIDTH / 2, cy, panelW, ariaConf.panelHeight, BG_COLOR, ariaConf.bgAlpha)
+      .setStrokeStyle(1, NEON.UI_ACCENT, 0.4);
 
     this.textObj = scene.add
       .text(GAME_WIDTH / 2, cy, '', {
-        fontSize: '24px',
+        fontSize: `${ariaConf.fontSize}px`,
         color: NEON_CSS.UI_ACCENT,
         fontFamily: 'monospace',
         fontStyle: 'bold',
         align: 'center',
-        wordWrap: { width: GAME_WIDTH - 100 },
+        wordWrap: { width: panelW - 40 },
       })
       .setOrigin(0.5);
 
-    this.container = scene.add.container(0, 0, [this.bgRect, this.textObj])
-      .setDepth(1600)
-      .setAlpha(0);
+    this.container = scene.add.container(0, 0, [this.bgRect, this.textObj]).setDepth(1600).setAlpha(0);
   }
 
   /** Queue a message. Displayed after current one finishes. */
@@ -61,14 +60,15 @@ export class ARIAMessage {
     // Typing phase
     if (this.typing) {
       this.typeTimer += delta;
-      while (this.typeTimer >= TYPE_SPEED_MS && this.currentIndex < this.currentFull.length) {
-        this.typeTimer -= TYPE_SPEED_MS;
+      const typeSpeed = BALANCE.ARIA.typeSpeedMs;
+      while (this.typeTimer >= typeSpeed && this.currentIndex < this.currentFull.length) {
+        this.typeTimer -= typeSpeed;
         this.currentIndex++;
         this.textObj.setText(this.currentFull.substring(0, this.currentIndex));
       }
       if (this.currentIndex >= this.currentFull.length) {
         this.typing = false;
-        this.displayTimer = DISPLAY_MS;
+        this.displayTimer = BALANCE.ARIA.displayMs;
         this.textObj.setText(this.currentFull);
       }
       // Glitch effect during typing
@@ -113,9 +113,8 @@ export class ARIAMessage {
     const chars = '!@#$%^&*░▒▓█';
     const idx = Math.floor(Math.random() * this.currentIndex);
     const original = this.currentFull.substring(0, this.currentIndex);
-    const glitched = original.substring(0, idx) +
-      chars[Math.floor(Math.random() * chars.length)] +
-      original.substring(idx + 1);
+    const glitched =
+      original.substring(0, idx) + chars[Math.floor(Math.random() * chars.length)] + original.substring(idx + 1);
     this.textObj.setText(glitched);
     this.scene.time.delayedCall(40, () => {
       if (this.typing) {

@@ -1,6 +1,6 @@
 ---
 name: art-director
-description: "Art Director agent for WanChai puzzle game. Use when creating procedural textures, particle effects, or auditing visual consistency."
+description: 'Art Director agent for WanChai puzzle game. Use when creating procedural textures, particle effects, or auditing visual consistency.'
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: opus
 skills:

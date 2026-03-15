@@ -1,8 +1,8 @@
 ---
 name: art-sprite
-description: "프로시저럴 텍스처 생성 — 큐브, 히어로, 아이콘 등 게임 스프라이트"
+description: '프로시저럴 텍스처 생성 — 큐브, 히어로, 아이콘 등 게임 스프라이트'
 user-invocable: true
-argument-hint: "[sprite-type] e.g. cubes, heroes, icons, buttons, belt"
+argument-hint: '[sprite-type] e.g. cubes, heroes, icons, buttons, belt'
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
 ---

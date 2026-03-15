@@ -29,7 +29,10 @@ export class WaveDirector {
   // Boss ID (configurable per stage)
   private bossId = 'boss';
 
-  constructor(private config: WaveConfig, private rng: SeededRandom) {}
+  constructor(
+    private config: WaveConfig,
+    private rng: SeededRandom,
+  ) {}
 
   setEnemyPool(ids: string[]): void {
     this.enemyPool = ids;
@@ -58,16 +61,13 @@ export class WaveDirector {
     const commands: SpawnCommand[] = [];
 
     // Unlock enemy types over time (every ~12s for 60s stage)
-    const unlockedCount = Math.min(
-      this.enemyPool.length,
-      1 + Math.floor(minutes * 5),
-    );
+    const unlockedCount = Math.min(this.enemyPool.length, 1 + Math.floor(minutes * 5));
 
     // Regular spawn (ramps from 1 to ~4 over 60s)
     const spawnCount = 1 + Math.floor(minutes * 3);
     const enemyId = this.enemyPool[this.rng.nextInt(0, unlockedCount)];
     const rawEliteChance = this.config.eliteChanceBase + this.config.eliteChancePerMin * minutes;
-    const eliteChance = Math.min(rawEliteChance, 0.50); // cap at 50%
+    const eliteChance = Math.min(rawEliteChance, 0.5); // cap at 50%
     const isElite = this.rng.next() < eliteChance;
 
     commands.push({ enemyId, count: spawnCount, isElite });

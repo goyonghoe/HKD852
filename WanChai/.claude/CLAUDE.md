@@ -2,6 +2,8 @@
 
 > Vertical auto-shooter survivor set in cyberpunk Hong Kong (NeonSurvivor)
 
+> **HTML 산출물 생성 시**: `outputs/templates/`에서 주제에 맞는 템플릿을 Read로 읽고 스타일을 따를 것. Pretendard 15px, 행간 1.8, 한글 중심. 상세: 루트 CLAUDE.md 참조.
+
 ## Tech Stack
 
 - **Engine**: Phaser 3.90+ (WebGL/Canvas)
@@ -9,7 +11,7 @@
 - **Build**: Vite 6
 - **Testing**: Vitest 3
 - **Deploy**: Vercel (https://project-wanchai.vercel.app)
-- **Resolution**: 720x1280 (9:16 portrait mobile-first)
+- **Resolution**: 1280x720 (16:9 landscape)
 
 ## Commands
 
@@ -25,28 +27,28 @@ vercel deploy --prod  # deploy
 
 6 specialized agents in `.claude/agents/`:
 
-| Agent | Role | Model | Skills |
-|-------|------|-------|--------|
-| `game-designer` | Define experience, design mechanics, levels, balance | opus | `/gd-*` (7) |
-| `programmer` | Implement specs into code, wiring/playtest checks | opus | `/pg-*` (8) |
-| `art-director` | Procedural textures, VFX | opus | `/art-*` (4) |
-| `ui-designer` | Layouts, animations, polish, UX gate | opus | `/ui-*` (5) |
-| `balance-designer` | DPS/TTK analysis, growth curves, economy sim, difficulty audit | opus | `/bal-*` (6) |
-| `audio-designer` | Procedural BGM/SFX, audio mixing, cyberpunk soundscape | opus | `/aud-*` (4) |
+| Agent              | Role                                                           | Model  | Skills       |
+| ------------------ | -------------------------------------------------------------- | ------ | ------------ |
+| `game-designer`    | Define experience, design mechanics, levels, balance           | opus   | `/gd-*` (7)  |
+| `programmer`       | Implement specs into code, wiring/playtest checks              | opus   | `/pg-*` (8)  |
+| `art-director`     | Procedural textures, VFX                                       | opus   | `/art-*` (4) |
+| `ui-designer`      | Layouts, animations, polish, UX gate                           | opus   | `/ui-*` (5)  |
+| `balance-designer` | DPS/TTK analysis, growth curves, economy sim, difficulty audit | opus   | `/bal-*` (6) |
+| `audio-designer`   | Procedural BGM/SFX, audio mixing, cyberpunk soundscape         | opus   | `/aud-*` (4) |
 
 Cross-agent: `/design-status-sync` (1), `/log-mistake` (1)
 
 ### Kanban (프로젝트 관리)
 
-| Skill | Description | Model |
-|-------|-------------|-------|
-| `/kanban-create` | 태스크 생성 | opus |
-| `/kanban-pickup` | 태스크 시작 (backlog → in_progress) | opus |
-| `/kanban-done` | 태스크 완료 (in_progress → done) | opus |
-| `/kanban-qa` | CFMC 품질 평가 | opus |
-| `/kanban-redteam` | 적대적 리뷰 | opus |
-| `/kanban-status` | 현황 조회 (읽기 전용) | opus |
-| `/kanban-deploy` | 대시보드 빌드+배포 | opus |
+| Skill             | Description                         | Model  |
+| ----------------- | ----------------------------------- | ------ |
+| `/kanban-create`  | 태스크 생성                         | sonnet |
+| `/kanban-pickup`  | 태스크 시작 (backlog → in_progress) | haiku  |
+| `/kanban-done`    | 태스크 완료 (in_progress → done)    | haiku  |
+| `/kanban-qa`      | CFMC 품질 평가                      | opus   |
+| `/kanban-redteam` | 적대적 리뷰                         | opus   |
+| `/kanban-status`  | 현황 조회 (읽기 전용)               | haiku  |
+| `/kanban-deploy`  | 대시보드 빌드+배포                  | haiku  |
 
 - **데이터**: `WanChai/kanban.json` (단일 진실 소스)
 - **대시보드**: https://pmo-kanban.vercel.app
@@ -56,7 +58,18 @@ Cross-agent: `/design-status-sync` (1), `/log-mistake` (1)
   - QA/RedTeam 리뷰 시 자동 기록
   - `token_budget` 필드로 월간 예산 설정 가능 (수동)
 
-**Total: 45 skills**
+### QA Automation (코드 분석 기반)
+
+| Skill | Command | Model | Role |
+|-------|---------|-------|------|
+| QA Smoke | `/qa-smoke` | Haiku | 빌드+테스트+타입 원커맨드 |
+| QA Type | `/qa-type` | Sonnet | any/assertion/미사용 탐지 |
+| QA Balance | `/qa-balance` | Sonnet | 밸런스 수치 범위 검증 |
+| QA Regression | `/qa-regression` | Sonnet | 변경 영향도 분석 |
+| QA Spec | `/qa-spec` | Opus | 기획서 ↔ 코드 정합성 |
+| QA Report | `/qa-report` | Sonnet | 전체 QA HTML 대시보드 |
+
+**Total: 52 skills** (includes `/model-audit`)
 
 ## Key References
 

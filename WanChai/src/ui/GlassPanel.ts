@@ -18,19 +18,8 @@ export interface GlassPanelConfig {
  * Pokemon dialog box aesthetic.
  * Exported as both createRetroPanel and createGlassPanel (backwards compat).
  */
-export function createRetroPanel(
-  scene: Phaser.Scene,
-  config: GlassPanelConfig
-): Phaser.GameObjects.Container {
-  const {
-    x,
-    y,
-    width,
-    height,
-    radius = RETRO.radius,
-    depth = 0,
-    variant = 'light',
-  } = config;
+export function createRetroPanel(scene: Phaser.Scene, config: GlassPanelConfig): Phaser.GameObjects.Container {
+  const { x, y, width, height, radius = RETRO.radius, depth = 0, variant = 'light' } = config;
 
   const g = scene.add.graphics();
   const bgColor = variant === 'dark' ? RETRO.panelBgDark : RETRO.panelBg;
@@ -62,4 +51,3 @@ export function createRetroPanel(
   const container = scene.add.container(x, y, [g]).setDepth(depth);
   return container;
 }
-

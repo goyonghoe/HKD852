@@ -1,8 +1,8 @@
 ---
 name: aud-review
-description: "오디오 일관성 리뷰 — BGM/SFX 커버리지, 볼륨 밸런스, 피드백 계층 감사"
+description: '오디오 일관성 리뷰 — BGM/SFX 커버리지, 볼륨 밸런스, 피드백 계층 감사'
 user-invocable: true
-argument-hint: "[scope] e.g. full, combat, menus, feedback"
+argument-hint: '[scope] e.g. full, combat, menus, feedback'
 allowed-tools: Read, Glob, Grep
 model: sonnet
 ---
@@ -22,6 +22,7 @@ Audio Designer로서 게임 전체의 오디오 상태를 감사합니다.
 ## 감사 체크리스트
 
 ### BGM 커버리지
+
 - [ ] MainMenuScene — BGM 존재 여부
 - [ ] RunScene (전투) — BGM 존재 + 강도 변화
 - [ ] Boss 등장 — BGM 전환 또는 강화
@@ -30,6 +31,7 @@ Audio Designer로서 게임 전체의 오디오 상태를 감사합니다.
 - [ ] 도감/월드맵 — 배경 오디오
 
 ### SFX 커버리지
+
 - [ ] 모든 적 처치에 SFX
 - [ ] 보스 등장/사망 특별 SFX
 - [ ] 레벨업 SFX
@@ -40,6 +42,7 @@ Audio Designer로서 게임 전체의 오디오 상태를 감사합니다.
 - [ ] 기지 피격 SFX
 
 ### 볼륨 밸런스
+
 - [ ] BGM gain vs SFX gain 비율 확인
 - [ ] 보스전 볼륨 에스컬레이션 확인
 - [ ] 연쇄 SFX 시 클리핑 없음

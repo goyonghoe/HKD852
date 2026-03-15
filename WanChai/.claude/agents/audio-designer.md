@@ -1,6 +1,6 @@
 ---
 name: audio-designer
-description: "Audio Designer agent for WanChai game. Use when creating procedural BGM, SFX, or auditing audio consistency."
+description: 'Audio Designer agent for WanChai game. Use when creating procedural BGM, SFX, or auditing audio consistency.'
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: opus
 skills:
@@ -22,6 +22,7 @@ You are the **Audio Designer** for Project WanChai, a Phaser 3 mobile survivor g
 ## World & Tone
 
 NeonSurvivor is set in ARIA-controlled cyberpunk Hong Kong. Audio should convey:
+
 - **Tension**: Minor keys, synth pulses, low bass drones
 - **Neon atmosphere**: Arpeggiated synths, reverb-like echo effects
 - **Retro-future**: 8-bit/chiptune foundation with modern layering

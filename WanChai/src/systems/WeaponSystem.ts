@@ -2,34 +2,52 @@ import Phaser from 'phaser';
 import { WEAPON_DEFS } from '../config/weapons';
 import { BALANCE } from '../config/balance';
 import { calculateDamage } from '../core/DamageCalc';
+import {
+  calculateLevelMultiplier,
+  calculateProjectileCount,
+  calculateSpreadAngle,
+  calculateFanAngles,
+  calculatePiercing,
+  calculateAoeRadius,
+  calculateHomingParams,
+  calculateHomingSpreadAngles,
+  calculateChainCount,
+  calculateTrainPositions,
+} from '../core/WeaponFireCalc';
+import {
+  calculateCentroid,
+  checkAoeHits,
+  batchTickNapalmZones,
+  calculateNapalmFlightTime,
+  calculateBarrelOffset,
+  calculateZoneRadius,
+  type NapalmZoneState,
+} from '../core/WeaponZoneCalc';
 import type { VFXManager } from '../utils/VFXManager';
 import type { DamageNumberManager } from '../ui/DamageNumber';
-import type { WeaponDef } from '../types/weapon';
-import type { WeaponInstance } from '../types/weapon';
+import type { WeaponDef, WeaponInstance } from '../types/weapon';
 import type { Player } from '../objects/Player';
+import { resolveTexture } from '../config/atlas-manifest';
 import type { Enemy } from '../objects/Enemy';
 import type { Projectile } from '../objects/Projectile';
+import type { SeededRandom } from '../core/SeededRandom';
 
-interface NapalmZone {
-  x: number;
-  y: number;
-  radius: number;
-  damage: number;
-  remainingMs: number;
-  tickMs: number;
-  tickTimer: number;
-}
+// NapalmZone type aliased from core module (NapalmZoneState)
+type NapalmZone = NapalmZoneState;
 
 export interface WeaponSystemDeps {
   vfx?: VFXManager;
   dmgNumbers?: DamageNumberManager;
   onEnemyDeath?: (enemy: Enemy) => void;
-  onWeaponFire?: () => void;
+  onWeaponFire?: (barrelX: number, barrelY: number, weaponId?: string) => void;
 }
 
 export class WeaponSystem {
   private scene: Phaser.Scene;
   private deps: WeaponSystemDeps = {};
+
+  // Deterministic RNG for combat-relevant randomness (TASK-011 RT)
+  private rng: SeededRandom | null = null;
 
   // Cached active enemy list (rebuilt once per update call)
   private cachedEnemies: Enemy[] = [];
@@ -41,6 +59,16 @@ export class WeaponSystem {
   constructor(scene: Phaser.Scene, deps?: WeaponSystemDeps) {
     this.scene = scene;
     if (deps) this.deps = deps;
+  }
+
+  /** Set the deterministic RNG for combat-relevant rolls (crit, spread). */
+  setRng(rng: SeededRandom): void {
+    this.rng = rng;
+  }
+
+  /** Get a combat roll from SeededRandom (deterministic) or Math.random() (fallback). */
+  private roll(): number {
+    return this.rng ? this.rng.next() : Math.random();
   }
 
   /** Release references to prevent memory leaks on scene restart. */
@@ -80,36 +108,57 @@ export class WeaponSystem {
       const cooldown = def.cooldownMs / player.attackSpeedMultiplier;
       weapon.cooldownRemaining = cooldown;
 
-      const levelMult = 1 + (weapon.level - 1) * 0.2;
+      const levelMult = calculateLevelMultiplier(weapon.level);
 
       switch (def.projectileType) {
         case 'bullet':
           this.fireBullet(player, def, weapon, projectilePool, levelMult);
-          this.deps.onWeaponFire?.();
+          {
+            const b = this.getBarrelPosition(player, def);
+            this.deps.onWeaponFire?.(b.x, b.y, def.id);
+          }
           break;
         case 'aoe':
           this.fireAoe(player, def, weapon, levelMult);
-          this.deps.onWeaponFire?.();
+          {
+            const b = this.getBarrelPosition(player, def);
+            this.deps.onWeaponFire?.(b.x, b.y, def.id);
+          }
           break;
         case 'laser':
           this.fireLaser(player, def, weapon, projectilePool, levelMult);
-          this.deps.onWeaponFire?.();
+          {
+            const b = this.getBarrelPosition(player, def);
+            this.deps.onWeaponFire?.(b.x, b.y, def.id);
+          }
           break;
         case 'napalm':
           this.fireNapalm(player, def, weapon, levelMult);
-          this.deps.onWeaponFire?.();
+          {
+            const b = this.getBarrelPosition(player, def);
+            this.deps.onWeaponFire?.(b.x, b.y, def.id);
+          }
           break;
         case 'chain':
           this.fireChain(player, def, weapon, levelMult);
-          this.deps.onWeaponFire?.();
+          {
+            const b = this.getBarrelPosition(player, def);
+            this.deps.onWeaponFire?.(b.x, b.y, def.id);
+          }
           break;
         case 'homing':
           this.fireHoming(player, def, weapon, projectilePool, levelMult);
-          this.deps.onWeaponFire?.();
+          {
+            const b = this.getBarrelPosition(player, def);
+            this.deps.onWeaponFire?.(b.x, b.y, def.id);
+          }
           break;
         case 'bomb':
           this.fireBomb(player, def, weapon, levelMult);
-          this.deps.onWeaponFire?.();
+          {
+            const b = this.getBarrelPosition(player, def);
+            this.deps.onWeaponFire?.(b.x, b.y, def.id);
+          }
           break;
         default:
           break;
@@ -137,28 +186,45 @@ export class WeaponSystem {
       player.damageMultiplier,
       player.critChance,
       player.critDamage,
-      Math.random(),
+      this.roll(),
     );
 
-    const count = def.projectileCount + Math.floor((weapon.level - 1) * 0.5);
-    const spread = count > 1 ? 0.15 : 0;
+    // Per-weapon count formulas
+    const count = calculateProjectileCount(def.id, weapon.level, def.projectileCount);
 
-    for (let i = 0; i < count; i++) {
-      const proj = projectilePool.get() as Projectile | null;
-      if (!proj) break;
+    let texture = 'projectile_bullet';
+    if (def.id === 'shuriken') texture = 'projectile_shuriken';
+    else if (def.id === 'rapid_fire') texture = 'projectile_rapid';
 
-      const bulletAngle =
-        count > 1 ? angle - spread / 2 + (spread / (count - 1)) * i : angle;
+    const piercing = calculatePiercing(def.piercing, weapon.level);
+    const speed = def.projectileSpeed;
 
-      const vx = Math.cos(bulletAngle) * def.projectileSpeed;
-      const vy = Math.sin(bulletAngle) * def.projectileSpeed;
+    if (def.id === 'energy_shot') {
+      // Train formation: bullets in single file along firing direction
+      const spacing = 18; // px gap between bullets (no overlap)
+      const positions = calculateTrainPositions(player.x, player.y, angle, count, spacing);
+      const vx = Math.cos(angle) * speed;
+      const vy = Math.sin(angle) * speed;
+      for (let i = 0; i < positions.length; i++) {
+        const proj = projectilePool.get() as Projectile | null;
+        if (!proj) break;
+        proj.fire(positions[i].x, positions[i].y, vx, vy, result.damage, piercing, def.id, texture, result.isCrit);
+      }
+    } else {
+      // Fan spread (shotgun, shuriken, etc.)
+      const spread = calculateSpreadAngle(def.id, count);
+      const angles = calculateFanAngles(angle, count, spread);
 
-      let texture = 'projectile_bullet';
-      if (def.id === 'shuriken') texture = 'projectile_shuriken';
-      else if (def.id === 'rapid_fire') texture = 'projectile_rapid';
-      else if (def.id === 'shotgun') texture = 'projectile_bullet';
-      proj.fire(player.x, player.y, vx, vy, result.damage, def.piercing + Math.floor(weapon.level / 3), def.id, texture, result.isCrit);
-      if (def.id === 'shuriken') proj.spinRate = 12;
+      for (let i = 0; i < angles.length; i++) {
+        const proj = projectilePool.get() as Projectile | null;
+        if (!proj) break;
+
+        const vx = Math.cos(angles[i]) * speed;
+        const vy = Math.sin(angles[i]) * speed;
+
+        proj.fire(player.x, player.y, vx, vy, result.damage, piercing, def.id, texture, result.isCrit);
+        if (def.id === 'shuriken') proj.spinRate = 12;
+      }
     }
   }
 
@@ -177,7 +243,7 @@ export class WeaponSystem {
       player.damageMultiplier,
       player.critChance,
       player.critDamage,
-      Math.random(),
+      this.roll(),
     );
 
     const proj = projectilePool.get() as Projectile | null;
@@ -199,20 +265,15 @@ export class WeaponSystem {
     proj.lifeMs = 1000;
   }
 
-  private fireAoe(
-    player: Player,
-    def: WeaponDef,
-    weapon: WeaponInstance,
-    levelMult: number,
-  ): void {
-    const radius = def.aoeRadius + weapon.level * 10;
+  private fireAoe(player: Player, def: WeaponDef, weapon: WeaponInstance, levelMult: number): void {
+    const radius = calculateAoeRadius(def.aoeRadius, weapon.level);
     const radiusSq = radius * radius;
     const { damage } = calculateDamage(
       def.baseDamage * levelMult,
       player.damageMultiplier,
       player.critChance,
       player.critDamage,
-      Math.random(),
+      this.roll(),
     );
 
     for (let i = 0; i < this.cachedEnemyCount; i++) {
@@ -225,22 +286,17 @@ export class WeaponSystem {
     }
   }
 
-  private fireChain(
-    player: Player,
-    def: WeaponDef,
-    weapon: WeaponInstance,
-    levelMult: number,
-  ): void {
+  private fireChain(player: Player, def: WeaponDef, weapon: WeaponInstance, levelMult: number): void {
     const nearest = this.findNearest(player, def.range);
     if (!nearest) return;
 
-    const chainCount = def.projectileCount + Math.floor((weapon.level - 1) * 0.5);
+    const chainCount = calculateChainCount(def.projectileCount, weapon.level);
     const result = calculateDamage(
       def.baseDamage * levelMult,
       player.damageMultiplier,
       player.critChance,
       player.critDamage,
-      Math.random(),
+      this.roll(),
     );
 
     const hit = new Set<Enemy>();
@@ -300,82 +356,74 @@ export class WeaponSystem {
       player.damageMultiplier,
       player.critChance,
       player.critDamage,
-      Math.random(),
+      this.roll(),
     );
 
-    const count = def.projectileCount + Math.floor((weapon.level - 1) * 0.5);
-    const homingSpeed = def.projectileSpeed + weapon.level * 40;
-    const turnRate = BALANCE.COMBAT.homingBaseTurnRate + weapon.level * BALANCE.COMBAT.homingTurnRatePerLevel;
+    const homing = calculateHomingParams(
+      weapon.level,
+      def.projectileSpeed,
+      def.projectileCount,
+      BALANCE.COMBAT.homingBaseTurnRate,
+      BALANCE.COMBAT.homingTurnRatePerLevel,
+    );
+    const baseAngle = Math.atan2(nearest.y - player.y, nearest.x - player.x);
+    const spreadAngles = calculateHomingSpreadAngles(baseAngle, homing.count);
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < spreadAngles.length; i++) {
       const proj = projectilePool.get() as Projectile | null;
       if (!proj) break;
-      const spreadAngle = count > 1
-        ? -0.3 + (0.6 / (count - 1)) * i
-        : 0;
-      const angle = Math.atan2(nearest.y - player.y, nearest.x - player.x) + spreadAngle;
       proj.fire(
         player.x,
         player.y,
-        Math.cos(angle) * homingSpeed,
-        Math.sin(angle) * homingSpeed,
+        Math.cos(spreadAngles[i]) * homing.speed,
+        Math.sin(spreadAngles[i]) * homing.speed,
         result.damage,
         0,
         def.id,
         'projectile_missile',
         result.isCrit,
       );
-      proj.lifeMs = 4000;
+      proj.lifeMs = 8000;
       proj.homingTarget = nearest;
-      proj.homingTurnRate = turnRate;
-      proj.homingSpeed = homingSpeed;
+      proj.homingTurnRate = homing.turnRate;
+      proj.homingSpeed = homing.speed;
     }
   }
 
   /** Bomb — O(n) single-pass densest-point estimation (replaces O(n²) scan) */
-  private fireBomb(
-    player: Player,
-    def: WeaponDef,
-    weapon: WeaponInstance,
-    levelMult: number,
-  ): void {
+  private fireBomb(player: Player, def: WeaponDef, weapon: WeaponInstance, levelMult: number): void {
     if (this.cachedEnemyCount === 0) return;
 
-    const scanRadius = def.aoeRadius + weapon.level * 15;
-    const scanRadiusSq = scanRadius * scanRadius;
+    const scanRadius = calculateZoneRadius(def.aoeRadius, weapon.level);
 
     // O(n) approach: use centroid of all active enemies as bomb target
-    let sumX = 0;
-    let sumY = 0;
+    const positions: { x: number; y: number }[] = [];
     for (let i = 0; i < this.cachedEnemyCount; i++) {
-      sumX += this.cachedEnemies[i].x;
-      sumY += this.cachedEnemies[i].y;
+      positions.push({ x: this.cachedEnemies[i].x, y: this.cachedEnemies[i].y });
     }
-    const bestX = sumX / this.cachedEnemyCount;
-    const bestY = sumY / this.cachedEnemyCount;
+    const centroid = calculateCentroid(positions);
+    const bestX = centroid.x;
+    const bestY = centroid.y;
 
     const result = calculateDamage(
       def.baseDamage * levelMult,
       player.damageMultiplier,
       player.critChance,
       player.critDamage,
-      Math.random(),
+      this.roll(),
     );
 
     // Apply AOE damage at centroid
+    const hitIndices = checkAoeHits(positions, bestX, bestY, scanRadius);
     let hitCount = 0;
-    for (let i = 0; i < this.cachedEnemyCount; i++) {
-      const enemy = this.cachedEnemies[i];
-      const dx = enemy.x - bestX;
-      const dy = enemy.y - bestY;
-      if (dx * dx + dy * dy < scanRadiusSq) {
-        const dead = enemy.takeDamage(result.damage);
-        this.deps.dmgNumbers?.show(enemy.x, enemy.y, result.damage, result.isCrit);
-        if (dead) {
-          this.deps.onEnemyDeath?.(enemy);
-        }
-        hitCount++;
+    for (let h = 0; h < hitIndices.length; h++) {
+      const enemy = this.cachedEnemies[hitIndices[h]];
+      const dead = enemy.takeDamage(result.damage);
+      this.deps.dmgNumbers?.show(enemy.x, enemy.y, result.damage, result.isCrit);
+      if (dead) {
+        this.deps.onEnemyDeath?.(enemy);
       }
+      hitCount++;
     }
 
     if (hitCount > 0) {
@@ -385,39 +433,36 @@ export class WeaponSystem {
   }
 
   /** Napalm — fire a visible projectile that flies to enemy centroid, then creates fire zone */
-  private fireNapalm(
-    player: Player,
-    def: WeaponDef,
-    weapon: WeaponInstance,
-    levelMult: number,
-  ): void {
+  private fireNapalm(player: Player, def: WeaponDef, weapon: WeaponInstance, levelMult: number): void {
     if (this.cachedEnemyCount === 0) return;
 
-    const radius = def.aoeRadius + weapon.level * 15;
+    const radius = calculateZoneRadius(def.aoeRadius, weapon.level);
 
     // Target: centroid of all enemies
-    let sumX = 0;
-    let sumY = 0;
+    const napalmPositions: { x: number; y: number }[] = [];
     for (let i = 0; i < this.cachedEnemyCount; i++) {
-      sumX += this.cachedEnemies[i].x;
-      sumY += this.cachedEnemies[i].y;
+      napalmPositions.push({ x: this.cachedEnemies[i].x, y: this.cachedEnemies[i].y });
     }
-    const zoneX = sumX / this.cachedEnemyCount;
-    const zoneY = sumY / this.cachedEnemyCount;
+    const napalmCentroid = calculateCentroid(napalmPositions);
+    const zoneX = napalmCentroid.x;
+    const zoneY = napalmCentroid.y;
 
     const { damage } = calculateDamage(
       def.baseDamage * levelMult,
       player.damageMultiplier,
       player.critChance,
       player.critDamage,
-      Math.random(),
+      this.roll(),
     );
 
     // Visual projectile — flies from player to target then creates zone
-    const texKey = this.scene.textures.exists('projectile_napalm') ? 'projectile_napalm' : 'projectile_bullet';
-    const fireball = this.scene.add.sprite(player.x, player.y, texKey).setDepth(300);
-    const dist = Math.sqrt((zoneX - player.x) ** 2 + (zoneY - player.y) ** 2);
-    const flightMs = Math.max(200, Math.min(500, dist * 0.5));
+    const napalmTex = resolveTexture(this.scene, 'projectile_napalm');
+    const bulletTex = resolveTexture(this.scene, 'projectile_bullet');
+    const fireballTex = napalmTex ?? bulletTex;
+    const fireball = fireballTex
+      ? this.scene.add.sprite(player.x, player.y, fireballTex.texture, fireballTex.frame).setDepth(300)
+      : this.scene.add.sprite(player.x, player.y, 'projectile_bullet').setDepth(300);
+    const flightMs = calculateNapalmFlightTime(player.x, player.y, zoneX, zoneY);
 
     this.scene.tweens.add({
       targets: fireball,
@@ -435,7 +480,7 @@ export class WeaponSystem {
           radius,
           damage,
           remainingMs: 4000,
-          tickMs: 500,
+          tickMs: BALANCE.COMBAT.napalmZoneTickMs,
           tickTimer: 0,
         });
         this.deps.vfx?.napalmZone(zoneX, zoneY, radius);
@@ -443,36 +488,44 @@ export class WeaponSystem {
     });
   }
 
-  /** Tick all active napalm zones — damage enemies in range each 500ms */
+  /** Tick all active napalm zones — damage enemies in range each tick (BALANCE.COMBAT.napalmZoneTickMs) */
   private updateNapalmZones(delta: number): void {
-    for (let z = this.napalmZones.length - 1; z >= 0; z--) {
-      const zone = this.napalmZones[z];
-      zone.remainingMs -= delta;
-      if (zone.remainingMs <= 0) {
-        this.napalmZones[z] = this.napalmZones[this.napalmZones.length - 1];
-        this.napalmZones.pop();
-        continue;
-      }
+    const batchResult = batchTickNapalmZones(this.napalmZones, delta);
 
-      zone.tickTimer -= delta;
-      if (zone.tickTimer <= 0) {
-        zone.tickTimer = zone.tickMs;
-        const radiusSq = zone.radius * zone.radius;
+    // Apply damage for ticking zones (use original zones before replacement)
+    const enemyPositions: { x: number; y: number }[] = [];
+    for (let i = 0; i < this.cachedEnemyCount; i++) {
+      enemyPositions.push({ x: this.cachedEnemies[i].x, y: this.cachedEnemies[i].y });
+    }
 
-        for (let i = 0; i < this.cachedEnemyCount; i++) {
-          const enemy = this.cachedEnemies[i];
-          const dx = enemy.x - zone.x;
-          const dy = enemy.y - zone.y;
-          if (dx * dx + dy * dy < radiusSq) {
-            const dead = enemy.takeDamage(zone.damage);
-            this.deps.dmgNumbers?.show(enemy.x, enemy.y, zone.damage, false);
-            if (dead) {
-              this.deps.onEnemyDeath?.(enemy);
-            }
-          }
+    for (let t = 0; t < batchResult.tickingIndices.length; t++) {
+      const zone = this.napalmZones[batchResult.tickingIndices[t]];
+      const hitIndices = checkAoeHits(enemyPositions, zone.x, zone.y, zone.radius);
+      for (let h = 0; h < hitIndices.length; h++) {
+        const enemy = this.cachedEnemies[hitIndices[h]];
+        const dead = enemy.takeDamage(zone.damage);
+        this.deps.dmgNumbers?.show(enemy.x, enemy.y, zone.damage, false);
+        if (dead) {
+          this.deps.onEnemyDeath?.(enemy);
         }
       }
     }
+
+    // Replace zones with updated active list
+    this.napalmZones = batchResult.activeZones;
+  }
+
+  /** Calculate barrel position for muzzle flash */
+  private getBarrelPosition(player: Player, def: WeaponDef): { x: number; y: number } {
+    const barrelDist = 30;
+    const nearest = this.findNearest(player, def.range);
+    if (!nearest && def.projectileType !== 'aoe' && def.projectileType !== 'bomb' && def.projectileType !== 'napalm') {
+      // No target and not an area weapon — default straight up
+      return { x: player.x, y: player.y - barrelDist };
+    }
+    const angle = nearest ? Math.atan2(nearest.y - player.y, nearest.x - player.x) : 0;
+    const offset = calculateBarrelOffset(def.projectileType, barrelDist, angle);
+    return { x: player.x + offset.x, y: player.y + offset.y };
   }
 
   /** Find nearest active enemy (uses cached list, no getChildren()) */

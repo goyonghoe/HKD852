@@ -1,6 +1,6 @@
 ---
 name: game-designer
-description: "Game Designer agent for WanChai puzzle game. Use when designing mechanics, levels, balance, or UX. Writes only to design/ folder."
+description: 'Game Designer agent for WanChai puzzle game. Use when designing mechanics, levels, balance, or UX. Writes only to design/ folder.'
 tools: Read, Glob, Grep, Write, Edit
 model: opus
 skills:

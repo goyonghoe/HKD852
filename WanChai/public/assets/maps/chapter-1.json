@@ -1,0 +1,52 @@
+{
+  "name": "Chapter 1 — Central (中環)",
+  "parallaxSet": 1,
+  "bgLayers": [
+    {
+      "id": "cyberpunk_market_street_pixel_art_2_background_day_673a",
+      "alpha": 0.7,
+      "raw": true
+    },
+    {
+      "id": "cyberpunk_market_street_pixel_art_2_background_day_ce6a",
+      "alpha": 0.7,
+      "raw": true
+    },
+    {
+      "id": "cyberpunk_market_street_pixel_art_2_background_day_ef8a",
+      "alpha": 1,
+      "raw": true
+    }
+  ],
+  "overlay": {
+    "enabled": false,
+    "alpha": 0.38
+  },
+  "ground": {
+    "surfaceTile": "decorations_cyberpunk_market_street_pixel_art_1_ti_41e1",
+    "fillTile": "decorations_cyberpunk_market_street_pixel_art_1_ti_6d8d"
+  },
+  "decorations": [],
+  "textures": [
+    {
+      "key": "cyberpunk_market_street_pixel_art_2_background_day_673a",
+      "path": "assets/maps/textures/cyberpunk_market_street_pixel_art_2_background_day_673a.png"
+    },
+    {
+      "key": "cyberpunk_market_street_pixel_art_2_background_day_ce6a",
+      "path": "assets/maps/textures/cyberpunk_market_street_pixel_art_2_background_day_ce6a.png"
+    },
+    {
+      "key": "cyberpunk_market_street_pixel_art_2_background_day_ef8a",
+      "path": "assets/maps/textures/cyberpunk_market_street_pixel_art_2_background_day_ef8a.png"
+    },
+    {
+      "key": "decorations_cyberpunk_market_street_pixel_art_1_ti_41e1",
+      "path": "assets/maps/textures/decorations_cyberpunk_market_street_pixel_art_1_ti_41e1.png"
+    },
+    {
+      "key": "decorations_cyberpunk_market_street_pixel_art_1_ti_6d8d",
+      "path": "assets/maps/textures/decorations_cyberpunk_market_street_pixel_art_1_ti_6d8d.png"
+    }
+  ]
+}

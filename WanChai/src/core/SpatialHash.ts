@@ -18,8 +18,7 @@ export class SpatialHash {
   }
 
   private cellKey(x: number, y: number): number {
-    return (Math.floor(x / this.cellSize) + 200) * 10007 +
-           (Math.floor(y / this.cellSize) + 200);
+    return (Math.floor(x / this.cellSize) + 200) * 10007 + (Math.floor(y / this.cellSize) + 200);
   }
 
   insert(index: number, x: number, y: number): void {

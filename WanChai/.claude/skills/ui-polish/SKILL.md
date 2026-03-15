@@ -1,8 +1,8 @@
 ---
 name: ui-polish
-description: "마이크로인터랙션, 터치 피드백, 버튼 상태 처리"
+description: '마이크로인터랙션, 터치 피드백, 버튼 상태 처리'
 user-invocable: true
-argument-hint: "[target] e.g. buttons, touch-feedback, hover-states"
+argument-hint: '[target] e.g. buttons, touch-feedback, hover-states'
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
 ---

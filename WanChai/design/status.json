@@ -1,17 +1,18 @@
 {
-  "version": 36,
-  "lastUpdated": "2026-03-02T12:00:00Z",
-  "gameVersion": "1.5.3",
+  "version": 39,
+  "lastUpdated": "2026-03-12T17:30:00Z",
+  "gameVersion": "1.5.5",
   "gameMode": "auto-shooter (NeonSurvivor)",
-  "notes": "v36: TASK-010 디자인 문서 오토슈터 피봇 최신화. numerical-bible, art-style-guide, ui-ux-guideline, expected-play-experience 퍼즐 참조 제거. auto-shooter-combat-spec 신규 작성. package.json name puzzle-rpg→neonsurvivor.",
+  "notes": "v39: 퍼즐 스펙 8건 아카이브 완료 (design/specs/archive/). status.json 현행화 — core 38개, managers 16개, scenes 11개, tests 3376개 반영.",
   "specs": [
     {
       "id": "SPEC-001",
       "name": "circular-conveyor",
       "designStatus": "implemented",
       "implStatus": "removed",
-      "designDoc": "design/specs/mechanics/SPEC-001-circular-conveyor.md",
+      "designDoc": "design/specs/archive/SPEC-001-circular-conveyor.md",
       "implPath": null,
+      "archived": true,
       "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
@@ -19,8 +20,9 @@
       "name": "element-matching",
       "designStatus": "implemented",
       "implStatus": "removed",
-      "designDoc": "design/specs/mechanics/SPEC-002-element-matching.md",
+      "designDoc": "design/specs/archive/SPEC-002-element-matching.md",
       "implPath": null,
+      "archived": true,
       "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
@@ -28,8 +30,9 @@
       "name": "sling-combo",
       "designStatus": "implemented",
       "implStatus": "removed",
-      "designDoc": "design/specs/mechanics/SPEC-003-sling-combo.md",
+      "designDoc": "design/specs/archive/SPEC-003-sling-combo.md",
       "implPath": null,
+      "archived": true,
       "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
@@ -37,8 +40,9 @@
       "name": "armored-cubes",
       "designStatus": "implemented",
       "implStatus": "removed",
-      "designDoc": "design/specs/mechanics/SPEC-004-armored-cubes.md",
+      "designDoc": "design/specs/archive/SPEC-004-armored-cubes.md",
       "implPath": null,
+      "archived": true,
       "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
@@ -46,8 +50,9 @@
       "name": "score-system",
       "designStatus": "implemented",
       "implStatus": "removed",
-      "designDoc": "design/specs/mechanics/SPEC-005-score-system.md",
+      "designDoc": "design/specs/archive/SPEC-005-score-system.md",
       "implPath": null,
+      "archived": true,
       "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
@@ -55,8 +60,9 @@
       "name": "hero-grid",
       "designStatus": "implemented",
       "implStatus": "removed",
-      "designDoc": "design/specs/mechanics/SPEC-006-hero-grid.md",
+      "designDoc": "design/specs/archive/SPEC-006-hero-grid.md",
       "implPath": null,
+      "archived": true,
       "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
@@ -64,8 +70,9 @@
       "name": "bench-mechanic",
       "designStatus": "implemented",
       "implStatus": "removed",
-      "designDoc": "design/specs/mechanics/SPEC-007-bench-mechanic.md",
+      "designDoc": "design/specs/archive/SPEC-007-bench-mechanic.md",
       "implPath": null,
+      "archived": true,
       "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
@@ -73,8 +80,9 @@
       "name": "hero-grid-level-data",
       "designStatus": "implemented",
       "implStatus": "removed",
-      "designDoc": "design/specs/data/SPEC-006A-hero-grid-level-data.md",
+      "designDoc": "design/specs/archive/SPEC-006A-hero-grid-level-data.md",
       "implPath": null,
+      "archived": true,
       "notes": "퍼즐 모드 전용. 코드 삭제됨."
     },
     {
@@ -189,6 +197,15 @@
       "designDoc": "design/specs/auto-shooter-combat-spec.md",
       "implPath": "src/systems/WeaponSystem.ts, src/core/WaveDirector.ts, src/config/weapons.ts, src/config/enemies.ts, src/config/balance.ts",
       "notes": "현재 오토슈터 전투 시스템 as-is 문서화. 무기 10종, 적 11종+보스 3종, 6스테이지 구조."
+    },
+    {
+      "id": "SPEC-026",
+      "name": "aria-story-events",
+      "designStatus": "implemented",
+      "implStatus": "implemented",
+      "designDoc": "design/specs/mechanics/SPEC-026-aria-story-events.md",
+      "implPath": "src/core/AriaDialogueCalc.ts, src/managers/CombatEventManager.ts, src/managers/ProgressionManager.ts, src/scenes/RunScene.ts",
+      "notes": "5개 런타임 ARIA 이벤트: first_boss_kill, kill_milestone, gold_milestone, player_death, district_change. 21개 테스트 추가."
     }
   ],
   "currentSystems": {
@@ -200,22 +217,83 @@
       { "name": "DamageCalc", "path": "src/core/DamageCalc.ts", "status": "active" },
       { "name": "SeededRandom", "path": "src/core/SeededRandom.ts", "status": "active" },
       { "name": "UpgradeSelector", "path": "src/core/UpgradeSelector.ts", "status": "active" },
-      { "name": "MetaProgression", "path": "src/core/MetaProgression.ts", "status": "active" }
+      { "name": "MetaProgression", "path": "src/core/MetaProgression.ts", "status": "active" },
+      { "name": "Achievements", "path": "src/core/Achievements.ts", "status": "active" },
+      { "name": "AllyTargeting", "path": "src/core/AllyTargeting.ts", "status": "active" },
+      { "name": "AriaDialogueCalc", "path": "src/core/AriaDialogueCalc.ts", "status": "active" },
+      { "name": "BarrierSystem", "path": "src/core/BarrierSystem.ts", "status": "active" },
+      { "name": "BossPhaseCalc", "path": "src/core/BossPhaseCalc.ts", "status": "active" },
+      { "name": "ChallengeMode", "path": "src/core/ChallengeMode.ts", "status": "active" },
+      { "name": "CollisionCalc", "path": "src/core/CollisionCalc.ts", "status": "active" },
+      { "name": "DailyChallengeCalc", "path": "src/core/DailyChallengeCalc.ts", "status": "active" },
+      { "name": "DifficultyScaling", "path": "src/core/DifficultyScaling.ts", "status": "active" },
+      { "name": "EconomyCalc", "path": "src/core/EconomyCalc.ts", "status": "active" },
+      { "name": "EnemyBehaviorCalc", "path": "src/core/EnemyBehaviorCalc.ts", "status": "active" },
+      { "name": "EnemyScalingCalc", "path": "src/core/EnemyScalingCalc.ts", "status": "active" },
+      { "name": "GameOverCalc", "path": "src/core/GameOverCalc.ts", "status": "active" },
+      { "name": "GameStatFormatting", "path": "src/core/GameStatFormatting.ts", "status": "active" },
+      { "name": "GaugeCalc", "path": "src/core/GaugeCalc.ts", "status": "active" },
+      { "name": "MasteryCalc", "path": "src/core/MasteryCalc.ts", "status": "active" },
+      { "name": "MilestoneCalc", "path": "src/core/MilestoneCalc.ts", "status": "active" },
+      { "name": "ProgressionCurveCalc", "path": "src/core/ProgressionCurveCalc.ts", "status": "active" },
+      { "name": "ShopLogic", "path": "src/core/ShopLogic.ts", "status": "active" },
+      { "name": "SpawnPoolLogic", "path": "src/core/SpawnPoolLogic.ts", "status": "active" },
+      { "name": "StageProgression", "path": "src/core/StageProgression.ts", "status": "active" },
+      { "name": "TutorialHintCalc", "path": "src/core/TutorialHintCalc.ts", "status": "active" },
+      { "name": "UltimateCalc", "path": "src/core/UltimateCalc.ts", "status": "active" },
+      { "name": "WeaponFireCalc", "path": "src/core/WeaponFireCalc.ts", "status": "active" },
+      { "name": "WeaponRarityCalc", "path": "src/core/WeaponRarityCalc.ts", "status": "active" },
+      { "name": "WeaponZoneCalc", "path": "src/core/WeaponZoneCalc.ts", "status": "active" },
+      { "name": "WeatherCalc", "path": "src/core/WeatherCalc.ts", "status": "active" },
+      { "name": "AnalyticsCalc", "path": "src/core/AnalyticsCalc.ts", "status": "active" },
+      { "name": "MapLoaderCalc", "path": "src/core/MapLoaderCalc.ts", "status": "active" },
+      { "name": "PostFXCalc", "path": "src/core/PostFXCalc.ts", "status": "active" }
     ],
     "scenes": [
       { "name": "BootScene", "path": "src/scenes/BootScene.ts", "status": "active" },
       { "name": "PreloadScene", "path": "src/scenes/PreloadScene.ts", "status": "active" },
       { "name": "MainMenuScene", "path": "src/scenes/MainMenuScene.ts", "status": "active" },
+      { "name": "CharacterSelectScene", "path": "src/scenes/CharacterSelectScene.ts", "status": "active" },
       { "name": "RunScene", "path": "src/scenes/RunScene.ts", "status": "active" },
+      { "name": "RunSceneInit", "path": "src/scenes/RunSceneInit.ts", "status": "active" },
       { "name": "GameOverScene", "path": "src/scenes/GameOverScene.ts", "status": "active" },
       { "name": "MetaScene", "path": "src/scenes/MetaScene.ts", "status": "active" },
       { "name": "WeaponCodexScene", "path": "src/scenes/WeaponCodexScene.ts", "status": "active" },
       { "name": "EnemyCodexScene", "path": "src/scenes/EnemyCodexScene.ts", "status": "active" },
       { "name": "WorldMapScene", "path": "src/scenes/WorldMapScene.ts", "status": "active" }
     ],
+    "managers": [
+      { "name": "AllyManager", "path": "src/managers/AllyManager.ts", "status": "active" },
+      { "name": "BackgroundManager", "path": "src/managers/BackgroundManager.ts", "status": "active" },
+      { "name": "CollisionManager", "path": "src/managers/CollisionManager.ts", "status": "active" },
+      { "name": "CombatEventManager", "path": "src/managers/CombatEventManager.ts", "status": "active" },
+      { "name": "CritterManager", "path": "src/managers/CritterManager.ts", "status": "active" },
+      { "name": "HUDManager", "path": "src/managers/HUDManager.ts", "status": "active" },
+      { "name": "LevelUpUIManager", "path": "src/managers/LevelUpUIManager.ts", "status": "active" },
+      { "name": "PassiveManager", "path": "src/managers/PassiveManager.ts", "status": "active" },
+      { "name": "PhaseManager", "path": "src/managers/PhaseManager.ts", "status": "active" },
+      { "name": "ProgressionManager", "path": "src/managers/ProgressionManager.ts", "status": "active" },
+      { "name": "SaveManager", "path": "src/managers/SaveManager.ts", "status": "active" },
+      { "name": "ShopManager", "path": "src/managers/ShopManager.ts", "status": "active" },
+      { "name": "SpawnManager", "path": "src/managers/SpawnManager.ts", "status": "active" },
+      { "name": "SquadManager", "path": "src/managers/SquadManager.ts", "status": "active" },
+      { "name": "UltimateManager", "path": "src/managers/UltimateManager.ts", "status": "active" },
+      { "name": "WeatherManager", "path": "src/managers/WeatherManager.ts", "status": "active" }
+    ],
     "audio": [
-      { "name": "RetroAudio (BGM)", "path": "src/audio/RetroAudio.ts", "status": "active", "tracks": ["menu", "combat", "boss"] },
-      { "name": "RetroSFX", "path": "src/audio/RetroSFX.ts", "status": "active", "effects": 14 }
+      {
+        "name": "AudioManager",
+        "path": "src/audio/AudioManager.ts",
+        "status": "active"
+      },
+      {
+        "name": "RetroAudio (BGM)",
+        "path": "src/audio/RetroAudio.ts",
+        "status": "active",
+        "tracks": ["menu", "combat", "boss"]
+      },
+      { "name": "RetroSFX", "path": "src/audio/RetroSFX.ts", "status": "active", "effects": 14 },
+      { "name": "weaponSfxRouting", "path": "src/audio/weaponSfxRouting.ts", "status": "active" }
     ],
     "ui": [
       { "name": "ButtonFactory", "path": "src/ui/ButtonFactory.ts", "status": "active" },
@@ -223,12 +301,28 @@
       { "name": "PauseOverlay", "path": "src/ui/PauseOverlay.ts", "status": "active" },
       { "name": "SettingsOverlay", "path": "src/ui/SettingsOverlay.ts", "status": "active" },
       { "name": "DamageNumber", "path": "src/ui/DamageNumber.ts", "status": "active" },
-      { "name": "ARIAMessage", "path": "src/ui/ARIAMessage.ts", "status": "active" }
+      { "name": "ARIAMessage", "path": "src/ui/ARIAMessage.ts", "status": "active" },
+      { "name": "TutorialOverlay", "path": "src/ui/TutorialOverlay.ts", "status": "active" }
     ]
   },
   "tests": {
-    "active": 30,
-    "suites": ["DamageCalc", "WaveDirector", "SpatialHash", "XpTable", "SeededRandom"]
+    "active": 3376,
+    "suites": 99,
+    "categories": [
+      "core (38 files: DamageCalc, WaveDirector, SpatialHash, XpTable, SeededRandom, UpgradeSelector, MetaProgression, Achievements, AllyTargeting, AriaDialogueCalc, BarrierSystem, BossPhaseCalc, ChallengeMode, CollisionCalc, DailyChallengeCalc, DifficultyScaling, EconomyCalc, EnemyBehaviorCalc, EnemyScalingCalc, GameOverCalc, GameStatFormatting, GaugeCalc, MasteryCalc, MilestoneCalc, PhaseManager, ProgressionCurveCalc, ShopLogic, SpawnPoolLogic, StageProgression, TutorialHintCalc, UltimateCalc, WeaponFireCalc, WeaponRarityCalc, WeaponZoneCalc, WeatherCalc, Integration, BalanceMatrix, BossFreedomCalc)",
+      "managers (13 files: AllyManager, BackgroundManager, CollisionManager, CombatEventManager, CritterManager, HUDManager, LevelUpUIManager, PassiveManager, ProgressionManager, SaveManager, ShopManager, SpawnManager, SquadManager, UltimateManager, WeatherManager)",
+      "config (7 files: Characters, Critters, Districts, Enemies, GameConfig, Ultimates, Weapons)",
+      "objects (3 files: Critter, CritterRuntime, Enemy)",
+      "systems (2 files: WeaponSystem, WeaponBalance)",
+      "ui (6 files: ARIAMessage, ButtonFactory, DamageNumber, PauseOverlay, SettingsOverlay, TouchTargets)",
+      "utils (6 files: EnemyDeathHandler, PlayerCalc, ProjectileCalc, SettingsCalc, UICalc, ScaleCalc)",
+      "audio (2 files: RetroSFX, WeaponSfxRouting)",
+      "integration (2 files: BossAriaIntegration, SceneFlowContracts)",
+      "types (1 file: RunState)",
+      "scenes (1 file: RunSceneContracts)",
+      "lib (3 files: AnalyticsCalc, MapLoader, i18n)",
+      "e2e (various)"
+    ]
   },
   "uxDesign": [
     {
@@ -244,6 +338,46 @@
       "designStatus": "implemented",
       "designDoc": "design/ui/about-face-evaluation.md",
       "notes": "About Face 12원칙 평가. P0+P1+P2 완료. P3 진행 중."
+    }
+  ],
+  "balanceReviews": [
+    {
+      "id": "BAL-001",
+      "name": "6-stage-fullrun-balance",
+      "date": "2026-03-10",
+      "report": "design/balance/playtest-report-2026-03-10.md",
+      "status": "completed",
+      "findings": [
+        {
+          "id": "B-1",
+          "severity": "low",
+          "issue": "napalm zone DPS outlier (92.8 vs ~20-35)",
+          "fix": "tickMs 500→750ms",
+          "status": "fixed"
+        },
+        {
+          "id": "C-1",
+          "severity": "high",
+          "issue": "S6 boss P2 ATK 293 — base one-shot",
+          "fix": "maxBossAtk: 200 cap added",
+          "status": "fixed"
+        },
+        {
+          "id": "D-1",
+          "severity": "medium",
+          "issue": "mid-shop economy mismatch",
+          "fix": "shopCosts reduced",
+          "status": "fixed"
+        },
+        {
+          "id": "E-1",
+          "severity": "medium",
+          "issue": "S5 late-game HP spike",
+          "fix": "hpScalePerMin 2.2→1.8",
+          "status": "fixed"
+        }
+      ],
+      "notes": "코드 트레이스 기반 시뮬레이션. S1~S4 PASS, S5~S6 FAIL 2건+WARNING 3건 → 모두 수정 완료."
     }
   ]
 }

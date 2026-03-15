@@ -1,0 +1,20 @@
+{
+  "name": "Chapter 2 — TST (尖沙咀)",
+  "parallaxSet": 2,
+  "bgLayers": [
+    {
+      "id": "game-2",
+      "alpha": 0.7
+    }
+  ],
+  "overlay": {
+    "enabled": false,
+    "alpha": 0.35
+  },
+  "ground": {
+    "surfaceTile": "floor_tile_edge",
+    "fillTile": "floor_tile_brick"
+  },
+  "decorations": [],
+  "textures": []
+}

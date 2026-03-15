@@ -1,0 +1,872 @@
+{
+  "version": 1,
+  "totalSets": 62,
+  "sets": [
+    {
+      "id": "city-1-day",
+      "name": "City 1 Day",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Day/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-1-night",
+      "name": "City 1 Night",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Night/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-2-day",
+      "name": "City 2 Day",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/2/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/2/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/2/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/2/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/2/Day/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-2-night",
+      "name": "City 2 Night",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/2/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/2/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/2/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/2/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/2/Night/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-3-day",
+      "name": "City 3 Day",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/3/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/3/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/3/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/3/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/3/Day/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-3-night",
+      "name": "City 3 Night",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/3/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/3/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/3/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/3/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/3/Night/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-4-day",
+      "name": "City 4 Day",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/4/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/4/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/4/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/4/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/4/Day/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-4-night",
+      "name": "City 4 Night",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/4/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/4/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/4/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/4/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/4/Night/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-5-day",
+      "name": "City 5 Day",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/5/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/5/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/5/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/5/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/5/Day/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-5-night",
+      "name": "City 5 Night",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/5/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/5/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/5/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/5/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/5/Night/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-6-day",
+      "name": "City 6 Day",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/6/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/6/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/6/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/6/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/6/Day/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-6-night",
+      "name": "City 6 Night",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/6/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/6/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/6/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/6/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/6/Night/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-7-day",
+      "name": "City 7 Day",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/7/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/7/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/7/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/7/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/7/Day/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-7-night",
+      "name": "City 7 Night",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/7/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/7/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/7/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/7/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/7/Night/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-8-day",
+      "name": "City 8 Day",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/8/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/8/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/8/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/8/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/8/Day/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "city-8-night",
+      "name": "City 8 Night",
+      "source": "craftpix-main",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/8/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/8/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/8/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/8/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/8/Night/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-104941-day",
+      "name": "Lab Game Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-104941-night",
+      "name": "Lab Game Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-104941-lab-game-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-111332-day",
+      "name": "Factory Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-111332-free-factory-pixel-art-32x32-tileset-for-cyberpunk/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-111332-free-factory-pixel-art-32x32-tileset-for-cyberpunk/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-111332-free-factory-pixel-art-32x32-tileset-for-cyberpunk/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-111332-free-factory-pixel-art-32x32-tileset-for-cyberpunk/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-111332-free-factory-pixel-art-32x32-tileset-for-cyberpunk/2 Background/Day/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-111332-night",
+      "name": "Factory Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-111332-free-factory-pixel-art-32x32-tileset-for-cyberpunk/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-111332-free-factory-pixel-art-32x32-tileset-for-cyberpunk/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-111332-free-factory-pixel-art-32x32-tileset-for-cyberpunk/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-111332-free-factory-pixel-art-32x32-tileset-for-cyberpunk/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-111332-free-factory-pixel-art-32x32-tileset-for-cyberpunk/2 Background/Night/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-115897-day",
+      "name": "Exclusion Zone Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Overlay.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-115897-night",
+      "name": "Exclusion Zone Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-115897-free-exclusion-zone-tileset-pixel-art/2 Background/Overlay.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-278498-day",
+      "name": "Bar Street Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-278498-night",
+      "name": "Bar Street Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-278498-bar-street-tileset-pixel-art-pack/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-314143",
+      "name": "Industrial Zone",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-314143-free-industrial-zone-tileset-pixel-art/2 Background/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-314143-free-industrial-zone-tileset-pixel-art/2 Background/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-314143-free-industrial-zone-tileset-pixel-art/2 Background/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-314143-free-industrial-zone-tileset-pixel-art/2 Background/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-314143-free-industrial-zone-tileset-pixel-art/2 Background/5.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-548066",
+      "name": "Spaceliner Sci Fi",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-548066-spaceliner-32x32-pixel-tileset-for-sci-fi/3 Backgrounds/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-548066-spaceliner-32x32-pixel-tileset-for-sci-fi/3 Backgrounds/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-548066-spaceliner-32x32-pixel-tileset-for-sci-fi/3 Backgrounds/3.png"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-581773-day",
+      "name": "Sewerage Platformer Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-581773-night",
+      "name": "Sewerage Platformer Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-581773-sewerage-platformer-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-622073-day",
+      "name": "Business Center Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-622073-night",
+      "name": "Business Center Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-622073-business-center-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-654794-day",
+      "name": "Dump Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-654794-night",
+      "name": "Dump Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-654794-dump-2d-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-668579-day",
+      "name": "Desert Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-668579-night",
+      "name": "Desert Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-668579-desert-cyberpunk-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-678553-day",
+      "name": "Residential Area Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-678553-night",
+      "name": "Residential Area Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-678553-residential-area-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-695574-day",
+      "name": "Snow City Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Overlay.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-695574-night",
+      "name": "Snow City Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-695574-snow-city-tileset-pixel-art/2 Background/Overlay.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-716407-day",
+      "name": "Chinese Street Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-716407-night",
+      "name": "Chinese Street Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-716407-chinese-street-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-822326-day",
+      "name": "Prison Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Overlay.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-822326-night",
+      "name": "Prison Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-822326-prison-tileset-pixel-art-assets/2 Background/Overlay.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-846754-day",
+      "name": "Green Zone Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-846754-night",
+      "name": "Green Zone Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-846754-free-green-zone-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-861263-day",
+      "name": "Pirate Bay Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-861263-night",
+      "name": "Pirate Bay Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-861263-free-pirate-bay-tileset-pixel-art-for-cyberpunk/3 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-869640-day",
+      "name": "Beach Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-869640-night",
+      "name": "Beach Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-869640-beach-pixel-art-tileset-for-cyberpunk-topic/3 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-898135-day",
+      "name": "Basement Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-898135-night",
+      "name": "Basement Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-898135-basement-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-924041-day",
+      "name": "Power Station Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Overlay.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-924041-night",
+      "name": "Power Station Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-924041-power-station-free-tileset-pixel-art/2 Background/Overlay.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-995156-day",
+      "name": "Ghetto Day",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Day/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Day/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Day/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Day/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Day/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "ts-995156-night",
+      "name": "Ghetto Night",
+      "source": "craftpix-tileset",
+      "layers": {
+        "sky": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Night/1.png",
+        "far": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Night/2.png",
+        "mid": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Night/3.png",
+        "near": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Night/4.png",
+        "front": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Night/5.png"
+      },
+      "overlay": "raw-assets/craftpix-cyberpunk/tilesets/craftpix-net-995156-ghetto-tileset-pixel-art/2 Background/Overlay_illumination.png",
+      "thumbnail": "mid"
+    },
+    {
+      "id": "game-1",
+      "name": "Game Parallax 1",
+      "source": "game",
+      "layers": {
+        "sky": "parallax_1_sky",
+        "far": "parallax_1_far",
+        "mid": "parallax_1_mid",
+        "near": "parallax_1_near",
+        "front": "parallax_1_front"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "game-2",
+      "name": "Game Parallax 2",
+      "source": "game",
+      "layers": {
+        "sky": "parallax_2_sky",
+        "far": "parallax_2_far",
+        "mid": "parallax_2_mid",
+        "near": "parallax_2_near",
+        "front": "parallax_2_front"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "game-3",
+      "name": "Game Parallax 3",
+      "source": "game",
+      "layers": {
+        "sky": "parallax_3_sky",
+        "far": "parallax_3_far",
+        "mid": "parallax_3_mid",
+        "near": "parallax_3_near",
+        "front": "parallax_3_front"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "game-4",
+      "name": "Game Parallax 4",
+      "source": "game",
+      "layers": {
+        "sky": "parallax_4_sky",
+        "far": "parallax_4_far",
+        "mid": "parallax_4_mid",
+        "near": "parallax_4_near",
+        "front": "parallax_4_front"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "game-5",
+      "name": "Game Parallax 5",
+      "source": "game",
+      "layers": {
+        "sky": "parallax_5_sky",
+        "far": "parallax_5_far",
+        "mid": "parallax_5_mid",
+        "near": "parallax_5_near",
+        "front": "parallax_5_front"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "game-6",
+      "name": "Game Parallax 6",
+      "source": "game",
+      "layers": {
+        "sky": "parallax_6_sky",
+        "far": "parallax_6_far",
+        "mid": "parallax_6_mid",
+        "near": "parallax_6_near",
+        "front": "parallax_6_front"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "game-7",
+      "name": "Game Parallax 7",
+      "source": "game",
+      "layers": {
+        "sky": "parallax_7_sky",
+        "far": "parallax_7_far",
+        "mid": "parallax_7_mid",
+        "near": "parallax_7_near",
+        "front": "parallax_7_front"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    },
+    {
+      "id": "game-8",
+      "name": "Game Parallax 8",
+      "source": "game",
+      "layers": {
+        "sky": "parallax_8_sky",
+        "far": "parallax_8_far",
+        "mid": "parallax_8_mid",
+        "near": "parallax_8_near",
+        "front": "parallax_8_front"
+      },
+      "overlay": null,
+      "thumbnail": "mid"
+    }
+  ]
+}

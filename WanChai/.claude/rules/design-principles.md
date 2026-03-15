@@ -1,6 +1,6 @@
 ---
 paths:
-  - "design/**"
+  - 'design/**'
 ---
 
 # Design Principles
@@ -10,6 +10,7 @@ paths:
 Always read the numerical bible before any balance/level/mechanic work.
 
 Key principles:
+
 - **Attribute Hierarchy**: 1st (baseDamage, cooldownMs, baseHp, baseSpeed) → 2nd (critChance, piercing) → 3rd (damageMultiplier, attackSpeedMultiplier)
 - **Panel Formula**: `actual = baseDamage × levelMult × damageMultiplier × critMultiplier`
 - **Counter-Attributes**: every attribute must have a counter-pair (DPS ↔ HP, speed ↔ knockback)

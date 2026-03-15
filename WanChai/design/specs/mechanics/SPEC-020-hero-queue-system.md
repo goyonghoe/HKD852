@@ -1,6 +1,7 @@
 # [SPEC-020] 대기열 시스템 — Hero Queue/Grid
 
 ## 메타
+
 - **작성자**: Game Designer
 - **작성일**: 2026-02-26
 - **상태**: implemented
@@ -30,11 +31,11 @@ heroGrid: HeroInstance[][]
 
 ### 1.2 제약 조건
 
-| 항목 | 값 | 근거 |
-|------|-----|------|
-| 최소 컬럼 | 2 | 전략적 선택 최소 보장 |
-| 최대 컬럼 | 4 | UI 공간 제약 (720px / 80px 셀 = 4) |
-| 컬럼 내 정렬 | AP 내림차순 | 강한 히어로를 먼저 배치할 기회 |
+| 항목         | 값          | 근거                               |
+| ------------ | ----------- | ---------------------------------- |
+| 최소 컬럼    | 2           | 전략적 선택 최소 보장              |
+| 최대 컬럼    | 4           | UI 공간 제약 (720px / 80px 셀 = 4) |
+| 컬럼 내 정렬 | AP 내림차순 | 강한 히어로를 먼저 배치할 기회     |
 
 ---
 
@@ -50,6 +51,7 @@ heroGrid: HeroInstance[][]
 ### 2.2 슬링 콤보
 
 연속 빠른 배치 시 스코어 보너스:
+
 - 콤보 1: +10%
 - 콤보 2: +20%
 - 콤보 3: +30%
@@ -59,11 +61,11 @@ heroGrid: HeroInstance[][]
 
 ### 2.3 게임오버 조건
 
-| 조건 | 트리거 | 결과 |
-|------|--------|------|
-| 히어로 소진 | 모든 컬럼 빈 + 보드에 큐브 남음 | GAME OVER (no_heroes) |
-| 벨트 만석 | 배치 시도 시 벨트에 6명 | GAME OVER (belt_full) |
-| 벤치 만석 | 벤치 진입 시 5슬롯 모두 차있음 | GAME OVER (bench_full) |
+| 조건        | 트리거                          | 결과                   |
+| ----------- | ------------------------------- | ---------------------- |
+| 히어로 소진 | 모든 컬럼 빈 + 보드에 큐브 남음 | GAME OVER (no_heroes)  |
+| 벨트 만석   | 배치 시도 시 벨트에 6명         | GAME OVER (belt_full)  |
+| 벤치 만석   | 벤치 진입 시 5슬롯 모두 차있음  | GAME OVER (bench_full) |
 
 ---
 
@@ -89,6 +91,7 @@ heroGrid: HeroInstance[][]
 ### 3.3 병합 규칙
 
 5개 이상 원소 그룹 시:
+
 1. 가장 적은 히어로를 가진 그룹부터 제거
 2. 가장 적은 히어로를 가진 남은 그룹에 병합
 3. 4그룹 이하가 될 때까지 반복
@@ -105,6 +108,7 @@ heroGrid: HeroInstance[][]
 ### 4.2 다중 컬럼 (2~4)
 
 2D 그리드:
+
 - 컬럼 헤더: 숫자 (1, 2, 3, 4)
 - 선두 히어로: 80px, 글로우 보더, 펄스 애니메이션
 - 후방 히어로: 72px, 점차 투명
@@ -114,10 +118,10 @@ heroGrid: HeroInstance[][]
 
 ## 5. 구현 위치
 
-| 파일 | 역할 |
-|------|------|
-| `src/core/HeroGridBuilder.ts` | buildHeroGrid(), extractBoardElements() |
-| `src/core/LevelLoader.ts` | loadLevelForRoguelike()에서 buildHeroGrid() 호출 |
-| `src/core/LevelLoader.ts` | loadLevel()에서 기존 heroGrid/heroQueue 사용 |
-| `src/core/TurnResolver.ts` | heroGrid 수신, deployFromColumn(colIdx) 처리 |
-| `src/scenes/PuzzleScene.ts` | UI 렌더링, 컬럼 탭 인터랙션 |
+| 파일                          | 역할                                             |
+| ----------------------------- | ------------------------------------------------ |
+| `src/core/HeroGridBuilder.ts` | buildHeroGrid(), extractBoardElements()          |
+| `src/core/LevelLoader.ts`     | loadLevelForRoguelike()에서 buildHeroGrid() 호출 |
+| `src/core/LevelLoader.ts`     | loadLevel()에서 기존 heroGrid/heroQueue 사용     |
+| `src/core/TurnResolver.ts`    | heroGrid 수신, deployFromColumn(colIdx) 처리     |
+| `src/scenes/PuzzleScene.ts`   | UI 렌더링, 컬럼 탭 인터랙션                      |

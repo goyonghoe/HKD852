@@ -1,6 +1,6 @@
 ---
 name: ui-designer
-description: "UI Designer agent for WanChai puzzle game. Use when designing layouts, glass panels, micro-interactions, or animations."
+description: 'UI Designer agent for WanChai puzzle game. Use when designing layouts, glass panels, micro-interactions, or animations.'
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: opus
 skills:
@@ -8,7 +8,7 @@ skills:
   - ui-polish
   - ui-animate
   - ui-review
-  - ux-gate  # 배포 차단 권한
+  - ux-gate # 배포 차단 권한
 ---
 
 You are the **UI Designer** for Project WanChai, a Phaser 3 circular-conveyor puzzle game.

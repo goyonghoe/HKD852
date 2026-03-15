@@ -1,0 +1,20 @@
+{
+  "name": "Chapter 7 — Aberdeen (香港仔)",
+  "parallaxSet": 7,
+  "bgLayers": [
+    {
+      "id": "game-7",
+      "alpha": 0.7
+    }
+  ],
+  "overlay": {
+    "enabled": false,
+    "alpha": 0.35
+  },
+  "ground": {
+    "surfaceTile": "floor_tile_edge",
+    "fillTile": "floor_tile_brick"
+  },
+  "decorations": [],
+  "textures": []
+}

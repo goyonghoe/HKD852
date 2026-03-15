@@ -1,8 +1,8 @@
 {
   "version": "1.4.0",
-  "updated_at": "2026-03-02T16:00:00+09:00",
+  "updated_at": "2026-03-12T16:30:00+09:00",
   "deployed_at": "2026-03-02T16:00:00+09:00",
-  "next_id": 13,
+  "next_id": 26,
   "token_budget": {
     "monthly_limit": null,
     "used_this_month": 0,
@@ -79,11 +79,19 @@
       "created_at": "2026-02-28T10:00:00+09:00",
       "updated_at": "2026-03-01T16:00:00+09:00",
       "due_date": null,
-      "tags": ["sprint-3", "codex"],
+      "tags": [
+        "sprint-3",
+        "codex"
+      ],
       "sprint": "sprint-003",
       "qa_review": {
         "score": 88,
-        "breakdown": { "completeness": 23, "fidelity": 22, "maintainability": 22, "compliance": 21 },
+        "breakdown": {
+          "completeness": 23,
+          "fidelity": 22,
+          "maintainability": 22,
+          "compliance": 21
+        },
         "feedback": "전반적으로 양호. 모바일 터치 타겟 사이즈 검증 필요.",
         "reviewed_at": "2026-03-01T14:00:00+09:00",
         "reviewed_by": "Quality_Gate"
@@ -91,7 +99,11 @@
       "redteam_review": {
         "verdict": "APPROVE",
         "findings": [
-          { "severity": "low", "category": "UX", "detail": "잠금 무기 실루엣이 스포일러가 될 수 있음" }
+          {
+            "severity": "low",
+            "category": "UX",
+            "detail": "잠금 무기 실루엣이 스포일러가 될 수 있음"
+          }
         ],
         "summary": "심각한 이슈 없음. 잠금 표시 방식 경미한 우려.",
         "reviewed_at": "2026-03-01T16:00:00+09:00",
@@ -100,63 +112,145 @@
       "token_usage": {
         "total_tokens": 156200,
         "entries": [
-          { "phase": "구현", "input": 45000, "output": 32000, "model": "opus", "by": "game-designer", "at": "2026-03-01T11:00:00+09:00" },
-          { "phase": "QA", "input": 28000, "output": 18500, "model": "opus", "by": "Quality_Gate", "at": "2026-03-01T14:00:00+09:00" },
-          { "phase": "레드팀", "input": 22000, "output": 10700, "model": "opus", "by": "RedTeam", "at": "2026-03-01T16:00:00+09:00" }
+          {
+            "phase": "구현",
+            "input": 45000,
+            "output": 32000,
+            "model": "opus",
+            "by": "game-designer",
+            "at": "2026-03-01T11:00:00+09:00"
+          },
+          {
+            "phase": "QA",
+            "input": 28000,
+            "output": 18500,
+            "model": "opus",
+            "by": "Quality_Gate",
+            "at": "2026-03-01T14:00:00+09:00"
+          },
+          {
+            "phase": "레드팀",
+            "input": 22000,
+            "output": 10700,
+            "model": "opus",
+            "by": "RedTeam",
+            "at": "2026-03-01T16:00:00+09:00"
+          }
         ]
       },
       "history": [
-        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-02-28T10:00:00+09:00" },
-        { "from": "backlog", "to": "in_progress", "by": "game-designer", "at": "2026-02-28T10:30:00+09:00" },
-        { "from": "in_progress", "to": "done", "by": "game-designer", "at": "2026-03-01T11:00:00+09:00", "note": "WanChai/design/weapon-codex-ux.md 생성" },
-        { "from": "done", "to": "qa_passed", "by": "Quality_Gate", "at": "2026-03-01T14:00:00+09:00" },
-        { "from": "qa_passed", "to": "final_done", "by": "RedTeam", "at": "2026-03-01T16:00:00+09:00" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-02-28T10:00:00+09:00"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "game-designer",
+          "at": "2026-02-28T10:30:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "game-designer",
+          "at": "2026-03-01T11:00:00+09:00",
+          "note": "WanChai/design/weapon-codex-ux.md 생성"
+        },
+        {
+          "from": "done",
+          "to": "qa_passed",
+          "by": "Quality_Gate",
+          "at": "2026-03-01T14:00:00+09:00"
+        },
+        {
+          "from": "qa_passed",
+          "to": "final_done",
+          "by": "RedTeam",
+          "at": "2026-03-01T16:00:00+09:00"
+        }
       ]
     },
     {
       "id": "TASK-002",
       "title": "메인 메뉴 UI 레이아웃 설계",
       "description": "메인 메뉴 3버튼 (게임 시작, 코덱스, 설정) + 배경 애니메이션. 48dp 이상 터치 타겟, 글래스모피즘 패널.",
-      "status": "in_progress",
+      "status": "done",
       "priority": "mid",
       "assignee": "ui-designer",
       "division": "game",
       "created_by": "CEO",
       "created_at": "2026-03-01T09:00:00+09:00",
-      "updated_at": "2026-03-02T09:00:00+09:00",
+      "updated_at": "2026-03-10T10:54:54+09:00",
       "due_date": "2026-03-10T23:59:00+09:00",
-      "tags": ["ui", "sprint-3"],
+      "tags": [
+        "ui",
+        "sprint-3"
+      ],
       "sprint": "sprint-003",
       "qa_review": null,
       "redteam_review": null,
       "token_usage": {
         "total_tokens": 68400,
         "entries": [
-          { "phase": "구현", "input": 42000, "output": 26400, "model": "opus", "by": "ui-designer", "at": "2026-03-02T09:00:00+09:00" }
+          {
+            "phase": "구현",
+            "input": 42000,
+            "output": 26400,
+            "model": "opus",
+            "by": "ui-designer",
+            "at": "2026-03-02T09:00:00+09:00"
+          }
         ]
       },
       "history": [
-        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-03-01T09:00:00+09:00" },
-        { "from": "backlog", "to": "in_progress", "by": "ui-designer", "at": "2026-03-01T09:30:00+09:00" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-01T09:00:00+09:00"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "ui-designer",
+          "at": "2026-03-01T09:30:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "ui-designer",
+          "at": "2026-03-10T10:54:54+09:00",
+          "note": "배경 패럴랙스+글래스모피즘+네온파티클+로고글로우 추가"
+        }
       ]
     },
     {
       "id": "TASK-003",
       "title": "패시브 업그레이드 시스템 구현",
       "description": "레벨업 시 3개 패시브 중 1개 선택. 패시브 풀 15종, 희귀도별 가중치, 중복 선택 시 레벨업.",
-      "status": "qa_passed",
+      "status": "final_done",
       "priority": "critical",
       "assignee": "programmer",
       "division": "game",
       "created_by": "CEO",
       "created_at": "2026-02-27T10:00:00+09:00",
-      "updated_at": "2026-03-02T08:00:00+09:00",
+      "updated_at": "2026-03-10T10:48:51+09:00",
       "due_date": null,
-      "tags": ["core-mechanic", "sprint-3"],
+      "tags": [
+        "core-mechanic",
+        "sprint-3"
+      ],
       "sprint": "sprint-003",
       "qa_review": {
         "score": 92,
-        "breakdown": { "completeness": 24, "fidelity": 24, "maintainability": 22, "compliance": 22 },
+        "breakdown": {
+          "completeness": 24,
+          "fidelity": 24,
+          "maintainability": 22,
+          "compliance": 22
+        },
         "feedback": "우수한 구현. 희귀도 가중치 엣지 케이스 커버 확인.",
         "reviewed_at": "2026-03-02T08:00:00+09:00",
         "reviewed_by": "Quality_Gate"
@@ -165,36 +259,98 @@
       "token_usage": {
         "total_tokens": 245800,
         "entries": [
-          { "phase": "구현", "input": 89000, "output": 72000, "model": "opus", "by": "programmer", "at": "2026-03-01T18:00:00+09:00" },
-          { "phase": "QA", "input": 52000, "output": 32800, "model": "opus", "by": "Quality_Gate", "at": "2026-03-02T08:00:00+09:00" }
+          {
+            "phase": "구현",
+            "input": 89000,
+            "output": 72000,
+            "model": "opus",
+            "by": "programmer",
+            "at": "2026-03-01T18:00:00+09:00"
+          },
+          {
+            "phase": "QA",
+            "input": 52000,
+            "output": 32800,
+            "model": "opus",
+            "by": "Quality_Gate",
+            "at": "2026-03-02T08:00:00+09:00"
+          }
         ]
       },
       "history": [
-        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-02-27T10:00:00+09:00" },
-        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-02-27T14:00:00+09:00" },
-        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-01T18:00:00+09:00", "note": "WanChai/src/systems/PassiveSystem.ts 구현 완료" },
-        { "from": "done", "to": "qa_passed", "by": "Quality_Gate", "at": "2026-03-02T08:00:00+09:00" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-02-27T10:00:00+09:00"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "programmer",
+          "at": "2026-02-27T14:00:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "programmer",
+          "at": "2026-03-01T18:00:00+09:00",
+          "note": "WanChai/src/systems/PassiveSystem.ts 구현 완료"
+        },
+        {
+          "from": "done",
+          "to": "qa_passed",
+          "by": "Quality_Gate",
+          "at": "2026-03-02T08:00:00+09:00"
+        },
+        {
+          "from": "qa_passed",
+          "to": "final_done",
+          "by": "CEO",
+          "at": "2026-03-10T10:48:51+09:00"
+        }
       ]
     },
     {
       "id": "TASK-004",
       "title": "적 도감 씬 아트 리소스 제작",
       "description": "적 도감용 초상화 20종 (T1~보스). 3/4 oblique 시점, 프론트 페이싱.",
-      "status": "backlog",
+      "status": "done",
       "priority": "high",
       "assignee": "art-director",
       "division": "game",
       "created_by": "CEO",
       "created_at": "2026-03-02T09:00:00+09:00",
-      "updated_at": "2026-03-02T09:00:00+09:00",
+      "updated_at": "2026-03-10T10:54:54+09:00",
       "due_date": "2026-03-15T23:59:00+09:00",
-      "tags": ["art", "sprint-3"],
+      "tags": [
+        "art",
+        "sprint-3"
+      ],
       "sprint": "sprint-003",
       "qa_review": null,
       "redteam_review": null,
       "token_usage": null,
       "history": [
-        { "from": null, "to": "backlog", "by": "CEO", "at": "2026-03-02T09:00:00+09:00" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-02T09:00:00+09:00"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "art-director",
+          "at": "2026-03-10T10:54:54+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "art-director",
+          "at": "2026-03-10T10:54:54+09:00",
+          "note": "글래스카드+카테고리탭+상세패널+글리치실루엣 추가"
+        }
       ]
     },
     {
@@ -209,15 +365,36 @@
       "created_at": "2026-03-02T17:00:00+09:00",
       "updated_at": "2026-03-02T19:30:00+09:00",
       "due_date": null,
-      "tags": ["bug", "sprint-4", "gameplay"],
+      "tags": [
+        "bug",
+        "sprint-4",
+        "gameplay"
+      ],
       "sprint": "sprint-004",
       "qa_review": null,
       "redteam_review": null,
       "token_usage": null,
       "history": [
-        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "스프린트 리뷰에서 발견" },
-        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T19:00:00+09:00" },
-        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T19:30:00+09:00", "note": "napalmGraphics → 4개 풀로 전환, ActiveNapalm 배열로 독립 페이드" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "PMO",
+          "at": "2026-03-02T17:00:00+09:00",
+          "note": "스프린트 리뷰에서 발견"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "programmer",
+          "at": "2026-03-02T19:00:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "programmer",
+          "at": "2026-03-02T19:30:00+09:00",
+          "note": "napalmGraphics → 4개 풀로 전환, ActiveNapalm 배열로 독립 페이드"
+        }
       ]
     },
     {
@@ -232,15 +409,36 @@
       "created_at": "2026-03-02T17:00:00+09:00",
       "updated_at": "2026-03-02T19:30:00+09:00",
       "due_date": null,
-      "tags": ["bug", "sprint-4", "data-loss"],
+      "tags": [
+        "bug",
+        "sprint-4",
+        "data-loss"
+      ],
       "sprint": "sprint-004",
       "qa_review": null,
       "redteam_review": null,
       "token_usage": null,
       "history": [
-        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "스프린트 리뷰에서 발견" },
-        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T19:00:00+09:00" },
-        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T19:30:00+09:00", "note": "create()에서 즉시 골드 저장, 버튼 핸들러에서 중복 저장 제거" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "PMO",
+          "at": "2026-03-02T17:00:00+09:00",
+          "note": "스프린트 리뷰에서 발견"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "programmer",
+          "at": "2026-03-02T19:00:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "programmer",
+          "at": "2026-03-02T19:30:00+09:00",
+          "note": "create()에서 즉시 골드 저장, 버튼 핸들러에서 중복 저장 제거"
+        }
       ]
     },
     {
@@ -255,15 +453,36 @@
       "created_at": "2026-03-02T17:00:00+09:00",
       "updated_at": "2026-03-02T19:30:00+09:00",
       "due_date": null,
-      "tags": ["refactor", "sprint-4", "m-002"],
+      "tags": [
+        "refactor",
+        "sprint-4",
+        "m-002"
+      ],
       "sprint": "sprint-004",
       "qa_review": null,
       "redteam_review": null,
       "token_usage": null,
       "history": [
-        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "스프린트 리뷰 M-002 검증" },
-        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T19:00:00+09:00" },
-        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T19:30:00+09:00", "note": "BALANCE.ENEMY_BEHAVIOR + COMBAT.homing* 추가, Projectile/Enemy/WeaponSystem에서 참조" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "PMO",
+          "at": "2026-03-02T17:00:00+09:00",
+          "note": "스프린트 리뷰 M-002 검증"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "programmer",
+          "at": "2026-03-02T19:00:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "programmer",
+          "at": "2026-03-02T19:30:00+09:00",
+          "note": "BALANCE.ENEMY_BEHAVIOR + COMBAT.homing* 추가, Projectile/Enemy/WeaponSystem에서 참조"
+        }
       ]
     },
     {
@@ -278,15 +497,36 @@
       "created_at": "2026-03-02T17:00:00+09:00",
       "updated_at": "2026-03-02T19:30:00+09:00",
       "due_date": null,
-      "tags": ["architecture", "sprint-4", "tech-debt"],
+      "tags": [
+        "architecture",
+        "sprint-4",
+        "tech-debt"
+      ],
       "sprint": "sprint-004",
       "qa_review": null,
       "redteam_review": null,
       "token_usage": null,
       "history": [
-        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "스프린트 리뷰 — 최대 기술 부채 항목" },
-        { "from": "backlog", "to": "in_progress", "by": "game-designer", "at": "2026-03-02T19:00:00+09:00" },
-        { "from": "in_progress", "to": "done", "by": "game-designer", "at": "2026-03-02T19:30:00+09:00", "note": "design/specs/runscene-refactor.md 작성 완료 — 7개 매니저, 7단계 마이그레이션" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "PMO",
+          "at": "2026-03-02T17:00:00+09:00",
+          "note": "스프린트 리뷰 — 최대 기술 부채 항목"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "game-designer",
+          "at": "2026-03-02T19:00:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "game-designer",
+          "at": "2026-03-02T19:30:00+09:00",
+          "note": "design/specs/runscene-refactor.md 작성 완료 — 7개 매니저, 7단계 마이그레이션"
+        }
       ]
     },
     {
@@ -301,15 +541,36 @@
       "created_at": "2026-03-02T17:00:00+09:00",
       "updated_at": "2026-03-02T19:35:00+09:00",
       "due_date": null,
-      "tags": ["testing", "sprint-4", "quality"],
+      "tags": [
+        "testing",
+        "sprint-4",
+        "quality"
+      ],
       "sprint": "sprint-004",
       "qa_review": null,
       "redteam_review": null,
       "token_usage": null,
       "history": [
-        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "현재 커버리지 C등급 — M-009 준수 필요" },
-        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T19:30:00+09:00" },
-        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T19:35:00+09:00", "note": "MetaProgression(15), UpgradeSelector(10), SaveManager(12) 테스트 추가 → 30→67 (123% 증가)" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "PMO",
+          "at": "2026-03-02T17:00:00+09:00",
+          "note": "현재 커버리지 C등급 — M-009 준수 필요"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "programmer",
+          "at": "2026-03-02T19:30:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "programmer",
+          "at": "2026-03-02T19:35:00+09:00",
+          "note": "MetaProgression(15), UpgradeSelector(10), SaveManager(12) 테스트 추가 → 30→67 (123% 증가)"
+        }
       ]
     },
     {
@@ -324,15 +585,35 @@
       "created_at": "2026-03-02T17:00:00+09:00",
       "updated_at": "2026-03-02T22:00:00+09:00",
       "due_date": null,
-      "tags": ["docs", "sprint-4"],
+      "tags": [
+        "docs",
+        "sprint-4"
+      ],
       "sprint": "sprint-004",
       "qa_review": null,
       "redteam_review": null,
       "token_usage": null,
       "history": [
-        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00", "note": "디자인 문서 ~50%가 구 퍼즐 RPG 참조" },
-        { "from": "backlog", "to": "in_progress", "by": "game-designer", "at": "2026-03-02T19:30:00+09:00" },
-        { "from": "in_progress", "to": "done", "by": "game-designer", "at": "2026-03-02T22:00:00+09:00", "note": "8개 파일 최신화 — numerical-bible, art-style-guide, ui-ux-guideline, expected-play-experience 재작성 + auto-shooter-combat-spec.md 신규 + package.json/status.json/CLAUDE.md 업데이트" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "PMO",
+          "at": "2026-03-02T17:00:00+09:00",
+          "note": "디자인 문서 ~50%가 구 퍼즐 RPG 참조"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "game-designer",
+          "at": "2026-03-02T19:30:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "game-designer",
+          "at": "2026-03-02T22:00:00+09:00",
+          "note": "8개 파일 최신화 — numerical-bible, art-style-guide, ui-ux-guideline, expected-play-experience 재작성 + auto-shooter-combat-spec.md 신규 + package.json/status.json/CLAUDE.md 업데이트"
+        }
       ]
     },
     {
@@ -347,15 +628,34 @@
       "created_at": "2026-03-02T17:00:00+09:00",
       "updated_at": "2026-03-02T22:10:00+09:00",
       "due_date": null,
-      "tags": ["refactor", "sprint-4"],
+      "tags": [
+        "refactor",
+        "sprint-4"
+      ],
       "sprint": "sprint-004",
       "qa_review": null,
       "redteam_review": null,
       "token_usage": null,
       "history": [
-        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00" },
-        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T22:00:00+09:00" },
-        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T22:10:00+09:00", "note": "WaveDirector/UpgradeSelector/RunScene에 SeededRandom 주입, RunState.seed 추가, 결정론적 테스트 2개 추가 → 69 tests" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "PMO",
+          "at": "2026-03-02T17:00:00+09:00"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "programmer",
+          "at": "2026-03-02T22:00:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "programmer",
+          "at": "2026-03-02T22:10:00+09:00",
+          "note": "WaveDirector/UpgradeSelector/RunScene에 SeededRandom 주입, RunState.seed 추가, 결정론적 테스트 2개 추가 → 69 tests"
+        }
       ]
     },
     {
@@ -370,15 +670,496 @@
       "created_at": "2026-03-02T17:00:00+09:00",
       "updated_at": "2026-03-02T22:15:00+09:00",
       "due_date": null,
-      "tags": ["refactor", "sprint-4", "code-quality"],
+      "tags": [
+        "refactor",
+        "sprint-4",
+        "code-quality"
+      ],
       "sprint": "sprint-004",
       "qa_review": null,
       "redteam_review": null,
       "token_usage": null,
       "history": [
-        { "from": null, "to": "backlog", "by": "PMO", "at": "2026-03-02T17:00:00+09:00" },
-        { "from": "backlog", "to": "in_progress", "by": "programmer", "at": "2026-03-02T22:10:00+09:00" },
-        { "from": "in_progress", "to": "done", "by": "programmer", "at": "2026-03-02T22:15:00+09:00", "note": "5항목 전부 완료 — DragScroll 유틸 추출, container/GlassPanel alias 제거, RetroAudio→SaveManager, PauseOverlay buildAudioRow 리팩토링 (414→247행, 번들 -2KB)" }
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "PMO",
+          "at": "2026-03-02T17:00:00+09:00"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "programmer",
+          "at": "2026-03-02T22:10:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "programmer",
+          "at": "2026-03-02T22:15:00+09:00",
+          "note": "5항목 전부 완료 — DragScroll 유틸 추출, container/GlassPanel alias 제거, RetroAudio→SaveManager, PauseOverlay buildAudioRow 리팩토링 (414→247행, 번들 -2KB)"
+        }
+      ]
+    },
+    {
+      "id": "TASK-013",
+      "title": "플레이테스트 세션 — 6스테이지 풀런 3회+ 밸런스 검증",
+      "description": "6스테이지 풀런 최소 3회 수행. 보스 난이도, 상점 유인력, 동시 적 45마리 감각 검증. 밸런스 리뷰 보고서 출력. FAIL 2건 + WARNING 1건 수정 완료.",
+      "status": "qa_passed",
+      "priority": "critical",
+      "assignee": "game-designer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-10T15:00:00+09:00",
+      "updated_at": "2026-03-10T17:30:00+09:00",
+      "due_date": null,
+      "tags": [
+        "balance",
+        "playtest",
+        "sprint-5"
+      ],
+      "sprint": "sprint-005",
+      "qa_review": {
+        "score": 88,
+        "breakdown": {
+          "completeness": 23,
+          "fidelity": 22,
+          "maintainability": 22,
+          "compliance": 21
+        },
+        "feedback": "FAIL 2건 + WARNING 1건 수정 완료. 리포트 475줄 충실. 감점: (1) MID_SHOP/ECONOMY 이중 비용 시스템 미해소, (2) shopCosts 후반 경제 미검증(S3 이후 전 아이템 대량 구매 가능), (3) status.json 미갱신(M-006), (4) napalm DPS 돌출 + maxBossAtk 캡 미구현.",
+        "reviewed_at": "2026-03-10T17:30:00+09:00",
+        "reviewed_by": "Quality_Gate"
+      },
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-10T15:00:00+09:00"
+        },
+        {
+          "from": "backlog",
+          "to": "done",
+          "by": "balance-designer",
+          "at": "2026-03-10T17:00:00+09:00",
+          "note": "플레이테스트 리포트 완성 + FAIL 2건 수정 (boss_burst ATK, shopCosts) + WARNING hpScalePerMin 완화"
+        },
+        {
+          "from": "done",
+          "to": "qa_passed",
+          "by": "Quality_Gate",
+          "at": "2026-03-10T17:30:00+09:00",
+          "note": "CFMC 88/100 — PASS. MID_SHOP 이중 시스템, 후반 경제, status.json 갱신 개선 필요."
+        }
+      ]
+    },
+    {
+      "id": "TASK-014",
+      "title": "Mei/Kai 캐릭터 애니메이션 완성 — idle+attack+hand 스프라이트",
+      "description": "characters.ts TODO 제거, PreloadScene에 mei/kai idle+run+attack 스프라이트시트 등록, hand 스프라이트 플레이스홀더 생성.",
+      "status": "done",
+      "priority": "critical",
+      "assignee": "art-director",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-10T15:00:00+09:00",
+      "updated_at": "2026-03-10T17:00:00+09:00",
+      "due_date": null,
+      "tags": [
+        "art",
+        "character",
+        "sprint-5"
+      ],
+      "sprint": "sprint-005",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-10T15:00:00+09:00"
+        },
+        {
+          "from": "backlog",
+          "to": "done",
+          "by": "art-director",
+          "at": "2026-03-10T17:00:00+09:00",
+          "note": "Mei(punk)/Kai(cyborg) 애니메이션 키 설정 + 핸드 스프라이트 플레이스홀더"
+        }
+      ]
+    },
+    {
+      "id": "TASK-015",
+      "title": "모바일 해상도 검증 — 다양한 화면 비율 + 터치 타겟 48dp",
+      "description": "1280x720 외 다양한 화면 비율에서 터치 타겟 48dp 확인. 태블릿/폰 대응 검증.",
+      "status": "done",
+      "priority": "high",
+      "assignee": "ui-designer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-10T15:00:00+09:00",
+      "updated_at": "2026-03-12T16:30:00+09:00",
+      "due_date": null,
+      "tags": [
+        "ui",
+        "mobile",
+        "sprint-5"
+      ],
+      "sprint": "sprint-005",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-10T15:00:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "TASK-016",
+      "title": "코드 정리/기술 부채 — 미사용 임포트, 매직넘버 재감사, 통합 테스트",
+      "description": "미사용 임포트 정리, 매직넘버 재감사, VFX/오디오 통합 테스트 추가.",
+      "status": "done",
+      "priority": "high",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-10T15:00:00+09:00",
+      "updated_at": "2026-03-12T16:30:00+09:00",
+      "due_date": null,
+      "tags": [
+        "tech-debt",
+        "refactor",
+        "sprint-5"
+      ],
+      "sprint": "sprint-005",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-10T15:00:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "TASK-017",
+      "title": "스토리 이벤트 구현 (SPEC-010C) — ARIA 풀 스토리 모드 확장",
+      "description": "ARIA 메시지 시스템을 풀 스토리 모드로 확장. 스테이지 진입 시 지역 이야기, 보스 패턴 설정.",
+      "status": "backlog",
+      "priority": "mid",
+      "assignee": "game-designer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-10T15:00:00+09:00",
+      "updated_at": "2026-03-10T15:00:00+09:00",
+      "due_date": null,
+      "tags": [
+        "story",
+        "content",
+        "sprint-5"
+      ],
+      "sprint": "sprint-005",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-10T15:00:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "TASK-018",
+      "title": "런칭 최적화 — 번들 크기, 로딩 시간, 애널리틱스 대시보드",
+      "description": "번들 크기 최적화, 로딩 시간 개선, 애널리틱스 대시보드 연결.",
+      "status": "backlog",
+      "priority": "mid",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-10T15:00:00+09:00",
+      "updated_at": "2026-03-10T15:00:00+09:00",
+      "due_date": null,
+      "tags": [
+        "optimization",
+        "launch",
+        "sprint-5"
+      ],
+      "sprint": "sprint-005",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-10T15:00:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "TASK-019",
+      "title": "[BUG] 아틀라스 텍스처 해상도 — resolveTexture 전면 적용",
+      "description": "multiatlas 프레임이 textures.exists()에서 false 반환하여 무기 아이콘, 스킬 선택 아이콘, 핸드 스프라이트, 크리터, 투사체, 장식물 등 렌더링 실패. resolveTexture() 유틸 생성 후 12개 파일에 적용.",
+      "status": "done",
+      "priority": "critical",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-12T23:00:00+09:00",
+      "updated_at": "2026-03-12T23:50:00+09:00",
+      "due_date": null,
+      "tags": [
+        "bug",
+        "atlas",
+        "sprint-009"
+      ],
+      "sprint": "sprint-009",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-12T23:00:00+09:00"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "programmer",
+          "at": "2026-03-12T23:00:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "programmer",
+          "at": "2026-03-12T23:50:00+09:00",
+          "note": "resolveTexture() 유틸 생성, 12개 파일 적용 (Player, WeaponSlotPanel, LevelUpUIManager, WeaponCodexScene, MainMenuScene, CharacterSelectScene, EnemyCodexScene, Projectile, CollisionManager, WeaponSystem, Critter, BackgroundManager). 빌드+3351 테스트 PASS."
+        }
+      ]
+    },
+    {
+      "id": "TASK-020",
+      "title": "[BUG] 카메라 줌 드리프트 — UI 화면 밖 밀림",
+      "description": "cameraZoomPunch 콜백 기반 줌복원이 중첩 호출 시 취소되어 줌이 누적. delayedCall+force 플래그로 수정.",
+      "status": "done",
+      "priority": "high",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-12T23:00:00+09:00",
+      "updated_at": "2026-03-12T23:20:00+09:00",
+      "due_date": null,
+      "tags": [
+        "bug",
+        "camera",
+        "sprint-009"
+      ],
+      "sprint": "sprint-009",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-12T23:00:00+09:00"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "programmer",
+          "at": "2026-03-12T23:00:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "programmer",
+          "at": "2026-03-12T23:20:00+09:00",
+          "note": "VFXManager.cameraZoomPunch: 콜백→delayedCall+force 전환, zoomResetTimer 관리"
+        }
+      ]
+    },
+    {
+      "id": "TASK-021",
+      "title": "[BUG] MetaScene 스크롤 없음 — 영구 업그레이드 UI 오버플로",
+      "description": "MetaScene 업그레이드/업적 리스트가 화면을 초과해도 스크롤 불가. GeometryMask 기반 스크롤 영역 + 고정 푸터 구현.",
+      "status": "done",
+      "priority": "high",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-12T23:00:00+09:00",
+      "updated_at": "2026-03-12T23:40:00+09:00",
+      "due_date": null,
+      "tags": [
+        "bug",
+        "ui",
+        "sprint-009"
+      ],
+      "sprint": "sprint-009",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-12T23:00:00+09:00"
+        },
+        {
+          "from": "backlog",
+          "to": "in_progress",
+          "by": "programmer",
+          "at": "2026-03-12T23:20:00+09:00"
+        },
+        {
+          "from": "in_progress",
+          "to": "done",
+          "by": "programmer",
+          "at": "2026-03-12T23:40:00+09:00",
+          "note": "GeometryMask 스크롤 영역 + 고정 푸터 + 탭 전환 지원"
+        }
+      ]
+    },
+    {
+      "id": "TASK-022",
+      "title": "플레이어 팔+총 위치/크기 튜닝",
+      "description": "Hand sprite가 atlas 해상도 후 렌더링되지만 위치와 크기가 부자연스러움. armOffsetX/Y, armScaleMult, gunLength 추가 조정 필요. 스크린샷 기반 반복 튜닝.",
+      "status": "done",
+      "priority": "high",
+      "assignee": "art-director",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-12T23:50:00+09:00",
+      "updated_at": "2026-03-12T16:30:00+09:00",
+      "due_date": null,
+      "tags": [
+        "art",
+        "player",
+        "sprint-010"
+      ],
+      "sprint": "sprint-010",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-12T23:50:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "TASK-023",
+      "title": "패럴랙스 배경 타일링 — 캐릭터 얼굴 반복 문제",
+      "description": "TileSprite로 배경 레이어 렌더 시 텍스처 가장자리에서 캐릭터 얼굴이 반복 노출. 텍스처 크롭 또는 심리스 타일 대체 필요.",
+      "status": "done",
+      "priority": "high",
+      "assignee": "art-director",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-12T23:50:00+09:00",
+      "updated_at": "2026-03-12T16:30:00+09:00",
+      "due_date": null,
+      "tags": [
+        "art",
+        "background",
+        "sprint-010"
+      ],
+      "sprint": "sprint-010",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-12T23:50:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "TASK-024",
+      "title": "PreloadScene 누락 텍스처 오류 정리",
+      "description": "콘솔에 'Failed to process file' 오류 다수 — player, enemy_shooter, boss_hex, particle_square 등 SPRITE_KEYS에 등록되었지만 실제 PNG 없는 키 정리. 미사용 키 제거 또는 플레이스홀더 생성.",
+      "status": "done",
+      "priority": "mid",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-12T23:50:00+09:00",
+      "updated_at": "2026-03-12T16:30:00+09:00",
+      "due_date": null,
+      "tags": [
+        "bug",
+        "preload",
+        "sprint-010"
+      ],
+      "sprint": "sprint-010",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-12T23:50:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "TASK-025",
+      "title": "TS 컴파일 경고 정리 — 미사용 임포트, 타입 불일치",
+      "description": "LSP 진단에서 발견된 pre-existing 타입 오류: MainMenuScene dailyStreak/checkDailyReward 미존재, CollisionManager getElementMultiplier 미존재, LevelUpUIManager evolution 타입 불일치 등 일괄 수정.",
+      "status": "done",
+      "priority": "mid",
+      "assignee": "programmer",
+      "division": "game",
+      "created_by": "CEO",
+      "created_at": "2026-03-12T23:50:00+09:00",
+      "updated_at": "2026-03-12T16:30:00+09:00",
+      "due_date": null,
+      "tags": [
+        "tech-debt",
+        "typescript",
+        "sprint-010"
+      ],
+      "sprint": "sprint-010",
+      "qa_review": null,
+      "redteam_review": null,
+      "token_usage": null,
+      "history": [
+        {
+          "from": null,
+          "to": "backlog",
+          "by": "CEO",
+          "at": "2026-03-12T23:50:00+09:00"
+        }
       ]
     }
   ]

@@ -1,7 +1,9 @@
 import Phaser from 'phaser';
+import { BG_CSS } from './colors';
 import { BootScene } from '../scenes/BootScene';
 import { PreloadScene } from '../scenes/PreloadScene';
 import { MainMenuScene } from '../scenes/MainMenuScene';
+import { CharacterSelectScene } from '../scenes/CharacterSelectScene';
 import { RunScene } from '../scenes/RunScene';
 import { GameOverScene } from '../scenes/GameOverScene';
 import { MetaScene } from '../scenes/MetaScene';
@@ -12,26 +14,28 @@ import { WorldMapScene } from '../scenes/WorldMapScene';
 /** Game version — bump on each deploy */
 export const GAME_VERSION = '1.5.0';
 
-/** Base design resolution (9:16 portrait for mobile) */
-export const GAME_WIDTH = 720;
-export const GAME_HEIGHT = 1280;
+/** Base design resolution (16:9 landscape) */
+export const GAME_WIDTH = 1280;
+export const GAME_HEIGHT = 720;
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
   parent: 'game-container',
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
-  backgroundColor: '#0a0a1a',
+  backgroundColor: BG_CSS,
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    min: { width: 360, height: 640 },
-    max: { width: 1440, height: 2560 },
+    min: { width: 640, height: 360 },
+    max: { width: 2560, height: 1440 },
+    fullscreenTarget: 'game-container',
   },
   scene: [
     BootScene,
     PreloadScene,
     MainMenuScene,
+    CharacterSelectScene,
     RunScene,
     GameOverScene,
     MetaScene,
@@ -47,9 +51,9 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     },
   },
   render: {
-    pixelArt: true,
-    antialias: false,
-    roundPixels: true,
+    pixelArt: false,
+    antialias: true,
+    roundPixels: false,
   },
   fps: {
     target: 60,

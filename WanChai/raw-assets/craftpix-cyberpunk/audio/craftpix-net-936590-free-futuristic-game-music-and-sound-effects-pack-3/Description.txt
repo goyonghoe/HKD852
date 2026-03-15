@@ -1,0 +1,65 @@
+Pack No. 3 includes:
+
+Music Tracks:
+
+Battle_theme_sewerage_loopable – combat theme
+
+Emotional_theme – suitable for emotional, tense moments or plot twists
+
+Main_theme_sewerage – main theme for the “Sewerage” location
+
+Dark_ambient_loopable – dark ambient track, suitable as a main theme or background music for a menu screen
+
+Main_theme_alternative_loopable – alternative main melody, suitable for action moments
+
+Two UI Click Sounds:
+
+UI_click_1
+
+UI_click_2
+
+Sounds inspired by the “Sewerage Platformer Tileset” pack:
+
+Drop_1, Drop_2 – single water drops
+
+Drops_background_loopable – continuous dripping background sound, can be used together with other ambient sounds
+
+Tunnel_background_loopable – tunnel ambient background sound
+
+Steps_on_water_background – splashing footsteps in water, background sound
+
+Lamp_flashes – sound of a lamp flickering when turning on
+
+Lever_turns_on – lever activation sound
+
+Lever_turns_off – lever deactivation sound
+
+Chains_1, Chains_2 – chain sounds
+
+Chests – chest opening sound
+
+Sounds inspired by the “Sewerage Character Bosses” and “Sewerage Character Enemies” packs:
+
+Rattle_tail – rattling tail sound of the rat boss
+
+Engine_acceleration, Engine_acceleration_double – red tractor engine acceleration sounds
+
+Rats_sound – rats squeaking sound
+
+Rat_crunch – rat gnawing sound
+
+Rat_bites_1, Rat_bites_2_small – bite sounds of the large and small rat
+
+Hammer_1, Hammer_2 – hammer hit sounds
+
+Tractor_death – robot tractor death sound, metallic crash
+
+Robot_turning_off – robot shutdown/death sound
+
+Rocket_launch_1, Rocket_launch_2 – rocket launch sounds for the rat and the tractor
+
+Turret_1_loopable, Turret_2_loopable – turret firing sounds in two different speeds
+
+Turret_rotates – turret rotation sound during idle animation
+
+Pipe_blow – pipe hit sound

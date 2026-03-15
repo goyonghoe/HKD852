@@ -1,0 +1,20 @@
+{
+  "name": "Chapter 8 — Kowloon (九龍城)",
+  "parallaxSet": 8,
+  "bgLayers": [
+    {
+      "id": "game-8",
+      "alpha": 0.7
+    }
+  ],
+  "overlay": {
+    "enabled": false,
+    "alpha": 0.35
+  },
+  "ground": {
+    "surfaceTile": "floor_tile_edge",
+    "fillTile": "floor_tile_brick"
+  },
+  "decorations": [],
+  "textures": []
+}

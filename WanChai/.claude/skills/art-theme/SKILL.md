@@ -1,8 +1,8 @@
 ---
 name: art-theme
-description: "아트 스타일 일관성 감사 + 색상 체계 확장"
+description: '아트 스타일 일관성 감사 + 색상 체계 확장'
 user-invocable: true
-argument-hint: "[scope] e.g. full-audit, colors, cubes, heroes"
+argument-hint: '[scope] e.g. full-audit, colors, cubes, heroes'
 allowed-tools: Read, Write, Edit, Glob, Grep
 model: opus
 ---

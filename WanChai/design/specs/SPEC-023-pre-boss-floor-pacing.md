@@ -1,6 +1,7 @@
 # [SPEC-023] Pre-Boss Floor Pacing -- L3 Node Type Redesign
 
 ## Meta
+
 - **Author**: Game Designer
 - **Date**: 2026-02-28
 - **Status**: ready
@@ -43,12 +44,14 @@ Floor 3: boss
 ```
 
 **Pros:**
+
 - Full 3-floor structure as originally designed in SPEC-011 (Floor 1 battle, Floor 2 elite, Floor 3 boss prep)
 - Rest on F1-L3 is fine because there are still 2 more floors of content
 - Shop on F2-L3 (even floor) gives a nice "gear up before the boss" moment
 - More content per run = more decisions = more replayability
 
 **Cons:**
+
 - Run time nearly doubles (~10 min -> ~18 min per run)
 - For early development/playtesting, longer runs slow down iteration cycles
 - Increases total combat encounters before the player even reaches the boss, which can feel grindy if the puzzle variety is limited
@@ -68,18 +71,20 @@ Floor 2: boss
 ```
 
 **Pros:**
+
 - Direct response to CEO feedback: the last thing the player does before the boss is a challenging fight
 - Creates a "gauntlet" pacing: battle -> battle/elite -> battle/elite -> ELITE -> BOSS
 - High tension, no lull before the climax
 
 **Cons:**
+
 - Removes the only rest/shop opportunity in the entire run when FLOORS_PER_RUN=1
 - Player has zero recovery chance before the boss, making runs feel punishing
 - Violates the roguelike I/O balance principle (Numerical Bible Section 5): the player's only economic input (shop) or health recovery (rest) is eliminated
 - At FLOORS_PER_RUN=1, the player already has limited strategic decisions; removing the rest/shop further reduces decision space
 - Breaks the counter-attribute pair: "bench recovery (rest)" counters "AP depletion across stages" -- without rest, there is no recovery mechanism before the boss
 
-**Verdict: NOT RECOMMENDED.** Replacing the rest entirely removes a critical balancing mechanism. The problem is not that rest exists before the boss, but that the player does not *feel* like they are preparing for something.
+**Verdict: NOT RECOMMENDED.** Replacing the rest entirely removes a critical balancing mechanism. The problem is not that rest exists before the boss, but that the player does not _feel_ like they are preparing for something.
 
 ---
 
@@ -101,16 +106,16 @@ This is already the case when `FLOORS_PER_RUN=1` (floor 1 is odd = rest), but it
 
 When the rest node is on the floor immediately before the boss, the scene presentation changes:
 
-| Aspect | Normal Rest | Pre-Boss Rest |
-|--------|------------|---------------|
-| Title | "Rest Site" | "Final Preparation" / "Boss Ahead" |
-| Color theme | Green (calm) | Orange-red (urgency) |
-| Flavor text | "A quiet place to rest." | "The boss lurks ahead. This is your last chance to prepare." |
-| Options | Same 3 (Recover/Train/Scout) | Same 3 but Scout shows "BOSS" info instead |
-| Visual | Ambient particles | Warning particles, boss silhouette hint |
-| Music/SFX | Calm ambient | Tense ambient |
-| Bottom bar | "Continue" | "Face the Boss" |
-| Next floor preview | Not shown | Boss type teaser shown at top |
+| Aspect             | Normal Rest                  | Pre-Boss Rest                                                |
+| ------------------ | ---------------------------- | ------------------------------------------------------------ |
+| Title              | "Rest Site"                  | "Final Preparation" / "Boss Ahead"                           |
+| Color theme        | Green (calm)                 | Orange-red (urgency)                                         |
+| Flavor text        | "A quiet place to rest."     | "The boss lurks ahead. This is your last chance to prepare." |
+| Options            | Same 3 (Recover/Train/Scout) | Same 3 but Scout shows "BOSS" info instead                   |
+| Visual             | Ambient particles            | Warning particles, boss silhouette hint                      |
+| Music/SFX          | Calm ambient                 | Tense ambient                                                |
+| Bottom bar         | "Continue"                   | "Face the Boss"                                              |
+| Next floor preview | Not shown                    | Boss type teaser shown at top                                |
 
 **Part 3: Map visualization enhancement**
 
@@ -124,7 +129,7 @@ On the RunMapScene, when the player can see the L3 rest node and the boss floor 
 
 ## Detailed Design
 
-### 1. MapGenerator._assignNodeTypes Change
+### 1. MapGenerator.\_assignNodeTypes Change
 
 ```
 Current (line 197):
@@ -255,12 +260,12 @@ When rendering the last floor's L3 node, if `isPreBossFloor`:
 
 ## Balance Parameters
 
-| Parameter | Current | Proposed | Rationale |
-|-----------|---------|----------|-----------|
-| FLOORS_PER_RUN | 1 | 1 (no change) | Problem is pacing, not content length |
-| Pre-boss L3 type | odd=rest, even=shop | always=rest | Ensure recovery before boss |
-| Rest options | Recover/Train/Scout | Same | No mechanical change |
-| Scout (pre-boss) | Shows node types | Shows boss details | Strategic information for preparation |
+| Parameter        | Current             | Proposed           | Rationale                             |
+| ---------------- | ------------------- | ------------------ | ------------------------------------- |
+| FLOORS_PER_RUN   | 1                   | 1 (no change)      | Problem is pacing, not content length |
+| Pre-boss L3 type | odd=rest, even=shop | always=rest        | Ensure recovery before boss           |
+| Rest options     | Recover/Train/Scout | Same               | No mechanical change                  |
+| Scout (pre-boss) | Shows node types    | Shows boss details | Strategic information for preparation |
 
 ---
 
@@ -272,10 +277,10 @@ No new attributes introduced. This spec modifies presentation and a single assig
 
 The existing counter-pair is preserved:
 
-| Player Resource | System Pressure | Balance |
-|----------------|-----------------|---------|
-| Pre-boss rest (AP recovery, XP training) | Boss HP/ATK scaling | Rest gives the player tools to face the boss |
-| Scout info (boss preview) | Boss surprise factor | Scouting costs the opportunity to Recover or Train |
+| Player Resource                          | System Pressure      | Balance                                            |
+| ---------------------------------------- | -------------------- | -------------------------------------------------- |
+| Pre-boss rest (AP recovery, XP training) | Boss HP/ATK scaling  | Rest gives the player tools to face the boss       |
+| Scout info (boss preview)                | Boss surprise factor | Scouting costs the opportunity to Recover or Train |
 
 The 3-way choice (Recover vs Train vs Scout) at the pre-boss rest creates a meaningful strategic decision: do you heal, invest in growth, or gather intelligence? This is amplified when the player knows the boss is next.
 
@@ -287,17 +292,18 @@ The 3-way choice (Recover vs Train vs Scout) at the pre-boss rest creates a mean
 
 When the game matures and content variety increases, consider this progression:
 
-| Phase | FLOORS_PER_RUN | Run Time | L3 Pattern |
-|-------|---------------|----------|------------|
-| Current (alpha) | 1 | ~8 min | rest -> boss |
-| Beta | 2 | ~16 min | rest -> shop(->rest per this spec) -> boss |
-| Launch | 3 | ~24 min | rest -> shop -> rest -> boss |
+| Phase           | FLOORS_PER_RUN | Run Time | L3 Pattern                                 |
+| --------------- | -------------- | -------- | ------------------------------------------ |
+| Current (alpha) | 1              | ~8 min   | rest -> boss                               |
+| Beta            | 2              | ~16 min  | rest -> shop(->rest per this spec) -> boss |
+| Launch          | 3              | ~24 min  | rest -> shop -> rest -> boss               |
 
 At FLOORS_PER_RUN >= 2, the non-final floors retain odd=rest/even=shop, and the FINAL floor always gets rest per this spec. This provides a natural "rest -> boss" cadence regardless of run length.
 
 ### Boss Preview Teaser (deferred)
 
 Consider a dedicated "Boss Warning" interstitial screen between the pre-boss rest and the boss floor. This would show:
+
 - Boss model/silhouette with dramatic animation
 - Boss name and element weakness hint
 - "Entering Boss Territory..." with a tension-building countdown

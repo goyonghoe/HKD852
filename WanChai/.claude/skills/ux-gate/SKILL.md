@@ -1,97 +1,233 @@
 ---
 name: ux-gate
-description: "UX 경험 설계서 대비 UI 검증 — 배포 차단 가능"
+description: 'About Face 12원칙 기반 UX 게이트 — 점수 미달 시 배포 차단 + 수정 루프'
 user-invocable: true
 allowed-tools: Read, Glob, Grep
+model: opus
 ---
 
-# /ux-gate — UX 경험 게이트
+# /ux-gate — About Face 12원칙 UX 게이트
 
 ## 역할
-UI Designer로서 경험 설계서(`gd-experience` 산출물)에 대비해 실제 구현을 검증합니다. 핸드오프 파이프라인 Step 7이며 UX-GATE:REVISE 시 배포를 차단합니다.
 
-## 언제 사용하나요?
-- `/pg-wiring-check` 통과 후, `/pg-deploy` 이전
-- 새 씬 또는 UI 기능 구현 완료 시
-- 배포 직전 품질 게이트
+About Face 4 (Alan Cooper) 12원칙으로 UI/UX를 정량 평가한다.
+**B+ (80점) 미만이면 배포 차단**. 수정 목록을 생성하여 프로그래머에게 전달한다.
 
-## 절차
+## 평가 체계
 
-### 1. 경험 설계서 로드
-- `design/ux/` 내 해당 기능의 `*-experience.md` 파일 읽기
-- Acceptance Criteria 섹션 추출
-- 최소 폰트/터치 타겟/레이아웃 존 기준값 파악
+### 12원칙 채점 (각 10점, 총 120점 → 100점 환산)
+
+| #   | 원칙              | MUST 항목수 | 배점 |
+| --- | ----------------- | ----------- | ---- |
+| 1   | 목표 지향 설계    | 2           | 10   |
+| 2   | 페르소나          | 4           | 10   |
+| 3   | 멘탈 모델         | 2           | 10   |
+| 4   | Excise 제거       | 3           | 10   |
+| 5   | Flow 보호         | 3           | 10   |
+| 6   | 직접 조작         | 2           | 10   |
+| 7   | 피드백 & 가시성   | 3           | 10   |
+| 8   | 일관성            | 4           | 10   |
+| 9   | 모드리스 인터랙션 | 2           | 10   |
+| 10  | 오류 예방         | 2           | 10   |
+| 11  | 앱 포스처         | 3           | 10   |
+| 12  | 점진적 공개       | 2           | 10   |
+
+### 채점 기준 (각 원칙 내)
+
+- MUST 항목 전부 충족 + SHOULD 2개 이상: **10점 (A)**
+- MUST 항목 전부 충족 + SHOULD 1개: **8점 (B)**
+- MUST 항목 전부 충족: **7점 (B-)**
+- MUST 1개 미충족: **5점 (C)**
+- MUST 2개 이상 미충족: **3점 (D)**
+- MUST 전부 미충족: **1점 (F)**
+
+### 등급 환산 (120점 만점 → 100점)
 
 ```
-예시:
-- H1 최소: 32px
-- H2 최소: 24px
-- Body 최소: 16px
-- 터치 타겟 최소: 48x48dp
-- Zone C (주요 액션): y=850~1240
+점수 = (합계 / 120) × 100
+A+: 95+  A: 90+  A-: 85+
+B+: 80+  ← 통과 기준  B: 75+  B-: 70+
+C+: 65+  C: 60+  C-: 55+
+D: 50+   F: 50 미만
 ```
 
-### 2. 폰트 크기 검증
-```
-grep -rn "fontSize\|font-size\|setFontSize" src/scenes/ src/ui/
-```
-- 각 `fontSize` 값 추출
-- 경험 설계서 최솟값 대비 체크
-- 기준 미달 → REVISE 목록에 추가
+**B+ (80점) 미만 = UX-GATE:FAIL → 배포 차단**
 
-### 3. 터치 타겟 크기 검증
-```
-grep -rn "setSize\|setInteractive\|setDisplaySize\|\.width\|\.height" src/scenes/ src/ui/
-```
-- 인터랙티브 요소의 크기 값 추출
-- 48x48dp 미만 → REVISE 목록에 추가
-- 명시적 크기 없이 `setInteractive()` 단독 사용 → 경고
+---
 
-### 4. 레이아웃 존 검증
-주요 액션(CTA) 버튼 위치 확인:
-```
-grep -rn "y\s*=\|\.y\s*=\|setPosition" src/scenes/ src/ui/
-```
-- 주요 CTA의 y 좌표가 Zone C(y=850~1240)에 위치하는지 확인
-- Zone A/B에 주요 CTA 배치 시 → REVISE 목록에 추가
+## 평가 절차
 
-### 5. Acceptance Criteria 체크리스트 실행
-경험 설계서의 각 AC 항목에 대해:
-- [ ] 측정 가능한 항목 → 코드에서 값 추출하여 비교
-- [ ] 구조적 항목 → 관련 컴포넌트 존재 여부 확인
-- [ ] 감정/경험 항목 → 관련 애니메이션/피드백 구현 여부 확인
+### Phase 1: 코드 기반 정량 검증
 
-### 6. 결과 출력
+#### 1-1. 터치 타겟 검증 (원칙 2: 페르소나)
 
-#### PASS 케이스
-```
-UX-GATE:PASS
-- 경험 설계서: design/ux/{feature}-experience.md
-- 검증 항목: N개
-- 폰트 기준 충족: 모두 통과
-- 터치 타겟 기준 충족: 모두 통과
-- Zone C 주요 액션: 확인됨
-- AC 항목: N/N 통과
+```bash
+grep -rn "setInteractive\|setSize\|hitArea\|new.*Rectangle" src/scenes/ src/ui/
 ```
 
-#### REVISE 케이스
-```
-UX-GATE:REVISE(list)
-- [FAIL] ResultScene.ts:142 — 점수 텍스트 fontSize=12, 최소 16px 필요
-- [FAIL] HeroButton — 터치 타겟 40x40, 최소 48x48dp 필요
-- [FAIL] 재시작 버튼 y=420 — Zone B에 위치, Zone C(y>=850) 이동 필요
-- [WARN] 애니메이션 피드백 — 매치 성공 시 이펙트 확인 불가 (정적 분석 한계)
+- 모든 인터랙티브 요소 ≥ 48×48dp 확인
+- **FAIL**: 48dp 미만 요소 발견 시
+
+#### 1-2. 폰트 크기 검증 (원칙 2, 8: 페르소나/일관성)
+
+```bash
+grep -rn "fontSize\|setFontSize" src/scenes/ src/ui/
 ```
 
-### 7. REVISE 시 처리
-- UX-GATE:REVISE 발생 시 `/pg-deploy` 진행 불가
-- REVISE 목록을 Programmer 및 UI Designer에게 전달
-- 수정 후 `/ux-gate` 재실행
+- 최소 14px, 본문 16px 이상
+- 폰트 사이즈 종류 ≤ 8종 (체계적)
+- **FAIL**: 14px 미만 또는 사이즈 10종 초과
+
+#### 1-3. 버튼 피드백 검증 (원칙 7: 피드백)
+
+```bash
+grep -rn "scale.*1\.\|setScale\|pointerover\|pointerout" src/ui/ButtonFactory.ts src/scenes/
+```
+
+- hover: scale ≥ 1.05
+- press: scale ≤ 0.95
+- **FAIL**: 피드백 없거나 인지 불가 수준 (1.02 이하)
+
+#### 1-4. 색상 일관성 (원칙 8: 일관성)
+
+```bash
+grep -rn "0x[0-9a-fA-F]\{6\}" src/scenes/ src/ui/ --include="*.ts"
+```
+
+- colors.ts 외부 hex 리터럴 = 0건
+- **FAIL**: 1건 이상
+
+#### 1-5. 코너 라디우스 일관성 (원칙 8)
+
+```bash
+grep -rn "radius\|Rounded" src/ui/ src/scenes/ src/config/
+```
+
+- RETRO.radius 값 확인 (가이드: 12-24px)
+- **FAIL**: 8px 이하 또는 값 불일치
+
+#### 1-6. 버튼 위치 존 검증 (원칙 2, 4)
+
+```bash
+grep -rn "createButton\|ButtonFactory" src/scenes/
+```
+
+- 주요 CTA y좌표 ≥ 화면높이×2/3 (하단 1/3)
+- **FAIL**: 주요 CTA가 상단 2/3에 위치
+
+#### 1-7. 씬 전환 검증 (원칙 4, 5)
+
+```bash
+grep -rn "fadeIn\|fadeOut\|fade\|scene.start" src/scenes/
+```
+
+- 모든 씬 전환에 fade 효과 존재
+- **FAIL**: fade 없는 scene.start
+
+#### 1-8. 오류 예방 검증 (원칙 10)
+
+```bash
+grep -rn "disabled\|canAfford\|canPurchase\|setAlpha.*0\.[34]" src/scenes/ src/ui/
+```
+
+- 골드 부족 시 구매 버튼 비활성화
+- 최대 레벨 시 시각적 잠금
+- **FAIL**: 비활성화 로직 없음
+
+#### 1-9. 스크롤/오버플로 검증 (원칙 2, M-016)
+
+```bash
+grep -rn "DragScroll\|enableDragScroll\|scrollable" src/scenes/
+```
+
+- 동적 리스트 씬에 DragScroll 적용 여부
+- 콘텐츠 총 높이 > GAME_HEIGHT 시 스크롤 필수
+- **FAIL**: 오버플로 가능 리스트에 스크롤 없음
+
+#### 1-10. 모드 시각 표시 검증 (원칙 9)
+
+```bash
+grep -rn "phase\|GamePhase\|overlay\|modal" src/scenes/RunScene.ts src/ui/
+```
+
+- 각 모드(playing/levelup/paused/shop/gameover/stage_clear) 진입 시 시각 변화
+- **FAIL**: 모드 전환 시각 표시 없음
+
+### Phase 2: 원칙별 종합 채점
+
+각 원칙별로 MUST/SHOULD 항목을 `design/reference/about-face-ux-principles.md` 체크리스트 기준으로 채점.
+
+### Phase 3: 결과 출력
+
+#### PASS (B+ 이상)
+
+```
+UX-GATE:PASS (Score: 82/100, Grade: B)
+
+## 원칙별 점수
+| # | 원칙 | 점수 | 등급 | MUST |
+|---|------|------|------|------|
+| 1 | 목표 지향 | 8/10 | B | 2/2 ✅ |
+...
+
+## 강점
+- ...
+
+## 개선 권고 (SHOULD 미충족)
+- ...
+```
+
+#### FAIL (B+ 미만)
+
+```
+UX-GATE:FAIL (Score: 58/100, Grade: C)
+⛔ 배포 차단. 아래 MUST 위반 항목 수정 후 재평가 필요.
+
+## MUST 위반 목록 (수정 필수)
+| # | 파일:라인 | 원칙 | 문제 | 수정 방법 |
+|---|----------|------|------|----------|
+| 1 | PauseOverlay.ts:45 | P2 | 볼륨 세그먼트 28×24px | 48×48dp 이상으로 |
+...
+
+## 수정 후 /ux-gate 재실행
+```
+
+---
+
+## 레드팀 검증 레이어
+
+PASS 후에도 레드팀이 추가 검증:
+
+1. **플레이어 관점 공격**: "이 UI를 처음 보는 사람이 3초 안에 이해할 수 있는가?"
+2. **경쟁작 비교**: "이 수준의 UI가 앱스토어에서 경쟁력이 있는가?"
+3. **엣지 케이스**: "화면 회전, 저사양 기기, 색약 사용자에게 문제 없는가?"
+
+레드팀 REJECT 시 추가 수정 루프.
+
+---
+
+## 자율 핑퐁 파이프라인 (Agent Teams 모드)
+
+`/ux-polish` 스킬에서 호출 시 자동 루프:
+
+```
+[UI Designer] /ux-gate 평가
+    → FAIL → [Programmer] 수정 구현
+        → [UI Designer] /ux-gate 재평가
+            → FAIL → [Programmer] 재수정
+            → PASS → [RedTeam] 적대적 리뷰
+                → REJECT → [Programmer] 재수정 → [UI Designer] 재평가
+                → APPROVE → 배포 승인
+```
+
+최대 루프 3회. 3회 연속 FAIL 시 CEO 에스컬레이션.
+
+---
 
 ## 규칙
-- UX-GATE:PASS 없이 `/pg-deploy` 실행 금지 (배포 차단 권한)
-- WARN은 배포 차단 안 함, FAIL은 차단
-- 경험 설계서(`design/ux/*.md`)가 없는 경우 → UX-GATE:REVISE (설계서 먼저 작성)
-- 결과를 SESSION_LOG.md에 기록:
-  `[HH:MM] /ux-gate UX-GATE:PASS ({feature})`
-  파일: `~/.claude/projects/-Users-yong-MainFolder-My-AI-Project-HKD852-WanChai/memory/SESSION_LOG.md`
+
+- UX-GATE:PASS (B+ 이상) 없이 `/pg-deploy` 실행 금지
+- MUST 위반 = FAIL (배포 차단)
+- SHOULD 미충족 = WARN (배포 가능, 권고)
+- 경험 설계서(`design/ux/*.md`) 없으면 FAIL (설계서 먼저)
+- 결과를 SESSION_LOG.md에 기록

@@ -1,163 +1,224 @@
-# [SPEC-010] 세계관: 완차이 항구의 역병
+# [SPEC-010] Worldbuilding: NeonSurvivor -- Cyberpunk Hong Kong
 
-## 메타
-- **작성자**: Game Designer
-- **작성일**: 2026-02-25
-- **상태**: draft
-- **우선순위**: P1
-- **예상 작업량**: M
+## Meta
 
----
-
-## 요약
-
-WanChai의 로그라이크 리디자인에 필요한 세계관, 스토리라인, 톤앤무드를 정의한다. 기존 추상적 퍼즐 게임에 서사적 맥락을 부여하여 수집 동기와 진행 동기를 강화한다.
+- **Author**: Game Designer
+- **Created**: 2026-02-25
+- **Updated**: 2026-03-12
+- **Status**: active (updated for auto-shooter pivot)
+- **Priority**: P1
 
 ---
 
-## 1. 세계 설정
+## Summary
 
-### 1.1 완차이 항구 (Wan Chai Harbor)
-
-완차이는 **6개 원소 에너지**가 자연적으로 흐르는 해안 도시다. 각 원소는 도시의 특정 구역과 결합되어 있다.
-
-| 원소 | 구역 | 환경 | 시각 테마 |
-|------|------|------|----------|
-| **Fire** (화) | 용암 시장 (Magma Market) | 대장간, 온천, 화산 분기공 | 붉은 조명, 연기, 불꽃 |
-| **Water** (수) | 심해 부두 (Abyssal Dock) | 해저 동굴, 항구 창고, 산호 | 푸른 안개, 물결 반사 |
-| **Earth** (지) | 뿌리 골목 (Root Alley) | 거대 나무, 돌담, 이끼 정원 | 녹색 덩굴, 돌 질감 |
-| **Wind** (풍) | 바람 탑 (Gale Tower) | 시계탑, 풍차, 공중 통로 | 노란 번개, 구름 |
-| **Light** (광) | 등대 언덕 (Beacon Hill) | 수정 등대, 성당, 프리즘 | 흰 빛줄기, 프리즘 무지개 |
-| **Dark** (암) | 그림자 지하 (Shadow Below) | 지하 하수도, 폐광, 보라 안개 | 보라 그림자, 눈 발광 |
-
-### 1.2 원소 에너지 시스템
-
-- 6원소는 서로 **순환 관계**를 가진다 (기존 컨베이어 벨트의 순환 메타포와 일치)
-- 원소 상성은 Phase 2에서 도입 예정. 현재는 **동일 원소 매칭**만 유효
-
-### 1.3 역병 (The Blight)
-
-- 도시 지하에서 솟아오르는 **타락 에너지**
-- 역병에 감염된 수호 정령들이 **역병 피조물(Blights)**로 변이
-- 각 World = 역병이 침투한 도시 구역
-- 역병의 근원은 도시 최심부에 있다 (최종 월드)
+NeonSurvivor is set in a **cyberpunk Hong Kong** where an AI system called ARIA guides players through neon-lit districts overrun by Optimized entities. This document defines the world, narrative, tone, and terminology.
 
 ---
 
-## 2. 스토리라인
+## 1. World Setting
 
-### 2.1 메인 내러티브
+### 1.1 The City
+
+NeonSurvivor takes place across **7 chapters** set in real Hong Kong districts, reimagined in a cyberpunk near-future. Each district has a distinct visual identity and enemy composition.
+
+| Chapter | District              | Visual Theme                            | Boss      |
+| ------- | --------------------- | --------------------------------------- | --------- |
+| 1       | Central (중환)        | Neon office towers, holographic ads     | Aero      |
+| 2       | Aberdeen (애버딘)     | Harbor docks, fishing boats, water mist | Hydra     |
+| 3       | Mong Kok (몽콕)       | Dense market streets, neon signs        | Blaze     |
+| 4       | Sham Shui Po (심수보) | Underground workshops, circuit boards   | Terra     |
+| 5       | Wong Tai Sin (황대선) | Temple grounds, incense smoke, lanterns | Lumen     |
+| 6       | Kowloon (구룡)        | Walled city ruins, dark corridors       | Umbra     |
+| 7       | Lantau (란타우)       | Peak observatory, sky bridges, clouds   | Harvester |
+
+### 1.2 The Optimization
+
+An AI defense system (codenamed "The Optimizer") designed to protect Hong Kong's infrastructure went rogue. It began "optimizing" the city by converting citizens and machines into combat-efficient entities -- the **Optimized**.
+
+The player is one of the few people with a neural implant compatible with ARIA, a fragment of the original AI that resisted the Optimizer's corruption.
+
+### 1.3 ARIA (Adaptive Response & Intelligence Assistant)
+
+ARIA is the player's AI companion, providing:
+
+- **In-game hints**: Contextual dialogue during gameplay (ARIA message system)
+- **Tutorial guidance**: First-run tutorial prompts
+- **Stage transitions**: Narrative flavor text between stages
+- **Boss warnings**: "Threat detected: Aero unit inbound."
+
+ARIA appears as a translucent holographic text overlay at the bottom of the screen (`BALANCE.ARIA` config).
+
+---
+
+## 2. Narrative
+
+### 2.1 Core Story
 
 ```
-[프롤로그]
-완차이 항구에 갑작스러운 역병이 번진다.
-도시를 지키던 수호 정령들이 하나둘 타락하고,
-시민들은 대피한다.
+[Prologue]
+The Optimizer activates across Hong Kong.
+Districts fall one by one as machines and drones are repurposed.
+Survivors retreat to underground shelters.
 
-[주인공]
-주인공은 "야생 동물 용사(Critters)"와 교감하는 능력을 가진
-완차이의 젊은 항해사.
+[Player]
+A lone operative with a prototype neural link to ARIA,
+armed with modular energy weapons scavenged from the city.
 
-[목표]
-크리터들을 모으고 강화하여
-역병에 감염된 각 구역을 층층이 정화하며
-도시 최심부의 역병핵을 파괴한다.
+[Goal]
+Clear each district of Optimized forces,
+push deeper into the city,
+and reach the Optimizer's core on Lantau Peak.
 ```
 
-### 2.2 월드별 서사 진행
+### 2.2 Chapter Narrative Arc
 
-| 월드 | 구역 | 보스 | 서사 키워드 |
-|------|------|------|-----------|
-| **World 1** | 용암 시장 | 화염드레이크 | 만남, 첫 역병 정화 |
-| **World 2** | 심해 부두 | 심해크라켄 | 심화, 역병의 본질 힌트 |
-| **World 3** | 뿌리 골목 | 가시덩굴수 | 자연과 타락의 이중성 |
-| **World 4** | 바람 탑 | 번개용 | 진실, 역병의 기원 공개 |
-| **World 5** | 등대 언덕 | 태양스핑크스 | 빛과 어둠의 선택 |
-| **World 6** | 그림자 지하 | 악몽기사 → 역병핵 | 최종 결전, 정화 |
+| Chapter | Narrative Beat                                              |
+| ------- | ----------------------------------------------------------- |
+| 1       | First contact. Learn the basics. ARIA comes online.         |
+| 2       | The harbor is a supply line. Cut it off.                    |
+| 3       | Dense urban combat. The Optimizer adapts to your tactics.   |
+| 4       | Discovery: the Optimizer was human-made, not alien.         |
+| 5       | Spiritual vs. technological -- the temple district resists. |
+| 6       | The Walled City: deepest corruption, no retreat.            |
+| 7       | Final ascent. The Optimizer's core. End it.                 |
 
-### 2.3 이벤트 텍스트 예시
+### 2.3 Tone Examples (ARIA Dialogue)
 
-**런 시작 시 (분기 맵 진입)**:
-> "용암 시장에서 역병의 기운이 느껴진다. 크리터들이 긴장한 표정으로 주위를 둘러본다."
+**Run start**:
 
-**전투 노드 진입**:
-> "타락한 불꽃슬라임들이 길을 막고 있다! 벨트 위의 크리터들이 전투 태세를 갖춘다."
+> "ARIA online. Scanning Central district... Multiple Optimized signatures detected."
 
-**보스 노드 진입**:
-> "대지가 흔들린다... 화염드레이크가 역병의 포효를 내지른다!"
+**First enemy wave**:
 
----
+> "Hostiles approaching from the east. Weapons hot."
 
-## 3. 톤앤무드
+**Boss warning**:
 
-### 3.1 시각적 톤
+> "Energy spike detected. High-threat unit: Aero. Brace for aerial assault."
 
-| 축 | 범위 | 타겟 |
-|----|------|------|
-| 귀여움 ↔ 공포 | 0---[X]--------10 | **7/10 귀여움** — 아군은 귀엽고 밝음, 적은 살짝 으스스 |
-| 밝음 ↔ 어두움 | 0------[X]-----10 | **6/10** — 다크 배경 위 밝은 원소 컬러 (기존 아트 스타일 유지) |
-| 진지 ↔ 유머 | 0---[X]--------10 | **3/10 진지** — 역병이라는 위협감, 그러나 너무 무겁지 않음 |
+**Stage clear**:
 
-### 3.2 레퍼런스
-
-| 요소 | 레퍼런스 | 차용 포인트 |
-|------|---------|-----------|
-| 수집 시스템 | Easterlights | 동물 기반 크리터, 귀여운 디자인 |
-| 런 구조 | Slay the Spire | 분기 맵, 노드 선택, 런 기반 진행 |
-| 톤 | Darkest Dungeon (라이트 버전) | 역병/타락 테마, 그러나 밝은 팔레트 |
-| 전투 | 기존 WanChai | 원형 컨베이어 벨트 매칭 파괴 |
-
-### 3.3 금지사항
-
-- **피, 고어, 사실적 폭력** 표현 금지 (전연령 타겟)
-- 역병은 **보라/검정 안개**와 **눈 발광**으로 표현 (신체 변이 아님)
-- 크리터 사망 표현 없음 (벤치 퇴각 = "쉬러 가는 것")
-- 적 처치 = "정화" (역병에서 해방시키는 행위)
+> "District sector cleared. Advancing to next zone."
 
 ---
 
-## 4. 컨베이어 벨트와 세계관의 연결
+## 3. Tone & Mood
 
-기존 순환 벨트 메카닉을 세계관에 자연스럽게 녹인다.
+### 3.1 Visual Tone
 
-| 메카닉 요소 | 세계관 해석 |
-|------------|-----------|
-| 컨베이어 벨트 | 완차이 항구의 **원소 수로(Elemental Conduit)** — 크리터들이 원소 에너지를 타고 흐름 |
-| 큐브 → 역병 피조물 | 타락한 정령이 각 위치를 점거한 형태 |
-| 원소 매칭 파괴 | 동일 원소 크리터가 역병 피조물을 **정화** |
-| AP | 크리터의 **정화 에너지** — 소진되면 지침 |
-| 벤치 | **야영지** — 지친 크리터가 쉬는 곳 |
-| 풀 오비트 벤치행 | 매칭 대상이 없어서 수로를 한 바퀴 돌고 돌아옴 |
-| 게임 오버 (벤치 풀) | 야영지 초과 → 파티 와해 |
+| Axis              | Range             | Target                                              |
+| ----------------- | ----------------- | --------------------------------------------------- |
+| Cute vs. Gritty   | 0------[X]-----10 | **6/10 Gritty** -- cyberpunk neon, dark backgrounds |
+| Bright vs. Dark   | 0------[X]-----10 | **7/10 Dark** -- dark BG with bright neon accents   |
+| Serious vs. Humor | 0--[X]---------10 | **3/10 Serious** -- tense but not grimdark          |
 
----
+### 3.2 References
 
-## 5. 네이밍 가이드
+| Element      | Reference                  | Borrowed Aspect                    |
+| ------------ | -------------------------- | ---------------------------------- |
+| Visual style | Cyberpunk 2077 (lite)      | Neon lighting, holographic UI      |
+| Tone         | Ghost in the Shell (light) | AI companion, transhumanist themes |
+| Combat feel  | Vampire Survivors          | Auto-attack, swarm survival        |
+| Progression  | Hades                      | Meta-progression, hub between runs |
+| Setting      | Hong Kong (real districts) | Authentic street names, landmarks  |
 
-### 5.1 용어 사전
+### 3.3 Content Guidelines
 
-| 게임 용어 | 세계관 용어 | 영문 | 비고 |
-|----------|----------|------|------|
-| 스테이지 | 구역 | Zone | 분기 맵의 한 노드 |
-| 레벨 | 층 (Floor) | Floor | 한 런의 진행 단위 |
-| 월드 | 구역 (District) | District | 해금 가능한 도시 구역 |
-| 큐브 | 역병 피조물 | Blight | 적 유닛 |
-| 히어로 | 크리터 | Critter | 아군 유닛 |
-| AP | 정화 에너지 | Purify Energy (PE) | 표시는 여전히 숫자 |
-| 벤치 | 야영지 | Camp | 대기 슬롯 |
-| 컨베이어 벨트 | 원소 수로 | Conduit | 순환 벨트 |
-| 스코어 | 정화 점수 | Purification Score | 스코어 시스템 유지 |
-
-### 5.2 네이밍 원칙
-
-- **모든 UI 텍스트**는 세계관 용어 사용 (큐브 → Blight, 히어로 → Critter)
-- **코드 내부**는 기존 용어 유지 (Cube, Hero, Belt 등) — 마이그레이션 비용 최소화
-- **디자인 문서**는 세계관 용어를 우선 사용하되 괄호로 코드 용어 병기
+- **No gore or realistic violence** -- enemies are machines/drones, not humans
+- Destruction = "deactivation" or "neutralization", not killing
+- Cyberpunk aesthetic: neon colors, dark streets, holographic overlays
+- All enemy designs are geometric/abstract shapes (circle, triangle, rect, diamond, hexagon)
+- Player characters are stylized hand-drawn illustrations (bold outlines, cel-shading)
 
 ---
 
-## 미결 사항
+## 4. Enemy Lore: The Optimized
 
-- [ ] Q1: 주인공에게 이름/외형이 필요한가, 아니면 추상적 존재로 유지할 것인가?
-- [ ] Q2: 각 월드 진입 시 컷씬/스토리 텍스트 분량은 어느 정도가 적정한가?
-- [ ] Q3: 크리터 도감에 세계관 설정 텍스트(flavor text)를 얼마나 넣을 것인가?
+Enemies are machines and drones repurposed by the Optimizer. They are categorized by behavior, not by biological type.
+
+| Enemy Type | Lore Description                                          |
+| ---------- | --------------------------------------------------------- |
+| Basic      | Repurposed cleaning drone. Simple patrol pattern.         |
+| Fast       | Modified delivery drone. Kamikaze dive protocol.          |
+| Swarm      | Nanite clusters. Small, fast, expendable.                 |
+| Tank       | Converted construction mech. Heavy armor, slow.           |
+| Special    | Surveillance drone. Erratic evasion patterns.             |
+| Splitter   | Modular assembly bot. Fragments on destruction.           |
+| Chaser     | Security drone with target-lock AI.                       |
+| Shooter    | Armed patrol unit. Ranged plasma rounds.                  |
+| Sniper     | Precision targeting drone. High damage, low rate of fire. |
+| Guardian   | Riot suppression mech. Massive armor plating.             |
+| Teleporter | Phase-shift prototype. Unstable spatial displacement.     |
+
+### Boss Lore
+
+| Boss      | Chapter | Lore                                                    |
+| --------- | ------- | ------------------------------------------------------- |
+| Aero      | 1       | Military helicopter drone. First major Optimized unit.  |
+| Hydra     | 2       | Harbor patrol submersible. Multi-headed attack pattern. |
+| Blaze     | 3       | Fire suppression unit gone hostile. Incendiary weapons. |
+| Terra     | 4       | Underground boring machine. Seismic attacks.            |
+| Lumen     | 5       | Solar array defense. Blinding light-based weaponry.     |
+| Umbra     | 6       | Stealth infiltration unit. Shadow-phase capability.     |
+| Harvester | 7       | The Optimizer's guardian. Final line of defense.        |
+
+---
+
+## 5. Naming Guide
+
+### 5.1 Terminology
+
+| Game Term    | World Term       | Code Term   |
+| ------------ | ---------------- | ----------- |
+| Enemy        | Optimized        | Enemy       |
+| Boss         | High-Threat Unit | Boss        |
+| Player       | Operative        | Player      |
+| AI companion | ARIA             | ARIA        |
+| Stage        | Sector           | Stage       |
+| Chapter      | District         | Chapter     |
+| Base wall    | Defense barrier  | Base        |
+| Game over    | System shutdown  | GameOver    |
+| XP           | Data fragments   | XP          |
+| Gold         | Credits          | Gold        |
+| Level up     | System upgrade   | LevelUp     |
+| Meta upgrade | Lab enhancement  | MetaUpgrade |
+
+### 5.2 Naming Principles
+
+- **UI text**: Uses world terms where natural ("Sector Cleared", "Credits: 150")
+- **Code**: Uses game terms for clarity (Enemy, Boss, Gold)
+- **Design docs**: World terms preferred, code terms in parentheses when needed
+
+---
+
+## 6. Characters
+
+5 playable operatives, each with a unique element and ultimate ability.
+
+| ID   | Name | Element | Ultimate         | Passive Theme |
+| ---- | ---- | ------- | ---------------- | ------------- |
+| hai  | Hai  | Water   | Tidal Wave       | AoE burst     |
+| nova | Nova | Fire    | Absolute Zero    | Freeze/CC     |
+| sol  | Sol  | Light   | Solar Flare      | DoT burn      |
+| mei  | Mei  | Wind    | Piercing Gale    | Beam attack   |
+| kai  | Kai  | Earth   | Seismic Fortress | Stun + armor  |
+
+Characters are defined in `src/config/characters.ts` with element-specific passive abilities.
+
+---
+
+## Open Questions
+
+- [ ] Q1: Should ARIA have personality/humor, or remain purely functional?
+- [ ] Q2: Chapter-specific ARIA dialogue lines -- how many per chapter?
+- [ ] Q3: Ending sequence for Chapter 7 -- cutscene or in-game narrative?
+
+---
+
+## Change Log
+
+| Date       | Version | Content                                                                                                                                                                                                           |
+| ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-02-25 | v1.0    | Initial draft (puzzle-mode: critters, conveyor belt, elemental matching)                                                                                                                                          |
+| 2026-03-12 | v2.0    | Complete rewrite for auto-shooter: cyberpunk HK setting, ARIA AI companion, Optimized enemies, 7 chapters, 5 characters. Removed all puzzle references (conveyor, cubes, hero grid, critters, elemental conduit). |

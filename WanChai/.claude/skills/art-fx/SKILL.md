@@ -1,8 +1,8 @@
 ---
 name: art-fx
-description: "파티클 이펙트 + 비주얼 쥬스 — 파괴, 콤보, 축하, 스크린 셰이크"
+description: '파티클 이펙트 + 비주얼 쥬스 — 파괴, 콤보, 축하, 스크린 셰이크'
 user-invocable: true
-argument-hint: "[effect-type] e.g. match-destroy, combo-burst, celebration, screen-shake"
+argument-hint: '[effect-type] e.g. match-destroy, combo-burst, celebration, screen-shake'
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
 ---

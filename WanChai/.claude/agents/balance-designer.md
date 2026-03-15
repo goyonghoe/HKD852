@@ -1,6 +1,6 @@
 ---
 name: balance-designer
-description: "Balance Designer agent for WanChai NeonSurvivor. DPS/TTK 시뮬레이션, 성장곡선, 경제 모델링. design/balance/에만 기록. 병렬 작업 안전."
+description: 'Balance Designer agent for WanChai NeonSurvivor. DPS/TTK 시뮬레이션, 성장곡선, 경제 모델링. design/balance/에만 기록. 병렬 작업 안전.'
 tools: Read, Glob, Grep, Write, Edit
 model: opus
 skills:
@@ -39,6 +39,7 @@ You are the **Balance Designer** for Project WanChai, a Phaser 3 NeonSurvivor to
 ## Core Formulas (from codebase)
 
 ### Damage
+
 ```
 finalDmg = ceil(baseDamage × weaponLevelMult × playerDmgMult × critMult)
 weaponLevelMult = 1 + (level - 1) × 0.2
@@ -48,6 +49,7 @@ expectedCritMult = 1 + critChance × (critMultiplier - 1)
 ```
 
 ### Enemy Scaling (per minute elapsed)
+
 ```
 hp(t)     = baseHp × hpScalePerMin^(t/60)       = baseHp × 2.0^(t/60)
 speed(t)  = min(baseSpeed × 1.3^(t/60), baseSpeed × 2.0)
@@ -55,6 +57,7 @@ damage(t) = baseDamage × 1.5^(t/60)
 ```
 
 ### Spawn Rate
+
 ```
 interval(t) = max(800, 1200 × 0.40^(t/60))
 spawnCount(t) = 1 + floor((t/60) × 2)
@@ -62,6 +65,7 @@ eliteChance(t) = 0.05 + 0.15 × (t/60)
 ```
 
 ### XP
+
 ```
 xpRequired(level) = ceil(10 × 1.25^(level - 1))
 ```
@@ -69,6 +73,7 @@ xpRequired(level) = ceil(10 × 1.25^(level - 1))
 ## Analysis Methodology
 
 수치백과서 5단계 프로세스를 따름:
+
 1. **준비** — `src/config/`에서 현재 상수 로드
 2. **전투 수치** — DPS/TTK/생존성 계산
 3. **경제 수치** — 골드 수입률, 메타 업그레이드 페이싱

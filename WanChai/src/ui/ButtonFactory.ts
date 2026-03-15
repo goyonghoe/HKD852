@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { RETRO, UI_COLORS } from '../config/colors';
+import { RETRO, UI_COLORS, TEX, UI_CSS } from '../config/colors';
 import { VISUAL } from '../config/balance';
 
 export interface ButtonConfig {
@@ -17,10 +17,7 @@ export interface ButtonConfig {
 /**
  * Retro-style button with thick border and Pokemon selector cursor.
  */
-export function createButton(
-  scene: Phaser.Scene,
-  config: ButtonConfig
-): Phaser.GameObjects.Container {
+export function createButton(scene: Phaser.Scene, config: ButtonConfig): Phaser.GameObjects.Container {
   const {
     x,
     y,
@@ -51,7 +48,7 @@ export function createButton(
     bg.lineStyle(RETRO.borderWidth, RETRO.borderColor, 1.0);
     bg.strokeRoundedRect(-hw, -hh, width, height, RETRO.radius);
     // Top bevel
-    bg.lineStyle(1, 0xf87058, 0.5);
+    bg.lineStyle(1, TEX.BEVEL_ACCENT, 0.5);
     bg.lineBetween(-hw + 4, -hh + 4, hw - 4, -hh + 4);
   } else {
     // Drop shadow
@@ -69,7 +66,7 @@ export function createButton(
     bg.lineBetween(-hw + 4, -hh + 4, -hw + 4, hh - 4);
   }
 
-  const textColor = variant === 'primary' ? '#ffffff' : '#e2e8f0';
+  const textColor = variant === 'primary' ? UI_CSS.TEXT_WHITE : UI_CSS.HEADING;
   const text = scene.add
     .text(0, 0, label, {
       fontSize,
@@ -92,9 +89,7 @@ export function createButton(
   container.add([bg, text, cursor]);
 
   // Hit area
-  const hitZone = scene.add
-    .zone(0, 0, width, height)
-    .setInteractive({ useHandCursor: true });
+  const hitZone = scene.add.zone(0, 0, width, height).setInteractive({ useHandCursor: true });
 
   hitZone.on('pointerover', () => {
     cursor.setVisible(true);

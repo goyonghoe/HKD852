@@ -61,13 +61,13 @@ y=0
 
 ### Zone Definitions
 
-| Zone | Y Range     | Height | Purpose                                    |
-|------|-------------|--------|--------------------------------------------|
-| D    | 0--40       | 40px   | Safe area (notch, punch-hole). No content. |
-| A    | 40--130     | 90px   | Scene title, stage indicator, brand         |
-| B    | 130--850    | 720px  | Primary content area                        |
-| C    | 850--1240   | 390px  | Action buttons, progress, footer controls   |
-| D    | 1240--1280  | 40px   | Safe area (home indicator). No content.     |
+| Zone | Y Range    | Height | Purpose                                    |
+| ---- | ---------- | ------ | ------------------------------------------ |
+| D    | 0--40      | 40px   | Safe area (notch, punch-hole). No content. |
+| A    | 40--130    | 90px   | Scene title, stage indicator, brand        |
+| B    | 130--850   | 720px  | Primary content area                       |
+| C    | 850--1240  | 390px  | Action buttons, progress, footer controls  |
+| D    | 1240--1280 | 40px   | Safe area (home indicator). No content.    |
 
 ### Zone Rules
 
@@ -91,18 +91,18 @@ Zone A to Zone C, with HUD overlaid on top.
 Every text element in the game MUST use one of the sizes below. Nothing below
 14px is permitted on the 720px-wide canvas.
 
-| Category          | Size   | Weight        | Color Token      | Usage                              |
-|-------------------|--------|---------------|------------------|------------------------------------|
-| Scene Title       | 48px   | Bold (700)    | `#ffffff`        | Scene heading                      |
-| Brand Title       | 72px   | Bold (700)    | `#ffffff`        | WANCHAI logo only                  |
-| Score Display     | 42px   | Bold (700)    | `#e2e8f0`        | Score counters (monospace)         |
-| Section Heading   | 28--32px | Bold (700)  | `#e2e8f0`        | Card titles, result headers        |
-| Subsection        | 22px   | SemiBold (600)| `#e2e8f0`        | Subtitle, item names               |
-| Button Label      | 22--28px | Bold (700)  | `#ffffff`        | Primary/secondary button text      |
-| Body Primary      | 20px   | Regular (400) | `#a0aec0`        | Descriptions, instructions         |
-| Body Secondary    | 18px   | Regular (400) | `#718096`        | Flavor text, hints                 |
-| Info Label        | 16px   | Regular (400) | `#718096`        | HP, cost, status labels            |
-| Caption (minimum) | 14px   | Regular (400) | `#4a5568`        | Footnotes, version, progress       |
+| Category          | Size     | Weight         | Color Token | Usage                         |
+| ----------------- | -------- | -------------- | ----------- | ----------------------------- |
+| Scene Title       | 48px     | Bold (700)     | `#ffffff`   | Scene heading                 |
+| Brand Title       | 72px     | Bold (700)     | `#ffffff`   | WANCHAI logo only             |
+| Score Display     | 42px     | Bold (700)     | `#e2e8f0`   | Score counters (monospace)    |
+| Section Heading   | 28--32px | Bold (700)     | `#e2e8f0`   | Card titles, result headers   |
+| Subsection        | 22px     | SemiBold (600) | `#e2e8f0`   | Subtitle, item names          |
+| Button Label      | 22--28px | Bold (700)     | `#ffffff`   | Primary/secondary button text |
+| Body Primary      | 20px     | Regular (400)  | `#a0aec0`   | Descriptions, instructions    |
+| Body Secondary    | 18px     | Regular (400)  | `#718096`   | Flavor text, hints            |
+| Info Label        | 16px     | Regular (400)  | `#718096`   | HP, cost, status labels       |
+| Caption (minimum) | 14px     | Regular (400)  | `#4a5568`   | Footnotes, version, progress  |
 
 ### Absolute Rules
 
@@ -120,15 +120,15 @@ Every text element in the game MUST use one of the sizes below. Nothing below
 All interactive elements must meet these minimum dimensions. Measurements are in
 logical pixels on the 720x1280 canvas.
 
-| Element Type          | Minimum Size       | Notes                               |
-|-----------------------|--------------------|-------------------------------------|
-| Primary Button        | 220 x 60           | Full-width preferred (640 x 70)     |
-| Secondary Button      | 200 x 56           | Paired side-by-side: 280 x 60 each |
-| Icon Button           | 64 x 64            | Includes hit zone padding           |
-| Level-up Card         | 200 x 240          | Three cards side-by-side            |
-| List Item / Card      | full-width x 56    | Minimum row height                  |
-| Close Button (X)      | 48 x 48            | Must have zone, not just text       |
-| Speed Toggle          | 48 x 48            | In-game HUD                         |
+| Element Type     | Minimum Size    | Notes                              |
+| ---------------- | --------------- | ---------------------------------- |
+| Primary Button   | 220 x 60        | Full-width preferred (640 x 70)    |
+| Secondary Button | 200 x 56        | Paired side-by-side: 280 x 60 each |
+| Icon Button      | 64 x 64         | Includes hit zone padding          |
+| Level-up Card    | 200 x 240       | Three cards side-by-side           |
+| List Item / Card | full-width x 56 | Minimum row height                 |
+| Close Button (X) | 48 x 48         | Must have zone, not just text      |
+| Speed Toggle     | 48 x 48         | In-game HUD                        |
 
 ### Spacing Rules
 
@@ -160,6 +160,7 @@ logical pixels on the 720x1280 canvas.
 **Emotional target**: Anticipation -- assets loading, game preparing.
 
 **Information hierarchy**:
+
 1. Loading progress bar (center of screen)
 2. "Loading..." label (above bar)
 
@@ -168,6 +169,7 @@ logical pixels on the 720x1280 canvas.
 **Exit conditions**: All assets loaded and textures generated → MainMenuScene.
 
 **Layout**:
+
 ```
 Zone A: (empty)
 Zone B: Loading bar centered at y=640 (exact screen center)
@@ -184,6 +186,7 @@ Zone C: (empty)
 The START button should feel like the exciting, primary option.
 
 **Information hierarchy**:
+
 1. Game brand (WANCHAI title + NEON SURVIVOR subtitle)
 2. START button (biggest, most prominent)
 3. Meta navigation buttons (Weapon Codex, Enemy Codex, World Map, Upgrades)
@@ -192,6 +195,7 @@ The START button should feel like the exciting, primary option.
 **Time-on-screen**: 3--15 seconds (decision time).
 
 **Exit conditions**:
+
 - Tap START → RunScene
 - Tap UPGRADES → MetaScene
 - Tap WEAPON CODEX → WeaponCodexScene
@@ -199,6 +203,7 @@ The START button should feel like the exciting, primary option.
 - Tap WORLD MAP → WorldMapScene
 
 **Layout**:
+
 ```
 Zone A: WANCHAI brand (72px), subtitle "NEON SURVIVOR" (22px)
 Zone B: ARIA message panel (flavor text)
@@ -217,6 +222,7 @@ Level up by collecting XP orbs. Protect the base wall.
 **Emotional target**: Focus, flow, tension -- pure survival engagement.
 
 **Information hierarchy**:
+
 1. Game area (enemies descending, player at bottom, projectiles flying)
 2. Base HP bar (critical survival indicator)
 3. XP bar + level (growth indicator)
@@ -227,6 +233,7 @@ Level up by collecting XP orbs. Protect the base wall.
 **Time-on-screen**: 1--6 minutes per run (6 stages, 60s each + boss stages).
 
 **Exit conditions**:
+
 - Base HP reaches 0 → GameOverScene
 - All 6 stages cleared → GameOverScene (victory)
 - Level up → in-scene overlay (3 upgrade cards)
@@ -234,6 +241,7 @@ Level up by collecting XP orbs. Protect the base wall.
 - Mid-shop trigger → in-scene overlay (30s mark)
 
 **Layout**:
+
 ```
 Zone A: HUD bar (y=40--80):
         [Pause 48x48] [Sound 48x48] [Speed 48x48] | Stage Name 18px | Timer 22px
@@ -260,10 +268,12 @@ Level-up overlay pauses the game and shows 3 cards in the center.
 **Primary goal**: Show run results -- victory/defeat, stats, gold earned.
 
 **Emotional target**:
+
 - Victory: Pride, accomplishment -- "I survived all stages"
 - Defeat: Determination -- "I will try again with upgrades"
 
 **Information hierarchy**:
+
 1. RUN COMPLETE! or GAME OVER (giant title)
 2. Stats: Stage reached, enemies killed, gold earned, time survived
 3. RETRY and MENU buttons
@@ -271,10 +281,12 @@ Level-up overlay pauses the game and shows 3 cards in the center.
 **Time-on-screen**: 5--15 seconds.
 
 **Exit conditions**:
+
 - Tap RETRY → RunScene (new run)
 - Tap MENU → MainMenuScene
 
 **Layout**:
+
 ```
 Zone A: (empty -- title is in Zone B for dramatic effect)
 Zone B: Title (y~200, 48px, green/red)
@@ -292,6 +304,7 @@ Zone C: RETRY button (left, y~980, 260x70)
 **Emotional target**: Investment, growth -- "I am getting stronger for next run."
 
 **Information hierarchy**:
+
 1. Gold balance (how much can I spend?)
 2. Upgrade list with costs and current levels
 3. BACK button
@@ -299,9 +312,11 @@ Zone C: RETRY button (left, y~980, 260x70)
 **Time-on-screen**: 10--30 seconds.
 
 **Exit conditions**:
+
 - Tap BACK → MainMenuScene
 
 **Layout**:
+
 ```
 Zone A: "UPGRADES" (48px), Gold balance (22px, gold color)
 Zone B: Upgrade cards stacked vertically:
@@ -318,6 +333,7 @@ Zone C: BACK button (y~1050, 280x60)
 **Emotional target**: Discovery, planning -- "what weapons can I get?"
 
 **Information hierarchy**:
+
 1. Weapon list with icons and names
 2. Selected weapon detail panel (stats, DPS, description)
 3. BACK button
@@ -325,6 +341,7 @@ Zone C: BACK button (y~1050, 280x60)
 **Time-on-screen**: 10--60 seconds (browsing).
 
 **Exit conditions**:
+
 - Tap BACK → MainMenuScene
 
 ---
@@ -336,6 +353,7 @@ Zone C: BACK button (y~1050, 280x60)
 **Emotional target**: Knowledge, strategy -- "know thy enemy."
 
 **Information hierarchy**:
+
 1. Enemy list with shape icons and names
 2. Selected enemy detail panel (HP, speed, behavior, attack style)
 3. BACK button
@@ -343,6 +361,7 @@ Zone C: BACK button (y~1050, 280x60)
 **Time-on-screen**: 10--60 seconds (browsing).
 
 **Exit conditions**:
+
 - Tap BACK → MainMenuScene
 
 ---
@@ -355,6 +374,7 @@ Victoria Peak). See stage/enemy composition per zone. Tap for info popups.
 **Emotional target**: Exploration, narrative context -- "this is the world I am fighting in."
 
 **Information hierarchy**:
+
 1. Map visualization with 3 zones
 2. Zone info on tap (enemy types, boss info)
 3. BACK button
@@ -362,6 +382,7 @@ Victoria Peak). See stage/enemy composition per zone. Tap for info popups.
 **Time-on-screen**: 10--30 seconds.
 
 **Exit conditions**:
+
 - Tap BACK → MainMenuScene
 
 ---
@@ -394,19 +415,19 @@ MainMenu -----> RunScene (Stage 1: Wave) -----> RunScene (Stage 2: Boss)
 
 ### 5.2 Emotional Beat Map
 
-| Scene/Phase          | Arousal | Valence   | Pacing   |
-|----------------------|---------|-----------|----------|
-| MainMenu             | Low     | Positive  | Slow     |
-| Stage 1 (Wave)       | Medium  | Positive  | Moderate |
-| Stage 2 (Boss)       | High    | Tense     | Fast     |
-| Level-up overlay     | Low     | Positive  | Slow     |
-| Stage 3-4            | High    | Neutral   | Fast     |
-| Mid-shop overlay     | Low     | Positive  | Slow     |
-| Stage 5-6            | Maximum | Tense     | Fast     |
-| Final Boss           | Maximum | Climax    | Fast     |
-| GameOver (win)       | High    | Positive  | Slow     |
-| GameOver (loss)      | Medium  | Negative  | Slow     |
-| MetaScene            | Low     | Positive  | Slow     |
+| Scene/Phase      | Arousal | Valence  | Pacing   |
+| ---------------- | ------- | -------- | -------- |
+| MainMenu         | Low     | Positive | Slow     |
+| Stage 1 (Wave)   | Medium  | Positive | Moderate |
+| Stage 2 (Boss)   | High    | Tense    | Fast     |
+| Level-up overlay | Low     | Positive | Slow     |
+| Stage 3-4        | High    | Neutral  | Fast     |
+| Mid-shop overlay | Low     | Positive | Slow     |
+| Stage 5-6        | Maximum | Tense    | Fast     |
+| Final Boss       | Maximum | Climax   | Fast     |
+| GameOver (win)   | High    | Positive | Slow     |
+| GameOver (loss)  | Medium  | Negative | Slow     |
+| MetaScene        | Low     | Positive | Slow     |
 
 ### 5.3 Pacing Principles
 
@@ -438,62 +459,62 @@ are violated.
 
 ### 6.1 Typography
 
-| ID     | Criterion                                                      |
-|--------|----------------------------------------------------------------|
-| TYP-01 | No text element below 14px anywhere in the scene               |
-| TYP-02 | No interactive text (buttons, labels) below 16px               |
-| TYP-03 | Scene title uses 40--48px bold                                 |
-| TYP-04 | Score/timer displays use monospace bold                         |
-| TYP-05 | All numeric values use monospace font                          |
-| TYP-06 | Text contrast ratio >= 4.5:1 against background               |
-| TYP-07 | Text shadow applied on all text over non-panel backgrounds     |
+| ID     | Criterion                                                  |
+| ------ | ---------------------------------------------------------- |
+| TYP-01 | No text element below 14px anywhere in the scene           |
+| TYP-02 | No interactive text (buttons, labels) below 16px           |
+| TYP-03 | Scene title uses 40--48px bold                             |
+| TYP-04 | Score/timer displays use monospace bold                    |
+| TYP-05 | All numeric values use monospace font                      |
+| TYP-06 | Text contrast ratio >= 4.5:1 against background            |
+| TYP-07 | Text shadow applied on all text over non-panel backgrounds |
 
 ### 6.2 Touch Targets
 
-| ID     | Criterion                                                      |
-|--------|----------------------------------------------------------------|
-| TCH-01 | All interactive elements >= 48 x 48 logical pixels             |
-| TCH-02 | Primary buttons >= 220 x 60                                    |
-| TCH-03 | Icon buttons >= 64 x 64 (including hit zone)                   |
-| TCH-04 | Adjacent touch targets spaced >= 8px apart                     |
-| TCH-05 | No overlapping hit zones                                       |
+| ID     | Criterion                                          |
+| ------ | -------------------------------------------------- |
+| TCH-01 | All interactive elements >= 48 x 48 logical pixels |
+| TCH-02 | Primary buttons >= 220 x 60                        |
+| TCH-03 | Icon buttons >= 64 x 64 (including hit zone)       |
+| TCH-04 | Adjacent touch targets spaced >= 8px apart         |
+| TCH-05 | No overlapping hit zones                           |
 
 ### 6.3 Layout
 
-| ID     | Criterion                                                      |
-|--------|----------------------------------------------------------------|
-| LAY-01 | No interactive content in Zone D (y < 40 or y > 1240)         |
-| LAY-02 | Primary action button center falls within y=900 to y=1100     |
-| LAY-03 | Scene title positioned within Zone A (y=40 to y=130)          |
-| LAY-04 | Content respects 40px horizontal margins (x=40 to x=680)      |
-| LAY-05 | No content clipped or overlapping at 720x1280                  |
+| ID     | Criterion                                                 |
+| ------ | --------------------------------------------------------- |
+| LAY-01 | No interactive content in Zone D (y < 40 or y > 1240)     |
+| LAY-02 | Primary action button center falls within y=900 to y=1100 |
+| LAY-03 | Scene title positioned within Zone A (y=40 to y=130)      |
+| LAY-04 | Content respects 40px horizontal margins (x=40 to x=680)  |
+| LAY-05 | No content clipped or overlapping at 720x1280             |
 
 ### 6.4 Information Hierarchy
 
-| ID     | Criterion                                                      |
-|--------|----------------------------------------------------------------|
-| INF-01 | Most important information is largest and highest on screen     |
-| INF-02 | Visual grouping via panels distinguishes content sections       |
-| INF-03 | Interactive elements visually differentiated from static text   |
-| INF-04 | Disabled states clearly communicated (alpha <= 0.4)            |
-| INF-05 | Selected states clearly communicated (border + overlay)        |
+| ID     | Criterion                                                     |
+| ------ | ------------------------------------------------------------- |
+| INF-01 | Most important information is largest and highest on screen   |
+| INF-02 | Visual grouping via panels distinguishes content sections     |
+| INF-03 | Interactive elements visually differentiated from static text |
+| INF-04 | Disabled states clearly communicated (alpha <= 0.4)           |
+| INF-05 | Selected states clearly communicated (border + overlay)       |
 
 ### 6.5 Transitions
 
-| ID     | Criterion                                                      |
-|--------|----------------------------------------------------------------|
-| TRN-01 | Every scene transition uses camera fadeOut/fadeIn               |
-| TRN-02 | No scene accepts input during fade transitions                 |
-| TRN-03 | Fade duration matches VISUAL.ANIM.SCENE_FADE constant          |
-| TRN-04 | Every scene has a back/exit path (no dead ends)                |
+| ID     | Criterion                                             |
+| ------ | ----------------------------------------------------- |
+| TRN-01 | Every scene transition uses camera fadeOut/fadeIn     |
+| TRN-02 | No scene accepts input during fade transitions        |
+| TRN-03 | Fade duration matches VISUAL.ANIM.SCENE_FADE constant |
+| TRN-04 | Every scene has a back/exit path (no dead ends)       |
 
 ### 6.6 Accessibility
 
-| ID     | Criterion                                                      |
-|--------|----------------------------------------------------------------|
-| ACC-01 | Color is never the sole differentiator (icon/shape required)   |
+| ID     | Criterion                                                                |
+| ------ | ------------------------------------------------------------------------ |
+| ACC-01 | Color is never the sole differentiator (icon/shape required)             |
 | ACC-02 | Enemy types identifiable by shape (circle/triangle/rect/diamond/hexagon) |
-| ACC-03 | Tap feedback: scale 0.95 + alpha 0.8, duration 80ms           |
+| ACC-03 | Tap feedback: scale 0.95 + alpha 0.8, duration 80ms                      |
 
 ---
 
@@ -501,80 +522,80 @@ are violated.
 
 ### 7.1 BootScene / PreloadScene
 
-| ID       | Criterion                                             |
-|----------|-------------------------------------------------------|
-| BOOT-01  | Loading bar centered at screen center (y=640)         |
-| BOOT-02  | "Loading..." text >= 20px                             |
-| BOOT-03  | Transition to next scene within 3 seconds             |
+| ID      | Criterion                                     |
+| ------- | --------------------------------------------- |
+| BOOT-01 | Loading bar centered at screen center (y=640) |
+| BOOT-02 | "Loading..." text >= 20px                     |
+| BOOT-03 | Transition to next scene within 3 seconds     |
 
 ### 7.2 MainMenuScene
 
-| ID       | Criterion                                             |
-|----------|-------------------------------------------------------|
-| MENU-01  | WANCHAI title at 72px bold in Zone A                  |
-| MENU-02  | START button in Zone C, primary variant, >= 440x70    |
-| MENU-03  | Navigation buttons >= 200x56 each                     |
-| MENU-04  | Version text >= 14px                                  |
-| MENU-05  | ARIA message text >= 16px                             |
+| ID      | Criterion                                          |
+| ------- | -------------------------------------------------- |
+| MENU-01 | WANCHAI title at 72px bold in Zone A               |
+| MENU-02 | START button in Zone C, primary variant, >= 440x70 |
+| MENU-03 | Navigation buttons >= 200x56 each                  |
+| MENU-04 | Version text >= 14px                               |
+| MENU-05 | ARIA message text >= 16px                          |
 
 ### 7.3 RunScene
 
-| ID       | Criterion                                             |
-|----------|-------------------------------------------------------|
-| RUN-01   | HUD bar height <= 80px (maximize game area)           |
-| RUN-02   | Timer at 22px monospace bold                          |
-| RUN-03   | Pause + Sound + Speed buttons >= 48 x 48             |
-| RUN-04   | XP bar clearly visible (600px wide)                   |
-| RUN-05   | Base HP bar clearly visible (680px wide)              |
-| RUN-06   | Stage name >= 18px                                    |
-| RUN-07   | Level-up cards >= 200x240 each, 3 cards visible      |
-| RUN-08   | Stage clear overlay text >= 32px                      |
-| RUN-09   | Mid-shop overlay buttons >= 220x60                    |
+| ID     | Criterion                                       |
+| ------ | ----------------------------------------------- |
+| RUN-01 | HUD bar height <= 80px (maximize game area)     |
+| RUN-02 | Timer at 22px monospace bold                    |
+| RUN-03 | Pause + Sound + Speed buttons >= 48 x 48        |
+| RUN-04 | XP bar clearly visible (600px wide)             |
+| RUN-05 | Base HP bar clearly visible (680px wide)        |
+| RUN-06 | Stage name >= 18px                              |
+| RUN-07 | Level-up cards >= 200x240 each, 3 cards visible |
+| RUN-08 | Stage clear overlay text >= 32px                |
+| RUN-09 | Mid-shop overlay buttons >= 220x60              |
 
 ### 7.4 GameOverScene
 
-| ID       | Criterion                                             |
-|----------|-------------------------------------------------------|
-| GOVER-01 | Title at 48px (green for victory, red for defeat)     |
-| GOVER-02 | Stats labels >= 16px                                  |
-| GOVER-03 | Stats values >= 22px bold monospace                   |
+| ID       | Criterion                                            |
+| -------- | ---------------------------------------------------- |
+| GOVER-01 | Title at 48px (green for victory, red for defeat)    |
+| GOVER-02 | Stats labels >= 16px                                 |
+| GOVER-03 | Stats values >= 22px bold monospace                  |
 | GOVER-04 | RETRY and MENU buttons in Zone C, >= 260 x 70        |
-| GOVER-05 | Gold earned displayed prominently (22px, gold color)  |
+| GOVER-05 | Gold earned displayed prominently (22px, gold color) |
 
 ### 7.5 MetaScene
 
-| ID       | Criterion                                             |
-|----------|-------------------------------------------------------|
-| META-01  | Gold balance prominent (22px, gold)                   |
-| META-02  | Upgrade costs >= 22px                                 |
-| META-03  | Upgrade descriptions >= 16px                          |
-| META-04  | BACK button in Zone C                                 |
-| META-05  | Maxed upgrades clearly marked                         |
+| ID      | Criterion                           |
+| ------- | ----------------------------------- |
+| META-01 | Gold balance prominent (22px, gold) |
+| META-02 | Upgrade costs >= 22px               |
+| META-03 | Upgrade descriptions >= 16px        |
+| META-04 | BACK button in Zone C               |
+| META-05 | Maxed upgrades clearly marked       |
 
 ### 7.6 WeaponCodexScene
 
-| ID       | Criterion                                             |
-|----------|-------------------------------------------------------|
-| WCDX-01  | Weapon names >= 22px                                  |
-| WCDX-02  | Weapon stats >= 16px                                  |
-| WCDX-03  | BACK button in Zone C                                 |
+| ID      | Criterion             |
+| ------- | --------------------- |
+| WCDX-01 | Weapon names >= 22px  |
+| WCDX-02 | Weapon stats >= 16px  |
+| WCDX-03 | BACK button in Zone C |
 
 ### 7.7 EnemyCodexScene
 
-| ID       | Criterion                                             |
-|----------|-------------------------------------------------------|
-| ECDX-01  | Enemy names >= 22px                                   |
-| ECDX-02  | Enemy stats >= 16px                                   |
-| ECDX-03  | BACK button in Zone C                                 |
+| ID      | Criterion             |
+| ------- | --------------------- |
+| ECDX-01 | Enemy names >= 22px   |
+| ECDX-02 | Enemy stats >= 16px   |
+| ECDX-03 | BACK button in Zone C |
 
 ### 7.8 WorldMapScene
 
-| ID       | Criterion                                             |
-|----------|-------------------------------------------------------|
-| WMAP-01  | Zone names >= 22px                                    |
-| WMAP-02  | Info popup text >= 16px                               |
-| WMAP-03  | BACK button in Zone C                                 |
-| WMAP-04  | Map zones tappable with >= 48x48 hit zones            |
+| ID      | Criterion                                  |
+| ------- | ------------------------------------------ |
+| WMAP-01 | Zone names >= 22px                         |
+| WMAP-02 | Info popup text >= 16px                    |
+| WMAP-03 | BACK button in Zone C                      |
+| WMAP-04 | Map zones tappable with >= 48x48 hit zones |
 
 ---
 
@@ -593,9 +614,9 @@ Current violations should be verified against the active 9-scene structure.
 
 ### 8.2 Known Issues
 
-| Scene            | Issue                  | Violation IDs  | Fix                       |
-|------------------|------------------------|----------------|---------------------------|
-| (To be audited)  | Full UX audit pending  | —              | Run /ux-gate after pivot  |
+| Scene           | Issue                 | Violation IDs | Fix                      |
+| --------------- | --------------------- | ------------- | ------------------------ |
+| (To be audited) | Full UX audit pending | —             | Run /ux-gate after pivot |
 
 ### 8.3 Total Violation Count
 
@@ -630,16 +651,16 @@ Current violations should be verified against the active 9-scene structure.
 
 For quick reference when verifying text colors against acceptance criteria.
 
-| Token       | Hex       | Usage                          | Contrast vs #0a0a1a |
-|-------------|-----------|--------------------------------|---------------------|
-| `#ffffff`   | White     | Titles, button labels          | 18.6:1              |
-| `#e2e8f0`   | Light     | Primary body text, values      | 15.0:1              |
-| `#a0aec0`   | Medium    | Descriptions, subtitles        | 8.2:1               |
-| `#718096`   | Muted     | Secondary info, labels         | 4.9:1               |
-| `#4a5568`   | Dim       | Captions, footer, disabled     | 2.8:1 (decorative)  |
-| `#e94560`   | Accent    | Highlights, emphasis           | 6.0:1               |
-| `#38b868`   | Success   | Win states, confirm            | 6.5:1               |
-| `#f0d050`   | Gold      | Stars, premium, rewards        | 11.0:1              |
+| Token     | Hex     | Usage                      | Contrast vs #0a0a1a |
+| --------- | ------- | -------------------------- | ------------------- |
+| `#ffffff` | White   | Titles, button labels      | 18.6:1              |
+| `#e2e8f0` | Light   | Primary body text, values  | 15.0:1              |
+| `#a0aec0` | Medium  | Descriptions, subtitles    | 8.2:1               |
+| `#718096` | Muted   | Secondary info, labels     | 4.9:1               |
+| `#4a5568` | Dim     | Captions, footer, disabled | 2.8:1 (decorative)  |
+| `#e94560` | Accent  | Highlights, emphasis       | 6.0:1               |
+| `#38b868` | Success | Win states, confirm        | 6.5:1               |
+| `#f0d050` | Gold    | Stars, premium, rewards    | 11.0:1              |
 
 **Note**: `#4a5568` at 2.8:1 is below the 4.5:1 minimum for body text. It is
 acceptable ONLY for decorative/non-essential labels. Any informational text using

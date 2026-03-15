@@ -1,8 +1,8 @@
 ---
 name: ui-review
-description: "UI/UX 품질 리뷰 — ui-ux-guideline.md 대비 검증"
+description: 'UI/UX 품질 리뷰 — ui-ux-guideline.md 대비 검증'
 user-invocable: true
-argument-hint: "[scope] e.g. all, puzzle-hud, result, menu"
+argument-hint: '[scope] e.g. all, puzzle-hud, result, menu'
 allowed-tools: Read, Glob, Grep
 model: opus
 ---

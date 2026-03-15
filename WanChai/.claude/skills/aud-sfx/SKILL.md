@@ -1,8 +1,8 @@
 ---
 name: aud-sfx
-description: "프로시저럴 SFX 생성 — 게임 이벤트별 사운드 이펙트"
+description: '프로시저럴 SFX 생성 — 게임 이벤트별 사운드 이펙트'
 user-invocable: true
-argument-hint: "[event] e.g. enemy-death, boss-warning, level-up, button-tap, weapon-fire"
+argument-hint: '[event] e.g. enemy-death, boss-warning, level-up, button-tap, weapon-fire'
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
 ---
@@ -20,13 +20,13 @@ Audio Designer로서 게임 이벤트에 대응하는 프로시저럴 SFX를 생
 
 ## SFX 카테고리
 
-| 카테고리 | 이벤트 | 특성 |
-|---------|--------|------|
-| **전투** | 적 처치, 보스 처치, 피격, 무기 발사 | 임팩트, 빠른 어택 |
-| **진행** | 레벨업, 스테이지 클리어, 신기록 | 상승 아르페지오, 밝은 톤 |
-| **경고** | 보스 등장, 기지 피격, HP 낮음 | 하강 톤, 긴박감 |
-| **UI** | 버튼 탭, 메뉴 이동, 구매 확인 | 짧은 클릭, 밝은 톤 |
-| **보상** | XP 획득, 골드 획득, 무기 획득 | 밝은 징글, 코인 소리 |
+| 카테고리 | 이벤트                              | 특성                     |
+| -------- | ----------------------------------- | ------------------------ |
+| **전투** | 적 처치, 보스 처치, 피격, 무기 발사 | 임팩트, 빠른 어택        |
+| **진행** | 레벨업, 스테이지 클리어, 신기록     | 상승 아르페지오, 밝은 톤 |
+| **경고** | 보스 등장, 기지 피격, HP 낮음       | 하강 톤, 긴박감          |
+| **UI**   | 버튼 탭, 메뉴 이동, 구매 확인       | 짧은 클릭, 밝은 톤       |
+| **보상** | XP 획득, 골드 획득, 무기 획득       | 밝은 징글, 코인 소리     |
 
 ## 절차
 

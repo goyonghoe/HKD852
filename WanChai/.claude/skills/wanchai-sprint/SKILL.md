@@ -1,8 +1,9 @@
 ---
 name: wanchai-sprint
-description: "WanChai 에이전트 팀 스프린트 실행 — CEO가 목표만 지정하면 팀이 자율적으로 분배/소통/검증"
+description: 'WanChai 에이전트 팀 스프린트 실행 — CEO가 목표만 지정하면 팀이 자율적으로 분배/소통/검증'
 user-invocable: true
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Agent, TeamCreate, TeamDelete, TaskCreate, TaskUpdate, TaskList, TaskGet, SendMessage
+model: sonnet
 ---
 
 # /wanchai-sprint — Agent Teams 자율 스프린트
@@ -12,6 +13,7 @@ CEO로부터 스프린트 목표를 받아 에이전트 팀을 구성하고, 태
 ## 입력
 
 CEO가 스프린트 목표를 자연어로 전달:
+
 ```
 /wanchai-sprint "무기 코덱스 씬 구현 — 10종 무기 아이콘 + 상세 정보 + 잠금/해금 표시"
 ```
@@ -36,14 +38,14 @@ CEO가 스프린트 목표를 자연어로 전달:
 
 스프린트 목표를 분석하여 필요한 에이전트 역할을 판별한다. **6명 전원이 아닌, 필요한 2~4명만 선택**.
 
-| 목표 유형 | 필요 역할 | 예시 |
-|----------|----------|------|
-| 신규 기능 구현 | designer + coder + ux | 무기 코덱스 씬 |
-| 밸런스 조정 | balancer + designer + coder | Stage 3 난이도 하향 |
-| UI 폴리시 | ux + coder | 전체 UI 오버플로 수정 |
-| VFX/아트 추가 | artist + coder | 새 적 스프라이트 + 파티클 |
-| 오디오 추가 | audio + coder | 보스 BGM + SFX |
-| 풀 파이프라인 | designer + coder + ux + balancer | 새 스테이지 전체 |
+| 목표 유형      | 필요 역할                        | 예시                      |
+| -------------- | -------------------------------- | ------------------------- |
+| 신규 기능 구현 | designer + coder + ux            | 무기 코덱스 씬            |
+| 밸런스 조정    | balancer + designer + coder      | Stage 3 난이도 하향       |
+| UI 폴리시      | ux + coder                       | 전체 UI 오버플로 수정     |
+| VFX/아트 추가  | artist + coder                   | 새 적 스프라이트 + 파티클 |
+| 오디오 추가    | audio + coder                    | 보스 BGM + SFX            |
+| 풀 파이프라인  | designer + coder + ux + balancer | 새 스테이지 전체          |
 
 ### Phase 2: 팀 생성 + 태스크 분해
 
@@ -54,6 +56,7 @@ CEO가 스프린트 목표를 자연어로 전달:
 #### 태스크 분해 패턴
 
 **기능 구현 스프린트** (designer + coder + ux):
+
 ```
 Task 1: [designer] UX 경험 설계서 작성 → design/ux/{feature}-experience.md
 Task 2: [designer] 메카닉 스펙 작성 (blockedBy: 1) → design/specs/mechanics/SPEC-XXX.md
@@ -63,6 +66,7 @@ Task 5: [coder] 피드백 반영 + 빌드+테스트+배포 (blockedBy: 4)
 ```
 
 **밸런스 조정 스프린트** (balancer + designer + coder):
+
 ```
 Task 1: [balancer] 현재 DPS/TTK 분석 → design/balance/
 Task 2: [balancer] 변경 제안서 작성 (blockedBy: 1)
@@ -72,6 +76,7 @@ Task 5: [coder] 빌드+테스트+배포 (blockedBy: 4)
 ```
 
 **UI 폴리시 스프린트** (ux + coder):
+
 ```
 Task 1: [ux] 전체 씬 UI 감사
 Task 2: [coder] 수정 구현 (blockedBy: 1)
@@ -85,14 +90,14 @@ Task 4: [coder] 빌드+테스트+배포 (blockedBy: 3)
 
 #### 스폰 대상과 컨텍스트
 
-| 역할 | 팀원 이름 | subagent_type | 에이전트 정의 | 추가 컨텍스트 |
-|------|----------|---------------|-------------|-------------|
-| 기획 | `designer` | general-purpose | `.claude/agents/game-designer.md` | `design/status.json` |
-| 구현 | `coder` | general-purpose | `.claude/agents/programmer.md` | 관련 spec 파일 |
+| 역할   | 팀원 이름  | subagent_type   | 에이전트 정의                        | 추가 컨텍스트                         |
+| ------ | ---------- | --------------- | ------------------------------------ | ------------------------------------- |
+| 기획   | `designer` | general-purpose | `.claude/agents/game-designer.md`    | `design/status.json`                  |
+| 구현   | `coder`    | general-purpose | `.claude/agents/programmer.md`       | 관련 spec 파일                        |
 | 밸런스 | `balancer` | general-purpose | `.claude/agents/balance-designer.md` | `design/reference/numerical-bible.md` |
-| UI | `ux` | general-purpose | `.claude/agents/ui-designer.md` | `design/reference/ui-ux-guideline.md` |
-| 아트 | `artist` | general-purpose | `.claude/agents/art-director.md` | `design/reference/art-style-guide.md` |
-| 오디오 | `audio` | general-purpose | `.claude/agents/audio-designer.md` | `src/audio/` 파일들 |
+| UI     | `ux`       | general-purpose | `.claude/agents/ui-designer.md`      | `design/reference/ui-ux-guideline.md` |
+| 아트   | `artist`   | general-purpose | `.claude/agents/art-director.md`     | `design/reference/art-style-guide.md` |
+| 오디오 | `audio`    | general-purpose | `.claude/agents/audio-designer.md`   | `src/audio/` 파일들                   |
 
 #### 스폰 프롬프트 구조
 
@@ -156,14 +161,14 @@ Your name: {NAME}
 
 #### 팀원 간 소통 패턴 (허용)
 
-| From → To | 사유 | 예시 |
-|-----------|------|------|
-| designer → coder | 스펙 전달/수정 | "SPEC-025 ready at design/specs/mechanics/SPEC-025.md" |
-| coder → designer | 스펙 질의 | "SPEC-025: does 'multi-hit' include reflected projectiles?" |
-| coder → ux | UI 구현 질의 | "Panel width 400px — touch target 48dp on both sides?" |
-| ux → coder | 수정 요청 | "Font size 12px → must be 14px minimum. Fix src/scenes/X.ts L45" |
-| balancer → coder | 수치 변경 | "balance.ts L23: COMBO_MULT 0.15 → 0.20" |
-| 누구든 → lead | 블로커 보고 | "Blocked: need CEO decision on X" |
+| From → To        | 사유           | 예시                                                             |
+| ---------------- | -------------- | ---------------------------------------------------------------- |
+| designer → coder | 스펙 전달/수정 | "SPEC-025 ready at design/specs/mechanics/SPEC-025.md"           |
+| coder → designer | 스펙 질의      | "SPEC-025: does 'multi-hit' include reflected projectiles?"      |
+| coder → ux       | UI 구현 질의   | "Panel width 400px — touch target 48dp on both sides?"           |
+| ux → coder       | 수정 요청      | "Font size 12px → must be 14px minimum. Fix src/scenes/X.ts L45" |
+| balancer → coder | 수치 변경      | "balance.ts L23: COMBO_MULT 0.15 → 0.20"                         |
+| 누구든 → lead    | 블로커 보고    | "Blocked: need CEO decision on X"                                |
 
 ### Phase 5: 검증 게이트 체인
 
@@ -171,13 +176,13 @@ Your name: {NAME}
 
 #### 필수 게이트 (순서대로)
 
-| # | Gate | 담당 | 통과 조건 | 실패 시 |
-|---|------|------|----------|--------|
-| 1 | Build + Test | coder (또는 lead) | `npm run build && npm test -- --run` PASS | coder에게 수정 요청 |
-| 2 | Test count | lead | 리팩토링 시 테스트 수 감소 없음 | coder에게 테스트 추가 요청 |
-| 3 | Wiring check | lead | 새 씬/플래그 시 `grep scene.start` 확인 | coder에게 배선 수정 요청 |
-| 4 | UX gate | ux (또는 lead) | `/ux-gate` 기준 PASS | ux+coder에게 수정 요청 |
-| 5 | Deploy | coder (또는 lead) | `vercel deploy --prod` 성공 | 롤백 후 원인 분석 |
+| #   | Gate         | 담당              | 통과 조건                                 | 실패 시                    |
+| --- | ------------ | ----------------- | ----------------------------------------- | -------------------------- |
+| 1   | Build + Test | coder (또는 lead) | `npm run build && npm test -- --run` PASS | coder에게 수정 요청        |
+| 2   | Test count   | lead              | 리팩토링 시 테스트 수 감소 없음           | coder에게 테스트 추가 요청 |
+| 3   | Wiring check | lead              | 새 씬/플래그 시 `grep scene.start` 확인   | coder에게 배선 수정 요청   |
+| 4   | UX gate      | ux (또는 lead)    | `/ux-gate` 기준 PASS                      | ux+coder에게 수정 요청     |
+| 5   | Deploy       | coder (또는 lead) | `vercel deploy --prod` 성공               | 롤백 후 원인 분석          |
 
 **게이트 실패 시**: FAIL 지점부터 루프백. 새 태스크를 생성하여 수정 → 재검증.
 
@@ -199,36 +204,42 @@ Your name: {NAME}
 ## 실행 요약
 
 ### 작업 정보
+
 - **스프린트 목표**: {목표}
 - **완료 시간**: {YYYY-MM-DD HH:MM}
 - **실행 방식**: Agent Teams
 
 ### 팀 구성
-| 팀원 | 역할 | 태스크 수 | 완료 |
-|------|------|----------|------|
-| designer | 기획 | 2 | 2/2 |
-| coder | 구현 | 3 | 3/3 |
-| ux | UX 검증 | 1 | 1/1 |
+
+| 팀원     | 역할    | 태스크 수 | 완료 |
+| -------- | ------- | --------- | ---- |
+| designer | 기획    | 2         | 2/2  |
+| coder    | 구현    | 3         | 3/3  |
+| ux       | UX 검증 | 1         | 1/1  |
 
 ### 검증 게이트
-| Gate | 결과 |
-|------|------|
-| Build + Test | PASS (tests: XXX/0/XXX) |
-| Wiring check | PASS (또는 N/A) |
-| UX gate | PASS (또는 N/A) |
-| Deploy | PASS (URL: https://project-wanchai.vercel.app) |
+
+| Gate         | 결과                                           |
+| ------------ | ---------------------------------------------- |
+| Build + Test | PASS (tests: XXX/0/XXX)                        |
+| Wiring check | PASS (또는 N/A)                                |
+| UX gate      | PASS (또는 N/A)                                |
+| Deploy       | PASS (URL: https://project-wanchai.vercel.app) |
 
 ### 변경 파일
+
 - `design/ux/xxx-experience.md` — UX 경험 설계서
 - `design/specs/mechanics/SPEC-XXX.md` — 메카닉 스펙
 - `src/scenes/XxxScene.ts` — 씬 구현
 - `tests/XxxScene.test.ts` — 테스트
 
 ### 팀 협업 하이라이트
+
 - designer → coder: 스펙 전달 + 2건 질의응답
 - ux → coder: 폰트 크기 수정 1건
 
 ### 다음 스프린트 제안 (있으면)
+
 - [ ] 후속 작업 항목
 ```
 
@@ -245,6 +256,7 @@ Your name: {NAME}
 ## 에스컬레이션 규칙
 
 다음 상황은 CEO에게 즉시 보고하고 판단을 요청한다:
+
 - 팀원 간 의견 충돌이 해소되지 않을 때
 - 스프린트 목표 범위 밖의 변경이 필요할 때
 - 검증 게이트 3회 연속 FAIL

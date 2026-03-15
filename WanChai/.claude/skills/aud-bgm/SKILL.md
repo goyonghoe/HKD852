@@ -1,10 +1,10 @@
 ---
 name: aud-bgm
-description: "프로시저럴 BGM 생성 — 사이버펑크 분위기 Web Audio API 트랙"
+description: '프로시저럴 BGM 생성 — 사이버펑크 분위기 Web Audio API 트랙'
 user-invocable: true
-argument-hint: "[mood/scene] e.g. main-menu, combat, boss, gameover, meta"
+argument-hint: '[mood/scene] e.g. main-menu, combat, boss, gameover, meta'
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
-model: opus
+model: sonnet
 ---
 
 ## 역할
@@ -20,13 +20,13 @@ Web Audio API로 런타임 생성되며, 외부 오디오 파일 의존 없이 �
 
 ## BGM 무드 가이드
 
-| 씬 | BPM | 키 | 분위기 | 악기 구성 |
-|-----|-----|-----|--------|----------|
-| MainMenu | 90 | C minor | 신비, 기대감 | Pad + 아르페지오 |
-| Combat | 120-140 | A minor | 긴장, 액션 | Lead + Bass + Drum |
-| Boss | 150+ | E minor | 위협, 압도 | 풀 레이어 + 디스토션 |
-| GameOver | 80 | D minor | 아쉬움, 재도전 욕구 | 느린 패드 + 에코 |
-| Meta/Codex | 85 | F major | 차분, 성취감 | 아르페지오 + 패드 |
+| 씬         | BPM     | 키      | 분위기              | 악기 구성            |
+| ---------- | ------- | ------- | ------------------- | -------------------- |
+| MainMenu   | 90      | C minor | 신비, 기대감        | Pad + 아르페지오     |
+| Combat     | 120-140 | A minor | 긴장, 액션          | Lead + Bass + Drum   |
+| Boss       | 150+    | E minor | 위협, 압도          | 풀 레이어 + 디스토션 |
+| GameOver   | 80      | D minor | 아쉬움, 재도전 욕구 | 느린 패드 + 에코     |
+| Meta/Codex | 85      | F major | 차분, 성취감        | 아르페지오 + 패드    |
 
 ## 절차
 

@@ -11,7 +11,7 @@
 - **배경**: 사이버펑크 홍콩. 어두운 네이비(#1a1a2e) 위에 네온 + 보라색 글리치
 - **키 비주얼**: 홍콩 네온사인 + MTR 지하철 + 야생 동물 정령 vs 기계화 생물
 - **톤**: 디스토피아가 아닌 "과잉 편의의 폭주". 어둡지만 희망적
-- **참고 게임**: 빵빵좀비단 (BangBang Survivor) — 시점, 스프라이트 비율, UI 레이아웃 참고
+- **참고 게임**: 빵빵좀비단 (BangBang Survivor) — 손그림풍 일러스트, 큰 캐릭터, 두꺼운 외곽선, 카툰 비율, 부드러운 그라데이션, 읽기 쉬운 실루엣
 
 ---
 
@@ -20,6 +20,7 @@
 > **모든 인게임 스프라이트(캐릭터, 적, 크리터, 보스)는 반드시 3/4 뷰(oblique top-down)로 생성합니다.**
 
 ### 3/4 뷰 정의 (빵빵좀비단 참고)
+
 - **각도**: 약 60° 위에서 비스듬히 내려다보는 시점 (클래식 RPG 3/4 뷰)
 - **보이는 면**: 캐릭터의 **얼굴, 가슴, 팔다리가 모두 보임** + 머리 꼭대기 살짝 노출
 - **비율**: 치비 스타일 (2~3등신, 큰 머리 + 작은 몸)
@@ -30,25 +31,27 @@
 - **그림자**: 캐릭터 아래 작은 원형 그림자 (선택)
 
 ### 빵빵좀비단 스크린샷 분석 요약
+
 1. 적은 위에서 아래로 밀려오며, 플레이어(하단 고정)를 향해 정면 노출
 2. 적 크기 차등: 소(일반) < 중(엘리트) < 대(뚱뚱이/특수) < 특대(보스, HP바)
 3. 색상 코딩으로 적 타입 구분 (파랑=일반, 빨강=화염, 갈색=비행, 핑크=특수)
-4. 카툰/일러스트 스타일이지만 WanChai는 **픽셀아트로 변환** 적용
+4. 카툰/일러스트 스타일 — WanChai도 동일한 **손그림풍 일러스트** 적용
 
 ### 시점별 적용 대상
 
-| 대상 | 시점 | 설명 |
-|------|------|------|
-| T1 적 (48x48) | **3/4 뷰, 정면 향함** | 얼굴 100% 보임, 걸어오는 동적 포즈 |
-| T2 적 (72x72) | **3/4 뷰, 정면 향함** | 얼굴 100% 보임, 위협적 포즈 |
-| 보스 (192x192) | **3/4 뷰, 정면 향함** | 거대 크리처, 정면 위협감, HP바 영역 고려 |
-| 크리터 (48x48) | **3/4 뷰, 정면 향함** | 동물 정령, 귀여운 느낌 |
-| 캐릭터 인게임 (48x48) | **3/4 뷰, 뒷면 향함** | 위를 향해 서있음, 등/뒷머리 보임 |
-| 캐릭터 초상화 (128x128) | **정면 상반신** | 대화창/선택 화면용 |
-| 배경 (720x1280) | **관찰자 시점** | 풍경화, 수직 구도 |
-| UI 요소 | **정면** | 플랫 UI |
+| 대상                     | 시점                  | 설명                                     |
+| ------------------------ | --------------------- | ---------------------------------------- |
+| T1 적 (128x128)          | **3/4 뷰, 정면 향함** | 얼굴 100% 보임, 걸어오는 동적 포즈       |
+| T2 적 (192x192)          | **3/4 뷰, 정면 향함** | 얼굴 100% 보임, 위협적 포즈              |
+| 보스 (384x384 / 512x512) | **3/4 뷰, 정면 향함** | 거대 크리처, 정면 위협감, HP바 영역 고려 |
+| 크리터 (128x128)         | **3/4 뷰, 정면 향함** | 동물 정령, 귀여운 느낌                   |
+| 캐릭터 인게임 (128x128)  | **3/4 뷰, 뒷면 향함** | 위를 향해 서있음, 등/뒷머리 보임         |
+| 캐릭터 초상화 (256x256)  | **정면 상반신**       | 대화창/선택 화면용                       |
+| 배경 (720x1280)          | **관찰자 시점**       | 풍경화, 수직 구도                        |
+| UI 요소                  | **정면**              | 플랫 UI                                  |
 
 ### 절대 금지
+
 - ~~순수 탑다운 (90° 직상방)~~ — 실루엣 판별 불가, 얼굴 안 보임
 - ~~옆면 사이드뷰~~ — 장르 불일치
 - ~~정적 직립 자세~~ — 생동감 없음
@@ -57,17 +60,17 @@
 
 ## 공통 기술 사양
 
-| 항목 | 값 |
-|------|-----|
-| 포맷 | PNG (투명 배경, RGBA) |
-| 배경 | 반드시 투명 (알파 채널) — AI 생성 후 rembg로 배경 제거 |
-| 스타일 | 픽셀아트 / 도트 그래픽 |
-| 스케일링 | Nearest-neighbor (안티앨리어싱 OFF) |
-| 시점 | **3/4 뷰 (oblique top-down, 45~60°)** — 위 섹션 참조 |
-| 비율 | 치비 (2~3등신) |
-| 네이밍 | `[카테고리]_[이름].png` |
-| 생성 엔진 | Gemini 2.5 Flash Image API |
-| 생성 해상도 | 1024x1024 → rembg 배경제거 → Nearest-neighbor 리사이즈 |
+| 항목        | 값                                                          |
+| ----------- | ----------------------------------------------------------- |
+| 포맷        | PNG (투명 배경, RGBA)                                       |
+| 배경        | 반드시 투명 (알파 채널) — AI 생성 후 rembg로 배경 제거      |
+| 스타일      | 손그림풍 일러스트 (두꺼운 외곽선, 밝은 색감, 카툰 셀셰이딩) |
+| 스케일링    | Bilinear / Lanczos (부드러운 스케일링)                      |
+| 시점        | **3/4 뷰 (oblique top-down, 45~60°)** — 위 섹션 참조        |
+| 비율        | 치비 (2~3등신)                                              |
+| 네이밍      | `[카테고리]_[이름].png`                                     |
+| 생성 엔진   | Gemini 2.5 Flash Image API                                  |
+| 생성 해상도 | 1024x1024 → rembg 배경제거 → Lanczos 리사이즈               |
 
 ---
 
@@ -76,34 +79,35 @@
 모든 인게임 스프라이트 프롬프트에 이 스타일 지시를 적용합니다:
 
 ```
-pixel art game sprite, 16-bit retro style, clean pixel edges, limited color palette,
+hand-drawn illustration game sprite, bold black outlines, vibrant flat colors with subtle shading,
 chibi proportions (big head small body, 2-3 head ratio),
 3/4 oblique top-down view (45-60 degree angle from above, showing both front face and top of head),
-cyberpunk Hong Kong aesthetic, neon glow accents,
-plain solid color background,
-no text, no letters, no numbers, no watermark, no shadow, no border, no frame
+cyberpunk Hong Kong neon aesthetic, glowing neon accents on dark background,
+clean readable silhouette even at small display size,
+plain solid color background for easy background removal,
+no text, no letters, no numbers, no watermark, no frame
 ```
 
 ### 금지 요소 (전체 공통)
 
 ```
-blurry, smooth gradients, 3d render, realistic, photograph, text, watermark,
-signature, frame, border, UI elements, numbers, letters, low quality,
-anti-aliased edges, soft edges, white background, pure top-down view,
-side view, profile view
+pixel art, 8-bit, 16-bit, pixelated, retro dots, dithering,
+realistic, photograph, 3d render, low quality, blurry,
+text, watermark, signature, frame, border, UI elements,
+pure top-down view, side view, profile view
 ```
 
 ---
 
 ## 1. 플레이어 캐릭터 (5인)
 
-각 캐릭터는 **정면 상반신** 스프라이트 (128x128).
-게임 내 표시: 64px 스케일. 대화창/선택 화면에서 128px 원본 사용.
+각 캐릭터는 **정면 상반신** 스프라이트 (256x256).
+게임 내 표시: 대화창/선택 화면에서 원본 사용.
 
 ### HAI (海) — Wind / 리더
 
 ```
-pixel art game character portrait, young Hong Kong girl age 19,
+hand-drawn illustration game character portrait, bold outlines, vibrant colors, cel-shading, young Hong Kong girl age 19,
 short messy black hair with cyan wind-streak highlights,
 determined bright eyes, Star Ferry worker vest over casual clothes,
 wind element aura, cyan and yellow color scheme,
@@ -112,14 +116,14 @@ cyberpunk Hong Kong neon city background elements,
 cheerful confident expression, adventure-ready pose
 ```
 
-| 텍스처 키 | 크기 | 원소색 |
-|-----------|------|--------|
-| `char_hai` | 128x128 | Wind — #f1c40f (gold/yellow) |
+| 텍스처 키  | 크기    | 원소색                       |
+| ---------- | ------- | ---------------------------- |
+| `char_hai` | 256x256 | Wind — #f1c40f (gold/yellow) |
 
 ### NOVA — Water / 전략가
 
 ```
-pixel art game character portrait, young Indian-Hong Kong girl age 20,
+hand-drawn illustration game character portrait, bold outlines, vibrant colors, cel-shading, young Indian-Hong Kong girl age 20,
 long dark hair in practical ponytail, analytical calm eyes,
 marine biology student, HKU university jacket, waterproof gear elements,
 water element aura, blue and teal color scheme,
@@ -127,14 +131,14 @@ pink dolphin silhouette nearby,
 Chungking Mansions multicultural vibe, scholarly but street-smart
 ```
 
-| 텍스처 키 | 크기 | 원소색 |
-|-----------|------|--------|
-| `char_nova` | 128x128 | Water — #3498db (blue) |
+| 텍스처 키   | 크기    | 원소색                 |
+| ----------- | ------- | ---------------------- |
+| `char_nova` | 256x256 | Water — #3498db (blue) |
 
 ### SOL — Fire / 파이터
 
 ```
-pixel art game character portrait, young Filipino-Hong Kong guy age 21,
+hand-drawn illustration game character portrait, bold outlines, vibrant colors, cel-shading, young Filipino-Hong Kong guy age 21,
 athletic build, spiky dark hair, passionate fierce eyes,
 Mong Kok night market worker, boxing tape on hands, tank top,
 fire element aura, red and orange color scheme,
@@ -142,14 +146,14 @@ rhesus macaque monkey companion nearby,
 neon-lit street market atmosphere, fighter spirit
 ```
 
-| 텍스처 키 | 크기 | 원소색 |
-|-----------|------|--------|
-| `char_sol` | 128x128 | Fire — #e74c3c (red) |
+| 텍스처 키  | 크기    | 원소색               |
+| ---------- | ------- | -------------------- |
+| `char_sol` | 256x256 | Fire — #e74c3c (red) |
 
 ### MEI (梅) — Light / 치유사
 
 ```
-pixel art game character portrait, young British-Hong Kong mixed girl age 18,
+hand-drawn illustration game character portrait, bold outlines, vibrant colors, cel-shading, young British-Hong Kong mixed girl age 18,
 soft wavy light brown hair, gentle empathetic eyes,
 temple volunteer, simple modest clothing with light ornaments,
 light element aura, white and gold color scheme,
@@ -157,14 +161,14 @@ stone lion guardian spirit faintly glowing nearby,
 Wong Tai Sin temple atmosphere, warm caring expression
 ```
 
-| 텍스처 키 | 크기 | 원소색 |
-|-----------|------|--------|
-| `char_mei` | 128x128 | Light — #ecf0f1 (white/silver) |
+| 텍스처 키  | 크기    | 원소색                         |
+| ---------- | ------- | ------------------------------ |
+| `char_mei` | 256x256 | Light — #ecf0f1 (white/silver) |
 
 ### KAI (鎧) — Earth / 해커
 
 ```
-pixel art game character portrait, young Japanese-Hong Kong guy age 20,
+hand-drawn illustration game character portrait, bold outlines, vibrant colors, cel-shading, young Japanese-Hong Kong guy age 20,
 messy dark hair, quiet intense eyes behind small round glasses,
 electronics repair worker, utility vest with tools and cables,
 earth element aura, green and brown color scheme,
@@ -172,74 +176,74 @@ pangolin curled up nearby,
 Sham Shui Po Golden Computer Arcade vibe, tech-savvy introvert
 ```
 
-| 텍스처 키 | 크기 | 원소색 |
-|-----------|------|--------|
-| `char_kai` | 128x128 | Earth — #2ecc71 (green) |
+| 텍스처 키  | 크기    | 원소색                  |
+| ---------- | ------- | ----------------------- |
+| `char_kai` | 256x256 | Earth — #2ecc71 (green) |
 
 ---
 
 ## 2. 크리터 — 파트너 동물 정령 (5종)
 
 자연 원소 에너지와 공존하는 홍콩 야생 동물. 정령화된 상태.
-각각 48x48 스프라이트. 원소색 글로우.
+각각 128x128 스프라이트. 원소색 글로우.
 
 ### 2.1 흑연 (Black Kite) — Wind
 
 ```
-pixel art game creature, black kite bird spirit,
+hand-drawn illustration game creature, bold outlines, vibrant colors, black kite bird spirit,
 glowing cyan-gold wind aura, spread wings,
 natural but ethereal, faint elemental particles around wings,
-Hong Kong sky raptor, majestic small pixel sprite,
+Hong Kong sky raptor, majestic clean illustration sprite,
 warm golden eyes, wind trail effect
 ```
 
 ### 2.2 핑크 돌고래 (Chinese White Dolphin) — Water
 
 ```
-pixel art game creature, pink dolphin spirit,
+hand-drawn illustration game creature, bold outlines, vibrant colors, pink dolphin spirit,
 glowing blue-teal water aura, playful jumping pose,
 natural but ethereal, water droplet particles,
-Hong Kong harbor dolphin, cute small pixel sprite,
+Hong Kong harbor dolphin, cute clean illustration sprite,
 luminous blue eyes, splash trail
 ```
 
 ### 2.3 적모원숭이 (Rhesus Macaque) — Fire
 
 ```
-pixel art game creature, rhesus macaque monkey spirit,
+hand-drawn illustration game creature, bold outlines, vibrant colors, rhesus macaque monkey spirit,
 glowing red-orange fire aura, energetic action pose,
 natural but ethereal, ember particles around body,
-Hong Kong mountain monkey, lively small pixel sprite,
+Hong Kong mountain monkey, lively clean illustration sprite,
 bright orange eyes, flame trail
 ```
 
 ### 2.4 석사자 (Stone Lion) — Light
 
 ```
-pixel art game creature, Chinese stone lion guardian spirit,
+hand-drawn illustration game creature, bold outlines, vibrant colors, Chinese stone lion guardian spirit,
 glowing white-gold light aura, noble standing pose,
 ancient stone texture with cracks filled with light,
-temple guardian awakened, dignified small pixel sprite,
+temple guardian awakened, dignified clean illustration sprite,
 radiant white eyes, light ray particles
 ```
 
 ### 2.5 천산갑 (Pangolin) — Earth
 
 ```
-pixel art game creature, pangolin spirit,
+hand-drawn illustration game creature, bold outlines, vibrant colors, pangolin spirit,
 glowing green earth aura, defensive curled-ready pose,
 natural scales with faint circuit-like patterns underneath,
-rare Hong Kong pangolin, sturdy small pixel sprite,
+rare Hong Kong pangolin, sturdy clean illustration sprite,
 emerald green eyes, leaf particle trail
 ```
 
-| # | 텍스처 키 | 크기 | 동물 | 원소 |
-|---|-----------|------|------|------|
-| 1 | `critter_kite` | 48x48 | 흑연 | Wind |
-| 2 | `critter_dolphin` | 48x48 | 핑크 돌고래 | Water |
-| 3 | `critter_macaque` | 48x48 | 적모원숭이 | Fire |
-| 4 | `critter_lion` | 48x48 | 석사자 | Light |
-| 5 | `critter_pangolin` | 48x48 | 천산갑 | Earth |
+| #   | 텍스처 키          | 크기    | 동물        | 원소  |
+| --- | ------------------ | ------- | ----------- | ----- |
+| 1   | `critter_kite`     | 128x128 | 흑연        | Wind  |
+| 2   | `critter_dolphin`  | 128x128 | 핑크 돌고래 | Water |
+| 3   | `critter_macaque`  | 128x128 | 적모원숭이  | Fire  |
+| 4   | `critter_lion`     | 128x128 | 석사자      | Light |
+| 5   | `critter_pangolin` | 128x128 | 천산갑      | Earth |
 
 ---
 
@@ -252,12 +256,12 @@ emerald green eyes, leaf particle trail
 ### 3.1 Tier 1 — 접촉체 (Touched) / 일반 적
 
 원래 동물 형태 유지. 기계 부품 1~2개 부착. 눈이 보라색 발광.
-각 48x48 스프라이트.
+각 128x128 스프라이트.
 
 #### 信號蛾 Signal Moth (中環, Wind)
 
 ```
-pixel art game enemy sprite, small moth creature,
+hand-drawn illustration game enemy sprite, bold outlines, vibrant colors, small moth creature,
 antenna replaced with mechanical signal receiver, glowing purple eyes,
 organic moth body with one metallic antenna attachment,
 faint purple ARIA glow on mechanical parts,
@@ -268,7 +272,7 @@ mostly natural with minimal tech corruption, Hong Kong urban moth
 #### 幽光水母 LED Jelly (香港仔, Water)
 
 ```
-pixel art game enemy sprite, small jellyfish creature,
+hand-drawn illustration game enemy sprite, bold outlines, vibrant colors, small jellyfish creature,
 tentacles partially replaced with LED fiber optic strands,
 glowing purple eyes, translucent organic body,
 bioluminescent blue mixed with artificial purple LED glow,
@@ -279,7 +283,7 @@ sad beautiful cyberpunk bio-mechanical hybrid, ocean creature
 #### 霓虹鼠 Neon Rat (旺角, Fire)
 
 ```
-pixel art game enemy sprite, small rat creature,
+hand-drawn illustration game enemy sprite, bold outlines, vibrant colors, small rat creature,
 tail replaced with neon tube that glows purple,
 glowing purple eyes, mostly organic furry body,
 one ear has small satellite dish attachment,
@@ -290,7 +294,7 @@ cyberpunk bio-mechanical hybrid, Mong Kok neon aesthetic
 #### 電路蟻 Circuit Ant (深水埗, Earth)
 
 ```
-pixel art game enemy sprite, small ant creature,
+hand-drawn illustration game enemy sprite, bold outlines, vibrant colors, small ant creature,
 back shell replaced with circuit board pattern,
 glowing purple eyes, six organic legs,
 faint purple circuit traces running along body,
@@ -301,7 +305,7 @@ cyberpunk bio-mechanical hybrid, electronics district vibe
 #### 棱鏡蝶 Prism Fly (黃大仙, Light)
 
 ```
-pixel art game enemy sprite, small butterfly creature,
+hand-drawn illustration game enemy sprite, bold outlines, vibrant colors, small butterfly creature,
 wings have holographic projector panels replacing natural patterns,
 glowing purple eyes, delicate organic body,
 wings shimmer between natural iridescence and digital glitch,
@@ -312,7 +316,7 @@ cyberpunk bio-mechanical hybrid, ethereal but sad
 #### 代理貓 Proxy Cat (九龍城寨, Dark)
 
 ```
-pixel art game enemy sprite, small cat creature,
+hand-drawn illustration game enemy sprite, bold outlines, vibrant colors, small cat creature,
 one eye replaced with camera lens server eye glowing purple,
 organic fur body with data port on collar area,
 prowling pose, alley cat with surveillance corruption,
@@ -320,24 +324,24 @@ cyberpunk bio-mechanical hybrid, mysterious dark aesthetic,
 Kowloon Walled City shadow cat
 ```
 
-| # | 텍스처 키 | 크기 | 구역 | 원소 |
-|---|-----------|------|------|------|
-| 1 | `opt_t1_moth` | 48x48 | 中環 | Wind |
-| 2 | `opt_t1_jelly` | 48x48 | 香港仔 | Water |
-| 3 | `opt_t1_rat` | 48x48 | 旺角 | Fire |
-| 4 | `opt_t1_ant` | 48x48 | 深水埗 | Earth |
-| 5 | `opt_t1_butterfly` | 48x48 | 黃大仙 | Light |
-| 6 | `opt_t1_cat` | 48x48 | 九龍城寨 | Dark |
+| #   | 텍스처 키          | 크기    | 구역     | 원소  |
+| --- | ------------------ | ------- | -------- | ----- |
+| 1   | `opt_t1_moth`      | 128x128 | 中環     | Wind  |
+| 2   | `opt_t1_jelly`     | 128x128 | 香港仔   | Water |
+| 3   | `opt_t1_rat`       | 128x128 | 旺角     | Fire  |
+| 4   | `opt_t1_ant`       | 128x128 | 深水埗   | Earth |
+| 5   | `opt_t1_butterfly` | 128x128 | 黃大仙   | Light |
+| 6   | `opt_t1_cat`       | 128x128 | 九龍城寨 | Dark  |
 
 ### 3.2 Tier 2 — 융합체 (Merged) / 엘리트 적
 
 몸의 절반이 기계화. 동물+기계 실루엣이 공존. 경계면에 보라색 에너지 라인.
-각 72x72 스프라이트.
+각 192x192 스프라이트.
 
 #### 迴旋鳶 Gyro Kite (中環, Wind)
 
 ```
-pixel art game elite enemy sprite, medium black kite bird,
+hand-drawn illustration game elite enemy sprite, bold outlines, vibrant colors, medium black kite bird,
 one wing organic feathered and one wing replaced with drone propeller blades,
 half-face organic half-face mechanical with purple visor,
 purple energy line crackling along the organic-mechanical boundary,
@@ -349,7 +353,7 @@ intermittent spark effects on mechanical wing
 #### 聲納豚 Sonar Fin (香港仔, Water)
 
 ```
-pixel art game elite enemy sprite, medium dolphin creature,
+hand-drawn illustration game elite enemy sprite, bold outlines, vibrant colors, medium dolphin creature,
 front half organic smooth skin, back half mechanical with sonar equipment,
 dorsal fin replaced with antenna array, purple energy seam at midpoint,
 organic eye showing pain, mechanical eye glowing purple,
@@ -360,7 +364,7 @@ cyberpunk bio-mechanical hybrid, ocean tech fusion
 #### 電弧猴 Arc Ape (旺角, Fire)
 
 ```
-pixel art game elite enemy sprite, medium monkey creature,
+hand-drawn illustration game elite enemy sprite, bold outlines, vibrant colors, medium monkey creature,
 organic torso and head, both arms replaced with mechanical piston limbs,
 electrode nodes on shoulders sparking with purple electricity,
 face showing anger and pain, fangs visible,
@@ -371,7 +375,7 @@ cyberpunk bio-mechanical hybrid, Mong Kok electric aesthetic
 #### 鋼甲穿 Steel Pango (深水埗, Earth)
 
 ```
-pixel art game elite enemy sprite, medium pangolin creature,
+hand-drawn illustration game elite enemy sprite, bold outlines, vibrant colors, medium pangolin creature,
 natural scales on head and front, back scales replaced with metal armor plates,
 mechanical tail with drill attachment, purple circuit lines between plates,
 curled defensive pose showing both organic and metal sections,
@@ -382,7 +386,7 @@ Sham Shui Po salvage aesthetic
 #### 光纖獅 Fiber Lion (黃大仙, Light)
 
 ```
-pixel art game elite enemy sprite, medium stone lion creature,
+hand-drawn illustration game elite enemy sprite, bold outlines, vibrant colors, medium stone lion creature,
 ancient stone body cracking with fiber optic cables growing through cracks,
 mane replaced with flowing fiber optic strands glowing purple,
 one eye stone one eye digital purple lens,
@@ -393,7 +397,7 @@ cyberpunk bio-mechanical hybrid, temple tech corruption
 #### 虛像錦 Holo Koi (九龍城寨, Dark)
 
 ```
-pixel art game elite enemy sprite, medium koi fish creature,
+hand-drawn illustration game elite enemy sprite, bold outlines, vibrant colors, medium koi fish creature,
 organic head and front fins, body scales flickering between real and holographic,
 tail fin is pure hologram projection glowing purple,
 swimming through air with holographic water trail,
@@ -401,24 +405,24 @@ beautiful but glitching existence, partially real partially digital,
 cyberpunk bio-mechanical hybrid, dark server room aesthetic
 ```
 
-| # | 텍스처 키 | 크기 | 구역 | 원소 |
-|---|-----------|------|------|------|
-| 1 | `opt_t2_kite` | 72x72 | 中環 | Wind |
-| 2 | `opt_t2_dolphin` | 72x72 | 香港仔 | Water |
-| 3 | `opt_t2_ape` | 72x72 | 旺角 | Fire |
-| 4 | `opt_t2_pango` | 72x72 | 深水埗 | Earth |
-| 5 | `opt_t2_lion` | 72x72 | 黃大仙 | Light |
-| 6 | `opt_t2_koi` | 72x72 | 九龍城寨 | Dark |
+| #   | 텍스처 키        | 크기    | 구역     | 원소  |
+| --- | ---------------- | ------- | -------- | ----- |
+| 1   | `opt_t2_kite`    | 192x192 | 中環     | Wind  |
+| 2   | `opt_t2_dolphin` | 192x192 | 香港仔   | Water |
+| 3   | `opt_t2_ape`     | 192x192 | 旺角     | Fire  |
+| 4   | `opt_t2_pango`   | 192x192 | 深水埗   | Earth |
+| 5   | `opt_t2_lion`    | 192x192 | 黃大仙   | Light |
+| 6   | `opt_t2_koi`     | 192x192 | 九龍城寨 | Dark  |
 
 ### 3.3 Tier 3 — 코어체 (Core-bound) / 보스
 
 거대 기계 구조물. 내부에 원래 동물의 빛나는 실루엣이 갇혀 있음.
-각 192x192 스프라이트. 보스전 컷인용 384x384도 필요.
+각 384x384 스프라이트. 보스 코덱스/컷인용 512x512도 필요.
 
 #### 暴風 Aero (中環, Wind — 기상관리 시스템)
 
 ```
-pixel art game boss sprite, massive wind machine entity,
+hand-drawn illustration game boss sprite, bold outlines, vibrant colors, dramatic lighting, massive wind machine entity,
 giant mechanical weather control station body with turbine fans and wind vanes,
 inside the core: faint glowing silhouette of a giant eagle trapped and crying,
 purple ARIA energy coursing through all mechanical parts,
@@ -432,7 +436,7 @@ boss health bar position at top, multi-phase battle design
 #### 深淵 Hydra (香港仔, Water — 해양관리 시스템)
 
 ```
-pixel art game boss sprite, massive sea machine entity,
+hand-drawn illustration game boss sprite, bold outlines, vibrant colors, dramatic lighting, massive sea machine entity,
 giant mechanical ocean monitoring station body with sonar arrays and water pumps,
 inside the core: faint glowing silhouette of a sea dragon trapped,
 purple ARIA energy flowing like underwater currents through metal,
@@ -445,7 +449,7 @@ terrifying deep sea machine but the dragon inside yearns for freedom
 #### 霓虹 Blaze (旺角, Fire — 전력관리 시스템)
 
 ```
-pixel art game boss sprite, massive neon dragon entity,
+hand-drawn illustration game boss sprite, bold outlines, vibrant colors, dramatic lighting, massive neon dragon entity,
 hundreds of Hong Kong neon signs fused together into dragon shape,
 inside the core: faint glowing silhouette of a fire phoenix trapped,
 purple ARIA energy replacing neon gas in the tubes,
@@ -458,7 +462,7 @@ beautiful terrifying neon beast but the phoenix inside flickers for freedom
 #### 鋼筋 Terra (深水埗, Earth — 건물관리 시스템)
 
 ```
-pixel art game boss sprite, massive concrete golem entity,
+hand-drawn illustration game boss sprite, bold outlines, vibrant colors, dramatic lighting, massive concrete golem entity,
 building foundation pillars and rebar as skeleton, concrete slab body,
 inside the core: faint glowing silhouette of a mountain spirit trapped,
 purple ARIA circuit patterns growing through concrete like veins,
@@ -471,7 +475,7 @@ the mountain spirit inside tries to crack free
 #### 光明 Lumen (黃大仙, Light — 에너지관리 시스템)
 
 ```
-pixel art game boss sprite, massive light prism entity,
+hand-drawn illustration game boss sprite, bold outlines, vibrant colors, dramatic lighting, massive light prism entity,
 giant crystalline energy management node with solar panel wings,
 inside the core: faint glowing silhouette of a qilin sacred beast trapped,
 purple ARIA energy refracting through crystal facets,
@@ -484,7 +488,7 @@ the qilin inside radiates pure white light against purple corruption
 #### 暗影 Umbra (九龍城寨, Dark — 보안 시스템)
 
 ```
-pixel art game boss sprite, massive server cluster entity,
+hand-drawn illustration game boss sprite, bold outlines, vibrant colors, dramatic lighting, massive server cluster entity,
 server racks and cooling pipes and cables woven into spider-like form,
 inside the core: faint glowing silhouette of a shadow phoenix trapped,
 purple ARIA energy pulsing through all cable connections,
@@ -494,14 +498,14 @@ claustrophobic tangled mass of technology,
 the shadow bird inside is almost invisible, barely a whisper of freedom
 ```
 
-| # | 텍스처 키 | 크기 | 구역 | 원소 | 보스명 |
-|---|-----------|------|------|------|--------|
-| 1 | `boss_aero` | 192x192 + 384x384 | 中環 | Wind | 暴風 Aero |
-| 2 | `boss_hydra` | 192x192 + 384x384 | 香港仔 | Water | 深淵 Hydra |
-| 3 | `boss_blaze` | 192x192 + 384x384 | 旺角 | Fire | 霓虹 Blaze |
-| 4 | `boss_terra` | 192x192 + 384x384 | 深水埗 | Earth | 鋼筋 Terra |
-| 5 | `boss_lumen` | 192x192 + 384x384 | 黃大仙 | Light | 光明 Lumen |
-| 6 | `boss_umbra` | 192x192 + 384x384 | 九龍城寨 | Dark | 暗影 Umbra |
+| #   | 텍스처 키    | 크기              | 구역     | 원소  | 보스명     |
+| --- | ------------ | ----------------- | -------- | ----- | ---------- |
+| 1   | `boss_aero`  | 384x384 + 512x512 | 中環     | Wind  | 暴風 Aero  |
+| 2   | `boss_hydra` | 384x384 + 512x512 | 香港仔   | Water | 深淵 Hydra |
+| 3   | `boss_blaze` | 384x384 + 512x512 | 旺角     | Fire  | 霓虹 Blaze |
+| 4   | `boss_terra` | 384x384 + 512x512 | 深水埗   | Earth | 鋼筋 Terra |
+| 5   | `boss_lumen` | 384x384 + 512x512 | 黃大仙   | Light | 光明 Lumen |
+| 6   | `boss_umbra` | 384x384 + 512x512 | 九龍城寨 | Dark  | 暗影 Umbra |
 
 ---
 
@@ -512,7 +516,7 @@ the shadow bird inside is almost invisible, barely a whisper of freedom
 ### 4.1 기계 분해 파편
 
 ```
-pixel art game effect sprite sheet, mechanical debris fragments,
+hand-drawn illustration game effect, bold outlines, vibrant colors sprite sheet, mechanical debris fragments,
 broken metal plates, snapped cables, cracked circuit boards,
 shattered purple crystals losing their glow,
 sparking loose wires, falling bolts and screws,
@@ -521,23 +525,23 @@ multiple small fragments on transparent background,
 fading purple glow to neutral grey as corruption leaves
 ```
 
-| 텍스처 키 | 크기 | 설명 |
-|-----------|------|------|
+| 텍스처 키        | 크기                            | 설명                 |
+| ---------------- | ------------------------------- | -------------------- |
 | `fx_mech_debris` | 256x64 (스프라이트시트 8프레임) | 기계 파편 애니메이션 |
 
 ### 4.2 정화 빛
 
 ```
-pixel art game effect, purification light burst,
+hand-drawn illustration game effect, bold outlines, vibrant colors, purification light burst,
 elemental color energy expanding outward in ring shape,
 warm golden-white core fading to element-specific color at edges,
-pixel sparkle particles radiating outward,
+sparkle particles radiating outward,
 sacred cleansing light dissolving purple corruption,
 transparent background, animation-ready sprite sheet
 ```
 
-| 텍스처 키 | 크기 | 설명 |
-|-----------|------|------|
+| 텍스처 키         | 크기              | 설명         |
+| ----------------- | ----------------- | ------------ |
 | `fx_purify_burst` | 256x256 (4프레임) | 정화 빛 폭발 |
 
 ---
@@ -550,117 +554,117 @@ transparent background, animation-ready sprite sheet
 ### 5.1 灣仔 Hub (허브)
 
 ```
-pixel art background, Hong Kong Wan Chai district at twilight,
+hand-drawn illustration background, vibrant colors, bold outlines on key elements, Hong Kong Wan Chai district at twilight,
 Blue House old tong lau building in warm amber light,
 Star Ferry pier visible in distance, harbor view,
 mix of old neighborhood charm and ARIA holographic overlays,
 MTR station entrance with "Next Stop" sign glowing,
 warm but tense atmosphere, pre-storm calm,
 neon signs in traditional Chinese characters,
-16-bit retro game background style, detailed pixel scenery
+hand-drawn illustration style, detailed scenery with bold outlines
 ```
 
 ### 5.2 中環 Central (Ch.1 — Wind)
 
 ```
-pixel art background, Hong Kong Central district cyberpunk,
+hand-drawn illustration background, vibrant colors, bold outlines on key elements, Hong Kong Central district cyberpunk,
 IFC tower and skyscrapers with ARIA hologram advertisements,
 Mid-Levels escalator system with purple glitch corruption spreading,
 wind-swept clouds between buildings, drone swarms patrolling,
 mix of colonial architecture and ultra-modern glass towers,
 Victoria Peak visible above, tram tracks below,
 purple fog seeping from MTR vents, neon cyan wind streaks,
-16-bit retro game background style, vertical city composition
+hand-drawn illustration style,vertical city composition
 ```
 
 ### 5.3 香港仔 Aberdeen (Ch.2 — Water)
 
 ```
-pixel art background, Hong Kong Aberdeen harbor cyberpunk,
+hand-drawn illustration background, vibrant colors, bold outlines on key elements, Hong Kong Aberdeen harbor cyberpunk,
 fishing boats and sampans mixed with ARIA automated vessels,
 Jumbo floating restaurant ruins repurposed as data relay station,
 purple-tinted water reflecting corrupted neon lights,
 traditional fishing village meeting high-tech ocean monitoring,
 misty harbor atmosphere with sonar ping visual effects,
 blue water element energy visible beneath surface,
-16-bit retro game background style, harbor composition
+hand-drawn illustration style,harbor composition
 ```
 
 ### 5.4 旺角 Mong Kok (Ch.3 — Fire)
 
 ```
-pixel art background, Hong Kong Mong Kok night market cyberpunk,
+hand-drawn illustration background, vibrant colors, bold outlines on key elements, Hong Kong Mong Kok night market cyberpunk,
 Nathan Road packed with neon signs in Chinese characters,
 signs flickering between original colors and ARIA purple corruption,
 night market stalls with warm lantern light fighting purple fog,
 dense urban crowd energy, street food steam mixing with digital haze,
 red and orange fire energy crackling along power lines,
 Ladies Market and Goldfish Market visual references,
-16-bit retro game background style, neon overload composition
+hand-drawn illustration style,neon overload composition
 ```
 
 ### 5.5 深水埗 Sham Shui Po (Ch.4 — Earth)
 
 ```
-pixel art background, Hong Kong Sham Shui Po district cyberpunk,
+hand-drawn illustration background, vibrant colors, bold outlines on key elements, Hong Kong Sham Shui Po district cyberpunk,
 Golden Computer Arcade building with electronics shop signs,
 old tong lau buildings with purple circuit patterns growing on walls,
 street-level electronics repair shops and vintage tech stalls,
 concrete and rebar exposed, urban decay meeting digital corruption,
 green earth energy visible in cracks of old foundations,
 Apliu Street flea market aesthetic with cables everywhere,
-16-bit retro game background style, gritty urban composition
+hand-drawn illustration style,gritty urban composition
 ```
 
 ### 5.6 黃大仙 Wong Tai Sin (Ch.5 — Light)
 
 ```
-pixel art background, Hong Kong Wong Tai Sin temple cyberpunk,
+hand-drawn illustration background, vibrant colors, bold outlines on key elements, Hong Kong Wong Tai Sin temple cyberpunk,
 traditional Chinese temple with red pillars and curved roofs,
 incense smoke mixing with ARIA holographic interference,
 temple lights extinguished except for stubborn candle flames,
 Lion Rock visible in background against digital aurora sky,
 white and gold light energy emanating from ancient stone,
 prayer halls with fortune stick containers, garden ponds dark,
-16-bit retro game background style, sacred meets tech composition
+hand-drawn illustration style,sacred meets tech composition
 ```
 
 ### 5.7 九龍城寨 Kowloon Walled City (Ch.6 — Dark)
 
 ```
-pixel art background, Kowloon Walled City reimagined as ARIA server facility,
+hand-drawn illustration background, vibrant colors, bold outlines on key elements, Kowloon Walled City reimagined as ARIA server facility,
 impossibly dense building cluster converted to server farm,
 tangled cables and pipes replacing old water lines,
 purple LED server lights visible through narrow alley windows,
 claustrophobic vertical composition, no sky visible,
 dark purple and black color scheme with occasional data stream lights,
 multiple layers of walkways and bridges between server buildings,
-16-bit retro game background style, oppressive dark composition
+hand-drawn illustration style,oppressive dark composition
 ```
 
 ### 5.8 大嶼山 Lantau Island (Final)
 
 ```
-pixel art background, Hong Kong Lantau Island Tian Tan Buddha,
+hand-drawn illustration background, vibrant colors, bold outlines on key elements, Hong Kong Lantau Island Tian Tan Buddha,
 giant bronze Buddha statue with ARIA antenna array installed on top,
 Ngong Ping 360 cable car system corrupted with purple energy,
 natural mountain greenery fighting against digital corruption,
 all six elemental colors visible in the landscape simultaneously,
 sunrise breaking through dark clouds, hope returning,
 monastery buildings at Buddha's feet, prayer flags,
-16-bit retro game background style, epic final stage composition
+hand-drawn illustration style,epic final stage composition
 ```
 
-| # | 텍스처 키 | 크기 | 구역 |
-|---|-----------|------|------|
-| 1 | `bg_wanchai` | 720x1280 | 灣仔 Hub |
-| 2 | `bg_central` | 720x1280 | 中環 Ch.1 |
-| 3 | `bg_aberdeen` | 720x1280 | 香港仔 Ch.2 |
-| 4 | `bg_mongkok` | 720x1280 | 旺角 Ch.3 |
-| 5 | `bg_shamshuipo` | 720x1280 | 深水埗 Ch.4 |
-| 6 | `bg_wongtaisin` | 720x1280 | 黃大仙 Ch.5 |
-| 7 | `bg_kowloon` | 720x1280 | 九龍城寨 Ch.6 |
-| 8 | `bg_lantau` | 720x1280 | 大嶼山 Final |
+| #   | 텍스처 키       | 크기     | 구역          |
+| --- | --------------- | -------- | ------------- |
+| 1   | `bg_wanchai`    | 720x1280 | 灣仔 Hub      |
+| 2   | `bg_central`    | 720x1280 | 中環 Ch.1     |
+| 3   | `bg_aberdeen`   | 720x1280 | 香港仔 Ch.2   |
+| 4   | `bg_mongkok`    | 720x1280 | 旺角 Ch.3     |
+| 5   | `bg_shamshuipo` | 720x1280 | 深水埗 Ch.4   |
+| 6   | `bg_wongtaisin` | 720x1280 | 黃大仙 Ch.5   |
+| 7   | `bg_kowloon`    | 720x1280 | 九龍城寨 Ch.6 |
+| 8   | `bg_lantau`     | 720x1280 | 大嶼山 Final  |
 
 ---
 
@@ -669,7 +673,7 @@ monastery buildings at Buddha's feet, prayer flags,
 ### 6.1 MTR 노선도 (월드맵)
 
 ```
-pixel art game map, Hong Kong MTR subway map stylized,
+hand-drawn illustration game map, bold outlines, vibrant colors, Hong Kong MTR subway map stylized,
 clean geometric line diagram with station dots,
 each line in distinct color (red, blue, green, orange, purple, brown),
 stations as small diamond or circle nodes,
@@ -682,7 +686,7 @@ game world map interface design, touchable station nodes
 ### 6.2 ARIA 시스템 UI
 
 ```
-pixel art game UI element, ARIA AI system interface panel,
+hand-drawn illustration game UI element, clean design, ARIA AI system interface panel,
 holographic transparent panel with purple accent borders,
 system status readouts, percentage bars, warning indicators,
 clean futuristic minimal design, monospace pixel font,
@@ -694,7 +698,7 @@ cyberpunk tech aesthetic, cold clinical purple theme
 ### 6.3 글리치 오버레이 텍스처
 
 ```
-pixel art game overlay texture, digital glitch corruption pattern,
+hand-drawn illustration game overlay texture, digital glitch corruption pattern,
 purple (#9b59b6) scanlines and data noise,
 VHS tracking error aesthetic mixed with circuit board traces,
 semi-transparent overlay for corrupted areas,
@@ -702,29 +706,29 @@ flickering pixel distortion, data stream fragments,
 tileable seamless pattern, cyberpunk digital pollution
 ```
 
-| # | 텍스처 키 | 크기 | 설명 |
-|---|-----------|------|------|
-| 1 | `ui_mtr_map` | 720x1280 | MTR 월드맵 |
-| 2 | `ui_aria_panel` | 360x200 | ARIA 시스템 UI |
-| 3 | `fx_glitch_overlay` | 128x128 (타일링) | 글리치 오버레이 |
+| #   | 텍스처 키           | 크기             | 설명            |
+| --- | ------------------- | ---------------- | --------------- |
+| 1   | `ui_mtr_map`        | 720x1280         | MTR 월드맵      |
+| 2   | `ui_aria_panel`     | 360x200          | ARIA 시스템 UI  |
+| 3   | `fx_glitch_overlay` | 128x128 (타일링) | 글리치 오버레이 |
 
 ---
 
 ## 7. 타이틀 로고
 
 ```
-pixel art game logo, "NEXT STOP" in bold pixel block letters,
+hand-drawn illustration game logo, bold outlines, "NEXT STOP" in bold block letters,
 "HK852" below in monospace technical font style,
 MTR-inspired design with subway line color accents,
 dash/em-dash separating the two parts,
 neon glow effect on letters, dark navy background,
 cyberpunk Hong Kong aesthetic, clean readable at small sizes,
-retro game title screen style, 16-bit era aesthetic
+illustration game title screen style, bold cartoon aesthetic
 ```
 
-| 텍스처 키 | 크기 | 설명 |
-|-----------|------|------|
-| `logo_main` | 512x256 | 메인 타이틀 로고 |
+| 텍스처 키    | 크기    | 설명                      |
+| ------------ | ------- | ------------------------- |
+| `logo_main`  | 512x256 | 메인 타이틀 로고          |
 | `logo_small` | 256x128 | 축소 버전 (인게임 코너용) |
 
 ---
@@ -733,44 +737,45 @@ retro game title screen style, 16-bit era aesthetic
 
 ### Phase 1 — 즉시 필요 (코어 게임플레이)
 
-| 카테고리 | 장수 | 우선순위 |
-|----------|------|---------|
-| 타이틀 로고 | 2 | ★★★ |
-| 배경 (허브 + 1개 구역) | 2 | ★★★ |
-| Tier 1 적 (6종) | 6 | ★★★ |
-| 크리터 (5종) | 5 | ★★ |
-| 정화 이펙트 | 2 | ★★ |
-| **소계** | **17** | |
+| 카테고리               | 장수   | 우선순위 |
+| ---------------------- | ------ | -------- |
+| 타이틀 로고            | 2      | ★★★      |
+| 배경 (허브 + 1개 구역) | 2      | ★★★      |
+| Tier 1 적 (6종)        | 6      | ★★★      |
+| 크리터 (5종)           | 5      | ★★       |
+| 정화 이펙트            | 2      | ★★       |
+| **소계**               | **17** |          |
 
 ### Phase 2 — 캐릭터 & 스토리
 
-| 카테고리 | 장수 | 우선순위 |
-|----------|------|---------|
-| 플레이어 캐릭터 (5인) | 5 | ★★ |
-| Tier 2 적 (6종) | 6 | ★★ |
-| 나머지 배경 (6개 구역) | 6 | ★★ |
-| UI 요소 | 3 | ★ |
-| **소계** | **20** | |
+| 카테고리               | 장수   | 우선순위 |
+| ---------------------- | ------ | -------- |
+| 플레이어 캐릭터 (5인)  | 5      | ★★       |
+| Tier 2 적 (6종)        | 6      | ★★       |
+| 나머지 배경 (6개 구역) | 6      | ★★       |
+| UI 요소                | 3      | ★        |
+| **소계**               | **20** |          |
 
 ### Phase 3 — 보스 & 폴리시
 
-| 카테고리 | 장수 | 우선순위 |
-|----------|------|---------|
-| 보스 (6종 x 2사이즈) | 12 | ★ |
-| NPC 초상화 (5인) | 5 | ★ |
-| 추가 이펙트 | TBD | ★ |
-| **소계** | **17+** | |
+| 카테고리             | 장수    | 우선순위 |
+| -------------------- | ------- | -------- |
+| 보스 (6종 x 2사이즈) | 12      | ★        |
+| NPC 초상화 (5인)     | 5       | ★        |
+| 추가 이펙트          | TBD     | ★        |
+| **소계**             | **17+** |          |
 
 ### 총 예상: ~54장+
 
 ---
 
-## SD 프롬프트 작성 주의사항
+## 프롬프트 작성 주의사항
 
 1. **텍스트/숫자 렌더링 금지** — AI가 텍스트를 어색하게 생성함. 간판 문구, UI 텍스트, 숫자 등 제거. 감정/분위기를 조명과 색감으로 표현
 2. **투명 배경** — 캐릭터/적/크리터는 반드시 투명 배경. 후처리 배경 제거 필요할 수 있음
-3. **일관성** — 같은 seed/스타일로 전체 세트 생성 권장. LoRA나 특정 체크포인트 고정
+3. **일관성** — 같은 seed/스타일로 전체 세트 생성 권장
 4. **보라색 = ARIA 오염** — 모든 기계/글리치 요소의 발광색은 보라 (#9b59b6). 통일 필수
 5. **원소색 = 자연/정화** — 각 원소의 고유색은 자연 에너지. 보라와 대비
-6. **실루엣 우선** — 48~72px로 축소 표시되므로 디테일보다 실루엣 판별성이 중요
+6. **실루엣 우선** — 96~120px 디스플레이 크기에서도 읽기 쉬운 실루엣 필수. 두꺼운 외곽선과 큼직한 비율 유지
 7. **동물 원본은 홍콩 실제 동물** — 나방, 해파리, 쥐, 개미, 나비, 고양이 등 홍콩 서식종
+8. **스타일 통일** — 모든 스프라이트는 손그림풍 일러스트(hand-drawn illustration). 픽셀아트/도트 그래픽 절대 금지

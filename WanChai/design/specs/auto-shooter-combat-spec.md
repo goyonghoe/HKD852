@@ -1,358 +1,415 @@
-# 오토슈터 전투 시스템 스펙
+# Auto-Shooter Combat System Spec
 
-> WanChai 현재 구현 상태 기준 전투 시스템 문서 (v1.5.3)
+> WanChai NeonSurvivor -- current implementation reference (v2.0)
 >
-> **참조 코드**: `src/systems/WeaponSystem.ts`, `src/core/WaveDirector.ts`,
-> `src/config/weapons.ts`, `src/config/enemies.ts`, `src/config/balance.ts`
+> **Source of truth**: `src/config/weapons.ts`, `src/config/enemies.ts`, `src/config/balance.ts`
+> **Architecture**: `src/systems/WeaponSystem.ts`, `src/core/WaveDirector.ts`, `src/managers/SpawnManager.ts`
 
 ---
 
-## 1. 게임 구조 개요
+## 1. Game Structure Overview
 
-WanChai는 **세로 오토슈터 서바이버**입니다.
+WanChai is a **landscape auto-shooter survivor** (1280x720, 16:9).
 
-- 플레이어는 화면 하단(y=1200)에 고정되며, 좌우로만 이동
-- 적은 화면 상단(y=-50~-10)에서 스폰되어 하단으로 이동
-- 플레이어 앞에 기지 벽(y=1100, HP 600)이 있으며, 적이 기지를 공격
-- 무기는 가장 가까운 적을 자동으로 조준하여 발사
-- XP 오브를 수집하여 레벨업 → 무기 획득/강화 또는 패시브 선택
-
----
-
-## 2. 스테이지 구조
-
-총 6스테이지, 웨이브(60초)와 보스가 교대:
-
-| 스테이지 | 유형 | 이름 | 적 풀 / 보스 |
-|---------|------|------|-------------|
-| 1 | wave | 중환 구역 | basic, fast, swarm |
-| 2 | boss | 중환 보스 | boss (HP 1200) |
-| 3 | wave | 침사추이 | basic, fast, swarm, tank, special, sniper_enemy |
-| 4 | boss | 침사추이 보스 | boss_circle (HP 1800, 원거리 공격) |
-| 5 | wave | 빅토리아 피크 | 전 적 종류 (11종) |
-| 6 | boss | 최종 보스 | boss_burst (HP 3000) |
-
-### 스테이지 간 스케일링 (누적)
-
-| 속성 | 스테이지당 배율 |
-|------|---------------|
-| 적 HP | ×1.5 |
-| 적 속도 | ×1.15 |
-| 적 공격력 | ×1.25 |
-
-### 스테이지 클리어 보상
-
-- 기지 HP 20% 회복 (`clearHealPercent: 0.20`)
-- 2초 "STAGE CLEAR" 오버레이 후 다음 스테이지 시작
+- Player is on the left side (x=200, y=460), moves vertically
+- Enemies spawn from the right side and move left toward the base
+- A defense barrier (x=350, HP 500) and base wall (x=250, y=660, HP 600) protect the player
+- Weapons auto-target the nearest enemy and fire automatically
+- XP orbs from killed enemies trigger level-ups with weapon/passive choices
+- 5 playable characters with elemental ultimates
 
 ---
 
-## 3. 무기 시스템
+## 2. Stage Structure
 
-### 3.1 무기 정의 (WeaponDef)
+6 stages total: 3 wave stages alternating with 3 boss stages.
 
-모든 무기는 `src/config/weapons.ts`에 정의.
+| Stage | Type | Name          | Enemy Pool                                                                                       | Boss                  |
+| ----- | ---- | ------------- | ------------------------------------------------------------------------------------------------ | --------------------- |
+| 1     | wave | 중환 구역     | basic, fast, swarm                                                                               | --                    |
+| 2     | boss | 중환 보스     | --                                                                                               | boss (HP 1200)        |
+| 3     | wave | 침사추이      | basic, fast, swarm, tank, special, sniper_enemy                                                  | --                    |
+| 4     | boss | 침사추이 보스 | --                                                                                               | boss_circle (HP 1800) |
+| 5     | wave | 빅토리아 피크 | basic, fast, swarm, tank, special, splitter, chaser, shooter, sniper_enemy, guardian, teleporter | --                    |
+| 6     | boss | 최종 보스     | --                                                                                               | boss_burst (HP 3000)  |
 
-| 속성 | 타입 | 설명 |
-|------|------|------|
-| `id` | string | 고유 식별자 |
-| `name` | string | 표시 이름 (한국어) |
-| `projectileType` | ProjectileType | 발사 방식 (bullet/aoe/laser/chain/homing/bomb/napalm) |
-| `targetMode` | TargetMode | 타겟 선택 (nearest/random/aoe) |
-| `baseDamage` | number | 기본 공격력 |
-| `cooldownMs` | number | 발사 간격 (ms) |
-| `projectileSpeed` | number | 투사체 속도 (px/s, 0=즉시) |
-| `projectileCount` | number | 한 번에 발사하는 투사체 수 |
-| `piercing` | number | 관통 수 (0=충돌 시 소멸) |
-| `aoeRadius` | number | 범위 공격 반경 (0=없음) |
-| `range` | number | 사거리 (0=무제한) |
-| `maxLevel` | number | 최대 레벨 (모두 5) |
+### Stage Scaling (Cumulative Per Stage)
 
-### 3.2 무기 목록
+| Attribute    | Per-Stage Multiplier | Config Key                                    |
+| ------------ | -------------------- | --------------------------------------------- |
+| Enemy HP     | x1.5                 | `BALANCE.STAGE.difficultyPerStage.hpMult`     |
+| Enemy Speed  | x1.15                | `BALANCE.STAGE.difficultyPerStage.speedMult`  |
+| Enemy Damage | x1.25                | `BALANCE.STAGE.difficultyPerStage.damageMult` |
 
-| 무기 | 유형 | 데미지 | 쿨다운 | 투사체 수 | 관통 | 사거리 | 이론 DPS |
-|------|------|--------|--------|----------|------|--------|---------|
-| 에너지 샷 | bullet | 10 | 800ms | 1 | 0 | 무제한 | 12.5 |
-| 속사포 | bullet | 3 | 200ms | 1 | 0 | 300 | 15.0 |
-| 산탄총 | bullet | 10 | 1200ms | 5 | 0 | 250 | 41.7 |
-| 수리검 | bullet | 12 | 1000ms | 1 | 3 | 400 | 12.0 |
-| 레이저 빔 | laser | 25 | 2000ms | 1 | 99 | 500 | 12.5 |
-| 레일건 | laser | 45 | 3500ms | 1 | 99 | 800 | 12.9 |
-| 체인 라이트닝 | chain | 22 | 1200ms | 3체인 | 0 | 400 | 55.0* |
-| 추적 미사일 | homing | 30 | 2500ms | 1 | 0 | 무제한 | 12.0 |
-| 에너지 폭탄 | bomb | 50 | 4000ms | 1 | 0 | AOE 120 | 12.5* |
-| 네이팜탄 | napalm | 15 | 2500ms | 1 | 0 | AOE 120 | 24.0* |
+### Stage Clear
 
-\* 체인/AOE 무기의 DPS는 다수 적 타격 시 사실상 더 높음
-
-### 3.3 투사체 유형별 동작
-
-| 유형 | 동작 | 특수 효과 |
-|------|------|----------|
-| **bullet** | 가장 가까운 적 방향으로 직선 발사 | 다수 투사체 시 spread 0.15rad |
-| **laser** | 가장 가까운 적 방향으로 고속 발사 | 관통 99 (모든 적 관통) |
-| **aoe** | 플레이어 중심 원형 범위 | 범위 내 모든 적에게 데미지 |
-| **chain** | 가장 가까운 적 → 연쇄 점프 | 150px 범위 내 다음 적으로 전이 |
-| **homing** | 유도 미사일, 가장 가까운 적 추적 | turnRate로 회전 추적, 4초 수명 |
-| **bomb** | 적 밀집 지점(centroid)에 AOE | 화면 흔들림 + 플래시 VFX |
-| **napalm** | 적 centroid로 비행 → 화염 지대 생성 | 4초 지속, 500ms마다 범위 데미지 |
-
-### 3.4 무기 레벨업
-
-레벨업 시 강화 효과:
-- **데미지**: `baseDamage × (1 + (level-1) × 0.2)` → 레벨당 +20%
-- **투사체 수**: `projectileCount + floor((level-1) × 0.5)` → 2레벨마다 +1
-- **관통**: `piercing + floor(level / 3)` → 3레벨마다 +1
-- **AOE 반경**: `aoeRadius + level × 10` (aoe 유형) 또는 `+ level × 15` (bomb/napalm)
-- **쿨다운**: `cooldownMs / attackSpeedMultiplier` (패시브로 간접 강화)
-
-### 3.5 무기 슬롯 제한
-
-- 최대 4종류의 무기 보유 가능 (`maxWeapons: 4`)
-- 4종 보유 후 레벨업 시 기존 무기 강화 또는 패시브만 제공
+- Base HP heals 20% (`clearHealPercent: 0.20`)
+- 2-second "STAGE CLEAR" overlay with camera zoom (`clearPauseMs: 2000`)
+- Wave stages last 60 seconds (`stageDurationMs: 60000`)
 
 ---
 
-## 4. 적 시스템
+## 3. Weapon System
 
-### 4.1 적 정의 (EnemyDef)
+### 3.1 Weapon Definition (WeaponDef)
 
-모든 적은 `src/config/enemies.ts`에 정의.
+All weapons defined in `src/config/weapons.ts`. 10 T1 weapons + 7 T2 evolved weapons.
 
-| 속성 | 설명 |
-|------|------|
-| `shape` | 도형 (circle/triangle/rect/diamond/hexagon) |
-| `baseSize` | 반경 (px) |
-| `baseSpeed` | 이동 속도 (px/s) |
-| `baseHp` | 기본 체력 |
-| `baseDamage` | 공격력 |
-| `behavior` | AI 행동 패턴 |
-| `xpValue` | 처치 시 XP |
-| `attackStyle` | 공격 방식 (melee/ranged/suicide) |
-| `knockbackImmune` | 넉백 면역 여부 |
-| `attackInterval` | 공격 간격 (ms) |
-| `projectileSpeed` | 원거리 공격 투사체 속도 |
+| Property          | Type           | Description                                              |
+| ----------------- | -------------- | -------------------------------------------------------- |
+| `id`              | string         | Unique identifier                                        |
+| `name`            | string         | Display name (Korean)                                    |
+| `projectileType`  | ProjectileType | bullet / laser / chain / homing / bomb / napalm          |
+| `targetMode`      | TargetMode     | nearest / aoe                                            |
+| `baseDamage`      | number         | Base damage per hit                                      |
+| `cooldownMs`      | number         | Fire interval (ms)                                       |
+| `projectileSpeed` | number         | Projectile velocity (px/s, 0=instant)                    |
+| `projectileCount` | number         | Projectiles per shot (or chain count)                    |
+| `piercing`        | number         | Pierce count (0=destroyed on hit, 99=penetrate all)      |
+| `aoeRadius`       | number         | Area damage radius (0=none)                              |
+| `range`           | number         | Max range (0=unlimited)                                  |
+| `maxLevel`        | number         | Always 5                                                 |
+| `tier`            | number         | 1 (default) or 2 (evolved)                               |
+| `recipe`          | object         | T2 only: primary + secondary weapon + level requirements |
 
-### 4.2 적 목록
+### 3.2 T1 Weapon Table (10 weapons)
 
-| 적 | 형태 | HP | 속도 | 데미지 | 행동 | XP | 특수 |
-|---|------|-----|------|--------|------|-----|------|
-| basic | circle | 18 | 45 | 8 | march | 1 | — |
-| fast | triangle | 12 | 90 | 12 | dash | 2 | suicide |
-| swarm | circle | 8 | 80 | 5 | march | 1 | suicide, 작은 크기 |
-| tank | rect | 70 | 22 | 20 | slow_march | 3 | 넉백 면역 |
-| special | diamond | 28 | 55 | 14 | zigzag | 3 | — |
-| splitter | hexagon | 45 | 35 | 12 | split_on_death | 4 | suicide, 사망 시 분열 |
-| chaser | triangle | 22 | 60 | 15 | chase | 3 | 플레이어 추적 |
-| shooter | diamond | 25 | 28 | 12 | shoot | 4 | 원거리 공격 (220px/s) |
-| sniper_enemy | triangle | 20 | 22 | 20 | shoot | 4 | 원거리 (350px/s), 고데미지 |
-| guardian | rect | 150 | 15 | 30 | slow_march | 5 | 넉백 면역, 초 탱크 |
-| teleporter | diamond | 28 | 35 | 14 | teleport | 4 | 순간이동 |
+| Weapon        | ID          | Type   | Dmg | CD (ms) | Proj | Pierce | Range  | DPS    |
+| ------------- | ----------- | ------ | --- | ------- | ---- | ------ | ------ | ------ |
+| 에너지 샷     | energy_shot | bullet | 16  | 800     | 1    | 0      | --     | 20.0   |
+| 속사포        | rapid_fire  | bullet | 3   | 200     | 1    | 0      | 480    | 15.0   |
+| 산탄총        | shotgun     | bullet | 10  | 1200    | 3    | 0      | 380    | 25.0   |
+| 수리검        | shuriken    | bullet | 14  | 700     | 1    | 3      | 400    | 20.0   |
+| 레이저 빔     | laser_beam  | laser  | 28  | 1400    | 1    | 99     | 500    | 20.0   |
+| 레일건        | railgun     | laser  | 48  | 2700    | 1    | 99     | 800    | 17.8   |
+| 체인 라이트닝 | lightning   | chain  | 16  | 1400    | 3ch  | 0      | 400    | 34.3\* |
+| 추적 미사일   | missile     | homing | 35  | 1950    | 1    | 0      | --     | 17.9   |
+| 에너지 폭탄   | bomb        | bomb   | 65  | 3500    | 1    | 0      | AOE120 | 18.6\* |
+| 네이팜탄      | napalm      | napalm | 29  | 2500    | 1    | 0      | AOE120 | 11.6+  |
 
-### 4.3 보스 목록
+\* Chain/AOE DPS is per-target; effective DPS against groups is much higher.
+\+ Napalm has additional DoT zone (4s lifetime, 750ms tick interval).
 
-| 보스 | 형태 | HP | 속도 | 데미지 | 행동 | 특수 |
-|------|------|-----|------|--------|------|------|
-| boss | hexagon | 1200 | 18 | 40 | boss_chase | 넉백 면역 |
-| boss_circle | diamond | 1800 | 28 | 35 | boss_circle | 넉백 면역, 원거리 (280px/s) |
-| boss_burst | rect | 3000 | 15 | 60 | boss_burst | 넉백 면역, 최고 HP/데미지 |
+### 3.3 T2 Evolved Weapons (7 weapons)
 
-### 4.4 적 행동 패턴 (Behavior)
+T2 weapons are created by combining two T1 weapons at specific levels.
 
-| 행동 | 설명 |
-|------|------|
-| `march` | 직선 하강 |
-| `slow_march` | 느린 직선 하강 (탱크) |
-| `dash` | 빠른 직선 하강 (자살 돌격) |
-| `zigzag` | 좌우 지그재그 하강 |
-| `chase` | 플레이어 방향으로 추적 하강 |
-| `shoot` | 일정 간격으로 투사체 발사하며 하강 |
-| `teleport` | 순간이동하며 하강 |
-| `split_on_death` | 사망 시 작은 적 여러 마리로 분열 |
-| `boss_chase` | 느리게 플레이어 추적 |
-| `boss_circle` | 원형 패턴 이동 + 원거리 공격 |
-| `boss_burst` | 느린 이동 + 강력한 범위 공격 |
+| Weapon          | ID              | Recipe                           | Dmg | CD (ms) | Proj | DPS   |
+| --------------- | --------------- | -------------------------------- | --- | ------- | ---- | ----- |
+| 플라즈마 개틀링 | plasma_gatling  | energy_shot Lv5 + rapid_fire Lv3 | 14  | 300     | 3    | 140.0 |
+| 클러스터 탄두   | cluster_warhead | missile Lv5 + bomb Lv3           | 55  | 550     | 1    | 100.0 |
+| 테슬라 아크     | tesla_arc       | laser_beam Lv5 + lightning Lv3   | 16  | 400     | 5ch  | 200.0 |
+| 스캐터 스톰     | scatter_storm   | shotgun Lv5 + shuriken Lv3       | 5   | 185     | 7    | 189.2 |
+| 인페르노 빔     | inferno_beam    | laser_beam Lv5 + napalm Lv3      | 35  | 600     | 1    | 58.3  |
+| 썬더 봄         | thunder_bomb    | lightning Lv5 + bomb Lv3         | 100 | 2000    | 1    | 50.0  |
+| 바이퍼 살보     | viper_salvo     | rapid_fire Lv5 + missile Lv3     | 5   | 300     | 2    | 33.3  |
 
-### 4.5 엘리트 시스템
+### 3.4 Projectile Types
 
-- 일반 적이 엘리트로 스폰될 확률: `10% + 25%/분` (최대 50%)
-- 엘리트 강화: HP ×3, 크기 증가, 밝은 오라, HP 바 표시
-- 엘리트 보상: 골드 5 (일반 1)
+| Type       | Behavior                                     | Special                              |
+| ---------- | -------------------------------------------- | ------------------------------------ |
+| **bullet** | Straight line toward nearest enemy           | Spread 0.15rad for multi-projectile  |
+| **laser**  | Instant/high-speed beam toward nearest enemy | Pierce 99 (passes through all)       |
+| **chain**  | Jumps between enemies within 150px           | Chain count = projectileCount        |
+| **homing** | Guided missile tracking nearest enemy        | Turn rate 4 + 0.5/level, 4s lifetime |
+| **bomb**   | AOE at enemy centroid                        | Screen shake + flash VFX             |
+| **napalm** | Flies to centroid, creates fire zone         | 4s DoT zone, tick every 750ms        |
+
+### 3.5 Weapon Level-Up Scaling
+
+| Stat             | Formula                                                  |
+| ---------------- | -------------------------------------------------------- |
+| Damage           | `baseDamage * (1 + (level-1) * 0.2)` (+20%/lv)           |
+| Projectile count | `projectileCount + floor((level-1) * 0.5)` (+1 per 2 lv) |
+| Piercing         | `piercing + floor(level / 3)` (+1 per 3 lv)              |
+| AOE radius       | `aoeRadius + level * 10` (or `* 15` for bomb/napalm)     |
+| Cooldown         | `cooldownMs / attackSpeedMultiplier` (via passive)       |
+
+### 3.6 Weapon Slots
+
+- Maximum 4 weapon types per run (`BALANCE.RUN.maxWeapons: 4`)
+- Once 4 weapons held, level-up only offers existing weapon upgrades or passives
 
 ---
 
-## 5. 웨이브 시스템 (WaveDirector)
+## 4. Enemy System
 
-### 5.1 스폰 로직
+### 4.1 Enemy Categories
 
-`WaveDirector`는 순수 TypeScript 클래스 (Phaser 비의존). WHEN과 WHAT만 결정.
+Enemies have two categories affecting spawn and movement:
+
+- **ground**: Walk on ground level (y=460), horizontal movement
+- **air**: Fly at varying heights (y=200-450), sine-wave movement
+
+### 4.2 Ground Enemies (7 types)
+
+| Enemy    | Shape    | HP  | Speed | Dmg | Behavior       | XP  | Attack     | Special                      |
+| -------- | -------- | --- | ----- | --- | -------------- | --- | ---------- | ---------------------------- |
+| basic    | circle   | 18  | 45    | 8   | march          | 1   | melee      | --                           |
+| fast     | triangle | 12  | 90    | 12  | dash           | 2   | suicide    | Kamikaze dive                |
+| swarm    | circle   | 8   | 80    | 5   | march          | 1   | suicide    | Small size (8px)             |
+| tank     | rect     | 70  | 22    | 20  | slow_march     | 3   | melee 2.5s | Knockback immune             |
+| chaser   | triangle | 22  | 60    | 15  | chase          | 3   | melee 1.8s | Player tracking              |
+| splitter | hexagon  | 45  | 35    | 12  | split_on_death | 4   | suicide    | Splits into children         |
+| guardian | rect     | 150 | 15    | 30  | slow_march     | 5   | melee 3s   | Knockback immune, ultra-tank |
+
+### 4.3 Air Enemies (4 types)
+
+| Enemy        | Shape    | HP  | Speed | Dmg | Behavior | XP  | Attack      | Special              |
+| ------------ | -------- | --- | ----- | --- | -------- | --- | ----------- | -------------------- |
+| special      | diamond  | 28  | 55    | 14  | zigzag   | 3   | melee 1.5s  | Evasive movement     |
+| shooter      | diamond  | 25  | 28    | 12  | shoot    | 4   | ranged 2s   | Projectile 220px/s   |
+| sniper_enemy | triangle | 20  | 22    | 20  | shoot    | 4   | ranged 2.5s | Projectile 350px/s   |
+| teleporter   | diamond  | 28  | 35    | 14  | teleport | 4   | melee 1.8s  | Spatial displacement |
+
+### 4.4 Bosses (3 types)
+
+| Boss        | Shape   | HP   | Speed | Dmg | Behavior    | XP  | Special                         |
+| ----------- | ------- | ---- | ----- | --- | ----------- | --- | ------------------------------- |
+| boss        | hexagon | 1200 | 18    | 40  | boss_chase  | 100 | Knockback immune, chase player  |
+| boss_circle | diamond | 1800 | 28    | 35  | boss_circle | 120 | Ranged (280px/s), orbit pattern |
+| boss_burst  | rect    | 3000 | 15    | 45  | boss_burst  | 150 | Knockback immune, heavy hitter  |
+
+### 4.5 Boss Phase System
+
+All bosses have a **Phase 2** triggered at 50% HP (`BALANCE.BOSS_PHASE.phaseThreshold: 0.5`):
+
+- 1.5s invulnerability window
+- Speed multiplier: boss_chase x1.8, boss_circle x1.4, boss_burst x1.3
+- Damage multiplier: boss_chase x1.5, boss_circle x1.3, boss_burst x1.3
+- Visual: phase 2 glow effect, screen shake
+
+### 4.6 Enemy Behavior Patterns
+
+| Behavior       | Description                                         |
+| -------------- | --------------------------------------------------- |
+| march          | Straight horizontal movement toward base            |
+| slow_march     | Slow straight movement (tank units)                 |
+| dash           | Fast burst movement (kamikaze)                      |
+| zigzag         | Horizontal zigzag pattern with vertical oscillation |
+| chase          | Tracks player position                              |
+| shoot          | Moves + fires projectiles at intervals              |
+| teleport       | Phase-shifts to new position periodically           |
+| split_on_death | Spawns child enemies on death (40% HP, 60% scale)   |
+| boss_chase     | Slow tracking + Phase 2 speed burst                 |
+| boss_circle    | Orbit pattern + ranged attacks                      |
+| boss_burst     | Slow advance + heavy burst damage                   |
+
+### 4.7 Elite System
+
+- Base elite chance: 10% (`eliteChanceBase: 0.1`)
+- Per-minute increase: +25% (`eliteChancePerMin: 0.25`)
+- Maximum: 50% (`eliteChanceMax: 0.5`)
+- Elite buffs: HP x3, larger size, glow aura, HP bar displayed
+- Elite gold: 5 (vs. 1 for normal)
+
+---
+
+## 5. Wave System (WaveDirector)
+
+`WaveDirector` is a pure TypeScript class (no Phaser dependency). It decides WHEN and WHAT to spawn.
+
+### 5.1 Spawn Logic
 
 ```
-1. 초기 딜레이: 600ms (게임 시작 후 첫 스폰까지)
-2. 스폰 간격: 800ms × 0.45^(경과분) → 최소 400ms
-3. 스폰 수: 1 + floor(경과분 × 3) → 60초 후 약 4마리/웨이브
-4. 적 종류 해금: 1 + floor(경과분 × 5) → 시간에 따라 적 풀 순차 해금
-5. 엘리트 판정: 10% + 25%/분 (최대 50%)
-6. 보스: bossTimeMinutes 도달 시 1회 스폰
+Initial delay:   600ms (BALANCE.SPAWN.initialDelayMs)
+Spawn interval:  800ms * 0.45^(minutes) -> min 400ms
+Spawn count:     1 + floor(minutes * 3) -> ~4 per wave at 60s
+Enemy pool:      Unlocks progressively based on stage config
+Elite roll:      10% + 25%/min (max 50%)
+Boss:            Spawned once per boss stage
+Max on screen:   45 (BALANCE.SPAWN.maxEnemiesOnScreen)
 ```
 
-### 5.2 시간 경과에 따른 스케일링
+### 5.2 Time-Based Scaling (Within a Stage)
 
-| 시간 | 적 HP | 적 속도 | 적 데미지 |
-|------|-------|--------|----------|
-| 0분 | ×1.0 | ×1.0 | ×1.0 |
-| 1분 (스테이지 내) | ×2.2 | ×1.5 | ×2.0 |
-| 스테이지 간 | ×1.5 누적 | ×1.15 누적 | ×1.25 누적 |
+| Stat        | Scale/Min | Config Key                             |
+| ----------- | --------- | -------------------------------------- |
+| Enemy HP    | x1.8      | `BALANCE.DIFFICULTY.hpScalePerMin`     |
+| Enemy Speed | x1.5      | `BALANCE.DIFFICULTY.speedScalePerMin`  |
+| Enemy Dmg   | x2.0      | `BALANCE.DIFFICULTY.damageScalePerMin` |
 
-### 5.3 최대 적 수
-
-- 화면 내 최대 45마리 (`maxEnemiesOnScreen: 45`)
-- 초과 시 스폰 보류
+Hard caps: `maxSpeedMultiplier: 2.8`, `maxBossHp: 15000`, `maxBossAtk: 200`
 
 ---
 
-## 6. 플레이어 시스템
+## 6. Player System
 
-### 6.1 플레이어 속성
+### 6.1 Player Stats
 
-| 속성 | 기본값 | 설명 |
-|------|--------|------|
-| `baseMoveSpeed` | 300 px/s | 좌우 이동 속도 |
-| `baseY` | 1200 | 고정 Y 위치 |
-| `critChance` | 0% | 크리티컬 확률 (패시브로 증가) |
-| `critDamage` | 2.0x | 크리티컬 배율 (패시브로 증가) |
-| `damageMultiplier` | 1.0 | 데미지 보정 (패시브/메타 강화) |
-| `attackSpeedMultiplier` | 1.0 | 공격속도 보정 (패시브/메타 강화) |
+| Stat            | Value         | Config                          |
+| --------------- | ------------- | ------------------------------- |
+| Base position   | x=200, y=460  | `BALANCE.PLAYER.baseX/baseY`    |
+| Display size    | 128px         | `BALANCE.PLAYER.targetSize`     |
+| Crit multiplier | 2.0x          | `BALANCE.PLAYER.critMultiplier` |
+| Move speed      | Vertical drag | Pointer input                   |
 
-### 6.2 기지 (Base)
+### 6.2 Defense Barrier
 
-| 속성 | 값 | 설명 |
-|------|---|------|
-| HP | 600 | 기지 내구도 |
-| Y | 1100 | 기지 벽 위치 |
-| 높이 | 30px | 벽 시각 높이 |
-| damageFlash | 200ms | 피격 시 빨간 플래시 |
+| Stat     | Value        | Config                  |
+| -------- | ------------ | ----------------------- |
+| Position | x=350, y=510 | `BALANCE.BARRIER.x/y`   |
+| HP       | 500          | `BALANCE.BARRIER.hp`    |
+| Width    | 150px        | `BALANCE.BARRIER.width` |
 
-### 6.3 아군 (Ally)
+### 6.3 Base Wall
 
-| 아군 | 위치 | 쿨다운 | 데미지 | 사거리 | 설명 |
-|------|------|--------|--------|--------|------|
-| 스나이퍼 | x=60 | 1500ms | 40 | 800 | 단일 타겟, 고데미지 |
-| 스프레더 | x=660 | 1000ms | 8×5 | 600 | 다수 타겟, 저데미지 |
+| Stat     | Value                 | Config                |
+| -------- | --------------------- | --------------------- |
+| Position | leftReachX=250, y=660 | `BALANCE.BASE.*`      |
+| HP       | 600                   | `BALANCE.BASE.hp`     |
+| Height   | 30px                  | `BALANCE.BASE.height` |
+
+### 6.4 Allies
+
+| Ally     | Position | Cooldown | Damage | Count | Range |
+| -------- | -------- | -------- | ------ | ----- | ----- |
+| Sniper   | x=60     | 1500ms   | 40     | 1     | 800   |
+| Spreader | x=660    | 1000ms   | 8      | 5     | 600   |
 
 ---
 
-## 7. XP / 레벨업 시스템
+## 7. XP / Level-Up System
 
-### 7.1 XP 테이블
+### 7.1 XP Table
 
 ```
-레벨 N까지 필요 XP = basePerLevel(10) × growthFactor(1.25)^(N-1)
+XP for level N = basePerLevel(10) * growthFactor(1.25)^(N-1)
 ```
 
-| 레벨 | 필요 XP | 누적 XP |
-|------|---------|---------|
-| 2 | 10 | 10 |
-| 3 | 13 | 23 |
-| 4 | 16 | 39 |
-| 5 | 20 | 59 |
-| 10 | 75 | ~300 |
+| Level | Required XP | Cumulative |
+| ----- | ----------- | ---------- |
+| 2     | 10          | 10         |
+| 3     | 13          | 23         |
+| 4     | 16          | 39         |
+| 5     | 20          | 59         |
+| 10    | 75          | ~300       |
+| 15    | 181         | ~850       |
+| 20    | 437         | ~2300      |
 
-### 7.2 레벨업 선택지
+### 7.2 Level-Up Choices
 
-레벨업 시 3장의 카드 중 1장 선택:
+3 cards shown per level-up:
 
-1. **신규 무기**: 미보유 무기 중 1종 획득 (4종 미만일 때)
-2. **무기 강화**: 보유 무기 레벨 +1 (최대 Lv.5)
-3. **패시브**: 영구 스탯 강화
+1. **New weapon**: If holding < 4 weapons
+2. **Weapon upgrade**: Existing weapon +1 level (max 5)
+3. **Passive buff**: Permanent stat boost
 
-### 7.3 패시브 목록
+### 7.3 Passives
 
-| 패시브 | 효과 | 레벨당 | 최대 레벨 |
-|--------|------|--------|----------|
-| 속사 장치 | 공격 속도 | +10% | 5 |
-| 파워 코어 | 공격력 | +15% | 5 |
-| 장갑 강화 | 기지 피해 감소 | -10% | 5 |
-| 실드 수리 | 기지 HP 초당 회복 | +5 | 3 |
-| 집중 렌즈 | 치명타 확률 | +5% | 5 |
-| 증폭기 | 치명타 피해 | +25% | 3 |
+| Passive   | Effect                | Per Level | Max |
+| --------- | --------------------- | --------- | --- |
+| 속사 장치 | Attack speed          | +10%      | 5   |
+| 파워 코어 | Damage                | +15%      | 5   |
+| 장갑 강화 | Base damage reduction | -10%      | 5   |
+| 실드 수리 | Base HP regen/sec     | +5        | 3   |
+| 집중 렌즈 | Crit chance           | +5%       | 5   |
+| 증폭기    | Crit damage           | +25%      | 3   |
 
----
-
-## 8. 골드 / 메타 진행
-
-### 8.1 골드 수입
-
-| 출처 | 골드 |
-|------|------|
-| 일반 적 처치 | 1 |
-| 엘리트 처치 | 5 |
-| 보스 처치 | 50 |
-
-### 8.2 메타 강화 (MetaProgression)
-
-런 사이에 골드를 소비하여 영구 강화:
-
-- **데미지 강화**: damageMultiplier 증가
-- **HP 강화**: 기지 HP 증가
-- **속도 강화**: 이동 속도 증가
-- **크리티컬 강화**: critChance 증가
-
-(`src/core/MetaProgression.ts`, `src/managers/SaveManager.ts` 참조)
+Auto-select after 5 seconds (`autoSelectDelayMs: 5000`).
 
 ---
 
-## 9. 미드샵 (Mid-Shop)
+## 8. Economy
 
-30초 경과 시 인게임 오버레이로 등장:
+### 8.1 Gold Income
 
-| 옵션 | 효과 | 비용 (골드) |
-|------|------|-----------|
-| 기지 수리 | HP 30% 회복 | 15 |
-| 데미지 부스트 | 공격력 +25% | 20 |
-| 아머 부스트 | 피해 감소 +25% | 20 |
+| Source      | Gold | Config Key                     |
+| ----------- | ---- | ------------------------------ |
+| Normal kill | 1    | `BALANCE.ECONOMY.goldPerKill`  |
+| Elite kill  | 5    | `BALANCE.ECONOMY.goldPerElite` |
+| Boss kill   | 50   | `BALANCE.ECONOMY.goldPerBoss`  |
+
+### 8.2 Mid-Shop
+
+Triggered at 30s mark (`BALANCE.MID_SHOP.triggerTimeMs: 30000`). In-game overlay with gold-cost items:
+
+| Item          | Effect              | Cost (Gold) |
+| ------------- | ------------------- | ----------- |
+| Heal          | Base HP +30%        | 40          |
+| Damage Boost  | +25% damage (30s)   | 60          |
+| Armor Boost   | +25% armor (30s)    | 55          |
+| Shield        | Absorb 3 hits       | 90          |
+| Speed Boost   | +30% speed (30s)    | 50          |
+| Damage Boost+ | +50% damage (30s)   | 75          |
+| Full Heal     | Base HP 100%        | 120         |
+| XP Boost      | 2x XP (60s)         | 80          |
+| Magnet Pulse  | Collect all XP orbs | 40          |
 
 ---
 
-## 10. 게임 속도
+## 9. Game Speed
 
-3단계 속도 조절:
-- 1.0x (기본)
-- 1.5x
-- 2.0x (최대, 프레임 드롭 방지)
+3-tier speed control: 1.0x / 1.5x / 2.0x (`BALANCE.GAME_SPEED.options`)
 
 ---
 
-## 11. 전투 상수 요약
+## 10. Combat Constants Summary
 
 ```typescript
 COMBAT: {
   critMultiplier: 2.0,
   knockbackForce: 60,
   knockbackDuration: 150,
+  napalmZoneTickMs: 750,
+  homingBaseTurnRate: 4,
+  homingTurnRatePerLevel: 0.5,
 }
 
 RUN: {
-  stageDurationMs: 60000,   // 웨이브 스테이지 60초
-  goldPerKill: 1,
-  goldPerElite: 5,
-  goldPerBoss: 50,
+  stageDurationMs: 60000,
   maxWeapons: 4,
 }
 
 DIFFICULTY: {
-  hpScalePerMin: 2.2,
+  hpScalePerMin: 1.8,
   speedScalePerMin: 1.5,
   damageScalePerMin: 2.0,
   maxSpeedMultiplier: 2.8,
   maxBossHp: 15000,
+  maxBossAtk: 200,
+}
+
+STAGE: {
+  maxStages: 6,
+  clearHealPercent: 0.2,
+  clearPauseMs: 2000,
+  difficultyPerStage: { hpMult: 1.5, speedMult: 1.15, damageMult: 1.25 },
 }
 ```
 
 ---
 
-## 변경 이력
+## 11. Manager Architecture
 
-| 날짜 | 버전 | 내용 |
-|------|------|------|
-| 2026-03-02 | v1.0 | 초안 작성 (현재 구현 기준 문서화) |
+| Manager            | File                                 | Responsibility                       |
+| ------------------ | ------------------------------------ | ------------------------------------ |
+| WeaponSystem       | `src/systems/WeaponSystem.ts`        | Weapon firing, projectile creation   |
+| SpawnManager       | `src/managers/SpawnManager.ts`       | Enemy instantiation, pool management |
+| CollisionManager   | `src/managers/CollisionManager.ts`   | Hit detection, damage application    |
+| HUDManager         | `src/managers/HUDManager.ts`         | XP bar, HP bar, weapon slots, timer  |
+| LevelUpUIManager   | `src/managers/LevelUpUIManager.ts`   | Level-up card display/selection      |
+| ShopManager        | `src/managers/ShopManager.ts`        | Mid-shop overlay                     |
+| PhaseManager       | `src/managers/PhaseManager.ts`       | Game phase state machine             |
+| ProgressionManager | `src/managers/ProgressionManager.ts` | Stage progression, scaling           |
+| AllyManager        | `src/managers/AllyManager.ts`        | NPC ally firing                      |
+| UltimateManager    | `src/managers/UltimateManager.ts`    | Character ultimate abilities         |
+| WeatherManager     | `src/managers/WeatherManager.ts`     | Weather effects per district         |
+| SquadManager       | `src/managers/SquadManager.ts`       | Squad member positioning             |
+
+Core logic (pure TS, no Phaser dependency):
+
+- `WaveDirector` -- spawn timing and enemy selection
+- `DamageCalc` -- damage formula with crit, armor, element
+- `UpgradeSelector` -- level-up card generation
+- `XpTable` -- XP requirements per level
+- `SpatialHash` -- efficient collision detection
+
+---
+
+## Change Log
+
+| Date       | Version | Content                                                                                                                                                                                                                                                              |
+| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-03-02 | v1.0    | Initial spec (10 T1 weapons, 11 enemies, 3 bosses)                                                                                                                                                                                                                   |
+| 2026-03-12 | v2.0    | Updated all values from current config files: T2 evolved weapons (7), boss phase system, barrier system, economy/shop details, manager architecture, difficulty scaling corrections (hpScalePerMin 2.2->1.8), ally stats, weather/critter/passive systems referenced |

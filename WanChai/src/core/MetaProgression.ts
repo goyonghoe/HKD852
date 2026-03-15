@@ -5,7 +5,7 @@ export interface MetaUpgradeDef {
   readonly name: string;
   readonly description: string;
   readonly maxLevel: number;
-  readonly costPerLevel: number[];   // gold cost for each level
+  readonly costPerLevel: number[]; // gold cost for each level
   readonly effect: string;
   readonly valuePerLevel: number;
 }
@@ -18,7 +18,7 @@ export const META_UPGRADES: Record<string, MetaUpgradeDef> = {
     maxLevel: 5,
     costPerLevel: [50, 100, 200, 400, 800],
     effect: 'damage',
-    valuePerLevel: 0.10,
+    valuePerLevel: 0.1,
   },
   meta_hp: {
     id: 'meta_hp',
@@ -36,7 +36,7 @@ export const META_UPGRADES: Record<string, MetaUpgradeDef> = {
     maxLevel: 3,
     costPerLevel: [100, 250, 600],
     effect: 'xp_bonus',
-    valuePerLevel: 0.20,
+    valuePerLevel: 0.2,
   },
   meta_crit: {
     id: 'meta_crit',
@@ -46,6 +46,33 @@ export const META_UPGRADES: Record<string, MetaUpgradeDef> = {
     costPerLevel: [60, 120, 250, 500, 1000],
     effect: 'crit_chance',
     valuePerLevel: 0.03,
+  },
+  meta_magnet: {
+    id: 'meta_magnet',
+    name: 'XP 흡수 범위',
+    description: 'XP 흡수 범위 +20%',
+    maxLevel: 3,
+    costPerLevel: [100, 200, 400],
+    effect: 'xp_magnet',
+    valuePerLevel: 0.2,
+  },
+  meta_armor: {
+    id: 'meta_armor',
+    name: '기지 방어력',
+    description: '기지 방어력 +8%',
+    maxLevel: 5,
+    costPerLevel: [80, 160, 250, 400, 600],
+    effect: 'meta_armor',
+    valuePerLevel: 0.08,
+  },
+  meta_luck: {
+    id: 'meta_luck',
+    name: '행운',
+    description: '레어 무기 드롭률 +5%',
+    maxLevel: 3,
+    costPerLevel: [150, 300, 600],
+    effect: 'rare_drop',
+    valuePerLevel: 0.05,
   },
 };
 

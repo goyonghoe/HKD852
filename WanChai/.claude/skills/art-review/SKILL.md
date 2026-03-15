@@ -1,8 +1,8 @@
 ---
 name: art-review
-description: "비주얼 품질 리뷰 — art-style-guide.md 대비 검증"
+description: '비주얼 품질 리뷰 — art-style-guide.md 대비 검증'
 user-invocable: true
-argument-hint: "[scope] e.g. all, preload, puzzle, result"
+argument-hint: '[scope] e.g. all, preload, puzzle, result'
 allowed-tools: Read, Glob, Grep
 model: opus
 ---

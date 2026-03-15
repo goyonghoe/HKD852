@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import { NEON_CSS } from '../config/colors';
+import { NEON_CSS, ELEMENT_CSS } from '../config/colors';
+import type { Effectiveness } from '../core/DamageCalc';
 
 const POOL_SIZE = 20;
 const FLOAT_SPEED = 80; // px/s upward
@@ -35,7 +36,7 @@ export class DamageNumberManager {
     }
   }
 
-  show(x: number, y: number, damage: number, isCrit: boolean): void {
+  show(x: number, y: number, damage: number, isCrit: boolean, effectiveness: Effectiveness = 'neutral'): void {
     const text = this.acquire();
     if (!text) return;
 
@@ -46,6 +47,12 @@ export class DamageNumberManager {
     if (isCrit) {
       text.setFontSize(34);
       text.setColor(NEON_CSS.GOLD);
+    } else if (effectiveness === 'effective') {
+      text.setFontSize(28);
+      text.setColor(ELEMENT_CSS.EARTH); // green for super effective
+    } else if (effectiveness === 'resist') {
+      text.setFontSize(18);
+      text.setColor(NEON_CSS.UI_DIM); // gray for resisted
     } else {
       text.setFontSize(22);
       text.setColor(NEON_CSS.UI_TEXT);

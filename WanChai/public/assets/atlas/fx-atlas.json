@@ -1,0 +1,376 @@
+{
+	"textures": [
+		{
+			"image": "fx-atlas.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1024,
+				"h": 512
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "fx_purify_burst.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 19,
+						"y": 20,
+						"w": 222,
+						"h": 214
+					},
+					"frame": {
+						"x": 2,
+						"y": 2,
+						"w": 222,
+						"h": 214
+					}
+				},
+				{
+					"filename": "fx_mech_debris.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 21,
+						"y": 0,
+						"w": 217,
+						"h": 64
+					},
+					"frame": {
+						"x": 228,
+						"y": 2,
+						"w": 217,
+						"h": 64
+					}
+				},
+				{
+					"filename": "fx_stage_clear.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 50,
+						"y": 53,
+						"w": 156,
+						"h": 158
+					},
+					"frame": {
+						"x": 449,
+						"y": 2,
+						"w": 156,
+						"h": 158
+					}
+				},
+				{
+					"filename": "fx_glitch_overlay.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 128
+					},
+					"frame": {
+						"x": 228,
+						"y": 70,
+						"w": 128,
+						"h": 128
+					}
+				},
+				{
+					"filename": "projectile_laser.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 63,
+						"h": 9
+					},
+					"frame": {
+						"x": 360,
+						"y": 70,
+						"w": 63,
+						"h": 9
+					}
+				},
+				{
+					"filename": "projectile_bomb.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 20,
+						"h": 20
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 1,
+						"w": 17,
+						"h": 18
+					},
+					"frame": {
+						"x": 427,
+						"y": 70,
+						"w": 17,
+						"h": 18
+					}
+				},
+				{
+					"filename": "fx_napalm_zone.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 4,
+						"w": 56,
+						"h": 56
+					},
+					"frame": {
+						"x": 360,
+						"y": 83,
+						"w": 56,
+						"h": 56
+					}
+				},
+				{
+					"filename": "projectile_shuriken.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 24,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 19,
+						"h": 20
+					},
+					"frame": {
+						"x": 420,
+						"y": 92,
+						"w": 19,
+						"h": 20
+					}
+				},
+				{
+					"filename": "projectile_napalm.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 20,
+						"h": 20
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 3,
+						"w": 16,
+						"h": 14
+					},
+					"frame": {
+						"x": 420,
+						"y": 116,
+						"w": 16,
+						"h": 14
+					}
+				},
+				{
+					"filename": "projectile_missile.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 24,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 0,
+						"w": 15,
+						"h": 12
+					},
+					"frame": {
+						"x": 420,
+						"y": 134,
+						"w": 15,
+						"h": 12
+					}
+				},
+				{
+					"filename": "fx_levelup.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 37,
+						"y": 2,
+						"w": 53,
+						"h": 118
+					},
+					"frame": {
+						"x": 360,
+						"y": 143,
+						"w": 53,
+						"h": 118
+					}
+				},
+				{
+					"filename": "fx_enemy_shoot_flash.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 10,
+						"w": 28,
+						"h": 16
+					},
+					"frame": {
+						"x": 417,
+						"y": 150,
+						"w": 28,
+						"h": 16
+					}
+				},
+				{
+					"filename": "projectile_rapid.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 12,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 4,
+						"w": 11,
+						"h": 4
+					},
+					"frame": {
+						"x": 417,
+						"y": 170,
+						"w": 11,
+						"h": 4
+					}
+				},
+				{
+					"filename": "projectile_enemy_large.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 36,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 33,
+						"h": 33
+					},
+					"frame": {
+						"x": 228,
+						"y": 202,
+						"w": 33,
+						"h": 33
+					}
+				},
+				{
+					"filename": "gun_default.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 9,
+						"h": 6
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 9,
+						"h": 6
+					},
+					"frame": {
+						"x": 265,
+						"y": 202,
+						"w": 9,
+						"h": 6
+					}
+				},
+				{
+					"filename": "projectile_enemy.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 12,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 3,
+						"w": 9,
+						"h": 6
+					},
+					"frame": {
+						"x": 278,
+						"y": 202,
+						"w": 9,
+						"h": 6
+					}
+				},
+				{
+					"filename": "projectile_bullet.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 4,
+						"w": 8,
+						"h": 9
+					},
+					"frame": {
+						"x": 291,
+						"y": 202,
+						"w": 8,
+						"h": 9
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://github.com/odrick/free-tex-packer-core",
+		"version": "0.3.5"
+	}
+}

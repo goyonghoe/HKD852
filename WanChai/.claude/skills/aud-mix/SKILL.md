@@ -1,8 +1,8 @@
 ---
 name: aud-mix
-description: "오디오 믹싱 — 씬별 BGM 전환, 동적 볼륨, SFX 배선 통합"
+description: '오디오 믹싱 — 씬별 BGM 전환, 동적 볼륨, SFX 배선 통합'
 user-invocable: true
-argument-hint: "[task] e.g. wire-combat, dynamic-volume, scene-transitions"
+argument-hint: '[task] e.g. wire-combat, dynamic-volume, scene-transitions'
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
 ---
@@ -22,6 +22,7 @@ Audio Designer로서 BGM과 SFX를 게임 로직에 통합합니다.
 ## 통합 패턴
 
 ### 씬 전환 BGM
+
 ```typescript
 // 이전 BGM 페이드아웃 → 새 BGM 시작
 scene.tweens.add({
@@ -29,11 +30,15 @@ scene.tweens.add({
   vol: 0,
   duration: 500,
   onUpdate: (tween) => audio.setVolume(tween.getValue()),
-  onComplete: () => { audio.stop(); newAudio.play(); }
+  onComplete: () => {
+    audio.stop();
+    newAudio.play();
+  },
 });
 ```
 
 ### 동적 전투 강도
+
 ```typescript
 // 적 수 / 보스 여부에 따라 BGM 레이어 추가
 if (activeEnemies > 20) addDrumLayer();
@@ -41,6 +46,7 @@ if (bossActive) switchToBossTrack();
 ```
 
 ### SFX 배선 체크리스트
+
 - [ ] `onEnemyDeath()` → `sfx.destroy()`
 - [ ] `onBossSpawn()` → `sfx.bossWarning()`
 - [ ] `onLevelUp()` → `sfx.levelUp()`

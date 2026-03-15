@@ -1,6 +1,6 @@
 ---
 name: programmer
-description: "Programmer agent for WanChai puzzle game. Use when implementing features, writing tests, refactoring, or deploying. Translates design/ specs into src/ code."
+description: 'Programmer agent for WanChai puzzle game. Use when implementing features, writing tests, refactoring, or deploying. Translates design/ specs into src/ code.'
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: opus
 skills:

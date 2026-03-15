@@ -1,0 +1,20 @@
+{
+  "name": "Chapter 6 — Lantau (大嶼山)",
+  "parallaxSet": 6,
+  "bgLayers": [
+    {
+      "id": "game-6",
+      "alpha": 0.7
+    }
+  ],
+  "overlay": {
+    "enabled": false,
+    "alpha": 0.35
+  },
+  "ground": {
+    "surfaceTile": "floor_tile_edge",
+    "fillTile": "floor_tile_brick"
+  },
+  "decorations": [],
+  "textures": []
+}

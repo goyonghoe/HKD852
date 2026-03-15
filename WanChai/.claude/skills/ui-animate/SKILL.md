@@ -1,8 +1,8 @@
 ---
 name: ui-animate
-description: "스코어 카운터 롤, 별 연출, 장면 전환, 스프링 애니메이션"
+description: '스코어 카운터 롤, 별 연출, 장면 전환, 스프링 애니메이션'
 user-invocable: true
-argument-hint: "[animation-type] e.g. score-roll, star-reveal, scene-transition"
+argument-hint: '[animation-type] e.g. score-roll, star-reveal, scene-transition'
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
 ---
