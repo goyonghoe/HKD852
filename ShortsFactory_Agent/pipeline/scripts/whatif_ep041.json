@@ -1,0 +1,81 @@
+{
+  "episode_id": "whatif_ep041",
+  "series": "만약에~",
+  "topic_id": "battery-level-on-humans",
+  "language": "ko",
+  "visual_style": "Korean office comedy illustration with glowing smartphone-style battery HUD overlaid on human characters, neon green and red battery indicator UI elements floating above heads, corporate open-plan office setting with exaggerated deadpan expressions, bold manga outlines with clean flat colors",
+  "script": {
+    "hook": "만약에 사람 몸에 스마트폰처럼 배터리 잔량이 표시된다면?",
+    "body": [
+      "드디어! 피곤하다는 말이 증명된다. '나 지금 18%예요.' 상사도 이건 반박 못 하겠지.",
+      "근데 상사가 회의실에 배터리 현황판을 설치했다. 팀원 이름 옆에 퍼센트 실시간 표시. '오늘 컨디션 저조자 야근 면제' 대신 '저조자 우선 배치'.",
+      "진짜 반전은 따로 있다. 만성 20% 직원이 회사에서 제일 인기가 많아졌다. '걔가 이 상태로 이걸 다 한다고?' 신입들이 롤모델로 삼기 시작했다."
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 사람 몸에 스마트폰처럼 배터리 잔량이 표시된다면? 드디어! 피곤하다는 말이 증명된다. '나 지금 18%예요.' 상사도 이건 반박 못 하겠지. 근데 상사가 회의실에 배터리 현황판을 설치했다. 팀원 이름 옆에 퍼센트 실시간 표시. '오늘 컨디션 저조자 야근 면제' 대신 '저조자 우선 배치'. 진짜 반전은 따로 있다. 만성 20% 직원이 회사에서 제일 인기가 많아졌다. '걔가 이 상태로 이걸 다 한다고?' 신입들이 롤모델로 삼기 시작했다.",
+  "display_text": "만약에 사람 몸에 스마트폰처럼 배터리 잔량이 표시된다면? 드디어! 피곤하다는 말이 증명된다. '나 지금 18%예요.' 상사도 이건 반박 못 하겠지. 근데 상사가 회의실에 배터리 현황판을 설치했다. 팀원 이름 옆에 퍼센트 실시간 표시. '오늘 컨디션 저조자 야근 면제' 대신 '저조자 우선 배치'. 진짜 반전은 따로 있다. 만성 20% 직원이 회사에서 제일 인기가 많아졌다. '걔가 이 상태로 이걸 다 한다고?' 신입들이 롤모델로 삼기 시작했다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 사람 몸에 스마트폰처럼 배터리 잔량이 표시된다면?",
+      "image_prompt": "A tired Korean office worker in business casual clothes sitting at a desk, a glowing neon green smartphone battery indicator UI floating above their head showing 18%, other coworkers around the open-plan office each with different battery percentages above their heads ranging from 5% to 95%, dramatic cinematic lighting with blue office ambiance, bold manga style illustration with clean flat colors and thick outlines, vertical 1080x1920 composition",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "드디어! 피곤하다는 말이 증명된다. '나 지금 18%예요.' 상사도 이건 반박 못 하겠지.",
+      "image_prompt": "A victorious Korean office worker raising their fist in triumph, a glowing red battery indicator above their head clearly showing 18% with a low battery warning icon, the strict middle-aged boss across the desk looking visibly baffled and speechless, a speech bubble from the worker saying 18%, bright office fluorescent lighting with comedic victory sparkle effects around the worker, manga comedy illustration bold outlines flat colors",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데 상사가 회의실에 배터리 현황판을 설치했다. 팀원 이름 옆에 퍼센트 실시간 표시. '오늘 컨디션 저조자 야근 면제' 대신 '저조자 우선 배치'.",
+      "image_prompt": "A large LED scoreboard mounted on a corporate conference room wall displaying a list of Korean employee names with real-time battery percentages next to each name, the boss standing proudly beside it with a pointer stick, team members staring at the board in collective horror with sweat drops and shocked expressions, the lowest battery employees highlighted in red with an arrow pointing to the overtime shift column, cold fluorescent office lighting, dark comedy manga illustration vertical format",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "진짜 반전은 따로 있다. 만성 20% 직원이 회사에서 제일 인기가 많아졌다. '걔가 이 상태로 이걸 다 한다고?' 신입들이 롤모델로 삼기 시작했다.",
+      "image_prompt": "A haggard-looking Korean office worker with perpetually dark eye circles and a glowing red 20% battery indicator above their head, surrounded by a halo of admiring wide-eyed new junior employees pointing and whispering in awe, the tired worker is casually typing at a desk surrounded by a mountain of completed work files, motivational poster vibe with ironic comedy, sparkle and star effects around the exhausted hero, warm toned lighting contrast against the cool office, punchline manga composition with bold outlines",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "🔋 사람 몸에 배터리가 보인다면? #만약에",
+    "thumbnail_text": "잔량 18%",
+    "description": "만약에 시리즈: 내 피로도가 숫자로 보인다면? 상사 논리를 박살낼 기회가 왔다 싶었는데... 현황판이 생기고 만성 20%가 롤모델이 됐다.\n※ 한국 직장 번아웃 문화를 소재로 한 순수 창작 풍자 콘텐츠입니다.\n#만약에 #직장인 #번아웃 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#직장인", "#번아웃", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 9,
+      "unexpected": 9,
+      "concrete": 8,
+      "credible": 7,
+      "emotional": 9,
+      "stories": 8,
+      "total": 50,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "배터리 표시로 피로를 객관적으로 증명 → 상사에게 반박 불가 근거 생김",
+      "conflict": "상사가 현황판 설치 → 저배터리가 면제가 아닌 우선 배치 대상이 됨",
+      "twist": "만성 20% 직원이 오히려 회사 최고 인기 롤모델로 등극 — 번아웃이 전설이 됨"
+    },
+    "hook_pattern": "what-if (effectiveness: 82)"
+  },
+  "upload_info": {
+    "youtube_video_id": "eVBdgldrPeY",
+    "youtube_url": "https://youtube.com/shorts/eVBdgldrPeY",
+    "uploaded_at": "2026-02-21T09:17:03+09:00",
+    "privacy_status": "private"
+  }
+}

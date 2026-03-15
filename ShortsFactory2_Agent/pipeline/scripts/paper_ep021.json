@@ -1,0 +1,124 @@
+{
+  "episode_id": "paper_ep021",
+  "series": "오늘의 논문",
+  "topic_id": "investor-login-disposition-effect-reference-point",
+  "language": "ko",
+  "paper_source": {
+    "title": "Investor Logins and the Disposition Effect",
+    "authors": "Quispe-Torreblanca E, Gathergood J, Loewenstein G, Stewart N",
+    "journal": "Management Science",
+    "year": 2024,
+    "doi": "10.1287/mnsc.2022.00359",
+    "peer_reviewed": true,
+    "institution": "University of Warwick / University of Nottingham / Carnegie Mellon University",
+    "sample_size": 8000,
+    "key_finding": "투자자가 앱에 로그인할 때마다 그 시점 가격이 새로운 기준점이 되어 처분 효과가 이중으로 발동되며, 매입 이후 이익이어도 마지막 로그인 이후 소폭 손실이면 매도 회피 행동이 완전히 역전된다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, Nature journal quality, minimalist professional design, ",
+  "script": {
+    "hook": "주식 앱 자주 보는 분들, 그거 오히려 손해 보는 습관이래요.",
+    "body": [
+      "영국에서 투자자 8천 명을 추적했는데요, 앱을 열 때마다 그때 가격이 머릿속에 딱 꽂히는 거래요.",
+      "그래서 원래 산 가격보다 올랐는데도, 아까 앱 열었을 때보다 조금이라도 빠지면 못 파는 거예요.",
+      "머릿속에 잣대가 하나가 아니라 자꾸 늘어나니까, 볼수록 판단이 더 꼬이는 거거든요."
+    ],
+    "closer": "진짜 수익을 지키려면, 앱을 좀 덜 여는 게 답일 수도 있대요.",
+    "cta": ""
+  },
+  "full_text": "주식 앱 자주 보는 분들, 그거 오히려 손해 보는 습관이래요. 영국에서 투자자 8천 명을 추적했는데요, 앱을 열 때마다 그때 가격이 머릿속에 딱 꽂히는 거래요. 그래서 원래 산 가격보다 올랐는데도, 아까 앱 열었을 때보다 조금이라도 빠지면 못 파는 거예요. 머릿속에 잣대가 하나가 아니라 자꾸 늘어나니까, 볼수록 판단이 더 꼬이는 거거든요. 진짜 수익을 지키려면, 앱을 좀 덜 여는 게 답일 수도 있대요.",
+  "display_text": "주식 앱 자주 보는 분들, 그거 오히려 손해 보는 습관이래요. 영국에서 투자자 8천 명을 추적했는데요, 앱을 열 때마다 그때 가격이 머릿속에 딱 꽂히는 거래요. 그래서 원래 산 가격보다 올랐는데도, 아까 앱 열었을 때보다 조금이라도 빠지면 못 파는 거예요. 머릿속에 잣대가 하나가 아니라 자꾸 늘어나니까, 볼수록 판단이 더 꼬이는 거거든요. 진짜 수익을 지키려면, 앱을 좀 덜 여는 게 답일 수도 있대요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "주식 앱 자주 보는 분들, 그거 오히려 손해 보는 습관이래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a glowing smartphone floating in center frame emitting cold blue-white light, multiple ghostly afterimage copies of the phone fan out behind it suggesting obsessive repeated checking, the phone screen glows intensely while shadows radiate outward, minimalist dark atmosphere with sense of compulsive behavior, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "영국에서 투자자 8천 명을 추적했는데요, 앱을 열 때마다 그때 가격이 머릿속에 딱 꽂히는 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a stylized human head silhouette in profile view with multiple small pins or stakes embedded in the brain area, each pin glows a different shade from cool blue to warm amber representing different moments of checking, the pins multiply from bottom to top showing accumulation over time, clean geometric composition with no text or symbols, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "그래서 원래 산 가격보다 올랐는데도, 아까 앱 열었을 때보다 조금이라도 빠지면 못 파는 거예요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a person standing at a crossroads frozen in place unable to move forward, one path glows green warmly representing overall gains rising upward, the other path glows red dimly representing a tiny recent dip going slightly down, the person's feet are rooted to the ground with subtle vine-like tendrils holding them in place, sense of paralysis despite positive surroundings, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "머릿속에 잣대가 하나가 아니라 자꾸 늘어나니까, 볼수록 판단이 더 꼬이는 거거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a brain viewed from above tangled in multiple overlapping measuring rulers or yardsticks crossing each other at chaotic angles, the rulers multiply and overlap creating visual confusion and complexity, warm amber and cool blue rulers interweave, the overall impression is a mind overwhelmed by too many competing standards of measurement, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "진짜 수익을 지키려면, 앱을 좀 덜 여는 게 답일 수도 있대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a serene peaceful brain floating calmly with a smooth clean surface glowing soft blue, below it a smartphone lies face-down and dimmed at rest, the brain has only one single clean pin or marker in it representing clarity of a single reference point, the surrounding space is calm with soft ambient light, sense of mental peace and clear judgment, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "📱 주식 앱 자주 보면 손해 본다 #오늘의논문",
+    "thumbnail_text": "앱확인=손해",
+    "description": "투자 앱을 열 때마다 머릿속에 새로운 잣대가 생겨서 판단이 꼬인다는 Management Science 연구입니다.\n\n📄 논문 출처\nTitle: Investor Logins and the Disposition Effect\nAuthors: Quispe-Torreblanca E, Gathergood J, Loewenstein G, Stewart N\nJournal: Management Science, Vol. 71, Issue 1 (2024)\nDOI: https://doi.org/10.1287/mnsc.2022.00359\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #주식앱 #행동경제학 #투자 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#투자심리",
+      "#주식앱",
+      "#행동경제학",
+      "#투자",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "📱 주식 앱 자주 보면 손해 본다 #오늘의논문",
+      "description": "투자 앱을 열 때마다 머릿속에 새로운 잣대가 생겨서 판단이 꼬인다는 Management Science 연구입니다.\n\n📄 논문 출처\nTitle: Investor Logins and the Disposition Effect\nAuthors: Quispe-Torreblanca E, Gathergood J, Loewenstein G, Stewart N\nJournal: Management Science, Vol. 71, Issue 1 (2024)\nDOI: https://doi.org/10.1287/mnsc.2022.00359\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #주식앱 #행동경제학 #투자 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "투자심리",
+        "주식앱",
+        "행동경제학",
+        "투자",
+        "주식",
+        "손절",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 10,
+      "credible": 10,
+      "emotional": 10,
+      "stories": 9,
+      "total": 59,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "주식 앱을 자주 확인하는 건 성실한 투자 습관",
+      "conflict": "앱 열 때마다 머릿속에 잣대가 하나씩 더 꽂힘",
+      "twist": "올랐는데도 못 파는 이유가 바로 이 습관 때문",
+      "punchline": "앱을 덜 여는 게 진짜 수익을 지키는 방법"
+    },
+    "hook_pattern": "counterintuitive-habit (effectiveness: 95)"
+  }
+}

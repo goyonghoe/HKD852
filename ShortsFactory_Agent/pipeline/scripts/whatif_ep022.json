@@ -1,0 +1,81 @@
+{
+  "episode_id": "whatif_ep022",
+  "series": "만약에~",
+  "topic_id": "everyone-can-read-minds",
+  "language": "ko",
+  "visual_style": "neon-blue telepathy waves, crowded urban street night, glowing thought-bubbles floating above heads, cyberpunk Seoul aesthetic, ",
+  "script": {
+    "hook": "만약 모두가 남의 생각을 읽을 수 있다면?",
+    "body": [
+      "처음엔 완벽하다. 면접 5초, 오해 제로.",
+      "근데 상사 속마음이 보인다. 친구 험담도.",
+      "타인의 불안이 내 머리로 쏟아진다.",
+      "사랑은 모르기 때문에 가능했다."
+    ],
+    "cta": "침묵이 배려였다. 구독 눌러."
+  },
+  "full_text": "만약 모두가 남의 생각을 읽을 수 있다면? 처음엔 완벽하다. 면접 5초, 오해 제로. 근데 상사 속마음이 보인다. 친구 험담도. 타인의 불안이 내 머리로 쏟아진다. 사랑은 모르기 때문에 가능했다. 침묵이 배려였다. 구독 눌러.",
+  "display_text": "만약 모두가 남의 생각을 읽을 수 있다면? 처음엔 완벽하다. 면접 5초, 오해 제로. 근데 상사 속마음이 보인다. 친구 험담도. 타인의 불안이 내 머리로 쏟아진다. 사랑은 모르기 때문에 가능했다. 침묵이 배려였다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 모두가 남의 생각을 읽을 수 있다면?",
+      "image_prompt": "Neon-blue telepathy waves rippling between people on a crowded Seoul night street, glowing thought-bubbles floating above every head, cyberpunk aesthetic, cinematic wide shot, emotional tension, 9:16 vertical",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "처음엔 완벽하다. 면접 5초, 오해 제로.",
+      "image_prompt": "Two people in a bright office shaking hands, neon-blue mind-link glow connecting their foreheads, job interview setting, confident smiles, transparent thought-bubbles showing honest intentions, cyberpunk Seoul aesthetic, 9:16 vertical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데 상사 속마음이 보인다. 친구 험담도.",
+      "image_prompt": "Office worker staring at boss with horror, neon-blue thought-bubble above boss showing cold dismissive words, nearby friend's thought-bubble revealing gossip, crowded open-plan office, anxiety and betrayal on faces, cyberpunk Seoul neon lighting, 9:16 vertical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "타인의 불안이 내 머리로 쏟아진다.",
+      "image_prompt": "Person in fetal position on subway floor overwhelmed, dozens of neon-blue thought-streams flooding into their skull from surrounding commuters, chaotic emotional overwhelm, swirling anxiety waves, dark urban underground, cyberpunk aesthetic, 9:16 vertical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "사랑은 모르기 때문에 가능했다.",
+      "image_prompt": "Couple sitting apart on a bench at night, space between them glowing softly, no thought-bubbles visible, quiet warmth in their expressions, Seoul city lights blurred behind, gentle neon-blue fade, bittersweet emotional tone, 9:16 vertical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "침묵이 배려였다. 구독 눌러.",
+      "image_prompt": "Single person standing alone in silent empty street, all neon thought-bubbles gone, peaceful stillness, soft neon-blue glow fading, overhead text overlay space, cinematic closing shot, cyberpunk Seoul night, 9:16 vertical",
+      "duration_hint": "cta"
+    }
+  ],
+  "metadata": {
+    "title": "만약 모두가 남의 생각을 읽을 수 있다면? #만약에",
+    "thumbnail_text": "생각 공개",
+    "description": "모두의 속마음이 보인다면 세상은 더 나아질까요? 생각해보면 침묵이 배려였습니다.\nAI-assisted production by ShortsFactory_Agent.\n#만약에 #심리 #사고실험 #텔레파시 #인간관계 #쇼츠 #철학 #유튜브쇼츠 #흥미로운사실 #상상",
+    "hashtags": [
+      "#만약에",
+      "#심리",
+      "#사고실험",
+      "#텔레파시",
+      "#인간관계",
+      "#쇼츠",
+      "#철학",
+      "#유튜브쇼츠",
+      "#흥미로운사실",
+      "#상상"
+    ]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

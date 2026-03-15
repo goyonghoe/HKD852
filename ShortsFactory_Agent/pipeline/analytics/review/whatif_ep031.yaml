@@ -1,0 +1,15 @@
+episode_id: "whatif_ep031"
+review_date: "2026-02-20"
+verdict: "PASS"
+scores:
+  source_citation: 8 # 가상 시나리오 + 잠수함/심해 생물 과학적 추론
+  substantial_transformation: 9 # 관광→군사→생태계 다각도 분석
+  ai_misrepresentation_free: 10 # 가상 시나리오 명확, 오인 소지 없음
+  creator_perspective: 9 # 군사+관광+생태 3관점 조합, 독자적 해석
+  uniqueness: 9 # 해양 테마 시리즈 최초
+  hook_strength: 9 # "바다가 투명해진다면?" — 시각적 상상력 강하게 자극
+  factual_accuracy: 8 # 잠수함 은폐 개념, 심해 생물 발견 — 논리적
+total_score: 62
+feedback: "시각적으로 가장 매력적인 에피소드. 투명 바다 → 잠수함 노출 → 군사 전략 변화로 이어지는 스토리라인이 흥미롭고 독창적. 해양 관광 폭발 전개도 현실감 있음."
+revise_items: []
+image_safety: "PASS" # 심해 생물도 bioluminescent jellyfish 등 아름다운 묘사

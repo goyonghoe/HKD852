@@ -1,0 +1,70 @@
+{
+  "episode_id": "whatif_ep044",
+  "series": "만약에~",
+  "topic_id": "spending-causes-pain",
+  "language": "ko",
+  "visual_style": "clean modern Korean webtoon style, soft cel shading, minimal linework, pastel color palette, simple flat backgrounds, warm natural lighting",
+  "script": {
+    "hook": "만약에 돈을 쓸 때마다 진짜 고통이 느껴진다면?",
+    "body": [
+      "편의점에서 커피 한 잔 5천 원. 손가락을 문에 끼인 정도의 통증이 왔다.",
+      "점심값 만 원. 팔꿈치를 책상 모서리에 부딪힌 느낌이다.",
+      "월세 80만 원 이체하는 날. 온몸에 근육통이 왔다. 출근을 못 했다.",
+      "근데 월급날은 반대였다. 350만 원이 들어오는 순간 전신 마사지를 받는 쾌감이 밀려왔다.",
+      "문제는 그다음 달이었다. 카드값 자동이체 87만 원. 출근길에 쓰러졌다."
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 돈을 쓸 때마다 진짜 고통이 느껴진다면? 편의점에서 커피 한 잔 5천 원. 손가락을 문에 끼인 정도의 통증이 왔다. 점심값 만 원. 팔꿈치를 책상 모서리에 부딪힌 느낌이다. 월세 80만 원 이체하는 날. 온몸에 근육통이 왔다. 출근을 못 했다. 근데 월급날은 반대였다. 350만 원이 들어오는 순간 전신 마사지를 받는 쾌감이 밀려왔다. 문제는 그다음 달이었다. 카드값 자동이체 87만 원. 출근길에 쓰러졌다.",
+  "display_text": "만약에 돈을 쓸 때마다 진짜 고통이 느껴진다면? 편의점에서 커피 한 잔 5천 원. 손가락을 문에 끼인 정도의 통증이 왔다. 점심값 만 원. 팔꿈치를 책상 모서리에 부딪힌 느낌이다. 월세 80만 원 이체하는 날. 온몸에 근육통이 왔다. 출근을 못 했다. 근데 월급날은 반대였다. 350만 원이 들어오는 순간 전신 마사지를 받는 쾌감이 밀려왔다. 문제는 그다음 달이었다. 카드값 자동이체 87만 원. 출근길에 쓰러졌다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 돈을 쓸 때마다 진짜 고통이 느껴진다면?",
+      "image_prompt": "Vertical 1080x1920. A slim young Korean woman with long straight black hair and bangs, standing at a convenience store counter holding her phone to pay. Her face is scrunched in anticipation of pain, eyes squeezed shut, teeth clenched, one hand gripping the counter edge. The cashier looks confused. Bright fluorescent convenience store lighting. Colorful snack shelves blurred in background. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm pastel tones, bright interior lighting, high quality illustration",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "편의점에서 커피 한 잔 5천 원. 손가락을 문에 끼인 정도의 통증이 왔다.",
+      "image_prompt": "Vertical 1080x1920. Close-up of the same slim young Korean woman with long straight black hair and bangs, holding a takeaway coffee cup in one hand while shaking her other hand in pain — fingers spread, wrist flicking, classic 'ow that hurt' gesture. Her expression is a comedic wince — one eye open, mouth in an awkward grimace. Simple convenience store exterior background, morning sunlight. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm pastel tones, soft morning light, high quality illustration",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "점심값 만 원. 팔꿈치를 책상 모서리에 부딪힌 느낌이다.",
+      "image_prompt": "Vertical 1080x1920. The same slim young Korean woman with long straight black hair and bangs, sitting at a restaurant table clutching her elbow with the opposite hand, face twisted in that specific funny-bone pain expression — teeth bared, eyes watering slightly, shoulders hunched up. A bowl of bibimbap sits untouched in front of her. Other diners in the background eating normally, glancing at her oddly. Warm lunch-hour restaurant lighting. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm pastel tones, natural interior lighting, high quality illustration",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "월세 80만 원 이체하는 날. 온몸에 근육통이 왔다. 출근을 못 했다.",
+      "image_prompt": "Vertical 1080x1920. The same slim young Korean woman with long straight black hair and bangs, lying face-down on her bed in pajamas, completely defeated. Her phone is on the pillow next to her showing a banking app screen glow. Her body language is total exhaustion — arms limp, face buried in pillow, one leg hanging off the bed. Messy bedroom, curtains closed, dim gloomy morning light seeping through. Dramatic defeated atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, cool muted blue-grey pastel tones, dim moody lighting, high quality illustration",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "근데 월급날은 반대였다. 350만 원이 들어오는 순간 전신 마사지를 받는 쾌감이 밀려왔다.",
+      "image_prompt": "Vertical 1080x1920. The same slim young Korean woman with long straight black hair and bangs, sitting at her office desk with the most blissful expression — eyes gently closed, serene smile, head slightly tilted back in pure ecstasy. A warm golden glow radiates around her like a holy aura. Her coworkers in the background stare at her with confused expressions. Warm golden heavenly lighting contrasting with the normal office fluorescent. Comedic euphoria atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm golden pastel tones, ethereal glow lighting, high quality illustration",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "문제는 그다음 달이었다. 카드값 자동이체 87만 원. 출근길에 쓰러졌다.",
+      "image_prompt": "Vertical 1080x1920. The same slim young Korean woman with long straight black hair and bangs, collapsed dramatically on a busy Seoul sidewalk during morning rush hour. She's on her knees, one hand on the ground, the other clutching her phone. Her bag has fallen beside her. Morning commuters walk past, some glancing down with knowing sympathetic expressions — they understand the pain. Early morning sunlight casting long shadows. Tragicomic atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, cool morning pastel tones, dramatic low-angle sunlight, high quality illustration",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "💸 돈 쓸 때마다 아프면 생기는 일 #만약에",
+    "thumbnail_text": "카드값=고통",
+    "description": "만약에 시리즈: 돈을 쓸 때마다 진짜 통증이 느껴지는 세상이 온다면?\n커피 5천 원에 손가락 통증, 월세날은 출근 불가.\n근데 월급날은...\n#만약에 #돈 #소비 #직장인 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#돈", "#소비", "#직장인", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

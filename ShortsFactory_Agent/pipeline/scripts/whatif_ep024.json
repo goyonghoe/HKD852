@@ -1,0 +1,81 @@
+{
+  "episode_id": "whatif_ep024",
+  "series": "만약에~",
+  "topic_id": "no-sleep-needed",
+  "language": "ko",
+  "visual_style": "surreal dreamlike atmosphere with deep indigo and electric violet palette, bioluminescent glow effects, floating particles like stardust, contrast between hyper-alert eyes and dreamy backgrounds, nocturnal cityscape aesthetic, ",
+  "script": {
+    "hook": "만약 인간이 잠을 안 자도 된다면?",
+    "body": [
+      "하루가 24시간이 아니라 전부 내 시간이 된다.",
+      "수면 산업이 사라진다. 침대 회사 전부 망한다.",
+      "회사는 직원에게 16시간 근무를 요구한다.",
+      "밤이라는 개념이 사라지고, 도시는 영원히 깨어 있다."
+    ],
+    "cta": "잠 없는 세상, 진짜 원해? 구독 눌러."
+  },
+  "full_text": "만약 인간이 잠을 안 자도 된다면? 하루가 24시간이 아니라 전부 내 시간이 된다. 수면 산업이 사라진다. 침대 회사 전부 망한다. 회사는 직원에게 16시간 근무를 요구한다. 밤이라는 개념이 사라지고, 도시는 영원히 깨어 있다. 잠 없는 세상, 진짜 원해? 구독 눌러.",
+  "display_text": "만약 인간이 잠을 안 자도 된다면? 하루가 24시간이 아니라 전부 내 시간이 된다. 수면 산업이 사라진다. 침대 회사 전부 망한다. 회사는 직원에게 16시간 근무를 요구한다. 밤이라는 개념이 사라지고, 도시는 영원히 깨어 있다. 잠 없는 세상, 진짜 원해?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 인간이 잠을 안 자도 된다면?",
+      "image_prompt": "A single wide-open human eye glowing with electric violet light, surrounded by floating stardust particles, the iris reflects a clock with no hands, sense of infinite wakefulness, dark background",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "하루가 24시간이 아니라 전부 내 시간이 된다.",
+      "image_prompt": "A person standing in the center of a vast open landscape under a sky that shows both sun and moon simultaneously, arms spread wide embracing endless time, golden and violet gradient sky, freedom and possibility",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "수면 산업이 사라진다. 침대 회사 전부 망한다.",
+      "image_prompt": "An abandoned mattress factory overgrown with bioluminescent plants, broken bed frames stacked like ruins, eerie beauty of a dead industry, deep indigo atmosphere with glowing moss",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "회사는 직원에게 16시간 근무를 요구한다.",
+      "image_prompt": "An endless open-plan office stretching to the horizon, workers at desks under harsh fluorescent lights that never turn off, a giant digital clock showing 16:00 work hours, oppressive and dystopian mood",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "밤이라는 개념이 사라지고, 도시는 영원히 깨어 있다.",
+      "image_prompt": "A massive futuristic city at what should be night but every building blazes with neon light, no darkness anywhere, people walking streets that glow violet, a world that never sleeps, beautiful but unsettling",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "잠 없는 세상, 진짜 원해? 구독 눌러.",
+      "image_prompt": "A person sitting alone on a rooftop overlooking the eternal neon city, hugging their knees, looking up at a starless bright sky with longing for darkness, the question of what we lose when we gain everything",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "잠을 안 자도 되면 벌어지는 일 #만약에",
+    "thumbnail_text": "24시간=전부 노동?",
+    "description": "만약 인간이 잠을 안 자도 된다면? 자유가 늘어날까, 착취가 늘어날까?\n#만약에 #수면 #노동 #미래사회 #쇼츠",
+    "hashtags": [
+      "#만약에",
+      "#수면",
+      "#노동",
+      "#미래사회",
+      "#WhatIf",
+      "#Shorts",
+      "#자유",
+      "#디스토피아",
+      "#과학",
+      "#사회"
+    ]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

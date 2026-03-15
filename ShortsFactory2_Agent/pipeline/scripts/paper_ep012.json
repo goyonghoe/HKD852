@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep012",
+  "series": "오늘의 논문",
+  "topic_id": "couples-share-psychiatric-disorders",
+  "language": "ko",
+  "paper_source": {
+    "title": "Spousal correlations for nine psychiatric disorders are consistent across cultures and persistent over generations",
+    "authors": "Fan CC, Rasekhi Dehkordi S, Border R, et al.",
+    "journal": "Nature Human Behaviour",
+    "year": 2025,
+    "doi": "10.1038/s41562-025-02298-z",
+    "peer_reviewed": true,
+    "key_finding": "600만 커플 분석 — 우울증, ADHD 등 9개 정신질환에서 배우자가 같은 질환일 확률 두세 배. 문화·세대 무관."
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, deep navy background, no text or numbers in images, tall vertical portrait composition optimized for 9:16 mobile viewing, subjects stacked vertically filling the full height",
+  "script": {
+    "hook": "600만 커플을 분석했더니요, 우울한 사람은 우울한 사람과 사귄대요.",
+    "body": [
+      "원래 취미나 가치관이 비슷한 사람끼리 만난다고 했거든요.",
+      "근데요, 600만 커플을 분석했더니요. 우울증, ADHD까지 9개 정신질환에서 배우자가 같은 질환일 확률이 두세 배 높았대요.",
+      "문화가 달라도, 세대가 달라도, 이 패턴은 똑같았대요."
+    ],
+    "closer": "우리 왜 이렇게 비슷해, 라고 느꼈다면요. 네, 그래서 만난 거래요. 뇌가 고른 거래요.",
+    "cta": ""
+  },
+  "full_text": "600만 커플을 분석했더니요, 우울한 사람은 우울한 사람과 사귄대요. 원래 취미나 가치관이 비슷한 사람끼리 만난다고 했거든요. 근데요, 600만 커플을 분석했더니요. 우울증, ADHD까지 9개 정신질환에서 배우자가 같은 질환일 확률이 두세 배 높았대요. 문화가 달라도, 세대가 달라도, 이 패턴은 똑같았대요. 우리 왜 이렇게 비슷해, 라고 느꼈다면요. 네, 그래서 만난 거래요. 뇌가 고른 거래요.",
+  "display_text": "600만 커플을 분석했더니요, 우울한 사람은 우울한 사람과 사귄대요. 원래 취미나 가치관이 비슷한 사람끼리 만난다고 했거든요. 근데요, 600만 커플을 분석했더니요. 우울증, ADHD까지 9개 정신질환에서 배우자가 같은 질환일 확률이 두세 배 높았대요. 문화가 달라도, 세대가 달라도, 이 패턴은 똑같았대요. 우리 왜 이렇게 비슷해, 라고 느꼈다면요. 네, 그래서 만난 거래요. 뇌가 고른 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "600만 커플을 분석했더니요, 우울한 사람은 우울한 사람과 사귄대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, two cute sad round-faced characters sitting back to back on a bench in the center of the frame, both have small dark rain clouds floating above their heads dripping tiny raindrops, but between them a small glowing pink heart floats connecting them with a thin red thread, warm amber streetlamp glow from above, deep navy blue background fills entire tall frame, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "원래 취미나 가치관이 비슷한 사람끼리 만난다고 했거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, two cheerful round-faced characters standing together in the upper half of the frame both wearing identical outfits and holding matching hobby items like guitars and paintbrushes, colorful hobby icons float around them in a circle like music notes cameras books sports balls, bright warm background with soft pastel colors, deep navy blue background at edges, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데요, 600만 커플을 분석했더니요. 우울증, ADHD까지 9개 정신질환에서 배우자가 같은 질환일 확률이 두세 배 높았대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a massive glowing magnifying glass in the center of the tall frame revealing thousands of tiny couple pairs below connected by matching colored threads, each pair glows the same color showing they match, a scientist character at the top looking through the magnifying glass with a surprised expression, the pairs stretch from middle to bottom filling the frame densely, deep navy blue background, elements fill the full vertical height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "문화가 달라도, 세대가 달라도, 이 패턴은 똑같았대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a tall globe in the center of the frame split into sections showing different cultures from top to bottom, in each section a small couple pair sits together connected by the same glowing red thread, couples are dressed differently representing different eras and cultures but all share the same matching glow pattern, deep navy blue background, elements arranged vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "우리 왜 이렇게 비슷해, 라고 느꼈다면요. 네, 그래서 만난 거래요. 뇌가 고른 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, two cute round-faced characters facing each other in the center of the frame smiling warmly, above their heads their brains are visible as soft glowing orbs connected by a bright sparkling golden bridge of light, tiny hearts and stars float around the golden connection, warm sunrise colors in the background radiating outward, deep navy blue background at edges, elements fill the full vertical height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "💑 우울한 사람은 우울한 사람과 사귄다 #오늘의논문",
+    "thumbnail_text": "커플=뇌매칭",
+    "description": "600만 커플 데이터 분석 결과, 정신질환까지 비슷한 사람끼리 만난다는 연구입니다.\n\n📄 논문 출처\nTitle: Spousal correlations for nine psychiatric disorders are consistent across cultures and persistent over generations\nAuthors: Fan CC et al.\nJournal: Nature Human Behaviour (2025)\nDOI: https://doi.org/10.1038/s41562-025-02298-z\nPeer-reviewed: ✅\n\nKey finding: 우울증, ADHD 등 9개 정신질환에서 배우자가 같은 질환일 확률 두세 배. 문화·세대 무관.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #커플 #심리학 #정신건강 #Shorts",
+    "hashtags": ["#오늘의논문", "#커플", "#심리학", "#정신건강", "#Shorts"],
+    "youtube": {
+      "title": "💑 우울한 사람은 우울한 사람과 사귄다 #오늘의논문",
+      "description": "600만 커플 데이터 분석 결과, 정신질환까지 비슷한 사람끼리 만난다는 연구입니다.\n\n📄 논문 출처\nTitle: Spousal correlations for nine psychiatric disorders are consistent across cultures and persistent over generations\nAuthors: Fan CC et al.\nJournal: Nature Human Behaviour (2025)\nDOI: https://doi.org/10.1038/s41562-025-02298-z\nPeer-reviewed: ✅\n\nKey finding: 우울증, ADHD 등 9개 정신질환에서 배우자가 같은 질환일 확률 두세 배. 문화·세대 무관.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #커플 #심리학 #정신건강 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "커플",
+        "심리학",
+        "정신건강",
+        "연애",
+        "ADHD",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 9,
+      "concrete": 10,
+      "credible": 10,
+      "emotional": 9,
+      "stories": 9,
+      "total": 57,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "취미·가치관이 비슷한 사람끼리 만남",
+      "conflict": "600만 커플 분석 → 정신질환까지 일치 확률 두세 배",
+      "twist": "문화·세대 무관하게 동일 패턴",
+      "punchline": "비슷하다고 느낀 건 뇌가 고른 것"
+    },
+    "hook_pattern": "data-reveal (effectiveness: 92)"
+  }
+}

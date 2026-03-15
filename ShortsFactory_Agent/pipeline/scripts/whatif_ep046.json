@@ -1,0 +1,63 @@
+{
+  "episode_id": "whatif_ep046",
+  "series": "만약에~",
+  "topic_id": "drunk-words-texted",
+  "language": "ko",
+  "visual_style": "clean modern Korean webtoon style, soft cel shading, minimal linework, pastel color palette, simple flat backgrounds, warm natural lighting",
+  "script": {
+    "hook": "만약에 술 마시고 한 말이 다음 날 전부 문자로 온다면?",
+    "body": [
+      "아침에 눈을 떴다. 알림 47건. 사랑한다 32건, 나 사표 낼 거야 7건, 라면 먹고 갈래 12건.",
+      "팀장님한테도 갔다. 형이 왜 거기서 나와. 출근길이 지옥이었다.",
+      "근데 진짜 공포는 읽씹당한 문자였다. 전 여자친구한테 보낸 나 아직도 좋아해. 답장 없음.",
+      "다음 날 전국 술집 매출이 반토막 났다. 근데 일주일 만에 회복됐다. 사람은 못 참으니까."
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 술 마시고 한 말이 다음 날 전부 문자로 온다면? 아침에 눈을 떴다. 알림 47건. 사랑한다 32건, 나 사표 낼 거야 7건, 라면 먹고 갈래 12건. 팀장님한테도 갔다. 형이 왜 거기서 나와. 출근길이 지옥이었다. 근데 진짜 공포는 읽씹당한 문자였다. 전 여자친구한테 보낸 나 아직도 좋아해. 답장 없음. 다음 날 전국 술집 매출이 반토막 났다. 근데 일주일 만에 회복됐다. 사람은 못 참으니까.",
+  "display_text": "만약에 술 마시고 한 말이 다음 날 전부 문자로 온다면? 아침에 눈을 떴다. 알림 47건. 사랑한다 32건, 나 사표 낼 거야 7건, 라면 먹고 갈래 12건. 팀장님한테도 갔다. 형이 왜 거기서 나와. 출근길이 지옥이었다. 근데 진짜 공포는 읽씹당한 문자였다. 전 여자친구한테 보낸 나 아직도 좋아해. 답장 없음. 다음 날 전국 술집 매출이 반토막 났다. 근데 일주일 만에 회복됐다. 사람은 못 참으니까.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 술 마시고 한 말이 다음 날 전부 문자로 온다면?",
+      "image_prompt": "Vertical 1080x1920. A slim young Korean man with short neat black hair, lying in bed in the morning, squinting at his phone held above his face. His expression is pure horror — mouth open, eyes wide, skin pale. The phone screen glows intensely with dozens of notification alerts cascading down. Messy bedroom, morning sunlight through curtains. Hungover dread atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm morning pastel tones, soft bedroom lighting, high quality illustration",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "아침에 눈을 떴다. 알림 47건. 사랑한다 32건, 나 사표 낼 거야 7건, 라면 먹고 갈래 12건.",
+      "image_prompt": "Vertical 1080x1920. The same young Korean man with short neat black hair, now sitting up in bed clutching his phone with both hands, face buried halfway behind the phone, peeking over the top with terrified eyes. His hair is messy, wearing a wrinkled t-shirt. One hand runs through his hair in distress. Morning light casting warm tones across the messy room. Comedic morning-after panic. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm pastel tones, soft morning lighting, high quality illustration",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "팀장님한테도 갔다. 형이 왜 거기서 나와. 출근길이 지옥이었다.",
+      "image_prompt": "Vertical 1080x1920. The same young Korean man with short neat black hair in a suit, walking into the office with his head ducked low, shoulders hunched, trying to be invisible. His stern middle-aged team leader stands by the entrance with arms crossed, staring directly at him with a cold unreadable expression. Other coworkers peek from behind their monitors with suppressed grins. Harsh morning office fluorescent lighting. Pure dread atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, cool office pastel tones, harsh fluorescent lighting, high quality illustration",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "근데 진짜 공포는 읽씹당한 문자였다. 전 여자친구한테 보낸 나 아직도 좋아해. 답장 없음.",
+      "image_prompt": "Vertical 1080x1920. The same young Korean man with short neat black hair, sitting alone at his office desk during lunch break, staring at his phone with a hollow defeated expression. The phone screen shows a single sent message bubble with no reply — just empty space below it. His lunch box sits untouched beside him. The office is empty, everyone else at lunch. Lonely quiet atmosphere with cold afternoon light from the window. Clean modern Korean webtoon style, soft cel shading, minimal linework, cool blue-grey muted pastel tones, cold lonely lighting, high quality illustration",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "다음 날 전국 술집 매출이 반토막 났다. 근데 일주일 만에 회복됐다. 사람은 못 참으니까.",
+      "image_prompt": "Vertical 1080x1920. A lively Korean pojangmacha (street tent bar) at night, packed with people laughing and clinking soju glasses together. Everyone is having a great time despite knowing the consequences — carefree smiles, rosy cheeks, animated conversations. Warm orange string lights glow overhead. Steam rises from dishes on the tables. Warm, joyful, irresistible atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm orange-golden pastel tones, cozy night lighting, high quality illustration",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "🍺 술자리 발언이 문자로 온다면? #만약에",
+    "thumbnail_text": "알림 47건",
+    "description": "만약에 시리즈: 술 마시고 한 말이 다음 날 전부 문자로 온다면?\n사랑한다 32건, 사표 7건, 라면 12건.\n진짜 공포는 읽씹당한 그 문자였다.\n#만약에 #술자리 #직장인 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#술자리", "#직장인", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

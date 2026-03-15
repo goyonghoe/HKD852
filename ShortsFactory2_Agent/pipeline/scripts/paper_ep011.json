@@ -1,0 +1,110 @@
+{
+  "episode_id": "paper_ep011",
+  "series": "오늘의 논문",
+  "topic_id": "money-buys-happiness-no-ceiling",
+  "language": "ko",
+  "paper_source": {
+    "title": "Income and emotional well-being: A conflict resolved",
+    "authors": "Killingsworth MA, Kahneman D, Mellers B",
+    "journal": "PNAS",
+    "year": 2023,
+    "doi": "10.1073/pnas.2208661120",
+    "peer_reviewed": true,
+    "key_finding": "33,000명 실시간 추적 — 소득이 올라갈수록 행복은 계속 증가하며 천장이 없다. 단, 하위 20% 불행한 사람은 연봉 1억에서 정체."
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, consistent round-faced character with big eyes, deep navy background, no text or numbers in images, tall vertical portrait composition optimized for 9:16 mobile viewing, subjects stacked vertically filling the full height",
+  "script": {
+    "hook": "'돈으로 행복을 살 수 있을까?' 노벨상 수상자가 틀렸대요.",
+    "body": [
+      "카너먼 교수가 그랬거든요. 연봉 1억 넘으면 행복은 더 안 올라간다고.",
+      "근데요, 3만 3천 명의 행복을 실시간으로 추적했더니요. 돈을 벌수록 행복은 계속 올라갔대요. 천장이 없었어요.",
+      "반전이 있었어요. 원래 불행한 사람들만은 1억에서 멈췄대요."
+    ],
+    "closer": "돈이 많아서 행복한 게 아니라, 돈 걱정이 사라져서 행복한 거였대요.",
+    "cta": ""
+  },
+  "full_text": "'돈으로 행복을 살 수 있을까?' 노벨상 수상자가 틀렸대요. 카너먼 교수가 그랬거든요. 연봉 1억 넘으면 행복은 더 안 올라간다고. 근데요, 3만 3천 명의 행복을 실시간으로 추적했더니요. 돈을 벌수록 행복은 계속 올라갔대요. 천장이 없었어요. 반전이 있었어요. 원래 불행한 사람들만은 1억에서 멈췄대요. 돈이 많아서 행복한 게 아니라, 돈 걱정이 사라져서 행복한 거였대요.",
+  "display_text": "'돈으로 행복을 살 수 있을까?' 노벨상 수상자가 틀렸대요. 카너먼 교수가 그랬거든요. 연봉 1억 넘으면 행복은 더 안 올라간다고. 근데요, 3만 3천 명의 행복을 실시간으로 추적했더니요. 돈을 벌수록 행복은 계속 올라갔대요. 천장이 없었어요. 반전이 있었어요. 원래 불행한 사람들만은 1억에서 멈췄대요. 돈이 많아서 행복한 게 아니라, 돈 걱정이 사라져서 행복한 거였대요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "'돈으로 행복을 살 수 있을까?' 노벨상 수상자가 틀렸대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a giant shiny gold coin in the upper half of the frame with a happy smiley face on it, below the coin a cute round-faced character with big eyes looking up at it with wonder and sparkles around, the coin radiates warm golden light beams downward, deep navy blue background fills entire tall frame, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "카너먼 교수가 그랬거든요. 연봉 1억 넘으면 행복은 더 안 올라간다고.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a wise old professor character with round glasses and white hair standing at the top of a tall staircase that stretches from bottom to top of the frame, the professor holds up one finger making a point, the staircase has a bright red stop sign barrier halfway up blocking further ascent, warm amber spotlight on the professor from above, deep navy blue background, elements arranged vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데요, 3만 3천 명의 행복을 실시간으로 추적했더니요. 돈을 벌수록 행복은 계속 올라갔대요. 천장이 없었어요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a magical glowing staircase spiraling upward from the bottom to the very top of the tall frame breaking through clouds, thousands of tiny colorful happy people climbing the endless staircase together waving their arms joyfully, the staircase glows brighter and more golden the higher it goes, stars and sparkles at the very top suggesting infinite height, the red barrier from before lies broken and shattered at the bottom, deep navy blue background, elements fill the full vertical height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "반전이 있었어요. 원래 불행한 사람들만은 1억에서 멈췄대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, the tall spiraling staircase splits into two paths in the middle of the frame, the upper path continues glowing bright gold with happy climbing figures, the lower branching path dims and flattens into a horizontal plateau with a few sad small figures sitting still surrounded by dark purple rain clouds, dramatic contrast between the bright ascending path above and the dim flat path below, deep navy blue background, elements fill the full vertical height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "돈이 많아서 행복한 게 아니라, 돈 걱정이 사라져서 행복한 거였대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute round-faced character with big eyes standing in the center of the frame at a crossroads, behind the character in the lower half heavy dark chains and weights dissolve into golden dust and float away upward, above the character the sky opens up into warm sunrise colors with soft clouds and birds flying free, the character looks up with a gentle peaceful smile and open arms embracing the light, deep navy blue background at edges, elements fill the full vertical height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "💰 '돈으로 행복을 살 수 있다' 노벨상 수상자가 틀렸대요 #오늘의논문",
+    "thumbnail_text": "돈=행복?",
+    "description": "'연봉 1억 넘으면 행복은 안 올라간다'는 노벨상 수상자 카너먼의 이론이 틀렸습니다.\n\n📄 논문 출처\nTitle: Income and emotional well-being: A conflict resolved\nAuthors: Killingsworth MA, Kahneman D, Mellers B\nJournal: PNAS (2023)\nDOI: https://doi.org/10.1073/pnas.2208661120\nPeer-reviewed: ✅\n\nKey finding: 33,000명 실시간 추적 — 소득이 올라갈수록 행복은 계속 증가. 단, 하위 20% 불행한 사람만 연봉 1억에서 정체.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #돈과행복 #심리학 #카너먼 #Shorts",
+    "hashtags": ["#오늘의논문", "#돈과행복", "#심리학", "#카너먼", "#Shorts"],
+    "youtube": {
+      "title": "💰 '돈으로 행복을 살 수 있다' 노벨상 수상자가 틀렸대요 #오늘의논문",
+      "description": "'연봉 1억 넘으면 행복은 안 올라간다'는 노벨상 수상자 카너먼의 이론이 틀렸습니다.\n\n📄 논문 출처\nTitle: Income and emotional well-being: A conflict resolved\nAuthors: Killingsworth MA, Kahneman D, Mellers B\nJournal: PNAS (2023)\nDOI: https://doi.org/10.1073/pnas.2208661120\nPeer-reviewed: ✅\n\nKey finding: 33,000명 실시간 추적 — 소득이 올라갈수록 행복은 계속 증가. 단, 하위 20% 불행한 사람만 연봉 1억에서 정체.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #돈과행복 #심리학 #카너먼 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "돈과행복",
+        "심리학",
+        "카너먼",
+        "행복",
+        "연봉",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "tts_mode": "single",
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 10,
+      "emotional": 9,
+      "stories": 9,
+      "total": 57,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "돈은 일정 수준 이상이면 행복에 영향 없다 (카너먼 이론)",
+      "conflict": "33,000명 실시간 추적 → 소득 증가할수록 행복 계속 상승",
+      "twist": "원래 불행한 하위 20%만 1억에서 정체",
+      "punchline": "돈은 행복을 사는 게 아니라 불행할 자유를 줄인다"
+    },
+    "hook_pattern": "common-belief-challenge (effectiveness: 95)"
+  }
+}

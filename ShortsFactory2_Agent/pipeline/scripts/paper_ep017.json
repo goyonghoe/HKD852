@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep017",
+  "series": "오늘의 논문",
+  "topic_id": "microplastics-brain-spoon",
+  "language": "ko",
+  "paper_source": {
+    "title": "Bioaccumulation of microplastics in decedent human brains",
+    "authors": "Campen MJ, Nihart AJ, Garcia M, Liu R, Olewine M, et al.",
+    "journal": "Nature Medicine",
+    "year": 2025,
+    "doi": "10.1038/s41591-024-03453-1",
+    "peer_reviewed": true,
+    "key_finding": "2024년 사망자 뇌 조직에서 1그램당 약 5,000마이크로그램의 미세플라스틱 검출. 8년 전(2016년)보다 50% 증가. 간·콩팥보다 뇌에 훨씬 많이 축적. 치매 진단 환자의 뇌에서 최대 10배 더 높은 농도."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, neon cyan and teal glow accents, consistent round-faced scientist mascot character in white lab coat, clean geometric shapes and smooth curves, layered composition with data visualization elements, scientific journal quality illustrations, no text no numbers no words anywhere in images, tall vertical 9:16 portrait composition optimized for mobile viewing, bottom quarter solid deep navy for subtitle space",
+  "script": {
+    "hook": "우리 머릿속에요, 플라스틱 숟가락 한 개만큼 미세플라스틱이 쌓여있대요.",
+    "body": [
+      "간이나 콩팥보다 뇌에 훨씬 더 많이 쌓여있었대요.",
+      "8년 전보다 50퍼센트나 더 늘었대요.",
+      "치매 환자의 뇌에서는 최대 열 배까지 더 나왔대요."
+    ],
+    "closer": "지금 플라스틱 뚜껑으로 커피 마시고 있죠? 네, 그게 뇌로 가는 거래요.",
+    "cta": ""
+  },
+  "full_text": "우리 머릿속에요, 플라스틱 숟가락 한 개만큼 미세플라스틱이 쌓여있대요. 간이나 콩팥보다 뇌에 훨씬 더 많이 쌓여있었대요. 8년 전보다 50퍼센트나 더 늘었대요. 치매 환자의 뇌에서는 최대 열 배까지 더 나왔대요. 지금 플라스틱 뚜껑으로 커피 마시고 있죠? 네, 그게 뇌로 가는 거래요.",
+  "display_text": "우리 머릿속에요, 플라스틱 숟가락 한 개만큼 미세플라스틱이 쌓여있대요. 간이나 콩팥보다 뇌에 훨씬 더 많이 쌓여있었대요. 8년 전보다 50퍼센트나 더 늘었대요. 치매 환자의 뇌에서는 최대 열 배까지 더 나왔대요. 지금 플라스틱 뚜껑으로 커피 마시고 있죠? 네, 그게 뇌로 가는 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "우리 머릿속에요, 플라스틱 숟가락 한 개만큼 미세플라스틱이 쌓여있대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Kurzgesagt-inspired flat vector infographic style with subtle gradients, a large translucent human brain cross-section centered in frame glowing with soft neon cyan light, inside the brain thousands of tiny colorful microplastic shards in cyan magenta and yellow are scattered throughout like embedded crystals, next to the brain a simple plastic spoon silhouette of similar visual weight floats for scale comparison, a small round-faced scientist mascot character in white lab coat at the bottom looks up with wide shocked eyes, clean geometric shapes smooth curves, deep dark navy-black background, neon cyan and teal glow accents illuminate edges, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "간이나 콩팥보다 뇌에 훨씬 더 많이 쌓여있었대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Kurzgesagt-inspired flat vector infographic style with subtle gradients, three simplified organ silhouettes stacked vertically as a visual bar comparison, top shows a brain silhouette filled almost completely with glowing cyan microplastic particles at maximum density, middle shows a liver silhouette filled only one-fifth with sparse particles, bottom shows a kidney silhouette filled even less with minimal particles, the dramatic difference in particle density between organs creates a clear visual hierarchy, clean geometric organ shapes with smooth rounded edges, a small scientist mascot character on the right side points at the brain looking alarmed, deep dark navy-black background, neon cyan and teal glow on particles, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "8년 전보다 50퍼센트나 더 늘었대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Kurzgesagt-inspired flat vector infographic style with subtle gradients, two human brain silhouettes stacked vertically showing dramatic change over time, top brain is smaller and partially filled with moderate glowing cyan particles representing the past, bottom brain is larger and overflowing with dense bright cyan and teal particles spilling outward representing the present, a large bold upward arrow between them glows in warning orange showing alarming increase, the bottom brain pulses with excessive neon cyan glow from particle overload, the small scientist mascot character at the side covers their mouth in horror, clean geometric shapes, deep dark navy-black background, neon cyan teal and orange accents, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "치매 환자의 뇌에서는 최대 열 배까지 더 나왔대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Kurzgesagt-inspired flat vector infographic style with subtle gradients, two brain cross-sections side by side comparison, left brain is relatively healthy with a moderate scattering of small cyan particles and smooth intact neural pathways shown as gentle glowing lines, right brain is overwhelmed packed densely with bright red and magenta microplastic particles so thick the neural pathways appear cracked and disrupted, the right brain glows ominously with hot red warning tones while the left brain has calm cool cyan tones, the contrast between healthy and affected is stark and dramatic, the scientist mascot character between them holds their head in dismay, deep dark navy-black background, neon cyan versus warning red color contrast, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "지금 플라스틱 뚜껑으로 커피 마시고 있죠? 네, 그게 뇌로 가는 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Kurzgesagt-inspired flat vector infographic style with subtle gradients, the round-faced scientist mascot character seen from chest up in the center holding a takeaway coffee cup with a plastic lid, from the cup tiny glowing cyan and teal microplastic particles float upward in a gentle stream curving toward the characters head, above their head a transparent brain silhouette is visible with the particles being absorbed into it like a magnet attracting iron filings, the character has a knowing guilty smirk looking directly at the viewer breaking the fourth wall, warm coffee brown tones on the cup contrast with cool neon cyan particles, simple intimate composition with one character and one cup, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🧠 당신 뇌에 플라스틱 숟가락이 들어있다 #오늘의논문",
+    "thumbnail_text": "뇌=플라스틱",
+    "description": "사망자의 뇌 조직에서 플라스틱 숟가락 한 개 분량의 미세플라스틱이 발견됐습니다.\n\n📄 논문 출처\nTitle: Bioaccumulation of microplastics in decedent human brains\nAuthors: Campen MJ et al.\nJournal: Nature Medicine (2025)\nDOI: https://doi.org/10.1038/s41591-024-03453-1\nPeer-reviewed: ✅\n\nKey finding: 뇌 1g당 ~5,000μg 미세플라스틱 검출. 8년간 50% 증가. 치매 환자 뇌에서 최대 10배 농도.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #미세플라스틱 #뇌과학 #건강 #Shorts",
+    "hashtags": ["#오늘의논문", "#미세플라스틱", "#뇌과학", "#건강", "#Shorts"],
+    "youtube": {
+      "title": "🧠 당신 뇌에 플라스틱 숟가락이 들어있다 #오늘의논문",
+      "description": "사망자의 뇌 조직에서 플라스틱 숟가락 한 개 분량의 미세플라스틱이 발견됐습니다.\n\n📄 논문 출처\nTitle: Bioaccumulation of microplastics in decedent human brains\nAuthors: Campen MJ et al.\nJournal: Nature Medicine (2025)\nDOI: https://doi.org/10.1038/s41591-024-03453-1\nPeer-reviewed: ✅\n\nKey finding: 뇌 1g당 ~5,000μg 미세플라스틱 검출. 8년간 50% 증가. 치매 환자 뇌에서 최대 10배 농도.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #미세플라스틱 #뇌과학 #건강 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "미세플라스틱",
+        "뇌과학",
+        "마이크로플라스틱",
+        "건강",
+        "환경",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 10,
+      "credible": 10,
+      "emotional": 10,
+      "stories": 9,
+      "total": 59,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "플라스틱 오염은 바다에만 있는 문제",
+      "conflict": "뇌 속에 숟가락 한 개 분량이 쌓여있음",
+      "twist": "8년 새 50% 증가 + 치매 환자에서 10배",
+      "punchline": "지금 마시는 플라스틱 컵 커피가 뇌로 가는 중"
+    },
+    "hook_pattern": "shocking-stat (effectiveness: 98)"
+  }
+}

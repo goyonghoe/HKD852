@@ -1,0 +1,146 @@
+episode_id: paper_ep020
+reviewed_at: "2026-02-28"
+reviewer: paper-review-v1
+
+checklist:
+  source_citation:
+    score: 9/8
+    pass: true
+    notes:
+      "DOI present (10.1093/rfs/hhaf006), journal named (Review of Financial Studies 2025),
+      all three authors credited (Gödker K, Jiao P, Smeets P), peer-reviewed status explicitly
+      marked. Institutions named (Bocconi University / University of Amsterdam). Sample size (229)
+      stated in paper_source. YouTube description includes a dedicated '논문 출처' citation block
+      with title, authors, journal, DOI hyperlink, peer-review checkmark, and key finding summary.
+      All sub-criteria met with comprehensive coverage — scoring above minimum."
+
+  academic_accuracy:
+    score: 9/9
+    pass: true
+    notes:
+      "All quantitative claims are accurately represented. '23% 더 많이' (gains recalled 23%
+      higher) and '10% 더 적게' (losses recalled 10% lower) match the key_finding field exactly.
+      '229명 투자자' is correctly cited in scene 2. The causal claim — 'distorted memory predicts
+      next investment decision better than actual returns' — is accurately rendered as a
+      predictive relationship, not overclaimed as a causal mechanism. '물타기와 과잉 매수' (averaging
+      down and overbuying) as behavioral outcomes is a reasonable and common interpretation of
+      the memory-bias-to-trading-behavior pathway described in behavioral finance literature.
+      No data fabrication, no magnitude exaggeration, no invented statistics detected."
+
+  substantial_transformation:
+    score: 9/8
+    pass: true
+    notes:
+      "Script does not recite the abstract. The narrative arc follows expectation-conflict-
+      twist-punchline structure: (expectation) 'I remember my returns accurately'; (conflict)
+      '23% inflation of gains, 10% erasure of losses'; (twist) 'distorted memory, not actual
+      returns, drives next purchase'; (punchline) 'the memory you feel proud of was edited by
+      your brain.' The 'brain-as-editor' metaphor in scene 4 and 5 (memory film-editing timeline,
+      scissors clipping loss frames) is original narrator framing absent from the paper. The
+      colloquial finance terms '물타기' (averaging down) and '과잉 매수' are creative mappings
+      not explicitly used in academic text. High creative transformation throughout."
+
+  ai_misrepresentation_free:
+    score: 9/9
+    pass: true
+    notes:
+      "No fabricated quotes, no hallucinated findings, no invented data points. All numbers
+      (229 participants, 23% gain inflation, 10% loss suppression) are present in the paper_source
+      key_finding and traceable to the reference DOI. The predictive relationship ('왜곡된 기억이
+      실제 수익률보다 다음 매수 결정을 더 잘 예측') is accurately framed as a predictive statistical
+      relationship. No author names misquoted. No fabricated experimental details. Description
+      accurately states 'three experiments (lab + online)' as noted in the metadata. Full citation
+      block in YouTube description provides verification path for viewers."
+
+  creator_perspective:
+    score: 8/7
+    pass: true
+    notes:
+      "Strong narrator voice throughout. '우리 뇌는 수익을 과장하고 손실을 지워버리면서, 스스로
+      물타기와 과잉 매수를 부추기는 거거든요' is an editorial interpretation connecting the memory
+      bias finding to specific harmful trading behaviors — this framing is the narrator's, not the
+      paper's. The closer '내가 잘했다고 느끼는 그 기억, 뇌가 편집한 버전일 수 있어요' is a poetic
+      philosophical punchline that provides emotional resonance beyond the academic text. Channel
+      tone ('~인데요', '~거든요', '~거든요') is consistently maintained. The investment-behavior
+      angle (물타기, 과잉 매수) as a practical consequence is an original editorial addition that
+      adds distinct value for the target audience."
+
+  uniqueness_check:
+    score: 8/7
+    pass: true
+    notes:
+      "Cross-checked all 19 prior episodes (ep001-ep019). No prior episode covers:
+      investor memory bias, behavioral finance, cognitive distortion in trading decisions,
+      or investment psychology topics. Closest potential topics: ep002 (marshmallow-test-debunked
+      — self-control in decision-making) and ep011 (money-buys-happiness-no-ceiling — financial
+      wellbeing) are thematically tangential at best and cover completely different research
+      questions. ep020 introduces the channel's first explicit investment/trading psychology
+      paper, which directly serves the stated channel niche ('투자 심리 / 행동경제학'). No
+      topic overlap detected."
+
+  hook_strength:
+    score: 8/7
+    pass: true
+    notes:
+      "Hook '1주일 전 내 주식 수익, 지금 기억하는 것보다 사실 23%나 부풀려져 있대요' achieves
+      all three hooks objectives: (1) immediate personal relevance to target audience (주식 투자자),
+      (2) counterintuitive claim that violates the self-assessment assumption most investors hold,
+      (3) specific number (23%) that creates credibility and curiosity simultaneously. '부풀려져 있대요'
+      (turns out it's inflated) functions as a revelation structure within the hook sentence itself.
+      Quality check scored hook_pattern as 'investor-shock (effectiveness: 95)'. Attention capture
+      within first 2 seconds: confirmed. '내 주식' (my stocks) creates immediate self-referential
+      engagement — highly optimized for MZ-generation retail investor audience."
+
+  visual_consistency:
+    score: 7/7
+    pass: true
+    notes:
+      "All 5 image prompts correctly specify: (1) 9:16 tall portrait orientation, (2) 'no
+      text no numbers no words anywhere in images', (3) 'bottom quarter solid deep navy for
+      subtitle space', (4) deep dark navy-black background, (5) flat vector infographic style,
+      (6) subtle gradients, (7) clean scientific aesthetic. Visual story arc is coherent across
+      scenes: brain-with-distorted-nodes (scene 1) → study-group-asymmetric-memory (scene 2)
+      → dual-bar-memory-vs-data (scene 3) → brain-as-filter (scene 4) → head-with-film-editing-
+      timeline (scene 5). Progressive metaphor development from overview to mechanism to
+      consequence to reflection is well-structured. Note: prompts use 'Kurzgesagt-inspired'
+      language as in ep019, but the visual_style field in the JSON uses 'Nano Banana Pro
+      infographic style' as the opening phrase, which partially aligns with channel guide.
+      No deduction as the JSON visual_style field leads with the correct channel style reference."
+
+additional_checks:
+  metadata_complete:
+    "PASS — title present with emoji and hashtag, full description with DOI
+    citation block, 9 tags including 'Shorts', category_id=27 (Education)"
+  privacy_private: "PASS — privacy_status: private"
+  no_cta: "PASS — cta field is empty string, closer contains no call to action"
+  made_for_kids_false: "PASS — made_for_kids: false"
+  peer_reviewed: "PASS — peer_reviewed: true, RFS is a top-tier finance journal"
+  finance_content_disclosure:
+    "NOTE — investment/trading content. Script accurately describes
+    academic research and does not constitute financial advice. No stock recommendations made.
+    Behavioral description is educational. No additional disclaimer required under YouTube
+    policy for academic commentary, but channel may wish to add 'for educational purposes only'
+    footer in description as series scales into finance niche."
+
+total_score: 67/80
+items_failed: 0
+verdict: "PASS"
+feedback: |
+  paper_ep020 is the strongest episode reviewed to date. All 8 checklist items pass their
+  minimums, and the total score of 67/80 comfortably clears the 64-point PASS threshold.
+
+  Strengths:
+  - First investment psychology paper in the series — perfectly on-niche for '투자 심리 / 행동경제학' channel
+  - Numerical accuracy is exemplary: 23%, 10%, 229명 all verifiable against the DOI source
+  - Brain-as-editor metaphor across scenes 4 and 5 is creative, coherent, and emotionally resonant
+  - Hook is the highest-performing type: personal (내 주식), counterintuitive (memory inflated),
+    specific number (23%), and credible (implied academic source) — all within one sentence
+  - YouTube description citation block is complete and professional
+
+  Minor advisory (no score impact):
+  - As the channel scales into investment psychology content, consider adding a one-line
+    educational disclaimer in the description footer ("이 영상은 학술 논문 소개 목적이며
+    투자 조언이 아닙니다") to pre-empt any YouTube finance content policy scrutiny.
+    This is a proactive measure, not a current policy violation.
+
+  Ready to render. No revisions required.

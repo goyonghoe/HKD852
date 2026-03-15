@@ -1,0 +1,18 @@
+{
+  "batch_id": "20260227_001",
+  "total": 1,
+  "completed": 1,
+  "current_step": "review_pass",
+  "current_episode": "paper_ep019",
+  "languages": ["ko"],
+  "results": [
+    {
+      "episode_id": "paper_ep019",
+      "status": "PASS",
+      "ko_path": "rendered/samples/paper_ep019/paper_ep019_manga_20260227-183221.mp4",
+      "duration_sec": 35.4,
+      "review_score": 60,
+      "review_revision": 1
+    }
+  ]
+}

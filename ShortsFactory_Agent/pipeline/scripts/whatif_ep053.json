@@ -1,0 +1,70 @@
+{
+  "episode_id": "whatif_ep053",
+  "series": "만약에~",
+  "topic_id": "physical-leave-at-6",
+  "language": "ko",
+  "visual_style": "flat 2D minimalist vector illustration, bold geometric shapes, rich saturated colors on deep dark blue background, soft inner gradient shading, warm glow effects, simplified cute rounded characters with no outlines, clean educational animation aesthetic, smooth color transitions, dynamic action energy",
+  "script": {
+    "hook": "만약에 6시에 회사에서 물리적으로 튕겨 나간다면?",
+    "body": [
+      "오후 5시 59분. 전국 직장인이 긴장한다. 노트북 저장 버튼을 미친 듯이 누른다. 안 누르면 작업이 날아간다. 화장실도 못 간다. 1분이 생사를 가른다.",
+      "6시 정각. 보이지 않는 힘이 몸을 잡아당긴다. 의자째로 창문 밖으로 날아간다. 전국 사무실이 동시에 비워진다. 하늘이 퇴근하는 사람으로 가득 찬다.",
+      "팀장님도 예외는 없다. 야근을 시키려는 순간 같이 튕겨 나간다. 잠깐만이라는 말이 채 끝나기도 전에 사라진다. 직급이 높을수록 더 세게 날아간다.",
+      "근데 진짜 혼돈은 회의 중에 일어난다. 발표 도중에 발표자가 통째로 날아간다. 프로젝터만 혼자 돌아간다. 남은 사람들이 빈 화면을 멍하니 쳐다본다.",
+      "결국 한국의 업무 효율이 세계 1위가 된다. 6시간 안에 전부 끝내야 하니까. 점심시간도 아까워서 안 먹는다. 너라면 몇 시에 튕겨 나가고 싶어?"
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 6시에 회사에서 물리적으로 튕겨 나간다면? 오후 5시 59분. 전국 직장인이 긴장한다. 노트북 저장 버튼을 미친 듯이 누른다. 안 누르면 작업이 날아간다. 화장실도 못 간다. 1분이 생사를 가른다. 6시 정각. 보이지 않는 힘이 몸을 잡아당긴다. 의자째로 창문 밖으로 날아간다. 전국 사무실이 동시에 비워진다. 하늘이 퇴근하는 사람으로 가득 찬다. 팀장님도 예외는 없다. 야근을 시키려는 순간 같이 튕겨 나간다. 잠깐만이라는 말이 채 끝나기도 전에 사라진다. 직급이 높을수록 더 세게 날아간다. 근데 진짜 혼돈은 회의 중에 일어난다. 발표 도중에 발표자가 통째로 날아간다. 프로젝터만 혼자 돌아간다. 남은 사람들이 빈 화면을 멍하니 쳐다본다. 결국 한국의 업무 효율이 세계 1위가 된다. 6시간 안에 전부 끝내야 하니까. 점심시간도 아까워서 안 먹는다. 너라면 몇 시에 튕겨 나가고 싶어?",
+  "display_text": "만약에 6시에 회사에서 물리적으로 튕겨 나간다면? 오후 5시 59분. 전국 직장인이 긴장한다. 노트북 저장 버튼을 미친 듯이 누른다. 안 누르면 작업이 날아간다. 화장실도 못 간다. 1분이 생사를 가른다. 6시 정각. 보이지 않는 힘이 몸을 잡아당긴다. 의자째로 창문 밖으로 날아간다. 전국 사무실이 동시에 비워진다. 하늘이 퇴근하는 사람으로 가득 찬다. 팀장님도 예외는 없다. 야근을 시키려는 순간 같이 튕겨 나간다. 잠깐만이라는 말이 채 끝나기도 전에 사라진다. 직급이 높을수록 더 세게 날아간다. 근데 진짜 혼돈은 회의 중에 일어난다. 발표 도중에 발표자가 통째로 날아간다. 프로젝터만 혼자 돌아간다. 남은 사람들이 빈 화면을 멍하니 쳐다본다. 결국 한국의 업무 효율이 세계 1위가 된다. 6시간 안에 전부 끝내야 하니까. 점심시간도 아까워서 안 먹는다. 너라면 몇 시에 튕겨 나가고 싶어?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 6시에 회사에서 물리적으로 튕겨 나간다면?",
+      "image_prompt": "Vertical 1080x1920. A tiny cute simplified round-headed office worker figure in a suit being launched out of a tall office building window by a massive invisible force, arms and legs flailing in surprise. The figure trails a bright golden energy streak behind them as they fly outward. A giant clock on the building shows exactly 6 o'clock. The city skyline is visible behind with deep dark navy evening sky. Papers and a laptop fly alongside the person. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated golden launch energy on deep dark blue evening background, soft inner gradient shading, dynamic kinetic motion effects, simplified cute rounded character with no outlines, clean educational animation aesthetic",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "오후 5시 59분. 전국 직장인이 긴장한다. 노트북 저장 버튼을 미친 듯이 누른다. 안 누르면 작업이 날아간다. 화장실도 못 간다. 1분이 생사를 가른다.",
+      "image_prompt": "Vertical 1080x1920. An office scene showing multiple tiny cute simplified round-headed figures at their desks in pure panic mode. Every figure frantically hammers their laptop keyboards with both hands, sweat drops flying. Their eyes are wide with terror staring at their screens. A giant clock on the wall shows 5:59 with the second hand ticking toward 12, glowing ominous red. The atmosphere is tense countdown energy like a bomb about to go off. Warm orange urgent lighting fills the office. Flat 2D minimalist vector illustration, bold geometric shapes, urgent warm orange countdown glow on deep dark navy background, soft inner gradient shading, frantic countdown energy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "6시 정각. 보이지 않는 힘이 몸을 잡아당긴다. 의자째로 창문 밖으로 날아간다. 전국 사무실이 동시에 비워진다. 하늘이 퇴근하는 사람으로 가득 찬다.",
+      "image_prompt": "Vertical 1080x1920. A dramatic wide shot of a city skyline at dusk. From every office building window, dozens of tiny cute simplified round-headed figures are being launched outward simultaneously, each trailing bright golden-orange energy streaks. Some fly with their office chairs still attached, some clutch coffee mugs mid-flight. The entire city is erupting with ejected workers like fireworks going off. The buildings glow warm from inside but all the people are outside in the air. Deep dark navy evening sky with warm golden figure trails. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated golden-orange figure trails across deep dark blue evening sky, soft gradient shading, massive simultaneous ejection spectacle, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "팀장님도 예외는 없다. 야근을 시키려는 순간 같이 튕겨 나간다. 잠깐만이라는 말이 채 끝나기도 전에 사라진다. 직급이 높을수록 더 세게 날아간다.",
+      "image_prompt": "Vertical 1080x1920. A comedic freeze-frame moment. A stern middle-aged boss figure with one finger raised mid-sentence is being yanked backward by an invisible golden force, mouth still open giving an order. His tie flies forward while his body goes backward. A junior employee figure nearby watches in shock as the boss disappears through the office wall leaving a cartoon boss-shaped hole. A speech bubble from the boss is cut off mid-word. The scene captures the exact instant of ejection. Flat 2D minimalist vector illustration, bold geometric shapes, warm golden ejection force with comedic impact effects on deep dark navy background, soft gradient shading, freeze-frame comedy timing, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "근데 진짜 혼돈은 회의 중에 일어난다. 발표 도중에 발표자가 통째로 날아간다. 프로젝터만 혼자 돌아간다. 남은 사람들이 빈 화면을 멍하니 쳐다본다.",
+      "image_prompt": "Vertical 1080x1920. A conference room scene. A presentation screen still displays slides, the projector beam shining steadily. But the presenter spot is completely empty, only a laser pointer falling through the air where the person used to stand. A golden energy trail leads from the presenter position out through the wall. The remaining audience of tiny cute simplified round-headed figures sit in their chairs with completely baffled expressions, some looking at the empty spot, some at the still-running slides. The contrast between the calm presentation screen and the chaos is the visual joke. Flat 2D minimalist vector illustration, bold geometric shapes, cool blue projector light with warm golden exit trail on deep dark navy background, soft gradient shading, absurd calm-meets-chaos comedy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "결국 한국의 업무 효율이 세계 1위가 된다. 6시간 안에 전부 끝내야 하니까. 점심시간도 아까워서 안 먹는다. 너라면 몇 시에 튕겨 나가고 싶어?",
+      "image_prompt": "Vertical 1080x1920. A triumphant scene showing a simplified globe with Korea highlighted and glowing golden, with a giant number one trophy floating above it. Below, tiny cute simplified round-headed Korean office workers march efficiently in perfect formation, each completing tasks at lightning speed with sparkle effects. Clocks around the scene all show times between 9 and 6. The mood is proud and energetic, everyone working hard but happy knowing they will be free at 6. Warm golden achievement glow bathes the entire scene. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated warm golden achievement glow on deep dark navy background, soft inner gradient shading, triumphant productive energy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "🏢 6시에 회사에서 튕겨 나간다면? #만약에",
+    "thumbnail_text": "6시 강제퇴근",
+    "description": "만약에 시리즈: 6시에 회사에서 물리적으로 튕겨 나간다면?\n5시 59분 저장 전쟁, 6시 정각 전국 동시 사출.\n팀장님도 예외 없음. 야근이 물리적으로 불가능한 세상.\n#만약에 #직장인 #칼퇴 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#직장인", "#칼퇴", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

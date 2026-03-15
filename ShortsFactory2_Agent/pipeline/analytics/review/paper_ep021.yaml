@@ -1,0 +1,102 @@
+episode_id: paper_ep021
+reviewed_at: "2026-02-28"
+reviewer: paper-review skill (Sonnet)
+
+paper:
+  title: "Investor Logins and the Disposition Effect"
+  authors: "Quispe-Torreblanca E, Gathergood J, Loewenstein G, Stewart N"
+  journal: "Management Science"
+  year: 2024
+  doi: "10.1287/mnsc.2022.00359"
+  peer_reviewed: true
+
+scores:
+  citation:
+    score: 10
+    min: 8
+    pass: true
+    note: >
+      DOI, 저널명(Management Science), 연도, 저자 4인, 소속 기관 3곳, 샘플 크기(8,000명)
+      모두 description에 명시. DOI 링크 포맷 정확. peer_reviewed=true.
+
+  academic_accuracy:
+    score: 9
+    min: 9
+    pass: true
+    note: >
+      처분 효과(Disposition Effect)와 기준점(Reference Point) 개념이 논문 핵심과 일치.
+      "로그인마다 새 기준점이 각인된다"는 주요 발견을 정확히 서술.
+      "판단력이 망가진다"는 표현이 원 논문 표현보다 다소 극적이나 인과 방향성은 올바름.
+      -1점: sample_size=8,000을 "영국 투자자 8천 명"으로 서술했으나 원 논문의
+      정확한 샘플 기술 방식(거래 계좌 수 vs 개인 수)을 단순화했을 가능성.
+
+  substantial_transformation:
+    score: 9
+    min: 8
+    pass: true
+    note: >
+      원 논문의 기술적 내용("다중 기준점", "이중 발동")을 두 개의 앵커 시각 메타포로
+      독창적으로 재구성. "앱을 덜 열수록 기준점이 덜 박힌다"는 실용적 행동 지침은
+      논문에 명시되지 않은 창작자 관점 확장. 복수의 원 데이터를 단일 서사로 압축.
+
+  ai_disclaimer:
+    score: 9
+    min: 9
+    pass: true
+    note: >
+      description에 논문 출처 명시 및 "전체 논문은 DOI 링크에서 확인하세요" 안내 포함.
+      AI 생성 콘텐츠 오인 방지를 위한 학술 근거 귀속이 명확.
+      -1점: 스크립트 내 "연구 결과가 나왔거든요" 이상의 AI 생성물 고지 문구 없음
+      (YouTube AI 생성 콘텐츠 라벨 요건 — 별도 업로드 시 체크박스 필요).
+
+  creator_perspective:
+    score: 9
+    min: 7
+    pass: true
+    note: >
+      "앱을 덜 열수록, 뇌에 기준점이 덜 박히는 거예요" — 논문에서 파생된 독자적 행동 조언.
+      훅 문장("판단력이 망가진다")과 클로저의 어조 대비가 명확한 창작자 편집 의도를 보여줌.
+      앵커 개수 비유(매입 기준점 + 로그인 기준점)는 원 논문 설명 방식을 넘어선 시각화 전략.
+
+  duplicate_avoidance:
+    score: 9
+    min: 7
+    pass: true
+    note: >
+      ep020(Investor Memory — 기억 편향), ep002(마시멜로 — 충동 제어), ep011(돈과 행복) 등
+      인접 주제 존재하나 "모바일 앱 로그인 행위 자체가 기준점을 재설정한다"는 메커니즘은
+      기존 에피소드에 없는 신규 각도. topic_id 'investor-login-disposition-effect-reference-point'
+      고유하게 확인.
+
+  hook_strength:
+    score: 9
+    min: 7
+    pass: true
+    note: >
+      "주식 앱을 자주 확인할수록 판단력이 망가진다" — 반직관적(counter-intuitive) 훅.
+      투자자 대부분이 앱 확인을 긍정적 행위로 간주하므로 인지 부조화 유발 효과 높음.
+      hook_pattern 'counterintuitive-behavior (effectiveness: 92)' 자체 평가와 일치.
+
+  visual_consistency:
+    score: 9
+    min: 7
+    pass: true
+    note: >
+      5개 씬 모두 "딥 다크 네이비 배경 + Kurzgesagt 플랫 벡터 + 자막 공간(하단 1/4 네이비)"
+      통일. 앵커 아이콘(파란색/앰버)이 씬 2→3→4에서 반복 등장해 시각적 모티프 연속성 확보.
+      씬 4의 "두 개 족쇄" 비주얼이 이중 앵커링 개념을 강하게 구현.
+
+total_score: 73
+max_score: 80
+threshold_pass: 64
+threshold_revise: 48
+
+verdict: PASS
+verdict_reason: >
+  8개 항목 전부 최저 기준 충족. 총점 73/80으로 PASS 기준(64) 초과.
+  학술 정확성(9/9 기준 충족), AI 고지(9/9 기준 충족), 출처 인용(10/8 초과).
+  단, 업로드 시 YouTube "AI 생성 콘텐츠" 체크박스 표시 필요.
+
+action_items:
+  - "업로드 시 YouTube Creator Studio에서 AI 생성 콘텐츠 라벨 활성화 확인"
+  - "썸네일 텍스트 '로그인=기준점중독' — 모바일 가독성 테스트 권장"

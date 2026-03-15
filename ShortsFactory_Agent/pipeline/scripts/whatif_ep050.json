@@ -1,0 +1,70 @@
+{
+  "episode_id": "whatif_ep050",
+  "series": "만약에~",
+  "topic_id": "no-cafes-korea",
+  "language": "ko",
+  "visual_style": "flat 2D minimalist vector illustration, bold geometric shapes, rich saturated colors on deep dark blue background, soft inner gradient shading, warm glow effects, simplified cute rounded characters with no outlines, clean educational animation aesthetic, smooth color transitions, warm cozy to cold desolate atmosphere",
+  "script": {
+    "hook": "만약에 한국에서 카페가 전부 사라진다면?",
+    "body": [
+      "먼저 대학생이 멸종한다. 과제할 곳이 없다. 도서관은 이미 만석이다. 전국 학점이 동시에 폭락한다.",
+      "소개팅 문화가 끝난다. 첫 만남 장소가 사라졌다. 편의점 앞 플라스틱 의자에서 눈 맞춰야 한다.",
+      "직장인 점심시간이 지옥이 된다. 아메리카노 한 잔의 여유가 사라졌다. 회사 정수기 앞에서 멍 때리는 게 유일한 휴식.",
+      "근데 진짜 공포는 따로 있다. 한국 자영업자 25퍼센트가 카페다. 전국 10만 개가 동시에 문을 닫는다.",
+      "일주일 후 편의점 커피 가격이 만 원을 찍는다. 믹스커피가 금이 된다. 너라면 커피 없이 살 수 있어?"
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 한국에서 카페가 전부 사라진다면? 먼저 대학생이 멸종한다. 과제할 곳이 없다. 도서관은 이미 만석이다. 전국 학점이 동시에 폭락한다. 소개팅 문화가 끝난다. 첫 만남 장소가 사라졌다. 편의점 앞 플라스틱 의자에서 눈 맞춰야 한다. 직장인 점심시간이 지옥이 된다. 아메리카노 한 잔의 여유가 사라졌다. 회사 정수기 앞에서 멍 때리는 게 유일한 휴식. 근데 진짜 공포는 따로 있다. 한국 자영업자 25퍼센트가 카페다. 전국 10만 개가 동시에 문을 닫는다. 일주일 후 편의점 커피 가격이 만 원을 찍는다. 믹스커피가 금이 된다. 너라면 커피 없이 살 수 있어?",
+  "display_text": "만약에 한국에서 카페가 전부 사라진다면? 먼저 대학생이 멸종한다. 과제할 곳이 없다. 도서관은 이미 만석이다. 전국 학점이 동시에 폭락한다. 소개팅 문화가 끝난다. 첫 만남 장소가 사라졌다. 편의점 앞 플라스틱 의자에서 눈 맞춰야 한다. 직장인 점심시간이 지옥이 된다. 아메리카노 한 잔의 여유가 사라졌다. 회사 정수기 앞에서 멍 때리는 게 유일한 휴식. 근데 진짜 공포는 따로 있다. 한국 자영업자 25퍼센트가 카페다. 전국 10만 개가 동시에 문을 닫는다. 일주일 후 편의점 커피 가격이 만 원을 찍는다. 믹스커피가 금이 된다. 너라면 커피 없이 살 수 있어?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 한국에서 카페가 전부 사라진다면?",
+      "image_prompt": "Vertical 1080x1920. A cozy warm Korean cafe interior dissolving and vanishing into particles. Coffee cups, pastry displays, wooden tables, and pendant lights all breaking apart into golden dust drifting upward. A tiny cute simplified round-headed figure sits at the last remaining table, clutching a coffee cup desperately as it fades from their hands. The warm cafe glow transitions to cold dark void at the edges. Deep dark navy background creeping in from all sides. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated warm browns and golds dissolving into deep dark blue, soft inner gradient shading, warm to cold transition glow effects, simplified cute rounded character with no outlines, clean educational animation aesthetic",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "먼저 대학생이 멸종한다. 과제할 곳이 없다. 도서관은 이미 만석이다. 전국 학점이 동시에 폭락한다.",
+      "image_prompt": "Vertical 1080x1920. A packed university library overflowing with tiny cute simplified round-headed student figures crammed at every desk, sitting on floors, stacked on top of each other. Some students are outside the library doors banging to get in. Laptops and textbooks everywhere. A giant downward-pointing red arrow symbol looms above representing crashing grades. The scene is chaotic but comedic. Cool blue-green fluorescent library lighting against deep dark navy background. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated cool blues with red danger accent, soft inner gradient shading, stressed chaotic energy glow, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "소개팅 문화가 끝난다. 첫 만남 장소가 사라졌다. 편의점 앞 플라스틱 의자에서 눈 맞춰야 한다.",
+      "image_prompt": "Vertical 1080x1920. Two tiny cute simplified round-headed figures sitting awkwardly across from each other on cheap plastic chairs outside a convenience store at night. Between them is a small plastic table with two canned coffees. They look nervous and embarrassed. The convenience store glows harsh white fluorescent behind them. A romantic pink heart floats above but looks sad and deflated. Trash bins and parked motorcycles in the background. The contrast between romantic intent and unglamorous setting is the visual joke. Flat 2D minimalist vector illustration, bold geometric shapes, harsh white convenience store light vs romantic pink accent on deep dark navy background, soft gradient shading, awkward comedic atmosphere, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "직장인 점심시간이 지옥이 된다. 아메리카노 한 잔의 여유가 사라졌다. 회사 정수기 앞에서 멍 때리는 게 유일한 휴식.",
+      "image_prompt": "Vertical 1080x1920. A depressing office break room. A tiny cute simplified round-headed office worker figure stands alone in front of a water dispenser, holding a plain paper cup, staring blankly into the distance with dead empty eyes. A thought bubble above shows a beautiful warm glowing americano coffee cup that is crossed out with a red X. Other zombie-like office worker figures shuffle past in the background. Cold grey-blue office fluorescent lighting creates a soul-crushing atmosphere. Flat 2D minimalist vector illustration, bold geometric shapes, cold grey-blue office tones with warm coffee memory accent on deep dark navy background, soft gradient shading, melancholy corporate void, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "근데 진짜 공포는 따로 있다. 한국 자영업자 25퍼센트가 카페다. 전국 10만 개가 동시에 문을 닫는다.",
+      "image_prompt": "Vertical 1080x1920. An aerial view of a Korean city street where every cafe storefront is simultaneously closing its shutters in a dramatic cascade. The street is lined with dozens of cafe signs going dark one after another like dominoes falling. Tiny cute simplified round-headed cafe owner figures stand outside their closed shops looking devastated, some holding cafe aprons. The warm cafe glows extinguish in sequence leaving cold dark blue shadows. The scale is massive showing the sheer number of closures. Flat 2D minimalist vector illustration, bold geometric shapes, warm orange cafe lights dying into cold dark navy, soft gradient shading, dramatic domino-effect cascade, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "일주일 후 편의점 커피 가격이 만 원을 찍는다. 믹스커피가 금이 된다. 너라면 커피 없이 살 수 있어?",
+      "image_prompt": "Vertical 1080x1920. A single instant mix coffee stick packet displayed on a velvet pedestal under a golden museum spotlight, treated like a priceless treasure. A glass security case surrounds it. Tiny cute simplified round-headed figures crowd around it in awe, some reaching toward it desperately, some crying. Security rope barriers keep them back. The mix coffee packet glows with warm golden holy light from above. The scene is absurd and comedic with the contrast between mundane object and sacred treatment. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated golden treasure glow on deep dark navy background, soft inner gradient shading, comedic reverence lighting, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "☕ 한국에서 카페가 사라지면 생기는 일 #만약에",
+    "thumbnail_text": "카페 소멸",
+    "description": "만약에 시리즈: 한국에서 카페가 전부 사라진다면?\n대학생 멸종, 소개팅 문화 종말, 직장인 점심 지옥.\n자영업자 25%가 카페인데, 10만 개가 동시에 문을 닫는다.\n#만약에 #카페 #커피 #한국 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#카페", "#커피", "#한국", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

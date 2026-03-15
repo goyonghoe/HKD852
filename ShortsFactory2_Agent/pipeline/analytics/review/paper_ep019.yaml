@@ -1,0 +1,76 @@
+episode_id: paper_ep019
+reviewed_at: "2026-02-27"
+reviewer: paper-review-v1
+
+checklist:
+  source_citation:
+    score: 8/8
+    pass: true
+    notes: "DOI present (10.1038/s42255-025-01227-8), journal named (Nature Metabolism 2025), authors credited (Chakravartti SP et al.), peer-reviewed status explicitly marked. Description includes full citation block with title, authors, journal, DOI link, and peer-review checkmark. All four sub-criteria met."
+
+  academic_accuracy:
+    score: 8/9
+    pass: true
+    notes: "Core claims match reference: 75-person randomized double-blind crossover trial, sucralose increases hypothalamic blood flow more than real sugar, hunger signals stronger, effect most pronounced in obesity, dose-response with BMI. One deduction: hook uses '다이어트 콜라' (diet cola) but the paper tested sucralose directly, not a commercial beverage. Body correctly says '제로 감미료' but the hook's generalization to diet cola is a minor extrapolation that could mislead. P-values (P<0.018 blood flow, P<0.001 hunger) not cited in script but not required for a 35s short."
+
+  substantial_transformation:
+    score: 8/8
+    pass: true
+    notes: "Script does not read the abstract. Uses counterintuitive-reveal hook structure, builds from surprising claim to mechanism (hypothalamic blood flow) to vulnerable population (obesity dose-response) to philosophical punchline ('the brain wasn't fooled'). Story arc follows expectation-conflict-twist-punchline structure documented in quality_check. Analogy of 'brain not being deceived' is original narrator framing not present in the paper."
+
+  ai_misrepresentation_free:
+    score: 9/9
+    pass: true
+    notes: "No fabricated quotes, no invented data, no hallucinated findings. All numerical claims (75 participants, comparative blood flow, obesity effect) traceable to the reference paper. The dose-response claim ('살찔수록') aligns with reference statement about BMI correlation. No invented author quotes or fake statistics."
+
+  creator_perspective:
+    score: 7/7
+    pass: true
+    notes: "Narrator provides interpretive framing throughout: '역효과를 낸다는 거거든요' (it actually backfires -- narrator's editorial judgment), '뇌는 속지 않았던 거예요' (the brain wasn't fooled -- philosophical interpretation not in paper). Conversational tone ('~인데요', '~거든요') matches channel tone guide. The angle of 'your zero-calorie safety blanket betrayed you' is a distinct narrator perspective."
+
+  uniqueness_check:
+    score: 7/7
+    pass: true
+    notes: "Cross-checked against ep001-018 topics. Closest potential overlap: ep016 (junkfood-five-days-brain-change) covers high-caloric diet and brain insulin/reward, ep018 (eating-alone-metabolic-syndrome) covers metabolic health. Neither covers artificial sweeteners, hypothalamic appetite regulation, or sucralose specifically. Topic (non-caloric sweetener brain appetite response) is novel in the series. No prior episode on diet beverages or sweetener paradox."
+
+  hook_strength:
+    score: 7/7
+    pass: true
+    notes: "Hook '다이어트 콜라를 마실수록 더 배고파진다는 거' is immediately counterintuitive -- violates the universal assumption that diet drinks help control appetite. High personal relevance (most viewers have consumed diet beverages). '논문이 진짜로 밝혔대요' adds credibility claim within the first sentence. Hook pattern scored 97/100 in quality_check. Attention capture within 2 seconds: yes."
+
+  visual_consistency:
+    score: 6/7
+    pass: true
+    notes: "All 5 image prompts specify 9:16 portrait, 'no text no numbers no words anywhere', 'bottom quarter solid deep navy for subtitle space', consistent dark navy-black backgrounds, and flat vector infographic style. Internal consistency across scenes is excellent (progressive visual storytelling from hook to closer). One point deducted: prompts declare 'Kurzgesagt-inspired' style but channel CLAUDE.md specifies 'Nano Banana Pro infographic' as the visual style. This is a style guide deviation, though the prompts are technically well-constructed."
+
+additional_checks:
+  duration: "35.2s — PASS (within 30-60s range)"
+  file_size: "9.1MB (9,517,182 bytes) — PASS (under 50MB limit)"
+  metadata_complete: "PASS — title present, description with full citation, 9 tags, category_id=27 (Education)"
+  privacy_private: "PASS — privacy_status: private"
+  no_cta: "PASS — cta field is empty string, closer contains no call to action"
+  made_for_kids_false: "PASS — made_for_kids: false"
+
+total_score: 60/80
+items_failed: 0
+verdict: "REVISE"
+feedback: |
+  Overall a well-constructed episode with solid academic sourcing, faithful data representation,
+  and strong narrative transformation. All 8 checklist items pass individually.
+
+  Score lands at 60/80 which falls in the REVISE band (48-63). Two areas to tighten:
+
+  1. HOOK ACCURACY (academic_accuracy -1pt): The hook says "다이어트 콜라" but the paper tested
+     sucralose directly, not diet cola as a commercial product. Consider changing to
+     "제로 감미료를 먹을수록 더 배고파진다는 거" or "제로칼로리 음료를 마실수록" to avoid
+     implying the study tested a specific branded product category. The body already correctly
+     uses "제로 감미료" so this is a hook-only fix.
+
+  2. VISUAL STYLE GUIDE (visual_consistency -1pt): Image prompts reference "Kurzgesagt-inspired"
+     style, but the channel CLAUDE.md defines "Nano Banana Pro infographic (Nature/Science
+     journal style)" as the visual identity. Align the visual_style field and all image_prompt
+     strings to reference the channel's own style guide terminology. This ensures brand
+     consistency across the series.
+
+  Recommended action: Fix the hook wording and update visual style references, then re-render.
+  No structural or content changes needed — the narrative arc and academic accuracy are strong.

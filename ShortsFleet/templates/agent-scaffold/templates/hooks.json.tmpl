@@ -1,0 +1,65 @@
+{
+  "channel_id": "{{CHANNEL_ID}}",
+  "channel_name": "{{CHANNEL_NAME}}",
+  "language": "{{LANGUAGE}}",
+  "hook_patterns": [
+    {
+      "id": "curiosity_gap",
+      "name": "호기심 갭",
+      "template": {
+        "ko": "{{NICHE}} 분야에서 아무도 모르는 사실이 있어요",
+        "en": "Nobody talks about this in {{NICHE}}"
+      },
+      "effectiveness": 90,
+      "notes": "호기심 유발 — 시청자가 '뭔데?' 하며 계속 봄"
+    },
+    {
+      "id": "number_hook",
+      "name": "숫자 훅",
+      "template": {
+        "ko": "[숫자] [단위] 만에 [결과]가 일어났습니다",
+        "en": "In just [number] [unit], [result] happened"
+      },
+      "effectiveness": 88,
+      "notes": "구체적 수치로 신뢰감 + 놀라움"
+    },
+    {
+      "id": "what_if",
+      "name": "가정법",
+      "template": {
+        "ko": "만약 [가정]이 현실이 된다면?",
+        "en": "What if [hypothesis] became reality?"
+      },
+      "effectiveness": 92,
+      "notes": "상상력 자극 — WhatIf 시리즈 핵심 패턴"
+    },
+    {
+      "id": "contrast",
+      "name": "반전 대비",
+      "template": {
+        "ko": "모두가 [통념]이라고 생각하지만, 사실은 [반전]입니다",
+        "en": "Everyone thinks [common belief], but actually [twist]"
+      },
+      "effectiveness": 85,
+      "notes": "기존 상식 뒤집기 — 정보 콘텐츠에 효과적"
+    }
+  ],
+  "closer_patterns": [
+    {
+      "id": "question_close",
+      "name": "질문형 클로저",
+      "template": {
+        "ko": "여러분은 어떻게 생각하세요?",
+        "en": "What do you think?"
+      }
+    },
+    {
+      "id": "teaser_close",
+      "name": "티저형 클로저",
+      "template": {
+        "ko": "다음 편에서 더 놀라운 이야기가 기다리고 있어요",
+        "en": "Even more surprising stories coming next"
+      }
+    }
+  ]
+}

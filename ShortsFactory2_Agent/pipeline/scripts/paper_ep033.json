@@ -1,0 +1,124 @@
+{
+  "episode_id": "paper_ep033",
+  "series": "오늘의 논문",
+  "topic_id": "contactless-payment-less-pain-more-spending",
+  "language": "ko",
+  "paper_source": {
+    "title": "Paying in a blink of an eye: It hurts less, but you spend more",
+    "authors": "Broekhoff MC, van der Cruijsen C",
+    "journal": "Journal of Economic Behavior & Organization",
+    "year": 2024,
+    "doi": "10.1016/j.jebo.2024.03.017",
+    "peer_reviewed": true,
+    "institution": "De Nederlandsche Bank / University of Groningen",
+    "sample_size": null,
+    "key_finding": "비접촉 결제(터치페이)는 현금 결제보다 지불 고통이 유의미하게 낮으며, 과소비 방지에 가장 비효과적인 결제 수단으로 인식된다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, Nature journal quality, minimalist professional design, ",
+  "script": {
+    "hook": "현금 낼 때 아까운 느낌, 카드 긁을 때는 안 들죠? 그거 진짜 뇌에서 일어나는 거래요.",
+    "body": [
+      "네덜란드 중앙은행 연구팀이 결제 수단별로 뇌가 느끼는 고통을 비교했거든요.",
+      "현금이 제일 아팠고, 카드가 그다음, 터치 결제가 제일 안 아팠대요. 손가락 한 번 대면 끝이니까 돈 나간 감각 자체가 사라지는 거예요.",
+      "문제는 이거예요. 안 아프니까 더 쓰게 되거든요. 실제로 터치 결제가 과소비 방지에 가장 안 좋은 결제 수단으로 나왔대요."
+    ],
+    "closer": "편하게 쓸수록 많이 쓴다. 그게 터치 결제의 함정이래요.",
+    "cta": ""
+  },
+  "full_text": "현금 낼 때 아까운 느낌, 카드 긁을 때는 안 들죠? 그거 진짜 뇌에서 일어나는 거래요. 네덜란드 중앙은행 연구팀이 결제 수단별로 뇌가 느끼는 고통을 비교했거든요. 현금이 제일 아팠고, 카드가 그다음, 터치 결제가 제일 안 아팠대요. 손가락 한 번 대면 끝이니까 돈 나간 감각 자체가 사라지는 거예요. 문제는 이거예요. 안 아프니까 더 쓰게 되거든요. 실제로 터치 결제가 과소비 방지에 가장 안 좋은 결제 수단으로 나왔대요. 편하게 쓸수록 많이 쓴다. 그게 터치 결제의 함정이래요.",
+  "display_text": "현금 낼 때 아까운 느낌, 카드 긁을 때는 안 들죠? 그거 진짜 뇌에서 일어나는 거래요. 네덜란드 중앙은행 연구팀이 결제 수단별로 뇌가 느끼는 고통을 비교했거든요. 현금이 제일 아팠고, 카드가 그다음, 터치 결제가 제일 안 아팠대요. 손가락 한 번 대면 끝이니까 돈 나간 감각 자체가 사라지는 거예요. 문제는 이거예요. 안 아프니까 더 쓰게 되거든요. 실제로 터치 결제가 과소비 방지에 가장 안 좋은 결제 수단으로 나왔대요. 편하게 쓸수록 많이 쓴다. 그게 터치 결제의 함정이래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "현금 낼 때 아까운 느낌, 카드 긁을 때는 안 들죠? 그거 진짜 뇌에서 일어나는 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a human brain shown from the side with a pain meter gauge attached to it, on the left a hand holding paper bills triggers the pain meter spiking high in red, on the right a hand tapping a phone triggers the pain meter barely moving staying in cool blue, the stark contrast between the two pain levels is dramatic and immediately visible, the brain lights up differently for each payment method, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "네덜란드 중앙은행 연구팀이 결제 수단별로 뇌가 느끼는 고통을 비교했거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a scientific laboratory setup with three payment methods being tested side by side on a clean examination table, cash bills on the left connected to sensors and wires, a credit card in the middle also wired up, and a contactless phone on the right with minimal sensors, a research clipboard with a Dutch flag badge floats nearby suggesting official central bank authority, clinical and precise experimental atmosphere, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "현금이 제일 아팠고, 카드가 그다음, 터치 결제가 제일 안 아팠대요. 손가락 한 번 대면 끝이니까 돈 나간 감각 자체가 사라지는 거예요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, three vertical pain bar charts arranged side by side like a podium, the left bar for cash is tall and glowing hot red indicating maximum pain, the middle bar for card is medium height in warm orange, the right bar for contactless tap is very short and cool blue indicating almost no pain, each bar has an icon at the top showing its payment method, the descending staircase pattern visually tells the story of decreasing pain, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "안 아프니까 더 쓰게 되거든요. 실제로 터치 결제가 과소비 방지에 가장 안 좋은 결제 수단으로 나왔대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a smiling person casually tapping their phone to pay while behind them a growing mountain of shopping bags and receipts piles up unnoticed, the person looks carefree and relaxed but the pile behind them is enormous and threatening to topple over, a broken shield icon labeled protection floats cracked above the phone symbolizing the failure of spending control, the disconnect between the easy action and the massive consequence, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "편하게 쓸수록 많이 쓴다. 그게 터치 결제의 함정이래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a finger hovering above a glowing contactless payment terminal that looks like a Venus flytrap, the terminal appears inviting and convenient with soft warm light but its edges curve inward like jaws ready to close, tiny coins float upward from the person wallet being silently drawn toward the terminal, the trap metaphor is elegant and clear suggesting convenience is the bait, contemplative warning mood, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "💳 터치 한 번이면 뇌가 돈 쓴 걸 잊는다 #오늘의논문",
+    "thumbnail_text": "터치결제=과소비",
+    "description": "비접촉 결제(터치페이)가 현금보다 지불 고통이 낮아 과소비를 유발한다는 네덜란드 중앙은행 연구입니다.\n\n📄 논문 출처\nTitle: Paying in a blink of an eye: It hurts less, but you spend more\nAuthors: Broekhoff MC, van der Cruijsen C\nJournal: Journal of Economic Behavior & Organization (2024)\nDOI: https://doi.org/10.1016/j.jebo.2024.03.017\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #터치결제 #과소비 #결제심리 #돈 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#터치결제",
+      "#과소비",
+      "#결제심리",
+      "#돈",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "💳 터치 한 번이면 뇌가 돈 쓴 걸 잊는다 #오늘의논문",
+      "description": "비접촉 결제(터치페이)가 현금보다 지불 고통이 낮아 과소비를 유발한다는 네덜란드 중앙은행 연구입니다.\n\n📄 논문 출처\nTitle: Paying in a blink of an eye: It hurts less, but you spend more\nAuthors: Broekhoff MC, van der Cruijsen C\nJournal: Journal of Economic Behavior & Organization (2024)\nDOI: https://doi.org/10.1016/j.jebo.2024.03.017\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #터치결제 #과소비 #결제심리 #돈 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "터치결제",
+        "과소비",
+        "결제심리",
+        "비접촉결제",
+        "돈",
+        "지출",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 9,
+      "concrete": 10,
+      "credible": 10,
+      "emotional": 9,
+      "stories": 10,
+      "total": 58,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "카드 결제가 현금보다 편하니까 좋은 것",
+      "conflict": "편할수록 뇌가 고통을 덜 느껴서 더 많이 쓴다",
+      "twist": "터치 결제가 과소비 방지에 가장 안 좋은 수단",
+      "punchline": "편하게 쓸수록 많이 쓴다 — 편리함의 함정"
+    },
+    "hook_pattern": "relatable-question (effectiveness: 92)"
+  }
+}

@@ -1,0 +1,19 @@
+date: "2026-02-21"
+batch_number: 2
+episode_id: "whatif_ep040"
+topic:
+  title: "만약에 카카오톡 대화방 목록이 모두에게 보인다면?"
+  topic_id: "chat-history-public"
+  niche: "social-digital"
+  score: 91
+  angle: "처음엔 솔직해지니까 좋겠다 → 읽씹 전적 뱃지 부착 → 결국 전부 손편지로 회귀"
+  competition: "low"
+  format_recommendation: "dark-bg-text"
+  tts_voice: "hangout-male"
+scoring:
+  rpm: 50
+  volume: 95
+  difficulty_inv: 100
+  performance_bonus: 10
+  competition_penalty: 0
+  total: 91

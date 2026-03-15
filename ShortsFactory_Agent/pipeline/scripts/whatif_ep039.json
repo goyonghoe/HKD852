@@ -1,0 +1,81 @@
+{
+  "episode_id": "whatif_ep039",
+  "series": "만약에~",
+  "topic_id": "calorie-count-visible",
+  "language": "ko",
+  "visual_style": "Korean webtoon comedy style with bold outlines and vibrant colors, AR holographic overlay effects showing calorie counter numbers floating above people's heads, exaggerated facial expressions and speed lines, dark cinematic backgrounds contrasting with neon digital HUD elements, 1080x1920 vertical format",
+  "script": {
+    "hook": "만약에 먹는 음식 칼로리가 머리 위에 실시간으로 뜬다면?",
+    "body": [
+      "처음엔 다이어트 천국이다. 숫자 낮은 사람이 인스타 스타, 샐러드 가게가 성지가 됐다.",
+      "근데 '오늘 몇이야?'가 새 인사말이 된다. 숫자 높으면 한숨, 밥 한 끼가 면접이 됐다. 삼각김밥 들고 화장실에서 몰래 먹는 직장인이 생김. 회식은 소주 한 잔마다 숫자 올라가는 걸 팀 전체가 실시간으로 본다.",
+      "그런데 반란이 시작된다. 칼로리 플렉스가 트렌드로 뜸. 치킨 두 마리에 콜라, '오늘 5천 달성' 인증이 바이럴. 높은 숫자가 자유의 상징이 됐다. 결국 인기 앱 1위는 다이어트 앱이 아니라, 최고 칼로리 랭킹 앱."
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 먹는 음식 칼로리가 머리 위에 실시간으로 뜬다면? 처음엔 다이어트 천국이다. 숫자 낮은 사람이 인스타 스타, 샐러드 가게가 성지가 됐다. 근데 '오늘 몇이야?'가 새 인사말이 된다. 숫자 높으면 한숨, 밥 한 끼가 면접이 됐다. 삼각김밥 들고 화장실에서 몰래 먹는 직장인이 생김. 회식은 소주 한 잔마다 숫자 올라가는 걸 팀 전체가 실시간으로 본다. 그런데 반란이 시작된다. 칼로리 플렉스가 트렌드로 뜸. 치킨 두 마리에 콜라, '오늘 5천 달성' 인증이 바이럴. 높은 숫자가 자유의 상징이 됐다. 결국 인기 앱 1위는 다이어트 앱이 아니라, 최고 칼로리 랭킹 앱.",
+  "display_text": "만약에 먹는 음식 칼로리가 머리 위에 실시간으로 뜬다면? 처음엔 다이어트 천국이다. 숫자 낮은 사람이 인스타 스타, 샐러드 가게가 성지가 됐다. 근데 '오늘 몇이야?'가 새 인사말이 된다. 숫자 높으면 한숨, 밥 한 끼가 면접이 됐다. 삼각김밥 들고 화장실에서 몰래 먹는 직장인이 생김. 회식은 소주 한 잔마다 숫자 올라가는 걸 팀 전체가 실시간으로 본다. 그런데 반란이 시작된다. 칼로리 플렉스가 트렌드로 뜸. 치킨 두 마리에 콜라, '오늘 5천 달성' 인증이 바이럴. 높은 숫자가 자유의 상징이 됐다. 결국 인기 앱 1위는 다이어트 앱이 아니라, 최고 칼로리 랭킹 앱.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 먹는 음식 칼로리가 머리 위에 실시간으로 뜬다면?",
+      "image_prompt": "A busy Korean street scene with multiple people walking, each person has a glowing neon holographic number floating above their head showing different calorie counts, some green low numbers and some red high numbers, a person in the center staring up at their own number with a shocked expression, urban Seoul backdrop with neon signs, dramatic cinematic lighting, Korean webtoon style bold outlines and vibrant colors, vertical 1080x1920 composition",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "처음엔 다이어트 천국이다. 숫자 낮은 사람이 인스타 스타, 샐러드 가게가 성지가 됐다.",
+      "image_prompt": "A trendy Korean salad restaurant packed with excited customers, the store has a long queue outside like a famous pilgrimage spot, people inside proudly showing off low green holographic calorie numbers above their heads, one person posing for a selfie with their low number visible, bright cheerful atmosphere with Instagram-worthy interior, sparkle effects and hearts floating around low-number customers, Korean webtoon style exaggerated happy expressions, vertical format",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데 '오늘 몇이야?'가 새 인사말이 된다. 숫자 높으면 한숨, 밥 한 끼가 면접이 됐다. 삼각김밥 들고 화장실에서 몰래 먹는 직장인이 생김. 회식은 소주 한 잔마다 숫자 올라가는 걸 팀 전체가 실시간으로 본다.",
+      "image_prompt": "A dark oppressive Korean office scene split into two panels, top panel shows a lonely office worker crouched in a bathroom stall secretly eating a triangle kimbap with a guilty expression and a glowing red number above their head, bottom panel shows a tense company dinner table where everyone stares at a colleague whose holographic number is climbing rapidly with each soju glass, cold fluorescent lighting mixed with red warning glow, sweat drops and stress lines on every face, dark comedy Korean webtoon style, vertical format",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "그런데 반란이 시작된다. 칼로리 플렉스가 트렌드로 뜸. 치킨 두 마리에 콜라, '오늘 5천 달성' 인증이 바이럴. 높은 숫자가 자유의 상징이 됐다. 결국 인기 앱 1위는 다이어트 앱이 아니라, 최고 칼로리 랭킹 앱.",
+      "image_prompt": "A triumphant Korean person standing heroically on a table surrounded by two whole fried chickens and cola bottles, their holographic calorie number above their head glowing a massive golden 5000 like a trophy, a crowd of people cheering and filming with phones, confetti and celebration effects, a giant smartphone screen in the background showing a calorie ranking leaderboard app with the person at number one, warm golden lighting with party atmosphere, victorious rebellion energy, Korean webtoon style bold outlines with comedic glory effects, vertical format",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "🍗 칼로리가 머리 위에 뜬다면? #만약에",
+    "thumbnail_text": "오늘5천달성",
+    "description": "[만약에~] calorie count visible\n만약에 시리즈: 먹는 음식 칼로리가 머리 위에 실시간으로 뜬다면? 다이어트 천국인 줄 알았는데... 밥 한 끼가 면접이 되고, 결국 반란이 시작됐다.\n※ 순수 창작 코미디 시나리오입니다.\n#만약에 #다이어트 #칼로리 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#다이어트", "#칼로리플렉스", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 9,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 8,
+      "emotional": 9,
+      "stories": 10,
+      "total": 55,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "칼로리 보이면 다이어트 천국 — 샐러드 성지, 숫자 낮은 사람이 스타",
+      "conflict": "칼로리가 사회적 감시가 됨 — 인사말이 '오늘 몇이야?', 화장실 혼밥, 회식 지옥",
+      "twist": "금지의 역설 — 칼로리 플렉스 반란, 높은 숫자가 자유의 상징, 랭킹 앱 1위"
+    },
+    "hook_pattern": "what-if (effectiveness: 88)"
+  },
+  "upload_info": {
+    "youtube_video_id": "60clvXjGUQY",
+    "youtube_url": "https://youtube.com/shorts/60clvXjGUQY",
+    "uploaded_at": "2026-02-21T10:19:08+09:00",
+    "privacy_status": "private"
+  }
+}

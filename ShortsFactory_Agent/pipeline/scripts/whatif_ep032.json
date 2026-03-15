@@ -1,0 +1,69 @@
+{
+  "episode_id": "whatif_ep032",
+  "series": "만약에~",
+  "topic_id": "teleportation",
+  "language": "ko",
+  "visual_style": "futuristic portal aesthetic with electric blue and violet energy rings, light speed particle trails, world landmarks in golden hour, sleek sci-fi minimalism with warm undertones",
+  "script": {
+    "hook": "만약 순간이동이 가능하다면?",
+    "body": [
+      "출퇴근이 1초로 줄어든다.",
+      "해외여행이 무료가 된다. 파리 점심, 도쿄 저녁이 일상이다.",
+      "하지만 항공사, 택시, 철도가 전멸한다. 수천만 명이 하루아침에 실업자가 된다.",
+      "감옥이 의미가 없어진다. 벽이 있어도 순간이동하면 끝이다."
+    ],
+    "cta": "순간이동, 진짜 축복일까? 구독 눌러."
+  },
+  "full_text": "만약 순간이동이 가능하다면? 출퇴근이 1초로 줄어든다. 해외여행이 무료가 된다. 파리 점심, 도쿄 저녁이 일상이다. 하지만 항공사, 택시, 철도가 전멸한다. 수천만 명이 하루아침에 실업자가 된다. 감옥이 의미가 없어진다. 벽이 있어도 순간이동하면 끝이다. 순간이동, 진짜 축복일까? 구독 눌러.",
+  "display_text": "만약 순간이동이 가능하다면? 출퇴근이 1초로 줄어든다. 해외여행이 무료가 된다. 파리 점심, 도쿄 저녁이 일상이다. 하지만 항공사, 택시, 철도가 전멸한다. 수천만 명이 하루아침에 실업자가 된다. 감옥이 의미가 없어진다. 벽이 있어도 순간이동하면 끝이다. 순간이동, 진짜 축복일까?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 순간이동이 가능하다면?",
+      "image_prompt": "A person stepping through a magnificent glowing portal made of swirling electric blue and violet energy rings, light speed particle trails streaming around them, the other side showing a golden hour cityscape, sleek futuristic minimalism, awe and wonder",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "출퇴근이 1초로 줄어든다.",
+      "image_prompt": "A person in pajamas stepping through a shimmering blue portal in their living room directly into a bright modern office, coffee still steaming in hand, morning sunlight flooding both spaces, the ultimate commute rendered beautifully",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "해외여행이 무료가 된다. 파리 점심, 도쿄 저녁이 일상이다.",
+      "image_prompt": "A stunning split composition showing the Eiffel Tower bathed in golden afternoon light on the left and Tokyo Tower glowing at violet dusk on the right, connected by a luminous portal bridge in the center, world landmarks united by teleportation, breathtaking travel fantasy",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "하지만 항공사, 택시, 철도가 전멸한다. 수천만 명이 하루아침에 실업자가 된다.",
+      "image_prompt": "A hauntingly beautiful abandoned airport at golden hour, massive passenger jets parked silently with dust settling on their wings, empty runways stretching into a warm sunset, vines beginning to grow on the terminal, the end of an era rendered with melancholic grandeur",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "감옥이 의미가 없어진다. 벽이 있어도 순간이동하면 끝이다.",
+      "image_prompt": "A dramatic scene of a prison wall cracking open with brilliant violet and blue portal energy bursting through the concrete, light rays streaming out into a starry night sky, the concept of confinement shattered by technology, cinematic wide shot with epic scale",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "순간이동, 진짜 축복일까? 구독 눌러.",
+      "image_prompt": "A solitary person standing at a crossroads of dozens of glowing portals stretching in every direction, each portal showing a different beautiful world landmark at golden hour, the person silhouetted against infinite choices, contemplative and grand, warm blue and violet energy haze",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "순간이동이 가능하다면 세상은? #만약에",
+    "thumbnail_text": "출퇴근 1초 시대",
+    "description": "만약 순간이동이 가능하다면? 출퇴근 1초, 해외여행 무료. 하지만 교통 산업이 전멸한다.\n#만약에 #순간이동 #텔레포트 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#순간이동", "#텔레포트", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

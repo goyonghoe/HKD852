@@ -1,0 +1,53 @@
+{
+  "fleet_version": "1.0",
+  "updated_at": "2026-02-22",
+  "shared_libs_source": "ShortsFactory_Agent/libs",
+  "fleet_defaults": {
+    "max_concurrent_channels": 3,
+    "render_resolution": "1080x1920",
+    "render_fps": 30
+  },
+  "channels": [
+    {
+      "id": "whatif",
+      "name": "WhatIf (만약에~)",
+      "agent_dir": "ShortsFactory_Agent",
+      "language": "ko",
+      "series_prefix": "whatif_ep",
+      "enabled": true,
+      "orchestrator_skill": "/shorts-factory",
+      "default_batch_size": 3,
+      "voice_preset": "whatif-female",
+      "target_market": ["KR", "NA"],
+      "notes": "v3.2, fully operational"
+    },
+    {
+      "id": "paper",
+      "name": "오늘의 논문",
+      "agent_dir": "ShortsFactory2_Agent",
+      "language": "ko",
+      "series_prefix": "paper_ep",
+      "enabled": true,
+      "orchestrator_skill": null,
+      "default_batch_size": 2,
+      "voice_preset": "hangout-male",
+      "target_market": ["KR"],
+      "notes": "Early dev, 8 episodes"
+    },
+    {
+      "id": "bookshelf",
+      "name": "책봐서 뭐하니?",
+      "agent_dir": "ShortsFactory3_Agent",
+      "language": "ko",
+      "series_prefix": "book_ep",
+      "enabled": true,
+      "orchestrator_skill": "/book-factory",
+      "default_batch_size": 2,
+      "voice_preset": "hangout-male",
+      "target_market": ["KR"],
+      "youtube_handle": "@Hangoutwith_Books",
+      "youtube_channel_id": "UC_xOpa8F4AGpCrr2XjhOPMg",
+      "notes": "Book summary channel, reviving from 2-year dormancy"
+    }
+  ]
+}

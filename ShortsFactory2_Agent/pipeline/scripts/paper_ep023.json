@@ -1,0 +1,126 @@
+{
+  "episode_id": "paper_ep023",
+  "series": "오늘의 논문",
+  "topic_id": "overconfidence-financial-literacy-panic-selling-japan",
+  "language": "ko",
+  "paper_source": {
+    "title": "Overconfidence, Financial Literacy, and Panic Selling: Evidence from Japan",
+    "authors": "Bawalle A, Khan M, Kadoya Y",
+    "journal": "PLOS ONE",
+    "year": 2025,
+    "doi": "10.1371/journal.pone.0315622",
+    "peer_reviewed": true,
+    "institution": "Hiroshima University / Rakuten Securities",
+    "sample_size": null,
+    "key_finding": "주식 공부를 많이 했다고 자신하는 투자자일수록 폭락장에서 공부를 안 한 사람보다 더 빠르게 전량 매도했으며, 이는 '내가 틀렸을 리 없다'는 착각이 패닉셀을 오히려 유발하기 때문이다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, Nature journal quality, minimalist professional design, ",
+  "script": {
+    "hook": "공부 많이 할수록 패닉셀 확률 올라간다는 논문이 나왔거든요.",
+    "body": [
+      "일본에서 투자자들 데이터 분석했는데요, 본인이 주식 공부 많이 했다고 생각하는 사람들이 폭락장에서 전량 매도를 훨씬 더 많이 하는 거래요.",
+      "공부 덜 한 사람들보다요.",
+      "이유가 뭐냐면, '내가 이렇게 공부했는데 내 판단이 맞겠지'라는 확신이 오히려 공황을 일으키는 거예요.",
+      "시장이 내 예상을 벗어나는 순간, '이건 진짜 위기다'라고 더 강하게 믿어버리는 거거든요."
+    ],
+    "closer": "아는 게 많을수록 오히려 더 크게 흔들릴 수 있다는 거, 진짜 아이러니인데요.",
+    "cta": ""
+  },
+  "full_text": "공부 많이 할수록 패닉셀 확률 올라간다는 논문이 나왔거든요. 일본에서 투자자들 데이터 분석했는데요, 본인이 주식 공부 많이 했다고 생각하는 사람들이 폭락장에서 전량 매도를 훨씬 더 많이 하는 거래요. 공부 덜 한 사람들보다요. 이유가 뭐냐면, '내가 이렇게 공부했는데 내 판단이 맞겠지'라는 확신이 오히려 공황을 일으키는 거예요. 시장이 내 예상을 벗어나는 순간, '이건 진짜 위기다'라고 더 강하게 믿어버리는 거거든요. 아는 게 많을수록 오히려 더 크게 흔들릴 수 있다는 거, 진짜 아이러니인데요.",
+  "display_text": "공부 많이 할수록 패닉셀 확률 올라간다는 논문이 나왔거든요. 일본에서 투자자들 데이터 분석했는데요, 본인이 주식 공부 많이 했다고 생각하는 사람들이 폭락장에서 전량 매도를 훨씬 더 많이 하는 거래요. 공부 덜 한 사람들보다요. 이유가 뭐냐면, '내가 이렇게 공부했는데 내 판단이 맞겠지'라는 확신이 오히려 공황을 일으키는 거예요. 시장이 내 예상을 벗어나는 순간, '이건 진짜 위기다'라고 더 강하게 믿어버리는 거거든요. 아는 게 많을수록 오히려 더 크게 흔들릴 수 있다는 거, 진짜 아이러니인데요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "공부 많이 할수록 패닉셀 확률 올라간다는 논문이 나왔거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a tall stack of glowing books and documents radiating warm amber light, but from the top of the stack an ominous red downward-pointing arrow pulses with alarming energy, the contrast between the studious warm glow below and the danger signal above creates a jarring visual tension, the scene feels like knowledge unexpectedly backfiring, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "일본에서 투자자들 데이터 분석했는데요, 본인이 주식 공부 많이 했다고 생각하는 사람들이 폭락장에서 전량 매도를 훨씬 더 많이 하는 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, two groups of abstract human silhouettes side by side, the left group glows brighter with a halo of book and chart icons orbiting their heads representing confident learners, the right group is dimmer and smaller, but in the center of the frame a cascade of red downward energy streams powerfully from the left group showing they are the ones selling more aggressively, a counterintuitive composition where the glowing group triggers the collapse, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "이유가 뭐냐면, '내가 이렇게 공부했는데 내 판단이 맞겠지'라는 확신이 오히려 공황을 일으키는 거예요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a person's chest glowing intensely with a golden shield of confidence and self-assurance at its center, but cracks radiate outward from the shield like shattered glass when an unexpected force collides with it, fragments of certainty breaking apart and flying outward, the scene captures the moment overconfidence meets reality and shatters into panic, dramatic lighting with cold blue shock wave contrasting the warm gold shield, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "시장이 내 예상을 벗어나는 순간, '이건 진짜 위기다'라고 더 강하게 믿어버리는 거거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a brain enclosed in a glowing confident bubble of light, outside the bubble a chaotic swirl of market energy in dark crimson and electric blue, the moment the chaos pierces through the bubble the brain inside reacts with explosive alarm signals radiating outward, concentric alarm rings expanding from the brain center suggesting amplified panic, the well-lit interior makes the intrusion feel even more catastrophic by contrast, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "아는 게 많을수록 오히려 더 크게 흔들릴 수 있다는 거, 진짜 아이러니인데요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a large luminous tree with deep roots and full bright canopy representing knowledge and experience, but the tallest branches sway violently in an unseen wind more dramatically than the shorter trees beside it, the taller the tree the more it bends, smaller saplings beside it barely move, calm ambient glow at the roots contrasts with turbulent motion at the crown, a serene and melancholic composition about the paradox of knowledge, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "📚 공부 많이 할수록 패닉셀 더 한다 #오늘의논문",
+    "thumbnail_text": "공부=패닉셀",
+    "description": "주식 공부를 많이 했다고 자신하는 투자자일수록 폭락장에서 전량 매도를 더 많이 한다는 PLOS ONE 2025 연구입니다.\n\n📄 논문 출처\nTitle: Overconfidence, Financial Literacy, and Panic Selling: Evidence from Japan\nAuthors: Bawalle A, Khan M, Kadoya Y\nJournal: PLOS ONE (2025)\nDOI: https://doi.org/10.1371/journal.pone.0315622\nInstitution: Hiroshima University / Rakuten Securities\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #주식심리 #과신 #패닉셀 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#투자심리",
+      "#주식심리",
+      "#과신",
+      "#패닉셀",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "📚 공부 많이 할수록 패닉셀 더 한다 #오늘의논문",
+      "description": "주식 공부를 많이 했다고 자신하는 투자자일수록 폭락장에서 전량 매도를 더 많이 한다는 PLOS ONE 2025 연구입니다.\n\n📄 논문 출처\nTitle: Overconfidence, Financial Literacy, and Panic Selling: Evidence from Japan\nAuthors: Bawalle A, Khan M, Kadoya Y\nJournal: PLOS ONE (2025)\nDOI: https://doi.org/10.1371/journal.pone.0315622\nInstitution: Hiroshima University / Rakuten Securities\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #주식심리 #과신 #패닉셀 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "투자심리",
+        "주식심리",
+        "과신",
+        "패닉셀",
+        "주식",
+        "손절",
+        "행동경제학",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 9,
+      "emotional": 10,
+      "stories": 9,
+      "total": 57,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "주식 공부를 많이 하면 투자 판단이 더 좋아진다",
+      "conflict": "공부 많이 한 사람이 폭락장에서 오히려 더 빠르게 전량 매도",
+      "twist": "확신이 강할수록 예상 밖 상황에 더 큰 공황으로 반응",
+      "punchline": "아는 게 많을수록 더 크게 흔들릴 수 있다는 진짜 아이러니"
+    },
+    "hook_pattern": "counterintuitive-knowledge (effectiveness: 97)"
+  }
+}

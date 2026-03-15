@@ -1,0 +1,70 @@
+{
+  "episode_id": "whatif_ep045",
+  "series": "만약에~",
+  "topic_id": "one-honest-day",
+  "language": "ko",
+  "visual_style": "clean modern Korean webtoon style, soft cel shading, minimal linework, pastel color palette, simple flat backgrounds, warm natural lighting",
+  "script": {
+    "hook": "만약에 한 달에 하루만 무조건 솔직해야 한다면?",
+    "body": [
+      "매달 15일, 거짓말이 물리적으로 불가능해지는 날이 왔다.",
+      "회사에서 부장님이 물었다. 내 발표 어땠어? 솔직히 15분째 같은 말 반복하셨습니다. 회의실이 얼었다.",
+      "커플들이 제일 무서워했다. 오늘 나 어때? 라는 질문에 전국에서 동시에 침묵이 흘렀다.",
+      "그날 저녁 치킨집 사장님이 말했다. 이거 어제 튀긴 겁니다. 매출이 반토막 났다.",
+      "다음 날 이혼 신청이 평소의 네 배. 근데 남은 커플들은 역대급으로 단단해졌다."
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 한 달에 하루만 무조건 솔직해야 한다면? 매달 15일, 거짓말이 물리적으로 불가능해지는 날이 왔다. 회사에서 부장님이 물었다. 내 발표 어땠어? 솔직히 15분째 같은 말 반복하셨습니다. 회의실이 얼었다. 커플들이 제일 무서워했다. 오늘 나 어때? 라는 질문에 전국에서 동시에 침묵이 흘렀다. 그날 저녁 치킨집 사장님이 말했다. 이거 어제 튀긴 겁니다. 매출이 반토막 났다. 다음 날 이혼 신청이 평소의 네 배. 근데 남은 커플들은 역대급으로 단단해졌다.",
+  "display_text": "만약에 한 달에 하루만 무조건 솔직해야 한다면? 매달 15일, 거짓말이 물리적으로 불가능해지는 날이 왔다. 회사에서 부장님이 물었다. 내 발표 어땠어? 솔직히 15분째 같은 말 반복하셨습니다. 회의실이 얼었다. 커플들이 제일 무서워했다. 오늘 나 어때? 라는 질문에 전국에서 동시에 침묵이 흘렀다. 그날 저녁 치킨집 사장님이 말했다. 이거 어제 튀긴 겁니다. 매출이 반토막 났다. 다음 날 이혼 신청이 평소의 네 배. 근데 남은 커플들은 역대급으로 단단해졌다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 한 달에 하루만 무조건 솔직해야 한다면?",
+      "image_prompt": "Vertical 1080x1920. A slim young Korean woman with long straight black hair and bangs, wearing a white blouse, standing in the middle of a busy Seoul office. She has both hands clamped over her mouth, eyes wide with panic, as if desperately trying to hold words back. Around her, coworkers are in similar poses — hands over mouths, looking at each other nervously. Bright office fluorescent lighting. Tense comedic atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm pastel tones, bright interior lighting, high quality illustration",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "매달 15일, 거짓말이 물리적으로 불가능해지는 날이 왔다.",
+      "image_prompt": "Vertical 1080x1920. A Seoul city street in the morning — normally bustling but eerily quiet. Office workers walking to work with tense expressions, nobody making eye contact, everyone looking straight ahead with sealed lips. The mood is tense anticipation, like everyone is bracing for impact. Cool morning light, slightly overcast sky. Clean modern Korean webtoon style, soft cel shading, minimal linework, cool muted pastel tones, soft overcast lighting, high quality illustration",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "회사에서 부장님이 물었다. 내 발표 어땠어? 솔직히 15분째 같은 말 반복하셨습니다. 회의실이 얼었다.",
+      "image_prompt": "Vertical 1080x1920. A Korean office meeting room — a confident middle-aged male boss standing at the front gesturing proudly. A young female employee sitting at the table has her mouth open mid-sentence with a horrified look on her own face as words come out involuntarily. The other employees around the table are frozen in shock — one mid-sip of coffee, another with jaw dropped. The boss's confident smile is just beginning to crack. Cold fluorescent office lighting. Pure comedic horror atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, cool pastel tones, harsh office lighting, high quality illustration",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "커플들이 제일 무서워했다. 오늘 나 어때? 라는 질문에 전국에서 동시에 침묵이 흘렀다.",
+      "image_prompt": "Vertical 1080x1920. A young Korean couple sitting across from each other at a cute cafe table. The woman is looking expectantly at the man with a sweet smile. The man is frozen solid — eyes wide, mouth slightly open but no words coming out, a single bead of sweat on his temple. His coffee cup suspended mid-lift. The entire cafe behind them shows other couples in identical frozen poses. Warm cafe lighting with a dramatic comedic freeze-frame feel. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm pastel tones, soft cafe lighting, high quality illustration",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "그날 저녁 치킨집 사장님이 말했다. 이거 어제 튀긴 겁니다. 매출이 반토막 났다.",
+      "image_prompt": "Vertical 1080x1920. A Korean fried chicken restaurant at night — a middle-aged male owner behind the counter, hand covering his own mouth in shock at what he just said, eyes bulging. He holds a plate of golden fried chicken. A customer across the counter has paused mid-reach for the chicken, staring at the owner with betrayed wide eyes. Other customers in the background slowly putting their food down. Warm orange-tinted restaurant interior lighting. Comedic betrayal atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm orange pastel tones, cozy restaurant lighting, high quality illustration",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "다음 날 이혼 신청이 평소의 네 배. 근데 남은 커플들은 역대급으로 단단해졌다.",
+      "image_prompt": "Vertical 1080x1920. Split composition — the top half shows a long queue of tired resigned people outside a grey government building on a cloudy day. The bottom half shows a young Korean couple walking hand-in-hand down a sunny tree-lined street, both smiling genuinely with warm confident expressions, leaning slightly toward each other. The contrast between the two halves is stark — grey and cold on top, warm golden glow on bottom. Beautiful golden hour sunlight on the lower half. Clean modern Korean webtoon style, soft cel shading, minimal linework, contrast of cool grey and warm golden pastel tones, dramatic lighting contrast, high quality illustration",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "🤐 한 달에 하루 솔직해야 한다면? #만약에",
+    "thumbnail_text": "솔직한 날",
+    "description": "만약에 시리즈: 한 달에 하루만 거짓말이 불가능하다면?\n부장님 발표 리뷰부터 치킨집 사장님의 고백까지.\n그날 이후 이혼율 네 배, 근데 남은 커플은...\n#만약에 #솔직 #직장인 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#솔직", "#직장인", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

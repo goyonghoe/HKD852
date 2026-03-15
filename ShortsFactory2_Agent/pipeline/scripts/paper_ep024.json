@@ -1,0 +1,124 @@
+{
+  "episode_id": "paper_ep024",
+  "series": "오늘의 논문",
+  "topic_id": "fearless-woman-financial-literacy-confidence-gap",
+  "language": "ko",
+  "paper_source": {
+    "title": "Fearless Woman: Financial Literacy and Stock Market Participation",
+    "authors": "Bucher-Koenen T, Lusardi A, Alessie R, van Rooij M",
+    "journal": "Management Science",
+    "year": 2025,
+    "doi": "10.1287/mnsc.2023.00425",
+    "peer_reviewed": true,
+    "institution": "ZEW Mannheim / Stanford / University of Groningen / De Nederlandsche Bank",
+    "sample_size": null,
+    "key_finding": "여성의 낮은 주식 투자 참여율은 금융 지식 부족이 아니라, '모르겠다'고 답하는 성향과 자신감 차이에서 비롯되며, 금융 지식을 동일하게 맞춰도 투자 참여 격차는 여전히 존재한다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, Nature journal quality, minimalist professional design, ",
+  "script": {
+    "hook": "여자가 주식을 안 하는 이유, 몰라서가 아니래요.",
+    "body": [
+      "금융 지식 수준을 똑같이 맞춰놓고 봐도, 여전히 여성이 투자를 덜 하는 거래요.",
+      "연구진이 발견한 건, 지식이 아니라 자신감의 차이였거든요.",
+      "금융 퀴즈에서 남자는 모르면 일단 찍는데, 여자는 '모르겠다'를 선택하는 거예요. 근데 찍은 남자가 맞을 확률이 높으니까, 점수가 뻥튀기되는 거거든요."
+    ],
+    "closer": "아는 것과 하는 것 사이에, 자신감이라는 벽이 하나 더 있었대요.",
+    "cta": ""
+  },
+  "full_text": "여자가 주식을 안 하는 이유, 몰라서가 아니래요. 금융 지식 수준을 똑같이 맞춰놓고 봐도, 여전히 여성이 투자를 덜 하는 거래요. 연구진이 발견한 건, 지식이 아니라 자신감의 차이였거든요. 금융 퀴즈에서 남자는 모르면 일단 찍는데, 여자는 '모르겠다'를 선택하는 거예요. 근데 찍은 남자가 맞을 확률이 높으니까, 점수가 뻥튀기되는 거거든요. 아는 것과 하는 것 사이에, 자신감이라는 벽이 하나 더 있었대요.",
+  "display_text": "여자가 주식을 안 하는 이유, 몰라서가 아니래요. 금융 지식 수준을 똑같이 맞춰놓고 봐도, 여전히 여성이 투자를 덜 하는 거래요. 연구진이 발견한 건, 지식이 아니라 자신감의 차이였거든요. 금융 퀴즈에서 남자는 모르면 일단 찍는데, 여자는 '모르겠다'를 선택하는 거예요. 근데 찍은 남자가 맞을 확률이 높으니까, 점수가 뻥튀기되는 거거든요. 아는 것과 하는 것 사이에, 자신감이라는 벽이 하나 더 있었대요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "여자가 주식을 안 하는 이유, 몰라서가 아니래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, two identical glowing brain silhouettes side by side radiating equal brightness and energy representing equal knowledge, but one brain has a bold confident aura expanding outward while the other has a more contained restrained glow despite identical inner luminosity, the contrast highlights confidence vs knowledge gap, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "금융 지식 수준을 똑같이 맞춰놓고 봐도, 여전히 여성이 투자를 덜 하는 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a balanced scale in perfect equilibrium with glowing orbs of knowledge on both sides showing equality, but below the scale two paths diverge dramatically, one path leads to a bright active market gateway while the other path fades into hesitation, the scale is balanced but the outcomes are completely different, clean geometric composition, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "연구진이 발견한 건, 지식이 아니라 자신감의 차이였거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a magnifying glass hovering over a brain revealing two distinct layers inside, the outer surface layer labeled-free shows raw knowledge as identical cool blue circuits on both halves, but the deeper core shows one half burning with bold warm orange confidence energy while the other half has the same circuits but a cooler dimmer inner glow, the discovery moment composition, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "금융 퀴즈에서 남자는 모르면 일단 찍는데, 여자는 '모르겠다'를 선택하는 거예요. 근데 찍은 남자가 맞을 확률이 높으니까, 점수가 뻥튀기되는 거거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, two abstract human figures taking a test, one figure confidently throws darts at a target board and some darts land on bullseye by pure luck inflating the score, the other figure carefully holds their dart and chooses not to throw rather than guess, scattered lucky hits create an illusion of superiority while the cautious approach gets undervalued, dynamic composition showing the gap between actual skill and measured score, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "아는 것과 하는 것 사이에, 자신감이라는 벽이 하나 더 있었대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a glowing doorway representing opportunity with warm inviting light beyond it, between a person and the doorway stands an invisible glass wall with a faint shimmer, the person can see through clearly showing they have the knowledge but something unseen holds them back, a single hand reaches toward the glass creating ripples of light on the barrier surface, contemplative and poignant mood, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "💡 여자가 주식을 안 하는 진짜 이유 #오늘의논문",
+    "thumbnail_text": "지식아닌자신감",
+    "description": "금융 지식을 똑같이 맞춰도 여성의 투자 참여율이 낮은 건, 지식이 아니라 자신감 차이 때문이라는 Management Science 2025 연구입니다.\n\n📄 논문 출처\nTitle: Fearless Woman: Financial Literacy and Stock Market Participation\nAuthors: Bucher-Koenen T, Lusardi A, Alessie R, van Rooij M\nJournal: Management Science (2025)\nDOI: https://doi.org/10.1287/mnsc.2023.00425\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #투자격차 #자신감 #여성투자 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#투자심리",
+      "#투자격차",
+      "#자신감",
+      "#여성투자",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "💡 여자가 주식을 안 하는 진짜 이유 #오늘의논문",
+      "description": "금융 지식을 똑같이 맞춰도 여성의 투자 참여율이 낮은 건, 지식이 아니라 자신감 차이 때문이라는 Management Science 2025 연구입니다.\n\n📄 논문 출처\nTitle: Fearless Woman: Financial Literacy and Stock Market Participation\nAuthors: Bucher-Koenen T, Lusardi A, Alessie R, van Rooij M\nJournal: Management Science (2025)\nDOI: https://doi.org/10.1287/mnsc.2023.00425\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #투자격차 #자신감 #여성투자 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "투자심리",
+        "투자격차",
+        "자신감",
+        "여성투자",
+        "금융",
+        "주식",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 9,
+      "emotional": 9,
+      "stories": 9,
+      "total": 56,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "여성이 주식 투자를 덜 하는 건 금융 지식이 부족해서",
+      "conflict": "지식을 맞춰도 투자 격차가 여전히 존재",
+      "twist": "남자는 모르면 찍고 여자는 '모르겠다' 선택 → 점수 뻥튀기",
+      "punchline": "지식이 아니라 자신감의 벽이 투자 결정을 좌우"
+    },
+    "hook_pattern": "counterintuitive-gender (effectiveness: 92)"
+  }
+}

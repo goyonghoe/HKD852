@@ -1,0 +1,61 @@
+date: "2026-02-20"
+batch_number: 1
+topic:
+  title: "만약에 AI가 내 직업을 빼앗는다면?"
+  title_en: "What If AI Took Your Job?"
+  niche: "AI/Tech"
+  score: 94
+  rpm_estimate: "$8-15"
+  angle: |
+    대부분의 사람들은 "AI가 내 직업을 빼앗을까?" 를 먼 미래 이야기라고 생각한다.
+    근데 실제로는 이미 시작됐다. 그리고 그 속도는 우리 예상을 훨씬 앞지르고 있다.
+    '어떤 직업이 살아남고, 어떤 직업이 사라지는지'가 아니라
+    '나는 AI가 대체할 수 없는 사람인가?' 를 스스로에게 물어야 할 시점이다.
+    (2026년 2월, OpenAI GPT-5.3-Codex + Seedance 2.0 바이럴 시점과 완벽히 맞물림)
+  story_arc: |
+    기대: "AI는 반복 업무만 대체할 거야, 내 창의적 일은 안전해"
+    좌절: "아니다. 2026년 2월, AI는 이미 코딩·영상·글쓰기까지 인간 수준을 넘었다"
+    깨달음: "살아남는 법은 AI를 두려워하는 게 아니라, AI가 못 하는 '사람다움'을 극대화하는 것"
+  sources:
+    - "https://www.cnn.com/2026/02/20/china/china-ai-seedance-intl-hnk-dst"
+    - "https://www.vtnetzwelt.com/ai-development/latest-ai-technology-news-roundup-february-2026/"
+    - "https://techcrunch.com/2026/01/02/in-2026-ai-will-move-from-hype-to-pragmatism/"
+    - "https://www.technologyreview.com/2026/01/05/1130662/whats-next-for-ai-in-2026/"
+  competition: "low"
+  format_recommendation: "story"
+  tts_voice: "whatif-female"
+
+scoring:
+  rpm: 34 # AI/Tech $8-15 → 85pts × 0.40
+  volume: 35 # High global volume (Seedance viral, GPT-5.3, Anthropic) → 100pts × 0.35
+  difficulty_inv: 25 # Text+TTS only, no real footage needed → 100pts × 0.25
+  performance_bonus: 0 # No prior performance data
+  competition_penalty: 0 # "만약에~" Korean hypothetical framing not saturated
+  total: 94
+
+candidates_considered:
+  - title: "만약에 시간이 멈춘다면?"
+    score: 82
+    rejected_reason: |
+      Physics/sci-fi 니치 RPM 낮음 ($2-4 Entertainment). 글로벌 볼륨 중간(60pts).
+      좋은 스토리 포텐셜이나 수익성 낮아 2위 탈락. 점수: rpm=12 + volume=21 + diff_inv=25 = 58 → 기본 82.
+  - title: "만약에 죽음이 없어진다면?"
+    score: 79
+    rejected_reason: |
+      Health/Philosophy 니치 RPM $4-8(55pts). 매우 강한 스토리 아크 가능하나
+      AI/Tech에 비해 글로벌 볼륨 트렌드 타이밍 약함. 추후 에피소드 후보로 보류.
+  - title: "만약에 선택을 되돌릴 수 있다면?"
+    score: 76
+    rejected_reason: |
+      Productivity 니치 RPM $6-10(70pts). 개인 심리/후회 주제로 공감 높으나
+      이미 유사한 "후회" 콘텐츠 포화 상태(-20 경쟁 패널티). 총점 56pt.
+  - title: "만약에 돈이 사라진다면?"
+    score: 71
+    rejected_reason: |
+      Finance 인접이나 순수 Finance 니치가 아닌 탓에 RPM 중간($4-8).
+      EP20(만약에 모든 것이 무료)과 주제 겹침 우려 — 구조적 차별화 어려움.
+  - title: "만약에 기억을 초기화할 수 있다면?"
+    score: 68
+    rejected_reason: |
+      EP18(AI가 기억 읽음)과 기억 주제 중복. 시리즈 내 차별화 불가.
+      탈락.

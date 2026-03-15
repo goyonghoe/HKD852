@@ -1,0 +1,124 @@
+{
+  "episode_id": "paper_ep029",
+  "series": "오늘의 논문",
+  "topic_id": "trading-hazardous-wealth-overtrading-penalty",
+  "language": "ko",
+  "paper_source": {
+    "title": "Trading Is Hazardous to Your Wealth: The Common Stock Investment Performance of Individual Investors",
+    "authors": "Barber BM, Odean T",
+    "journal": "Journal of Finance",
+    "year": 2000,
+    "doi": "10.1111/0022-1082.00226",
+    "peer_reviewed": true,
+    "institution": "UC Davis / UC Berkeley",
+    "sample_size": 66465,
+    "key_finding": "6만 6천 가구를 6년간 추적한 결과, 가장 많이 매매한 그룹의 연간 수익률은 11.4%로 시장 평균 17.9%에 크게 못 미쳤으며, 과잉 자신감에 의한 과도한 매매가 핵심 원인이다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, Nature journal quality, minimalist professional design, ",
+  "script": {
+    "hook": "주식 많이 사고팔수록 돈 더 번다고요? 6만 가구 추적해봤더니 정반대래요.",
+    "body": [
+      "미국에서 6만 6천 가구를 6년 동안 추적했거든요. 가장 많이 매매한 그룹은 연 11.4% 벌었는데, 시장 평균은 17.9%였대요.",
+      "그러니까 열심히 사고팔수록 오히려 연 6.5%씩 까먹은 거예요. 수수료도 수수료지만, 진짜 문제는 '나는 잘한다'는 착각이래요.",
+      "자기가 남들보다 잘 안다고 생각하니까 자꾸 매매하는 건데, 실제로는 그냥 가만히 있는 게 나은 거였거든요."
+    ],
+    "closer": "주식에서 제일 비싼 행동은 매매가 아니라, 쓸데없는 매매래요.",
+    "cta": ""
+  },
+  "full_text": "주식 많이 사고팔수록 돈 더 번다고요? 6만 가구 추적해봤더니 정반대래요. 미국에서 6만 6천 가구를 6년 동안 추적했거든요. 가장 많이 매매한 그룹은 연 11.4% 벌었는데, 시장 평균은 17.9%였대요. 그러니까 열심히 사고팔수록 오히려 연 6.5%씩 까먹은 거예요. 수수료도 수수료지만, 진짜 문제는 '나는 잘한다'는 착각이래요. 자기가 남들보다 잘 안다고 생각하니까 자꾸 매매하는 건데, 실제로는 그냥 가만히 있는 게 나은 거였거든요. 주식에서 제일 비싼 행동은 매매가 아니라, 쓸데없는 매매래요.",
+  "display_text": "주식 많이 사고팔수록 돈 더 번다고요? 6만 가구 추적해봤더니 정반대래요. 미국에서 6만 6천 가구를 6년 동안 추적했거든요. 가장 많이 매매한 그룹은 연 11.4% 벌었는데, 시장 평균은 17.9%였대요. 그러니까 열심히 사고팔수록 오히려 연 6.5%씩 까먹은 거예요. 수수료도 수수료지만, 진짜 문제는 '나는 잘한다'는 착각이래요. 자기가 남들보다 잘 안다고 생각하니까 자꾸 매매하는 건데, 실제로는 그냥 가만히 있는 게 나은 거였거든요. 주식에서 제일 비싼 행동은 매매가 아니라, 쓸데없는 매매래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "주식 많이 사고팔수록 돈 더 번다고요? 6만 가구 추적해봤더니 정반대래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a frantic pair of hands rapidly pressing buy and sell buttons on a glowing trading panel, sparks and coins fly outward with each press but the coins shrink and dissolve into smoke as they fly away, the faster the hands move the more value evaporates, energetic but wasteful motion, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "미국에서 6만 6천 가구를 6년 동안 추적했거든요. 가장 많이 매매한 그룹은 연 11.4% 벌었는데, 시장 평균은 17.9%였대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, two ascending paths side by side, the left path is chaotic with many zigzag steps representing active trading reaching a modest height glowing dim orange, the right path is smooth and straight representing passive holding reaching much higher glowing bright green, the height difference between the two endpoints is dramatic and immediately visible, clean data comparison visualization, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "열심히 사고팔수록 오히려 연 6.5%씩 까먹은 거예요. 수수료도 수수료지만, 진짜 문제는 '나는 잘한다'는 착각이래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a person looking into a mirror with an inflated confident heroic reflection that is much larger and more powerful than the actual small ordinary figure, the mirror creates a distorted overconfident self-image, around the mirror small coins leak and drain away unnoticed while the person admires their reflection, the gap between self-perception and reality, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "자기가 남들보다 잘 안다고 생각하니까 자꾸 매매하는 건데, 실제로는 그냥 가만히 있는 게 나은 거였거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, split scene showing two contrasting investors, on the left a hyperactive figure surrounded by swirling trade orders and blinking screens losing energy and shrinking, on the right a calm figure sitting peacefully in a meditation pose on a growing stack of gains that rises steadily upward, the stillness wins over the frenzy, dramatic contrast between motion and rest, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "주식에서 제일 비싼 행동은 매매가 아니라, 쓸데없는 매매래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a single calm hand hovering above a trading button but choosing NOT to press it, the hand pulls back with intention and clarity, around the unpressed button a golden protective aura forms representing preserved wealth, the power of restraint and inaction visualized as strength not weakness, serene and wise atmosphere, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "📉 많이 매매할수록 수익률 떨어진다 #오늘의논문",
+    "thumbnail_text": "매매=손해",
+    "description": "6만 6천 가구를 6년간 추적한 결과, 가장 많이 매매한 그룹이 시장 대비 연 6.5%씩 손해 봤다는 Journal of Finance 연구입니다.\n\n📄 논문 출처\nTitle: Trading Is Hazardous to Your Wealth: The Common Stock Investment Performance of Individual Investors\nAuthors: Barber BM, Odean T\nJournal: Journal of Finance, Vol. 55(2), pp. 773-806 (2000)\nDOI: https://doi.org/10.1111/0022-1082.00226\nPeer-reviewed: ✅\nCitations: 8,000+\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #과잉매매 #주식수익률 #투자 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#투자심리",
+      "#과잉매매",
+      "#주식수익률",
+      "#투자",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "📉 많이 매매할수록 수익률 떨어진다 #오늘의논문",
+      "description": "6만 6천 가구를 6년간 추적한 결과, 가장 많이 매매한 그룹이 시장 대비 연 6.5%씩 손해 봤다는 Journal of Finance 연구입니다.\n\n📄 논문 출처\nTitle: Trading Is Hazardous to Your Wealth: The Common Stock Investment Performance of Individual Investors\nAuthors: Barber BM, Odean T\nJournal: Journal of Finance, Vol. 55(2), pp. 773-806 (2000)\nDOI: https://doi.org/10.1111/0022-1082.00226\nPeer-reviewed: ✅\nCitations: 8,000+\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #과잉매매 #주식수익률 #투자 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "투자심리",
+        "과잉매매",
+        "주식수익률",
+        "투자",
+        "주식",
+        "매매",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 10,
+      "credible": 10,
+      "emotional": 10,
+      "stories": 10,
+      "total": 60,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "열심히 매매하면 수익이 더 높을 것이다",
+      "conflict": "6만 가구 추적: 가장 많이 매매한 그룹이 시장보다 6.5% 낮은 수익",
+      "twist": "수수료보다 과잉 자신감이 진짜 원인 — 잘한다는 착각",
+      "punchline": "가장 비싼 행동은 매매가 아니라 쓸데없는 매매"
+    },
+    "hook_pattern": "counterintuitive-data (effectiveness: 98)"
+  }
+}

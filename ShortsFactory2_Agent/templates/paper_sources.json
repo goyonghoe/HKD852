@@ -1,0 +1,141 @@
+{
+  "channel_focus": "투자 심리 / 행동경제학 (Investment Psychology & Behavioral Finance)",
+  "categories": [
+    {
+      "id": "loss-aversion",
+      "name_ko": "손실 회피 / 프로스펙트 이론",
+      "rpm_estimate": "$15-25",
+      "search_queries": [
+        "loss aversion investing study 2025 2026",
+        "prospect theory stock market behavior research",
+        "investor loss aversion brain imaging study"
+      ],
+      "trusted_journals": [
+        "Journal of Finance",
+        "Review of Financial Studies",
+        "Journal of Behavioral Finance",
+        "Nature Human Behaviour"
+      ],
+      "hook_angles": [
+        "왜 -10만원이 +10만원보다 2배 아픈가",
+        "손절 못하는 뇌의 비밀",
+        "당신이 물타기를 하는 진짜 이유"
+      ]
+    },
+    {
+      "id": "herd-behavior",
+      "name_ko": "군중 심리 / FOMO / 버블",
+      "rpm_estimate": "$12-20",
+      "search_queries": [
+        "herd behavior stock market study 2025 2026",
+        "FOMO investing behavioral research",
+        "market bubble crowd psychology experiment"
+      ],
+      "trusted_journals": [
+        "Journal of Financial Economics",
+        "Quarterly Journal of Economics",
+        "Journal of Economic Behavior & Organization",
+        "PNAS"
+      ],
+      "hook_angles": [
+        "왜 모두가 살 때 사면 망하는가",
+        "버블은 항상 똑같은 패턴으로 터진다",
+        "FOMO가 만드는 가격 왜곡의 크기"
+      ]
+    },
+    {
+      "id": "cognitive-bias",
+      "name_ko": "인지 편향 / 확증 편향 / 앵커링",
+      "rpm_estimate": "$15-25",
+      "search_queries": [
+        "confirmation bias investing study 2025 2026",
+        "anchoring effect stock price research",
+        "cognitive bias financial decision experiment"
+      ],
+      "trusted_journals": [
+        "Psychological Science",
+        "Journal of Experimental Psychology",
+        "Management Science",
+        "Journal of Behavioral Decision Making"
+      ],
+      "hook_angles": [
+        "52주 최고가에 집착하는 뇌의 비밀",
+        "내가 산 주식 호재만 보이는 이유",
+        "전문가도 속는 앵커링 효과의 위력"
+      ]
+    },
+    {
+      "id": "overconfidence",
+      "name_ko": "자신감 과잉 / 더닝-크루거",
+      "rpm_estimate": "$12-20",
+      "search_queries": [
+        "overconfidence trading performance study 2025 2026",
+        "Dunning-Kruger effect investing research",
+        "retail investor overconfidence experiment"
+      ],
+      "trusted_journals": [
+        "Journal of Finance",
+        "Financial Analysts Journal",
+        "Journal of Portfolio Management",
+        "Experimental Economics"
+      ],
+      "hook_angles": [
+        "개미의 95%가 시장을 이길 수 있다고 믿는 이유",
+        "트레이딩 많이 할수록 수익이 떨어지는 연구",
+        "자신감과 수익률의 놀라운 반비례"
+      ]
+    },
+    {
+      "id": "emotional-trading",
+      "name_ko": "감정적 투자 / 공포-탐욕 / 스트레스",
+      "rpm_estimate": "$12-20",
+      "search_queries": [
+        "emotional trading brain study 2025 2026",
+        "fear greed investing neuroscience",
+        "stress cortisol financial decision research"
+      ],
+      "trusted_journals": [
+        "Journal of Neuroscience",
+        "Neuron",
+        "Proceedings of the National Academy of Sciences",
+        "Journal of Economic Psychology"
+      ],
+      "hook_angles": [
+        "코르티솔이 높으면 손실이 커지는 이유",
+        "공포지수가 극에 달할 때 사야 하는 뇌과학적 이유",
+        "아침에 투자 결정하면 수익이 달라지는 연구"
+      ]
+    },
+    {
+      "id": "market-anomaly",
+      "name_ko": "시장 이상현상 / 비효율성",
+      "rpm_estimate": "$15-25",
+      "search_queries": [
+        "market anomaly behavioral finance study 2025 2026",
+        "momentum effect research new finding",
+        "disposition effect investor behavior experiment"
+      ],
+      "trusted_journals": [
+        "Journal of Financial Economics",
+        "Review of Financial Studies",
+        "Journal of Finance",
+        "American Economic Review"
+      ],
+      "hook_angles": [
+        "월요일에 주식을 사면 안 되는 과학적 이유",
+        "이익은 빨리 팔고 손실은 못 파는 뇌의 버그",
+        "모멘텀 효과: 오르는 주식이 계속 오르는 이유"
+      ]
+    }
+  ],
+  "source_databases": [
+    { "name": "SSRN", "base_url": "https://www.ssrn.com/" },
+    { "name": "NBER", "base_url": "https://www.nber.org/" },
+    { "name": "PubMed", "base_url": "https://pubmed.ncbi.nlm.nih.gov/" },
+    { "name": "Google Scholar", "base_url": "https://scholar.google.com/" },
+    {
+      "name": "Semantic Scholar",
+      "base_url": "https://www.semanticscholar.org/"
+    }
+  ]
+}

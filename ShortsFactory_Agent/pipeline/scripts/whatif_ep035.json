@@ -1,0 +1,75 @@
+{
+  "episode_id": "whatif_ep035",
+  "series": "만약에~",
+  "topic_id": "see-10min-future",
+  "language": "ko",
+  "visual_style": "mystical precognition aesthetic with glowing clock overlays and ghostly future echoes, deep indigo and electric gold palette, translucent prediction visions layered over reality, dramatic split-time compositions, ",
+  "script": {
+    "hook": "만약 항상 10분 후의 미래가 보인다면?",
+    "body": [
+      "사고가 나기 전에 피한다. 매일 누군가의 목숨을 구한다.",
+      "시험 답이 보여서 전교 1등을 찍는다.",
+      "하지만 스포츠 경기도, 서프라이즈 파티도, 고백의 떨림도 전부 사라진다.",
+      "결국 모든 순간이 예정된 세상에서, 설렘이라는 감정이 멸종한다."
+    ],
+    "cta": "미래를 아는 삶, 행복할까? 구독 눌러."
+  },
+  "full_text": "만약 항상 10분 후의 미래가 보인다면? 사고가 나기 전에 피한다. 매일 누군가의 목숨을 구한다. 시험 답이 보여서 전교 1등을 찍는다. 하지만 스포츠 경기도, 서프라이즈 파티도, 고백의 떨림도 전부 사라진다. 결국 모든 순간이 예정된 세상에서, 설렘이라는 감정이 멸종한다. 미래를 아는 삶, 행복할까? 구독 눌러.",
+  "display_text": "만약 항상 10분 후의 미래가 보인다면? 사고가 나기 전에 피한다. 매일 누군가의 목숨을 구한다. 시험 답이 보여서 전교 1등을 찍는다. 하지만 스포츠 경기도, 서프라이즈 파티도, 고백의 떨림도 전부 사라진다. 결국 모든 순간이 예정된 세상에서, 설렘이라는 감정이 멸종한다. 미래를 아는 삶, 행복할까?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 항상 10분 후의 미래가 보인다면?",
+      "image_prompt": "A person standing in a busy city square with a translucent golden vision of the same scene 10 minutes later overlaid like a ghostly echo, clocks floating in the indigo sky showing different times, the moment of seeing two timelines at once, mystical and awe-inspiring atmosphere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "사고가 나기 전에 피한다. 매일 누군가의 목숨을 구한다.",
+      "image_prompt": "A person pulling a stranger back from a crosswalk as a translucent golden ghost-image of a speeding car passes through where they stood, the future echo dissolving into particles of light, dramatic split-second rescue, deep indigo sky with electric gold highlights",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "시험 답이 보여서 전교 1등을 찍는다.",
+      "image_prompt": "A student sitting at a desk surrounded by floating translucent golden answer sheets from the future, glowing numbers and formulas orbiting around them like a constellation, other students studying normally in the background, indigo classroom with electric gold light streaming through windows",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "하지만 스포츠 경기도, 서프라이즈 파티도, 고백의 떨림도 전부 사라진다.",
+      "image_prompt": "A split composition showing three scenes fading to grey: a stadium where the scoreboard result is already known, a birthday party with no surprise on the guest's face, and a couple where the confession outcome is already visible as a golden ghost, all joy drained into predictability, melancholic indigo tones",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "결국 모든 순간이 예정된 세상에서, 설렘이라는 감정이 멸종한다.",
+      "image_prompt": "A person sitting alone on a bench in a park where everything around them plays out in predetermined golden ghost-echoes, the word excitement dissolving into particles, their expression hollow and empty despite knowing everything, deep indigo twilight with fading gold light, profound loneliness of omniscience",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "미래를 아는 삶, 행복할까? 구독 눌러.",
+      "image_prompt": "A person standing at the edge of a cliff at dawn choosing between two paths: one path glowing with golden future-sight visions and the other shrouded in beautiful mysterious indigo fog of the unknown, the beauty of uncertainty versus the curse of knowing, contemplative silhouette against a spectacular sunrise",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "10분 후 미래가 보인다면? #만약에",
+    "thumbnail_text": "미래=설렘 멸종",
+    "description": "만약 항상 10분 후의 미래가 보인다면? 목숨은 구하지만, 설렘이 사라진다.\n#만약에 #미래예지 #초능력 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#미래예지", "#초능력", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "upload_info": {
+    "youtube_video_id": "bSnnBuRSLOg",
+    "youtube_url": "https://youtube.com/shorts/bSnnBuRSLOg",
+    "uploaded_at": "2026-02-20T23:19:11+09:00",
+    "privacy_status": "private"
+  }
+}

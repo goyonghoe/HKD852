@@ -1,0 +1,57 @@
+{
+  "hook_patterns": [
+    {
+      "id": "paper-shock",
+      "name": "논문 충격",
+      "template": "{journal}에 실린 논문 하나가 {shocking_claim}.",
+      "examples": [
+        "Nature에 실린 논문 하나가 SNS가 뇌를 바꾼다는 걸 증명했습니다.",
+        "하버드 연구팀이 발표한 결과가 충격적인데요.",
+        "이번 주 Science에 올라온 논문이 수면의 비밀을 밝혔습니다."
+      ],
+      "effectiveness_score": 92,
+      "best_for": ["psychology", "neuroscience", "medicine"]
+    },
+    {
+      "id": "number-hook",
+      "name": "수치 훅",
+      "template": "{number}% / {number}명 중 {number}명이 {fact}.",
+      "examples": [
+        "SNS를 3시간 이상 하는 사람의 뇌, 40% 더 오래 흥분 상태입니다.",
+        "10명 중 7명이 이 사실을 모르고 있습니다.",
+        "수면 1시간 부족하면 판단력이 30% 떨어집니다."
+      ],
+      "effectiveness_score": 90,
+      "best_for": ["psychology", "health", "statistics"]
+    },
+    {
+      "id": "you-didnt-know",
+      "name": "몰랐죠",
+      "template": "당신의 {thing}이(가) 사실은 {surprising_fact}.",
+      "examples": [
+        "당신의 뇌가 SNS를 볼 때 마약과 같은 반응을 합니다.",
+        "아침에 마시는 커피가 사실은 각성 효과가 아닙니다.",
+        "당신이 느끼는 불안감, 장 속 세균 때문일 수 있습니다."
+      ],
+      "effectiveness_score": 88,
+      "best_for": ["neuroscience", "health", "psychology"]
+    },
+    {
+      "id": "researchers-found",
+      "name": "연구자 발견",
+      "template": "{institution} 연구팀이 {duration} 연구한 결과.",
+      "examples": [
+        "MIT 연구팀이 10년간 추적한 결과, 놀라운 사실을 발견했습니다.",
+        "서울대 심리학과가 MZ세대 1000명을 분석했더니.",
+        "옥스포드 연구팀이 뇌 스캔 데이터 10만 건을 분석한 결과."
+      ],
+      "effectiveness_score": 85,
+      "best_for": ["all"]
+    }
+  ],
+  "closer_patterns": [
+    "다음엔 더 흥미로운 논문으로 돌아오겠습니다.",
+    "이 연구가 말하는 건, 결국 {one_line_takeaway}.",
+    "논문 원문은 댓글에 링크 남겨둘게요."
+  ]
+}

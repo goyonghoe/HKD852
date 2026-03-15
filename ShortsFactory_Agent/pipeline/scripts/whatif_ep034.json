@@ -1,0 +1,75 @@
+{
+  "episode_id": "whatif_ep034",
+  "series": "만약에~",
+  "topic_id": "world-without-color",
+  "language": "ko",
+  "visual_style": "artistic monochrome fading to grayscale, a single vivid color object standing out in a desaturated world, film noir meets modern art, elegant contrast between color and absence, painterly textures",
+  "script": {
+    "hook": "만약 세상에서 색이 사라진다면?",
+    "body": [
+      "음식의 색이 전부 같아져서 요리가 불가능해진다.",
+      "신호등이 무용지물이 되고, 도로 위는 혼돈이 된다.",
+      "예술은 완전히 달라진다. 형태와 질감만으로 감동을 만든다.",
+      "하지만 사람들은 외모 대신 서로의 마음을 더 깊이 보게 된다."
+    ],
+    "cta": "색 없는 세상, 더 아름다울까? 구독 눌러."
+  },
+  "full_text": "만약 세상에서 색이 사라진다면? 음식의 색이 전부 같아져서 요리가 불가능해진다. 신호등이 무용지물이 되고, 도로 위는 혼돈이 된다. 예술은 완전히 달라진다. 형태와 질감만으로 감동을 만든다. 하지만 사람들은 외모 대신 서로의 마음을 더 깊이 보게 된다. 색 없는 세상, 더 아름다울까? 구독 눌러.",
+  "display_text": "만약 세상에서 색이 사라진다면? 음식의 색이 전부 같아져서 요리가 불가능해진다. 신호등이 무용지물이 되고, 도로 위는 혼돈이 된다. 예술은 완전히 달라진다. 형태와 질감만으로 감동을 만든다. 하지만 사람들은 외모 대신 서로의 마음을 더 깊이 보게 된다. 색 없는 세상, 더 아름다울까?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 세상에서 색이 사라진다면?",
+      "image_prompt": "A breathtaking cityscape at golden hour where all color is draining away like watercolor paint dissolving in rain, buildings fading from warm tones to elegant silver-grey, one single red umbrella remaining vivid in the center of the frame, painterly brushstroke textures, film noir elegance",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "음식의 색이 전부 같아져서 요리가 불가능해진다.",
+      "image_prompt": "A beautiful kitchen counter filled with gourmet dishes all rendered in stunning monochrome grayscale, fruits vegetables and sauces all the same silvery grey tone, a chef staring in bewilderment, one tiny strawberry still glowing red on the edge of the frame, soft studio lighting, elegant food photography composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "신호등이 무용지물이 되고, 도로 위는 혼돈이 된다.",
+      "image_prompt": "An aerial view of a grand intersection where all traffic lights glow the same grey tone, cars stopped in graceful confusion forming an abstract geometric pattern, the scene looks like a monochrome oil painting, one yellow taxi still holding its color like a beacon, artistic top-down composition, soft diffused light",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "예술은 완전히 달라진다. 형태와 질감만으로 감동을 만든다.",
+      "image_prompt": "A magnificent art gallery with towering sculptural installations made of flowing fabric and carved stone, all in elegant shades of white and grey, visitors gazing up in awe, dramatic shadows creating depth and emotion without any color, one small painting on the far wall still holding a single shade of blue, cathedral-like lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "하지만 사람들은 외모 대신 서로의 마음을 더 깊이 보게 된다.",
+      "image_prompt": "Two silhouettes sitting face to face on a park bench in a monochrome world, between them a warm golden glow emanates from their chests like visible heartbeats connecting, bare trees in soft grey mist behind them, the only color is the warm light of human connection, intimate and tender composition, dreamlike atmosphere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "색 없는 세상, 더 아름다울까? 구독 눌러.",
+      "image_prompt": "A lone figure standing at the edge of a vast monochrome landscape where grey mountains meet a silver sea, holding a single vivid flower that radiates color outward in a gentle wave beginning to restore the world, the horizon line between grey and color, hopeful and poetic, painterly composition with soft light breaking through clouds",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "세상에서 색이 사라진다면? #만약에",
+    "thumbnail_text": "색=사라진 세상",
+    "description": "만약 세상에서 색이 사라진다면? 요리도 신호등도 예술도 전부 바뀐다.\n#만약에 #색 #흑백세상 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#색", "#흑백세상", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "upload_info": {
+    "youtube_video_id": "5mOCtLCkY4w",
+    "youtube_url": "https://youtube.com/shorts/5mOCtLCkY4w",
+    "uploaded_at": "2026-02-20T23:11:07+09:00",
+    "privacy_status": "private"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "episode_id": "whatif_ep056",
+  "series": "만약에~",
+  "topic_id": "nunchi-disappears",
+  "language": "ko",
+  "visual_style": "flat 2D minimalist vector illustration, bold geometric shapes, rich saturated colors on deep dark blue background, soft inner gradient shading, warm glow effects, simplified cute rounded characters with no outlines, clean educational animation aesthetic, smooth color transitions, social chaos energy",
+  "script": {
+    "hook": "만약에 한국에서 눈치가 사라진다면?",
+    "body": [
+      "회식이 완전히 달라진다. 부장님이 2차 가자고 하는데 전원이 싫다고 말한다. 아무도 분위기를 안 읽는다. 1차에서 바로 끝난다.",
+      "엘리베이터 닫기 버튼을 아무도 안 누른다. 뛰어오는 사람이 있어도 그냥 쳐다본다. 지하철에서 임산부 앞에 앉아서 눈 안 감는다.",
+      "소개팅이 지옥이 된다. 만나자마자 연봉을 묻는다. 밥 먹다가 별로라고 말한다. 카톡 답장도 3일 뒤에 한다. 읽씹이 기본이 된다.",
+      "면접이 완전히 바뀐다. 지원자가 솔직하게 말한다. 워라밸 좋아서 왔다고. 야근 많으면 안 간다고. 면접관도 솔직해진다. 사실 야근 많다고.",
+      "결국 한국 사회가 초효율이 된다. 쓸데없는 눈치 보느라 낭비하던 시간이 전부 사라진다. 근데 좀 삭막하다. 너라면 눈치 없는 세상에서 살 수 있어?"
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 한국에서 눈치가 사라진다면? 회식이 완전히 달라진다. 부장님이 2차 가자고 하는데 전원이 싫다고 말한다. 아무도 분위기를 안 읽는다. 1차에서 바로 끝난다. 엘리베이터 닫기 버튼을 아무도 안 누른다. 뛰어오는 사람이 있어도 그냥 쳐다본다. 지하철에서 임산부 앞에 앉아서 눈 안 감는다. 소개팅이 지옥이 된다. 만나자마자 연봉을 묻는다. 밥 먹다가 별로라고 말한다. 카톡 답장도 3일 뒤에 한다. 읽씹이 기본이 된다. 면접이 완전히 바뀐다. 지원자가 솔직하게 말한다. 워라밸 좋아서 왔다고. 야근 많으면 안 간다고. 면접관도 솔직해진다. 사실 야근 많다고. 결국 한국 사회가 초효율이 된다. 쓸데없는 눈치 보느라 낭비하던 시간이 전부 사라진다. 근데 좀 삭막하다. 너라면 눈치 없는 세상에서 살 수 있어?",
+  "display_text": "만약에 한국에서 눈치가 사라진다면? 회식이 완전히 달라진다. 부장님이 2차 가자고 하는데 전원이 싫다고 말한다. 아무도 분위기를 안 읽는다. 1차에서 바로 끝난다. 엘리베이터 닫기 버튼을 아무도 안 누른다. 뛰어오는 사람이 있어도 그냥 쳐다본다. 지하철에서 임산부 앞에 앉아서 눈 안 감는다. 소개팅이 지옥이 된다. 만나자마자 연봉을 묻는다. 밥 먹다가 별로라고 말한다. 카톡 답장도 3일 뒤에 한다. 읽씹이 기본이 된다. 면접이 완전히 바뀐다. 지원자가 솔직하게 말한다. 워라밸 좋아서 왔다고. 야근 많으면 안 간다고. 면접관도 솔직해진다. 사실 야근 많다고. 결국 한국 사회가 초효율이 된다. 쓸데없는 눈치 보느라 낭비하던 시간이 전부 사라진다. 근데 좀 삭막하다. 너라면 눈치 없는 세상에서 살 수 있어?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 한국에서 눈치가 사라진다면?",
+      "image_prompt": "Vertical 1080x1920. A group of tiny cute simplified round-headed Korean figures standing in a circle, each with completely blank emotionless faces staring straight ahead. Above the group a giant translucent brain-shaped aura labeled with social awareness symbols is cracking and shattering into pieces, dissolving into particles. The social radar disappearing. One figure casually picks their nose while others stand awkwardly close. The usual invisible social force field between people is gone. Deep dark navy background with dissolving cyan social awareness energy. Flat 2D minimalist vector illustration, bold geometric shapes, shattering cyan social sense aura on deep dark blue background, soft inner gradient shading, awkward social vacuum energy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "회식이 완전히 달라진다. 부장님이 2차 가자고 하는데 전원이 싫다고 말한다. 아무도 분위기를 안 읽는다. 1차에서 바로 끝난다.",
+      "image_prompt": "Vertical 1080x1920. A Korean company dinner hoesik scene. A boss figure stands with arm raised enthusiastically suggesting more drinks, but every single employee figure around the table has arms crossed with flat rejection faces shaking their heads no. Some are already putting on their coats to leave. The boss looks completely shocked and confused, mouth hanging open. Beer glasses sit untouched. The contrast between the bosses enthusiasm and total employee rebellion is the comedy. Warm restaurant lighting. Flat 2D minimalist vector illustration, bold geometric shapes, warm golden restaurant glow with cold blue rejection energy from employees on deep dark navy background, soft gradient shading, comedic social rebellion, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "엘리베이터 닫기 버튼을 아무도 안 누른다. 뛰어오는 사람이 있어도 그냥 쳐다본다. 지하철에서 임산부 앞에 앉아서 눈 안 감는다.",
+      "image_prompt": "Vertical 1080x1920. A split scene showing everyday nunchi-less moments. Top half shows an elevator with doors closing while a tiny cute figure sprints toward it desperately, but the people inside just stare blankly making no move to press the open button. Bottom half shows a subway seat where a figure sits comfortably scrolling their phone with wide open eyes directly in front of a standing pregnant figure, zero guilt on their face. Both scenes show the complete absence of social awareness. Flat 2D minimalist vector illustration, bold geometric shapes, cold indifferent blue-grey tones with small warm spots of desperation on deep dark navy background, soft gradient shading, absurd social indifference comedy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "소개팅이 지옥이 된다. 만나자마자 연봉을 묻는다. 밥 먹다가 별로라고 말한다. 카톡 답장도 3일 뒤에 한다. 읽씹이 기본이 된다.",
+      "image_prompt": "Vertical 1080x1920. A blind date scene at a cafe. Two tiny cute simplified round-headed figures sit across from each other. One figure bluntly points at the other with an interrogating pose while the other looks shocked and offended. A thought bubble from one shows a calculator and money symbols. The other figure has a speech bubble with a giant thumbs down. A phone screen between them shows unread messages piling up for days. Hearts around the scene are all broken and grey. The romantic atmosphere is completely dead. Flat 2D minimalist vector illustration, bold geometric shapes, harsh fluorescent cafe lighting with broken pink hearts on deep dark navy background, soft gradient shading, brutal honesty comedy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "면접이 완전히 바뀐다. 지원자가 솔직하게 말한다. 워라밸 좋아서 왔다고. 야근 많으면 안 간다고. 면접관도 솔직해진다. 사실 야근 많다고.",
+      "image_prompt": "Vertical 1080x1920. A job interview scene with maximum awkward honesty. A tiny cute simplified round-headed job candidate figure sits confidently with arms crossed and a smug honest expression. Across the desk an interviewer figure sweats nervously because both sides are being brutally truthful. Speech bubbles from both sides show honest confessions colliding in the middle. The candidate bubble shows a beach and sunset representing work-life balance desires. The interviewer bubble shows a clock at midnight representing overtime reality. Both truths crash together with comic impact stars. Flat 2D minimalist vector illustration, bold geometric shapes, warm honest golden speech bubbles clashing with cold blue corporate reality on deep dark navy background, soft gradient shading, mutual brutal honesty comedy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "결국 한국 사회가 초효율이 된다. 쓸데없는 눈치 보느라 낭비하던 시간이 전부 사라진다. 근데 좀 삭막하다. 너라면 눈치 없는 세상에서 살 수 있어?",
+      "image_prompt": "Vertical 1080x1920. A futuristic efficient but cold Korean society. Tiny cute simplified round-headed figures walk in perfectly straight lines like robots, efficiently completing tasks with mechanical precision. Clocks show time being saved with green efficiency arrows. But the atmosphere is sterile and cold, no warmth between people. One figure reaches out to connect with another but they walk right past without acknowledging. A giant efficiency score glows green but a warmth meter below it is at zero glowing cold blue. The bittersweet contrast between efficiency and human connection. Flat 2D minimalist vector illustration, bold geometric shapes, split between efficient green and cold lonely blue on deep dark navy background, soft gradient shading, bittersweet efficiency vs warmth, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "👀 한국에서 눈치가 사라진다면? #만약에",
+    "thumbnail_text": "눈치 소멸",
+    "description": "만약에 시리즈: 한국에서 눈치가 사라진다면?\n회식 1차에서 끝나고, 소개팅에서 연봉 물어보고,\n면접에서 서로 솔직해지는 세상. 효율적이지만 삭막하다.\n#만약에 #눈치 #직장인 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#눈치", "#직장인", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

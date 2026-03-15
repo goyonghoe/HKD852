@@ -1,0 +1,75 @@
+{
+  "episode_id": "whatif_ep029",
+  "series": "만약에~",
+  "topic_id": "visible-lifespan",
+  "language": "ko",
+  "visual_style": "moody cinematic realism with desaturated tones and selective warm highlights, ticking clock motifs, hourglass sand imagery, time as visible force, intimate portrait lighting, ",
+  "script": {
+    "hook": "만약 머리 위에 남은 수명이 보인다면?",
+    "body": [
+      "보험 회사가 수명을 보고 가입을 거절한다.",
+      "수명이 짧은 사람은 아무도 채용하지 않는다.",
+      "연애할 때 상대 수명부터 확인한다.",
+      "수명이 1년 남은 사람은 모든 걸 포기하거나, 모든 걸 건다."
+    ],
+    "cta": "남은 시간, 알고 싶어? 구독 눌러."
+  },
+  "full_text": "만약 머리 위에 남은 수명이 보인다면? 보험 회사가 수명을 보고 가입을 거절한다. 수명이 짧은 사람은 아무도 채용하지 않는다. 연애할 때 상대 수명부터 확인한다. 수명이 1년 남은 사람은 모든 걸 포기하거나, 모든 걸 건다. 남은 시간, 알고 싶어? 구독 눌러.",
+  "display_text": "만약 머리 위에 남은 수명이 보인다면? 보험 회사가 수명을 보고 가입을 거절한다. 수명이 짧은 사람은 아무도 채용하지 않는다. 연애할 때 상대 수명부터 확인한다. 수명이 1년 남은 사람은 모든 걸 포기하거나, 모든 걸 건다. 남은 시간, 알고 싶어?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 머리 위에 남은 수명이 보인다면?",
+      "image_prompt": "A crowded city street where every person has a glowing holographic number floating above their head showing years remaining, some numbers large and bright, others small and flickering, cinematic street photography",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "보험 회사가 수명을 보고 가입을 거절한다.",
+      "image_prompt": "An insurance office where a clerk points at the small flickering number above a customer's head while stamping REJECTED on a form, cold fluorescent lighting, bureaucratic cruelty made visual",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "수명이 짧은 사람은 아무도 채용하지 않는다.",
+      "image_prompt": "A job fair where employers look up at numbers above candidates heads before making decisions, one person with a low number walks away alone, others with high numbers getting handshakes, harsh inequality",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "연애할 때 상대 수명부터 확인한다.",
+      "image_prompt": "A first date at a restaurant where both people nervously glance at the number above each other's head instead of making eye contact, wine glasses untouched, romance reduced to calculation, warm but sad lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "수명이 1년 남은 사람은 모든 걸 포기하거나, 모든 걸 건다.",
+      "image_prompt": "Split composition showing the same person, left side sitting in darkness giving up, right side running toward a sunrise with arms spread wide, the number 1 glowing above both versions, the ultimate choice",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "남은 시간, 알고 싶어? 구독 눌러.",
+      "image_prompt": "A person looking up at their own reflection in a rain puddle, the reflection shows a number but the real person cannot see their own, existential mystery, moody blue hour lighting, cinematic composition",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "머리 위에 남은 수명이 보인다면? #만약에",
+    "thumbnail_text": "수명=차별 기준",
+    "description": "만약 머리 위에 남은 수명이 보인다면? 보험, 취업, 연애까지 전부 바뀐다.\n#만약에 #수명 #차별 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#수명", "#차별", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "upload_info": {
+    "youtube_video_id": "75cZ-9pIjvU",
+    "youtube_url": "https://youtube.com/shorts/75cZ-9pIjvU",
+    "uploaded_at": "2026-02-20T22:34:11+09:00",
+    "privacy_status": "private"
+  }
+}

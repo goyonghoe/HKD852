@@ -1,0 +1,69 @@
+{
+  "episode_id": "whatif_ep030",
+  "series": "만약에~",
+  "topic_id": "time-rewind-one-day",
+  "language": "ko",
+  "visual_style": "ethereal time-bending aesthetic with golden hour lighting, clock fragments floating in air, warm amber and soft blue gradients, dreamy dissolve effects between past and present, nostalgic film grain",
+  "script": {
+    "hook": "만약 하루만 되돌릴 수 있다면?",
+    "body": [
+      "로또 당첨 번호를 외워서 하루 만에 부자가 된다.",
+      "어제의 이별을 막고, 말 못 했던 고백을 한다.",
+      "하지만 하루를 되돌릴 때마다 기억이 조금씩 희미해진다.",
+      "결국 가장 소중한 사람의 얼굴조차 떠오르지 않는다."
+    ],
+    "cta": "되돌린 하루, 진짜 내 것일까? 구독 눌러."
+  },
+  "full_text": "만약 하루만 되돌릴 수 있다면? 로또 당첨 번호를 외워서 하루 만에 부자가 된다. 어제의 이별을 막고, 말 못 했던 고백을 한다. 하지만 하루를 되돌릴 때마다 기억이 조금씩 희미해진다. 결국 가장 소중한 사람의 얼굴조차 떠오르지 않는다. 되돌린 하루, 진짜 내 것일까? 구독 눌러.",
+  "display_text": "만약 하루만 되돌릴 수 있다면? 로또 당첨 번호를 외워서 하루 만에 부자가 된다. 어제의 이별을 막고, 말 못 했던 고백을 한다. 하지만 하루를 되돌릴 때마다 기억이 조금씩 희미해진다. 결국 가장 소중한 사람의 얼굴조차 떠오르지 않는다. 되돌린 하루, 진짜 내 것일까?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 하루만 되돌릴 수 있다면?",
+      "image_prompt": "A person standing in a golden hour field reaching toward a massive ornate clock face floating in the amber sky, clock hands spinning backwards, fragments of translucent clock gears drifting through warm light like petals, nostalgic film grain, dreamy ethereal atmosphere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "로또 당첨 번호를 외워서 하루 만에 부자가 된다.",
+      "image_prompt": "A person surrounded by cascading golden lottery tickets and shimmering coins in a dreamlike slow-motion shower, warm amber backlighting, translucent clock fragments floating around them, expression of disbelief turning to joy, luxurious golden hour glow",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "어제의 이별을 막고, 말 못 했던 고백을 한다.",
+      "image_prompt": "Two silhouettes reaching for each other across a bridge at sunset, time rewinding around them with cherry blossom petals floating upward instead of falling, golden and soft blue gradient sky, clock hands visible in the clouds spinning backwards, romantic and bittersweet atmosphere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "하지만 하루를 되돌릴 때마다 기억이 조금씩 희미해진다.",
+      "image_prompt": "A beautiful photograph dissolving into watercolor at the edges, a person holding the fading photo as memories literally blur and drift away like golden dust particles, soft blue melancholy lighting mixed with warm amber, clock fragments crumbling in the background, hauntingly gorgeous",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "결국 가장 소중한 사람의 얼굴조차 떠오르지 않는다.",
+      "image_prompt": "A person sitting alone in a vast golden field at dusk, holding an empty picture frame where a loved one's face should be but is replaced by soft glowing light, scattered clock pieces on the ground like fallen leaves, warm amber sky fading to deep blue, profoundly beautiful loneliness",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "되돌린 하루, 진짜 내 것일까? 구독 눌러.",
+      "image_prompt": "A person standing at a crossroads where one path leads to a bright golden sunrise and the other to a soft blue moonlit past, translucent clock gears forming an archway above, warm amber and cool blue light blending at the center, contemplative silhouette, cinematic ethereal composition",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "하루만 되돌릴 수 있다면 뭘 하겠어? #만약에",
+    "thumbnail_text": "하루 되감기=기억 삭제",
+    "description": "만약 하루만 되돌릴 수 있다면? 부자도 되고 이별도 막지만, 대가가 있다.\n#만약에 #시간되돌리기 #기억 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#시간되돌리기", "#기억", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

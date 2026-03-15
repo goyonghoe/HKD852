@@ -1,0 +1,27 @@
+date: "2026-03-04"
+mode: "discover"
+paper:
+  title: "Lottery jackpot winnings and retail trading in the neighborhood"
+  authors: "Bui DG, Chan YJ, Lin CY, Lin TC"
+  journal: "Journal of Banking & Finance"
+  year: 2024
+  doi: "10.1016/j.jbankfin.2024.107269"
+  peer_reviewed: true
+  institution: "National Yang Ming Chiao Tung University / University of Hong Kong"
+  sample_size: null
+  key_finding: "복권 당첨이 발생한 동네의 증권사 지점에서 소매 투자자들의 주식 매수가 유의미하게 증가하며, 이들은 복권형 주식을 더 많이 사고, 결과적으로 더 낮은 수익률을 기록한다."
+scoring:
+  investor_empathy: 28 # /30 — "옆집이 돈 벌면 나도 투자 시작" 공감 극대
+  surprise: 24 # /25 — 복권 당첨이 옆 동네 투자 행동까지 바꾼다는 점
+  practical: 18 # /20 — FOMO 인식 → 충동 매수 방지
+  visual_potential: 13 # /15 — 복권+동네 지도+주가 하락 인포그래픽
+  source_quality: 9 # /10 — JBF, 피어리뷰
+  total: 92
+hook_angles:
+  - pattern: "relatable-shock"
+    draft: "옆집에서 복권 당첨되면, 당신도 주식 사기 시작합니다."
+  - pattern: "number-hook"
+    draft: "복권 당첨 가게 근처 증권사, 매수량이 확 늘어나는데요."
+  - pattern: "you-didnt-know"
+    draft: "남이 돈 버는 걸 보면 뇌가 이상한 결정을 내린다는 논문이 있어요."
+duplicate_check: "CLEAR"

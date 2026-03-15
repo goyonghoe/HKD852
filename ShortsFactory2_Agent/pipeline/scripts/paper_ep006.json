@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep006",
+  "series": "오늘의 논문",
+  "topic_id": "smartphone-reduction-cures-depression",
+  "language": "ko",
+  "paper_source": {
+    "title": "Smartphone screen time reduction improves mental health: a randomized controlled trial",
+    "authors": "Pieh C, Humer E, Hoenigl A et al.",
+    "journal": "BMC Medicine",
+    "year": 2025,
+    "doi": "10.1186/s12916-025-03944-z",
+    "peer_reviewed": true,
+    "key_finding": "하루 2시간 이하로 3주만 줄이면 우울 27% 감소, 수면 및 스트레스 개선, 효과 6주 지속"
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, consistent round-faced child character with big eyes and backwards red baseball cap, deep navy background, no text or numbers in images",
+  "script": {
+    "hook": "스마트폰을 딱 3주만 줄여봤대요.",
+    "body": [
+      "원래 스마트폰을 줄이려면 완전히 끊어야 효과가 있다고 했거든요.",
+      "근데요, 끊은 게 아니라 하루 2시간으로만 줄인 거래요.",
+      "그랬더니 우울감이 27%나 줄었대요. 잠도 잘 자고 스트레스도 줄었는데요, 놀라운 건 다시 폰을 쓰기 시작해도 6주나 효과가 남았대요."
+    ],
+    "closer": "그러니까 폰을 끊을 필요는 없대요. 근데 이 영상은 여기서 내려놓으셔도 돼요.",
+    "cta": ""
+  },
+  "full_text": "스마트폰을 딱 3주만 줄여봤대요. 원래 스마트폰을 줄이려면 완전히 끊어야 효과가 있다고 했거든요. 근데요, 끊은 게 아니라 하루 2시간으로만 줄인 거래요. 그랬더니 우울감이 27%나 줄었대요. 잠도 잘 자고 스트레스도 줄었는데요, 놀라운 건 다시 폰을 쓰기 시작해도 6주나 효과가 남았대요. 그러니까 폰을 끊을 필요는 없대요. 근데 이 영상은 여기서 내려놓으셔도 돼요.",
+  "display_text": "스마트폰을 딱 3주만 줄여봤대요. 원래 스마트폰을 줄이려면 완전히 끊어야 효과가 있다고 했거든요. 근데요, 끊은 게 아니라 하루 2시간으로만 줄인 거래요. 그랬더니 우울감이 27%나 줄었대요. 잠도 잘 자고 스트레스도 줄었는데요, 놀라운 건 다시 폰을 쓰기 시작해도 6주나 효과가 남았대요. 그러니까 폰을 끊을 필요는 없대요. 근데 이 영상은 여기서 내려놓으셔도 돼요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "스마트폰을 딱 3주만 줄여봤대요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a cute round-faced child with big curious eyes and backwards red baseball cap holding a glowing smartphone at arms length away from their body, looking at it with a mix of longing and determination, a simple calendar icon with three weeks marked floating nearby, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "원래 스마트폰을 줄이려면 완전히 끊어야 효과가 있다고 했거든요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap looking scared and overwhelmed, a giant smartphone is shown being dramatically smashed with a large cartoon hammer, broken glass pieces flying everywhere, the child has both hands on cheeks in a panicked expression suggesting this feels extreme and impossible, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데요, 끊은 게 아니라 하루 2시간으로만 줄인 거래요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap sitting peacefully and casually using a small smartphone with a relaxed happy expression, a simple clock icon nearby showing a small portion filled in suggesting limited time, the scene feels calm and manageable compared to the previous dramatic image, soft warm glow around the child, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "그랬더니 우울감이 27%나 줄었대요. 잠도 잘 자고 스트레스도 줄었는데요, 놀라운 건 다시 폰을 쓰기 시작해도 6주나 효과가 남았대요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap looking joyful and refreshed with sparkling eyes and a big bright smile, around the child are three simple icons showing improvement: a happy smiling face with an upward green arrow for mood, a peaceful sleeping moon with zzz for better sleep, and a calm relaxed cloud for less stress, a shield-like golden glow persists around the child suggesting lasting protection, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "그러니까 폰을 끊을 필요는 없대요. 근데 이 영상은 여기서 내려놓으셔도 돼요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap breaking the fourth wall looking directly at the viewer with a cheeky mischievous grin and one eyebrow raised, the child is gently placing a smartphone face-down on a table with one hand while giving a playful thumbs up with the other hand, a warm golden sunset-like glow behind the child suggesting a happy ending, deep navy blue background, humorous and charming composition, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "\ud83d\udcf1 스마트폰 3주만 줄였더니 우울증이… #오늘의논문",
+    "thumbnail_text": "3주=우울-27%",
+    "description": "스마트폰을 완전히 끊어야 한다? 하루 2시간으로만 줄여도 우울감이 27% 감소! BMC Medicine 논문의 놀라운 발견.\n\n\ud83d\udcc4 논문 출처\n제목: Smartphone screen time reduction improves mental health: a randomized controlled trial\n저자: Pieh C, Humer E, Hoenigl A et al.\n저널: BMC Medicine (2025)\nDOI: https://doi.org/10.1186/s12916-025-03944-z\n피어리뷰: \u2705\n\n핵심 발견: 하루 2시간 이하로 3주 감소 시 우울 27% 개선, 수면/스트레스 개선, 효과 6주 지속\n\n\u2500\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #스마트폰 #우울증 #정신건강 #Shorts",
+    "hashtags": ["#오늘의논문", "#스마트폰", "#우울증", "#정신건강", "#Shorts"],
+    "youtube": {
+      "title": "\ud83d\udcf1 스마트폰 3주만 줄였더니 우울증이… #오늘의논문",
+      "description": "스마트폰을 완전히 끊어야 한다? 하루 2시간으로만 줄여도 우울감이 27% 감소! BMC Medicine 논문의 놀라운 발견.\n\n\ud83d\udcc4 논문 출처\n제목: Smartphone screen time reduction improves mental health: a randomized controlled trial\n저자: Pieh C, Humer E, Hoenigl A et al.\n저널: BMC Medicine (2025)\nDOI: https://doi.org/10.1186/s12916-025-03944-z\n피어리뷰: \u2705\n\n핵심 발견: 하루 2시간 이하로 3주 감소 시 우울 27% 개선, 수면/스트레스 개선, 효과 6주 지속\n\n\u2500\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #스마트폰 #우울증 #정신건강 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "스마트폰",
+        "우울증",
+        "정신건강",
+        "스크린타임",
+        "논문리뷰",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "bright-boy",
+    "speed": 1.1,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 9,
+      "concrete": 9,
+      "credible": 9,
+      "emotional": 10,
+      "stories": 9,
+      "total": 56,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "스마트폰을 줄이려면 완전히 끊어야 한다 (극단적 상식)",
+      "conflict": "완전히 끊은 게 아니라 2시간으로만 줄임",
+      "twist": "우울감 27% 감소 + 효과가 6주나 지속됨",
+      "punchline": "폰을 끊을 필요 없다 + 이 영상은 내려놓으셔도 된다 → 메타 유머 반전"
+    },
+    "hook_pattern": "curiosity-gap (effectiveness: 89)"
+  }
+}

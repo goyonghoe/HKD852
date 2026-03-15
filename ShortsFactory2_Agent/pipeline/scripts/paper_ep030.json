@@ -1,0 +1,124 @@
+{
+  "episode_id": "paper_ep030",
+  "series": "오늘의 논문",
+  "topic_id": "finfluencer-social-media-stock-returns-loss",
+  "language": "ko",
+  "paper_source": {
+    "title": "The impact of social media influencers on the financial market performance of firms",
+    "authors": "Keasey K, Sherif M, Sherif N, Sherif T",
+    "journal": "European Financial Management",
+    "year": 2025,
+    "doi": "10.1111/eufm.12513",
+    "peer_reviewed": true,
+    "institution": "University of Leeds / Heriot-Watt University / Edinburgh Napier University",
+    "sample_size": null,
+    "key_finding": "SNS 금융 인플루언서가 추천한 종목은 단기적으로 비정상 수익률이 발생하지만, 이후 반전되어 장기적으로 손실을 초래하며, 긍정적 감성의 추천일수록 이 효과가 더 크다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, Nature journal quality, minimalist professional design, ",
+  "script": {
+    "hook": "유튜브에서 추천한 종목 사본 적 있죠? 논문이 결과를 추적했대요.",
+    "body": [
+      "SNS에서 인플루언서가 추천한 종목들을 추적했더니요, 추천 직후에는 진짜 올라요. 사람들이 우르르 사니까요.",
+      "근데 문제는 그 다음이에요. 시간이 지나면 가격이 다시 빠지는데, 따라 산 사람들은 이미 고점에 물린 거거든요.",
+      "특히 '이건 무조건 간다!' 같은 확신에 찬 추천일수록, 나중에 빠지는 폭이 더 크더래요."
+    ],
+    "closer": "누군가 강하게 추천할수록, 한 발 물러서 생각해볼 때래요.",
+    "cta": ""
+  },
+  "full_text": "유튜브에서 추천한 종목 사본 적 있죠? 논문이 결과를 추적했대요. SNS에서 인플루언서가 추천한 종목들을 추적했더니요, 추천 직후에는 진짜 올라요. 사람들이 우르르 사니까요. 근데 문제는 그 다음이에요. 시간이 지나면 가격이 다시 빠지는데, 따라 산 사람들은 이미 고점에 물린 거거든요. 특히 '이건 무조건 간다!' 같은 확신에 찬 추천일수록, 나중에 빠지는 폭이 더 크더래요. 누군가 강하게 추천할수록, 한 발 물러서 생각해볼 때래요.",
+  "display_text": "유튜브에서 추천한 종목 사본 적 있죠? 논문이 결과를 추적했대요. SNS에서 인플루언서가 추천한 종목들을 추적했더니요, 추천 직후에는 진짜 올라요. 사람들이 우르르 사니까요. 근데 문제는 그 다음이에요. 시간이 지나면 가격이 다시 빠지는데, 따라 산 사람들은 이미 고점에 물린 거거든요. 특히 '이건 무조건 간다!' 같은 확신에 찬 추천일수록, 나중에 빠지는 폭이 더 크더래요. 누군가 강하게 추천할수록, 한 발 물러서 생각해볼 때래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "유튜브에서 추천한 종목 사본 적 있죠? 논문이 결과를 추적했대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a glowing smartphone screen showing a play button icon with enthusiastic recommendation energy radiating outward, a finger hovers over a buy button below the screen, the screen casts hypnotic warm orange light onto the viewer drawing them in, a subtle trail of diminishing coins falls behind the phone foreshadowing loss, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "SNS에서 인플루언서가 추천한 종목들을 추적했더니요, 추천 직후에는 진짜 올라요. 사람들이 우르르 사니까요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a bright upward arrow initially surging with momentum and energy, surrounded by a crowd of small glowing figures all rushing in the same direction following the arrow upward, the initial surge looks exciting and promising with warm green and gold tones, the crowd creates a stampede effect of collective buying energy, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "시간이 지나면 가격이 다시 빠지는데, 따라 산 사람들은 이미 고점에 물린 거거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, the same arrow from the previous scene now curving sharply downward reversing its trajectory, the small figures who rushed to the peak are now stranded at the top as the ground crumbles beneath them, they cling to the falling peak unable to escape, the warm colors shift to cold blue and red tones indicating loss, the trap of buying at the top visualized dramatically, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "'이건 무조건 간다!' 같은 확신에 찬 추천일수록, 나중에 빠지는 폭이 더 크더래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a megaphone blasting out an enormous confident shout wave that initially lifts everything upward with forceful energy, but the louder and more confident the blast the deeper the crater that forms below when it reverses, the biggest megaphone creates the biggest crater, a visual correlation between confidence intensity and subsequent crash depth, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "누군가 강하게 추천할수록, 한 발 물러서 생각해볼 때래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a person calmly stepping backward away from a glowing chaotic crowd of rushing figures, the person stands on solid ground in a pool of calm blue light while the crowd ahead rushes toward an uncertain cliff edge, the act of stepping back is portrayed as wisdom not cowardice, serene contemplative mood contrasting with surrounding frenzy, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "📢 인플루언서 추천 종목의 결말 #오늘의논문",
+    "thumbnail_text": "추천=고점",
+    "description": "SNS 인플루언서가 추천한 종목은 단기 급등 후 하락하며, 확신에 찬 추천일수록 낙폭이 더 크다는 European Financial Management 2025 연구입니다.\n\n📄 논문 출처\nTitle: The impact of social media influencers on the financial market performance of firms\nAuthors: Keasey K, Sherif M, Sherif N, Sherif T\nJournal: European Financial Management (2025)\nDOI: https://doi.org/10.1111/eufm.12513\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #핀플루언서 #주식추천 #투자 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#투자심리",
+      "#핀플루언서",
+      "#주식추천",
+      "#투자",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "📢 인플루언서 추천 종목의 결말 #오늘의논문",
+      "description": "SNS 인플루언서가 추천한 종목은 단기 급등 후 하락하며, 확신에 찬 추천일수록 낙폭이 더 크다는 European Financial Management 2025 연구입니다.\n\n📄 논문 출처\nTitle: The impact of social media influencers on the financial market performance of firms\nAuthors: Keasey K, Sherif M, Sherif N, Sherif T\nJournal: European Financial Management (2025)\nDOI: https://doi.org/10.1111/eufm.12513\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #핀플루언서 #주식추천 #투자 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "투자심리",
+        "핀플루언서",
+        "주식추천",
+        "인플루언서",
+        "투자",
+        "주식",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 9,
+      "concrete": 10,
+      "credible": 10,
+      "emotional": 10,
+      "stories": 10,
+      "total": 59,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "인플루언서가 추천하면 좋은 종목일 것이다",
+      "conflict": "추천 직후 급등하지만 이후 반전 하락",
+      "twist": "확신에 찬 추천일수록 낙폭이 더 크다",
+      "punchline": "강하게 추천할수록 한 발 물러설 때"
+    },
+    "hook_pattern": "relatable-experience (effectiveness: 96)"
+  }
+}

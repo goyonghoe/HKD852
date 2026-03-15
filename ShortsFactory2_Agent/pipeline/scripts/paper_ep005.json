@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep005",
+  "series": "오늘의 논문",
+  "topic_id": "sitting-kills-despite-exercise",
+  "language": "ko",
+  "paper_source": {
+    "title": "Accelerometer-Measured Sedentary Behavior and Risk of Future Cardiovascular Disease",
+    "authors": "Ajufo E, Kany S, Ramo JT et al.",
+    "journal": "JACC",
+    "year": 2025,
+    "doi": "10.1016/j.jacc.2024.10.065",
+    "peer_reviewed": true,
+    "key_finding": "89,530명 UK Biobank — 하루 10.6시간+ 앉으면 심부전 위험 40-60% 증가, 운동으로도 상쇄 불가"
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, consistent round-faced child character with big eyes and backwards red baseball cap, deep navy background, no text or numbers in images",
+  "script": {
+    "hook": "운동 열심히 하면 오래 앉아도 괜찮다고요?",
+    "body": [
+      "원래 운동만 하면 앉아있는 건 상관없다고 했거든요.",
+      "근데요, 9만 명을 가속도계로 정밀 측정했더니요.",
+      "하루에 10시간 넘게 앉으면 심부전 위험이 최대 60%나 올라갔대요. 운동을 아무리 해도요, 그 위험이 안 줄었대요."
+    ],
+    "closer": "그러니까 헬스장에서 1시간 뛴 죄를, 의자에서 9시간 앉아서 갚고 있었던 거래요.",
+    "cta": ""
+  },
+  "full_text": "운동 열심히 하면 오래 앉아도 괜찮다고요? 원래 운동만 하면 앉아있는 건 상관없다고 했거든요. 근데요, 9만 명을 가속도계로 정밀 측정했더니요. 하루에 10시간 넘게 앉으면 심부전 위험이 최대 60%나 올라갔대요. 운동을 아무리 해도요, 그 위험이 안 줄었대요. 그러니까 헬스장에서 1시간 뛴 죄를, 의자에서 9시간 앉아서 갚고 있었던 거래요.",
+  "display_text": "운동 열심히 하면 오래 앉아도 괜찮다고요? 원래 운동만 하면 앉아있는 건 상관없다고 했거든요. 근데요, 9만 명을 가속도계로 정밀 측정했더니요. 하루에 10시간 넘게 앉으면 심부전 위험이 최대 60%나 올라갔대요. 운동을 아무리 해도요, 그 위험이 안 줄었대요. 그러니까 헬스장에서 1시간 뛴 죄를, 의자에서 9시간 앉아서 갚고 있었던 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "운동 열심히 하면 오래 앉아도 괜찮다고요?",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a cute round-faced child with big confident eyes and backwards red baseball cap flexing both arms showing off muscles while sitting in a large office chair, the child looks proud and carefree with a big grin, small dumbbell icons floating around, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "원래 운동만 하면 앉아있는 건 상관없다고 했거든요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a split scene showing the same round-faced child with backwards red baseball cap, left side the child is running energetically on a treadmill with sweat drops and a bright green checkmark above, right side the child is slouched happily in an office chair with feet up looking relaxed with another green checkmark above, both sides connected suggesting one cancels the other, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데요, 9만 명을 가속도계로 정밀 측정했더니요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap wearing a small wristband device on their arm that is blinking with light, behind the child an enormous crowd of tiny colorful simple characters all wearing similar wristband devices stretching across the entire scene, suggesting a massive study, a magnifying glass hovering over the crowd, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "하루에 10시간 넘게 앉으면 심부전 위험이 최대 60%나 올라갔대요. 운동을 아무리 해도요, 그 위험이 안 줄었대요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap looking terrified in an office chair, the chair is drawn as a menacing monster with sharp teeth and glowing red eyes swallowing the child, above the scene a simple cartoon heart icon is cracking and turning red with danger lightning bolts, off to the side a tiny dumbbell and running shoes look helpless and defeated with droopy sad expressions, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "그러니까 헬스장에서 1시간 뛴 죄를, 의자에서 9시간 앉아서 갚고 있었던 거래요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap standing defiantly kicking away an office chair that goes flying, the child has a determined expression and is standing tall with hands on hips in a superhero pose, the kicked chair tumbles away comically with spiral dizzy eyes drawn on it, a healthy glowing pink heart floats above the child with sparkles, deep navy blue background, playful and empowering composition, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "\ud83e\ude91 운동해도 오래 앉으면 소용없대요 #오늘의논문",
+    "thumbnail_text": "앉기=독립위험",
+    "description": "운동하면 오래 앉아도 괜찮다? JACC에 실린 89,530명 연구가 그 상식을 뒤집었습니다.\n\n\ud83d\udcc4 논문 출처\n제목: Accelerometer-Measured Sedentary Behavior and Risk of Future Cardiovascular Disease\n저자: Ajufo E, Kany S, Ramo JT et al.\n저널: JACC (2025)\nDOI: https://doi.org/10.1016/j.jacc.2024.10.065\n피어리뷰: \u2705\n\n핵심 발견: 하루 10.6시간+ 앉으면 심부전 위험 40-60% 증가, 운동으로도 상쇄 불가\n\n\u2500\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #심장건강 #좌식생활 #운동 #Shorts",
+    "hashtags": ["#오늘의논문", "#심장건강", "#좌식생활", "#운동", "#Shorts"],
+    "youtube": {
+      "title": "\ud83e\ude91 운동해도 오래 앉으면 소용없대요 #오늘의논문",
+      "description": "운동하면 오래 앉아도 괜찮다? JACC에 실린 89,530명 연구가 그 상식을 뒤집었습니다.\n\n\ud83d\udcc4 논문 출처\n제목: Accelerometer-Measured Sedentary Behavior and Risk of Future Cardiovascular Disease\n저자: Ajufo E, Kany S, Ramo JT et al.\n저널: JACC (2025)\nDOI: https://doi.org/10.1016/j.jacc.2024.10.065\n피어리뷰: \u2705\n\n핵심 발견: 하루 10.6시간+ 앉으면 심부전 위험 40-60% 증가, 운동으로도 상쇄 불가\n\n\u2500\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #심장건강 #좌식생활 #운동 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "심장건강",
+        "좌식생활",
+        "운동",
+        "심부전",
+        "논문리뷰",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "bright-boy",
+    "speed": 1.1,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 9,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 10,
+      "emotional": 9,
+      "stories": 9,
+      "total": 56,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "운동하면 앉아있는 건 상관없다 (일반 상식)",
+      "conflict": "89,530명 정밀 측정 → 운동해도 심부전 위험 상쇄 안 됨",
+      "twist": "앉는 시간 자체가 운동과 독립적인 위험인자",
+      "punchline": "헬스장 1시간 뛴 죄를 의자에서 9시간 갚고 있었다 → 위트 있는 반전 마무리"
+    },
+    "hook_pattern": "reversal (effectiveness: 91)"
+  }
+}

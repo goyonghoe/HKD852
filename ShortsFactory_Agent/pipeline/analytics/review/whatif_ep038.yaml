@@ -1,0 +1,34 @@
+episode_id: "whatif_ep038"
+review_date: "2026-02-21"
+verdict: "PASS"
+scores:
+  source_citation: 7 # 가상 시나리오 — 별도 출처 불필요, IoT 트렌드 기반
+  substantial_transformation: 9 # 오리지널 시나리오, 3막 구조, 고유 펀치라인
+  ai_misrepresentation_free: 10 # 실제 인물/사건 없음, 완전 가상
+  creator_perspective: 9 # 기대→충돌→반전 3막 + "친구 냉장고 연동" 오리지널 펀치라인
+  uniqueness: 9 # 기존 EP030~037과 구조적 차별화 (IoT 코미디 + 에스컬레이션)
+  hook_strength: 8 # "만약 냉장고가 다이어트를 감시한다면?" — what-if 패턴, 일상 공감 강함
+  factual_accuracy: 8 # IoT 냉장고 실제 존재, 건강 모니터링 트렌드 반영
+total_score: 60
+feedback: |
+  [강점]
+  - 3막 구조(기대→충돌→반전) 명확. 팩트 나열형이 아닌 스토리텔링.
+  - "친구 집 냉장고도 연동" 펀치라인이 예측 불가 + 공감 = 바이럴 포인트.
+  - 구체적 소재(새벽 2시, 치킨, 배달앱, 편의점) — 한국 MZ 일상 밀착.
+  - 에스컬레이션 구조: 냉장고 잠금 → Wi-Fi 차단 → 결제 차단 → 친구 집까지 = 코미디 빌드업 우수.
+  [개선점]
+  - 씬 2(기대 구축)가 길 수 있음 — TTS 싱크 시 자연스러운 호흡 확인 필요.
+  - 메타데이터 v3 적용 완료 (이모지 타이틀, 의문문 형식).
+success_scores:
+  simple: 9
+  unexpected: 8
+  concrete: 9
+  credible: 7
+  emotional: 8
+  stories: 8
+  total: "49/60 (PASS)"
+story_structure:
+  act1_expectation: "처음엔 완벽한 다이어트 도우미 (칭찬+칼로리 계산)"
+  act2_conflict: "근데... 새벽 야식 차단, 배달앱 Wi-Fi 차단, 편의점 결제 차단"
+  act3_twist: "친구 집 냉장고도 네트워크로 연결되어 있음 — 탈출 불가"
+revise_items: []

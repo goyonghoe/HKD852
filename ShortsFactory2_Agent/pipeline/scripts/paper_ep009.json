@@ -1,0 +1,115 @@
+{
+  "episode_id": "paper_ep009",
+  "series": "오늘의 논문",
+  "topic_id": "coffee-grows-gut-bacteria",
+  "language": "ko",
+  "paper_source": {
+    "title": "Coffee consumption is associated with intestinal Lawsonibacter asaccharolyticus abundance and prevalence across multiple cohorts",
+    "authors": "Manghi P, Segata N et al.",
+    "journal": "Nature Microbiology",
+    "year": 2024,
+    "doi": "10.1038/s41564-024-01858-9",
+    "peer_reviewed": true,
+    "key_finding": "22,867명 분석 결과, 커피 음용자의 장에서 Lawsonibacter asaccharolyticus가 6~8배 풍부. 디카페인도 동일 효과 — 카페인이 아닌 폴리페놀이 핵심. AUC 0.89의 극도로 강한 연관성"
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, consistent round-faced child character with big eyes and backwards red baseball cap, deep navy background, no text or numbers in images",
+  "script": {
+    "hook": "커피 마시면 뭐가 달라지냐고요? 뇌보다 장이 먼저 반응합니다.",
+    "body": [
+      "원래 커피는 다 카페인 덕분이라고 했거든요.",
+      "근데요, 2만 명의 장을 분석했더니요. 커피 마시는 사람한테만 특정 세균이 8배나 많았대요.",
+      "놀라운 건 디카페인도 똑같았다는 거예요. 카페인이 아니라 폴리페놀이 핵심이었던 거래요."
+    ],
+    "closer": "매일 마시는 커피 한 잔이, 장 속에 정원사를 고용하고 있었던 거래요.",
+    "cta": ""
+  },
+  "full_text": "커피 마시면 뭐가 달라지냐고요? 뇌보다 장이 먼저 반응합니다. 원래 커피는 다 카페인 덕분이라고 했거든요. 근데요, 2만 명의 장을 분석했더니요. 커피 마시는 사람한테만 특정 세균이 8배나 많았대요. 놀라운 건 디카페인도 똑같았다는 거예요. 카페인이 아니라 폴리페놀이 핵심이었던 거래요. 매일 마시는 커피 한 잔이, 장 속에 정원사를 고용하고 있었던 거래요.",
+  "display_text": "커피 마시면 뭐가 달라지냐고요? 뇌보다 장이 먼저 반응합니다. 원래 커피는 다 카페인 덕분이라고 했거든요. 근데요, 2만 명의 장을 분석했더니요. 커피 마시는 사람한테만 특정 세균이 8배나 많았대요. 놀라운 건 디카페인도 똑같았다는 거예요. 카페인이 아니라 폴리페놀이 핵심이었던 거래요. 매일 마시는 커피 한 잔이, 장 속에 정원사를 고용하고 있었던 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "커피 마시면 뭐가 달라지냐고요? 뇌보다 장이 먼저 반응합니다.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a cute round-faced child with big eyes and backwards red baseball cap holding a large steaming coffee mug and looking down at it with a curious surprised expression, warm amber steam rising from the cup, cozy cafe atmosphere, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "원래 커피는 다 카페인 덕분이라고 했거든요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap looking sleepy then suddenly wide awake with electric spark effects around the head, a giant coffee bean character standing next to the child looking proud with arms crossed, energetic yellow lightning bolts in the background, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데요, 2만 명의 장을 분석했더니요. 커피 마시는 사람한테만 특정 세균이 8배나 많았대요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a scientist character in white coat looking at a giant petri dish under a huge magnifying glass, the petri dish is overflowing with tiny cute round green friendly characters multiplying and spilling over the edges, coffee beans scattered around the dish, the scientist has a shocked amazed expression, warm amber and green tones, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "놀라운 건 디카페인도 똑같았다는 거예요. 카페인이 아니라 폴리페놀이 핵심이었던 거래요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, two coffee cups side by side one with a lightning bolt symbol and one plain, both cups pouring coffee onto a small flower garden that is blooming equally from both streams, the lightning bolt character looks confused sitting off to the side while tiny purple sparkles in the coffee stream are making the flowers grow, simple clean composition, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "매일 마시는 커피 한 잔이, 장 속에 정원사를 고용하고 있었던 거래요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap smiling warmly holding a coffee cup, next to the child a tiny cute gardener character in overalls and straw hat is happily watering a small beautiful flower pot garden with a tiny watering can, golden warm glow surrounds them both, peaceful happy atmosphere, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "☕ 커피가 장에서 몰래 키우는 세균의 정체 #오늘의논문",
+    "thumbnail_text": "커피=장정원사",
+    "description": "커피 효과가 카페인 때문이라고요? 장은 다른 이야기를 합니다.\n\n📄 논문 출처\nTitle: Coffee consumption is associated with intestinal Lawsonibacter asaccharolyticus abundance and prevalence across multiple cohorts\nAuthors: Manghi P, Segata N et al.\nJournal: Nature Microbiology (2024)\nDOI: https://doi.org/10.1038/s41564-024-01858-9\nPeer-reviewed: ✅\n\nKey finding: 22,867명 분석 — 커피 음용자 장에서 특정 유익균이 6~8배 풍부. 디카페인도 동일 효과.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #커피 #장내미생물 #마이크로바이옴 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#커피",
+      "#장내미생물",
+      "#마이크로바이옴",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "☕ 커피가 장에서 몰래 키우는 세균의 정체 #오늘의논문",
+      "description": "커피 효과가 카페인 때문이라고요? 장은 다른 이야기를 합니다.\n\n📄 논문 출처\nTitle: Coffee consumption is associated with intestinal Lawsonibacter asaccharolyticus abundance and prevalence across multiple cohorts\nAuthors: Manghi P, Segata N et al.\nJournal: Nature Microbiology (2024)\nDOI: https://doi.org/10.1038/s41564-024-01858-9\nPeer-reviewed: ✅\n\nKey finding: 22,867명 분석 — 커피 음용자 장에서 특정 유익균이 6~8배 풍부. 디카페인도 동일 효과.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #커피 #장내미생물 #마이크로바이옴 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "커피",
+        "장내미생물",
+        "마이크로바이옴",
+        "폴리페놀",
+        "디카페인",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "bright-boy",
+    "speed": 1.1,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 10,
+      "emotional": 8,
+      "stories": 9,
+      "total": 56,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "커피 효과 = 카페인, 그게 전부",
+      "conflict": "2만 2천 명 분석 → 장내 특정 세균 6~8배 차이",
+      "twist": "디카페인도 똑같다 → 카페인이 아니라 폴리페놀",
+      "punchline": "커피 한 잔이 장 속에 정원사를 고용하고 있었다"
+    },
+    "hook_pattern": "common-belief-challenge (effectiveness: 91)"
+  }
+}

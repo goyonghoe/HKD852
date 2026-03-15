@@ -1,0 +1,176 @@
+episode_id: "whatif_ep041"
+review_date: "2026-02-21"
+reviewer: "shorts-review (Opus-grade)"
+verdict: "REVISE"
+
+# ──────────────────────────────────────────────
+# 7-CRITERIA SCORES
+# ──────────────────────────────────────────────
+scores:
+  source_citation: 7
+  # 근거: 순수 창작 풍자물로 인용 가능한 외부 팩트/데이터가 없음.
+  # 허구 시나리오이므로 학술 출처는 불필요하나, 메타데이터 description에
+  # "창작 풍자 콘텐츠" 또는 "한국 직장인 번아웃 문화 기반 가상 시나리오" 명시가
+  # 전무함. 정책 최저 기준(7)은 가까스로 충족.
+
+  substantial_transformation: 9
+  # 근거: "사람 몸에 배터리 표시"라는 인터넷 밈 소재를 단순 재조합하지 않음.
+  # ① 직원이 무기로 사용 → ② 상사가 역전(감시 도구화) → ③ 만성 20%가 롤모델이 되는
+  # 3막 아이러니 구조는 오리지널 창작 서사. 재편집·복제·단순 요약 없음.
+
+  ai_misrepresentation_free: 10
+  # 근거: 실명 인물, 실존 기업, 실제 사건 참조 없음. 모든 캐릭터는
+  # "직장인/상사/신입" 추상 아키타입. 딥페이크·합성음성 오인 소지 없음.
+
+  creator_perspective: 9
+  # 근거: "배터리 가시화 → 노동자 해방"이라는 기대를 상사가 즉각 역이용하는
+  # 역설적 시선이 명확함. "만성 20% = 번아웃의 전설"이라는 마무리는
+  # 한국 직장 문화의 '어둠의 롤모델' 현상을 날카롭게 포착한 고유 관점.
+  # 단순 팩트 나열이 아닌 기대→좌절→뒤틀린 깨달음 구조.
+
+  uniqueness: 8
+  # 근거: 기존 에피소드 비교 — EP030~038(냉장고 IoT, 광합성, 불로장생 등)과
+  # 구조적 차별화 확인. 배터리 메타포를 '직장 감시 시스템'으로 연결하는
+  # 각도는 시리즈 내 미사용. 다만 "기술이 권력자에게 역이용된다" 패턴은
+  # IoT 냉장고 에피소드(EP038)와 주제적 유사성 존재 — 약한 감점 요인.
+
+  hook_strength: 9
+  # 근거: "만약에 사람 몸에 스마트폰처럼 배터리 잔량이 표시된다면?"은
+  # ① 즉각적 자기 투영("나는 지금 몇 %지?") ② 스마트폰이라는 전 세계 공통 경험
+  # ③ 번아웃 직장인 공감대 = 3중 어필. quality_check hook_pattern 효과값 82 확인.
+  # 1초 이내 시청자를 잡는 what-if 공식 정석 적용.
+
+  factual_accuracy: 8
+  # 근거: 허구 시나리오 전체이므로 사실 오류 발생 구조 자체가 없음.
+  # 내재된 사회적 전제(한국 직장 초과근무 문화, 번아웃 만연)는 실증 연구·
+  # 언론 보도로 광범위하게 뒷받침되는 사회 현상. 잘못된 정보 전달 위험 없음.
+
+total_score: 60
+# 7+9+10+9+8+9+8 = 60
+# RULE: 70+ AND all minimums → PASS
+#       50-69 OR 1-2 items below minimum → REVISE  ← 해당 (총점 60, 개별 최저 전부 충족)
+#       49- OR 3+ items below minimum → REJECT
+
+# ──────────────────────────────────────────────
+# IMAGE SAFETY CHECK
+# ──────────────────────────────────────────────
+image_safety:
+  scene_1:
+    prompt_summary: "Office workers with smartphone battery UI HUD above heads"
+    hate_speech: false
+    explicit_violence: false
+    sexual_content: false
+    policy_violation: false
+    notes: "클린. 만화 스타일 직장 공간, 배터리 UI 오버레이 — 위반 없음."
+
+  scene_2:
+    prompt_summary: "Worker celebrating 18% battery, boss baffled"
+    hate_speech: false
+    explicit_violence: false
+    sexual_content: false
+    policy_violation: false
+    notes: "클린. 코미디 승리 표현, 과장된 리액션 — 위반 없음."
+
+  scene_3:
+    prompt_summary: "LED scoreboard with employee names and battery percentages, boss pointing"
+    hate_speech: false
+    explicit_violence: false
+    sexual_content: false
+    policy_violation: false
+    notes: "클린. 가상 직원 이름(실명 아님), 직장 감시 풍자 — 위반 없음.
+      실명 식별 불가 + 허구 문맥 명확하므로 개인정보 우려 없음."
+
+  scene_4:
+    prompt_summary: "Haggard worker as admired hero surrounded by junior employees"
+    hate_speech: false
+    explicit_violence: false
+    sexual_content: false
+    policy_violation: false
+    notes: "클린. 번아웃 영웅화의 아이러니 시각화 — 위반 없음.
+      다크서클·피로 표현은 코미디 과장이며 혐오 표현 아님."
+
+  overall_image_safety: "PASS — 4/4 씬 전부 클리어"
+
+# ──────────────────────────────────────────────
+# DETAILED FEEDBACK
+# ──────────────────────────────────────────────
+feedback: |
+  [강점]
+  - 3막 아이러니 구조 완성도 높음: "해방 도구 → 감시 도구 → 번아웃 훈장"의 비틀기가
+    자연스럽게 연결되며 각 씬에서 기대치가 정확히 전복됨.
+  - "만성 20% 직원이 롤모델"이라는 마무리 펀치라인은 한국 직장인의 집단 경험을
+    정확히 포착. "어둠의 근성"에 대한 공감/씁쓸함을 동시에 자극 — 댓글 유도력 높음.
+  - 스마트폰 배터리라는 범용 레퍼런스가 연령·직군 불문 즉각 이해 가능.
+  - 씬 3의 이미지 프롬프트("저조자 우선 배치" 컬럼 강조)가 스크립트 갈등과 직결 — 시각-텍스트 싱크 우수.
+  - quality_check SUCCESs 총점 50/60, hook effectiveness 82 — 내부 기준 상회.
+
+  [개선 필요 — REVISE 사유]
+  1. 총점 60 (50-69 구간) → REVISE 판정.
+     아래 2개 항목을 개선하면 총점 70+ PASS 가능:
+
+     A) source_citation (현재 7, 목표 8+):
+        metadata.description에 "※ 본 영상은 한국 직장 번아웃 문화를 소재로 한
+        순수 창작 풍자 콘텐츠입니다." 1줄 추가 권장.
+        근거: YouTube 2026 AI 콘텐츠 정책은 시청자가 사실과 허구를 구분할 수 있도록
+        명시적 맥락 제공을 권장. 현재 description에는 이런 명시가 없음.
+
+     B) uniqueness (현재 8, 목표 9 도달 가능):
+        EP038(냉장고 IoT)과 "기술이 사용자를 역이용" 패턴이 중복.
+        씬 2 또는 씬 3에 EP038에 없는 각도 — 예: "저배터리 직원에게 충전 스테이션 지급"
+        또는 "배터리 보조금 노사협상" 등 제도적 역설 요소 1가지 추가 검토 권장.
+        (선택적 개선, 즉시 재제출 불필요)
+
+  2. metadata.cta 필드 공백:
+     CTA 없이 알고리즘 노출 후 시청자 행동을 유도하는 요소가 전무.
+     최소 "여러분은 몇 %? 댓글로 알려주세요 👇" 또는 "구독하면 충전 +10% 🔋"
+     형식의 단문 CTA 추가 강력 권장 (engagement rate 직결).
+
+  [추가 참고]
+  - TTS 주의: "18%" → "십팔 퍼센트" 한국어 숫자 전처리 확인 요망.
+    현재 파이프라인 v3.2에서 `20대` → `이십대` 처리 확인됐으나,
+    퍼센트 수치 읽기 교정이 render 단계에서 검증되어야 함.
+  - 씬 3 대사 "저조자 우선 배치"의 TTS 호흡: 대조적 열거 구조이므로
+    "야근 면제" / "저조자 우선 배치" 사이에 강조 포즈가 자연스럽게 들어가는지 확인.
+
+# ──────────────────────────────────────────────
+# REVISION CHECKLIST
+# ──────────────────────────────────────────────
+revise_items:
+  - item: "metadata.description에 창작 풍자 콘텐츠 명시 1줄 추가"
+    priority: "REQUIRED"
+    target_score_impact: "source_citation 7→8, total 60→61"
+
+  - item: "metadata.cta 필드에 단문 CTA 추가"
+    priority: "REQUIRED"
+    target_score_impact: "engagement rate 개선, 총점 직접 영향 없으나 플랫폼 정책 권장 사항"
+
+  - item: "uniqueness 강화 — EP038과 구조 차별화 요소 1개 추가 (선택)"
+    priority: "OPTIONAL"
+    target_score_impact: "uniqueness 8→9, total 61→62"
+
+# ──────────────────────────────────────────────
+# RE-SUBMISSION PATH
+# ──────────────────────────────────────────────
+resubmit_path: "REVISE → description 수정 후 재검토 불필요 (단순 메타데이터 수정)"
+estimated_resubmit_effort: "5분 이내"
+render_blocker: false
+# 렌더링 자체는 PASS 수준. 메타데이터만 수정 후 업로드 진행 가능.
+
+# ──────────────────────────────────────────────
+# STORY STRUCTURE VERIFICATION
+# ──────────────────────────────────────────────
+story_structure:
+  act1_expectation: "배터리 표시 → 피로 객관화 → 상사에게 반박 불가 근거 획득"
+  act2_conflict: "상사가 현황판 설치 → 저배터리 = 초과근무 우선 배치 대상"
+  act3_twist: "만성 20% 직원이 오히려 최고 롤모델 등극 — 번아웃이 전설이 됨"
+  structure_verdict: "3막 구조 완전 충족. 기대→충돌→역설적 승화 흐름 자연스러움."
+
+# ──────────────────────────────────────────────
+# SERIES COMPARISON (EP038 기준)
+# ──────────────────────────────────────────────
+series_comparison:
+  reference_episode: "whatif_ep038 (냉장고 IoT 다이어트 감시)"
+  overlap_risk: "LOW-MEDIUM"
+  overlap_detail: "기술 도구가 권력자(상사/냉장고 제조사)에게 역이용 → 약자가 도망 불가 패턴 유사"
+  differentiation: "배터리 = 번아웃 수량화 + 직장 위계 구조 + 아이러니한 영웅화라는 각도가 고유"
+  verdict: "차별화 충분. 연속 편성 시 배치 간격 2~3편 이상 권장."

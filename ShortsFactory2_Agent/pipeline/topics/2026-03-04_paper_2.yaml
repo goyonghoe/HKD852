@@ -1,0 +1,27 @@
+date: "2026-03-04"
+mode: "discover"
+paper:
+  title: "Paying in a blink of an eye: It hurts less, but you spend more"
+  authors: "Broekhoff MC, van der Cruijsen C"
+  journal: "Journal of Economic Behavior & Organization"
+  year: 2024
+  doi: "10.1016/j.jebo.2024.03.017"
+  peer_reviewed: true
+  institution: "De Nederlandsche Bank / University of Groningen"
+  sample_size: null
+  key_finding: "비접촉 결제(터치페이)는 현금 결제보다 지불 고통이 유의미하게 낮으며, 과소비 방지에 가장 비효과적인 결제 수단으로 인식된다. 특히 고령층에서 이 효과가 더 크다."
+scoring:
+  investor_empathy: 27 # /30 — 모든 사람이 매일 결제하는 경험
+  surprise: 22 # /25 — "터치 한 번이면 덜 아프다"는 뇌과학적 발견
+  practical: 19 # /20 — 내일부터 결제 습관 바꿀 수 있음
+  visual_potential: 14 # /15 — 현금 vs 카드 vs 터치 페인바 비교 인포그래픽
+  source_quality: 9 # /10 — JEBO, 피어리뷰, 네덜란드 중앙은행
+  total: 91
+hook_angles:
+  - pattern: "daily-habit"
+    draft: "터치 결제 한 번에 뇌가 돈 쓴 걸 까먹는대요."
+  - pattern: "counterintuitive"
+    draft: "현금이 가장 아프고, 터치페이가 가장 안 아프다는 논문이 나왔어요."
+  - pattern: "number-hook"
+    draft: "결제 수단만 바꿔도 지출이 달라진다는 연구 결과예요."
+duplicate_check: "CLEAR"

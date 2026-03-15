@@ -1,0 +1,63 @@
+{
+  "episode_id": "whatif_ep036",
+  "series": "만약에~",
+  "topic_id": "thought-subtitles",
+  "language": "ko",
+  "visual_style": "colorful pop art comedy style with speech bubble overlays and floating subtitle text effects, bright saturated colors with expressive cartoon faces, comic book panel energy, ",
+  "script": {
+    "hook": "만약 모든 사람 머리 위에 생각이 자막으로 뜬다면?",
+    "body": [
+      "친구가 새 옷 어때? 물어본다. 입으로는 예쁘다. 자막에는 '어디서 샀어 그걸'.",
+      "면접관이 웃으며 말한다. 잘하셨어요. 자막에는 '다음 사람 들어오세요'.",
+      "짝사랑한테 다가간다. 내 머리 위 자막이 빨갛게 달아오른다. 상대 자막에는 '누구지?'.",
+      "결국 모두가 선글라스를 쓰기 시작한다. 남의 머리 위를 안 보려고."
+    ],
+    "cta": ""
+  },
+  "full_text": "만약 모든 사람 머리 위에 생각이 자막으로 뜬다면? 친구가 새 옷 어때? 물어본다. 입으로는 예쁘다. 자막에는 '어디서 샀어 그걸'. 면접관이 웃으며 말한다. 잘하셨어요. 자막에는 '다음 사람 들어오세요'. 짝사랑한테 다가간다. 내 머리 위 자막이 빨갛게 달아오른다. 상대 자막에는 '누구지?'. 결국 모두가 선글라스를 쓰기 시작한다. 남의 머리 위를 안 보려고.",
+  "display_text": "만약 모든 사람 머리 위에 생각이 자막으로 뜬다면? 친구가 새 옷 어때? 물어본다. 입으로는 예쁘다. 자막에는 '어디서 샀어 그걸'. 면접관이 웃으며 말한다. 잘하셨어요. 자막에는 '다음 사람 들어오세요'. 짝사랑한테 다가간다. 내 머리 위 자막이 빨갛게 달아오른다. 상대 자막에는 '누구지?'. 결국 모두가 선글라스를 쓰기 시작한다. 남의 머리 위를 안 보려고.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 모든 사람 머리 위에 생각이 자막으로 뜬다면?",
+      "image_prompt": "A busy city crosswalk with people walking, above every person's head colorful floating subtitle text boxes showing their inner thoughts in speech bubbles, one person thinking about food another thinking about sleep, bright pop art style with vivid colors, comic book aesthetic",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "친구가 새 옷 어때? 물어본다. 입으로는 예쁘다. 자막에는 '어디서 샀어 그걸'.",
+      "image_prompt": "Two friends in a clothing store, one showing off a terrible ugly outfit proudly, the other smiling with thumbs up but a floating subtitle above their head shows a cringing face emoji and critical thoughts, comedy contrast between fake smile and honest subtitle, bright colorful pop art style",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "면접관이 웃으며 말한다. 잘하셨어요. 자막에는 '다음 사람 들어오세요'.",
+      "image_prompt": "A job interview scene with a smiling interviewer in a suit giving thumbs up, but the floating subtitle above his head shows a rejection stamp and next please message, the interviewee looking hopeful and oblivious, office setting with bright pop art comedy lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "짝사랑한테 다가간다. 내 머리 위 자막이 빨갛게 달아오른다. 상대 자막에는 '누구지?'.",
+      "image_prompt": "A school hallway scene where a nervous student approaches their crush, above the nervous student a bright red glowing subtitle full of hearts and excitement, above the crush a cold blue subtitle with a confused question mark, comedy of one-sided love visualized through contrasting subtitle colors",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "결국 모두가 선글라스를 쓰기 시작한다. 남의 머리 위를 안 보려고.",
+      "image_prompt": "A funny street scene where every single person is wearing oversized dark sunglasses looking down to avoid seeing each other's thought subtitles, the subtitles still floating above but everyone pretending not to see them, absurd comedy scene with bright pop art colors, everyone awkwardly avoiding eye contact",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "머리 위에 생각이 자막으로 뜬다면? #만약에",
+    "thumbnail_text": "생각=자동 자막",
+    "description": "만약 모든 사람 머리 위에 속마음이 자막으로 뜬다면? 세상에서 거짓말이 사라진다.\n#만약에 #속마음 #자막 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#속마음", "#자막", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

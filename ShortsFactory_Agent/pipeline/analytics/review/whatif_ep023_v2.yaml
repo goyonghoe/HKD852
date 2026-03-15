@@ -1,0 +1,232 @@
+episode_id: "whatif_ep023"
+review_version: 2
+review_date: "2026-02-20"
+reviewer: "shorts-review (Opus — independent re-review)"
+previous_verdict: "REVISE"
+verdict: "REVISE"
+
+# ============================================================
+# RE-REVIEW SCORING (7 items)
+# ============================================================
+
+scores:
+  source_citation: 7 # PASS (min 7) — Unchanged from v1. Description states AI-assisted production. Topic YAML has sources. Script body no longer cites specific product names that need attribution, which actually reduces citation burden. Borderline pass.
+  substantial_transformation: 8 # PASS (min 8) — Original hypothetical framing, unique visual style, story arc with expectation→frustration→insight. Not a news recap. Maintained from v1.
+  ai_misrepresentation_free: 8 # FAIL (min 9) — Improved but not resolved. See detailed analysis below.
+  creator_perspective: 8 # PASS (min 8) — Improved. "AI는 평균을 만들고, 그들은 이상한 걸 만들었다" is a sharper, more concrete insight than the previous "AI에 나를 더했다." It names the differentiator (weirdness vs averageness) rather than a vague "add yourself." Passes minimum.
+  uniqueness: 7 # PASS (min 7) — Marginal pass. Still the same AI-threat archetype as EP018, but the pivot is now sufficiently different. EP018: memory/privacy philosophical question. EP023: career/creative survival with actionable framing. The "평균 vs 이상한" thesis provides a unique lens not present in EP018.
+  hook_strength: 8 # PASS (min 7) — Unchanged. Personal, immediate, fear-driven. Effective.
+  factual_accuracy: 7 # FAIL (min 8) — Improved significantly from 4→7, but still has issues. See detailed analysis below.
+
+total_score: 53
+minimum_threshold_failures: 2
+# Verdict: 2 items fail minimum → REVISE
+# ai_misrepresentation_free (8 < 9) and factual_accuracy (7 < 8)
+
+# ============================================================
+# DETAILED ANALYSIS OF PREVIOUSLY FAILING ITEMS
+# ============================================================
+
+previously_failing_items:
+  factual_accuracy:
+    previous_score: 4
+    new_score: 7
+    status: "IMPROVED but still FAIL (min 8)"
+    analysis: |
+      GOOD CHANGES:
+      - Removed "GPT-5.3-Codex는 시니어 개발자보다 빠르다" — no longer makes misleading human comparison.
+      - Removed "Seedance 2.0은 감독 없이 영화를 만든다" — no longer makes false autonomy claim.
+      - New text: "AI 코딩 에이전트는 코딩 벤치마크 1위를 찍었다" — directionally accurate.
+      - New text: "AI 영상 툴은 15초 클립을 4분에 만든다" — plausible and modest claim.
+
+      REMAINING ISSUES:
+      (a) "AI 코딩 에이전트는 코딩 벤치마크 1위를 찍었다" — Which agent? Which benchmark?
+          This is vague enough to be defensible but still implies a definitive "number one"
+          ranking across all coding benchmarks, which oversimplifies a nuanced leaderboard
+          landscape. Multiple agents claim top positions on different benchmarks (SWE-Bench,
+          HumanEval, MBPP, etc.). Score: acceptable but not rigorous.
+      (b) "AI 영상 툴은 15초 클립을 4분에 만든다" — Which tool? This is plausible for tools
+          like Seedance, Sora, or Kling, but the "4분" figure is unattributed. It's a
+          reasonable approximation but not cited.
+      (c) "이미 창의성을 삼켰다" (body[2]) — This is editorialized hyperbole presented as
+          fact. AI tools assist creative work; saying AI has "swallowed creativity" is
+          an overstatement that borders on misinformation about the current state of AI.
+
+      Net: The egregious false claims are gone. The remaining issues are soft exaggerations
+      and vague attributions — not blocking errors, but not clean enough for an 8.
+      Score: 7 (significantly improved, one more revision needed).
+
+  creator_perspective:
+    previous_score: 7
+    new_score: 8
+    status: "RESOLVED — PASS"
+    analysis: |
+      "AI는 평균을 만들고, 그들은 이상한 걸 만들었다" is a meaningfully better insight than
+      "AI에 나를 더했다." It identifies a specific mechanism (AI optimizes for average;
+      human value lies in deviation from average) rather than a vague injunction to "add
+      yourself." It's pithy, memorable, and functions as genuine creator perspective.
+
+      It's not perfect — "이상한 걸 만들었다" could be even more vivid with a concrete
+      example — but it crosses the minimum threshold for creator perspective.
+
+  ai_misrepresentation_free:
+    previous_score: 7
+    new_score: 8
+    status: "IMPROVED but still FAIL (min 9)"
+    analysis: |
+      GOOD CHANGES:
+      - No more false claims about specific commercial products (GPT-5.3-Codex, Seedance 2.0).
+      - Generic "AI 코딩 에이전트" and "AI 영상 툴" avoid misrepresenting real products.
+
+      REMAINING ISSUES:
+      (a) "AI는 반복이 아니다. 이미 창의성을 삼켰다." — This frames AI as having autonomously
+          consumed human creativity, which misrepresents the actual state: AI tools augment
+          creative workflows but do not independently produce creative work without human
+          direction. YouTube 2026 policy is sensitive to claims that overstate AI autonomy.
+      (b) The overall narrative arc implies AI is independently replacing creative workers
+          ("내 직업을 빼앗는다면"), which — while posed as hypothetical — is reinforced by
+          body[2]'s assertion that AI has already "swallowed creativity." The hypothetical
+          frame weakens once the script states it as present-tense fact.
+
+      The minimum for this item is 9 because AI misrepresentation carries the highest
+      YouTube policy risk. Score: 8 (close, but the "삼켰다" assertion needs softening).
+
+  uniqueness:
+    previous_score: 6
+    new_score: 7
+    status: "RESOLVED — PASS (marginal)"
+    analysis: |
+      The revised insight ("평균 vs 이상한") differentiates the landing from EP018's
+      philosophical open question about memory ownership. The arc is still structurally
+      similar (AI capability → threat → reflection), but the destination is now distinct:
+      EP018 asks "기억은 나만의 것이어야 할까?" (philosophical), while EP023 asserts
+      "그들은 이상한 걸 만들었다" (actionable creative strategy).
+
+      Catalog overlap analysis:
+      - EP018: AI + memory → privacy (philosophical)
+      - EP022: mind-reading → relationships (philosophical)
+      - EP023: AI + jobs → creative strategy (practical)
+      The practical/strategic angle provides enough differentiation. Marginal pass.
+
+# ============================================================
+# YOUTUBE 2026 POLICY CHECK
+# ============================================================
+
+youtube_2026_policy_check:
+  ai_as_tool_not_replacement: "CAUTION — body[2] states AI 'swallowed creativity' as fact, not hypothetical"
+  creator_perspective_present: "PASS — '평균 vs 이상한' is genuine perspective"
+  substantial_transformation: "PASS — original hypothetical with unique visual concept"
+  ai_assisted_label: "PASS — description includes AI-assisted label"
+  not_template_mass_production: "PASS — 7 sentences is lean but each carries weight"
+
+# ============================================================
+# SCRIPT QUALITY FRAMEWORK
+# ============================================================
+
+script_quality:
+  made_to_stick:
+    simple: "YES — 'AI replaces average; weirdness survives' — clear one-line summary"
+    unexpected: "MODERATE — the 'weirdness wins' pivot is mildly surprising in a doom-framing context"
+    concrete: "MODERATE — '코딩 벤치마크 1위', '15초 클립을 4분에' are concrete; '이상한 걸 만들었다' is less so"
+    credible: "WEAK — claims are now plausible but unattributed; no specific sources in script"
+    emotional: "MODERATE — fear (job loss) and defiance (make weird things) both present"
+    stories: "MODERATE — improved arc: comfort → threat → survival strategy. Not a full narrative but a clear three-beat structure."
+  story_arc:
+    expectation: "PRESENT — 'I do creative work, I'm safe'"
+    frustration: "PRESENT — 'AI already consumed creativity'"
+    insight: "PRESENT — 'survivors made the weird stuff'"
+
+# ============================================================
+# TECHNICAL / RENDERING STATUS
+# ============================================================
+
+technical_verdict: "IMPROVED"
+technical_notes: |
+  Per the revision notes:
+  - Subtitle sync: 100% (18/18) — RESOLVED from 89%
+  - Images: 3/6 rendered — IMPROVED from 2/6 but still incomplete
+  - Upload remains BLOCKED until 6/6 images are rendered.
+  - Re-render after script revision will be required anyway if body[2] changes.
+
+# ============================================================
+# REMAINING REVISE ITEMS
+# ============================================================
+
+revise_items:
+  - field: "script.body[2]"
+    issue: "'이미 창의성을 삼켰다' states AI autonomy as present-tense fact, risking AI misrepresentation"
+    suggestion: |
+      Soften the assertion to maintain hypothetical or hedged framing. Options:
+      (a) "AI는 반복만 하던 게 아니다. 창의적인 영역까지 들어왔다."
+         (States AI entered creative territory — factual — without claiming it consumed it)
+      (b) "AI는 반복을 넘어 창의적인 결과물도 만들어낸다."
+         (Focuses on output, not displacement)
+      (c) "반복은 이미 끝났다. AI는 이제 창작 영역에 있다."
+         (Factual positioning without swallowing metaphor)
+      Key: avoid framing AI as having autonomously conquered creativity. State capability, not domination.
+
+  - field: "script.body[1]"
+    issue: "Vague benchmark claim — '코딩 벤치마크 1위' is unattributed and oversimplified"
+    suggestion: |
+      Minor fix — add specificity or hedge:
+      (a) "AI 코딩 에이전트는 주요 코딩 벤치마크에서 1위를 찍었다." (adds '주요')
+      (b) "AI 코딩 에이전트는 SWE-Bench에서 1위를 찍었다." (names the benchmark)
+      (c) Keep as-is if the editorial decision is that Shorts don't require academic citation.
+      This is a soft recommendation, not a blocker.
+
+  - field: "script.hook"
+    issue: "Spelling: '빼앗는다면' — carried over from v1 review"
+    suggestion: |
+      '빼앗다' is valid Korean (빼다 + 앗다 = to snatch away). However, the more common
+      standard form used in broadcast/written Korean is '빼앗다' which may appear as a
+      typo to viewers. Consider '빼앗는다면' vs '빼앗긴다면' vs '대체한다면'.
+      This is cosmetic — not a scoring factor.
+
+  - field: "rendering"
+    issue: "Only 3/6 images rendered"
+    suggestion: "Complete image generation for all 6 scenes before upload. Script changes to body[2] will require scene 4 image re-generation."
+
+# ============================================================
+# COMPARISON: v1 → v2 SCORE CHANGES
+# ============================================================
+
+score_comparison:
+  source_citation: { v1: 7, v2: 7, delta: 0, status: "PASS → PASS" }
+  substantial_transformation: { v1: 8, v2: 8, delta: 0, status: "PASS → PASS" }
+  ai_misrepresentation_free:
+    { v1: 7, v2: 8, delta: "+1", status: "FAIL → FAIL (improved, min 9)" }
+  creator_perspective: { v1: 7, v2: 8, delta: "+1", status: "FAIL → PASS" }
+  uniqueness: { v1: 6, v2: 7, delta: "+1", status: "FAIL → PASS" }
+  hook_strength: { v1: 8, v2: 8, delta: 0, status: "PASS → PASS" }
+  factual_accuracy:
+    { v1: 4, v2: 7, delta: "+3", status: "FAIL → FAIL (improved, min 8)" }
+  total: { v1: 47, v2: 53, delta: "+6" }
+  failing_items: { v1: 4, v2: 2 }
+
+# ============================================================
+# FINAL VERDICT
+# ============================================================
+
+final_verdict: |
+  REVISE — 2 items remain below minimum threshold.
+
+  RESOLVED (2 of 4):
+  - Creator perspective: 7→8 PASS. "평균 vs 이상한" is a genuine, specific insight.
+  - Uniqueness: 6→7 PASS. Practical survival angle differentiates from EP018's philosophical question.
+
+  STILL FAILING (2 of 4):
+  - Factual accuracy: 4→7 FAIL (min 8). Massive improvement — false product claims removed.
+    Remaining issue: "이미 창의성을 삼켰다" overstates AI capability as fact.
+  - AI misrepresentation: 7→8 FAIL (min 9). Product-specific lies gone, but "삼켰다"
+    frames AI as having autonomously conquered creativity, which YouTube 2026 policy
+    treats as misinformation about AI capabilities.
+
+  CORE FIX NEEDED: body[2] "이미 창의성을 삼켰다" is the single remaining blocker.
+  Softening this one line to factual framing (AI entered creative territory, not consumed it)
+  would likely resolve BOTH remaining failures simultaneously, as the AI misrepresentation
+  and factual accuracy issues stem from the same sentence.
+
+  RENDERING: 3/6 images — upload remains blocked regardless of script verdict.
+  Script change to body[2] will require re-render of scene 4.
+
+  Estimated effort for v3: ~5 minutes (1 line change + re-render).

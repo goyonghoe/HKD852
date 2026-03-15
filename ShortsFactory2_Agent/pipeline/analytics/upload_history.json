@@ -1,0 +1,247 @@
+{
+  "channels": {
+    "paperman": {
+      "id": "paperman",
+      "name": "논문맨",
+      "language": "ko",
+      "youtube_handle": "@paper-man-xyz"
+    },
+    "paperman-en": {
+      "id": "paperman-en",
+      "name": "Today's Paper",
+      "language": "en",
+      "youtube_handle": null,
+      "note": "채널 미생성 — Phase 1 완료 후 생성 예정"
+    },
+    "paperman-ja": {
+      "id": "paperman-ja",
+      "name": "今日の論文",
+      "language": "ja",
+      "youtube_handle": null,
+      "note": "채널 미생성 — Phase 1 완료 후 생성 예정"
+    }
+  },
+  "uploads": [
+    {
+      "episode_id": "paper_ep002",
+      "title": "🧠 마시멜로 실험은 틀렸다? #오늘의논문",
+      "uploaded_at": "2026-02-21",
+      "url": null,
+      "language": "ko",
+      "privacy_status": "private",
+      "note": "이전 세션에서 업로드 (URL 미기록)"
+    },
+    {
+      "episode_id": "paper_ep003",
+      "title": "🧠 멍때리기는 진짜 뇌 활동이다 #오늘의논문",
+      "uploaded_at": "2026-02-21",
+      "url": null,
+      "language": "ko",
+      "privacy_status": "private",
+      "note": "이전 세션에서 업로드 (URL 미기록)"
+    },
+    {
+      "episode_id": "paper_ep007",
+      "title": "🧠 밤새 공부하면 뇌가 하는 진짜 행동 #오늘의논문",
+      "uploaded_at": "2026-02-22",
+      "url": "https://youtube.com/shorts/tOQR2c-tUpI",
+      "video_id": "tOQR2c-tUpI",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep008",
+      "title": "🤬 욕하면 힘이 세진다는 논문이 나왔습니다 #오늘의논문",
+      "uploaded_at": "2026-02-22",
+      "url": "https://youtube.com/shorts/QinkUlG91LA",
+      "video_id": "QinkUlG91LA",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep012",
+      "title": "💑 우울한 사람은 우울한 사람과 사귄다 #오늘의논문",
+      "uploaded_at": "2026-02-23",
+      "url": "https://youtube.com/shorts/oMOg11c40bc",
+      "video_id": "oMOg11c40bc",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep013",
+      "title": "🐶 강아지는 진짜 알아듣고 있다 #오늘의논문",
+      "uploaded_at": "2026-02-23",
+      "url": "https://youtube.com/shorts/vH2IKAGW8NQ",
+      "video_id": "vH2IKAGW8NQ",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep014",
+      "title": "🌱 식물은 비명을 지른다 #오늘의논문",
+      "uploaded_at": "2026-02-23",
+      "url": "https://youtube.com/shorts/vT2O2VdeTx4",
+      "video_id": "vT2O2VdeTx4",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep015",
+      "title": "📱 핸드폰 옆에만 있어도 머리가 나빠진다 #오늘의논문",
+      "uploaded_at": "2026-02-25",
+      "url": "https://youtube.com/shorts/u5vZqdXxxTE",
+      "video_id": "u5vZqdXxxTE",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep016",
+      "title": "🍔 정크푸드 닷새면 뇌가 바뀐다 #오늘의논문",
+      "uploaded_at": "2026-02-25",
+      "url": "https://youtube.com/shorts/5uV4LeA-FII",
+      "video_id": "5uV4LeA-FII",
+      "language": "ko",
+      "privacy_status": "private",
+      "note": "내일 공개 예약 예정"
+    },
+    {
+      "episode_id": "paper_ep017",
+      "title": "🧠 당신 뇌에 플라스틱 숟가락이 들어있다 #오늘의논문",
+      "uploaded_at": "2026-02-25",
+      "url": "https://youtube.com/shorts/hnqcK-PwVRM",
+      "video_id": "hnqcK-PwVRM",
+      "language": "ko",
+      "privacy_status": "private",
+      "note": "Nano Banana Pro 스타일 첫 에피소드"
+    },
+    {
+      "episode_id": "paper_ep018",
+      "title": "🍚 혼밥하는 남자, 대사증후군 51% 높다 #오늘의논문",
+      "uploaded_at": "2026-02-25",
+      "url": "https://youtube.com/shorts/rXa71d0Vof8",
+      "video_id": "rXa71d0Vof8",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep019",
+      "title": "🧠 다이어트 콜라가 더 배고프게 만든다 #오늘의논문",
+      "uploaded_at": "2026-02-28",
+      "url": "https://youtube.com/shorts/NjgK9UxrqZQ",
+      "video_id": "NjgK9UxrqZQ",
+      "language": "ko",
+      "privacy_status": "private",
+      "queue_status": "uploaded",
+      "file_path": "pipeline/rendered/samples/paper_ep019/paper_ep019_manga_20260227-224740.mp4"
+    },
+    {
+      "episode_id": "paper_ep020",
+      "title": "🧠 내 투자 기억이 수익을 23% 부풀린다 #오늘의논문",
+      "uploaded_at": "2026-02-28",
+      "url": "https://youtube.com/shorts/O4E6avc-n5k",
+      "video_id": "O4E6avc-n5k",
+      "language": "ko",
+      "privacy_status": "private",
+      "note": "투자 심리 피봇 후 첫 에피소드"
+    },
+    {
+      "episode_id": "paper_ep022",
+      "title": "😴 잠이 부족하면 주식 수익률도 낮아진다 #오늘의논문",
+      "uploaded_at": "2026-02-28",
+      "url": "https://youtube.com/shorts/cBuoPPODte8",
+      "video_id": "cBuoPPODte8",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep021",
+      "title": "📱 주식 앱 자주 보면 손해 본다 #오늘의논문",
+      "uploaded_at": "2026-02-28",
+      "url": "https://youtube.com/shorts/1AGbPCh2FSA",
+      "video_id": "1AGbPCh2FSA",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep023",
+      "title": "📚 공부 많이 할수록 패닉셀 더 한다 #오늘의논문",
+      "uploaded_at": "2026-02-28",
+      "url": "https://youtube.com/shorts/1q6QX_UftBA",
+      "video_id": "1q6QX_UftBA",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep025",
+      "title": "😩 팔자마자 오르는 건 기분 탓이 아니다 #오늘의논문",
+      "uploaded_at": "2026-02-28",
+      "url": "https://youtube.com/shorts/V6N1hAphKw4",
+      "video_id": "V6N1hAphKw4",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep027",
+      "title": "🎰 투자자 10명 중 1명은 트레이딩 중독 #오늘의논문",
+      "uploaded_at": "2026-02-28",
+      "url": "https://youtube.com/shorts/2HIpvKpB7bc",
+      "video_id": "2HIpvKpB7bc",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep029",
+      "title": "📉 많이 매매할수록 수익률 떨어진다 #오늘의논문",
+      "uploaded_at": "2026-03-04",
+      "url": "https://youtube.com/shorts/HHSdFk9IOwg",
+      "video_id": "HHSdFk9IOwg",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep030",
+      "title": "📢 인플루언서 추천 종목의 결말 #오늘의논문",
+      "uploaded_at": "2026-03-04",
+      "url": "https://youtube.com/shorts/84mq3l4UfN0",
+      "video_id": "84mq3l4UfN0",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep031",
+      "title": "😊 기분 좋을 때 투자하면 안 되는 이유 #오늘의논문",
+      "uploaded_at": "2026-03-04",
+      "url": "https://youtube.com/shorts/LW5uigudWb8",
+      "video_id": "LW5uigudWb8",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep032",
+      "title": "💔 부부 싸움 1위 — 성격도 자녀도 아니다 #오늘의논문",
+      "uploaded_at": "2026-03-04",
+      "url": "https://youtube.com/shorts/_SVSJEkDYgM",
+      "video_id": "_SVSJEkDYgM",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep033",
+      "title": "💳 터치 한 번이면 뇌가 돈 쓴 걸 잊는다 #오늘의논문",
+      "uploaded_at": "2026-03-04",
+      "url": "https://youtube.com/shorts/q9-pGlKFXyU",
+      "video_id": "q9-pGlKFXyU",
+      "language": "ko",
+      "privacy_status": "private"
+    },
+    {
+      "episode_id": "paper_ep034",
+      "title": "🔍 배우자 카드 내역 몰래 보면 생기는 일 #오늘의논문",
+      "uploaded_at": "2026-03-04",
+      "url": "https://youtube.com/shorts/mCIBmV0Osyo",
+      "video_id": "mCIBmV0Osyo",
+      "language": "ko",
+      "privacy_status": "private"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "episode_id": "whatif_ep023",
+  "series": "만약에~",
+  "topic_id": "ai-takes-your-job",
+  "language": "ko",
+  "visual_style": "cold blue-white digital fracture aesthetic, human silhouettes dissolving into floating code particles, office and creative workspace settings, photorealistic cinematic lighting, dystopian near-future Seoul, high contrast shadows",
+  "script": {
+    "hook": "만약에 AI가 오늘 내 직업을 빼앗는다면?",
+    "body": [
+      "나는 창의적인 일을 해. 코딩도, 글쓰기도, 영상도 아니야.",
+      "2026년 2월, AI 코딩 에이전트는 코딩 벤치마크 1위를 찍었다. AI 영상 툴은 15초 클립을 4분에 만든다.",
+      "반복은 이미 끝났다. AI는 이제 창작 영역에 있다.",
+      "살아남은 사람들의 공통점? AI는 평균을 만들고, 그들은 이상한 걸 만들었다."
+    ],
+    "cta": "두려움이 아니라 방향이 필요하다. 구독 눌러."
+  },
+  "full_text": "만약에 AI가 오늘 내 직업을 빼앗는다면? 나는 창의적인 일을 해. 코딩도, 글쓰기도, 영상도 아니야. 2026년 2월, AI 코딩 에이전트는 코딩 벤치마크 1위를 찍었다. AI 영상 툴은 15초 클립을 4분에 만든다. 반복은 이미 끝났다. AI는 이제 창작 영역에 있다. 살아남은 사람들의 공통점? AI는 평균을 만들고, 그들은 이상한 걸 만들었다. 두려움이 아니라 방향이 필요하다. 구독 눌러.",
+  "display_text": "만약에 AI가 오늘 내 직업을 빼앗는다면? 나는 창의적인 일을 해. 코딩도, 글쓰기도, 영상도 아니야. 2026년 2월, AI 코딩 에이전트는 코딩 벤치마크 1위를 찍었다. AI 영상 툴은 15초 클립을 4분에 만든다. 반복은 이미 끝났다. AI는 이제 창작 영역에 있다. 살아남은 사람들의 공통점? AI는 평균을 만들고, 그들은 이상한 걸 만들었다. 두려움이 아니라 방향이 필요하다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 AI가 오늘 내 직업을 빼앗는다면?",
+      "image_prompt": "Office worker sitting at a desk staring at a blank monitor, their reflection slowly dissolving into swirling blue-white code particles, empty chairs appearing around them, cold fluorescent light with digital fracture overlay, near-future Seoul office, cinematic wide shot, sense of erasure and shock, 9:16 vertical",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "나는 창의적인 일을 해. 코딩도, 글쓰기도, 영상도 아니야.",
+      "image_prompt": "Person at a bright creative workspace surrounded by sketchbooks, musical instruments, and a camera, confident warm expression, golden-hour light contrasting cold digital blue shadows creeping in from the edges of the frame, near-future Seoul studio apartment, cinematic portrait shot, 9:16 vertical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "2026년 2월, AI 코딩 에이전트는 코딩 벤치마크 1위를 찍었다. AI 영상 툴은 15초 클립을 4분에 만든다.",
+      "image_prompt": "Split visual: coding benchmark leaderboard with AI agent at number one highlighted in cold blue glow on left, AI video editor interface rapidly generating a short video clip with a spinning progress circle on right, cold blue-white digital fracture aesthetic, data visualization overlay, cinematic tension, 9:16 vertical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "반복은 이미 끝났다. AI는 이제 창작 영역에 있다.",
+      "image_prompt": "AI interface screens displaying paintings, written text, and video editing timelines alongside human workstations in a shared creative studio, the AI screens glow cold blue-white while human desks show warm amber, boundary between AI territory and human territory blurring in the middle, near-future Seoul creative office, cinematic wide shot, 9:16 vertical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "살아남은 사람들의 공통점? AI는 평균을 만들고, 그들은 이상한 걸 만들었다.",
+      "image_prompt": "Artist on a near-future Seoul rooftop at dawn creating a wild asymmetric sculpture, behind them a wall of identical AI-generated perfect artworks fading into gray sameness, the artist's messy imperfect work glowing with warm amber light standing out, cold blue perfect vs warm imperfect contrast, rebellion against uniformity, cinematic composition, 9:16 vertical",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "두려움이 아니라 방향이 필요하다. 구독 눌러.",
+      "image_prompt": "Single figure walking forward on an empty Seoul street at dawn, shattered cold blue digital world crumbling behind them, warm golden morning light opening ahead, code particles swirling and parting like a crowd to let them through, cinematic closing wide shot, sense of agency and forward momentum, 9:16 vertical",
+      "duration_hint": "cta"
+    }
+  ],
+  "metadata": {
+    "title": "만약에 AI가 오늘 내 직업을 빼앗는다면? #만약에",
+    "thumbnail_text": "AI 직업 소멸",
+    "description": "2026년 2월, AI는 이미 창의적 직업까지 침범했습니다. 두려움 말고 방향이 필요한 시대입니다.\nAI-assisted production by ShortsFactory_Agent.\n#만약에 #AI #직업 #미래 #기술 #쇼츠 #인공지능 #커리어 #유튜브쇼츠 #생존전략",
+    "hashtags": [
+      "#만약에",
+      "#AI",
+      "#직업",
+      "#미래",
+      "#기술",
+      "#쇼츠",
+      "#인공지능",
+      "#커리어",
+      "#유튜브쇼츠",
+      "#생존전략"
+    ]
+  },
+  "render_config": {
+    "voice_preset": "whatif-female",
+    "voice_instruct": null,
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

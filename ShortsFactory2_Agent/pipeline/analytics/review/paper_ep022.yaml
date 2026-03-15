@@ -1,0 +1,117 @@
+episode_id: paper_ep022
+reviewed_at: "2026-02-28"
+reviewer: paper-review skill (Sonnet)
+
+paper:
+  title: "Trading in Twilight: Sleep, Mental Alertness, and Stock Market Trading"
+  authors: "Han H, Hirshleifer D, Sheng J, Sun Z"
+  journal: "NBER Working Paper 33477"
+  year: 2025
+  doi: "10.3386/w33477"
+  peer_reviewed: false
+
+scores:
+  citation:
+    score: 9
+    min: 8
+    pass: true
+    note: >
+      DOI, NBER 워킹페이퍼 번호, 연도, 저자 4인, 소속기관(USC et al.) 명시.
+      description에 peer_reviewed=false(NBER 워킹페이퍼)를 투명하게 고지하고
+      "저명 학술지 수준의 신뢰도"라는 편집자 주석 포함 — 적절한 균형.
+      -1점: sample_size=null. 스크립트에도 구체적 샘플 규모 수치 없음.
+      논문에 RDD(Regression Discontinuity Design) 방법론이 명시되어 있어
+      description에 표기했으나 스크립트에는 "시간대 경계선 바로 양쪽 비교"로만 처리.
+
+  academic_accuracy:
+    score: 9
+    min: 9
+    pass: true
+    note: >
+      시간대 경계선(Timezone Boundary) RDD 설계로 인과관계 검증한 핵심 방법론 정확 서술.
+      "일몰이 한 시간 늦은 쪽" → "더 늦게 자고 수면 짧음" → "매매 수익률 저하" 인과 사슬 정확.
+      "기관 투자자에게는 이 효과가 없었다"는 twist — 원 논문의 핵심 heterogeneous effect
+      정확히 반영. "수면 부족이 주의력 저하를 유발한다"는 인과 경로도 논문과 일치.
+      -1점: "유의미하게 낮아졌다"는 표현의 효과 크기(effect size) 수치 미포함.
+
+  substantial_transformation:
+    score: 9
+    min: 8
+    pass: true
+    note: >
+      RDD 계량경제학 논문을 일상 침실 장면 + 수면 에너지 시각화로 완전 재구성.
+      "오늘 밤 일찍 자는 게 가장 수익률 좋은 투자"라는 클로저는 논문 결론을
+      역설적 행동 조언으로 창의적 전환. 기관/개인 투자자 실루엣 대비 씬은
+      원 논문의 heterogeneous treatment effect를 독창적 시각 언어로 재해석.
+
+  ai_disclaimer:
+    score: 9
+    min: 9
+    pass: true
+    note: >
+      description에 논문 출처, DOI 링크, peer_reviewed 상태 투명 고지 포함.
+      "전체 논문은 위 DOI 링크에서 확인하세요" 안내 명시.
+      -1점: 스크립트 내 AI 생성물 명시적 고지 문구 없음.
+      YouTube AI 생성 콘텐츠 라벨 체크박스는 업로드 시 별도 처리 필요.
+
+  creator_perspective:
+    score: 9
+    min: 7
+    pass: true
+    note: >
+      "오늘 밤 일찍 자는 게, 어쩌면 가장 수익률 좋은 투자일 수 있어요" —
+      논문이 직접 제안하지 않는 행동 지침을 창작자가 파생.
+      훅의 개인 질문("오늘 몇 시에 잠들었나요?")은 원 논문의 집단 분석을
+      개인 시청자 경험으로 전환하는 편집 기술.
+      "개미" 용어 사용 — 한국 개인 투자자 문화 코드 반영.
+
+  duplicate_avoidance:
+    score: 8
+    min: 7
+    pass: true
+    note: >
+      ep007(sleep-deprived-brain-cleans-itself-awake)과 주제 인접성 존재.
+      ep007: 수면 부족 시 뇌 자가청소 실패 (신경과학 메커니즘).
+      ep022: 수면 부족 → 투자 수익률 저하 (행동재무 인과 검증).
+      동일 "수면 부족" 상위 개념이나 연구 논문, 방법론(RDD), 결론(투자 수익률)이
+      완전히 다름. 채널 내 수면 관련 두 번째 에피소드임을 인지하고 운영 시 분산 배포 권장.
+      -1점: 수면 + 주의력 조합이 ep007과 시청자 기억에서 혼동될 수 있는 리스크.
+
+  hook_strength:
+    score: 10
+    min: 7
+    pass: true
+    note: >
+      "오늘 몇 시에 잠들었나요?" — 개인 질문형 훅. 시청자가 즉각적으로
+      자신의 어젯밤 수면을 떠올리게 함. "그게 오늘 여러분의 주식 수익률에 직결된다"는
+      직접 귀속 문장이 공포/호기심을 동시 자극.
+      hook_pattern 'personal-question-shock (effectiveness: 92)' 자체 평가와 일치.
+      30초 쇼츠 훅 중 가장 강력한 패턴(개인화 질문) 사용.
+
+  visual_consistency:
+    score: 9
+    min: 7
+    pass: true
+    note: >
+      5개 씬 모두 딥 다크 네이비 배경 + Kurzgesagt 플랫 벡터 + 하단 자막 공간 통일.
+      씬 1(침실+차트 유령)→씬 5(수면=투자 수익 발광)의 수미상관 구조로 시각 서사 완결.
+      씬 2의 "수평 분할 패널"이 타임존 경계선 비교 방법론을 직관적으로 표현.
+      씬 4의 기관/개인 실루엣 크기 대비가 채널 비주얼 중 가장 강한 은유 중 하나.
+
+total_score: 72
+max_score: 80
+threshold_pass: 64
+threshold_revise: 48
+
+verdict: PASS
+verdict_reason: >
+  8개 항목 전부 최저 기준 충족. 총점 72/80으로 PASS 기준(64) 초과.
+  학술 정확성(9/9 기준 충족), AI 고지(9/9 기준 충족), 출처 인용(9/8 초과).
+  ep007과 수면 주제 인접성 있으나 연구 내용·방법론·결론 충분히 차별화됨.
+  단, 업로드 시 YouTube "AI 생성 콘텐츠" 체크박스 표시 및 ep007과 업로드 일정 분산 권장.
+
+action_items:
+  - "업로드 시 YouTube Creator Studio에서 AI 생성 콘텐츠 라벨 활성화 확인"
+  - "ep007 업로드 일정과 최소 2주 이상 간격 배치 권장 (수면 주제 중복 인상 방지)"
+  - "썸네일 텍스트 '수면부족=손실' — 투자 연관성 명확히 전달되는지 A/B 테스트 고려"
+  - "NBER 워킹페이퍼임을 영상 내에서 구두로 언급 또는 자막 추가 검토 (정식 게재 후 업데이트 계획)"

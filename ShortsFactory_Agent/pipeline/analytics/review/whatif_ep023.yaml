@@ -1,0 +1,119 @@
+episode_id: "whatif_ep023"
+review_date: "2026-02-20"
+reviewer: "shorts-review (Opus — independent review)"
+verdict: "REVISE"
+
+scores:
+  source_citation: 7 # PASS (min 7) — 4 sources in topic YAML, description says AI-assisted production. However script body makes specific product claims without in-video attribution.
+  substantial_transformation: 8 # PASS (min 8) — Original hypothetical framing, unique visual style, story arc structure. Not a news recap or copy-paste.
+  ai_misrepresentation_free: 7 # FAIL (min 9) — Two factual exaggerations about real products create misinformation risk. See factual_accuracy_detail.
+  creator_perspective: 7 # FAIL (min 8) — Arc exists but the insight is a generic cliche. No concrete example, no unique metaphor.
+  uniqueness: 6 # FAIL (min 7) — Third AI-themed episode. Same dystopian-to-adaptation arc as EP018.
+  hook_strength: 8 # PASS (min 7) — Timely, personal, urgent. Good hook.
+  factual_accuracy: 4 # FAIL (min 8) — CRITICAL. Two verifiably false/misleading claims about real products.
+
+total_score: 47
+# 47/70 with 4 items below minimum threshold
+# Verdict rules: 4 items fail minimum -> technically REJECT
+# However, all issues are fixable with script revision -> granting REVISE
+
+factual_accuracy_detail:
+  - claim: "GPT-5.3-Codex는 시니어 개발자보다 빠르다"
+    verdict: "MISLEADING"
+    evidence: |
+      GPT-5.3-Codex (released Feb 5, 2026) claims 25% faster inference than GPT-5.2-Codex
+      and top scores on SWE-Bench Pro. OpenAI's announcement does NOT claim it outperforms
+      senior developers. Community feedback is mixed — model sometimes stops mid-task or
+      suggests workarounds. The script presents an editorialized exaggeration as fact.
+    source: "https://community.openai.com/t/introducing-gpt-5-3-codex-the-most-powerful-interactive-and-productive-codex-yet/1373453"
+
+  - claim: "Seedance 2.0은 감독 없이 영화를 만든다"
+    verdict: "FALSE"
+    evidence: |
+      Seedance 2.0 (ByteDance, ~Feb 12-15 2026) is an advanced AI video generator requiring
+      human direction — users must supply prompts, visual references, set parameters, and
+      approve content. It generates 4-15 second clips, not films. It is semi-autonomous
+      content generation, NOT autonomous filmmaking. The claim is factually incorrect.
+    source: "https://techcrunch.com/2026/02/15/hollywood-isnt-happy-about-the-new-seedance-2-0-video-generator/"
+
+youtube_2026_policy_check:
+  ai_as_tool_not_replacement: "PASS"
+  creator_perspective_present: "MARGINAL — arc exists but insight is generic"
+  substantial_transformation: "PASS"
+  ai_assisted_label: "PASS — description includes label"
+  not_template_mass_production: "CAUTION — only 7 sentences of substance, bordering on thin content"
+
+script_quality:
+  made_to_stick:
+    simple: "YES — clear message"
+    unexpected: "WEAK — AI threatening creative jobs is no longer surprising in Feb 2026"
+    concrete: "WEAK — no sensory details, no specific scene"
+    credible: "FAIL — product names cited with inaccurate claims"
+    emotional: "MODERATE — fear triggered but no empathy moment"
+    stories: "WEAK — lists facts then gives advice, not a story"
+  story_arc:
+    expectation: "PRESENT — implies safety of creative work"
+    frustration: "PRESENT — AI exceeds expectations"
+    insight: "WEAK — 'AI에 나를 더했다' is vague and cliche"
+
+feedback: |
+  EP023 tackles a timely high-RPM topic but has critical execution problems:
+
+  1. FACTUAL ACCURACY (BLOCKING): Two specific product claims are exaggerated or false.
+     "GPT-5.3-Codex는 시니어 개발자보다 빠르다" overstates benchmarks as human comparison.
+     "Seedance 2.0은 감독 없이 영화를 만든다" is factually incorrect. YouTube 2026 policy
+     explicitly penalizes misinformation. These MUST be corrected before upload.
+
+  2. CREATOR PERSPECTIVE: The closing insight "AI에 나를 더했다" is the most overused AI
+     career advice cliche of 2026. Every LinkedIn post says this. A Shorts channel needs
+     a sharper, more specific, more surprising take. What does "adding yourself" actually
+     look like? Give one concrete example.
+
+  3. UNIQUENESS CONCERN: With EP018 (AI reads memories) already in the catalog, another
+     AI-as-threat episode needs stronger structural differentiation. Both follow
+     AI capability → dystopia → philosophical/practical conclusion.
+
+  4. TECHNICAL: 2/6 images + 89% subtitle sync is NOT upload-ready.
+
+revise_items:
+  - field: "script.body[1]"
+    issue: "GPT-5.3-Codex claim misleading; Seedance 2.0 claim false"
+    suggestion: |
+      Replace with factually accurate statements. Options:
+      (a) "2026년 2월, GPT-5.3-Codex는 코딩 벤치마크 1위를 찍었다. Seedance 2.0은 15초 영상을 4분에 만든다."
+      (b) "2026년 2월, AI 코딩 에이전트는 복잡한 버그도 혼자 고친다. AI 영상 툴은 사람 없이 15초 클립을 만든다."
+      Key: state what the tools actually do, not exaggerated human comparisons.
+
+  - field: "script.body[3]"
+    issue: "'AI에 나를 더했다' is a generic cliche"
+    suggestion: |
+      Give one vivid, specific example. Options:
+      (a) "살아남은 사람들의 공통점? AI가 못 그리는 실패 경험을 팔았다."
+      (b) "살아남은 사람들의 공통점? AI 결과물에 자기 실수담을 섞었다."
+      (c) "살아남은 사람들의 공통점? AI는 평균을 만들고, 그들은 이상한 걸 만들었다."
+
+  - field: "script.hook"
+    issue: "오타 가능성 — '빼앗는다면' 맞춤법 확인 필요"
+    suggestion: "표준어 확인: '빼앗다' vs '빼앗다'. 의도적 구어체인지 오타인지 검토."
+
+  - field: "rendering"
+    issue: "Only 2/6 images generated (API quota exhaustion)"
+    suggestion: "Re-render after API recovery. Do not upload with missing visuals."
+
+  - field: "rendering"
+    issue: "Subtitle sync 89% (2/18 misaligned)"
+    suggestion: "Investigate regression from v1.1 100% target. Likely caused by mixed Korean+English product names confusing Whisper alignment."
+
+technical_verdict: "RERENDER_NEEDED"
+technical_notes: |
+  Upload is BLOCKED:
+  1. Only 2/6 images rendered — 67% of visual content missing.
+  2. Subtitle sync 89% vs 100% target — English product names likely caused Whisper misalignment.
+  Action: Fix script first (content changes require re-render anyway), then re-render with recovered APIs.
+
+previous_episode_overlap:
+  ep018_comparison: |
+    EP018: AI reads memories → privacy dystopia → philosophical question
+    EP023: AI takes jobs → career dystopia → adaptation advice
+    Structural similarity: HIGH. Both follow AI-threat → dystopia → reflective ending.
+    Recommendation: Differentiate EP023 arc with humor, irony, or unexpected twist.

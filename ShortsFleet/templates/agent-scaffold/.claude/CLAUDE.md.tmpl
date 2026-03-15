@@ -1,0 +1,114 @@
+# {{CHANNEL_NAME}} — YouTube Shorts 채널 에이전트
+
+> {{NICHE}} 분야의 YouTube Shorts 자동 생산 파이프라인
+
+---
+
+## 공통 표준
+
+이 에이전트는 HKD852 루트의 Claude Code 가이드를 따릅니다.
+- **가이드 인덱스**: [Claude Code 공식 가이드](../../docs/claude-code-guide/INDEX.md)
+- **스킬 표준**: [스킬 구조 가이드](../../docs/claude-code-guide/skills/01-skill-structure.md)
+
+---
+
+## 채널 정보
+
+| 항목 | 값 |
+|------|-----|
+| 채널 ID | `{{CHANNEL_ID}}` |
+| 표시 이름 | {{CHANNEL_NAME}} |
+| 언어 | {{LANGUAGE}} |
+| 시리즈 접두사 | `{{SERIES_PREFIX}}` |
+| 니치 | {{NICHE}} |
+| 보이스 프리셋 | `{{VOICE_PRESET}}` |
+| Fleet 등록 | ShortsFleet/registry.json |
+
+---
+
+## 파이프라인 흐름
+
+```
+[자동] 토픽 선정     → 트렌드/니치 기반 토픽 (~1분)
+  ↓
+[자동] 스크립트 생성  → 스크립트 + 메타데이터 (~2분)
+  ↓
+[자동] 렌더링        → TTS + FFmpeg (~5분)
+  ↓
+[자동] 검수          → 정책 준수 + 품질 (~1분)
+  ↓
+[수동] CEO 확인 + 업로드 (~1분)
+```
+
+---
+
+## 스킬 목록
+
+| 스킬 | 명령어 | 모델 | 역할 |
+|------|--------|------|------|
+| Channel Factory | (오케스트레이터) | Sonnet | 일일 파이프라인 |
+
+> 채널 특화 스킬은 필요에 따라 추가하세요.
+
+---
+
+## 디렉토리 구조
+
+```
+{{AGENT_DIR}}/
+├── .claude/
+│   ├── CLAUDE.md                    ← 이 문서
+│   └── skills/
+│       └── channel-factory/SKILL.md ← 오케스트레이터
+├── libs/                            → ../ShortsFactory_Agent/libs (심링크)
+├── pipeline/
+│   ├── scripts/                     ← 스크립트 (JSON)
+│   ├── rendered/                    ← 렌더링된 영상
+│   │   └── samples/
+│   ├── queue/                       ← 업로드 대기열
+│   ├── analytics/                   ← 성과 데이터
+│   ├── images/                      ← 생성 이미지
+│   └── temp/                        ← 임시 파일
+├── templates/
+│   └── hooks.json                   ← 훅 패턴 라이브러리
+├── data/
+│   ├── trends/
+│   ├── performance/
+│   └── learnings/
+└── outputs/
+```
+
+---
+
+## 공유 라이브러리
+
+`libs/` 는 `ShortsFactory_Agent/libs` 심링크입니다:
+- `tts_engine.py` — Qwen3-TTS 래퍼
+- `video_composer.py` — FFmpeg 합성
+- `subtitle_gen.py` — 자막 생성기
+- `metadata_gen.py` — 메타데이터
+- `image_gen.py` — 이미지 생성
+- `mood_profiles.py` — 무드 프로필
+
+---
+
+## 컨텍스트 관리 안전장치
+
+### 1. 스킬 단위 격리 실행
+각 스킬은 독립 서브에이전트(Task)로 실행 → 메인에 결과만 반환
+
+### 2. 파일 기반 상태 전달
+스킬 간 데이터는 JSON/YAML 파일로만 전달. 메인 컨텍스트에 전문 붙여넣기 금지.
+
+### 3. 에피소드별 1줄 요약
+```
+EP.001: PASS | 35s | 4.1MB | "타이틀..."
+```
+
+---
+
+## 버전 정보
+
+- 생성일: {{DATE}}
+- 생성 방법: ShortsFleet `/fleet-add`
+- Fleet 버전: 1.0

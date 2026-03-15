@@ -1,0 +1,81 @@
+{
+  "episode_id": "whatif_ep040",
+  "series": "만약에~",
+  "topic_id": "chat-history-public",
+  "language": "ko",
+  "visual_style": "Flat 2D cartoon illustration, bold black outlines, vibrant pastel colors, expressive chibi-style Korean characters, smartphone UI elements integrated into scenes, clean white backgrounds with subtle gradient accents, comedic facial expressions with exaggerated emotion, modern K-lifestyle aesthetic",
+  "script": {
+    "hook": "만약에 카카오톡 대화방 목록이 모두에게 보인다면?",
+    "body": [
+      "처음엔 좋을 것 같았다. 솔직해지잖아. 숨길 게 없으니까.",
+      "근데 잠깐. 읽씹 횟수가 프로필에 뱃지로 붙기 시작했다. 나... 1,247회.",
+      "단톡방 제목도 다 보인다. '이거 절대 답장 안 해도 됨' '이 사람 진짜 피곤해' '생일 축하 뒤 바로 나갈 방'."
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 카카오톡 대화방 목록이 모두에게 보인다면? 처음엔 좋을 것 같았다. 솔직해지잖아. 숨길 게 없으니까. 근데 잠깐. 읽씹 횟수가 프로필에 뱃지로 붙기 시작했다. 나... 1,247회. 단톡방 제목도 다 보인다. '이거 절대 답장 안 해도 됨' '이 사람 진짜 피곤해' '생일 축하 뒤 바로 나갈 방'. 결국 전 국민이 카카오톡 삭제하고 손편지 쓰기 시작했다. 우체국 주가 3000% 폭등.",
+  "display_text": "만약에 카카오톡 대화방 목록이 모두에게 보인다면? 처음엔 좋을 것 같았다. 솔직해지잖아. 숨길 게 없으니까. 근데 잠깐. 읽씹 횟수가 프로필에 뱃지로 붙기 시작했다. 나... 1,247회. 단톡방 제목도 다 보인다. '이거 절대 답장 안 해도 됨' '이 사람 진짜 피곤해' '생일 축하 뒤 바로 나갈 방'. 결국 전 국민이 카카오톡 삭제하고 손편지 쓰기 시작했다. 우체국 주가 3000% 폭등.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 카카오톡 대화방 목록이 모두에게 보인다면?",
+      "image_prompt": "Vertical 1080x1920 flat cartoon illustration. A young Korean man looking shocked, holding a glowing smartphone that projects his entire KakaoTalk chat list as a giant hologram visible to a crowd of people around him on a Seoul street. People gasping and pointing. Bold yellow KakaoTalk logo in background. Bright pastel colors, bold black outlines, comedic chibi art style.",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "처음엔 좋을 것 같았다. 솔직해지잖아. 숨길 게 없으니까.",
+      "image_prompt": "Vertical 1080x1920 flat cartoon illustration. A cheerful Korean woman and man sitting across each other at a cafe table, both with open honest smiling expressions, their chat lists visible as floating transparent screens beside them showing normal friendly messages. Sunshine and rainbows in background, sparkle effects. Optimistic warm pastel tones, chibi style, bold outlines.",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데 잠깐. 읽씹 횟수가 프로필에 뱃지로 붙기 시작했다. 나... 1,247회.",
+      "image_prompt": "Vertical 1080x1920 flat cartoon illustration. Close-up of a Korean man's horrified face staring at his own KakaoTalk profile. Above his name is a giant flashing red badge reading '읽씹 1,247회' with a thumbs-down icon. Sweat drops flying, hair standing on end, pure comedic terror expression. Dark dramatic background spotlight, bold outlines, flat cartoon style.",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "단톡방 제목도 다 보인다. '이거 절대 답장 안 해도 됨' '이 사람 진짜 피곤해' '생일 축하 뒤 바로 나갈 방'.",
+      "image_prompt": "Vertical 1080x1920 flat cartoon illustration. A Korean group chat room list floating in the air showing brutally honest chat room names in Korean text bubbles: '이거 절대 답장 안 해도 됨', '이 사람 진짜 피곤해', '생일 축하 뒤 바로 나갈 방'. Multiple cartoon characters looking at each other with awkward side-eyes and nervous sweat. Pastel background, bold black outlines, comedic expressions.",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "결국 전 국민이 카카오톡 삭제하고 손편지 쓰기 시작했다. 우체국 주가 3000% 폭등.",
+      "image_prompt": "Vertical 1080x1920 flat cartoon illustration. Split scene: left side shows everyone deleting KakaoTalk app with satisfying pop effect, right side shows people happily writing handwritten letters with quill pens and sending them via cartoon post office. A giant stock chart in the background showing Korea Post stock shooting up 3000% with fireworks. Celebratory mood, bright colors, chibi characters, bold outlines.",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "📱 카카오톡 대화방이 모두에게 보인다면? #만약에",
+    "thumbnail_text": "읽씹 들통",
+    "description": "만약에 카카오톡 대화방 목록이 전부 공개된다면?\n읽씹 뱃지, 단톡방 비밀 제목... 대한민국 �멘붕 시작.\n결국 손편지로 돌아간 우리들의 이야기 😂\n#만약에 #카카오톡 #읽씹 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#카카오톡", "#읽씹", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 9,
+      "unexpected": 9,
+      "concrete": 8,
+      "credible": 8,
+      "emotional": 9,
+      "stories": 9,
+      "total": 52,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "카카오톡 대화방이 공개되면 솔직해져서 오히려 인간관계가 좋아질 것 같다",
+      "conflict": "읽씹 횟수 뱃지 공개 + 단톡방 민망한 진짜 이름들이 전부 드러남",
+      "twist": "결국 전 국민이 카카오톡 삭제하고 손편지로 회귀 → 우체국 주가 폭등"
+    },
+    "hook_pattern": "what-if (effectiveness: 85)"
+  }
+}

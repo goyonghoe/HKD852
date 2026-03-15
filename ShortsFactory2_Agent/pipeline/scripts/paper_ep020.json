@@ -1,0 +1,125 @@
+{
+  "episode_id": "paper_ep020",
+  "series": "오늘의 논문",
+  "topic_id": "investor-memory-behavioral-bias-returns",
+  "language": "ko",
+  "paper_source": {
+    "title": "Investor Memory",
+    "authors": "Gödker K, Jiao P, Smeets P",
+    "journal": "Review of Financial Studies",
+    "year": 2025,
+    "doi": "10.1093/rfs/hhaf006",
+    "peer_reviewed": true,
+    "institution": "Bocconi University / University of Amsterdam",
+    "sample_size": 229,
+    "key_finding": "투자자는 일주일 후 실제보다 수익 경험을 23% 더 많이, 손실 경험을 10% 더 적게 기억하며, 이 왜곡된 기억이 실제 수익률보다 미래 투자 결정을 더 강하게 예측한다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, investment and finance iconography — brain anatomy, memory nodes, stock curves, coin stacks — rendered in deep electric blue and warm golden amber accent tones, clean geometric shapes and smooth curves, layered composition with scientific journal quality illustrations, no text no numbers no words anywhere in images, tall vertical 9:16 portrait composition optimized for mobile viewing, bottom quarter solid deep navy for subtitle space",
+  "script": {
+    "hook": "일주일 전 내 주식 수익, 지금 기억하는 것보다 사실 23%나 부풀려져 있대요.",
+    "body": [
+      "229명 투자자를 실험했는데요, 일주일 뒤 기억을 물어봤더니 수익 난 경험은 실제보다 23% 더 많이, 손실은 10% 더 적게 기억하고 있었거든요.",
+      "그런데 더 충격적인 건, 이 왜곡된 기억이 실제 수익률보다 다음 매수 결정을 훨씬 더 잘 예측했다는 거예요.",
+      "즉, 우리 뇌는 수익을 과장하고 손실을 지워버리면서, 스스로 물타기와 과잉 매수를 부추기는 거거든요."
+    ],
+    "closer": "내가 잘했다고 느끼는 그 기억, 뇌가 편집한 버전일 수 있어요.",
+    "cta": ""
+  },
+  "full_text": "일주일 전 내 주식 수익, 지금 기억하는 것보다 사실 23%나 부풀려져 있대요. 229명 투자자를 실험했는데요, 일주일 뒤 기억을 물어봤더니 수익 난 경험은 실제보다 23% 더 많이, 손실은 10% 더 적게 기억하고 있었거든요. 그런데 더 충격적인 건, 이 왜곡된 기억이 실제 수익률보다 다음 매수 결정을 훨씬 더 잘 예측했다는 거예요. 즉, 우리 뇌는 수익을 과장하고 손실을 지워버리면서, 스스로 물타기와 과잉 매수를 부추기는 거거든요. 내가 잘했다고 느끼는 그 기억, 뇌가 편집한 버전일 수 있어요.",
+  "display_text": "일주일 전 내 주식 수익, 지금 기억하는 것보다 사실 23%나 부풀려져 있대요. 229명 투자자를 실험했는데요, 일주일 뒤 기억을 물어봤더니 수익 난 경험은 실제보다 23% 더 많이, 손실은 10% 더 적게 기억하고 있었거든요. 그런데 더 충격적인 건, 이 왜곡된 기억이 실제 수익률보다 다음 매수 결정을 훨씬 더 잘 예측했다는 거예요. 즉, 우리 뇌는 수익을 과장하고 손실을 지워버리면서, 스스로 물타기와 과잉 매수를 부추기는 거거든요. 내가 잘했다고 느끼는 그 기억, 뇌가 편집한 버전일 수 있어요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "일주일 전 내 주식 수익, 지금 기억하는 것보다 사실 23%나 부풀려져 있대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a large glowing human brain floating at center frame, its surface covered in softly pulsing memory nodes shaped like golden coins and rising arrows all glowing warm amber, the left hemisphere visibly larger and more luminous than the right creating an off-balance asymmetry, below the brain a shadowy mirror-image reflection shows the same brain but the golden nodes are dimmer and fewer, the gap between the bright remembered version above and the dim real version below creates the visual tension of distorted memory, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "229명 투자자를 실험했는데요, 일주일 뒤 기억을 물어봤더니 수익 난 경험은 실제보다 23% 더 많이, 손실은 10% 더 적게 기억하고 있었거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, top half of frame shows a cluster of small silhouetted human figures representing a study group, all facing a large glowing hourglass in the center symbolizing one week of elapsed time, below the hourglass the brain splits into two visual zones, the left zone is filled with abundant bright golden upward-pointing memory fragments representing recalled gains overflowing and radiating outward, the right zone shows only a sparse handful of cool grey downward memory fragments representing recalled losses that seem to fade and dissolve, the stark contrast between the overflowing gold left and the near-empty grey right communicates the asymmetric memory distortion visually, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "그런데 더 충격적인 건, 이 왜곡된 기억이 실제 수익률보다 다음 매수 결정을 훨씬 더 잘 예측했다는 거예요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, two vertical glowing bars side by side at center frame like an abstract signal-strength comparison, the left bar is shorter and cool electric blue labeled with a subtle chart-line symbol representing actual historical returns, the right bar is significantly taller and blazing warm amber-gold radiating energy outward representing distorted memory, from the top of the taller right bar a glowing arrow curves forward and downward pointing toward a buy order icon at the bottom of the frame symbolizing the next investment decision, the right bar visually dominates and drives the action making the memory path far more influential than the data path, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "즉, 우리 뇌는 수익을 과장하고 손실을 지워버리면서, 스스로 물타기와 과잉 매수를 부추기는 거거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a large stylized human brain at center frame visibly acts as an editor or filter, on the left side of the brain a stream of mixed memories enters — alternating warm gold gain-symbols and cold blue loss-symbols flowing in together, inside the brain the loss-symbols are visibly absorbed and deleted shown as fading grey wisps dissolving, on the right side only the amplified golden gain-symbols exit in a bright concentrated beam, at the bottom of the frame a hand reaching for a glowing buy button bathed in that golden light illustrating the overconfident reinvestment impulse, the brain-as-selective-editor metaphor is the core visual story, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "내가 잘했다고 느끼는 그 기억, 뇌가 편집한 버전일 수 있어요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a close-up of a stylized human head in profile, inside the visible brain cavity a film editing timeline runs horizontally with memory clips, the loss-scenes shown as dark cool-grey frames are clipped and removed with a symbolic scissors-cut leaving gaps, the gain-scenes shown as warm golden frames are enlarged and brightened, the edited timeline on the right side of the sequence glows beautifully golden compared to the raw mixed reality on the left side, the head figure has a calm contented expression unaware of the editing happening inside, the juxtaposition of internal editing and outward calm creates a quiet unsettling revelation, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🧠 내 투자 기억이 수익을 23% 부풀린다 #오늘의논문",
+    "thumbnail_text": "기억왜곡=과잉매수",
+    "description": "투자자의 기억이 실제 수익을 23% 과장하고, 이 왜곡된 기억이 다음 투자 결정을 지배한다는 Review of Financial Studies 연구입니다.\n\n📄 논문 출처\nTitle: Investor Memory\nAuthors: Gödker K, Jiao P, Smeets P\nJournal: Review of Financial Studies (2025)\nDOI: https://doi.org/10.1093/rfs/hhaf006\nPeer-reviewed: ✅\nInstitution: Bocconi University / University of Amsterdam\n\nKey finding: 229명 투자자 대상 3가지 실험(실험실+온라인). 일주일 후 수익 경험을 23% 더 많이, 손실은 10% 더 적게 기억. 왜곡된 기억이 실제 수익률보다 미래 투자 결정을 더 강하게 예측.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #투자심리 #행동경제학 #투자편향 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#투자심리",
+      "#행동경제학",
+      "#투자편향",
+      "#주식",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "🧠 내 투자 기억이 수익을 23% 부풀린다 #오늘의논문",
+      "description": "투자자의 기억이 실제 수익을 23% 과장하고, 이 왜곡된 기억이 다음 투자 결정을 지배한다는 Review of Financial Studies 연구입니다.\n\n📄 논문 출처\nTitle: Investor Memory\nAuthors: Gödker K, Jiao P, Smeets P\nJournal: Review of Financial Studies (2025)\nDOI: https://doi.org/10.1093/rfs/hhaf006\nPeer-reviewed: ✅\nInstitution: Bocconi University / University of Amsterdam\n\nKey finding: 229명 투자자 대상 3가지 실험(실험실+온라인). 일주일 후 수익 경험을 23% 더 많이, 손실은 10% 더 적게 기억. 왜곡된 기억이 실제 수익률보다 미래 투자 결정을 더 강하게 예측.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #투자심리 #행동경제학 #투자편향 #주식 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "투자심리",
+        "행동경제학",
+        "투자편향",
+        "기억왜곡",
+        "과잉매수",
+        "주식",
+        "인지편향",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.5,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 10,
+      "emotional": 10,
+      "stories": 9,
+      "total": 58,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "나는 내 투자 성과를 있는 그대로 기억한다",
+      "conflict": "뇌는 수익을 23% 부풀리고 손실을 10% 삭제하며 기억을 편집한다",
+      "twist": "왜곡된 기억이 실제 수익률보다 다음 매수 결정을 더 강하게 예측한다 — 데이터가 아닌 편집된 기억이 투자를 지배한다",
+      "punchline": "내가 잘했다고 느끼는 그 기억, 뇌가 편집한 버전일 수 있다"
+    },
+    "hook_pattern": "investor-shock (effectiveness: 95)"
+  }
+}

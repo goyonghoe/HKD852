@@ -1,0 +1,119 @@
+{
+  "episode_id": "paper_ep019",
+  "series": "오늘의 논문",
+  "topic_id": "sucralose-brain-hunger-hypothalamus-obesity",
+  "language": "ko",
+  "paper_source": {
+    "title": "Non-caloric sweetener effects on brain appetite regulation in individuals across varying body weights",
+    "authors": "Chakravartti SP et al.",
+    "journal": "Nature Metabolism",
+    "year": 2025,
+    "doi": "10.1038/s42255-025-01227-8",
+    "peer_reviewed": true,
+    "key_finding": "성인 75명 대상 무작위 이중맹검 교차 임상시험. 수크랄로스(제로칼로리 감미료) 섭취 시 실제 설탕 대비 시상하부 혈류와 배고픔 신호가 유의하게 더 크게 활성화됨. 비만인에서 이 효과가 가장 두드러졌으며, BMI가 높을수록 감미료 유발 식욕 활성화가 강해지는 용량-반응 관계 확인."
+  },
+  "visual_style": "Nano Banana Pro scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, electric cyan and cool purple brain glow accents contrasted with warm sugar-brown and zero-calorie ice-blue tones, consistent round-faced mascot character, clean geometric shapes and smooth curves, layered composition with data visualization elements, scientific journal quality illustrations, no text no numbers no words anywhere in images, tall vertical 9:16 portrait composition optimized for mobile viewing, bottom quarter solid deep navy for subtitle space",
+  "script": {
+    "hook": "제로칼로리 음료를 마실수록 더 배고파진다는 거, 논문이 진짜로 밝혔대요.",
+    "body": [
+      "75명을 대상으로 실험했는데요, 제로 감미료를 먹으면 뇌에서 배고픔 신호가 오히려 더 강하게 켜졌대요.",
+      "실제 설탕보다 시상하부 혈류가 더 크게 올라간 거예요.",
+      "특히 비만인 분들한테서 이 효과가 훨씬 강했대요. 살찔수록 제로 음료가 더 역효과를 낸다는 거거든요."
+    ],
+    "closer": "0칼로리라고 안심하고 마셨던 거, 뇌는 속지 않았던 거예요.",
+    "cta": ""
+  },
+  "full_text": "제로칼로리 음료를 마실수록 더 배고파진다는 거, 논문이 진짜로 밝혔대요. 75명을 대상으로 실험했는데요, 제로 감미료를 먹으면 뇌에서 배고픔 신호가 오히려 더 강하게 켜졌대요. 실제 설탕보다 시상하부 혈류가 더 크게 올라간 거예요. 특히 비만인 분들한테서 이 효과가 훨씬 강했대요. 살찔수록 제로 음료가 더 역효과를 낸다는 거거든요. 0칼로리라고 안심하고 마셨던 거, 뇌는 속지 않았던 거예요.",
+  "display_text": "제로칼로리 음료를 마실수록 더 배고파진다는 거, 논문이 진짜로 밝혔대요. 75명을 대상으로 실험했는데요, 제로 감미료를 먹으면 뇌에서 배고픔 신호가 오히려 더 강하게 켜졌대요. 실제 설탕보다 시상하부 혈류가 더 크게 올라간 거예요. 특히 비만인 분들한테서 이 효과가 훨씬 강했대요. 살찔수록 제로 음료가 더 역효과를 낸다는 거거든요. 0칼로리라고 안심하고 마셨던 거, 뇌는 속지 않았던 거예요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "제로칼로리 음료를 마실수록 더 배고파진다는 거, 논문이 진짜로 밝혔대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Nano Banana Pro flat vector infographic style with subtle gradients, a round-faced mascot character holding a zero-calorie soda can with a big satisfied smile on the left side of frame, on the right side an oversized cartoon stomach growling with vibrating hunger waves radiating outward in warm orange, between the two elements a large surprised expression on a floating brain with electric cyan glow pulsing, the ironic contrast between the diet drink and intensified hunger creates visual tension, clean geometric shapes smooth curves, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "75명을 대상으로 실험했는데요, 제로 감미료를 먹으면 뇌에서 배고픔 신호가 오히려 더 강하게 켜졌대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Nano Banana Pro flat vector infographic style with subtle gradients, a large cross-section of a human brain glowing at the center of the frame in electric cyan and cool purple, the hypothalamus region at the brain center pulses with an intensely bright warm amber-orange light indicating heightened hunger activation, below the brain a tiny zero-calorie sweetener crystal or molecule symbol feeds upward into the brain via a glowing pipeline, around the outer brain a ring of small silhouetted figures representing the study participants in soft blue, the unexpected brightness of the hunger signal is the visual surprise, deep dark navy-black background, clean geometric shapes, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "실제 설탕보다 시상하부 혈류가 더 크게 올라간 거예요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Nano Banana Pro flat vector infographic style with subtle gradients, a direct side-by-side comparison split vertically down the center of the frame, left side shows real sugar represented by a warm golden crystal cube feeding into a brain cross-section with a moderate amber glow in the hypothalamus region, right side shows a zero-calorie molecule feeding into the same brain cross-section but with a much larger and brighter electric orange-red glow in the hypothalamus, the right side glow overwhelms and overflows compared to the left, both brain diagrams are identical in shape making the size difference in hunger signal obvious, deep dark navy-black background, clean geometric shapes, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "특히 비만인 분들한테서 이 효과가 훨씬 강했대요. 살찔수록 제로 음료가 더 역효과를 낸다는 거거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Nano Banana Pro flat vector infographic style with subtle gradients, three round-faced mascot characters of progressively larger body sizes arranged left to right from slim to larger, above each character a floating brain cross-section shows the hypothalamus hunger glow progressively growing more intense from left to right, the rightmost largest character has the most blazing orange-red hypothalamus glow that overflows the brain outline, each character holds an identical zero-calorie soda can showing the same input but dramatically different brain responses, the escalating visual clearly shows the dose-response relationship, deep dark navy-black background, clean geometric shapes, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "0칼로리라고 안심하고 마셨던 거, 뇌는 속지 않았던 거예요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Nano Banana Pro flat vector infographic style with subtle gradients, the round-faced mascot character seen from the shoulders up looking directly at the viewer with a stunned wide-eyed realization expression, in one hand a zero-calorie drink can with a prominent zero on it in faint ghost watermark style, inside the character's head a visible brain glows intensely in electric cyan and orange alarm colors showing hunger signals firing, outside the character a soft reassuring cool-blue aura that was their belief about the zero-calorie drink contrasts sharply with the alarmed warm-orange inside the brain, the betrayal between expectation and biological reality is the visual punchline, intimate close-up composition breaking the fourth wall, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🧠 다이어트 콜라가 더 배고프게 만든다 #오늘의논문",
+    "thumbnail_text": "제로=더 배고픔",
+    "description": "제로칼로리 감미료가 실제 설탕보다 뇌의 배고픔 신호를 더 강하게 켠다는 Nature Metabolism 연구입니다.\n\n📄 논문 출처\nTitle: Non-caloric sweetener effects on brain appetite regulation in individuals across varying body weights\nAuthors: Chakravartti SP et al.\nJournal: Nature Metabolism (2025)\nDOI: https://doi.org/10.1038/s42255-025-01227-8\nPeer-reviewed: ✅\n\nKey finding: 75명 무작위 이중맹검 교차 임상시험. 수크랄로스 섭취 시 실제 설탕 대비 시상하부 혈류와 배고픔 신호가 더 크게 활성화. 비만인에서 효과가 가장 두드러짐.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #다이어트콜라 #제로음료 #뇌과학 #식욕 #비만 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#다이어트콜라",
+      "#제로음료",
+      "#뇌과학",
+      "#식욕",
+      "#비만",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "🧠 다이어트 콜라가 더 배고프게 만든다 #오늘의논문",
+      "description": "제로칼로리 감미료가 실제 설탕보다 뇌의 배고픔 신호를 더 강하게 켠다는 Nature Metabolism 연구입니다.\n\n📄 논문 출처\nTitle: Non-caloric sweetener effects on brain appetite regulation in individuals across varying body weights\nAuthors: Chakravartti SP et al.\nJournal: Nature Metabolism (2025)\nDOI: https://doi.org/10.1038/s42255-025-01227-8\nPeer-reviewed: ✅\n\nKey finding: 75명 무작위 이중맹검 교차 임상시험. 수크랄로스 섭취 시 실제 설탕 대비 시상하부 혈류와 배고픔 신호가 더 크게 활성화. 비만인에서 효과가 가장 두드러짐.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #다이어트콜라 #제로음료 #뇌과학 #식욕 #비만 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "다이어트콜라",
+        "제로음료",
+        "수크랄로스",
+        "뇌과학",
+        "식욕",
+        "시상하부",
+        "비만",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 9,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 10,
+      "emotional": 9,
+      "stories": 9,
+      "total": 56,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "제로칼로리 음료는 살 안 찌게 도와준다",
+      "conflict": "뇌의 배고픔 신호가 실제 설탕보다 더 강하게 켜진다",
+      "twist": "비만인일수록 이 역효과가 더 강해진다 — 도움이 필요한 사람에게 더 나쁘다",
+      "punchline": "0칼로리라고 안심했던 바로 그 음료, 뇌는 속지 않았다"
+    },
+    "hook_pattern": "counterintuitive-reveal (effectiveness: 97)"
+  }
+}

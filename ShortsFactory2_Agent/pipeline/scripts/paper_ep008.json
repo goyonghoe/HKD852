@@ -1,0 +1,115 @@
+{
+  "episode_id": "paper_ep008",
+  "series": "오늘의 논문",
+  "topic_id": "swearing-makes-you-stronger",
+  "language": "ko",
+  "paper_source": {
+    "title": "\"Don't Hold Back\": Swearing Improves Strength Through State Disinhibition",
+    "authors": "Stephens R et al.",
+    "journal": "American Psychologist",
+    "year": 2025,
+    "doi": "10.1037/amp0001650",
+    "peer_reviewed": true,
+    "key_finding": "욕을 하면서 운동하면 근력·지구력이 유의미하게 증가하며, 통증 실험에서도 31초 더 오래 버팀. 메커니즘은 뇌의 억제 해제(state disinhibition)"
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, consistent round-faced child character with big eyes and backwards red baseball cap, deep navy background, no text or numbers in images",
+  "script": {
+    "hook": "힘들 때 욕이 튀어나오죠? 그거 참으면 안 된대요.",
+    "body": [
+      "원래 욕은 감정 조절 실패니까, 참는 게 맞다고 했거든요.",
+      "근데요, 192명한테 온몸으로 버티는 운동을 시키면서 욕을 반복하게 했더니요.",
+      "욕한 사람이 훨씬 더 오래 버텼대요. 통증 실험에서도 욕하면서 얼음물에 버틴 사람이 31초나 더 견뎠거든요. 뇌가 억제를 풀면서 몸이 파이트 모드로 전환되는 거래요."
+    ],
+    "closer": "그러니까 세상에서 제일 싼 근력 보충제는, 약국이 아니라 여러분 입에서 나오고 있었던 거래요.",
+    "cta": ""
+  },
+  "full_text": "힘들 때 욕이 튀어나오죠? 그거 참으면 안 된대요. 원래 욕은 감정 조절 실패니까, 참는 게 맞다고 했거든요. 근데요, 192명한테 온몸으로 버티는 운동을 시키면서 욕을 반복하게 했더니요. 욕한 사람이 훨씬 더 오래 버텼대요. 통증 실험에서도 욕하면서 얼음물에 버틴 사람이 31초나 더 견뎠거든요. 뇌가 억제를 풀면서 몸이 파이트 모드로 전환되는 거래요. 그러니까 세상에서 제일 싼 근력 보충제는, 약국이 아니라 여러분 입에서 나오고 있었던 거래요.",
+  "display_text": "힘들 때 욕이 튀어나오죠? 그거 참으면 안 된대요. 원래 욕은 감정 조절 실패니까, 참는 게 맞다고 했거든요. 근데요, 192명한테 온몸으로 버티는 운동을 시키면서 욕을 반복하게 했더니요. 욕한 사람이 훨씬 더 오래 버텼대요. 통증 실험에서도 욕하면서 얼음물에 버틴 사람이 31초나 더 견뎠거든요. 뇌가 억제를 풀면서 몸이 파이트 모드로 전환되는 거래요. 그러니까 세상에서 제일 싼 근력 보충제는, 약국이 아니라 여러분 입에서 나오고 있었던 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "힘들 때 욕이 튀어나오죠? 그거 참으면 안 된대요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a cute round-faced child with big eyes and backwards red baseball cap struggling hard to lift a comically oversized barbell at a gym, face bright red with effort and steam coming out of ears, mouth wide open screaming with jagged angry speech lines radiating outward representing intense yelling, the child looks furious but determined, gym equipment in background, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "원래 욕은 감정 조절 실패니까, 참는 게 맞다고 했거든요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap sitting properly with hands folded and mouth tightly zipped shut with a visible zipper across the lips, looking frustrated with bulging cheeks holding something in, a stern teacher-like figure wagging a disapproving finger at the child, the scene feels restrictive and uncomfortable, muted cool tones suggesting suppression, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데요, 192명한테 온몸으로 버티는 운동을 시키면서 욕을 반복하게 했더니요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a large group of cartoon characters in a gym all doing chair pushups with arms trembling, some have mouths wide open yelling with jagged angry speech lines while others have mouths closed looking calm, a scientist in white lab coat with clipboard observing them with an amused expression, bright energetic warm colors suggesting intensity and effort, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "욕한 사람이 훨씬 더 오래 버텼대요. 통증 실험에서도 욕하면서 얼음물에 버틴 사람이 31초나 더 견뎠거든요. 뇌가 억제를 풀면서 몸이 파이트 모드로 전환되는 거래요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap plunging a hand into a bucket of ice cubes with a fierce warrior expression and fiery aura surrounding the body, the child's eyes are blazing with determination and mouth is open in a battle cry, inside a cutaway of the child's head a cartoon brain character is flipping a big glowing switch from calm mode to fight mode with lightning bolts, the whole scene radiates power and intensity with warm orange and red energy waves, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "그러니까 세상에서 제일 싼 근력 보충제는, 약국이 아니라 여러분 입에서 나오고 있었던 거래요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap looking at the viewer with a cheeky mischievous grin breaking the fourth wall, one hand flexing a cartoonishly huge muscular bicep while the other hand points at their own wide open mouth, around the child protein shake bottles and pill containers are tossed aside and ignored, a warm golden triumphant glow behind the child, humorous and ironic composition, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "\ud83e\udd2c \uc695\ud558\uba74 \ud798\uc774 \uc138\uc9c4\ub2e4\ub294 \ub17c\ubb38\uc774 \ub098\uc654\uc2b5\ub2c8\ub2e4 #\uc624\ub298\uc758\ub17c\ubb38",
+    "thumbnail_text": "\uc695=\uadfc\ub825UP",
+    "description": "\ud798\ub4e4 \ub54c \uc695\uc774 \ud280\uc5b4\ub098\uc624\ub294 \uac70, \ucc38\uc73c\uba74 \uc190\ud574\uc785\ub2c8\ub2e4. American Psychologist \ub17c\ubb38\uc774 \ubc1d\ud78c \ub193\ub77c\uc6b4 \uc0ac\uc2e4.\n\n\ud83d\udcc4 \ub17c\ubb38 \ucd9c\ucc98\n\uc81c\ubaa9: \"Don't Hold Back\": Swearing Improves Strength Through State Disinhibition\n\uc800\uc790: Stephens R et al.\n\uc800\ub110: American Psychologist (2025)\nDOI: https://doi.org/10.1037/amp0001650\n\ud53c\uc5b4\ub9ac\ubdf0: \u2705\n\n\ud575\uc2ec \ubc1c\uacac: \uc695\uc744 \ud558\uba74\uc11c \uc6b4\ub3d9\ud558\uba74 \uadfc\ub825\u00b7\uc9c0\uad6c\ub825 \uc99d\uac00, \ud1b5\uc99d \uc2e4\ud5d8\uc5d0\uc11c 31\ucd08 \ub354 \uc624\ub798 \ubc84\ud568\n\n\u2500\n\uc624\ub298\uc758 \ub17c\ubb38\uc740 \ub9e4\uc77c \ud765\ubbf8\ub85c\uc6b4 \ucd5c\uc2e0 \ud559\uc220 \ub17c\ubb38\uc744 30\ucd08\ub85c \uc694\uc57d\ud569\ub2c8\ub2e4.\n\ub17c\ubb38 \uc6d0\ubb38\uc740 \uc704 DOI \ub9c1\ud06c\uc5d0\uc11c \ud655\uc778\ud558\uc138\uc694.\n\n#\uc624\ub298\uc758\ub17c\ubb38 #\uc695 #\uadfc\ub825 #\uc6b4\ub3d9 #Shorts",
+    "hashtags": [
+      "#\uc624\ub298\uc758\ub17c\ubb38",
+      "#\uc695",
+      "#\uadfc\ub825",
+      "#\uc6b4\ub3d9",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "\ud83e\udd2c \uc695\ud558\uba74 \ud798\uc774 \uc138\uc9c4\ub2e4\ub294 \ub17c\ubb38\uc774 \ub098\uc654\uc2b5\ub2c8\ub2e4 #\uc624\ub298\uc758\ub17c\ubb38",
+      "description": "\ud798\ub4e4 \ub54c \uc695\uc774 \ud280\uc5b4\ub098\uc624\ub294 \uac70, \ucc38\uc73c\uba74 \uc190\ud574\uc785\ub2c8\ub2e4. American Psychologist \ub17c\ubb38\uc774 \ubc1d\ud78c \ub193\ub77c\uc6b4 \uc0ac\uc2e4.\n\n\ud83d\udcc4 \ub17c\ubb38 \ucd9c\ucc98\n\uc81c\ubaa9: \"Don't Hold Back\": Swearing Improves Strength Through State Disinhibition\n\uc800\uc790: Stephens R et al.\n\uc800\ub110: American Psychologist (2025)\nDOI: https://doi.org/10.1037/amp0001650\n\ud53c\uc5b4\ub9ac\ubdf0: \u2705\n\n\ud575\uc2ec \ubc1c\uacac: \uc695\uc744 \ud558\uba74\uc11c \uc6b4\ub3d9\ud558\uba74 \uadfc\ub825\u00b7\uc9c0\uad6c\ub825 \uc99d\uac00, \ud1b5\uc99d \uc2e4\ud5d8\uc5d0\uc11c 31\ucd08 \ub354 \uc624\ub798 \ubc84\ud568\n\n\u2500\n\uc624\ub298\uc758 \ub17c\ubb38\uc740 \ub9e4\uc77c \ud765\ubbf8\ub85c\uc6b4 \ucd5c\uc2e0 \ud559\uc220 \ub17c\ubb38\uc744 30\ucd08\ub85c \uc694\uc57d\ud569\ub2c8\ub2e4.\n\ub17c\ubb38 \uc6d0\ubb38\uc740 \uc704 DOI \ub9c1\ud06c\uc5d0\uc11c \ud655\uc778\ud558\uc138\uc694.\n\n#\uc624\ub298\uc758\ub17c\ubb38 #\uc695 #\uadfc\ub825 #\uc6b4\ub3d9 #Shorts",
+      "tags": [
+        "\uc624\ub298\uc758\ub17c\ubb38",
+        "\uc695",
+        "\uadfc\ub825",
+        "\uc6b4\ub3d9",
+        "\ud1b5\uc99d",
+        "\ub17c\ubb38\ub9ac\ubdf0",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "bright-boy",
+    "speed": 1.1,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 10,
+      "credible": 9,
+      "emotional": 10,
+      "stories": 9,
+      "total": 58,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "욕은 감정 조절 실패, 참아야 함 (사회적 상식)",
+      "conflict": "192명 실험에서 욕하면서 운동한 그룹이 더 오래 버팀",
+      "twist": "통증 31초 추가 + 뇌가 억제를 풀어 파이트 모드 진입",
+      "punchline": "세상에서 제일 싼 근력 보충제가 입에서 나오고 있었다 → 비유적 반전"
+    },
+    "hook_pattern": "common-belief-challenge (effectiveness: 94)"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep018",
+  "series": "오늘의 논문",
+  "topic_id": "eating-alone-metabolic-syndrome-korean-men",
+  "language": "ko",
+  "paper_source": {
+    "title": "Eating Alone is Differentially Associated with the Risk of Metabolic Syndrome in Korean Men and Women",
+    "authors": "Kim CK, Kim HJ, Chung HK, Shin D",
+    "journal": "International Journal of Environmental Research and Public Health",
+    "year": 2018,
+    "doi": "10.3390/ijerph15051020",
+    "peer_reviewed": true,
+    "key_finding": "한국인 8,988명 대상 KNHANES 조사. 저녁을 혼자 먹는 남성은 대사증후군 위험 51% 증가(AOR 1.51). 점심+저녁 혼자 먹으면 54% 증가. 세끼 다 혼자 먹는 40~64세 남성의 대사증후군 유병률 50.1%. 반면 여성은 아침 혼식 시 오히려 30% 감소(AOR 0.70)."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, warm orange and amber glow accents for food elements contrasted with cool lonely blue tones, consistent round-faced mascot character, clean geometric shapes and smooth curves, layered composition with data visualization elements, scientific journal quality illustrations, no text no numbers no words anywhere in images, tall vertical 9:16 portrait composition optimized for mobile viewing, bottom quarter solid deep navy for subtitle space",
+  "script": {
+    "hook": "혼자 밥 먹는 남자들이요, 대사증후군 걸릴 확률이 51퍼센트나 높대요.",
+    "body": [
+      "한국인 구천 명을 조사했는데요, 저녁을 혼자 먹는 남자가 가장 위험했대요.",
+      "점심이랑 저녁을 둘 다 혼자 먹으면요, 54퍼센트까지 올라갔대요.",
+      "근데 여자는 반대였대요. 아침을 혼자 먹을 때 오히려 위험이 30퍼센트 낮아졌대요."
+    ],
+    "closer": "오늘도 혼자 배달 시키려고 했죠? 네, 몸이 그걸 기억하고 있대요.",
+    "cta": ""
+  },
+  "full_text": "혼자 밥 먹는 남자들이요, 대사증후군 걸릴 확률이 51퍼센트나 높대요. 한국인 구천 명을 조사했는데요, 저녁을 혼자 먹는 남자가 가장 위험했대요. 점심이랑 저녁을 둘 다 혼자 먹으면요, 54퍼센트까지 올라갔대요. 근데 여자는 반대였대요. 아침을 혼자 먹을 때 오히려 위험이 30퍼센트 낮아졌대요. 오늘도 혼자 배달 시키려고 했죠? 네, 몸이 그걸 기억하고 있대요.",
+  "display_text": "혼자 밥 먹는 남자들이요, 대사증후군 걸릴 확률이 51퍼센트나 높대요. 한국인 구천 명을 조사했는데요, 저녁을 혼자 먹는 남자가 가장 위험했대요. 점심이랑 저녁을 둘 다 혼자 먹으면요, 54퍼센트까지 올라갔대요. 근데 여자는 반대였대요. 아침을 혼자 먹을 때 오히려 위험이 30퍼센트 낮아졌대요. 오늘도 혼자 배달 시키려고 했죠? 네, 몸이 그걸 기억하고 있대요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "혼자 밥 먹는 남자들이요, 대사증후군 걸릴 확률이 51퍼센트나 높대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Kurzgesagt-inspired flat vector infographic style with subtle gradients, a lone male mascot character sitting at a small table eating dinner alone in the center of frame, the table has warm orange glowing food items like rice bowl and side dishes, around him a large cold blue empty space emphasizes isolation, above his head a health warning gauge meter fills halfway with alarming red and orange colors showing elevated risk, the contrast between warm food glow and cold lonely blue creates emotional tension, clean geometric shapes smooth curves, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "한국인 구천 명을 조사했는데요, 저녁을 혼자 먹는 남자가 가장 위험했대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Kurzgesagt-inspired flat vector infographic style with subtle gradients, a large group of tiny simplified people silhouettes filling the upper portion of the frame in cool blue tones representing the study population, from this crowd one male figure at the bottom is highlighted and separated sitting alone at a dinner table with warm orange food glow, a spotlight or magnifying glass effect isolates this solo diner, a danger indicator radiates from the isolated figure in red concentric rings, the visual tells the story of one person extracted from a large study, deep dark navy-black background, clean geometric shapes, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "점심이랑 저녁을 둘 다 혼자 먹으면요, 54퍼센트까지 올라갔대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Kurzgesagt-inspired flat vector infographic style with subtle gradients, two meal scenes stacked vertically showing the same male mascot character eating alone, top scene shows lunch with a bright midday sun icon and warm orange food items on the table, bottom scene shows dinner with a moon icon and similar warm food items, both scenes surrounded by cold lonely blue empty chairs, between the two scenes a risk arrow pointing upward glows in escalating orange to red showing compounding danger, the repetition of solo dining visually emphasizes the pattern, deep dark navy-black background, clean geometric shapes, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "근데 여자는 반대였대요. 아침을 혼자 먹을 때 오히려 위험이 30퍼센트 낮아졌대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Kurzgesagt-inspired flat vector infographic style with subtle gradients, a split composition comparing male and female outcomes, left side shows a male mascot character eating alone with a red downward health arrow indicating worsening risk in warm danger tones, right side shows a female mascot character eating breakfast alone peacefully with a green upward health arrow indicating improved health in cool calming tones, a morning sunrise glow behind the female figure adds warmth, the stark visual contrast between the two opposite outcomes creates surprise and curiosity, deep dark navy-black background, clean geometric shapes, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "오늘도 혼자 배달 시키려고 했죠? 네, 몸이 그걸 기억하고 있대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, Kurzgesagt-inspired flat vector infographic style with subtle gradients, the male mascot character seen from chest up looking at viewer with a caught guilty expression, one hand visible holding a smartphone with a glowing food delivery app screen in warm orange, around him empty chairs and an empty table setting emphasize solitude in cool blue tones, inside his body a subtle transparent overlay shows organs with faint warning indicators glowing in amber, the character makes eye contact breaking the fourth wall, intimate close-up composition, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🍚 혼밥하는 남자, 대사증후군 51% 높다 #오늘의논문",
+    "thumbnail_text": "혼밥=위험",
+    "description": "저녁을 혼자 먹는 남성은 대사증후군 위험이 51% 높다는 한국인 대상 연구입니다.\n\n📄 논문 출처\nTitle: Eating Alone is Differentially Associated with the Risk of Metabolic Syndrome in Korean Men and Women\nAuthors: Kim CK et al.\nJournal: Int. J. Environ. Res. Public Health (2018)\nDOI: https://doi.org/10.3390/ijerph15051020\nPeer-reviewed: ✅\n\nKey finding: 한국인 8,988명 조사. 저녁 혼식 남성 대사증후군 AOR 1.51. 점심+저녁 혼식 시 AOR 1.54. 반면 여성 아침 혼식 시 AOR 0.70.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #혼밥 #대사증후군 #건강 #Shorts",
+    "hashtags": ["#오늘의논문", "#혼밥", "#대사증후군", "#건강", "#Shorts"],
+    "youtube": {
+      "title": "🍚 혼밥하는 남자, 대사증후군 51% 높다 #오늘의논문",
+      "description": "저녁을 혼자 먹는 남성은 대사증후군 위험이 51% 높다는 한국인 대상 연구입니다.\n\n📄 논문 출처\nTitle: Eating Alone is Differentially Associated with the Risk of Metabolic Syndrome in Korean Men and Women\nAuthors: Kim CK et al.\nJournal: Int. J. Environ. Res. Public Health (2018)\nDOI: https://doi.org/10.3390/ijerph15051020\nPeer-reviewed: ✅\n\nKey finding: 한국인 8,988명 조사. 저녁 혼식 남성 대사증후군 AOR 1.51. 점심+저녁 혼식 시 AOR 1.54. 반면 여성 아침 혼식 시 AOR 0.70.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #혼밥 #대사증후군 #건강 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "혼밥",
+        "대사증후군",
+        "1인가구",
+        "건강",
+        "배달음식",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 9,
+      "concrete": 10,
+      "credible": 10,
+      "emotional": 10,
+      "stories": 9,
+      "total": 58,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "혼밥은 편하고 괜찮다",
+      "conflict": "남자는 혼밥하면 대사증후군 51% 증가",
+      "twist": "여자는 오히려 반대 — 혼자 먹으면 위험 감소",
+      "punchline": "오늘도 혼자 배달 시키려던 바로 너"
+    },
+    "hook_pattern": "personal-attack (effectiveness: 96)"
+  }
+}

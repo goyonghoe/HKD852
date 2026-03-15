@@ -1,0 +1,20 @@
+date: "2026-02-22"
+batch_number: 1
+topic:
+  title: "만약에 AI가 나보다 나를 더 잘 안다면?"
+  niche: "ai-tech"
+  score: 94
+  rpm_estimate: "$8-15"
+  angle: "반전 구조 — AI 편리함의 기대 → 프라이버시 공포 → AI가 내 진짜 꿈을 말해주는 감동 반전"
+  sources:
+    - "트렌드: 2026 필코노미(AI 초개인화 추천), AI 싱귀러리티 70M조회 바이럴"
+  competition: "medium"
+  format_recommendation: "story"
+  voice_preset: "hangout-male"
+scoring:
+  rpm: 85
+  volume: 95
+  difficulty_inv: 100
+  performance_bonus: 5
+  competition_penalty: -5
+  total: 94

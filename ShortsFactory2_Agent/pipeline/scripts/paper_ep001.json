@@ -1,0 +1,82 @@
+{
+  "episode_id": "paper_ep001",
+  "series": "오늘의 논문",
+  "topic_id": "social-media-brain-waves",
+  "language": "ko",
+  "paper_source": {
+    "title": "Modern Day High: The Neurocognitive Impact of Social Media Usage",
+    "authors": "Satani A, Kheskani Satani K, Barodia P, Joshi H",
+    "journal": "Cureus",
+    "year": 2025,
+    "doi": "PMC12329480",
+    "institution": "Satani Research Centre, Ahmedabad, India",
+    "sample_size": 100,
+    "key_finding": "정치/뉴스 콘텐츠가 밈보다 뇌의 알파파를 40% 더 오래 억제"
+  },
+  "visual_style": "clean scientific infographic with deep navy blue background, white text labels, data visualization charts, brain scan imagery, modern Nature journal aesthetic, minimal and professional",
+  "script": {
+    "hook": "SNS를 하루 3시간 넘게 하면, 당신 뇌는 지금 이 순간에도 변하고 있습니다.",
+    "body": [
+      "올해 발표된 뇌파 연구 논문인데요. 100명의 성인 뇌를 EEG로 실시간 측정했습니다.",
+      "SNS를 스크롤할 때 집중력을 담당하는 알파파가 급격히 떨어지고, 흥분 상태인 베타파와 감마파가 치솟았는데요.",
+      "충격적인 건 이겁니다. 정치 뉴스 콘텐츠를 본 뒤에는 밈이나 재밌는 영상보다 뇌의 흥분 상태가 40%나 더 오래 지속됐습니다.",
+      "20분 이상 스크롤하면 뇌는 피로 상태에 빠지면서도, 보상 회로는 계속 더 원합니다. 마약 중독과 같은 패턴이거든요."
+    ],
+    "cta": ""
+  },
+  "full_text": "SNS를 하루 3시간 넘게 하면, 당신 뇌는 지금 이 순간에도 변하고 있습니다. 올해 발표된 뇌파 연구 논문인데요. 100명의 성인 뇌를 EEG로 실시간 측정했습니다. SNS를 스크롤할 때 집중력을 담당하는 알파파가 급격히 떨어지고, 흥분 상태인 베타파와 감마파가 치솟았는데요. 충격적인 건 이겁니다. 정치 뉴스 콘텐츠를 본 뒤에는 밈이나 재밌는 영상보다 뇌의 흥분 상태가 40%나 더 오래 지속됐습니다. 20분 이상 스크롤하면 뇌는 피로 상태에 빠지면서도, 보상 회로는 계속 더 원합니다. 마약 중독과 같은 패턴이거든요.",
+  "display_text": "SNS를 하루 3시간 넘게 하면, 당신 뇌는 지금 이 순간에도 변하고 있습니다. 올해 발표된 뇌파 연구 논문인데요. 100명의 성인 뇌를 EEG로 실시간 측정했습니다. SNS를 스크롤할 때 집중력을 담당하는 알파파가 급격히 떨어지고, 흥분 상태인 베타파와 감마파가 치솟았는데요. 충격적인 건 이겁니다. 정치 뉴스 콘텐츠를 본 뒤에는 밈이나 재밌는 영상보다 뇌의 흥분 상태가 40%나 더 오래 지속됐습니다. 20분 이상 스크롤하면 뇌는 피로 상태에 빠지면서도, 보상 회로는 계속 더 원합니다. 마약 중독과 같은 패턴이거든요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "SNS를 하루 3시간 넘게 하면, 당신 뇌는 지금 이 순간에도 변하고 있습니다.",
+      "image_prompt": "Scientific infographic style: a glowing human brain viewed from the side on a deep navy blue background, with neural pathways lighting up in neon cyan and orange, a smartphone screen reflecting onto the brain surface, clean white text label 'SNS × Brain' in the corner, Nature journal quality illustration, minimalist professional design",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "올해 발표된 뇌파 연구 논문인데요. 100명의 성인 뇌를 EEG로 실시간 측정했습니다.",
+      "image_prompt": "Clean scientific infographic: a person wearing an EEG headset with electrode dots on their scalp, brain wave patterns displayed on a monitor beside them showing alpha beta gamma theta waves as colored line graphs, sample size indicator showing N=100 in bold white text, deep navy background with subtle grid lines, modern medical illustration style, professional and trustworthy",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "SNS를 스크롤할 때 집중력을 담당하는 알파파가 급격히 떨어지고, 흥분 상태인 베타파와 감마파가 치솟았는데요.",
+      "image_prompt": "Data visualization infographic on deep navy background: two contrasting bar charts side by side, left chart shows Alpha waves dropping sharply with a red downward arrow labeled in Korean, right chart shows Beta and Gamma waves spiking upward with green upward arrows, clean white gridlines, a small brain icon at the top center with color-coded regions, modern scientific journal style with sans-serif typography",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "충격적인 건 이겁니다. 정치 뉴스 콘텐츠를 본 뒤에는 밈이나 재밌는 영상보다 뇌의 흥분 상태가 40%나 더 오래 지속됐습니다.",
+      "image_prompt": "Scientific comparison infographic on deep navy background: two horizontal timeline bars, top bar labeled 'Political News' in red showing a long sustained activation period, bottom bar labeled 'Memes' in green showing a shorter activation period, a bold white text overlay '40% LONGER' with an emphasis arrow, brain silhouette in the background with the prefrontal cortex highlighted in warm red, clean modern data visualization style",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "20분 이상 스크롤하면 뇌는 피로 상태에 빠지면서도, 보상 회로는 계속 더 원합니다. 마약 중독과 같은 패턴이거든요.",
+      "image_prompt": "Split comparison infographic on deep navy background: left side shows a tired brain with dimmed colors and fatigue indicators labeled 'Mental Exhaustion', right side shows the reward circuit pathway glowing bright dopamine orange in a loop pattern labeled 'Reward Loop', a circular arrow connecting both sides suggesting an endless cycle, small comparison diagram at bottom showing drug addiction vs social media addiction neural pathways side by side, clean professional scientific illustration",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "🧠 SNS 3시간이면 뇌가 바뀐다? #오늘의논문",
+    "thumbnail_text": "뇌파가 변한다",
+    "description": "오늘의 논문: SNS가 뇌파를 실시간으로 바꾼다는 연구 결과. 정치 뉴스가 밈보다 뇌 흥분 40% 더 오래 지속.\n출처: Cureus (2025), Satani et al.\n#오늘의논문 #심리학 #뇌과학 #SNS #Shorts",
+    "hashtags": ["#오늘의논문", "#심리학", "#뇌과학", "#SNS", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "source_citation": {
+      "journal": "Cureus",
+      "year": 2025,
+      "doi": "PMC12329480",
+      "peer_reviewed": true
+    },
+    "hook_pattern": "number-hook (effectiveness: 90)"
+  }
+}

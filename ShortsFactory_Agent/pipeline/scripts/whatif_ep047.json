@@ -1,0 +1,70 @@
+{
+  "episode_id": "whatif_ep047",
+  "series": "만약에~",
+  "topic_id": "oxygen-gone-5-seconds",
+  "language": "ko",
+  "visual_style": "flat 2D minimalist vector illustration, bold geometric shapes, rich saturated colors on deep dark blue background, soft inner gradient shading, warm glow effects, simplified cute rounded characters with no outlines, clean educational animation aesthetic, smooth color transitions, cosmic deep atmosphere",
+  "script": {
+    "hook": "만약에 산소가 딱 5초만 사라진다면?",
+    "body": [
+      "먼저 건물이 무너진다. 콘크리트 속 산소가 빠지면서 전 세계 빌딩이 동시에 먼지가 된다.",
+      "하늘이 사라진다. 산소 없이는 빛이 산란을 못 해. 대낮인데 우주처럼 깜깜해진다.",
+      "근데 진짜 공포는 바다다. 물에서 산소가 빠지면 수소만 남는다. 바다가 통째로 하늘로 올라간다.",
+      "그리고 5초 후 산소가 돌아오는 순간. 수소에 불이 붙으면서 지구가 한 번 폭발한다.",
+      "고작 5초. 숨 한번 참으면 되는 시간에 문명이 끝난다. 너라면 이 5초를 어디서 버틸 거야?"
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 산소가 딱 5초만 사라진다면? 먼저 건물이 무너진다. 콘크리트 속 산소가 빠지면서 전 세계 빌딩이 동시에 먼지가 된다. 하늘이 사라진다. 산소 없이는 빛이 산란을 못 해. 대낮인데 우주처럼 깜깜해진다. 근데 진짜 공포는 바다다. 물에서 산소가 빠지면 수소만 남는다. 바다가 통째로 하늘로 올라간다. 그리고 5초 후 산소가 돌아오는 순간. 수소에 불이 붙으면서 지구가 한 번 폭발한다. 고작 5초. 숨 한번 참으면 되는 시간에 문명이 끝난다. 너라면 이 5초를 어디서 버틸 거야?",
+  "display_text": "만약에 산소가 딱 5초만 사라진다면? 먼저 건물이 무너진다. 콘크리트 속 산소가 빠지면서 전 세계 빌딩이 동시에 먼지가 된다. 하늘이 사라진다. 산소 없이는 빛이 산란을 못 해. 대낮인데 우주처럼 깜깜해진다. 근데 진짜 공포는 바다다. 물에서 산소가 빠지면 수소만 남는다. 바다가 통째로 하늘로 올라간다. 그리고 5초 후 산소가 돌아오는 순간. 수소에 불이 붙으면서 지구가 한 번 폭발한다. 고작 5초. 숨 한번 참으면 되는 시간에 문명이 끝난다. 너라면 이 5초를 어디서 버틸 거야?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 산소가 딱 5초만 사라진다면?",
+      "image_prompt": "Vertical 1080x1920. A tiny cute simplified round-headed human figure standing alone on a vast dark surface, looking up at an enormous glowing O2 molecule floating above that is cracking apart and dissolving into particles. The background is deep space dark blue gradient fading to black. The O2 molecule emits warm orange glow as it breaks. Tiny white stars scattered in the background. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated colors on deep dark navy background, soft gradient shading, warm glow lighting effects, simplified cute rounded character with no outlines, clean educational animation aesthetic, smooth color transitions",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "먼저 건물이 무너진다. 콘크리트 속 산소가 빠지면서 전 세계 빌딩이 동시에 먼지가 된다.",
+      "image_prompt": "Vertical 1080x1920. A city skyline made of simplified geometric building shapes crumbling and dissolving downward into fine dust particles. The buildings are rendered in warm orange and coral tones against a deep dark blue-purple sky. Dust clouds billow upward as golden-orange particle streams. Small simplified round-headed human figures run below in panic. Everything rendered in flat bold shapes with smooth gradients. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated warm colors on deep dark navy background, soft gradient shading, warm glow lighting effects, simplified cute rounded characters, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "하늘이 사라진다. 산소 없이는 빛이 산란을 못 해. 대낮인데 우주처럼 깜깜해진다.",
+      "image_prompt": "Vertical 1080x1920. A dramatic split composition. The bottom half shows a simplified flat city street with tiny cute round-headed figures looking upward. The top half transitions sharply from light blue to pitch black void filled with bright white stars and a visible Milky Way band. The sun is a tiny harsh white circle in the black void casting sharp geometric light beams downward. The transition line between blue sky and black void is sharp and dramatic. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated colors, smooth gradient from warm ground to cold black space, clean educational animation aesthetic, simplified cute rounded characters",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "근데 진짜 공포는 바다다. 물에서 산소가 빠지면 수소만 남는다. 바다가 통째로 하늘로 올라간다.",
+      "image_prompt": "Vertical 1080x1920. A vast ocean scene where the water is rising upward in massive geometric column shapes, defying gravity. The water columns are rendered in beautiful teal and cyan gradients, glowing from within with soft light as they rise into a dark starry void sky. The exposed ocean floor is dark brown with simplified stranded ships and sea creatures. Tiny H2 molecule symbols float upward with the water. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated teal and cyan on deep dark background, soft gradient shading, ethereal glow effects, clean educational animation aesthetic, majestic cosmic scale",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "그리고 5초 후 산소가 돌아오는 순간. 수소에 불이 붙으면서 지구가 한 번 폭발한다.",
+      "image_prompt": "Vertical 1080x1920. Planet Earth viewed from space as a simplified flat geometric circle, engulfed in a massive ring of bright orange and yellow fire expanding outward in concentric circles. The explosion creates beautiful warm gradient waves of orange, coral, and golden light radiating from the planet against the deep dark blue-black void of space. Small white stars visible behind the explosion glow. The planet itself glows white-hot at the center. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated warm explosion colors on deep dark space background, dramatic warm glow effects, clean educational animation aesthetic, cosmic scale catastrophe",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "고작 5초. 숨 한번 참으면 되는 시간에 문명이 끝난다. 너라면 이 5초를 어디서 버틸 거야?",
+      "image_prompt": "Vertical 1080x1920. A single tiny cute simplified round-headed human figure sitting alone on a small floating rock fragment in vast empty dark space. Below the figure, the destroyed Earth glows faintly orange in the distance. Above, a field of white stars stretches infinitely. The figure is small but warmly lit by a soft amber glow. The scene conveys loneliness and contemplation at cosmic scale. Flat 2D minimalist vector illustration, bold geometric shapes, rich deep dark blue-purple space background, warm amber accent glow on character, soft gradient shading, clean educational animation aesthetic, emotional cosmic solitude",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "🌍 산소가 5초만 사라지면 생기는 일 #만약에",
+    "thumbnail_text": "산소 5초",
+    "description": "만약에 시리즈: 산소가 딱 5초만 사라진다면?\n건물 붕괴, 하늘 소멸, 바다 증발, 그리고 지구 폭발.\n고작 5초에 문명이 끝난다.\n#만약에 #산소 #과학 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#산소", "#과학", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

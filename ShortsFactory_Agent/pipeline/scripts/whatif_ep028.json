@@ -1,0 +1,69 @@
+{
+  "episode_id": "whatif_ep028",
+  "series": "만약에~",
+  "topic_id": "half-gravity",
+  "language": "ko",
+  "visual_style": "dreamy low-gravity atmosphere with soft pastel sky gradients, floating objects and people, cloud-level architecture, weightless elegance, airy and ethereal composition, ",
+  "script": {
+    "hook": "만약 지구의 중력이 반으로 줄어든다면?",
+    "body": [
+      "사람이 점프하면 3층 높이까지 뛴다.",
+      "건물을 200층까지 지을 수 있다.",
+      "비행기가 필요 없어진다. 날개만 달면 날 수 있다.",
+      "하지만 뼈와 근육이 약해져서 인간의 몸이 망가진다."
+    ],
+    "cta": "가벼운 세상, 진짜 좋을까? 구독 눌러."
+  },
+  "full_text": "만약 지구의 중력이 반으로 줄어든다면? 사람이 점프하면 3층 높이까지 뛴다. 건물을 200층까지 지을 수 있다. 비행기가 필요 없어진다. 날개만 달면 날 수 있다. 하지만 뼈와 근육이 약해져서 인간의 몸이 망가진다. 가벼운 세상, 진짜 좋을까? 구독 눌러.",
+  "display_text": "만약 지구의 중력이 반으로 줄어든다면? 사람이 점프하면 3층 높이까지 뛴다. 건물을 200층까지 지을 수 있다. 비행기가 필요 없어진다. 날개만 달면 날 수 있다. 하지만 뼈와 근육이 약해져서 인간의 몸이 망가진다. 가벼운 세상, 진짜 좋을까?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 지구의 중력이 반으로 줄어든다면?",
+      "image_prompt": "A person floating slightly above the ground with hair and clothes drifting upward, everyday objects hovering around them, soft pastel sky, the magical moment gravity changes, wonder on their face",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "사람이 점프하면 3층 높이까지 뛴다.",
+      "image_prompt": "A person mid-jump soaring past the third floor of a building, people on balconies watching in amazement, trail of motion blur, city background with pastel sky, exhilarating freedom of movement",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "건물을 200층까지 지을 수 있다.",
+      "image_prompt": "An impossibly tall and slender skyscraper piercing through clouds, delicate architecture that could never exist in normal gravity, bridges connecting towers at cloud level, dreamy pastel cityscape",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "비행기가 필요 없어진다. 날개만 달면 날 수 있다.",
+      "image_prompt": "People gliding through the sky wearing simple wing suits, soaring between cloud-level buildings, abandoned airports below, birds flying alongside humans, pastel sunset, pure freedom",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "하지만 뼈와 근육이 약해져서 인간의 몸이 망가진다.",
+      "image_prompt": "A medical X-ray style image showing thin fragile bones inside a human silhouette, the person struggling to stand, muscles atrophied, contrast between the beautiful floating world outside and the broken body within",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "가벼운 세상, 진짜 좋을까? 구독 눌러.",
+      "image_prompt": "A person sitting on a floating rock at sunset, legs dangling over the clouds, looking down at the distant ground far below with a mix of wonder and fear, contemplating the trade-off, warm pastel horizon",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "지구 중력이 반으로 줄어든다면? #만약에",
+    "thumbnail_text": "점프=3층 높이",
+    "description": "만약 지구의 중력이 반으로 줄어든다면? 날 수 있지만, 몸이 망가진다.\n#만약에 #중력 #과학 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#중력", "#과학", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

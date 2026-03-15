@@ -1,0 +1,63 @@
+{
+  "episode_id": "whatif_ep037",
+  "series": "만약에~",
+  "topic_id": "mom-nagging-damage",
+  "language": "ko",
+  "visual_style": "RPG game UI overlay on real life scenes, health bars and damage numbers floating in the air, retro pixel game effects mixed with cartoon illustration, vibrant game-inspired color palette, ",
+  "script": {
+    "hook": "만약 엄마 잔소리가 게임처럼 데미지를 준다면?",
+    "body": [
+      "아침에 일어나자마자 '밥 먹어라'. 데미지 30. 체력바가 깎인다.",
+      "'공부 안 해?' 크리티컬 히트. 데미지 150. 멘탈 게이지가 흔들린다.",
+      "'옆집 아들은 벌써 취직했대.' 궁극기 발동. 데미지 9999.",
+      "근데 이상하다. 체력이 0이 되면, 엄마가 간식을 가져온다. 회복 물약이었다."
+    ],
+    "cta": ""
+  },
+  "full_text": "만약 엄마 잔소리가 게임처럼 데미지를 준다면? 아침에 일어나자마자 '밥 먹어라'. 데미지 30. 체력바가 깎인다. '공부 안 해?' 크리티컬 히트. 데미지 150. 멘탈 게이지가 흔들린다. '옆집 아들은 벌써 취직했대.' 궁극기 발동. 데미지 9999. 근데 이상하다. 체력이 0이 되면, 엄마가 간식을 가져온다. 회복 물약이었다.",
+  "display_text": "만약 엄마 잔소리가 게임처럼 데미지를 준다면? 아침에 일어나자마자 '밥 먹어라'. 데미지 30. 체력바가 깎인다. '공부 안 해?' 크리티컬 히트. 데미지 150. 멘탈 게이지가 흔들린다. '옆집 아들은 벌써 취직했대.' 궁극기 발동. 데미지 9999. 근데 이상하다. 체력이 0이 되면, 엄마가 간식을 가져온다. 회복 물약이었다.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 엄마 잔소리가 게임처럼 데미지를 준다면?",
+      "image_prompt": "A Korean mom standing in a living room with RPG game health bars and status effects floating around her like a boss character, her mouth open mid-nag with visible sound wave attack effect, a teenager cowering with a green HP bar above their head, retro game UI elements overlaid on cartoon home scene",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "아침에 일어나자마자 '밥 먹어라'. 데미지 30. 체력바가 깎인다.",
+      "image_prompt": "Morning bedroom scene with a teenager just waking up in bed, a mom at the doorway with a speech bubble attack saying eat breakfast, floating red damage number 30 popping up, the teenager's HP bar at the top decreasing slightly, game hit effect sparkles, cartoon comedy style with RPG game overlay",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "'공부 안 해?' 크리티컬 히트. 데미지 150. 멘탈 게이지가 흔들린다.",
+      "image_prompt": "A study desk scene with a teenager on their phone, mom appears with a giant glowing critical hit effect and the words study attack, damage number 150 in gold with explosion effects, the teenager's HP bar dropping significantly and a mental gauge bar shaking and cracking, dramatic RPG battle effects on cartoon scene",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "'옆집 아들은 벌써 취직했대.' 궁극기 발동. 데미지 9999.",
+      "image_prompt": "An epic ultimate attack scene where the mom is glowing with a massive aura like a final boss using their ultimate ability, giant damage number 9999 filling the screen, the teenager flat on the ground with HP bar completely empty and skull icon, screen-shaking explosion effects, over the top RPG game visual with dramatic lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "근데 이상하다. 체력이 0이 되면, 엄마가 간식을 가져온다. 회복 물약이었다.",
+      "image_prompt": "A warm wholesome scene where the same mom is gently placing a tray of fruit and snacks next to the defeated teenager, a green healing effect glowing around the snacks like an RPG healing potion, the HP bar slowly refilling with sparkles, the mom smiling warmly, heartwarming contrast to the battle scenes before, cartoon style with soft warm lighting",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "엄마 잔소리가 데미지를 준다면? #만약에",
+    "thumbnail_text": "엄마=최종보스",
+    "description": "만약 엄마 잔소리가 게임처럼 데미지를 준다면? 옆집 아들 비교는 궁극기급.\n#만약에 #엄마 #잔소리 #게임 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#엄마", "#잔소리", "#게임", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

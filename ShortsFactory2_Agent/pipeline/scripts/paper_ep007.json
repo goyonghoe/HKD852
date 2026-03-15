@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep007",
+  "series": "오늘의 논문",
+  "topic_id": "sleep-deprived-brain-cleans-itself-awake",
+  "language": "ko",
+  "paper_source": {
+    "title": "Attentional failures after sleep deprivation are locked to joint neurovascular, pupil and cerebrospinal fluid flow dynamics",
+    "authors": "Yang Z, Williams SD, Beldzik E, Anakwe S, Schimmelpfennig E, Lewis LD",
+    "journal": "Nature Neuroscience",
+    "year": 2025,
+    "doi": "10.1038/s41593-025-02098-8",
+    "peer_reviewed": true,
+    "key_finding": "수면 부족 시 뇌가 깨어 있는 상태에서도 뇌척수액 세척을 시작하며, 주의력 저하는 이 청소 과정과 동기화됨"
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, consistent round-faced child character with big eyes and backwards red baseball cap, deep navy background, no text or numbers in images",
+  "script": {
+    "hook": "밤새 공부하다 갑자기 멍 때린 적 있죠? 그거 의지력 문제가 아니래요.",
+    "body": [
+      "원래 뇌 청소는 잠잘 때만 된다고 했거든요. 뇌척수액이 쭉 흘러서 노폐물을 씻어내는 건데요.",
+      "근데요, 잠 못 잔 사람 26명의 뇌를 찍어봤더니요.",
+      "깨어 있는데도 뇌 청소가 시작되는 거예요. 청소 12초 전부터 동공이 쪼그라들면서 집중력이 뚝 끊긴대요. 뇌가 강제로 전원을 내리는 거죠."
+    ],
+    "closer": "그러니까 밤새 외운 공식 대신, 뇌는 쓰레기통을 비우고 있었던 거래요.",
+    "cta": ""
+  },
+  "full_text": "밤새 공부하다 갑자기 멍 때린 적 있죠? 그거 의지력 문제가 아니래요. 원래 뇌 청소는 잠잘 때만 된다고 했거든요. 뇌척수액이 쭉 흘러서 노폐물을 씻어내는 건데요. 근데요, 잠 못 잔 사람 26명의 뇌를 찍어봤더니요. 깨어 있는데도 뇌 청소가 시작되는 거예요. 청소 12초 전부터 동공이 쪼그라들면서 집중력이 뚝 끊긴대요. 뇌가 강제로 전원을 내리는 거죠. 그러니까 밤새 외운 공식 대신, 뇌는 쓰레기통을 비우고 있었던 거래요.",
+  "display_text": "밤새 공부하다 갑자기 멍 때린 적 있죠? 그거 의지력 문제가 아니래요. 원래 뇌 청소는 잠잘 때만 된다고 했거든요. 뇌척수액이 쭉 흘러서 노폐물을 씻어내는 건데요. 근데요, 잠 못 잔 사람 26명의 뇌를 찍어봤더니요. 깨어 있는데도 뇌 청소가 시작되는 거예요. 청소 12초 전부터 동공이 쪼그라들면서 집중력이 뚝 끊긴대요. 뇌가 강제로 전원을 내리는 거죠. 그러니까 밤새 외운 공식 대신, 뇌는 쓰레기통을 비우고 있었던 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "밤새 공부하다 갑자기 멍 때린 적 있죠? 그거 의지력 문제가 아니래요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a cute round-faced child with big eyes and backwards red baseball cap sitting at a desk late at night looking completely zoned out with spiral dizzy eyes and drooling slightly, a tall stack of open books around them and a bright desk lamp glowing, a window behind showing dark night sky with moon and stars, the child looks exhausted but trying hard, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "원래 뇌 청소는 잠잘 때만 된다고 했거든요. 뇌척수액이 쭉 흘러서 노폐물을 씻어내는 건데요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap peacefully sleeping on a pillow with a happy smile, inside a cutaway view of the child's head a cute tiny cartoon janitor character is mopping and cleaning with sparkles and bubbles representing cerebrospinal fluid washing through the brain, everything looks calm and orderly, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데요, 잠 못 잔 사람 26명의 뇌를 찍어봤더니요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap standing inside a giant MRI brain scanner machine looking nervous with wide eyes, a scientist character in white lab coat operating the machine looking intrigued, the scanner glows with bright cyan light scanning the child's head, dramatic lighting suggesting a big discovery is about to happen, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "깨어 있는데도 뇌 청소가 시작되는 거예요. 청소 12초 전부터 동공이 쪼그라들면서 집중력이 뚝 끊긴대요. 뇌가 강제로 전원을 내리는 거죠.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap wide awake but with tiny pinpoint pupils looking stunned, inside a cutaway view of the child's head the tiny cartoon janitor character is frantically mopping and cleaning with bubbles and sparkles even though the child is awake, meanwhile a stern cartoon brain character is pulling down a giant power lever switch to shut everything off, floating thought bubbles around the child are popping and vanishing representing focus being cut, dramatic contrast between the cleaning activity inside and the shutdown outside, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "그러니까 밤새 외운 공식 대신, 뇌는 쓰레기통을 비우고 있었던 거래요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap looking at the viewer with a cheeky mischievous grin breaking the fourth wall, inside a cutaway of the child's head the tiny janitor character is triumphantly dumping a huge overflowing trash can full of glowing brain waste while scattered math formulas and study notes fly away forgotten in the background, the janitor looks proud and satisfied, warm golden glow behind the child suggesting an ironic happy ending, humorous composition, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "\ud83e\udde0 밤새 공부하면 뇌가 하는 진짜 행동 #오늘의논문",
+    "thumbnail_text": "뇌=청소 ON",
+    "description": "잠 부족할 때 멍 때리는 이유, 뇌가 일부러 하는 거였습니다. Nature Neuroscience 논문이 밝힌 놀라운 사실.\n\n\ud83d\udcc4 논문 출처\n제목: Attentional failures after sleep deprivation are locked to joint neurovascular, pupil and cerebrospinal fluid flow dynamics\n저자: Yang Z, Williams SD, Beldzik E, Anakwe S, Schimmelpfennig E, Lewis LD\n저널: Nature Neuroscience (2025)\nDOI: https://doi.org/10.1038/s41593-025-02098-8\n피어리뷰: \u2705\n\n핵심 발견: 수면 부족 시 뇌가 깨어 있는 상태에서도 뇌척수액 세척을 시작하며, 주의력 저하는 이 세척 과정 시작 12초 전부터 동기화\n\n\u2500\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #수면 #뇌과학 #집중력 #Shorts",
+    "hashtags": ["#오늘의논문", "#수면", "#뇌과학", "#집중력", "#Shorts"],
+    "youtube": {
+      "title": "\ud83e\udde0 밤새 공부하면 뇌가 하는 진짜 행동 #오늘의논문",
+      "description": "잠 부족할 때 멍 때리는 이유, 뇌가 일부러 하는 거였습니다. Nature Neuroscience 논문이 밝힌 놀라운 사실.\n\n\ud83d\udcc4 논문 출처\n제목: Attentional failures after sleep deprivation are locked to joint neurovascular, pupil and cerebrospinal fluid flow dynamics\n저자: Yang Z, Williams SD, Beldzik E, Anakwe S, Schimmelpfennig E, Lewis LD\n저널: Nature Neuroscience (2025)\nDOI: https://doi.org/10.1038/s41593-025-02098-8\n피어리뷰: \u2705\n\n핵심 발견: 수면 부족 시 뇌가 깨어 있는 상태에서도 뇌척수액 세척을 시작하며, 주의력 저하는 이 세척 과정 시작 12초 전부터 동기화\n\n\u2500\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #수면 #뇌과학 #집중력 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "수면",
+        "뇌과학",
+        "집중력",
+        "수면부족",
+        "논문리뷰",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "bright-boy",
+    "speed": 1.1,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 10,
+      "emotional": 9,
+      "stories": 9,
+      "total": 57,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "멍 때리는 건 의지력 부족 (자기 탓)",
+      "conflict": "뇌 청소는 잠잘 때만 된다고 했는데 깨어있는데도 시작됨",
+      "twist": "뇌가 12초 전에 강제 전원 차단 → 청소를 집중보다 우선시",
+      "punchline": "밤새 외운 공식 대신 뇌는 쓰레기통을 비움 → 비유적 반전"
+    },
+    "hook_pattern": "common-belief-challenge (effectiveness: 93)"
+  }
+}

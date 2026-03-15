@@ -1,0 +1,15 @@
+episode_id: "whatif_ep034"
+review_date: "2026-02-20"
+verdict: "PASS"
+scores:
+  source_citation: 8 # 가상 시나리오, 색각 의존 일상 분석
+  substantial_transformation: 9 # 음식→교통→예술→인간관계 4단계 전개
+  ai_misrepresentation_free: 10 # 가상 시나리오 명확
+  creator_perspective: 9 # "외모 대신 마음을 본다" — 따뜻한 철학적 마무리
+  uniqueness: 9 # 색 테마 시리즈 최초, 매우 독창적
+  hook_strength: 9 # "세상에서 색이 사라진다면?" — 시각적 대비 극대화
+  factual_accuracy: 8 # 신호등 색각 의존, 음식 인지 색영향 — 정확
+total_score: 62
+feedback: "감성적으로 가장 완성도 높은 에피소드. 부정→긍정 반전('마음을 더 깊이 보게 된다')이 시청자 공감 유도. 흑백→컬러 시각적 대비가 숏폼에 매우 효과적."
+revise_items: []
+image_safety: "PASS" # 모든 이미지 프롬프트 film noir 미학 기반, 혐오 요소 없음

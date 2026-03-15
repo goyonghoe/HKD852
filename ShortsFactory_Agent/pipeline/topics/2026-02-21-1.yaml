@@ -1,0 +1,19 @@
+date: "2026-02-21"
+batch_number: 1
+episode_id: "whatif_ep039"
+topic:
+  title: "만약에 먹는 음식 칼로리가 눈앞에 실시간으로 보인다면?"
+  topic_id: "calorie-count-visible"
+  niche: "health-food"
+  score: 88
+  angle: "처음엔 다이어트 성공 기대 → 치킨 한 조각에 빨간 경고창 → 금기라서 오히려 먹방에 더 미침"
+  competition: "low"
+  format_recommendation: "dark-bg-text"
+  tts_voice: "hangout-male"
+scoring:
+  rpm: 55
+  volume: 90
+  difficulty_inv: 100
+  performance_bonus: 5
+  competition_penalty: 0
+  total: 88

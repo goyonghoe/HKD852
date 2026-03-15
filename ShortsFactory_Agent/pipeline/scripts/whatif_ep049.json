@@ -1,0 +1,70 @@
+{
+  "episode_id": "whatif_ep049",
+  "series": "만약에~",
+  "topic_id": "mbti-superpower",
+  "language": "ko",
+  "visual_style": "flat 2D minimalist vector illustration, bold geometric shapes, rich saturated colors on deep dark blue background, soft inner gradient shading, warm glow effects, simplified cute rounded characters with no outlines, clean educational animation aesthetic, smooth color transitions, playful colorful energy",
+  "script": {
+    "hook": "만약에 MBTI가 진짜 초능력이라면?",
+    "body": [
+      "먼저 ENFP. 순간이동이 된다. 근데 3초마다 목적지가 바뀐다. 결국 하루 종일 깜빡깜빡 제자리.",
+      "ISTJ는 시간을 멈출 수 있다. 근데 멈춘 시간에도 보고서를 쓴다. 초능력이 의미가 없다.",
+      "INFP는 감정이 무기다. 우울해지면 반경 10미터가 전부 같이 운다. 팀 회의에서 쓰면 전원 퇴사.",
+      "ENTJ는 눈빛만으로 사람을 조종한다. 근데 원래도 그랬잖아.",
+      "근데 제일 사기인 건 ISTP다. 모든 능력을 복사할 수 있다. 근데 귀찮아서 안 쓴다. 너 MBTI 뭔데?"
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 MBTI가 진짜 초능력이라면? 먼저 ENFP. 순간이동이 된다. 근데 3초마다 목적지가 바뀐다. 결국 하루 종일 깜빡깜빡 제자리. ISTJ는 시간을 멈출 수 있다. 근데 멈춘 시간에도 보고서를 쓴다. 초능력이 의미가 없다. INFP는 감정이 무기다. 우울해지면 반경 10미터가 전부 같이 운다. 팀 회의에서 쓰면 전원 퇴사. ENTJ는 눈빛만으로 사람을 조종한다. 근데 원래도 그랬잖아. 근데 제일 사기인 건 ISTP다. 모든 능력을 복사할 수 있다. 근데 귀찮아서 안 쓴다. 너 MBTI 뭔데?",
+  "display_text": "만약에 MBTI가 진짜 초능력이라면? 먼저 ENFP. 순간이동이 된다. 근데 3초마다 목적지가 바뀐다. 결국 하루 종일 깜빡깜빡 제자리. ISTJ는 시간을 멈출 수 있다. 근데 멈춘 시간에도 보고서를 쓴다. 초능력이 의미가 없다. INFP는 감정이 무기다. 우울해지면 반경 10미터가 전부 같이 운다. 팀 회의에서 쓰면 전원 퇴사. ENTJ는 눈빛만으로 사람을 조종한다. 근데 원래도 그랬잖아. 근데 제일 사기인 건 ISTP다. 모든 능력을 복사할 수 있다. 근데 귀찮아서 안 쓴다. 너 MBTI 뭔데?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 MBTI가 진짜 초능력이라면?",
+      "image_prompt": "Vertical 1080x1920. A tiny cute simplified round-headed human figure standing at the center of a vast dark space, surrounded by four giant glowing letter pairs floating in the air: each pair glows a different vibrant color (warm pink, electric blue, bright green, golden yellow). Energy beams connect the letters to the figure, who looks amazed with arms spread wide. Deep dark navy background with colorful energy particles swirling. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated multiple colors on deep dark blue background, soft inner gradient shading, warm and cool glow effects mixed, simplified cute rounded character with no outlines, clean educational animation aesthetic",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "먼저 ENFP. 순간이동이 된다. 근데 3초마다 목적지가 바뀐다. 결국 하루 종일 깜빡깜빡 제자리.",
+      "image_prompt": "Vertical 1080x1920. A cheerful tiny cute simplified round-headed figure appearing in multiple locations simultaneously shown as afterimage copies: one at a cafe, one at a mountain, one at a beach, one at an office, all connected by bright yellow-orange teleportation zigzag lines. The figure has an excited but confused expression in each copy. Each location is a simplified geometric vignette floating in dark space. The overall composition shows chaotic but fun energy. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated warm yellow and orange on deep dark blue background, soft inner gradient shading, energetic glow effects, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "ISTJ는 시간을 멈출 수 있다. 근데 멈춘 시간에도 보고서를 쓴다. 초능력이 의미가 없다.",
+      "image_prompt": "Vertical 1080x1920. A frozen-in-time scene: everything around is paused mid-action, birds stopped in mid-flight, water droplets suspended, people frozen mid-step, all rendered in cool blue-grey desaturated tones. In the center, one tiny cute simplified round-headed figure sits at a glowing desk, diligently typing on a laptop, completely focused on work. A giant clock above is frozen with hands stopped. The working figure is the only warm-colored element in the entire frozen scene, lit by warm amber desk lamp glow. Flat 2D minimalist vector illustration, bold geometric shapes, cool frozen blues contrasting warm amber work zone, deep dark navy background, soft gradient shading, ironic calm atmosphere, simplified cute rounded characters, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "INFP는 감정이 무기다. 우울해지면 반경 10미터가 전부 같이 운다. 팀 회의에서 쓰면 전원 퇴사.",
+      "image_prompt": "Vertical 1080x1920. An office meeting room scene. In the center, one tiny cute simplified round-headed figure sits with a sad drooping expression, emanating concentric purple and blue emotional shockwaves that ripple outward in expanding circles. All other simplified figures around the conference table are crying dramatically with tears streaming, some clutching their chests, some laying their heads on the table. The emotional waves are rendered as beautiful gradient rings of deep purple to soft lavender spreading across the room. Papers and coffee cups float slightly from the emotional force. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated purple and blue emotional tones on deep dark navy background, soft gradient shading, dramatic emotional glow effects, simplified cute rounded characters, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "ENTJ는 눈빛만으로 사람을 조종한다. 근데 원래도 그랬잖아.",
+      "image_prompt": "Vertical 1080x1920. A powerful scene: one tiny cute simplified round-headed figure stands elevated on a geometric platform, eyes glowing intense bright red-orange with visible energy beams shooting from the eyes. Below, rows of other simplified figures stand in perfect formation, all bowing in unison like synchronized robots. The commanding figure wears a simple suit silhouette and stands with confident crossed arms. Red-orange power lines connect the leader figure to each follower. The atmosphere is dramatic and authoritative but also slightly comedic. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated red-orange power glow on deep dark navy background, soft inner gradient shading, dramatic commanding lighting, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "근데 제일 사기인 건 ISTP다. 모든 능력을 복사할 수 있다. 근데 귀찮아서 안 쓴다. 너 MBTI 뭔데?",
+      "image_prompt": "Vertical 1080x1920. A single tiny cute simplified round-headed figure lying casually on a floating couch in vast dark space, looking completely unbothered and relaxed with eyes half-closed. All around the figure, dozens of colorful superpower orbs float unused: teleportation yellow, time-freeze blue, emotion purple, mind-control red, and many more in various colors. The powers glow and pulse trying to get attention but the figure ignores them all, one hand dangling lazily off the couch. A single thought bubble shows a sleeping face. The contrast between incredible dormant power and total apathy is the visual joke. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated multicolor power orbs on deep dark navy background, soft inner gradient shading, lazy warm ambient glow, simplified cute rounded character with no outlines, clean educational animation aesthetic, comedic cosmic indifference",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "⚡ MBTI가 진짜 초능력이라면? #만약에",
+    "thumbnail_text": "MBTI 초능력",
+    "description": "만약에 시리즈: MBTI가 진짜 초능력이라면?\nENFP 순간이동, ISTJ 시간정지, INFP 감정파동, ENTJ 마인드컨트롤.\n근데 제일 사기는 ISTP.\n#만약에 #MBTI #초능력 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#MBTI", "#초능력", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep003",
+  "series": "오늘의 논문",
+  "topic_id": "mind-blanking-is-real",
+  "language": "ko",
+  "paper_source": {
+    "title": "Behavioral, experiential, and physiological signatures of mind blanking",
+    "authors": "Munoz-Musat E, Le Coz A, Corcoran AW et al.",
+    "journal": "PNAS",
+    "year": 2025,
+    "doi": "10.1073/pnas.2510262122",
+    "peer_reviewed": true,
+    "key_finding": "멍 때리기는 진짜 뇌 상태 — 뇌파 측정으로 신경 네트워크 단절과 시각 처리 중단이 확인됨"
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, consistent round-faced child character with big eyes and backwards red baseball cap, deep navy background, no text or numbers in images",
+  "script": {
+    "hook": "멍 때릴 때 진짜 아무 생각이 없는 거래요.",
+    "body": [
+      "원래 과학자들은 뇌가 항상 뭔가를 생각하고 있다고 믿었거든요.",
+      "근데요, 62명 머리에 뇌파 측정기를 붙여봤더니요.",
+      "멍 때리는 순간, 뇌의 연결이 진짜로 끊어졌대요. 눈 앞에 뭐가 있어도 안 보이는 상태가 된 거래요."
+    ],
+    "closer": "그러니까 멍 때린다고 혼내지 마래요. 뇌가 쉬는 중이거든요.",
+    "cta": ""
+  },
+  "full_text": "멍 때릴 때 진짜 아무 생각이 없는 거래요. 원래 과학자들은 뇌가 항상 뭔가를 생각하고 있다고 믿었거든요. 근데요, 62명 머리에 뇌파 측정기를 붙여봤더니요. 멍 때리는 순간, 뇌의 연결이 진짜로 끊어졌대요. 눈 앞에 뭐가 있어도 안 보이는 상태가 된 거래요. 그러니까 멍 때린다고 혼내지 마래요. 뇌가 쉬는 중이거든요.",
+  "display_text": "멍 때릴 때 진짜 아무 생각이 없는 거래요. 원래 과학자들은 뇌가 항상 뭔가를 생각하고 있다고 믿었거든요. 근데요, 62명 머리에 뇌파 측정기를 붙여봤더니요. 멍 때리는 순간, 뇌의 연결이 진짜로 끊어졌대요. 눈 앞에 뭐가 있어도 안 보이는 상태가 된 거래요. 그러니까 멍 때린다고 혼내지 마래요. 뇌가 쉬는 중이거든요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "멍 때릴 때 진짜 아무 생각이 없는 거래요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a cute round-faced child with big vacant empty eyes and backwards red baseball cap sitting at a school desk, the child has a completely blank dreamy expression with mouth slightly open and a single drool drop, an empty thought bubble above the head with absolutely nothing inside it, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "원래 과학자들은 뇌가 항상 뭔가를 생각하고 있다고 믿었거든요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a cartoon scientist character with wild hair and a white lab coat confidently pointing at a simple glowing brain icon that has lightning bolts and sparkles around it showing constant activity, the scientist looks very sure of themselves with a proud expression, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데요, 62명 머리에 뇌파 측정기를 붙여봤더니요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap now wearing a funny looking EEG headset with colorful electrode dots on their head, the child looks curious with wide eyes, a simple wavy line coming from the headset suggesting brain wave measurement, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "멍 때리는 순간, 뇌의 연결이 진짜로 끊어졌대요. 눈 앞에 뭐가 있어도 안 보이는 상태가 된 거래요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a simple brain icon in the center with dotted connection lines between different parts that are visibly broken and snapped with small poof effects, the brain is dimmed and gray compared to the earlier glowing version, below it the same round-faced child with backwards red cap has spiral swirl eyes showing a zoned-out state while colorful objects float past them unnoticed, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "그러니까 멍 때린다고 혼내지 마래요. 뇌가 쉬는 중이거든요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap sitting happily with a relaxed peaceful smile and closed content eyes, a simple brain icon above the child head shown sleeping peacefully with a tiny sleep cap and zzz symbols, a warm golden glow surrounds the child suggesting this is a good healthy thing, deep navy blue background, playful and heartwarming composition, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "😶 멍 때리면 진짜 아무 생각 없는 거래요 #오늘의논문",
+    "thumbnail_text": "멍=진짜 무",
+    "description": "멍 때릴 때 정말 아무 생각이 없는 걸까? PNAS에 실린 논문이 뇌파로 증명했습니다. 뇌의 연결이 실제로 끊어지는 상태!\n\n📄 논문 출처\n제목: Behavioral, experiential, and physiological signatures of mind blanking\n저자: Munoz-Musat E et al.\n저널: PNAS (2025)\nDOI: https://doi.org/10.1073/pnas.2510262122\n피어리뷰: ✅\n\n핵심 발견: 멍 때리기는 고유한 뇌파 패턴을 가진 실재하는 뇌 상태\n\n⸻\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #뇌과학 #멍때리기 #심리학 #Shorts",
+    "hashtags": ["#오늘의논문", "#뇌과학", "#멍때리기", "#심리학", "#Shorts"],
+    "youtube": {
+      "title": "😶 멍 때리면 진짜 아무 생각 없는 거래요 #오늘의논문",
+      "description": "멍 때릴 때 정말 아무 생각이 없는 걸까? PNAS에 실린 논문이 뇌파로 증명했습니다. 뇌의 연결이 실제로 끊어지는 상태!\n\n📄 논문 출처\n제목: Behavioral, experiential, and physiological signatures of mind blanking\n저자: Munoz-Musat E et al.\n저널: PNAS (2025)\nDOI: https://doi.org/10.1073/pnas.2510262122\n피어리뷰: ✅\n\n핵심 발견: 멍 때리기는 고유한 뇌파 패턴을 가진 실재하는 뇌 상태\n\n⸻\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #뇌과학 #멍때리기 #심리학 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "뇌과학",
+        "멍때리기",
+        "심리학",
+        "마인드블랭킹",
+        "논문리뷰",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "bright-boy",
+    "speed": 1.1,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 8,
+      "concrete": 8,
+      "credible": 9,
+      "emotional": 9,
+      "stories": 9,
+      "total": 53,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "뇌는 항상 뭔가를 생각하고 있다 (과학 상식)",
+      "conflict": "뇌파 측정 → 멍 때릴 때 연결이 진짜 끊어짐",
+      "twist": "멍 때리기는 게으른 게 아니라 뇌가 쉬는 건강한 상태",
+      "punchline": "멍 때린다고 혼내지 마래요 → 위트 있는 반전 마무리"
+    },
+    "hook_pattern": "you-didnt-know (effectiveness: 88)"
+  }
+}

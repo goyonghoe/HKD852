@@ -1,0 +1,27 @@
+date: "2026-03-04"
+mode: "discover"
+paper:
+  title: "Left-digit biases: Individual and institutional investors"
+  authors: "Yu J, Kim YC, Ryu D"
+  journal: "Journal of Futures Markets"
+  year: 2024
+  doi: "10.1002/fut.22479"
+  peer_reviewed: true
+  institution: "Sungkyunkwan University"
+  sample_size: null
+  key_finding: "개인·기관 투자자 모두 '왼쪽 자릿수 편향'을 보이지만, 개인 투자자는 이 편향으로 인해 손실을 입는 반면 기관은 이를 이용해 수익을 낸다. 9,990→10,010 같은 10단위 변동 시 매수·매도 패턴이 극적으로 달라진다."
+scoring:
+  investor_empathy: 26 # /30 — 주식 호가창 보는 모든 투자자 공감
+  surprise: 23 # /25 — 10원 차이로 뇌가 완전히 다르게 반응
+  practical: 17 # /20 — 지정가 주문 시 즉시 적용 가능
+  visual_potential: 14 # /15 — 9,990 vs 10,010 비교 인포그래픽 완벽
+  source_quality: 8 # /10 — JFM, 피어리뷰
+  total: 88
+hook_angles:
+  - pattern: "number-hook"
+    draft: "9,990원짜리 주식과 10,010원짜리 주식, 뇌는 완전히 다르게 봅니다."
+  - pattern: "you-vs-institution"
+    draft: "개미가 속는 10원의 함정, 기관은 이걸로 돈을 법니다."
+  - pattern: "paper-shock"
+    draft: "왼쪽 숫자 하나가 바뀌면 매수 버튼을 누르게 된대요."
+duplicate_check: "CLEAR"

@@ -1,0 +1,70 @@
+{
+  "episode_id": "whatif_ep048",
+  "series": "만약에~",
+  "topic_id": "chicken-extinction",
+  "language": "ko",
+  "visual_style": "flat 2D minimalist vector illustration, bold geometric shapes, rich saturated colors on deep dark blue background, soft inner gradient shading, warm glow effects, simplified cute rounded characters with no outlines, clean educational animation aesthetic, smooth color transitions, warm emotional atmosphere",
+  "script": {
+    "hook": "만약에 치킨이 지구에서 멸종한다면?",
+    "body": [
+      "먼저 금요일 밤이 사라진다. 배달 주문 2,400만 건이 증발하면서 한국의 야식 문화가 하루 만에 끝난다.",
+      "치킨집 4만 개가 동시에 문을 닫는다. 퇴사 후 치킨집이라는 국민 플랜B도 사라진다.",
+      "근데 진짜 공포는 크리스마스다. 한국 크리스마스는 치킨인데. 12월 25일이 그냥 화요일이 된다.",
+      "1년 후 냉동 치킨 한 마리가 300만 원. 암시장에서 비트코인처럼 거래된다.",
+      "결국 과학자들이 복원에 성공한다. 근데 양념이 안 배인다. 그 바삭함이 없다. 너라면 뭐 먹고 살 거야?"
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 치킨이 지구에서 멸종한다면? 먼저 금요일 밤이 사라진다. 배달 주문 2,400만 건이 증발하면서 한국의 야식 문화가 하루 만에 끝난다. 치킨집 4만 개가 동시에 문을 닫는다. 퇴사 후 치킨집이라는 국민 플랜B도 사라진다. 근데 진짜 공포는 크리스마스다. 한국 크리스마스는 치킨인데. 12월 25일이 그냥 화요일이 된다. 1년 후 냉동 치킨 한 마리가 300만 원. 암시장에서 비트코인처럼 거래된다. 결국 과학자들이 복원에 성공한다. 근데 양념이 안 배인다. 그 바삭함이 없다. 너라면 뭐 먹고 살 거야?",
+  "display_text": "만약에 치킨이 지구에서 멸종한다면? 먼저 금요일 밤이 사라진다. 배달 주문 2,400만 건이 증발하면서 한국의 야식 문화가 하루 만에 끝난다. 치킨집 4만 개가 동시에 문을 닫는다. 퇴사 후 치킨집이라는 국민 플랜B도 사라진다. 근데 진짜 공포는 크리스마스다. 한국 크리스마스는 치킨인데. 12월 25일이 그냥 화요일이 된다. 1년 후 냉동 치킨 한 마리가 300만 원. 암시장에서 비트코인처럼 거래된다. 결국 과학자들이 복원에 성공한다. 근데 양념이 안 배인다. 그 바삭함이 없다. 너라면 뭐 먹고 살 거야?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 치킨이 지구에서 멸종한다면?",
+      "image_prompt": "Vertical 1080x1920. A single last golden fried chicken drumstick floating in the center, glowing with warm golden light like a sacred relic, slowly dissolving into particles that drift upward. A tiny cute simplified round-headed Korean figure reaches up toward it with desperate expression. Deep dark navy background with scattered warm orange particles. A faint ghostly outline of a chicken silhouette fades behind. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated golden-orange on deep dark blue background, soft inner gradient shading, warm dramatic glow effects, simplified cute rounded character with no outlines, clean educational animation aesthetic",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "먼저 금요일 밤이 사라진다. 배달 주문 2,400만 건이 증발하면서 한국의 야식 문화가 하루 만에 끝난다.",
+      "image_prompt": "Vertical 1080x1920. A dark Korean city street at night with rows of delivery motorcycles all stopped and parked, headlights off. Floating phone screens show delivery app icons with red ERROR messages. Multiple simplified round-headed figures sit on benches looking sad and hungry, staring at empty delivery boxes. The city rendered in cool blue tones with occasional warm orange from streetlights. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated blues and muted warm accents on deep dark navy background, soft gradient shading, melancholy glow effects, simplified cute rounded characters, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "치킨집 4만 개가 동시에 문을 닫는다. 퇴사 후 치킨집이라는 국민 플랜B도 사라진다.",
+      "image_prompt": "Vertical 1080x1920. A long Korean street of chicken shops with neon signs turning off one by one in a cascade, metal shutters rolling down. Signs show chicken logos going dark. A tiny simplified round-headed office worker figure in a suit stands in the middle of the empty street, holding a crumbling PLAN B sign. Warm orange neon light fading to cool dark blue. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated neon orange fading to deep dark blue, soft gradient shading, fading warm glow effects, simplified cute rounded characters, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "근데 진짜 공포는 크리스마스다. 한국 크리스마스는 치킨인데. 12월 25일이 그냥 화요일이 된다.",
+      "image_prompt": "Vertical 1080x1920. A simplified Christmas scene with a decorated tree and warm string lights, but the center table is completely empty, no chicken bucket. Multiple simplified round-headed Korean figures sit around the table with hollow devastated expressions, some crying. Snow falls outside the window. The tree glows warm but the empty table area is cold blue, creating emotional contrast. A calendar on the wall shows December 25 with a sad face. Flat 2D minimalist vector illustration, bold geometric shapes, warm Christmas glow vs cold empty center, deep dark navy background, soft gradient shading, emotional lighting contrast, simplified cute rounded characters, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "1년 후 냉동 치킨 한 마리가 300만 원. 암시장에서 비트코인처럼 거래된다.",
+      "image_prompt": "Vertical 1080x1920. A dark underground market scene with a single frozen chicken displayed on a pedestal under a golden spotlight, protected by a glass case like a museum artifact. A glowing red price tag shows a huge number. Shadowy simplified round-headed figures huddle around exchanging stacks of cash and whispering. Security guards with sunglasses stand nearby. Dramatic noir lighting with golden spotlight on the chicken. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated golden spotlight on deep dark navy shadows, noir atmosphere, warm dramatic glow on chicken, simplified cute rounded characters, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "결국 과학자들이 복원에 성공한다. 근데 양념이 안 배인다. 그 바삭함이 없다. 너라면 뭐 먹고 살 거야?",
+      "image_prompt": "Vertical 1080x1920. A laboratory scene where a tiny cute simplified round-headed scientist holds up a piece of revived chicken with chopsticks, taking a bite. His expression shifts from excitement to deep disappointment and sadness. Behind him other scientists look horrified. A thought bubble shows comparison: old golden crispy chicken glowing warm vs new bland pale chicken looking grey and lifeless. The lab rendered in cool blue-green tones with warm amber accent on the disappointing chicken. Flat 2D minimalist vector illustration, bold geometric shapes, cool lab tones with warm amber accent, deep dark navy background, emotional contrast lighting, simplified cute rounded characters, clean educational animation aesthetic",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "🍗 치킨이 멸종하면 생기는 일 #만약에",
+    "thumbnail_text": "치킨 멸종",
+    "description": "만약에 시리즈: 치킨이 지구에서 완전히 멸종한다면?\n금요일 밤 배달 2,400만 건 증발, 치킨집 4만 곳 폐업, 크리스마스 소멸.\n냉동 치킨 한 마리 300만 원 시대.\n#만약에 #치킨 #한국 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#치킨", "#한국", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

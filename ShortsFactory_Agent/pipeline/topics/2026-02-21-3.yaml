@@ -1,0 +1,19 @@
+date: "2026-02-21"
+batch_number: 3
+episode_id: "whatif_ep041"
+topic:
+  title: "만약에 사람 몸에 스마트폰처럼 배터리 잔량이 표시된다면?"
+  topic_id: "battery-level-on-humans"
+  niche: "daily-life-comedy"
+  score: 90
+  angle: "피곤해 객관적 증명 기대 → 상사가 배터리 현황판 설치 → 만성 20%가 오히려 인기"
+  competition: "low"
+  format_recommendation: "dark-bg-text"
+  tts_voice: "hangout-male"
+scoring:
+  rpm: 45
+  volume: 95
+  difficulty_inv: 100
+  performance_bonus: 10
+  competition_penalty: 0
+  total: 90

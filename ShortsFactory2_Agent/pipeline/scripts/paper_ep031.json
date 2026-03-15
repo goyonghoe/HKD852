@@ -1,0 +1,124 @@
+{
+  "episode_id": "paper_ep031",
+  "series": "오늘의 논문",
+  "topic_id": "positive-emotions-worse-investing-trust-optimism",
+  "language": "ko",
+  "paper_source": {
+    "title": "Do Emotions Influence Investor Behavior?",
+    "authors": "Bouri E, Finta MA, Gkillas K, Moussa W",
+    "journal": "Journal of Behavioral Finance",
+    "year": 2025,
+    "doi": "10.1080/15427560.2023.2282966",
+    "peer_reviewed": true,
+    "institution": "Lebanese American University / Queensland University of Technology / University of Patras / University of Sfax",
+    "sample_size": null,
+    "key_finding": "긍정적 감정(신뢰, 낙관)이 부정적 감정(공포, 불안)보다 투자자의 주식 가격 반응에 더 큰 영향을 미치며, 뉴스 미디어에서 유발된 감정이 소셜 미디어 감정보다 시장에 더 강한 영향을 준다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, Nature journal quality, minimalist professional design, ",
+  "script": {
+    "hook": "투자할 때 무서운 감정은 공포가 아니래요. 오히려 자신감이래요.",
+    "body": [
+      "보통 공포나 불안이 투자 판단을 망친다고 생각하잖아요. 근데 논문을 보니까 정반대였대요.",
+      "신뢰, 낙관 같은 좋은 감정이 투자 실수에 더 큰 영향을 줬거든요. 기분 좋으면 리스크를 과소평가하니까요.",
+      "그리고 재밌는 게, SNS보다 뉴스에서 느낀 감정이 매매에 더 큰 영향을 줬대요. 기사 하나에 마음이 흔들리는 거예요."
+    ],
+    "closer": "기분이 좋아서 사고 싶을 때가, 사실 제일 조심해야 할 때래요.",
+    "cta": ""
+  },
+  "full_text": "투자할 때 무서운 감정은 공포가 아니래요. 오히려 자신감이래요. 보통 공포나 불안이 투자 판단을 망친다고 생각하잖아요. 근데 논문을 보니까 정반대였대요. 신뢰, 낙관 같은 좋은 감정이 투자 실수에 더 큰 영향을 줬거든요. 기분 좋으면 리스크를 과소평가하니까요. 그리고 재밌는 게, SNS보다 뉴스에서 느낀 감정이 매매에 더 큰 영향을 줬대요. 기사 하나에 마음이 흔들리는 거예요. 기분이 좋아서 사고 싶을 때가, 사실 제일 조심해야 할 때래요.",
+  "display_text": "투자할 때 무서운 감정은 공포가 아니래요. 오히려 자신감이래요. 보통 공포나 불안이 투자 판단을 망친다고 생각하잖아요. 근데 논문을 보니까 정반대였대요. 신뢰, 낙관 같은 좋은 감정이 투자 실수에 더 큰 영향을 줬거든요. 기분 좋으면 리스크를 과소평가하니까요. 그리고 재밌는 게, SNS보다 뉴스에서 느낀 감정이 매매에 더 큰 영향을 줬대요. 기사 하나에 마음이 흔들리는 거예요. 기분이 좋아서 사고 싶을 때가, 사실 제일 조심해야 할 때래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "투자할 때 무서운 감정은 공포가 아니래요. 오히려 자신감이래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, two emotion masks floating side by side, the left mask shows fear and anxiety in cool blue tones appearing small and manageable, the right mask shows confidence and optimism glowing warm gold but is much larger and casts a longer shadow beneath it suggesting hidden danger, the surprising reversal of which emotion is truly dangerous, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "보통 공포나 불안이 투자 판단을 망친다고 생각하잖아요. 근데 논문을 보니까 정반대였대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a large assumption arrow pointing from a fear icon downward to bad decisions being dramatically crossed out with a bold X, next to it a new arrow reveals the true direction pointing from a smiling optimism icon down to even worse decisions, the reversal of expectation shown through visual redirection, scientific discovery moment composition, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "신뢰, 낙관 같은 좋은 감정이 투자 실수에 더 큰 영향을 줬거든요. 기분 좋으면 리스크를 과소평가하니까요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a person walking confidently with eyes closed and a serene smile on a path that appears smooth and safe from their perspective, but viewed from the side the path is actually a narrow bridge over a deep chasm, rose-colored glasses effect where good mood blinds you to real danger, the gap between perceived safety and actual risk is dramatic, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "SNS보다 뉴스에서 느낀 감정이 매매에 더 큰 영향을 줬대요. 기사 하나에 마음이 흔들리는 거예요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a newspaper page radiating powerful concentric emotional shockwaves that physically push a person backward, next to it a phone showing social media feed produces weaker smaller ripples, the newspaper shockwave is unexpectedly stronger than the social media one challenging assumptions about media influence, the person sways dramatically toward the news side, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "기분이 좋아서 사고 싶을 때가, 사실 제일 조심해야 할 때래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a warm glowing happy face emoji hovering above a caution sign, the emoji appears friendly and inviting but the caution sign beneath it pulses with amber warning light, a hand reaching toward the emoji pauses mid-reach reconsidering, the message that good feelings require the most vigilance, thoughtful cautionary mood with warm and amber tones, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "😊 기분 좋을 때 투자하면 안 되는 이유 #오늘의논문",
+    "thumbnail_text": "낙관이더위험",
+    "description": "공포보다 신뢰·낙관 같은 긍정적 감정이 투자 판단에 더 큰 영향을 미친다는 Journal of Behavioral Finance 2025 연구입니다.\n\n📄 논문 출처\nTitle: Do Emotions Influence Investor Behavior?\nAuthors: Bouri E, Finta MA, Gkillas K, Moussa W\nJournal: Journal of Behavioral Finance, Vol. 26(2) (2025)\nDOI: https://doi.org/10.1080/15427560.2023.2282966\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #감정투자 #낙관편향 #투자 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#투자심리",
+      "#감정투자",
+      "#낙관편향",
+      "#투자",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "😊 기분 좋을 때 투자하면 안 되는 이유 #오늘의논문",
+      "description": "공포보다 신뢰·낙관 같은 긍정적 감정이 투자 판단에 더 큰 영향을 미친다는 Journal of Behavioral Finance 2025 연구입니다.\n\n📄 논문 출처\nTitle: Do Emotions Influence Investor Behavior?\nAuthors: Bouri E, Finta MA, Gkillas K, Moussa W\nJournal: Journal of Behavioral Finance, Vol. 26(2) (2025)\nDOI: https://doi.org/10.1080/15427560.2023.2282966\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #감정투자 #낙관편향 #투자 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "투자심리",
+        "감정투자",
+        "낙관편향",
+        "기분",
+        "투자",
+        "주식",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 10,
+      "emotional": 10,
+      "stories": 10,
+      "total": 59,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "공포와 불안이 투자 판단을 가장 많이 망친다",
+      "conflict": "실제로는 긍정 감정(신뢰, 낙관)이 더 큰 영향",
+      "twist": "뉴스 기사 감정이 SNS보다 매매에 더 강한 영향",
+      "punchline": "기분 좋아서 사고 싶을 때가 가장 위험한 순간"
+    },
+    "hook_pattern": "counterintuitive-emotion (effectiveness: 94)"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep010",
+  "series": "오늘의 논문",
+  "topic_id": "teen-solitude-brain-changes",
+  "language": "ko",
+  "paper_source": {
+    "title": "Neural Correlates of Social Withdrawal and Preference for Solitude in Adolescence",
+    "authors": "Stamoulis C et al.",
+    "journal": "Cerebral Cortex",
+    "year": 2025,
+    "doi": "10.1093/cercor/bhaf260",
+    "peer_reviewed": true,
+    "key_finding": "2,809명 청소년 뇌 분석 — 혼자를 선호할수록 사회적 뇌 영역이 얇아지고, 불안·우울 관련 영역이 커짐. 고립 자체가 뇌 구조를 바꾼다."
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, consistent round-faced child character with big eyes and backwards red baseball cap, deep navy background, no text or numbers in images, tall vertical portrait composition optimized for 9:16 mobile viewing, subjects stacked vertically filling the full height",
+  "script": {
+    "hook": "'혼자가 편해'라고 말하는 순간, 뇌가 진짜로 달라지고 있었대요.",
+    "body": [
+      "원래 혼자 있는 건 그냥 성격이라고 했거든요.",
+      "근데요, 2천8백 명의 청소년 뇌를 찍었더니요. 혼자를 좋아하는 아이들은 공감 영역이 얇아져 있었대요.",
+      "반대로 불안 영역은 더 커져 있었고요."
+    ],
+    "closer": "혼자가 편한 게 아니라, 뇌가 혼자에 적응하고 있었던 거래요.",
+    "cta": ""
+  },
+  "full_text": "'혼자가 편해'라고 말하는 순간, 뇌가 진짜로 달라지고 있었대요. 원래 혼자 있는 건 그냥 성격이라고 했거든요. 근데요, 2천8백 명의 청소년 뇌를 찍었더니요. 혼자를 좋아하는 아이들은 공감 영역이 얇아져 있었대요. 반대로 불안 영역은 더 커져 있었고요. 혼자가 편한 게 아니라, 뇌가 혼자에 적응하고 있었던 거래요.",
+  "display_text": "'혼자가 편해'라고 말하는 순간, 뇌가 진짜로 달라지고 있었대요. 원래 혼자 있는 건 그냥 성격이라고 했거든요. 근데요, 2천8백 명의 청소년 뇌를 찍었더니요. 혼자를 좋아하는 아이들은 공감 영역이 얇아져 있었대요. 반대로 불안 영역은 더 커져 있었고요. 혼자가 편한 게 아니라, 뇌가 혼자에 적응하고 있었던 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "'혼자가 편해'라고 말하는 순간, 뇌가 진짜로 달라지고 있었대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute round-faced child with big eyes and backwards red baseball cap sitting alone on a tall park bench in the center of the frame, child positioned in the upper half, headphones on looking content, a tall glowing amber street lamp towering above, tiny silhouettes of other children playing far below in the distance, deep navy blue background fills the entire tall frame, elements arranged top to bottom vertically, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "원래 혼자 있는 건 그냥 성격이라고 했거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, the same round-faced child with backwards red baseball cap sitting inside a tall cozy blanket fort that stretches from top to bottom of the frame, fairy lights draped vertically along the fort walls, child reading a book in the upper portion, a small cat curled up sleeping below, warm golden glow fills the tall fort interior, deep navy blue background visible through fort opening, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데요, 2천8백 명의 청소년 뇌를 찍었더니요. 혼자를 좋아하는 아이들은 공감 영역이 얇아져 있었대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, two large glowing orbs stacked vertically in the center of the tall frame, top orb is bright warm amber full of tiny colorful connected people figures with glowing lines between them, bottom orb is dim cool blue with fewer scattered lonely figures and broken fading connections, a small scientist character in white coat at the bottom looking up comparing them with a concerned expression, deep navy blue background fills entire tall frame, elements arranged top to bottom, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "반대로 불안 영역은 더 커져 있었고요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, the same round-faced child with backwards red baseball cap standing small at the bottom third of the tall frame looking up nervously with sweat drops, above the child a massive dark purple storm cloud fills the entire upper two-thirds of the frame growing and expanding ominously, the child holds a thin string connected to the cloud like a balloon, dramatic scale contrast between tiny child and enormous looming cloud, deep navy blue background, elements fill the full vertical height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "혼자가 편한 게 아니라, 뇌가 혼자에 적응하고 있었던 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a tall doorway in the center of the frame stretching from top to bottom, warm golden sunlight pouring through the open door from the top, silhouettes of friendly children waving visible through the bright doorway, the same round-faced child with backwards red baseball cap standing at the doorway threshold in the middle of the frame taking one hopeful step forward into the light, behind the child a dark cozy room with a single dim lamp, dramatic contrast between warm light ahead and cool shadow behind, deep navy blue background, elements fill full vertical height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🧠 '혼자가 편해'라는 말의 진짜 의미 #오늘의논문",
+    "thumbnail_text": "혼자=뇌변화",
+    "description": "'혼자가 편하다'는 성격이 아니라, 뇌가 적응하고 있는 신호일 수 있습니다.\n\n📄 논문 출처\nTitle: Neural Correlates of Social Withdrawal and Preference for Solitude in Adolescence\nAuthors: Stamoulis C et al.\nJournal: Cerebral Cortex (2025)\nDOI: https://doi.org/10.1093/cercor/bhaf260\nPeer-reviewed: ✅\n\nKey finding: 2,809명 청소년 뇌 분석 — 사회적 고립 선호 시 공감 관련 피질이 얇아지고, 불안·우울 관련 영역 볼륨 증가.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #청소년 #뇌과학 #사회적고립 #Shorts",
+    "hashtags": ["#오늘의논문", "#청소년", "#뇌과학", "#사회적고립", "#Shorts"],
+    "youtube": {
+      "title": "🧠 '혼자가 편해'라는 말의 진짜 의미 #오늘의논문",
+      "description": "'혼자가 편하다'는 성격이 아니라, 뇌가 적응하고 있는 신호일 수 있습니다.\n\n📄 논문 출처\nTitle: Neural Correlates of Social Withdrawal and Preference for Solitude in Adolescence\nAuthors: Stamoulis C et al.\nJournal: Cerebral Cortex (2025)\nDOI: https://doi.org/10.1093/cercor/bhaf260\nPeer-reviewed: ✅\n\nKey finding: 2,809명 청소년 뇌 분석 — 사회적 고립 선호 시 공감 관련 피질이 얇아지고, 불안·우울 관련 영역 볼륨 증가.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #청소년 #뇌과학 #사회적고립 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "청소년",
+        "뇌과학",
+        "사회적고립",
+        "혼자",
+        "공감능력",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 9,
+      "concrete": 9,
+      "credible": 10,
+      "emotional": 10,
+      "stories": 9,
+      "total": 57,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "혼자 있는 건 그냥 성격, 개인 차이일 뿐",
+      "conflict": "2,809명 뇌 분석 → 공감 영역 피질 두께 감소",
+      "twist": "반대로 불안 영역은 오히려 커져 있었다",
+      "punchline": "편한 게 아니라 뇌가 혼자에 적응하고 있었다"
+    },
+    "hook_pattern": "common-belief-challenge (effectiveness: 93)"
+  }
+}

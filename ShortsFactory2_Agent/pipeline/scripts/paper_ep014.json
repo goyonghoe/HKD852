@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep014",
+  "series": "오늘의 논문",
+  "topic_id": "plants-scream-ultrasound",
+  "language": "ko",
+  "paper_source": {
+    "title": "Sounds emitted by plants under stress are airborne and informative",
+    "authors": "Khait I, Lewin-Epstein O, Sharon R, et al.",
+    "journal": "Cell",
+    "year": 2023,
+    "doi": "10.1016/j.cell.2023.03.009",
+    "peer_reviewed": true,
+    "key_finding": "목마른 토마토는 한 시간에 평균 35회 초음파를 방출. 줄기를 자르면 더 증가. 담배 식물도 동일. 20~150kHz 대역."
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, deep navy background, no text or numbers in images, tall vertical portrait composition optimized for 9:16 mobile viewing, subjects stacked vertically filling the full height",
+  "script": {
+    "hook": "토마토한테 물을 안 주면요, 한 시간에 서른다섯 번 비명을 질러요.",
+    "body": [
+      "우리 귀에는 안 들려요. 초음파거든요.",
+      "특수 마이크로 녹음했더니요, 목마른 토마토가 한 시간에 서른다섯 번 뚝뚝 소리를 냈대요.",
+      "줄기를 자르면 더 심했고요, 담배 식물도 똑같았대요."
+    ],
+    "closer": "시든 화분이 보이면요, 지금 비명 지르고 있는 거래요.",
+    "cta": ""
+  },
+  "full_text": "토마토한테 물을 안 주면요, 한 시간에 서른다섯 번 비명을 질러요. 우리 귀에는 안 들려요. 초음파거든요. 특수 마이크로 녹음했더니요, 목마른 토마토가 한 시간에 서른다섯 번 뚝뚝 소리를 냈대요. 줄기를 자르면 더 심했고요, 담배 식물도 똑같았대요. 시든 화분이 보이면요, 지금 비명 지르고 있는 거래요.",
+  "display_text": "토마토한테 물을 안 주면요, 한 시간에 서른다섯 번 비명을 질러요. 우리 귀에는 안 들려요. 초음파거든요. 특수 마이크로 녹음했더니요, 목마른 토마토가 한 시간에 서른다섯 번 뚝뚝 소리를 냈대요. 줄기를 자르면 더 심했고요, 담배 식물도 똑같았대요. 시든 화분이 보이면요, 지금 비명 지르고 있는 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "토마토한테 물을 안 주면요, 한 시간에 서른다섯 번 비명을 질러요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute round red tomato character with a distressed face and wide open mouth in the center of frame, visible ultrasonic sound wave rings radiating outward from the tomato in concentric circles colored in purple and cyan, the tomato sits in a dry cracked brown pot with wilted leaves, tiny sweat drops fly off the tomato, deep navy blue background fills entire tall frame, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "우리 귀에는 안 들려요. 초음파거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute human character in the upper half cupping hand to ear with a confused expression and a big question mark above their head, below them invisible dotted wave lines pass through the air from a small plant, the waves are shown as faint dashed purple lines to indicate they are inaudible, a cute bat character in the corner has alert ears showing it can hear, deep navy blue background, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "특수 마이크로 녹음했더니요, 목마른 토마토가 한 시간에 서른다섯 번 뚝뚝 소리를 냈대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a large professional microphone at the top of frame pointing down at a wilted tomato plant in a dry pot below, bright neon green sound wave pulses burst from the plant captured by the microphone, each pulse shown as a small bright pop or click visualization, a scientist character on the side holds a clipboard looking shocked with jaw dropped, deep navy blue background, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "줄기를 자르면 더 심했고요, 담배 식물도 똑같았대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, split composition with top half showing a plant stem being cut by scissors with intense red and orange sound wave explosions bursting from the cut point, bottom half showing a tobacco plant also emitting similar bright sound wave bursts, both plants have distressed cartoon faces, the sound waves are larger and more intense than previous scene showing escalation, deep navy blue background, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "시든 화분이 보이면요, 지금 비명 지르고 있는 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a wilted droopy houseplant in a small pot sitting on a windowsill in the center of frame, faint purple ultrasonic wave rings pulse outward from the plant like a cry for help, the plant has a sad exhausted face with tiny tear drops, warm afternoon sunlight streams through the window creating a melancholy golden glow, a person walks past in the background unaware, deep navy blue background at edges, elements fill the full vertical height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🌱 식물은 비명을 지른다 #오늘의논문",
+    "thumbnail_text": "식물=비명",
+    "description": "목마른 토마토가 한 시간에 35번 초음파를 쏟아낸다는 연구입니다.\n\n📄 논문 출처\nTitle: Sounds emitted by plants under stress are airborne and informative\nAuthors: Khait I et al.\nJournal: Cell (2023)\nDOI: https://doi.org/10.1016/j.cell.2023.03.009\nPeer-reviewed: ✅\n\nKey finding: 목마른 토마토는 한 시간에 평균 35회 초음파(20~150kHz)를 방출. 줄기 절단 시 더 증가.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #식물 #초음파 #과학 #Shorts",
+    "hashtags": ["#오늘의논문", "#식물", "#초음파", "#과학", "#Shorts"],
+    "youtube": {
+      "title": "🌱 식물은 비명을 지른다 #오늘의논문",
+      "description": "목마른 토마토가 한 시간에 35번 초음파를 쏟아낸다는 연구입니다.\n\n📄 논문 출처\nTitle: Sounds emitted by plants under stress are airborne and informative\nAuthors: Khait I et al.\nJournal: Cell (2023)\nDOI: https://doi.org/10.1016/j.cell.2023.03.009\nPeer-reviewed: ✅\n\nKey finding: 목마른 토마토는 한 시간에 평균 35회 초음파(20~150kHz)를 방출. 줄기 절단 시 더 증가.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #식물 #초음파 #과학 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "식물",
+        "초음파",
+        "과학",
+        "토마토",
+        "생물학",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.2,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 10,
+      "credible": 10,
+      "emotional": 9,
+      "stories": 9,
+      "total": 58,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "식물은 조용한 존재",
+      "conflict": "초음파로 녹음하니 한 시간에 35번 소리",
+      "twist": "자르면 더 심하고, 다른 식물도 동일",
+      "punchline": "시든 화분은 지금 비명 지르는 중"
+    },
+    "hook_pattern": "shocking-stat (effectiveness: 94)"
+  }
+}

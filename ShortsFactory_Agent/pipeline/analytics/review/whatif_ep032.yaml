@@ -1,0 +1,15 @@
+episode_id: "whatif_ep032"
+review_date: "2026-02-20"
+verdict: "PASS"
+scores:
+  source_citation: 8 # 가상 시나리오, 교통산업 영향 분석 포함
+  substantial_transformation: 9 # 편리함→산업 파괴→법적 파괴 3단 구성
+  ai_misrepresentation_free: 10 # 가상 시나리오 명확
+  creator_perspective: 9 # "감옥 의미 없어짐" — 참신한 관점
+  uniqueness: 9 # 순간이동 테마 시리즈 최초
+  hook_strength: 8 # "순간이동이 가능하다면?" — 인기 SF 주제, 안정적
+  factual_accuracy: 8 # 항공/교통산업 규모, 교도소 논리 — 타당
+total_score: 61
+feedback: "긍정→부정 반전 구조가 효과적. '감옥이 의미 없어짐'이라는 포인트가 시청자에게 의외성 제공. 이미지 프롬프트의 abandoned airport가 시각적으로 강렬."
+revise_items: []
+image_safety: "PASS" # 감옥 장면도 빛과 포탈로 아름답게 표현

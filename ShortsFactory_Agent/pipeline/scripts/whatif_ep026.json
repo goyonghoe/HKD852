@@ -1,0 +1,69 @@
+{
+  "episode_id": "whatif_ep026",
+  "series": "만약에~",
+  "topic_id": "talk-to-animals",
+  "language": "ko",
+  "visual_style": "warm watercolor illustration style with soft greens and earth tones, gentle natural lighting, Studio Ghibli inspired atmosphere, cozy and whimsical, ",
+  "script": {
+    "hook": "만약 동물과 대화할 수 있다면?",
+    "body": [
+      "반려견이 주인한테 솔직하게 불만을 말한다.",
+      "소와 돼지가 도축장 앞에서 항의 시위를 한다.",
+      "모기가 왜 무는지 변명을 늘어놓는다.",
+      "인간은 더 이상 고기를 못 먹게 된다."
+    ],
+    "cta": "동물의 속마음, 듣고 싶어? 구독 눌러."
+  },
+  "full_text": "만약 동물과 대화할 수 있다면? 반려견이 주인한테 솔직하게 불만을 말한다. 소와 돼지가 도축장 앞에서 항의 시위를 한다. 모기가 왜 무는지 변명을 늘어놓는다. 인간은 더 이상 고기를 못 먹게 된다. 동물의 속마음, 듣고 싶어? 구독 눌러.",
+  "display_text": "만약 동물과 대화할 수 있다면? 반려견이 주인한테 솔직하게 불만을 말한다. 소와 돼지가 도축장 앞에서 항의 시위를 한다. 모기가 왜 무는지 변명을 늘어놓는다. 인간은 더 이상 고기를 못 먹게 된다. 동물의 속마음, 듣고 싶어?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 동물과 대화할 수 있다면?",
+      "image_prompt": "A person kneeling down face-to-face with a golden retriever in a sunlit park, speech bubbles floating between them, warm watercolor style, magical moment of first communication, soft green and gold tones",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "반려견이 주인한테 솔직하게 불만을 말한다.",
+      "image_prompt": "A small dog sitting on a couch with crossed paws and an annoyed expression, looking up at its owner who stands shocked, living room setting, comedic confrontation, warm homey atmosphere with watercolor textures",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "소와 돼지가 도축장 앞에서 항의 시위를 한다.",
+      "image_prompt": "Cows and pigs standing upright holding protest signs in front of a factory, determined expressions, other animals watching from the sidelines, dramatic but whimsical, soft earth tone watercolor palette",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "모기가 왜 무는지 변명을 늘어놓는다.",
+      "image_prompt": "A tiny mosquito hovering at eye level with a person, gesturing with its legs as if explaining something earnestly, the person looking unimpressed with arms crossed, humorous scene, warm evening lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "인간은 더 이상 고기를 못 먹게 된다.",
+      "image_prompt": "An empty butcher shop with a closed sign, vegetables and fruits taking over the display, a cow peacefully walking past the window outside, bittersweet transformation, muted watercolor tones",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "동물의 속마음, 듣고 싶어? 구독 눌러.",
+      "image_prompt": "A child sitting in a circle surrounded by various animals, all leaning in to listen to each other, magical golden light from above, the beauty and weight of understanding, Ghibli-inspired warmth",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "동물과 대화할 수 있다면? #만약에",
+    "thumbnail_text": "반려견의 솔직한 불만",
+    "description": "만약 동물과 대화할 수 있다면? 반려동물의 불만부터 도축 반대 시위까지.\n#만약에 #동물 #반려동물 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#동물", "#반려동물", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

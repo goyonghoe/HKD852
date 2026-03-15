@@ -1,0 +1,69 @@
+{
+  "episode_id": "whatif_ep025",
+  "series": "만약에~",
+  "topic_id": "lies-show-on-face",
+  "language": "ko",
+  "visual_style": "bold graphic novel aesthetic with stark red and white contrast, expressive face close-ups, dramatic shadows, ink-splash textures, truth-or-dare visual tension, ",
+  "script": {
+    "hook": "만약 거짓말하면 얼굴에 표시가 된다면?",
+    "body": [
+      "정치인 얼굴이 시뻘겋게 변한다.",
+      "면접에서 아무도 거짓말을 못 한다.",
+      "연인 사이에 비밀이 사라진다.",
+      "세상에서 외교라는 게 불가능해진다."
+    ],
+    "cta": "거짓말 없는 세상, 살 만할까? 구독 눌러."
+  },
+  "full_text": "만약 거짓말하면 얼굴에 표시가 된다면? 정치인 얼굴이 시뻘겋게 변한다. 면접에서 아무도 거짓말을 못 한다. 연인 사이에 비밀이 사라진다. 세상에서 외교라는 게 불가능해진다. 거짓말 없는 세상, 살 만할까? 구독 눌러.",
+  "display_text": "만약 거짓말하면 얼굴에 표시가 된다면? 정치인 얼굴이 시뻘겋게 변한다. 면접에서 아무도 거짓말을 못 한다. 연인 사이에 비밀이 사라진다. 세상에서 외교라는 게 불가능해진다. 거짓말 없는 세상, 살 만할까?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 거짓말하면 얼굴에 표시가 된다면?",
+      "image_prompt": "A dramatic close-up of a human face with glowing red cracks spreading across the skin like shattered glass, one eye wide open in shock, stark white background with red ink splashes, the moment of being caught",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "정치인 얼굴이 시뻘겋게 변한다.",
+      "image_prompt": "A podium with microphones, a figure in a suit whose face is completely engulfed in bright crimson glow, audience watching in stunned silence, dramatic overhead lighting, political theater becomes literal",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "면접에서 아무도 거짓말을 못 한다.",
+      "image_prompt": "A job interview scene where both interviewer and candidate sit nervously, both faces showing faint red marks, stack of resumes on fire in the background, uncomfortable honesty, corporate office setting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "연인 사이에 비밀이 사라진다.",
+      "image_prompt": "Two people sitting across a cafe table, one face glowing red while reaching for the other's hand, the other looking away with a clean face, intimate and painful moment, warm lighting contrasting with the red glow",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "세상에서 외교라는 게 불가능해진다.",
+      "image_prompt": "A grand diplomatic hall with world flags, every delegate at the table has a face glowing bright red, documents scattered, chaos of radical honesty on a global scale, dramatic wide-angle composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "거짓말 없는 세상, 살 만할까? 구독 눌러.",
+      "image_prompt": "A single person looking into a mirror, their reflection shows a perfectly clean face but they touch their cheek anxiously, the weight of total transparency, moody lighting with red and white contrast",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "거짓말하면 얼굴에 표시가 된다면? #만약에",
+    "thumbnail_text": "거짓말=즉시 들통",
+    "description": "만약 거짓말하면 얼굴에 표시가 된다면? 정치, 면접, 연애, 외교까지 전부 바뀐다.\n#만약에 #거짓말 #진실 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#거짓말", "#진실", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

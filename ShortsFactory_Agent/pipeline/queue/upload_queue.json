@@ -1,0 +1,277 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-02-23T22:32:19+09:00",
+  "entries": [
+    {
+      "queue_id": "uq_20260220_001",
+      "episode_id": "whatif_ep029",
+      "status": "uploaded",
+      "added_at": "2026-02-20T22:34:04+09:00",
+      "script_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/scripts/whatif_ep029.json",
+      "video_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/rendered/samples/whatif_ep029/whatif_ep029_manga_20260220-212850.mp4",
+      "metadata": {
+        "title": "⏳ 머리 위에 남은 수명이 보인다면? #만약에",
+        "description": "[만약에~] visible lifespan\n만약 머리 위에 남은 수명이 보인다면? 보험, 취업, 연애까지 전부 바뀐다.\n#만약에 #수명 #차별 #WhatIf #Shorts",
+        "tags": ["만약에", "수명", "차별", "WhatIf", "Shorts"],
+        "category_id": "24",
+        "privacy_status": "private"
+      },
+      "approved_at": "2026-02-20T22:34:04+09:00",
+      "uploaded_at": "2026-02-20T22:34:11+09:00",
+      "upload_result": {
+        "video_id": "75cZ-9pIjvU",
+        "youtube_url": "https://youtube.com/shorts/75cZ-9pIjvU",
+        "upload_timestamp": "2026-02-20T13:34:11+00:00",
+        "privacy_status": "private"
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3
+    },
+    {
+      "queue_id": "uq_20260220_002",
+      "episode_id": "whatif_ep034",
+      "status": "uploaded",
+      "added_at": "2026-02-20T23:10:55+09:00",
+      "script_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/scripts/whatif_ep034.json",
+      "video_path": "pipeline/rendered/whatif_ep034_20260220-230624.mp4",
+      "metadata": {
+        "title": "🤔 세상에서 색이 사라진다면? #만약에",
+        "description": "[만약에~] world without color\n만약 세상에서 색이 사라진다면? 요리도 신호등도 예술도 전부 바뀐다.\n#만약에 #색 #흑백세상 #WhatIf #Shorts",
+        "tags": ["만약에", "색", "흑백세상", "WhatIf", "Shorts"],
+        "category_id": "24",
+        "privacy_status": "private"
+      },
+      "approved_at": "2026-02-20T23:10:59+09:00",
+      "uploaded_at": "2026-02-20T23:11:07+09:00",
+      "upload_result": {
+        "video_id": "5mOCtLCkY4w",
+        "youtube_url": "https://youtube.com/shorts/5mOCtLCkY4w",
+        "upload_timestamp": "2026-02-20T14:11:07+00:00",
+        "privacy_status": "private"
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3
+    },
+    {
+      "queue_id": "uq_20260220_003",
+      "episode_id": "whatif_ep035",
+      "status": "uploaded",
+      "added_at": "2026-02-20T23:19:01+09:00",
+      "script_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/scripts/whatif_ep035.json",
+      "video_path": "pipeline/rendered/samples/whatif_ep035/whatif_ep035_manga_20260220-231508.mp4",
+      "metadata": {
+        "title": "🔮 10분 후 미래가 보인다면? #만약에",
+        "description": "[만약에~] see 10min future\n만약 항상 10분 후의 미래가 보인다면? 목숨은 구하지만, 설렘이 사라진다.\n#만약에 #미래예지 #초능력 #WhatIf #Shorts",
+        "tags": ["만약에", "미래예지", "초능력", "WhatIf", "Shorts"],
+        "category_id": "24",
+        "privacy_status": "private"
+      },
+      "approved_at": "2026-02-20T23:19:05+09:00",
+      "uploaded_at": "2026-02-20T23:19:11+09:00",
+      "upload_result": {
+        "video_id": "bSnnBuRSLOg",
+        "youtube_url": "https://youtube.com/shorts/bSnnBuRSLOg",
+        "upload_timestamp": "2026-02-20T14:19:11+00:00",
+        "privacy_status": "private"
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3
+    },
+    {
+      "queue_id": "uq_20260221_001",
+      "episode_id": "whatif_ep039",
+      "status": "rejected",
+      "added_at": "2026-02-21T08:14:08+09:00",
+      "script_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/scripts/whatif_ep039.json",
+      "video_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/rendered/samples/whatif_ep039/whatif_ep039_manga_20260221-091017.mp4",
+      "metadata": {
+        "title": "🍗 칼로리가 눈앞에 보인다면? #만약에",
+        "description": "[만약에~] calorie count visible\n만약에 시리즈: 먹는 음식 칼로리가 실시간으로 보인다면? 처음엔 다이어트 완성인 줄 알았는데... 치킨 빨간 경고창이 뜨는 순간 모든 게 달라진다.\n※ 순수 창작 코미디 시나리오입니다.\n#만약에 #다이어트 #칼로리 #WhatIf #Shorts",
+        "tags": ["만약에", "다이어트", "칼로리", "WhatIf", "Shorts"],
+        "category_id": "24",
+        "privacy_status": "private"
+      },
+      "approved_at": null,
+      "uploaded_at": null,
+      "upload_result": null,
+      "error": "품질 미달 — CEO 판단",
+      "retry_count": 0,
+      "max_retries": 3
+    },
+    {
+      "queue_id": "uq_20260221_002",
+      "episode_id": "whatif_ep040",
+      "status": "rejected",
+      "added_at": "2026-02-21T08:14:08+09:00",
+      "script_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/scripts/whatif_ep040.json",
+      "video_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/rendered/samples/whatif_ep040/whatif_ep040_manga_20260221-090148.mp4",
+      "metadata": {
+        "title": "📱 카카오톡 대화방이 모두에게 보인다면? #만약에",
+        "description": "[만약에~] chat history public\n만약에 카카오톡 대화방 목록이 전부 공개된다면?\n읽씹 뱃지, 단톡방 비밀 제목... 대한민국 �멘붕 시작.\n결국 손편지로 돌아간 우리들의 이야기 😂\n#만약에 #카카오톡 #읽씹 #WhatIf #Shorts",
+        "tags": ["만약에", "카카오톡", "읽씹", "WhatIf", "Shorts"],
+        "category_id": "24",
+        "privacy_status": "private"
+      },
+      "approved_at": null,
+      "uploaded_at": null,
+      "upload_result": null,
+      "error": "품질 미달 — CEO 판단",
+      "retry_count": 0,
+      "max_retries": 3
+    },
+    {
+      "queue_id": "uq_20260221_003",
+      "episode_id": "whatif_ep041",
+      "status": "uploaded",
+      "added_at": "2026-02-21T08:14:08+09:00",
+      "script_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/scripts/whatif_ep041.json",
+      "video_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/rendered/samples/whatif_ep041/whatif_ep041_manga_20260221-090532.mp4",
+      "metadata": {
+        "title": "🔋 사람 몸에 배터리가 보인다면? #만약에",
+        "description": "[만약에~] battery level on humans\n만약에 시리즈: 내 피로도가 숫자로 보인다면? 상사 논리를 박살낼 기회가 왔다 싶었는데... 현황판이 생기고 만성 20%가 롤모델이 됐다.\n※ 한국 직장 번아웃 문화를 소재로 한 순수 창작 풍자 콘텐츠입니다.\n#만약에 #직장인 #번아웃 #WhatIf #Shorts",
+        "tags": ["만약에", "직장인", "번아웃", "WhatIf", "Shorts"],
+        "category_id": "24",
+        "privacy_status": "private"
+      },
+      "approved_at": "2026-02-21T09:16:54+09:00",
+      "uploaded_at": "2026-02-21T09:17:03+09:00",
+      "upload_result": {
+        "video_id": "eVBdgldrPeY",
+        "youtube_url": "https://youtube.com/shorts/eVBdgldrPeY",
+        "upload_timestamp": "2026-02-21T00:17:03+00:00",
+        "privacy_status": "private"
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3
+    },
+    {
+      "queue_id": "uq_20260221_004",
+      "episode_id": "whatif_ep039",
+      "status": "uploaded",
+      "added_at": "2026-02-21T10:16:39+09:00",
+      "script_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/scripts/whatif_ep039.json",
+      "video_path": "pipeline/rendered/samples/whatif_ep039/whatif_ep039_manga_20260221-101306.mp4",
+      "metadata": {
+        "title": "🍗 칼로리가 머리 위에 뜬다면? #만약에",
+        "description": "[만약에~] calorie count visible\n[만약에~] calorie count visible\n만약에 시리즈: 먹는 음식 칼로리가 머리 위에 실시간으로 뜬다면? 다이어트 천국인 줄 알았는데... 밥 한 끼가 면접이 되고, 결국 반란이 시작됐다.\n※ 순수 창작 코미디 시나리오입니다.\n#만약에 #다이어트 #칼로리플렉스 #WhatIf #Shorts",
+        "tags": ["만약에", "다이어트", "칼로리플렉스", "WhatIf", "Shorts"],
+        "category_id": "24",
+        "privacy_status": "private"
+      },
+      "approved_at": "2026-02-21T10:18:59+09:00",
+      "uploaded_at": "2026-02-21T10:19:08+09:00",
+      "upload_result": {
+        "video_id": "60clvXjGUQY",
+        "youtube_url": "https://youtube.com/shorts/60clvXjGUQY",
+        "upload_timestamp": "2026-02-21T01:19:08+00:00",
+        "privacy_status": "private"
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3
+    },
+    {
+      "queue_id": "uq_20260222_001",
+      "episode_id": "whatif_ep042",
+      "status": "rejected",
+      "added_at": "2026-02-22T10:20:54+09:00",
+      "script_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/scripts/whatif_ep042.json",
+      "video_path": "pipeline/rendered/samples/whatif_ep042/whatif_ep042.mp4",
+      "metadata": {
+        "title": "💤 꿈에 광고가 붙기 시작한다면? #만약에",
+        "description": "[만약에~] dream ads\n만약에 시리즈: 잠들 때마다 꿈에 광고가 뜬다면?\n고백 중 스폰서 등장, 드림 프리미엄 월 9,900원... 근데 반전은 광고 꿈이 더 재밌다?\n※ 광고 피로 사회를 소재로 한 순수 창작 풍자 콘텐츠입니다.\n#만약에 #광고 #구독경제 #WhatIf #Shorts",
+        "tags": ["만약에", "광고", "구독경제", "WhatIf", "Shorts"],
+        "category_id": "24",
+        "privacy_status": "private"
+      },
+      "approved_at": null,
+      "uploaded_at": null,
+      "upload_result": null,
+      "error": "CEO 거부",
+      "retry_count": 0,
+      "max_retries": 3
+    },
+    {
+      "queue_id": "uq_20260222_002",
+      "episode_id": "whatif_ep042",
+      "status": "uploaded",
+      "added_at": "2026-02-22T12:58:35+09:00",
+      "script_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/scripts/whatif_ep042.json",
+      "video_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/rendered/samples/whatif_ep042/whatif_ep042_manga_20260222-125207.mp4",
+      "metadata": {
+        "title": "🤖 AI가 나보다 나를 더 잘 안다면? #만약에",
+        "description": "[만약에~] ai knows me better\n만약에 시리즈: AI가 내 취향, 비밀, 심지어 숨겨둔 꿈까지 다 안다면?\n편리함 뒤에 숨은 소름과, 예상 못한 감동 반전.\n※ AI 초개인화 시대를 소재로 한 순수 창작 풍자 콘텐츠입니다.\n#만약에 #AI #인공지능 #WhatIf #Shorts",
+        "tags": ["만약에", "AI", "인공지능", "WhatIf", "Shorts"],
+        "category_id": "24",
+        "privacy_status": "private"
+      },
+      "approved_at": "2026-02-22T12:58:43+09:00",
+      "uploaded_at": "2026-02-22T12:59:12+09:00",
+      "upload_result": {
+        "video_id": "NHQkUhb7n5E",
+        "youtube_url": "https://youtube.com/shorts/NHQkUhb7n5E",
+        "upload_timestamp": "2026-02-22T03:59:12+00:00",
+        "privacy_status": "private"
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3
+    },
+    {
+      "queue_id": "uq_20260222_003",
+      "episode_id": "whatif_ep043",
+      "status": "uploaded",
+      "added_at": "2026-02-22T13:22:20+09:00",
+      "script_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/scripts/whatif_ep043.json",
+      "video_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/rendered/samples/whatif_ep043/whatif_ep043_manga_20260222-131838.mp4",
+      "metadata": {
+        "title": "🔍 내 검색 기록이 모두에게 보인다면? #만약에",
+        "description": "[만약에~] search history visible\n만약에 시리즈: 내 검색 기록이 머리 위에 뜨는 세상이 온다면?\n부장님도, 나도 들켰다.\n근데 지하철에서 본 80%의 공통 검색어는...\n※ 순수 창작 풍자 콘텐츠입니다.\n#만약에 #검색기록 #회사생활 #WhatIf #Shorts",
+        "tags": ["만약에", "검색기록", "회사생활", "WhatIf", "Shorts"],
+        "category_id": "24",
+        "privacy_status": "private"
+      },
+      "approved_at": "2026-02-22T13:22:20+09:00",
+      "uploaded_at": "2026-02-22T13:22:30+09:00",
+      "upload_result": {
+        "video_id": "y-ufzQOYRW0",
+        "youtube_url": "https://youtube.com/shorts/y-ufzQOYRW0",
+        "upload_timestamp": "2026-02-22T04:22:30+00:00",
+        "privacy_status": "private"
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3
+    },
+    {
+      "queue_id": "uq_20260223_001",
+      "episode_id": "whatif_ep010",
+      "status": "uploaded",
+      "added_at": "2026-02-23T22:31:59+09:00",
+      "script_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/scripts/whatif_ep010.json",
+      "video_path": "/Users/yong/MainFolder/My_AI_Project/HKD852/ShortsFactory_Agent/pipeline/rendered/samples/whatif_ep010/whatif_ep010_manga_20260223-222906.mp4",
+      "metadata": {
+        "title": "🌱 밥 안 먹어도 된다면? 결과가 충격 #만약에",
+        "description": "[만약에~] humans photosynthesis\n만약에 시리즈: 인간이 식물처럼 광합성을 할 수 있다면 밥을 안 먹어도 될까?\n과학적 계산 결과가 충격적입니다.\n※ 순수 창작 풍자 콘텐츠입니다.\n#만약에 #광합성 #과학 #WhatIf #Shorts",
+        "tags": ["만약에", "광합성", "과학", "WhatIf", "Shorts"],
+        "category_id": "24",
+        "privacy_status": "private"
+      },
+      "approved_at": "2026-02-23T22:31:59+09:00",
+      "uploaded_at": "2026-02-23T22:32:19+09:00",
+      "upload_result": {
+        "video_id": "p9gmF-Vjd5U",
+        "youtube_url": "https://youtube.com/shorts/p9gmF-Vjd5U",
+        "upload_timestamp": "2026-02-23T13:32:19+00:00",
+        "privacy_status": "private"
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3
+    }
+  ]
+}

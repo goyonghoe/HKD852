@@ -1,0 +1,124 @@
+{
+  "episode_id": "paper_ep019_en",
+  "series": "Today's Paper",
+  "topic_id": "sucralose-brain-hunger-hypothalamus-obesity",
+  "language": "en",
+  "paper_source": {
+    "title": "Non-caloric sweetener effects on brain appetite regulation in individuals across varying body weights",
+    "authors": "Chakravartti SP et al.",
+    "journal": "Nature Metabolism",
+    "year": 2025,
+    "doi": "10.1038/s42255-025-01227-8",
+    "peer_reviewed": true,
+    "key_finding": "성인 75명 대상 무작위 이중맹검 교차 임상시험. 수크랄로스(제로칼로리 감미료) 섭취 시 실제 설탕 대비 시상하부 혈류와 배고픔 신호가 유의하게 더 크게 활성화됨. 비만인에서 이 효과가 가장 두드러졌으며, BMI가 높을수록 감미료 유발 식욕 활성화가 강해지는 용량-반응 관계 확인."
+  },
+  "visual_style": "Nano Banana Pro scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, electric cyan and cool purple brain glow accents contrasted with warm sugar-brown and zero-calorie ice-blue tones, consistent round-faced mascot character, clean geometric shapes and smooth curves, layered composition with data visualization elements, scientific journal quality illustrations, no text no numbers no words anywhere in images, tall vertical 9:16 portrait composition optimized for mobile viewing, bottom quarter solid deep navy for subtitle space",
+  "script": {
+    "hook": "A new study just confirmed it — the more zero-calorie drinks you have, the hungrier you get.",
+    "body": [
+      "They tested 75 people. When participants consumed a zero-calorie sweetener, hunger signals in the brain actually fired stronger — not weaker.",
+      "Blood flow in the hypothalamus spiked higher than it did with real sugar.",
+      "And the effect was strongest in people with obesity. The higher their BMI, the more intensely the sweetener triggered their appetite."
+    ],
+    "closer": "Your brain never bought the zero-calorie story.",
+    "cta": ""
+  },
+  "full_text": "A new study just confirmed it — the more zero-calorie drinks you have, the hungrier you get. They tested 75 people. When participants consumed a zero-calorie sweetener, hunger signals in the brain actually fired stronger — not weaker. Blood flow in the hypothalamus spiked higher than it did with real sugar. And the effect was strongest in people with obesity. The higher their BMI, the more intensely the sweetener triggered their appetite. Your brain never bought the zero-calorie story.",
+  "display_text": "A new study just confirmed it — the more zero-calorie drinks you have, the hungrier you get. They tested 75 people. When participants consumed a zero-calorie sweetener, hunger signals in the brain actually fired stronger — not weaker. Blood flow in the hypothalamus spiked higher than it did with real sugar. And the effect was strongest in people with obesity. The higher their BMI, the more intensely the sweetener triggered their appetite. Your brain never bought the zero-calorie story.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "A new study just confirmed it — the more zero-calorie drinks you have, the hungrier you get.",
+      "image_prompt": null,
+      "image_ref": "pipeline/images/manga/paper_ep019_scene01.png",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "They tested 75 people. When participants consumed a zero-calorie sweetener, hunger signals in the brain actually fired stronger — not weaker.",
+      "image_prompt": null,
+      "image_ref": "pipeline/images/manga/paper_ep019_scene02.png",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "Blood flow in the hypothalamus spiked higher than it did with real sugar.",
+      "image_prompt": null,
+      "image_ref": "pipeline/images/manga/paper_ep019_scene03.png",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "And the effect was strongest in people with obesity. The higher their BMI, the more intensely the sweetener triggered their appetite.",
+      "image_prompt": null,
+      "image_ref": "pipeline/images/manga/paper_ep019_scene04.png",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "Your brain never bought the zero-calorie story.",
+      "image_prompt": null,
+      "image_ref": "pipeline/images/manga/paper_ep019_scene05.png",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🧠 Diet drinks make you hungrier. Science proved it. #TodaysPaper",
+    "thumbnail_text": "Zero cal = more hunger",
+    "description": "A Nature Metabolism study found that zero-calorie sweeteners activate hunger signals in the brain more strongly than real sugar — and the effect is worst in people with obesity.\n\n📄 Paper Source\nTitle: Non-caloric sweetener effects on brain appetite regulation in individuals across varying body weights\nAuthors: Chakravartti SP et al.\nJournal: Nature Metabolism (2025)\nDOI: https://doi.org/10.1038/s42255-025-01227-8\nPeer-reviewed: ✅\n\nKey finding: Randomized double-blind crossover trial in 75 adults. Sucralose triggered greater hypothalamic blood flow and hunger signaling than real sugar. The effect was most pronounced in individuals with obesity, with a clear dose-response relationship to BMI.\n\n─\nToday's Paper distills cutting-edge research into 30-second shorts.\nRead the full paper via the DOI link above.\n\n#TodaysPaper #DietDrinks #ZeroCalorie #Neuroscience #Appetite #Obesity #Shorts",
+    "hashtags": [
+      "#TodaysPaper",
+      "#DietDrinks",
+      "#ZeroCalorie",
+      "#Neuroscience",
+      "#Appetite",
+      "#Obesity",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "🧠 Diet drinks make you hungrier. Science proved it. #TodaysPaper",
+      "description": "A Nature Metabolism study found that zero-calorie sweeteners activate hunger signals in the brain more strongly than real sugar — and the effect is worst in people with obesity.\n\n📄 Paper Source\nTitle: Non-caloric sweetener effects on brain appetite regulation in individuals across varying body weights\nAuthors: Chakravartti SP et al.\nJournal: Nature Metabolism (2025)\nDOI: https://doi.org/10.1038/s42255-025-01227-8\nPeer-reviewed: ✅\n\nKey finding: Randomized double-blind crossover trial in 75 adults. Sucralose triggered greater hypothalamic blood flow and hunger signaling than real sugar. The effect was most pronounced in individuals with obesity, with a clear dose-response relationship to BMI.\n\n─\nToday's Paper distills cutting-edge research into 30-second shorts.\nRead the full paper via the DOI link above.\n\n#TodaysPaper #DietDrinks #ZeroCalorie #Neuroscience #Appetite #Obesity #Shorts",
+      "tags": [
+        "TodaysPaper",
+        "DietDrinks",
+        "ZeroCalorie",
+        "Sucralose",
+        "Neuroscience",
+        "Appetite",
+        "Hypothalamus",
+        "Obesity",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "en",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "en-male-multilingual",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 56
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 9,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 10,
+      "emotional": 9,
+      "stories": 9,
+      "total": 56,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "Zero-calorie drinks help you avoid weight gain",
+      "conflict": "Brain hunger signals fire stronger with zero-cal sweeteners than with real sugar",
+      "twist": "The effect is worst in people with obesity — backfiring most for those who need help most",
+      "punchline": "The drink you trusted as zero-calorie? Your brain was never fooled."
+    },
+    "hook_pattern": "counterintuitive-reveal (effectiveness: 97)"
+  }
+}

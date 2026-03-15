@@ -1,0 +1,70 @@
+{
+  "episode_id": "whatif_ep058",
+  "series": "만약에~",
+  "topic_id": "robot-no1-still-overtime",
+  "language": "ko",
+  "visual_style": "flat 2D minimalist vector illustration, bold geometric shapes, rich saturated colors on deep dark blue background, soft inner gradient shading, warm glow effects, simplified cute rounded characters with no outlines, clean educational animation aesthetic, smooth color transitions, ironic contrast energy",
+  "script": {
+    "hook": "한국이 로봇 밀도 세계 1위인 거 알아? 근데 왜 아직도 야근해?",
+    "body": [
+      "직원 만 명당 로봇이 1012대. 세계에서 가장 많아. 2위 싱가포르보다 두 배 넘게 많아. 로봇 천국인데 퇴근은 지옥이야.",
+      "여기서 더 웃긴 데이터가 있어. 한국인은 연간 1874시간 일해. 다른 선진국보다 132시간 더 일하는 거야. 3주치 노동을 공짜로 더 하는 셈이야.",
+      "로봇이 일을 대신하면 편해질 줄 알았지. 근데 현실은 달라. 로봇이 들어온 자리에 새로운 업무가 채워져. 일은 줄지 않아. 보고서만 늘어.",
+      "그 결과 청년 3명 중 1명이 번아웃이야. 정확히 32%. 그리고 327만 개 일자리가 사라질 위험에 있어. 내 자리가 없어지는데 야근은 계속되는 모순.",
+      "OECD가 권고한 주 35시간에서 한국만 역주행 중이야. 로봇은 세계 1위인데 워라밸은 꼴찌. 이 모순 어떻게 생각해?"
+    ],
+    "cta": ""
+  },
+  "full_text": "한국이 로봇 밀도 세계 1위인 거 알아? 근데 왜 아직도 야근해? 직원 만 명당 로봇이 1012대. 세계에서 가장 많아. 2위 싱가포르보다 두 배 넘게 많아. 로봇 천국인데 퇴근은 지옥이야. 여기서 더 웃긴 데이터가 있어. 한국인은 연간 1874시간 일해. 다른 선진국보다 132시간 더 일하는 거야. 3주치 노동을 공짜로 더 하는 셈이야. 로봇이 일을 대신하면 편해질 줄 알았지. 근데 현실은 달라. 로봇이 들어온 자리에 새로운 업무가 채워져. 일은 줄지 않아. 보고서만 늘어. 그 결과 청년 3명 중 1명이 번아웃이야. 정확히 32%. 그리고 327만 개 일자리가 사라질 위험에 있어. 내 자리가 없어지는데 야근은 계속되는 모순. OECD가 권고한 주 35시간에서 한국만 역주행 중이야. 로봇은 세계 1위인데 워라밸은 꼴찌. 이 모순 어떻게 생각해?",
+  "display_text": "한국이 로봇 밀도 세계 1위인 거 알아? 근데 왜 아직도 야근해? 직원 만 명당 로봇이 1012대. 세계에서 가장 많아. 2위 싱가포르보다 두 배 넘게 많아. 로봇 천국인데 퇴근은 지옥이야. 여기서 더 웃긴 데이터가 있어. 한국인은 연간 1874시간 일해. 다른 선진국보다 132시간 더 일하는 거야. 3주치 노동을 공짜로 더 하는 셈이야. 로봇이 일을 대신하면 편해질 줄 알았지. 근데 현실은 달라. 로봇이 들어온 자리에 새로운 업무가 채워져. 일은 줄지 않아. 보고서만 늘어. 그 결과 청년 3명 중 1명이 번아웃이야. 정확히 32%. 그리고 327만 개 일자리가 사라질 위험에 있어. 내 자리가 없어지는데 야근은 계속되는 모순. OECD가 권고한 주 35시간에서 한국만 역주행 중이야. 로봇은 세계 1위인데 워라밸은 꼴찌. 이 모순 어떻게 생각해?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "한국이 로봇 밀도 세계 1위인 거 알아? 근데 왜 아직도 야근해?",
+      "image_prompt": "Vertical 1080x1920. A dramatic contrast scene. On the left a shiny futuristic robot arm gleaming with bright cyan tech glow holding a golden trophy. On the right a tiny cute simplified round-headed exhausted office worker figure slumped over their desk at midnight with dark circles under their eyes, coffee cups piled around them. A clock on the wall shows past midnight. The robot celebrates while the human suffers. The ironic contrast between technological triumph and human exhaustion. Flat 2D minimalist vector illustration, bold geometric shapes, bright cyan robot achievement vs warm exhausted orange desk lamp on deep dark navy background, soft gradient shading, ironic tech-vs-human contrast, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "직원 만 명당 로봇이 1012대. 세계에서 가장 많아. 2위 싱가포르보다 두 배 넘게 많아. 로봇 천국인데 퇴근은 지옥이야.",
+      "image_prompt": "Vertical 1080x1920. A factory floor scene packed with sleek geometric robot arms in rows, glowing cyan and white. Among the robots tiny cute simplified round-headed human worker figures are scattered, dwarfed by the massive robot population. A scoreboard shows Korea at the top with a massive robot count bar. Singapore bar below is less than half the size. The robots work efficiently with sparkle effects while the few humans among them look overwhelmed. Paradise for machines, overtime for humans. Flat 2D minimalist vector illustration, bold geometric shapes, overwhelming cyan robot army vs few warm orange humans on deep dark navy background, soft gradient shading, robot paradise irony, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "여기서 더 웃긴 데이터가 있어. 한국인은 연간 1874시간 일해. 다른 선진국보다 132시간 더 일하는 거야. 3주치 노동을 공짜로 더 하는 셈이야.",
+      "image_prompt": "Vertical 1080x1920. A calendar visualization where a row of country figures stand next to their work hour blocks. The Korean figure in warm orange has three extra work week blocks stacked on top highlighted in stressed red that other country figures in cool blue dont have. The extra blocks glow angry red like overtime penalty blocks in a game. Other country figures from OECD nations look relaxed with shorter stacks while the Korean figure sweats under the extra weight. The three bonus weeks are literally crushing the figure. Flat 2D minimalist vector illustration, bold geometric shapes, angry red overtime blocks crushing warm orange worker vs relaxed cool blue international workers on deep dark navy background, soft gradient shading, overtime burden comedy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "로봇이 일을 대신하면 편해질 줄 알았지. 근데 현실은 달라. 로봇이 들어온 자리에 새로운 업무가 채워져. 일은 줄지 않아. 보고서만 늘어.",
+      "image_prompt": "Vertical 1080x1920. A comedic Hydra effect scene. A robot arm efficiently completes one task and it disappears. But immediately three new task documents sprout from where the old one was like a hydra growing new heads. A tiny cute simplified round-headed office worker watches in horror as for every task the robot finishes three more appear. The desk is overflowing with multiplying report documents. The robot keeps working happily while the humans paperwork pile grows exponentially. A treadmill effect where automation creates more work not less. Flat 2D minimalist vector illustration, bold geometric shapes, efficient cyan robot vs multiplying warm red task documents overwhelming the orange worker on deep dark navy background, soft gradient shading, automation paradox comedy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "그 결과 청년 3명 중 1명이 번아웃이야. 정확히 32%. 그리고 327만 개 일자리가 사라질 위험에 있어. 내 자리가 없어지는데 야근은 계속되는 모순.",
+      "image_prompt": "Vertical 1080x1920. Three tiny cute simplified round-headed young worker figures stand in a row. One of them has completely burnt out with grey color drained exhaustion smoke rising from their head and spiral eyes. The other two look anxiously at a robot shadow creeping toward their desk chairs from behind. The paradox visualized: burnout from overwork while simultaneously threatened by job loss. A cracking floor beneath them shows instability. The mood is darkly humorous caught between two impossible pressures. Flat 2D minimalist vector illustration, bold geometric shapes, grey burnout smoke vs creeping cyan robot shadow on deep dark navy background, soft gradient shading, impossible paradox dark comedy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "OECD가 권고한 주 35시간에서 한국만 역주행 중이야. 로봇은 세계 1위인데 워라밸은 꼴찌. 이 모순 어떻게 생각해?",
+      "image_prompt": "Vertical 1080x1920. A split highway scene. On the left lane multiple country car figures drive calmly toward a bright green relaxation destination with short work hour signs. On the right lane a single Korean car races in the opposite direction against the flow, going backwards away from the green zone with a robot hood ornament and exhausted driver inside. All other cars go one way while Korea goes the other creating a dramatic wrong-way driving visual. The OECD direction arrow points left but Korea speeds right. The irony of having the most robots but going backwards on work-life balance. Flat 2D minimalist vector illustration, bold geometric shapes, calm green forward flow vs urgent red Korean reverse on deep dark navy background, soft gradient shading, wrong-way driving irony, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "🤖 로봇 세계 1위인데 왜 야근해? #논문팩트",
+    "thumbnail_text": "로봇1위 야근1위",
+    "description": "논문 팩트: 로봇 밀도 세계 1위 (만 명당 1,012대)\n근데 OECD보다 132시간 더 일함. 청년 번아웃 32%.\n327만 일자리 사라질 위험 + OECD 권고 35시간에서 역주행.\n출처: OECD, 한국고용정보원, IFR World Robotics\n#논문팩트 #로봇 #야근 #워라밸 #Shorts",
+    "hashtags": ["#논문팩트", "#로봇", "#야근", "#워라밸", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

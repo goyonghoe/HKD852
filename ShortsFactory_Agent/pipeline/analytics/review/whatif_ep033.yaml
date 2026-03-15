@@ -1,0 +1,15 @@
+episode_id: "whatif_ep033"
+review_date: "2026-02-20"
+verdict: "PASS"
+scores:
+  source_citation: 9 # 과학적 추론 기반 (조수력, 자전 감속, 공전 주기)
+  substantial_transformation: 9 # 과학+일상+달력 재편 다각도 분석
+  ai_misrepresentation_free: 10 # 가상 시나리오 명확
+  creator_perspective: 9 # "달력 다시 만들기" — 의외성 높은 포인트
+  uniqueness: 8 # 천문학 테마, EP028(중력)과 물리학 범주 겹침(별개 주제)
+  hook_strength: 9 # "달이 10배 가까워진다면?" — 시각적으로 극도로 강렬
+  factual_accuracy: 9 # 조수력 ∝ 1/d³, 자전 감속, 공전 주기 단축 — 과학적 정확
+total_score: 63
+feedback: "배치 내 최고 점수. 과학적 근거가 탄탄하고 '300m 파도' '달력 재편' 등 시각적+논리적 임팩트 모두 강함. EP028(중력)과 물리학 범주가 겹치나 달 vs 중력 자체는 완전히 별개 주제."
+revise_items: []
+image_safety: "PASS" # 300m 파도도 awe-inspiring으로 표현, 재난 공포 배제

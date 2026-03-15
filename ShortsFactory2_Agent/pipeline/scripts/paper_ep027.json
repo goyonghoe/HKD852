@@ -1,0 +1,124 @@
+{
+  "episode_id": "paper_ep027",
+  "series": "오늘의 논문",
+  "topic_id": "trading-addiction-behavioral-disorder-scale",
+  "language": "ko",
+  "paper_source": {
+    "title": "Development and Validation of the Trading Disorder Scale",
+    "authors": "Patel J, Ramnerö J, Bőthe B, Griffiths MD, Demetrovics Z",
+    "journal": "Journal of Behavioral Addictions",
+    "year": 2025,
+    "doi": "10.1556/2006.2025.00019",
+    "peer_reviewed": true,
+    "institution": "ELTE Eötvös Loránd University / Stockholm University / Nottingham Trent University",
+    "sample_size": null,
+    "key_finding": "도박 중독과 동일한 기준으로 검사한 결과 활성 트레이더 약 10%가 중독 수준이며, 수익과 무관하게 매매 자체에서 쾌감을 추구하고, 손실을 봐도 멈추지 못하는 행동 패턴이 확인되었다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, Nature journal quality, minimalist professional design, ",
+  "script": {
+    "hook": "투자자 열 명 중 한 명은 트레이딩 중독이래요.",
+    "body": [
+      "도박 중독이랑 같은 기준으로 투자자들을 검사했거든요. 그랬더니 열 명 중 한 명이 중독 수준이었대요.",
+      "특징이 뭐냐면, 돈을 벌어도 기쁨이 점점 줄어드는 거래요. 처음엔 10만 원에 짜릿했는데, 나중엔 백만 원 벌어도 밋밋한 거예요.",
+      "그리고 손해 봐도 멈출 수가 없대요. 수익이 목적이 아니라, 매매 버튼 누르는 그 자체가 쾌감인 거거든요."
+    ],
+    "closer": "투자가 재밌는 건 좋은데, 안 하면 불안한 거라면 한 번 돌아볼 때래요.",
+    "cta": ""
+  },
+  "full_text": "투자자 열 명 중 한 명은 트레이딩 중독이래요. 도박 중독이랑 같은 기준으로 투자자들을 검사했거든요. 그랬더니 열 명 중 한 명이 중독 수준이었대요. 특징이 뭐냐면, 돈을 벌어도 기쁨이 점점 줄어드는 거래요. 처음엔 10만 원에 짜릿했는데, 나중엔 백만 원 벌어도 밋밋한 거예요. 그리고 손해 봐도 멈출 수가 없대요. 수익이 목적이 아니라, 매매 버튼 누르는 그 자체가 쾌감인 거거든요. 투자가 재밌는 건 좋은데, 안 하면 불안한 거라면 한 번 돌아볼 때래요.",
+  "display_text": "투자자 열 명 중 한 명은 트레이딩 중독이래요. 도박 중독이랑 같은 기준으로 투자자들을 검사했거든요. 그랬더니 열 명 중 한 명이 중독 수준이었대요. 특징이 뭐냐면, 돈을 벌어도 기쁨이 점점 줄어드는 거래요. 처음엔 10만 원에 짜릿했는데, 나중엔 백만 원 벌어도 밋밋한 거예요. 그리고 손해 봐도 멈출 수가 없대요. 수익이 목적이 아니라, 매매 버튼 누르는 그 자체가 쾌감인 거거든요. 투자가 재밌는 건 좋은데, 안 하면 불안한 거라면 한 번 돌아볼 때래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "투자자 열 명 중 한 명은 트레이딩 중독이래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, ten abstract human silhouettes standing in a row, nine glow with calm cool blue tones while one silhouette pulses with intense hot red and orange energy from within like an overheating engine, the one figure stands out dramatically among the calm group, the visual ratio of one in ten is immediately clear, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "도박 중독이랑 같은 기준으로 투자자들을 검사했거든요. 그랬더니 열 명 중 한 명이 중독 수준이었대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a clinical diagnostic scanner or measuring device hovering over two activities side by side, on one side a roulette wheel representing gambling and on the other a trading screen representing investing, the scanner beam reveals identical glowing addiction patterns in both activities, the surprising equivalence between the two is the visual focus, scientific and clinical atmosphere, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "돈을 벌어도 기쁨이 점점 줄어드는 거래요. 처음엔 10만 원에 짜릿했는데, 나중엔 백만 원 벌어도 밋밋한 거예요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a series of reward orbs arranged vertically from bottom to top growing dramatically in size, but the glow and warmth of each orb decreases as they get larger, the smallest orb at bottom radiates intense brilliant joy while the massive orb at top barely flickers with a dim cold light despite being ten times bigger, tolerance and diminishing returns visualized through size versus luminosity paradox, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "수익이 목적이 아니라, 매매 버튼 누르는 그 자체가 쾌감인 거거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a large pulsating glowing button at center frame radiating addictive warm dopamine waves outward with each press, a finger hovers above it drawn magnetically downward, around the button scattered coins and gains lie ignored and dim on the ground, all attention and energy focuses solely on the button itself not the outcomes, the compulsive loop of action over result, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "투자가 재밌는 건 좋은데, 안 하면 불안한 거라면 한 번 돌아볼 때래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a person sitting quietly in a calm contemplative pose, behind them a fading afterimage of their frantic trading self dissolves like smoke, before them a still mirror reflects their true state, the transition from compulsion to self-awareness, warm amber light of introspection gradually replacing the cold blue urgency of addiction, peaceful but honest moment of recognition, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🎰 투자자 10명 중 1명은 트레이딩 중독 #오늘의논문",
+    "thumbnail_text": "매매가쾌감",
+    "description": "도박 중독과 같은 기준으로 검사한 결과 활성 트레이더의 약 10%가 중독 수준이라는 Journal of Behavioral Addictions 2025 연구입니다.\n\n📄 논문 출처\nTitle: Development and Validation of the Trading Disorder Scale\nAuthors: Patel J, Ramnerö J, Bőthe B, Griffiths MD, Demetrovics Z\nJournal: Journal of Behavioral Addictions (2025)\nDOI: https://doi.org/10.1556/2006.2025.00019\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #트레이딩중독 #매매중독 #도박 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#투자심리",
+      "#트레이딩중독",
+      "#매매중독",
+      "#도박",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "🎰 투자자 10명 중 1명은 트레이딩 중독 #오늘의논문",
+      "description": "도박 중독과 같은 기준으로 검사한 결과 활성 트레이더의 약 10%가 중독 수준이라는 Journal of Behavioral Addictions 2025 연구입니다.\n\n📄 논문 출처\nTitle: Development and Validation of the Trading Disorder Scale\nAuthors: Patel J, Ramnerö J, Bőthe B, Griffiths MD, Demetrovics Z\nJournal: Journal of Behavioral Addictions (2025)\nDOI: https://doi.org/10.1556/2006.2025.00019\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #트레이딩중독 #매매중독 #도박 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "투자심리",
+        "트레이딩중독",
+        "매매중독",
+        "도박",
+        "주식",
+        "코인",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 9,
+      "concrete": 10,
+      "credible": 9,
+      "emotional": 10,
+      "stories": 10,
+      "total": 58,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "투자는 돈 벌려고 하는 건데 중독이라니",
+      "conflict": "도박 중독 기준으로 검사하니 10%가 중독",
+      "twist": "돈을 벌어도 기쁨이 줄고, 매매 자체가 쾌감이 된 상태",
+      "punchline": "재미와 중독 사이, 안 하면 불안하다면 경고 신호"
+    },
+    "hook_pattern": "shocking-statistic (effectiveness: 95)"
+  }
+}

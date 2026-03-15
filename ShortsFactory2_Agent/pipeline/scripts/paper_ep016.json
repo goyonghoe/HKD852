@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep016",
+  "series": "오늘의 논문",
+  "topic_id": "junkfood-five-days-brain-change",
+  "language": "ko",
+  "paper_source": {
+    "title": "Short-term high-caloric diet impairs brain insulin action and disrupts reward learning",
+    "authors": "Kullmann S, et al.",
+    "journal": "Nature Metabolism",
+    "year": 2025,
+    "doi": "10.1038/s42255-025-01226-9",
+    "peer_reviewed": true,
+    "key_finding": "건강한 남성에게 5일간 초가공식품 고칼로리 식단 제공 → 체중 증가 전에 뇌 인슐린 반응 저하 + 보상회로 변형. 정상 식단 복귀 1주 후에도 해마·방추상이랑 인슐린 활동 유의미하게 낮음."
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, deep navy background, no text or numbers in images, tall vertical portrait composition optimized for 9:16 mobile viewing, subjects stacked vertically filling the full height",
+  "script": {
+    "hook": "정크푸드를 닷새만 먹어도요, 뇌가 바뀐대요.",
+    "body": [
+      "살이 찌기도 전에요, 뇌의 보상회로가 먼저 망가진대요.",
+      "다시 건강하게 먹어도요, 일주일 뒤까지 뇌의 반응이 떨어져 있었대요.",
+      "뇌가 한번 맛을 기억하면요, 계속 그걸 찾게 만든대요."
+    ],
+    "closer": "지금 배달앱 열려고 했죠? 네, 그게 뇌가 시키는 거래요.",
+    "cta": ""
+  },
+  "full_text": "정크푸드를 닷새만 먹어도요, 뇌가 바뀐대요. 살이 찌기도 전에요, 뇌의 보상회로가 먼저 망가진대요. 다시 건강하게 먹어도요, 일주일 뒤까지 뇌의 반응이 떨어져 있었대요. 뇌가 한번 맛을 기억하면요, 계속 그걸 찾게 만든대요. 지금 배달앱 열려고 했죠? 네, 그게 뇌가 시키는 거래요.",
+  "display_text": "정크푸드를 닷새만 먹어도요, 뇌가 바뀐대요. 살이 찌기도 전에요, 뇌의 보상회로가 먼저 망가진대요. 다시 건강하게 먹어도요, 일주일 뒤까지 뇌의 반응이 떨어져 있었대요. 뇌가 한번 맛을 기억하면요, 계속 그걸 찾게 만든대요. 지금 배달앱 열려고 했죠? 네, 그게 뇌가 시키는 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "정크푸드를 닷새만 먹어도요, 뇌가 바뀐대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute round-faced character happily eating a giant burger and fries in the center, above their head their brain is visible and slowly changing color from healthy bright pink to an unhealthy murky purple, greasy food items like pizza slices and donuts float around them, bright warm junk food colors contrast with the darkening brain, deep navy blue background fills entire tall frame, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "살이 찌기도 전에요, 뇌의 보상회로가 먼저 망가진대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute character standing on a scale in the upper half looking normal weight and confused, but inside their head shown in the lower half a cross-section of a brain with bright neon reward pathway circuits flickering and sparking with red warning colors, some circuits are cracked and broken with small lightning bolts, the body looks fine but the brain is clearly damaged, deep navy blue background, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "다시 건강하게 먹어도요, 일주일 뒤까지 뇌의 반응이 떨어져 있었대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute character eating a healthy salad and vegetables in the upper portion looking hopeful, but above their head the brain is still dim and sluggish with a slow weak pulse shown as faint blue rings, a calendar icon nearby shows one week passing, the contrast between the healthy food and the still-damaged brain creates visual tension, deep navy blue background, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "뇌가 한번 맛을 기억하면요, 계속 그걸 찾게 만든대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute character in the center trying to resist temptation with a strained expression, their brain above glows with addictive orange and red colors shaped like a burger and fries pattern burned into the neural pathways, thought bubbles filled with junk food float around pulling at the character like magnets, the character tries to look away but their eyes are drawn back, deep navy blue background, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "지금 배달앱 열려고 했죠? 네, 그게 뇌가 시키는 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a single cute round-faced character seen from chest up looking at viewer with a guilty caught expression and wide eyes, one hand visible holding a smartphone with a food delivery app glowing on screen, above their head a small cheeky brain character sits like a puppet master pulling tiny strings connected to the characters hand, playful warm lighting, deep navy blue background at edges, elements fill the full vertical height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🍔 정크푸드 닷새면 뇌가 바뀐다 #오늘의논문",
+    "thumbnail_text": "5일=뇌변형",
+    "description": "정크푸드를 5일만 먹어도, 살이 찌기 전에 뇌의 보상회로가 먼저 바뀐다는 연구입니다.\n\n📄 논문 출처\nTitle: Short-term high-caloric diet impairs brain insulin action and disrupts reward learning\nAuthors: Kullmann S et al.\nJournal: Nature Metabolism (2025)\nDOI: https://doi.org/10.1038/s42255-025-01226-9\nPeer-reviewed: ✅\n\nKey finding: 5일간 초가공식품 → 체중 증가 전 뇌 인슐린 반응 저하 + 보상회로 변형. 정상 식단 복귀 1주 후에도 효과 지속.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #정크푸드 #뇌과학 #다이어트 #Shorts",
+    "hashtags": ["#오늘의논문", "#정크푸드", "#뇌과학", "#다이어트", "#Shorts"],
+    "youtube": {
+      "title": "🍔 정크푸드 닷새면 뇌가 바뀐다 #오늘의논문",
+      "description": "정크푸드를 5일만 먹어도, 살이 찌기 전에 뇌의 보상회로가 먼저 바뀐다는 연구입니다.\n\n📄 논문 출처\nTitle: Short-term high-caloric diet impairs brain insulin action and disrupts reward learning\nAuthors: Kullmann S et al.\nJournal: Nature Metabolism (2025)\nDOI: https://doi.org/10.1038/s42255-025-01226-9\nPeer-reviewed: ✅\n\nKey finding: 5일간 초가공식품 → 체중 증가 전 뇌 인슐린 반응 저하 + 보상회로 변형. 정상 식단 복귀 1주 후에도 효과 지속.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #정크푸드 #뇌과학 #다이어트 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "정크푸드",
+        "뇌과학",
+        "다이어트",
+        "배달음식",
+        "건강",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 10,
+      "emotional": 10,
+      "stories": 9,
+      "total": 58,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "정크푸드는 살만 찌우겠지",
+      "conflict": "살 찌기 전에 뇌가 먼저 바뀜",
+      "twist": "건강식 복귀해도 1주일간 뇌 손상 지속",
+      "punchline": "배달앱 열려는 그 충동이 뇌가 시킨 것"
+    },
+    "hook_pattern": "personal-attack (effectiveness: 96)"
+  }
+}

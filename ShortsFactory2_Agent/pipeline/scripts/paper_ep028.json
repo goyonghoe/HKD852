@@ -1,0 +1,124 @@
+{
+  "episode_id": "paper_ep028",
+  "series": "오늘의 논문",
+  "topic_id": "gender-investment-gap-not-risk-aversion",
+  "language": "ko",
+  "paper_source": {
+    "title": "The Gender Investment Gap",
+    "authors": "Bernstein S, Giroud X, Townsend R",
+    "journal": "Review of Financial Studies",
+    "year": 2025,
+    "doi": "10.1093/rfs/hhae068",
+    "peer_reviewed": true,
+    "institution": "Harvard Business School / Columbia Business School / UC San Diego",
+    "sample_size": null,
+    "key_finding": "여성이 남성보다 주식 투자에 덜 참여하는 것은 위험 회피 성향 때문이 아니라, 금융 서비스 접근성, 정보 네트워크 차이, 가구 내 의사결정 구조 등 구조적 요인에 기인하며, 이를 통제하면 성별 투자 격차가 크게 줄어든다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, Nature journal quality, minimalist professional design, ",
+  "script": {
+    "hook": "여자가 투자를 덜 하는 이유가 겁이 많아서래요? 논문은 아니라고 하거든요.",
+    "body": [
+      "하버드랑 컬럼비아에서 연구했는데요, 여성이 주식을 덜 하는 건 겁쟁이라서가 아니래요.",
+      "진짜 이유는 구조적인 거였거든요. 금융 상품 추천을 덜 받고, 투자 얘기하는 네트워크도 더 좁고, 집안에서 재테크 결정권이 남자 쪽에 있는 경우가 많은 거래요.",
+      "이런 조건을 똑같이 맞추면, 성별 투자 격차가 확 줄어들더래요."
+    ],
+    "closer": "용기의 문제가 아니라 기회의 문제였다는 거, 생각보다 큰 차이인 거래요.",
+    "cta": ""
+  },
+  "full_text": "여자가 투자를 덜 하는 이유가 겁이 많아서래요? 논문은 아니라고 하거든요. 하버드랑 컬럼비아에서 연구했는데요, 여성이 주식을 덜 하는 건 겁쟁이라서가 아니래요. 진짜 이유는 구조적인 거였거든요. 금융 상품 추천을 덜 받고, 투자 얘기하는 네트워크도 더 좁고, 집안에서 재테크 결정권이 남자 쪽에 있는 경우가 많은 거래요. 이런 조건을 똑같이 맞추면, 성별 투자 격차가 확 줄어들더래요. 용기의 문제가 아니라 기회의 문제였다는 거, 생각보다 큰 차이인 거래요.",
+  "display_text": "여자가 투자를 덜 하는 이유가 겁이 많아서래요? 논문은 아니라고 하거든요. 하버드랑 컬럼비아에서 연구했는데요, 여성이 주식을 덜 하는 건 겁쟁이라서가 아니래요. 진짜 이유는 구조적인 거였거든요. 금융 상품 추천을 덜 받고, 투자 얘기하는 네트워크도 더 좁고, 집안에서 재테크 결정권이 남자 쪽에 있는 경우가 많은 거래요. 이런 조건을 똑같이 맞추면, 성별 투자 격차가 확 줄어들더래요. 용기의 문제가 아니라 기회의 문제였다는 거, 생각보다 큰 차이인 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "여자가 투자를 덜 하는 이유가 겁이 많아서래요? 논문은 아니라고 하거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a person standing confidently with arms crossed and steady posture, above their head a fading translucent fear icon dissolves and crumbles away, the person shows no fear at all contradicting the common assumption, bold and empowered stance with warm amber light radiating from within, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "하버드랑 컬럼비아에서 연구했는데요, 여성이 주식을 덜 하는 건 겁쟁이라서가 아니래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a large X mark dramatically crossing out a trembling fearful icon, behind the X a research spotlight illuminates the truth, institutional crests or academic building silhouettes in the background suggest ivy league research authority, the mood is one of debunking a widely held myth with scientific evidence, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "금융 상품 추천을 덜 받고, 투자 얘기하는 네트워크도 더 좁고, 집안에서 재테크 결정권이 남자 쪽에 있는 경우가 많은 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, three horizontal barriers or walls stacked vertically blocking a path, the first barrier represents limited access with fewer connecting lines reaching it, the second barrier shows a narrow social network with fewer nodes and connections compared to a dense network nearby, the third barrier shows an asymmetric balance of decision power tilted to one side, the person faces these structural obstacles not internal weakness, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "이런 조건을 똑같이 맞추면, 성별 투자 격차가 확 줄어들더래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, the three barriers from the previous scene now dissolving and crumbling as conditions equalize, two paths that were dramatically different now converge toward the same bright destination point, the gap between the paths narrows visibly, a sense of resolution and proof that the problem was structural not personal, equalizing energy waves spread across the composition, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "용기의 문제가 아니라 기회의 문제였다는 거, 생각보다 큰 차이인 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, two doors side by side, the left door is wide open with welcoming light and clear signage leading to opportunity, the right door is slightly ajar with dim light and harder to find, a person stands between them looking at the difference, the realization that access and opportunity matter more than individual courage, reflective and insightful mood with balanced warm and cool lighting, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🚪 여성이 투자를 덜 하는 진짜 이유 #오늘의논문",
+    "thumbnail_text": "겁아닌기회",
+    "description": "여성의 낮은 투자 참여율은 위험 회피가 아니라 구조적 접근성 차이 때문이라는 Review of Financial Studies 2025 연구입니다.\n\n📄 논문 출처\nTitle: The Gender Investment Gap\nAuthors: Bernstein S, Giroud X, Townsend R\nJournal: Review of Financial Studies (2025)\nDOI: https://doi.org/10.1093/rfs/hhae068\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #투자격차 #성별격차 #기회불평등 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#투자심리",
+      "#투자격차",
+      "#성별격차",
+      "#기회불평등",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "🚪 여성이 투자를 덜 하는 진짜 이유 #오늘의논문",
+      "description": "여성의 낮은 투자 참여율은 위험 회피가 아니라 구조적 접근성 차이 때문이라는 Review of Financial Studies 2025 연구입니다.\n\n📄 논문 출처\nTitle: The Gender Investment Gap\nAuthors: Bernstein S, Giroud X, Townsend R\nJournal: Review of Financial Studies (2025)\nDOI: https://doi.org/10.1093/rfs/hhae068\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #투자심리 #투자격차 #성별격차 #기회불평등 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "투자심리",
+        "투자격차",
+        "성별격차",
+        "기회불평등",
+        "주식",
+        "재테크",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 9,
+      "concrete": 10,
+      "credible": 10,
+      "emotional": 9,
+      "stories": 9,
+      "total": 57,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "여성이 투자를 덜 하는 건 위험을 싫어하니까",
+      "conflict": "하버드/컬럼비아 연구에서 위험 회피가 원인이 아님을 밝힘",
+      "twist": "추천·네트워크·결정권 등 구조적 장벽이 진짜 원인",
+      "punchline": "용기가 아니라 기회의 문제"
+    },
+    "hook_pattern": "myth-busting (effectiveness: 91)"
+  }
+}

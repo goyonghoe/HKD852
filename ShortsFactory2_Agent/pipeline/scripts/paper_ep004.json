@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep004",
+  "series": "오늘의 논문",
+  "topic_id": "full-fat-cheese-prevents-dementia",
+  "language": "ko",
+  "paper_source": {
+    "title": "High- and Low-Fat Dairy Consumption and Long-Term Risk of Dementia",
+    "authors": "Lund University research team",
+    "journal": "Neurology",
+    "year": 2025,
+    "doi": "10.1212/WNL.0000000000214343",
+    "peer_reviewed": true,
+    "key_finding": "25년간 27,670명 추적 — 고지방 치즈(>20%) 50g+/일 섭취 시 혈관성 치매 29% 감소, 저지방 유제품은 효과 없음"
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, consistent round-faced child character with big eyes and backwards red baseball cap, deep navy background, no text or numbers in images",
+  "script": {
+    "hook": "치즈 많이 먹으면 뇌에 나쁘다고요?",
+    "body": [
+      "원래 지방은 몸에 안 좋으니까 저지방을 먹어야 한다고 했거든요.",
+      "근데요, 2만 7천 명을 25년이나 추적했더니요.",
+      "고지방 치즈를 매일 먹은 사람이 치매 위험이 29%나 낮았대요. 저지방 우유는요? 아무 효과도 없었대요."
+    ],
+    "closer": "그러니까 뇌를 지켜준 건 참을성이 아니라 치즈 위의 기름이었던 거래요.",
+    "cta": ""
+  },
+  "full_text": "치즈 많이 먹으면 뇌에 나쁘다고요? 원래 지방은 몸에 안 좋으니까 저지방을 먹어야 한다고 했거든요. 근데요, 2만 7천 명을 25년이나 추적했더니요. 고지방 치즈를 매일 먹은 사람이 치매 위험이 29%나 낮았대요. 저지방 우유는요? 아무 효과도 없었대요. 그러니까 뇌를 지켜준 건 참을성이 아니라 치즈 위의 기름이었던 거래요.",
+  "display_text": "치즈 많이 먹으면 뇌에 나쁘다고요? 원래 지방은 몸에 안 좋으니까 저지방을 먹어야 한다고 했거든요. 근데요, 2만 7천 명을 25년이나 추적했더니요. 고지방 치즈를 매일 먹은 사람이 치매 위험이 29%나 낮았대요. 저지방 우유는요? 아무 효과도 없었대요. 그러니까 뇌를 지켜준 건 참을성이 아니라 치즈 위의 기름이었던 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "치즈 많이 먹으면 뇌에 나쁘다고요?",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a cute round-faced child with big worried eyes and backwards red baseball cap holding a large triangular wedge of bright yellow cheese with both hands, looking nervous and conflicted, a simple brain icon above the child with a red question mark next to it, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "원래 지방은 몸에 안 좋으니까 저지방을 먹어야 한다고 했거든요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, a stern-looking cartoon doctor or nutritionist character with a white coat wagging their finger disapprovingly, pushing away a block of rich yellow cheese with a red prohibition circle over it, next to them a carton of thin watery skim milk with a green checkmark and sparkles around it, the same round-faced child with backwards red cap watching obediently in the corner, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데요, 2만 7천 명을 25년이나 추적했더니요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap looking amazed with wide eyes and mouth open, behind the child a massive crowd of tiny colorful simple stick-figure people stretching across the whole scene suggesting a huge study group, a long winding path or timeline stretching from one side to the other showing the passage of many years with seasonal color changes along it, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "고지방 치즈를 매일 먹은 사람이 치매 위험이 29%나 낮았대요. 저지방 우유는요? 아무 효과도 없었대요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, split comparison scene, left half shows a happy glowing brain icon with a golden shield around it and a wedge of rich melty yellow cheese below it with sparkles and a big green upward arrow, right half shows a plain dim gray brain with no protection and a sad carton of thin skim milk below it with a flat horizontal gray line showing zero effect, the round-faced child with backwards red cap in the center looking shocked pointing at both sides, deep navy blue background, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "그러니까 뇌를 지켜준 건 참을성이 아니라 치즈 위의 기름이었던 거래요.",
+      "image_prompt": "Simple American cartoon style with bold black outlines and flat vivid colors, the same round-faced child with backwards red baseball cap sitting triumphantly on a giant wedge of golden melty cheese like a throne, the child has a smug proud grin and is wearing a tiny golden crown, a happy glowing pink brain floats above the child giving a thumbs up, melty cheese dripping gloriously, golden warm glow surrounding the whole scene, deep navy blue background, playful and victorious composition, all visual elements in the upper two-thirds of the vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "\ud83e\uddc0 치즈 많이 먹으면 뇌에 나쁘다고? 25년 추적 결과는… #오늘의논문",
+    "thumbnail_text": "치즈=뇌보호?",
+    "description": "치즈의 지방이 뇌에 나쁘다고요? Neurology에 실린 25년 추적 연구가 정반대의 결과를 보여줍니다.\n\n\ud83d\udcc4 논문 출처\n제목: High- and Low-Fat Dairy Consumption and Long-Term Risk of Dementia\n저자: Lund University research team\n저널: Neurology (2025)\nDOI: https://doi.org/10.1212/WNL.0000000000214343\n피어리뷰: \u2705\n\n핵심 발견: 고지방 치즈 50g+/일 섭취 시 혈관성 치매 위험 29% 감소, 저지방 유제품은 효과 없음\n\n\u2500\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #치매예방 #치즈 #뇌건강 #Shorts",
+    "hashtags": ["#오늘의논문", "#치매예방", "#치즈", "#뇌건강", "#Shorts"],
+    "youtube": {
+      "title": "\ud83e\uddc0 치즈 많이 먹으면 뇌에 나쁘다고? 25년 추적 결과는… #오늘의논문",
+      "description": "치즈의 지방이 뇌에 나쁘다고요? Neurology에 실린 25년 추적 연구가 정반대의 결과를 보여줍니다.\n\n\ud83d\udcc4 논문 출처\n제목: High- and Low-Fat Dairy Consumption and Long-Term Risk of Dementia\n저자: Lund University research team\n저널: Neurology (2025)\nDOI: https://doi.org/10.1212/WNL.0000000000214343\n피어리뷰: \u2705\n\n핵심 발견: 고지방 치즈 50g+/일 섭취 시 혈관성 치매 위험 29% 감소, 저지방 유제품은 효과 없음\n\n\u2500\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #치매예방 #치즈 #뇌건강 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "치매예방",
+        "치즈",
+        "뇌건강",
+        "유제품",
+        "논문리뷰",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "bright-boy",
+    "speed": 1.1,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 9,
+      "unexpected": 9,
+      "concrete": 9,
+      "credible": 10,
+      "emotional": 8,
+      "stories": 9,
+      "total": 54,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "지방은 나쁘니까 저지방을 먹어야 한다 (건강 상식)",
+      "conflict": "27,670명 25년 추적 → 고지방 치즈가 오히려 치매 예방",
+      "twist": "저지방 유제품은 효과 없고, 기름진 치즈가 뇌를 보호",
+      "punchline": "뇌를 지킨 건 참을성이 아니라 치즈 위의 기름 → 위트 있는 반전 마무리"
+    },
+    "hook_pattern": "reversal (effectiveness: 90)"
+  }
+}

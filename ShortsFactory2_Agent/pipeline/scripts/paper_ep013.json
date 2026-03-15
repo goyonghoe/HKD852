@@ -1,0 +1,109 @@
+{
+  "episode_id": "paper_ep013",
+  "series": "오늘의 논문",
+  "topic_id": "dogs-understand-words-eeg",
+  "language": "ko",
+  "paper_source": {
+    "title": "Neural evidence for referential understanding of object words in dogs",
+    "authors": "Boros M, Magyari L, Morvai B, et al.",
+    "journal": "Current Biology",
+    "year": 2024,
+    "doi": "10.1016/j.cub.2024.02.029",
+    "peer_reviewed": true,
+    "key_finding": "EEG 뇌파 측정 결과, 강아지는 단어를 들으면 해당 물건의 정신적 표상을 활성화한다. 단순 톤 반응이 아니라 진짜 의미를 이해하는 것."
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, deep navy background, no text or numbers in images, tall vertical portrait composition optimized for 9:16 mobile viewing, subjects stacked vertically filling the full height",
+  "script": {
+    "hook": "강아지한테 공 가져와 하면요, 진짜로 공을 머릿속에 떠올린대요.",
+    "body": [
+      "원래 강아지는 그냥 목소리 톤에 반응하는 거라고 했거든요.",
+      "근데 뇌파를 찍었더니요, 단어를 듣는 순간 그 물건의 이미지가 뇌에서 활성화됐대요.",
+      "엉뚱한 물건을 보여주면요, 뇌가 어 이거 아닌데 하고 반응했대요."
+    ],
+    "closer": "강아지가 가만히 쳐다보고 있을 때요, 다 알아듣고 있는 거래요.",
+    "cta": ""
+  },
+  "full_text": "강아지한테 공 가져와 하면요, 진짜로 공을 머릿속에 떠올린대요. 원래 강아지는 그냥 목소리 톤에 반응하는 거라고 했거든요. 근데 뇌파를 찍었더니요, 단어를 듣는 순간 그 물건의 이미지가 뇌에서 활성화됐대요. 엉뚱한 물건을 보여주면요, 뇌가 어 이거 아닌데 하고 반응했대요. 강아지가 가만히 쳐다보고 있을 때요, 다 알아듣고 있는 거래요.",
+  "display_text": "강아지한테 공 가져와 하면요, 진짜로 공을 머릿속에 떠올린대요. 원래 강아지는 그냥 목소리 톤에 반응하는 거라고 했거든요. 근데 뇌파를 찍었더니요, 단어를 듣는 순간 그 물건의 이미지가 뇌에서 활성화됐대요. 엉뚱한 물건을 보여주면요, 뇌가 어 이거 아닌데 하고 반응했대요. 강아지가 가만히 쳐다보고 있을 때요, 다 알아듣고 있는 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "강아지한테 공 가져와 하면요, 진짜로 공을 머릿속에 떠올린대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute fluffy golden retriever dog sitting in the center looking up with big sparkly eyes, above its head a bright glowing thought bubble shows a red bouncy ball clearly, the dog has an eager happy expression with tongue out, warm golden light radiates from the thought bubble, deep navy blue background fills entire tall frame, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "원래 강아지는 그냥 목소리 톤에 반응하는 거라고 했거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute dog sitting in the center with colorful wavy sound waves coming from a human mouth at the top of the frame, the sound waves are rainbow colored showing different tones and pitches, the dog tilts its head sideways with a confused but cute expression, musical notes float around the sound waves, deep navy blue background, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데 뇌파를 찍었더니요, 단어를 듣는 순간 그 물건의 이미지가 뇌에서 활성화됐대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute dog wearing small EEG electrodes on its head sitting in the upper half of frame, from the electrodes bright electric zigzag lines radiate outward in yellow and cyan, inside the dogs head a glowing transparent brain shows a clear image of a ball lighting up brightly, a scientist character in white coat stands beside looking amazed, deep navy blue background, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "엉뚱한 물건을 보여주면요, 뇌가 어 이거 아닌데 하고 반응했대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute dog with EEG electrodes looking at a shoe being presented by a hand from the right side, the dogs thought bubble shows a ball with a big bright X mark over it, the dogs expression is confused and skeptical with one eyebrow raised, red alert zigzag lines burst from the EEG electrodes showing mismatch detection, deep navy blue background, elements stacked vertically filling full height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "강아지가 가만히 쳐다보고 있을 때요, 다 알아듣고 있는 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, American cartoon style bold black outlines flat vivid colors, a cute fluffy dog sitting calmly in the center staring directly at the viewer with deep knowing wise eyes, soft warm golden glow surrounds the dog like an aura, tiny sparkles and stars float gently around its head suggesting intelligence, the dogs expression is serene and knowing with a slight gentle smile, warm sunset orange gradient behind the dog fading to deep navy blue at edges, elements fill the full vertical height, bottom quarter solid deep navy for subtitle space, no text no numbers no words anywhere",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🐶 강아지는 진짜 알아듣고 있다 #오늘의논문",
+    "thumbnail_text": "강아지=다안다",
+    "description": "강아지 뇌파를 찍었더니, 단어를 들으면 해당 물건을 머릿속에 떠올리고 있었습니다.\n\n📄 논문 출처\nTitle: Neural evidence for referential understanding of object words in dogs\nAuthors: Boros M et al.\nJournal: Current Biology (2024)\nDOI: https://doi.org/10.1016/j.cub.2024.02.029\nPeer-reviewed: ✅\n\nKey finding: EEG 뇌파 측정 결과, 강아지는 단어를 들으면 해당 물건의 정신적 표상을 활성화한다.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #강아지 #뇌과학 #반려견 #Shorts",
+    "hashtags": ["#오늘의논문", "#강아지", "#뇌과학", "#반려견", "#Shorts"],
+    "youtube": {
+      "title": "🐶 강아지는 진짜 알아듣고 있다 #오늘의논문",
+      "description": "강아지 뇌파를 찍었더니, 단어를 들으면 해당 물건을 머릿속에 떠올리고 있었습니다.\n\n📄 논문 출처\nTitle: Neural evidence for referential understanding of object words in dogs\nAuthors: Boros M et al.\nJournal: Current Biology (2024)\nDOI: https://doi.org/10.1016/j.cub.2024.02.029\nPeer-reviewed: ✅\n\nKey finding: EEG 뇌파 측정 결과, 강아지는 단어를 들으면 해당 물건의 정신적 표상을 활성화한다.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #강아지 #뇌과학 #반려견 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "강아지",
+        "뇌과학",
+        "반려견",
+        "EEG",
+        "동물심리",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.2,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 9,
+      "concrete": 10,
+      "credible": 10,
+      "emotional": 10,
+      "stories": 9,
+      "total": 58,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "강아지는 톤에 반응할 뿐",
+      "conflict": "뇌파 찍어보니 물건 이미지를 떠올림",
+      "twist": "엉뚱한 물건엔 뇌가 아닌데? 반응",
+      "punchline": "가만히 쳐다보면 다 알아듣는 중"
+    },
+    "hook_pattern": "emotional-surprise (effectiveness: 95)"
+  }
+}

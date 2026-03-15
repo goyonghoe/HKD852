@@ -1,0 +1,27 @@
+date: "2026-03-04"
+mode: "discover"
+paper:
+  title: "Hide and Seek with Finances: Financial Infidelity and Financial Snooping in Relationships"
+  authors: "Joseph NM, Peetz J"
+  journal: "Journal of Family and Economic Issues"
+  year: 2025
+  doi: "10.1007/s10834-024-09988-2"
+  peer_reviewed: true
+  institution: "Carleton University"
+  sample_size: 124 # 124 couples
+  key_finding: "파트너가 재정 정보를 몰래 엿보면(financial snooping), 상대방도 더 많이 숨기기 시작하고, 그 반대도 성립한다. 이 악순환은 재정적 조화와 관계 만족도를 모두 떨어뜨린다."
+scoring:
+  investor_empathy: 24 # /30 — 커플 재테크 관심층 공감
+  surprise: 22 # /25 — "엿보면 오히려 더 숨긴다" 악순환
+  practical: 16 # /20 — 부부 재정 대화법 인사이트
+  visual_potential: 13 # /15 — 숨기기↔엿보기 악순환 도식
+  source_quality: 8 # /10 — JFEI, 피어리뷰, 종단 연구
+  total: 83
+hook_angles:
+  - pattern: "counterintuitive"
+    draft: "배우자 카드 내역 몰래 보면, 상대는 더 숨긴대요."
+  - pattern: "relationship-money"
+    draft: "커플 124쌍을 한 달간 추적했더니, 돈 숨기기가 전염되더래요."
+  - pattern: "spiral-hook"
+    draft: "재정적 외도에는 악순환의 법칙이 있대요."
+duplicate_check: "SIMILAR: paper_ep032 (부부+돈 주제, 단 ep032는 싸움→이혼, 본 논문은 숨기기↔엿보기 악순환으로 차별화 가능)"

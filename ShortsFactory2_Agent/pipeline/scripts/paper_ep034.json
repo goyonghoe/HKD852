@@ -1,0 +1,124 @@
+{
+  "episode_id": "paper_ep034",
+  "series": "오늘의 논문",
+  "topic_id": "financial-infidelity-snooping-spiral-couples",
+  "language": "ko",
+  "paper_source": {
+    "title": "Hide and Seek with Finances: Financial Infidelity and Financial Snooping in Relationships",
+    "authors": "Joseph NM, Peetz J",
+    "journal": "Journal of Family and Economic Issues",
+    "year": 2025,
+    "doi": "10.1007/s10834-024-09988-2",
+    "peer_reviewed": true,
+    "institution": "Carleton University",
+    "sample_size": 124,
+    "key_finding": "파트너가 재정 정보를 몰래 엿보면 상대방도 더 많이 숨기기 시작하고, 그 반대도 성립한다. 이 악순환은 재정적 조화와 관계 만족도를 모두 떨어뜨린다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, Nature journal quality, minimalist professional design, ",
+  "script": {
+    "hook": "혹시 상대방 몰래 카드 내역 확인해 본 적 있으세요? 논문에 따르면 그 순간부터 악순환이 시작된대요.",
+    "body": [
+      "커플 124쌍을 한 달간 추적했더니, 한쪽이 몰래 지출을 확인하면 상대방은 돈을 더 숨기기 시작하더래요.",
+      "반대도 똑같았대요. 돈을 숨기면 상대가 더 엿보고, 엿보면 더 숨기고. 계속 반복되는 거예요.",
+      "그리고 이 악순환이 깊어질수록, 돈 관리 만족도랑 관계 만족도가 같이 떨어지더래요."
+    ],
+    "closer": "돈 문제는 숨기거나 엿보는 순간 꼬인다. 그냥 같이 보는 게 답이래요.",
+    "cta": ""
+  },
+  "full_text": "혹시 상대방 몰래, 카드 내역 확인해 본 적 있으세요? 논문에 따르면 그 순간부터 악순환이 시작된대요. 커플 백이십네쌍을 한 달간 추적했더니요, 한쪽이 몰래 지출을 확인하면 상대방은 돈을 더 숨기기 시작하더래요. 반대도 똑같았대요. 돈을 숨기면 상대가 더 엿보고, 엿보면 더 숨기고. 계속 반복되는 거예요. 그리고 이 악순환이 깊어질수록, 돈 관리 만족도랑 관계 만족도가 같이 떨어지더래요. 돈 문제는 숨기거나 엿보는 순간 꼬인다. 그냥 같이 보는 게 답이래요.",
+  "display_text": "혹시 상대방 몰래 카드 내역 확인해 본 적 있으세요? 논문에 따르면 그 순간부터 악순환이 시작된대요. 커플 124쌍을 한 달간 추적했더니, 한쪽이 몰래 지출을 확인하면 상대방은 돈을 더 숨기기 시작하더래요. 반대도 똑같았대요. 돈을 숨기면 상대가 더 엿보고, 엿보면 더 숨기고. 계속 반복되는 거예요. 그리고 이 악순환이 깊어질수록, 돈 관리 만족도랑 관계 만족도가 같이 떨어지더래요. 돈 문제는 숨기거나 엿보는 순간 꼬인다. 그냥 같이 보는 게 답이래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "혹시 상대방 몰래, 카드 내역 확인해 본 적 있으세요? 논문에 따르면 그 순간부터 악순환이 시작된대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a person peeking at a glowing credit card statement on a phone screen in dim light while their partner sleeps in the background, the phone screen casts an eerie suspicious glow on the person face, a subtle circular arrow begins to form around them foreshadowing a cycle that is about to start, secretive midnight atmosphere with tension, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "커플 백이십네쌍을 한 달간 추적했더니요, 한쪽이 몰래 지출을 확인하면 상대방은 돈을 더 숨기기 시작하더래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, two silhouette figures facing each other, the left figure has a magnifying glass pointed at the right figure wallet, in response the right figure wraps their arms tighter around a locked safe pulling it closer to their chest, an action-reaction arrow connects the two showing cause and effect, the snooping triggers the hiding in a clear directional flow, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "반대도 똑같았대요. 돈을 숨기면 상대가 더 엿보고, 엿보면 더 숨기고. 계속 반복되는 거예요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a dramatic spiral vortex in the center of the frame, two figures orbit each other inside the spiral, one constantly hiding a wallet behind their back while the other chases with a magnifying glass, the spiral tightens as it goes deeper suggesting an escalating endless cycle, each revolution makes the hiding more extreme and the snooping more desperate, dizzying destructive loop visual, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "그리고 이 악순환이 깊어질수록, 돈 관리 만족도랑 관계 만족도가 같이 떨어지더래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, two downward trending line graphs side by side, the left graph shows financial harmony declining with a broken coin icon, the right graph shows relationship satisfaction declining with a cracked heart icon, both lines plunge downward in parallel as the spiral from the previous scene continues in the background connecting the two declines, the dual damage of the vicious cycle shown through clean data visualization, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "돈 문제는 숨기거나 엿보는 순간 꼬인다. 그냥 같이 보는 게 답이래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, two people sitting together at a table with a single shared financial document open between them both looking at it together in warm collaborative light, the spiral from earlier scenes is now unwound into a straight calm line beneath them, their shared gaze at the same page creates a sense of partnership and transparency, peaceful resolution mood with warm amber and soft white tones, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🔍 배우자 카드 내역 몰래 보면 생기는 일 #오늘의논문",
+    "thumbnail_text": "엿보면더숨긴다",
+    "description": "커플 124쌍을 한 달간 추적한 결과, 재정적 엿보기(snooping)와 숨기기(infidelity)가 서로를 강화하는 악순환을 형성한다는 연구입니다.\n\n📄 논문 출처\nTitle: Hide and Seek with Finances: Financial Infidelity and Financial Snooping in Relationships\nAuthors: Joseph NM, Peetz J\nJournal: Journal of Family and Economic Issues (2025)\nDOI: https://doi.org/10.1007/s10834-024-09988-2\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #재정적외도 #커플재테크 #돈관리 #부부 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#재정적외도",
+      "#커플재테크",
+      "#돈관리",
+      "#부부",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "🔍 배우자 카드 내역 몰래 보면 생기는 일 #오늘의논문",
+      "description": "커플 124쌍을 한 달간 추적한 결과, 재정적 엿보기(snooping)와 숨기기(infidelity)가 서로를 강화하는 악순환을 형성한다는 연구입니다.\n\n📄 논문 출처\nTitle: Hide and Seek with Finances: Financial Infidelity and Financial Snooping in Relationships\nAuthors: Joseph NM, Peetz J\nJournal: Journal of Family and Economic Issues (2025)\nDOI: https://doi.org/10.1007/s10834-024-09988-2\nPeer-reviewed: ✅\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n\n#오늘의논문 #재정적외도 #커플재테크 #돈관리 #부부 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "재정적외도",
+        "커플재테크",
+        "돈관리",
+        "부부",
+        "돈",
+        "관계",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 9,
+      "concrete": 10,
+      "credible": 10,
+      "emotional": 10,
+      "stories": 10,
+      "total": 59,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "배우자 지출을 확인하면 돈 관리가 나아질 것",
+      "conflict": "몰래 확인하면 상대방이 오히려 더 숨긴다",
+      "twist": "숨기기↔엿보기가 서로를 강화하는 악순환",
+      "punchline": "숨기거나 엿보지 말고, 같이 보는 게 답"
+    },
+    "hook_pattern": "relatable-question (effectiveness: 91)"
+  }
+}

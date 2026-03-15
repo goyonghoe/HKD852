@@ -1,0 +1,42 @@
+{
+  "episode_id": "whatif_ep001_v2",
+  "series": "만약에~",
+  "topic_id": "gravity-doubled",
+  "language": "ko",
+  "script": {
+    "hook": "만약에 지금 중력이 두 배가 된다면?",
+    "body": [
+      "당신 몸무게가 순식간에 두 배.",
+      "비행기는 전부 추락하고, 고층 빌딩은 무너집니다.",
+      "근데 진짜 무서운 건, 대기가 압축되면서 지구 온도가 폭등한다는 겁니다."
+    ],
+    "cta": "팔로우 하고 다음 만약에도 받아보세요."
+  },
+  "full_text": "만약에 지금 중력이 두 배가 된다면? 당신 몸무게가 순식간에 두 배. 비행기는 전부 추락하고, 고층 빌딩은 무너집니다. 근데 진짜 무서운 건, 대기가 압축되면서 지구 온도가 폭등한다는 겁니다. 팔로우 하고 다음 만약에도 받아보세요.",
+  "estimated_duration_sec": 18,
+  "metadata": {
+    "title": "만약에 중력이 두 배가 된다면? #만약에",
+    "thumbnail_text": "중력 2배",
+    "description": "중력이 갑자기 두 배가 되면 일어나는 충격적인 일들.\n#만약에 #과학 #쇼츠",
+    "hashtags": [
+      "#만약에",
+      "#중력",
+      "#과학",
+      "#쇼츠",
+      "#WhatIf",
+      "#놀라운사실",
+      "#Shorts",
+      "#소름",
+      "#지구",
+      "#상상"
+    ],
+    "source_urls": ["https://en.wikipedia.org/wiki/Gravitational_acceleration"]
+  },
+  "render_config": {
+    "tts_voice": "ko-KR-HyunsuMultilingualNeural",
+    "tts_rate": "-3%",
+    "tts_pitch": "-2Hz",
+    "format": "dark-bg-text",
+    "font_size": 56
+  }
+}

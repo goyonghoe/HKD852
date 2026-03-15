@@ -1,0 +1,126 @@
+{
+  "episode_id": "paper_ep022",
+  "series": "오늘의 논문",
+  "topic_id": "sleep-deprivation-mental-alertness-stock-trading-returns",
+  "language": "ko",
+  "paper_source": {
+    "title": "Trading in Twilight: Sleep, Mental Alertness, and Stock Market Trading",
+    "authors": "Han H, Hirshleifer D, Sheng J, Sun Z",
+    "journal": "NBER Working Paper 33477",
+    "year": 2025,
+    "doi": "10.3386/w33477",
+    "peer_reviewed": false,
+    "institution": "University of Southern California et al.",
+    "sample_size": null,
+    "key_finding": "일몰 시각이 늦어지는 지역·계절일수록 개인 투자자의 수면이 짧아지고, 수면 부족이 주의력을 저하시켜 주식 매매 수익률을 유의미하게 낮춘다는 것을 시간대 경계선 RDD로 인과 검증했다."
+  },
+  "visual_style": "Kurzgesagt-inspired scientific infographic style, flat vector art with subtle gradients, deep dark navy-black background, clean data visualization aesthetic, Nature journal quality, minimalist professional design, ",
+  "script": {
+    "hook": "오늘 몇 시에 잠들었나요? 그게 오늘 여러분의 주식 수익률에 직결된다는 연구가 나왔거든요.",
+    "body": [
+      "미국 연구팀이 시간대 경계선 바로 양쪽에 사는 투자자들을 비교했는데요, 일몰이 한 시간 늦은 쪽에 사는 개인 투자자들은 잠도 더 늦게 자고, 수면 시간도 짧았대요.",
+      "그리고 그 수면 부족이 주의력을 떨어뜨려서 실제 매매 수익률도 유의미하게 낮아졌다는 거예요.",
+      "더 흥미로운 건, 기관 투자자한테는 이 효과가 없었다는 거거든요. 개인 투자자, 즉 우리 같은 개미들만 수면 부족에 취약했던 거래요."
+    ],
+    "closer": "오늘 밤 일찍 자는 게, 어쩌면 가장 수익률 좋은 투자일 수 있어요.",
+    "cta": ""
+  },
+  "full_text": "오늘 몇 시에 잠들었나요? 그게 오늘 여러분의 주식 수익률에 직결된다는 연구가 나왔거든요. 미국 연구팀이 시간대 경계선 바로 양쪽에 사는 투자자들을 비교했는데요, 일몰이 한 시간 늦은 쪽에 사는 개인 투자자들은 잠도 더 늦게 자고, 수면 시간도 짧았대요. 그리고 그 수면 부족이 주의력을 떨어뜨려서 실제 매매 수익률도 유의미하게 낮아졌다는 거예요. 더 흥미로운 건, 기관 투자자한테는 이 효과가 없었다는 거거든요. 개인 투자자, 즉 우리 같은 개미들만 수면 부족에 취약했던 거래요. 오늘 밤 일찍 자는 게, 어쩌면 가장 수익률 좋은 투자일 수 있어요.",
+  "display_text": "오늘 몇 시에 잠들었나요? 그게 오늘 여러분의 주식 수익률에 직결된다는 연구가 나왔거든요. 미국 연구팀이 시간대 경계선 바로 양쪽에 사는 투자자들을 비교했는데요, 일몰이 한 시간 늦은 쪽에 사는 개인 투자자들은 잠도 더 늦게 자고, 수면 시간도 짧았대요. 그리고 그 수면 부족이 주의력을 떨어뜨려서 실제 매매 수익률도 유의미하게 낮아졌다는 거예요. 더 흥미로운 건, 기관 투자자한테는 이 효과가 없었다는 거거든요. 개인 투자자, 즉 우리 같은 개미들만 수면 부족에 취약했던 거래요. 오늘 밤 일찍 자는 게, 어쩌면 가장 수익률 좋은 투자일 수 있어요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "오늘 몇 시에 잠들었나요? 그게 오늘 여러분의 주식 수익률에 직결된다는 연구가 나왔거든요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a dark bedroom scene bathed in deep navy shadow, a single human silhouette sits upright in bed illuminated by the pale blue-white glow of a phone or screen, the silhouette faces away from viewer looking toward a window where a dusky twilight sky fades from deep amber at the horizon to near-black above, on the right side of the frame a translucent glowing candlestick chart floats in the air ghostlike suggesting the connection between this sleepless moment and tomorrow's trading outcome, the mood is quiet and ominous — the decision to stay awake already carrying financial consequence, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "미국 연구팀이 시간대 경계선 바로 양쪽에 사는 투자자들을 비교했는데요, 일몰이 한 시간 늦은 쪽에 사는 개인 투자자들은 잠도 더 늦게 자고, 수면 시간도 짧았대요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a clean vertical dividing line splits the frame into two mirrored zones, on the left zone a warm amber-orange sun sits low on the horizon at a normal dusk hour and below it a small human silhouette lies in bed asleep with a peaceful full-moon crescent of sleep energy glowing around them, on the right zone the same sun is visibly higher still above the horizon — later in the day — and below it the same human silhouette is still awake and restless with only a thin sliver of sleep energy remaining, the visual grammar of the split-panel comparison makes the causal mechanism immediately legible without any text or numbers, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "그리고 그 수면 부족이 주의력을 떨어뜨려서 실제 매매 수익률도 유의미하게 낮아졌다는 거예요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a stylized human head in profile at center frame, inside the brain cavity a bright spotlight beam representing attention and focus shines downward, on the sleep-deprived version of the head the spotlight is visibly dimmer and flickering with scattered light leaking in all directions rather than focusing, below the head a smooth trading performance curve descends in a gentle but definitive downward slope rendered in cool electric blue, the connection between the dimmed brain spotlight above and the declining performance line below is the core visual message, the visual is clean and abstract with no literal charts or numbers, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "더 흥미로운 건, 기관 투자자한테는 이 효과가 없었다는 거거든요. 개인 투자자, 즉 우리 같은 개미들만 수면 부족에 취약했던 거래요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, two distinct figures stand side by side at center frame, on the left a large imposing silhouette in a sharp suit representing an institutional investor stands unaffected and solid surrounded by a protective shield-like energy field that deflects the sleep-deprivation effect shown as faded grey wisps, on the right a smaller more casually dressed silhouette representing the individual retail investor has no protective shield and the sleep-deprivation wisps visibly penetrate and dim their energy aura, the stark size and protection asymmetry between the two figures communicates the vulnerability gap without any text, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "오늘 밤 일찍 자는 게, 어쩌면 가장 수익률 좋은 투자일 수 있어요.",
+      "image_prompt": "Tall vertical 9:16 portrait illustration, a minimalist nighttime scene with a human silhouette peacefully asleep in bed shown from a side-angle, above the sleeping figure a soft warm golden glow emanates upward like a gentle financial return — the sleeping body itself radiating investment-quality energy, outside the window a crescent moon hangs low and the cityscape is quiet, the composition is serene and hopeful contrasting with the restless opening scene, the sleeping figure is depicted as actively generating value through rest — sleep as a positive investment action, deep dark navy-black background, bottom quarter solid deep navy for subtitle space, Kurzgesagt-inspired flat vector infographic style, deep dark navy-black background, clean scientific aesthetic, subtle gradients, professional data visualization feel",
+      "image_ref": null,
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "😴 잠이 부족하면 주식 수익률도 낮아진다 #오늘의논문",
+    "thumbnail_text": "수면부족=손실",
+    "description": "일몰이 늦은 지역에 사는 개인 투자자일수록 수면이 짧아지고 매매 수익률이 낮아진다는 인과관계를 시간대 경계선 RDD로 검증한 NBER 연구입니다.\n\n📄 논문 출처\nTitle: Trading in Twilight: Sleep, Mental Alertness, and Stock Market Trading\nAuthors: Han H, Hirshleifer D, Sheng J, Sun Z\nJournal: NBER Working Paper 33477 (2025)\nDOI: https://doi.org/10.3386/w33477\nPeer-reviewed: ❌ (NBER 워킹페이퍼 — 저명 학술지 수준의 신뢰도)\nInstitution: University of Southern California et al.\n\nKey finding: 일몰 시각이 늦어질수록 개인 투자자의 수면이 줄고 주의력이 저하되어 매매 수익률이 유의미하게 낮아진다. 기관 투자자에게는 이 효과가 없어 개미만 수면 부족에 취약함을 확인.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #투자심리 #수면 #개미투자자 #행동경제학 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#투자심리",
+      "#수면",
+      "#개미투자자",
+      "#행동경제학",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "😴 잠이 부족하면 주식 수익률도 낮아진다 #오늘의논문",
+      "description": "일몰이 늦은 지역에 사는 개인 투자자일수록 수면이 짧아지고 매매 수익률이 낮아진다는 인과관계를 시간대 경계선 RDD로 검증한 NBER 연구입니다.\n\n📄 논문 출처\nTitle: Trading in Twilight: Sleep, Mental Alertness, and Stock Market Trading\nAuthors: Han H, Hirshleifer D, Sheng J, Sun Z\nJournal: NBER Working Paper 33477 (2025)\nDOI: https://doi.org/10.3386/w33477\nPeer-reviewed: ❌ (NBER 워킹페이퍼 — 저명 학술지 수준의 신뢰도)\nInstitution: University of Southern California et al.\n\nKey finding: 일몰 시각이 늦어질수록 개인 투자자의 수면이 줄고 주의력이 저하되어 매매 수익률이 유의미하게 낮아진다. 기관 투자자에게는 이 효과가 없어 개미만 수면 부족에 취약함을 확인.\n\n─\n오늘의 논문은 흥미로운 최신 연구를 30초로 요약합니다.\n전체 논문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #투자심리 #수면 #개미투자자 #행동경제학 #주식 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "투자심리",
+        "수면부족",
+        "개미투자자",
+        "행동경제학",
+        "수면",
+        "주의력",
+        "주식",
+        "인지편향",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 10,
+      "concrete": 9,
+      "credible": 9,
+      "emotional": 10,
+      "stories": 9,
+      "total": 57,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "주식 수익률은 내가 얼마나 열심히 공부하고 분석하느냐에 달려 있다",
+      "conflict": "일몰이 늦은 지역에 사는 개인 투자자들은 더 늦게 자고, 수면 부족이 주의력을 저하시켜 실제 매매 수익률이 낮아진다",
+      "twist": "기관 투자자에게는 이 효과가 전혀 없다 — 개미만 수면 부족에 취약하다",
+      "punchline": "오늘 밤 일찍 자는 게, 어쩌면 가장 수익률 좋은 투자일 수 있다"
+    },
+    "hook_pattern": "personal-question-shock (effectiveness: 92)"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "episode_id": "paper_ep002",
+  "series": "오늘의 논문",
+  "topic_id": "marshmallow-test-debunked",
+  "language": "ko",
+  "paper_source": {
+    "title": "Delay of gratification and adult outcomes: The Marshmallow Test does not reliably predict adult functioning",
+    "authors": "Sperber JF et al.",
+    "journal": "Child Development",
+    "year": 2024,
+    "doi": "10.1111/cdev.14129",
+    "peer_reviewed": true,
+    "key_finding": "마시멜로 테스트의 참을성은 성인 성공을 예측하지 못함 — 환경과 신뢰가 핵심 변수"
+  },
+  "visual_style": "American cartoon style inspired by Adventure Time and Powerpuff Girls, bold black outlines, flat vivid colors, simple expressive characters, consistent round-faced child character with big eyes, deep navy background, no text or numbers in images",
+  "script": {
+    "hook": "마시멜로 하나 참으면 인생이 바뀐다고요?",
+    "body": [
+      "옛날에 스탠퍼드에서 실험을 했는데요. 마시멜로를 참은 아이가 나중에 공부도 잘하고 돈도 잘 벌었대요.",
+      "근데요, 다시 해봤더니 전혀 아니었대요.",
+      "진짜 비밀은요, 참을성이 아니라 어른을 믿느냐였거든요. 약속 안 지킨 어른 앞에서는 아무도 안 참았대요."
+    ],
+    "closer": "그러니까 참을성 없는 건 아이가 아니라, 약속 안 지키는 어른이었던 거래요.",
+    "cta": ""
+  },
+  "full_text": "마시멜로 하나 참으면 인생이 바뀐다고요? 옛날에 스탠퍼드에서 실험을 했는데요. 마시멜로를 참은 아이가 나중에 공부도 잘하고 돈도 잘 벌었대요. 근데요, 다시 해봤더니 전혀 아니었대요. 진짜 비밀은요, 참을성이 아니라 어른을 믿느냐였거든요. 약속 안 지킨 어른 앞에서는 아무도 안 참았대요. 그러니까 참을성 없는 건 아이가 아니라, 약속 안 지키는 어른이었던 거래요.",
+  "display_text": "마시멜로 하나 참으면 인생이 바뀐다고요? 옛날에 스탠퍼드에서 실험을 했는데요. 마시멜로를 참은 아이가 나중에 공부도 잘하고 돈도 잘 벌었대요. 근데요, 다시 해봤더니 전혀 아니었대요. 진짜 비밀은요, 참을성이 아니라 어른을 믿느냐였거든요. 약속 안 지킨 어른 앞에서는 아무도 안 참았대요. 그러니까 참을성 없는 건 아이가 아니라, 약속 안 지키는 어른이었던 거래요.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "마시멜로 하나 참으면 인생이 바뀐다고요?",
+      "image_prompt": "American cartoon style with bold black outlines and flat vivid colors, a cute round-faced child character with big sparkly eyes sitting at a table staring intensely at a single large white marshmallow, the child has sweat drops on forehead showing temptation, simple clean background in deep navy blue, all visual elements in the upper two-thirds of the vertical frame, bottom third is solid deep navy empty space, no text no numbers no words anywhere in the image, vertical 9:16 portrait composition",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "옛날에 스탠퍼드에서 실험을 했는데요. 마시멜로를 참은 아이가 나중에 공부도 잘하고 돈도 잘 벌었대요.",
+      "image_prompt": "American cartoon style with bold black outlines and flat vivid colors, same cute round-faced child character now shown grown up in a split scene, left side shows the child proudly crossing arms refusing the marshmallow with a determined smile, right side shows the same character as a happy successful adult wearing a graduation cap and holding a trophy, connected by a bright green upward arrow between them, deep navy blue background, all elements in the upper two-thirds of vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데요, 다시 해봤더니 전혀 아니었대요.",
+      "image_prompt": "American cartoon style with bold black outlines and flat vivid colors, the same cute round-faced child character looking shocked with mouth wide open and arms thrown up in surprise, behind the child a large crack splits the scene in half like broken glass, the graduation cap and trophy from the previous scene are falling and shattering, a giant bold red X mark overlays the crumbling scene, deep navy blue background, dramatic but playful composition, all elements in the upper two-thirds of vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "진짜 비밀은요, 참을성이 아니라 어른을 믿느냐였거든요. 약속 안 지킨 어른 앞에서는 아무도 안 참았대요.",
+      "image_prompt": "American cartoon style with bold black outlines and flat vivid colors, split comparison scene, left half has warm golden tones showing a kind smiling adult giving a thumbs up to the same round-faced child who is patiently waiting with hands on cheeks and a heart floating above them, right half has cold blue tones showing a sneaky-looking adult with crossed fingers behind their back while the same child angrily gobbles the marshmallow in one bite with a frustrated expression, deep navy blue background, all elements in the upper two-thirds of vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "그러니까 참을성 없는 건 아이가 아니라, 약속 안 지키는 어른이었던 거래요.",
+      "image_prompt": "American cartoon style with bold black outlines and flat vivid colors, the same cute round-faced child character sitting confidently with arms crossed and a smug knowing smile, pointing at a sheepish embarrassed adult character who is sweating and looking guilty while hiding a marshmallow behind their back, the child has a bright golden glow aura around them showing they were right all along, deep navy blue background, playful and humorous composition, all elements in the upper two-thirds of vertical frame, bottom third solid deep navy, no text no numbers no words anywhere, vertical 9:16 portrait composition",
+      "duration_hint": "closer"
+    }
+  ],
+  "metadata": {
+    "title": "🍡 마시멜로 참으면 성공한다고? 다시 해봤더니… #오늘의논문",
+    "thumbnail_text": "참을성=거짓?",
+    "description": "유명한 마시멜로 실험, 2024년에 다시 해봤더니 완전히 뒤집혔습니다. 참을성이 아니라 '신뢰'가 진짜 변수였다면?\n\n📄 논문 출처\n제목: Delay of gratification and adult outcomes: The Marshmallow Test does not reliably predict adult functioning\n저자: Sperber JF et al.\n저널: Child Development (2024)\nDOI: https://doi.org/10.1111/cdev.14129\n피어리뷰: ✅\n\n핵심 발견: 마시멜로 테스트의 참을성은 성인 성공을 예측하지 못함 — 환경과 신뢰가 핵심 변수\n\n⸻\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #심리학 #마시멜로실험 #뇌과학 #Shorts",
+    "hashtags": [
+      "#오늘의논문",
+      "#심리학",
+      "#마시멜로실험",
+      "#뇌과학",
+      "#Shorts"
+    ],
+    "youtube": {
+      "title": "🍡 마시멜로 참으면 성공한다고? 다시 해봤더니… #오늘의논문",
+      "description": "유명한 마시멜로 실험, 2024년에 다시 해봤더니 완전히 뒤집혔습니다. 참을성이 아니라 '신뢰'가 진짜 변수였다면?\n\n📄 논문 출처\n제목: Delay of gratification and adult outcomes: The Marshmallow Test does not reliably predict adult functioning\n저자: Sperber JF et al.\n저널: Child Development (2024)\nDOI: https://doi.org/10.1111/cdev.14129\n피어리뷰: ✅\n\n핵심 발견: 마시멜로 테스트의 참을성은 성인 성공을 예측하지 못함 — 환경과 신뢰가 핵심 변수\n\n⸻\n오늘의 논문은 매일 흥미로운 최신 학술 논문을 30초로 요약합니다.\n논문 원문은 위 DOI 링크에서 확인하세요.\n\n#오늘의논문 #심리학 #마시멜로실험 #뇌과학 #Shorts",
+      "tags": [
+        "오늘의논문",
+        "심리학",
+        "마시멜로실험",
+        "마시멜로테스트",
+        "뇌과학",
+        "논문리뷰",
+        "Shorts"
+      ],
+      "category_id": "27",
+      "privacy_status": "private",
+      "language": "ko",
+      "made_for_kids": false
+    }
+  },
+  "render_config": {
+    "voice_preset": "bright-boy",
+    "speed": 1.1,
+    "format": "dark-bg-text",
+    "font_size": 48
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 9,
+      "unexpected": 9,
+      "concrete": 8,
+      "credible": 9,
+      "emotional": 9,
+      "stories": 10,
+      "total": 54,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "마시멜로 참으면 인생 성공 (유명한 실험)",
+      "conflict": "다시 해봤더니 → 전혀 아니었음",
+      "twist": "참을성이 아니라 어른에 대한 '신뢰'가 핵심 변수",
+      "punchline": "참을성 없는 건 아이가 아니라 어른 → 위트 있는 반전 마무리"
+    },
+    "hook_pattern": "reversal (effectiveness: 92)"
+  }
+}

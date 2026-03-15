@@ -1,0 +1,30 @@
+date: "2026-02-28"
+mode: "discover"
+paper:
+  title: "Investor Memory"
+  authors: "Gödker K, Jiao P, Smeets P"
+  journal: "Review of Financial Studies"
+  year: 2025
+  doi: "10.1093/rfs/hhaf006"
+  peer_reviewed: true
+  institution: "Bocconi University / University of Amsterdam"
+  sample_size: 229
+  key_finding: "투자자는 1주일 후 실제보다 수익 경험을 23% 더 많이, 손실 경험을 10% 더 적게 기억하며, 이 왜곡된 기억이 실제 수익률보다 미래 투자 결정을 더 강하게 예측한다."
+
+scoring:
+  investor_empathy: 28
+  surprise: 23
+  practical_applicability: 18
+  visual_potential: 13
+  source_quality: 9
+  total: 91
+
+hook_angles:
+  - pattern: "investor-shock"
+    draft: "지난주 내 수익, 내가 기억하는 것보다 23% 부풀려져 있습니다 — 논문이 밝혔습니다."
+  - pattern: "number-hook"
+    draft: "1주일 만에 수익은 23% 더 잘 기억하고, 손실은 10% 덜 기억한다. 뇌가 당신을 속이는 방식."
+  - pattern: "question-hook"
+    draft: "왜 나는 항상 내가 잘했다고 느낄까? 투자 기억이 진짜 수익률보다 당신의 다음 매수를 더 정확히 예측합니다."
+
+duplicate_check: "CLEAR"

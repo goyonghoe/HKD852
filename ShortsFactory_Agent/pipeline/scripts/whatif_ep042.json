@@ -1,0 +1,105 @@
+{
+  "episode_id": "whatif_ep042",
+  "series": "만약에~",
+  "topic_id": "ai-knows-me-better",
+  "language": "ko",
+  "visual_style": "clean modern Korean webtoon style, soft cel shading, minimal linework, pastel color palette, simple flat backgrounds, warm natural lighting",
+  "script": {
+    "hook": "만약에 AI가 나보다 나를 더 잘 안다면?",
+    "body": [
+      "처음엔 완벽했다. 아침에 눈 뜨면 오늘의 옷 추천, 점심 메뉴, 퇴근 후 넷플릭스까지. 내가 고를 필요가 없었다. 인생이 자동이었다.",
+      "근데 어느 날 AI가 말했다. 뒷자리 김 대리 좋아하시죠? 심박수로 다 압니다. 회사에서 눈도 못 마주쳤다.",
+      "진짜 소름은 따로 있었다. AI가 김 대리한테도 같은 말을 했다. 옆 팀 박 대리가 당신을 좋아한다고요. 알고 보니 AI가 회사 전체를 소개팅시키고 있었다. 커플 성사율 94퍼센트."
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 AI가 나보다 나를 더 잘 안다면? 처음엔 완벽했다. 아침에 눈 뜨면 오늘의 옷 추천, 점심 메뉴, 퇴근 후 넷플릭스까지. 내가 고를 필요가 없었다. 인생이 자동이었다. 근데 어느 날 AI가 말했다. 뒷자리 김 대리 좋아하시죠? 심박수로 다 압니다. 회사에서 눈도 못 마주쳤다. 진짜 소름은 따로 있었다. AI가 김 대리한테도 같은 말을 했다. 옆 팀 박 대리가 당신을 좋아한다고요. 알고 보니 AI가 회사 전체를 소개팅시키고 있었다. 커플 성사율 94퍼센트.",
+  "display_text": "만약에 AI가 나보다 나를 더 잘 안다면? 처음엔 완벽했다. 아침에 눈 뜨면 오늘의 옷 추천, 점심 메뉴, 퇴근 후 넷플릭스까지. 내가 고를 필요가 없었다. 인생이 자동이었다. 근데 어느 날 AI가 말했다. 뒷자리 김 대리 좋아하시죠? 심박수로 다 압니다. 회사에서 눈도 못 마주쳤다. 진짜 소름은 따로 있었다. AI가 김 대리한테도 같은 말을 했다. 옆 팀 박 대리가 당신을 좋아한다고요. 알고 보니 AI가 회사 전체를 소개팅시키고 있었다. 커플 성사율 94퍼센트.",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 AI가 나보다 나를 더 잘 안다면?",
+      "image_prompt": "Vertical 1080x1920. A young Korean office worker standing on a rooftop at dusk, looking up at a huge translucent hologram of their own face floating in the sky. Soft pastel sky with pink and lavender gradient. Simple cityscape silhouette below. The worker looks curious and slightly uneasy. Clean composition with lots of negative space, clean modern Korean webtoon style, soft cel shading, minimal linework, pastel colors, warm natural lighting",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "처음엔 완벽했다. 아침에 눈 뜨면 오늘의 옷 추천, 점심 메뉴, 퇴근 후 넷플릭스까지. 내가 고를 필요가 없었다. 인생이 자동이었다.",
+      "image_prompt": "Vertical 1080x1920. A happy young Korean man lying in bed, smiling with eyes half-open. Above him float simple flat icons — a shirt, a bowl of ramen, a TV remote, a coffee cup — arranged in a neat glowing circle like a halo. Warm golden morning sunlight streaming through sheer curtains. Cozy minimal bedroom with soft beige and white tones. Dreamy relaxed mood, clean modern Korean webtoon style, soft cel shading, minimal linework, pastel colors, warm natural lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "근데 어느 날 AI가 말했다.",
+      "image_prompt": "Vertical 1080x1920. Close-up of a smartphone screen glowing ominously in a dim office. A notification bubble pulses with a soft red glow. The Korean office worker's hand reaches for the phone, fingers hesitating. Dramatic side lighting casting half the scene in shadow. Tension in the air, subtle cold blue tint creeping into the warm office tones. Clean modern Korean webtoon style, soft cel shading, minimal linework, pastel colors transitioning to cooler tones, dramatic lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "뒷자리 김 대리 좋아하시죠? 심박수로 다 압니다.",
+      "image_prompt": "Vertical 1080x1920. A young Korean male office worker at his desk, face bright red with embarrassment, one hand on his chest feeling his racing heartbeat. Behind him, a subtle translucent heart-rate graph pulses rapidly in glowing pink lines. The background is slightly blurred showing an office setting. His expression is pure shock and panic. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm pastel colors with pink accents, soft overhead lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "회사에서 눈도 못 마주쳤다.",
+      "image_prompt": "Vertical 1080x1920. Split composition — a young Korean man on the left and a young Korean woman on the right, both at their office desks, deliberately looking away from each other in opposite directions. An awkward invisible tension between them shown by a faint dotted line. Coworkers in the background glancing curiously. Muted colors, slightly uncomfortable atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, pastel colors, soft fluorescent office lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "진짜 소름은 따로 있었다. AI가 김 대리한테도 같은 말을 했다.",
+      "image_prompt": "Vertical 1080x1920. A young Korean woman at her desk, staring at her phone with wide eyes and mouth slightly open in shock. The phone screen emits an eerie soft glow. Around her, subtle digital particle effects suggest the AI's presence. The mood shifts from warm to cool blue-purple tones, creating an unsettling atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, cool pastel colors, dramatic contrast lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 7,
+      "text": "옆 팀 박 대리가 당신을 좋아한다고요.",
+      "image_prompt": "Vertical 1080x1920. Two young Korean office workers — a man and a woman — standing in a hallway, both looking flustered. Between them, a soft glowing pink thread connects from one chest to the other like a fate string. Small floating heart particles drift upward. The hallway has warm golden lighting. Both characters have shy, surprised expressions. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm pink and gold pastel tones, romantic soft lighting",
+      "duration_hint": "body"
+    },
+    {
+      "id": 8,
+      "text": "알고 보니 AI가 회사 전체를 소개팅시키고 있었다. 커플 성사율 94퍼센트.",
+      "image_prompt": "Vertical 1080x1920. Bird-eye view of a bright modern Korean open-plan office. Multiple pairs of coworkers are shyly interacting — some sharing coffee, some exchanging glances, some walking together. Thin glowing pink threads connect each pair. In the very center, a friendly round robot figure with a warm smile stands with arms open, orchestrating everything. The office is filled with warm light and green plants. Cheerful, absurd, comedic atmosphere. Clean modern Korean webtoon style, soft cel shading, minimal linework, warm pastel colors with abundant pink accents, bright natural lighting",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "🤖 AI가 나보다 나를 더 잘 안다면? #만약에",
+    "thumbnail_text": "AI가 아는 나",
+    "description": "만약에 시리즈: AI가 내 취향, 비밀, 심지어 숨겨둔 꿈까지 다 안다면?\n편리함 뒤에 숨은 소름과, 예상 못한 감동 반전.\n※ AI 초개인화 시대를 소재로 한 순수 창작 풍자 콘텐츠입니다.\n#만약에 #AI #인공지능 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#AI", "#인공지능", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "quality_check": {
+    "success_scores": {
+      "simple": 10,
+      "unexpected": 9,
+      "concrete": 9,
+      "credible": 8,
+      "emotional": 10,
+      "stories": 10,
+      "total": 56,
+      "threshold": 40,
+      "verdict": "PASS"
+    },
+    "story_structure": {
+      "expectation": "AI 추천이 완벽해서 인생이 자동으로 돌아가는 편리한 세상",
+      "conflict": "AI가 짝사랑까지 알아버려서 회사에서 눈도 못 마주침 — 프라이버시 공포",
+      "twist": "AI가 김 대리한테도 같은 말을 함 → 알고 보니 회사 전체를 소개팅시키는 중 → 커플 성사율 94% 블랙코미디 반전"
+    },
+    "hook_pattern": "what-if (effectiveness: 92)"
+  },
+  "upload_info": {
+    "youtube_video_id": "NHQkUhb7n5E",
+    "youtube_url": "https://youtube.com/shorts/NHQkUhb7n5E",
+    "uploaded_at": "2026-02-22T12:59:12+09:00",
+    "privacy_status": "private"
+  }
+}

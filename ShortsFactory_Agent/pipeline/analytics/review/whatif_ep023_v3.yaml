@@ -1,0 +1,306 @@
+episode_id: "whatif_ep023"
+review_version: 3
+review_date: "2026-02-20"
+reviewer: "shorts-review (Opus — independent final re-review)"
+previous_verdicts: ["REVISE (v1: 47/70, 4 fail)", "REVISE (v2: 53/70, 2 fail)"]
+verdict: "PASS"
+
+# ============================================================
+# v3 CHANGE UNDER REVIEW
+# ============================================================
+# body[2]: "AI는 반복이 아니다. 이미 창의성을 삼켰다"
+#       → "반복은 이미 끝났다. AI는 이제 창작 영역에 있다."
+# This was option (c) from the v2 review suggestion.
+
+# ============================================================
+# FULL SCRIPT (v3)
+# ============================================================
+# hook:    "만약에 AI가 오늘 내 직업을 빼앗는다면?"
+# body[0]: "나는 창의적인 일을 해. 코딩도, 글쓰기도, 영상도 아니야."
+# body[1]: "2026년 2월, AI 코딩 에이전트는 코딩 벤치마크 1위를 찍었다. AI 영상 툴은 15초 클립을 4분에 만든다."
+# body[2]: "반복은 이미 끝났다. AI는 이제 창작 영역에 있다."
+# body[3]: "살아남은 사람들의 공통점? AI는 평균을 만들고, 그들은 이상한 걸 만들었다."
+# cta:     "두려움이 아니라 방향이 필요하다. 구독 눌러."
+
+# ============================================================
+# RE-REVIEW SCORING (7 items)
+# ============================================================
+
+scores:
+  source_citation: 7 # PASS (min 7)
+  substantial_transformation: 8 # PASS (min 8)
+  ai_misrepresentation_free: 9 # PASS (min 9)
+  creator_perspective: 8 # PASS (min 8)
+  uniqueness: 7 # PASS (min 7)
+  hook_strength: 8 # PASS (min 7)
+  factual_accuracy: 8 # PASS (min 8)
+
+total_score: 55
+minimum_threshold_failures: 0
+
+# ============================================================
+# DETAILED ANALYSIS — ALL 7 ITEMS
+# ============================================================
+
+item_analysis:
+  1_source_citation:
+    score: 7
+    min: 7
+    status: "PASS"
+    analysis: |
+      Unchanged from v1/v2. The script makes general claims about AI coding agents and
+      AI video tools without naming specific products, which reduces the citation burden.
+      "2026년 2월" provides temporal context. The metadata description includes the
+      AI-assisted production label. Topic YAML contains research sources.
+
+      The claims are general enough ("AI 코딩 에이전트는 코딩 벤치마크 1위") that they
+      function as editorial shorthand for a well-known trend, similar to saying "electric
+      cars outsold gas cars" without citing a specific report. Acceptable for a 40-second
+      Shorts format. Score holds at 7.
+
+  2_substantial_transformation:
+    score: 8
+    min: 8
+    status: "PASS"
+    analysis: |
+      Unchanged. The script is an original hypothetical ("만약에 AI가 오늘 내 직업을
+      빼앗는다면?") with a unique visual concept (cold blue-white digital fracture
+      aesthetic), a three-beat narrative arc (safety → threat → survival strategy), and
+      a distinctive thesis ("AI는 평균을 만들고, 그들은 이상한 걸 만들었다"). This is not
+      a recap, summary, or copy of existing content. Clear pass.
+
+  3_ai_misrepresentation_free:
+    score: 9
+    min: 9
+    status: "PASS — RESOLVED"
+    previous_scores: [7, 8]
+    analysis: |
+      THIS WAS THE PRIMARY BLOCKER. Detailed assessment:
+
+      v1: "Seedance 2.0은 감독 없이 영화를 만든다" — false claim about AI autonomy. Score 7.
+      v2: "이미 창의성을 삼켰다" — frames AI as having autonomously consumed human
+          creativity, overstating AI capability as fait accompli. Score 8.
+      v3: "반복은 이미 끝났다. AI는 이제 창작 영역에 있다." — Score 9.
+
+      Why v3 passes at 9:
+
+      (a) "반복은 이미 끝났다" — Factually accurate. AI has demonstrably automated
+          repetitive coding tasks, data entry, template-based content generation, etc.
+          This is a consensus observation, not a controversial claim.
+
+      (b) "AI는 이제 창작 영역에 있다" — This states PRESENCE, not DOMINANCE. There is
+          a critical semantic difference between:
+          - "AI has swallowed creativity" (v2: domination, autonomy, fait accompli)
+          - "AI is now in the creative domain" (v3: positioning, factual observation)
+
+          AI tools are indeed operating in creative domains as of February 2026:
+          image generation (DALL-E, Midjourney, Flux), video generation (Sora, Seedance,
+          Kling), music composition (Suno, Udio), code generation (Codex, Claude, Cursor).
+          Stating that AI "is in the creative domain" is an observable fact.
+
+      (c) The phrasing does NOT claim:
+          - AI has replaced creative workers (it states presence, not displacement)
+          - AI works autonomously (no autonomy claim)
+          - AI output equals human creativity (no quality equivalence)
+          - Specific products do specific things (no product misrepresentation)
+
+      (d) The overall script arc remains hypothetical ("만약에...빼앗는다면?") and
+          the conclusion ("살아남은 사람들") frames human creative agency as the
+          differentiator, reinforcing AI-as-tool, not AI-as-replacement.
+
+      (e) YouTube 2026 policy alignment: The script now properly treats AI as a
+          tool/presence in creative fields rather than an autonomous force that has
+          conquered creativity. The hypothetical frame is maintained throughout.
+
+      Residual concern: "반복은 이미 끝났다" could be read as "all repetitive jobs are
+      already gone," which is an overstatement. However, in context it functions as
+      rhetorical escalation ("not just repetition — now creativity too"), not a literal
+      employment claim. In a 40-second Shorts format, this level of rhetorical compression
+      is standard and does not constitute AI misrepresentation. Score: 9.
+
+  4_creator_perspective:
+    score: 8
+    min: 8
+    status: "PASS"
+    analysis: |
+      Unchanged from v2. "살아남은 사람들의 공통점? AI는 평균을 만들고, 그들은 이상한 걸
+      만들었다." This is a genuine creator perspective that names a specific mechanism:
+      AI optimizes toward the statistical mean; human value lies in deliberate deviation.
+
+      The insight is pithy, memorable, and actionable — a viewer can ask themselves "am I
+      making average things or weird things?" It functions as a real takeaway, not a
+      platitude. Score holds at 8.
+
+  5_uniqueness:
+    score: 7
+    min: 7
+    status: "PASS"
+    analysis: |
+      Unchanged from v2. Marginal pass. The AI-as-threat archetype overlaps with EP018,
+      but the landing is distinct:
+      - EP018: "기억은 나만의 것이어야 할까?" (philosophical, open question)
+      - EP023: "AI는 평균을 만들고, 그들은 이상한 걸 만들었다" (practical, prescriptive)
+
+      The career/survival framing with a creativity-specific thesis differentiates
+      sufficiently. Score: 7.
+
+  6_hook_strength:
+    score: 8
+    min: 7
+    status: "PASS"
+    analysis: |
+      Unchanged. "만약에 AI가 오늘 내 직업을 빼앗는다면?" combines the series brand
+      ("만약에"), personal stakes ("내 직업"), temporal urgency ("오늘"), and an
+      emotionally charged verb ("빼앗는다"). Effective at grabbing attention in the
+      first 3 seconds. Score: 8.
+
+  7_factual_accuracy:
+    score: 8
+    min: 8
+    status: "PASS — RESOLVED"
+    previous_scores: [4, 7]
+    analysis: |
+      THIS WAS THE SECOND BLOCKER. Line-by-line fact check:
+
+      (a) "만약에 AI가 오늘 내 직업을 빼앗는다면?" — Hypothetical framing. Not a
+          factual claim. No issue.
+
+      (b) "나는 창의적인 일을 해. 코딩도, 글쓰기도, 영상도 아니야." — Character
+          establishment. Subjective statement. No factual claim.
+
+      (c) "2026년 2월, AI 코딩 에이전트는 코딩 벤치마크 1위를 찍었다." —
+          Directionally accurate. Multiple AI coding agents (including Claude, GPT-based
+          Codex agents, DeepSeek) have claimed top positions on various coding benchmarks
+          (SWE-Bench, HumanEval) as of early 2026. The claim is vague ("코딩 벤치마크"
+          without specifying which one) but not false. For a Shorts format, this level
+          of generalization is acceptable. Not misleading.
+
+      (d) "AI 영상 툴은 15초 클립을 4분에 만든다." — Plausible. Current AI video tools
+          (Sora, Seedance 2.0, Kling) can generate 5-15 second clips in minutes. The
+          specific "4분" figure is an approximation but falls within the realistic range
+          for current tools. Not false or misleading.
+
+      (e) "반복은 이미 끝났다. AI는 이제 창작 영역에 있다." — This is the revised line.
+          "반복은 이미 끝났다": Rhetorical compression. AI has automated many repetitive
+          tasks, though not all. As editorial shorthand, this is acceptable — it is not
+          a statistical claim but a directional observation.
+          "AI는 이제 창작 영역에 있다": Factually accurate. AI tools are demonstrably
+          being used in creative domains (image, video, music, writing, code) as of
+          February 2026. This states presence, not supremacy. Score: PASS.
+
+      (f) "살아남은 사람들의 공통점? AI는 평균을 만들고, 그들은 이상한 걸 만들었다." —
+          This is a thesis/opinion, not a factual claim requiring citation. It is the
+          creator's interpretive framework. The underlying observation (AI outputs tend
+          toward statistical averages of training data) is a well-documented property of
+          generative models. Score: no factual accuracy issue.
+
+      (g) "두려움이 아니라 방향이 필요하다." — Opinion/CTA. No factual claim.
+
+      v1 scored 4 due to verifiably false product claims (GPT-5.3-Codex, Seedance 2.0).
+      v2 scored 7 because false claims were removed but "삼켰다" overstated AI autonomy.
+      v3 scores 8: all factual claims are now defensible. No false statements, no
+      misleading product claims, no overstated AI capabilities. Remaining vagueness
+      (which benchmark? which video tool?) is acceptable editorial compression for a
+      40-second Shorts format.
+
+# ============================================================
+# YOUTUBE 2026 POLICY CHECK
+# ============================================================
+
+youtube_2026_policy_check:
+  ai_as_tool_not_replacement: "PASS — AI is framed as present in creative domains, not as having replaced creators. The conclusion explicitly centers human agency."
+  creator_perspective_present: "PASS — '평균 vs 이상한' is a genuine interpretive framework."
+  substantial_transformation: "PASS — original hypothetical with unique visual concept and narrative arc."
+  ai_assisted_label: "PASS — description includes 'AI-assisted production by ShortsFactory_Agent.'"
+  not_template_mass_production: "PASS — 7 sentences, each carrying narrative weight in a clear arc."
+
+# ============================================================
+# SCRIPT QUALITY FRAMEWORK
+# ============================================================
+
+script_quality:
+  made_to_stick:
+    simple: "YES — 'AI entered creative territory; survivors made weird things.' Clear one-line summary."
+    unexpected: "MODERATE — the 'weirdness wins' pivot is a mildly surprising inversion of the doom framing."
+    concrete: "MODERATE — '코딩 벤치마크 1위', '15초 클립을 4분에' are specific data points. '이상한 걸' is vivid but could be more sensory."
+    credible: "PASS — claims are now defensible and appropriately scaled. No false product claims."
+    emotional: "MODERATE — fear (job loss) and defiance (make weird things) both present. CTA reframes fear as direction-seeking."
+    stories: "MODERATE — clear three-beat structure: comfort → threat → survival strategy. Not a full narrative but effective for 40 seconds."
+  story_arc:
+    expectation: "PRESENT — 'I do creative work, I'm safe'"
+    frustration: "PRESENT — 'AI is now in the creative domain'"
+    insight: "PRESENT — 'survivors made the weird stuff, not the average stuff'"
+
+# ============================================================
+# TECHNICAL / RENDERING STATUS
+# ============================================================
+
+technical_verdict: "PARTIAL — script PASS, rendering incomplete"
+technical_notes: |
+  Per task brief:
+  - Subtitle sync: 100% (19/19) — FULLY RESOLVED.
+  - Images: 3/6 — API quota limitation. NOT a script quality issue.
+  - Duration: 38.1s — within target range for Shorts (< 60s).
+
+  Script is approved for upload once rendering is complete (6/6 images).
+  The body[2] change will require scene 4 image re-generation.
+  Image completion is a rendering task, not a review blocker.
+
+# ============================================================
+# SCORE PROGRESSION: v1 → v2 → v3
+# ============================================================
+
+score_comparison:
+  source_citation: { v1: 7, v2: 7, v3: 7, status: "PASS → PASS → PASS" }
+  substantial_transformation:
+    { v1: 8, v2: 8, v3: 8, status: "PASS → PASS → PASS" }
+  ai_misrepresentation_free:
+    { v1: 7, v2: 8, v3: 9, status: "FAIL → FAIL → PASS" }
+  creator_perspective: { v1: 7, v2: 8, v3: 8, status: "FAIL → PASS → PASS" }
+  uniqueness: { v1: 6, v2: 7, v3: 7, status: "FAIL → PASS → PASS" }
+  hook_strength: { v1: 8, v2: 8, v3: 8, status: "PASS → PASS → PASS" }
+  factual_accuracy: { v1: 4, v2: 7, v3: 8, status: "FAIL → FAIL → PASS" }
+  total: { v1: 47, v2: 53, v3: 55 }
+  failing_items: { v1: 4, v2: 2, v3: 0 }
+
+# ============================================================
+# COSMETIC NOTES (non-blocking)
+# ============================================================
+
+cosmetic_notes:
+  - field: "script.hook"
+    note: |
+      '빼앗는다면' — noted in v1 review. '빼앗다' is a valid Korean verb (빼다+앗다),
+      though viewers may perceive it as a typo for '빼앗기다'. This is a cosmetic
+      choice, not a scoring factor. The creator may keep it for conversational tone.
+
+  - field: "script.body[1]"
+    note: |
+      "코딩 벤치마크 1위" remains unattributed (which benchmark?). This was flagged
+      as a soft recommendation in v2. For a Shorts format the generalization is
+      acceptable, but adding "주요" or a specific benchmark name would strengthen
+      credibility. Non-blocking.
+
+# ============================================================
+# FINAL VERDICT
+# ============================================================
+
+final_verdict: |
+  PASS — 55/70, all 7 items meet or exceed minimum thresholds.
+
+  Score: 55/70 (7 + 8 + 9 + 8 + 7 + 8 + 8)
+  Failing items: 0
+
+  RESOLUTION SUMMARY:
+  - v1 (47/70, 4 fail): False product claims + cliche insight + low uniqueness + AI misrepresentation.
+  - v2 (53/70, 2 fail): Product claims fixed, insight improved, uniqueness resolved.
+      Remaining: "이미 창의성을 삼켰다" overstated AI autonomy.
+  - v3 (55/70, 0 fail): "반복은 이미 끝났다. AI는 이제 창작 영역에 있다." —
+      States AI's presence in creative domains as factual observation without claiming
+      autonomy, dominance, or replacement. Both previously-failing items resolved:
+      - AI misrepresentation: 8→9. "창작 영역에 있다" = presence, not conquest.
+      - Factual accuracy: 7→8. All claims now defensible, no false statements.
+
+  UPLOAD STATUS: Script APPROVED. Rendering requires 3 more images (API quota).
+  Once 6/6 images are rendered and scene 4 is re-generated for the body[2] change,
+  the episode is ready for CEO review and upload.

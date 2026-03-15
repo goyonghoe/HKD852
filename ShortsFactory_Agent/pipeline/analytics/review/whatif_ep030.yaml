@@ -1,0 +1,15 @@
+episode_id: "whatif_ep030"
+review_date: "2026-02-20"
+verdict: "PASS"
+scores:
+  source_citation: 8 # 가상 시나리오 — 팩트 의존 낮음, What If 특성
+  substantial_transformation: 9 # 시간 되감기 + 기억 소실 독자적 트위스트
+  ai_misrepresentation_free: 10 # 실제 인물/사건 없음, 가상 시나리오 명확
+  creator_perspective: 9 # "기억 희미해짐" → "소중한 사람 얼굴 잊음" 고유 서사
+  uniqueness: 8 # EP027(기억 매매)과 기억 테마 소폭 겹침, 시간 되감기는 별개
+  hook_strength: 9 # "하루만 되돌릴 수 있다면?" — 보편적 판타지, 즉각적 관심
+  factual_accuracy: 8 # 가상 시나리오 논리적 일관성 충족
+total_score: 61
+feedback: "강한 훅과 감정적 클라이맥스(소중한 사람 얼굴 잊음)가 매우 효과적. 시간 되감기+기억 소실 트위스트로 실질적 변형 충족. EP027(기억 매매)과 기억 테마가 약간 겹치나 접근 방식이 충분히 다름."
+revise_items: []
+image_safety: "PASS" # 모든 이미지 프롬프트 안전 — 혐오/폭력 요소 없음

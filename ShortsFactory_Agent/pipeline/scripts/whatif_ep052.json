@@ -1,0 +1,70 @@
+{
+  "episode_id": "whatif_ep052",
+  "series": "만약에~",
+  "topic_id": "mbti-floating-above-head",
+  "language": "ko",
+  "visual_style": "flat 2D minimalist vector illustration, bold geometric shapes, rich saturated colors on deep dark blue background, soft inner gradient shading, warm glow effects, simplified cute rounded characters with no outlines, clean educational animation aesthetic, smooth color transitions, playful social energy",
+  "script": {
+    "hook": "만약에 머리 위에 내 성격 유형이 떠다닌다면?",
+    "body": [
+      "먼저 내향형이 전부 멸종한다. 밖에 나가면 내 성격이 전부 보이니까. 전국의 내향형이 자취방에서 은둔생활을 시작한다. 배달만 시킨다.",
+      "소개팅 문화가 완전히 끝난다. 카페에서 만나자마자 머리 위를 올려본다. 글자 확인하는 순간 자리를 박차고 도망간다. 세 글자만 보고 사람을 판단하는 세상이 온다.",
+      "취업 면접에서 웃긴 일이 벌어진다. 면접관 머리 위에 글자가 떠 있다. 지원자보다 면접관이 더 떨고 있다. 누가 누굴 면접 보는 건지 모른다.",
+      "근데 진짜 혼돈은 군대다. 소대장 머리 위에 자유로운 영혼 글자가 떠 있다. 작전 명령이 3초마다 바뀐다. 부대 전체가 산속에서 미아가 된다.",
+      "결국 성격 유형 성형이 유행한다. 돈 내고 머리 위 글자를 바꾼다. 근데 성격은 그대로다. 글자만 바뀌고 행동은 똑같다. 너라면 머리 위에 뭐가 뜰 것 같아?"
+    ],
+    "cta": ""
+  },
+  "full_text": "만약에 머리 위에 내 성격 유형이 떠다닌다면? 먼저 내향형이 전부 멸종한다. 밖에 나가면 내 성격이 전부 보이니까. 전국의 내향형이 자취방에서 은둔생활을 시작한다. 배달만 시킨다. 소개팅 문화가 완전히 끝난다. 카페에서 만나자마자 머리 위를 올려본다. 글자 확인하는 순간 자리를 박차고 도망간다. 세 글자만 보고 사람을 판단하는 세상이 온다. 취업 면접에서 웃긴 일이 벌어진다. 면접관 머리 위에 글자가 떠 있다. 지원자보다 면접관이 더 떨고 있다. 누가 누굴 면접 보는 건지 모른다. 근데 진짜 혼돈은 군대다. 소대장 머리 위에 자유로운 영혼 글자가 떠 있다. 작전 명령이 3초마다 바뀐다. 부대 전체가 산속에서 미아가 된다. 결국 성격 유형 성형이 유행한다. 돈 내고 머리 위 글자를 바꾼다. 근데 성격은 그대로다. 글자만 바뀌고 행동은 똑같다. 너라면 머리 위에 뭐가 뜰 것 같아?",
+  "display_text": "만약에 머리 위에 내 성격 유형이 떠다닌다면? 먼저 내향형이 전부 멸종한다. 밖에 나가면 내 성격이 전부 보이니까. 전국의 내향형이 자취방에서 은둔생활을 시작한다. 배달만 시킨다. 소개팅 문화가 완전히 끝난다. 카페에서 만나자마자 머리 위를 올려본다. 글자 확인하는 순간 자리를 박차고 도망간다. 세 글자만 보고 사람을 판단하는 세상이 온다. 취업 면접에서 웃긴 일이 벌어진다. 면접관 머리 위에 글자가 떠 있다. 지원자보다 면접관이 더 떨고 있다. 누가 누굴 면접 보는 건지 모른다. 근데 진짜 혼돈은 군대다. 소대장 머리 위에 자유로운 영혼 글자가 떠 있다. 작전 명령이 3초마다 바뀐다. 부대 전체가 산속에서 미아가 된다. 결국 성격 유형 성형이 유행한다. 돈 내고 머리 위 글자를 바꾼다. 근데 성격은 그대로다. 글자만 바뀌고 행동은 똑같다. 너라면 머리 위에 뭐가 뜰 것 같아?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약에 머리 위에 내 성격 유형이 떠다닌다면?",
+      "image_prompt": "Vertical 1080x1920. A busy Korean city street with multiple tiny cute simplified round-headed figures walking. Above each figure head floats a glowing holographic four-letter label in different vibrant colors: bright pink, electric blue, warm yellow, neon green. Each person has a unique color glow matching their floating label. The labels hover like game character nameplates. People glance upward at each others floating labels curiously. Deep dark navy night city background with neon reflections. Flat 2D minimalist vector illustration, bold geometric shapes, rich saturated multicolor holographic glows on deep dark blue background, soft inner gradient shading, playful game UI energy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "먼저 내향형이 전부 멸종한다. 밖에 나가면 내 성격이 전부 보이니까. 전국의 내향형이 자취방에서 은둔생활을 시작한다. 배달만 시킨다.",
+      "image_prompt": "Vertical 1080x1920. A tiny cute simplified round-headed figure curled up under a blanket fort in a small cozy room, peeking out nervously. Above their head a soft purple holographic label glows gently. Through the window the outside world is visible with crowds of people and their bright floating labels. The figure clutches a book and a cat. The room is warm purple-lavender tones while outside is harsh and exposed. Multiple similar figures are shown in neighboring apartment windows also hiding. Flat 2D minimalist vector illustration, bold geometric shapes, warm cozy purple-lavender inside vs harsh bright outside on deep dark navy background, soft inner gradient shading, introvert sanctuary glow, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "소개팅 문화가 완전히 끝난다. 카페에서 만나자마자 머리 위를 올려본다. 글자 확인하는 순간 자리를 박차고 도망간다. 세 글자만 보고 사람을 판단하는 세상이 온다.",
+      "image_prompt": "Vertical 1080x1920. A Korean cafe blind date scene. Two tiny cute simplified round-headed figures sit across from each other. One figure looks up at the other persons floating bright red holographic label above their head with a shocked horrified expression. The other figure sits confidently unaware. Motion lines show the shocked figure already pushing back their chair to flee. A speed trail shows them about to bolt for the door. The cafe is warm toned but the moment is frozen in comedic panic. Flat 2D minimalist vector illustration, bold geometric shapes, warm cafe tones with alarming red label glow on deep dark navy background, soft gradient shading, comedic freeze-frame panic energy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "취업 면접에서 웃긴 일이 벌어진다. 면접관 머리 위에 글자가 떠 있다. 지원자보다 면접관이 더 떨고 있다. 누가 누굴 면접 보는 건지 모른다.",
+      "image_prompt": "Vertical 1080x1920. A job interview room. A tiny cute simplified round-headed interviewer figure sits behind a desk looking extremely nervous and sweating, hands trembling. Above the interviewer head floats a soft teal holographic label that glows shyly. Across the desk the job applicant figure sits confidently and relaxed, looking up at the interviewers floating label with an amused knowing smirk. The power dynamic is completely reversed from normal. Cold corporate blue office lighting with warm teal accent from the label. Flat 2D minimalist vector illustration, bold geometric shapes, corporate blue with teal accent glow on deep dark navy background, soft gradient shading, ironic role reversal comedy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "근데 진짜 혼돈은 군대다. 소대장 머리 위에 자유로운 영혼 글자가 떠 있다. 작전 명령이 3초마다 바뀐다. 부대 전체가 산속에서 미아가 된다.",
+      "image_prompt": "Vertical 1080x1920. A military field scene in chaos. A tiny cute simplified round-headed soldier figure wearing a helmet stands on a rock pointing enthusiastically in one direction, with a bright yellow-orange holographic label floating above. Behind them a trail of confused soldier figures wander in completely different random directions through a forest, each looking lost and bewildered. Dotted path lines go in chaotic zigzag patterns showing constantly changing directions. Maps and compasses are scattered on the ground abandoned. Military green tones mixed with chaotic yellow energy. Flat 2D minimalist vector illustration, bold geometric shapes, military olive green with chaotic bright yellow-orange energy on deep dark navy background, soft gradient shading, comedic military chaos, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "결국 성격 유형 성형이 유행한다. 돈 내고 머리 위 글자를 바꾼다. 근데 성격은 그대로다. 글자만 바뀌고 행동은 똑같다. 너라면 머리 위에 뭐가 뜰 것 같아?",
+      "image_prompt": "Vertical 1080x1920. A futuristic clinic scene. A tiny cute simplified round-headed figure lies on a sleek medical chair while a doctor figure uses a glowing tool to change the holographic floating label above the patients head from one color to another. The old label fades out as a new shiny gold premium label materializes. But the patients expression and body language remain exactly the same, contradicting the new label. A long queue of eager figures waits outside the clinic door. The clinic glows with premium gold and white medical lighting. Flat 2D minimalist vector illustration, bold geometric shapes, premium gold and clinical white on deep dark navy background, soft inner gradient shading, ironic cosmetic futility glow, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "🏷️ 머리 위에 MBTI가 뜬다면? #만약에",
+    "thumbnail_text": "MBTI 공개",
+    "description": "만약에 시리즈: 머리 위에 MBTI가 떠다닌다면?\nINFP 전원 은둔, 소개팅 3초 종료, 면접관이 더 긴장.\n근데 진짜 혼돈은 군대. 소대장 ENFP.\n#만약에 #MBTI #성격 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#MBTI", "#성격", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "episode_id": "whatif_ep031",
+  "series": "만약에~",
+  "topic_id": "transparent-ocean",
+  "language": "ko",
+  "visual_style": "crystal clear aquatic paradise with turquoise and sapphire tones, sunlight refracting through pristine water, underwater visibility for miles, bioluminescent accents, serene and majestic atmosphere",
+  "script": {
+    "hook": "만약 바다가 투명해진다면?",
+    "body": [
+      "바닥이 다 보여서 배 위에서 하늘을 나는 기분이 된다.",
+      "심해 생물이 전부 노출돼서 매일 새로운 괴물이 발견된다.",
+      "군사 잠수함이 숨을 곳이 없어진다. 전쟁의 룰이 바뀐다.",
+      "투명한 바다 위 리조트가 생기고, 해양 관광 산업이 폭발한다."
+    ],
+    "cta": "투명한 바다, 보고 싶어? 구독 눌러."
+  },
+  "full_text": "만약 바다가 투명해진다면? 바닥이 다 보여서 배 위에서 하늘을 나는 기분이 된다. 심해 생물이 전부 노출돼서 매일 새로운 괴물이 발견된다. 군사 잠수함이 숨을 곳이 없어진다. 전쟁의 룰이 바뀐다. 투명한 바다 위 리조트가 생기고, 해양 관광 산업이 폭발한다. 투명한 바다, 보고 싶어? 구독 눌러.",
+  "display_text": "만약 바다가 투명해진다면? 바닥이 다 보여서 배 위에서 하늘을 나는 기분이 된다. 심해 생물이 전부 노출돼서 매일 새로운 괴물이 발견된다. 군사 잠수함이 숨을 곳이 없어진다. 전쟁의 룰이 바뀐다. 투명한 바다 위 리조트가 생기고, 해양 관광 산업이 폭발한다. 투명한 바다, 보고 싶어?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 바다가 투명해진다면?",
+      "image_prompt": "A breathtaking aerial view of a crystal clear transparent ocean where the seabed is perfectly visible thousands of meters below, turquoise and sapphire water with sunlight refracting into rainbow beams, coral reefs and white sand visible far below, serene majestic atmosphere",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "바닥이 다 보여서 배 위에서 하늘을 나는 기분이 된다.",
+      "image_prompt": "A small wooden boat floating on perfectly transparent water with the deep ocean floor visible far below, the passengers looking down in awe as if flying above an underwater landscape, sunlight streaming through pristine water creating golden rays, turquoise paradise, vertigo-inducing beauty",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "심해 생물이 전부 노출돼서 매일 새로운 괴물이 발견된다.",
+      "image_prompt": "A magnificent giant bioluminescent jellyfish glowing with soft blue and violet light visible through transparent ocean water from above, surrounded by exotic deep sea creatures with beautiful luminous patterns, sapphire water refracting sunlight, mysterious and awe-inspiring underwater wonderland",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "군사 잠수함이 숨을 곳이 없어진다. 전쟁의 룰이 바뀐다.",
+      "image_prompt": "A dramatic wide shot of a massive submarine clearly visible through transparent ocean water from a satellite perspective, nowhere to hide in the crystal clear depths, geometric light patterns refracting through the water surface, turquoise and deep sapphire tones, cinematic tension meets oceanic beauty",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "투명한 바다 위 리조트가 생기고, 해양 관광 산업이 폭발한다.",
+      "image_prompt": "A futuristic glass-bottomed resort floating on transparent ocean water, tourists gazing down at coral reefs and tropical fish below their feet, luxury overwater bungalows with transparent floors, turquoise paradise with bioluminescent accents at twilight, dream vacation destination",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "투명한 바다, 보고 싶어? 구독 눌러.",
+      "image_prompt": "A person standing at the edge of a cliff overlooking a vast transparent ocean stretching to the horizon, the entire underwater world visible like looking through glass, sunset painting the water in gold and turquoise, whales and manta rays gracefully swimming below the surface, breathtaking panoramic beauty",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "바다가 투명해지면 무슨 일이 벌어질까? #만약에",
+    "thumbnail_text": "바다 바닥이 다 보인다",
+    "description": "만약 바다가 투명해진다면? 하늘을 나는 기분부터 잠수함 무용론까지.\n#만약에 #투명바다 #심해 #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#투명바다", "#심해", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

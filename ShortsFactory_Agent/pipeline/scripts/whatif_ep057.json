@@ -1,0 +1,70 @@
+{
+  "episode_id": "whatif_ep057",
+  "series": "만약에~",
+  "topic_id": "child-cost-world-no1",
+  "language": "ko",
+  "visual_style": "flat 2D minimalist vector illustration, bold geometric shapes, rich saturated colors on deep dark blue background, soft inner gradient shading, warm glow effects, simplified cute rounded characters with no outlines, clean educational animation aesthetic, smooth color transitions, data visualization energy",
+  "script": {
+    "hook": "한국에서 아이 한 명 키우는 비용이 세계 1위라는 거 알아?",
+    "body": [
+      "출산부터 18살까지 약 3억 6천만 원. 이게 나라 평균 소득의 7.79배야. 세계 어떤 나라보다 비싸다. 2위 중국의 거의 두 배.",
+      "미국이 4.11배. 일본이 4.26배. 프랑스는 2.24배. 독일은 3.64배야. 한국만 유독 튀어나온다. 그래프로 보면 혼자 하늘을 뚫고 있어.",
+      "그래서 물어보니까 한국 청년 96%가 아이는 순수한 비용이라고 답했어. 기쁨이 아니라 지출. 축복이 아니라 청구서.",
+      "근데 진짜 무서운 건 이 비용의 절반이 사교육이야. 월평균 사교육비 41만 원. 거기에 서울 전세 평균 5억. 아이 낳기 전에 이미 통장이 비어 있어.",
+      "이 속도면 2750년에 한국인이 사라진다는 연구도 있어. 근데 솔직히 오늘 월세 내기도 빠듯한데 2750년이 문제야?"
+    ],
+    "cta": ""
+  },
+  "full_text": "한국에서 아이 한 명 키우는 비용이 세계 1위라는 거 알아? 출산부터 18살까지 약 3억 6천만 원. 이게 나라 평균 소득의 7.79배야. 세계 어떤 나라보다 비싸다. 2위 중국의 거의 두 배. 미국이 4.11배. 일본이 4.26배. 프랑스는 2.24배. 독일은 3.64배야. 한국만 유독 튀어나온다. 그래프로 보면 혼자 하늘을 뚫고 있어. 그래서 물어보니까 한국 청년 96%가 아이는 순수한 비용이라고 답했어. 기쁨이 아니라 지출. 축복이 아니라 청구서. 근데 진짜 무서운 건 이 비용의 절반이 사교육이야. 월평균 사교육비 41만 원. 거기에 서울 전세 평균 5억. 아이 낳기 전에 이미 통장이 비어 있어. 이 속도면 2750년에 한국인이 사라진다는 연구도 있어. 근데 솔직히 오늘 월세 내기도 빠듯한데 2750년이 문제야?",
+  "display_text": "한국에서 아이 한 명 키우는 비용이 세계 1위라는 거 알아? 출산부터 18살까지 약 3억 6천만 원. 이게 나라 평균 소득의 7.79배야. 세계 어떤 나라보다 비싸다. 2위 중국의 거의 두 배. 미국이 4.11배. 일본이 4.26배. 프랑스는 2.24배. 독일은 3.64배야. 한국만 유독 튀어나온다. 그래프로 보면 혼자 하늘을 뚫고 있어. 그래서 물어보니까 한국 청년 96%가 아이는 순수한 비용이라고 답했어. 기쁨이 아니라 지출. 축복이 아니라 청구서. 근데 진짜 무서운 건 이 비용의 절반이 사교육이야. 월평균 사교육비 41만 원. 거기에 서울 전세 평균 5억. 아이 낳기 전에 이미 통장이 비어 있어. 이 속도면 2750년에 한국인이 사라진다는 연구도 있어. 근데 솔직히 오늘 월세 내기도 빠듯한데 2750년이 문제야?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "한국에서 아이 한 명 키우는 비용이 세계 1위라는 거 알아?",
+      "image_prompt": "Vertical 1080x1920. A tiny cute simplified round-headed baby figure sitting on top of a massive towering golden coin stack that reaches into the sky, far taller than skyscrapers below. The coin stack has a bright golden crown on top marked as number one. Other country coin stacks in the background are much shorter. The baby looks confused sitting at this absurd height. The scale difference between Korea's stack and others is dramatic and shocking. Deep dark navy sky background. Flat 2D minimalist vector illustration, bold geometric shapes, rich golden coin glow against deep dark blue background, soft inner gradient shading, shocking height comparison energy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "출산부터 18살까지 약 3억 6천만 원. 이게 나라 평균 소득의 7.79배야. 세계 어떤 나라보다 비싸다. 2위 중국의 거의 두 배.",
+      "image_prompt": "Vertical 1080x1920. A dramatic bar chart visualization with country bars. Korea's bar in bright hot red-orange towers massively above all others, breaking through the ceiling of the chart frame. China's bar is roughly half the height in warm yellow. USA Japan France Germany bars are progressively shorter in cool blues and greens. The chart frame is cracking where Korea's bar punches through. A tiny cute simplified round-headed figure at the base of Korea's bar looks up in disbelief at its height. Flat 2D minimalist vector illustration, bold geometric shapes, dominant hot red Korea bar vs modest other country bars on deep dark navy background, soft gradient shading, shocking data comparison energy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "미국이 4.11배. 일본이 4.26배. 프랑스는 2.24배. 독일은 3.64배야. 한국만 유독 튀어나온다. 그래프로 보면 혼자 하늘을 뚫고 있어.",
+      "image_prompt": "Vertical 1080x1920. A line graph visualization where multiple country trend lines travel relatively close together in a cluster of cool blue and green. But Korea's line in blazing hot red suddenly launches upward like a rocket, separating dramatically from the pack and shooting off the top of the chart into space with flame trail effects. The other lines look stable while Korea's goes vertical. Tiny cute country flag figures ride the lines like roller coasters with the Korea figure holding on for dear life as it rockets upward. Flat 2D minimalist vector illustration, bold geometric shapes, rocket-launching hot red Korea line vs calm grouped other lines on deep dark navy background, soft gradient shading, dramatic outlier visual shock, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "그래서 물어보니까 한국 청년 96%가 아이는 순수한 비용이라고 답했어. 기쁨이 아니라 지출. 축복이 아니라 청구서.",
+      "image_prompt": "Vertical 1080x1920. A powerful split image. On the left side a warm golden baby crib with a cute baby figure surrounded by soft warm light representing joy. On the right side the same baby figure but surrounded by falling receipts invoices and bills in cold harsh blue-white light, sitting on a giant calculator. The left side is small and fading while the right side dominates the frame showing the overwhelming financial reality. A large pie chart behind shows a massive slice covering almost the entire circle in cold blue. Flat 2D minimalist vector illustration, bold geometric shapes, dying warm golden joy vs overwhelming cold blue financial reality on deep dark navy background, soft gradient shading, bittersweet reality check energy, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "근데 진짜 무서운 건 이 비용의 절반이 사교육이야. 월평균 사교육비 41만 원. 거기에 서울 전세 평균 5억. 아이 낳기 전에 이미 통장이 비어 있어.",
+      "image_prompt": "Vertical 1080x1920. A crushing weight scene. A tiny cute simplified round-headed parent figure stands beneath two massive pillars pressing down on them. The left pillar glows harsh fluorescent white representing private education costs with stacked textbooks and academy building silhouettes. The right pillar is a giant apartment building in cold steel grey representing housing costs. The parent figure is being squeezed between these two enormous financial pressures, their wallet completely flat and empty on the ground. The scale difference shows how small the individual is against these structural costs. Flat 2D minimalist vector illustration, bold geometric shapes, crushing fluorescent education pillar and cold grey housing pillar vs tiny warm orange parent on deep dark navy background, soft gradient shading, structural financial pressure visualization, simplified cute rounded characters with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "이 속도면 2750년에 한국인이 사라진다는 연구도 있어. 근데 솔직히 오늘 월세 내기도 빠듯한데 2750년이 문제야?",
+      "image_prompt": "Vertical 1080x1920. A bittersweet final scene. A tiny cute simplified round-headed figure sits alone on a park bench at night looking at the city skyline. Above the skyline a giant countdown timer shows a distant future year fading away. But in the figures hand is a simple monthly rent bill glowing harsh white demanding immediate attention. The contrast between the cosmic scale distant future extinction and the very real present financial struggle. Stars twinkle peacefully above while the rent bill glows urgently below. The figure has a tired but darkly amused expression. Flat 2D minimalist vector illustration, bold geometric shapes, distant cosmic blue extinction clock vs harsh white immediate rent bill on deep dark navy background, soft gradient shading, darkly funny present vs future contrast, simplified cute rounded character with no outlines, clean educational animation aesthetic",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "👶 아이 키우는 비용 세계 1위인 나라 #논문팩트",
+    "thumbnail_text": "양육비 세계1위",
+    "description": "논문 팩트: 한국 아이 1명 양육비 = GDP 7.79배 (세계 1위)\n2위 중국의 거의 두 배. 청년 96%가 \"아이는 비용\".\n사교육비 월 41만 원 + 서울 전세 5억. 출산율 0.65 역대 지구 최저.\n출처: YuWa Population Research, 통계청, 국회입법조사처\n#논문팩트 #출산율 #저출생 #한국미래 #Shorts",
+    "hashtags": ["#논문팩트", "#출산율", "#저출생", "#한국미래", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "cool-girl",
+    "speed": 1.3,
+    "format": "dark-bg-text",
+    "font_size": 52
+  }
+}

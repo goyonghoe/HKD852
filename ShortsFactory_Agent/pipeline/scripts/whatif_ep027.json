@@ -1,0 +1,75 @@
+{
+  "episode_id": "whatif_ep027",
+  "series": "만약에~",
+  "topic_id": "buy-sell-memories",
+  "language": "ko",
+  "visual_style": "cyberpunk noir aesthetic with neon blue and magenta highlights, rain-soaked streets, holographic data streams, memories as glowing orbs, dark atmospheric mood, ",
+  "script": {
+    "hook": "만약 기억을 사고팔 수 있다면?",
+    "body": [
+      "시험 전날, 천재의 기억을 산다.",
+      "실연의 아픔을 삭제하고 웃으며 살아간다.",
+      "부자들이 가난한 사람의 행복한 기억을 수집한다.",
+      "결국 내 기억이 하나도 없는 사람이 생긴다."
+    ],
+    "cta": "기억이 곧 나인데, 팔겠어? 구독 눌러."
+  },
+  "full_text": "만약 기억을 사고팔 수 있다면? 시험 전날, 천재의 기억을 산다. 실연의 아픔을 삭제하고 웃으며 살아간다. 부자들이 가난한 사람의 행복한 기억을 수집한다. 결국 내 기억이 하나도 없는 사람이 생긴다. 기억이 곧 나인데, 팔겠어? 구독 눌러.",
+  "display_text": "만약 기억을 사고팔 수 있다면? 시험 전날, 천재의 기억을 산다. 실연의 아픔을 삭제하고 웃으며 살아간다. 부자들이 가난한 사람의 행복한 기억을 수집한다. 결국 내 기억이 하나도 없는 사람이 생긴다. 기억이 곧 나인데, 팔겠어?",
+  "scenes": [
+    {
+      "id": 1,
+      "text": "만약 기억을 사고팔 수 있다면?",
+      "image_prompt": "A glowing translucent orb containing swirling memories floating in a person's open palm, neon blue and magenta reflections, rain falling around them, cyberpunk market stall in background, wonder and danger",
+      "duration_hint": "hook"
+    },
+    {
+      "id": 2,
+      "text": "시험 전날, 천재의 기억을 산다.",
+      "image_prompt": "A student in a dark room plugging a glowing data cable into their temple, holographic equations and formulas streaming from a glass jar labeled with a price tag, desperate cramming reimagined, neon blue glow",
+      "duration_hint": "body"
+    },
+    {
+      "id": 3,
+      "text": "실연의 아픔을 삭제하고 웃으며 살아간다.",
+      "image_prompt": "A person smiling blankly while behind them a ghostly image of a crying version of themselves fades away, a memory orb being extracted and discarded, bittersweet freedom, magenta and grey tones",
+      "duration_hint": "body"
+    },
+    {
+      "id": 4,
+      "text": "부자들이 가난한 사람의 행복한 기억을 수집한다.",
+      "image_prompt": "A luxury vault filled with rows of glowing memory orbs in glass cases, a wealthy collector admiring them, outside the window poor people walk with hollow blank expressions, stark inequality, dark cyberpunk luxury",
+      "duration_hint": "body"
+    },
+    {
+      "id": 5,
+      "text": "결국 내 기억이 하나도 없는 사람이 생긴다.",
+      "image_prompt": "A person sitting alone in an empty white room, completely hollow expression, no possessions, no photos, no identity, all memory orbs sold, the most devastating emptiness, minimal composition with vast negative space",
+      "duration_hint": "body"
+    },
+    {
+      "id": 6,
+      "text": "기억이 곧 나인데, 팔겠어? 구독 눌러.",
+      "image_prompt": "A mirror reflection where the person sees a stranger staring back, one hand touching the glass, the other clutching a single remaining memory orb, existential question visualized, neon blue rim lighting",
+      "duration_hint": "body"
+    }
+  ],
+  "metadata": {
+    "title": "기억을 사고팔 수 있다면? #만약에",
+    "thumbnail_text": "내 기억=0원?",
+    "description": "만약 기억을 사고팔 수 있다면? 천재의 지식부터 행복한 추억까지, 모든 게 거래된다.\n#만약에 #기억 #SF #WhatIf #Shorts",
+    "hashtags": ["#만약에", "#기억", "#SF", "#WhatIf", "#Shorts"]
+  },
+  "render_config": {
+    "voice_preset": "hangout-male",
+    "speed": 1.0,
+    "format": "dark-bg-text",
+    "font_size": 52
+  },
+  "upload_info": {
+    "youtube_video_id": "6YyEV8-QBUk",
+    "youtube_url": "https://youtube.com/shorts/6YyEV8-QBUk",
+    "uploaded_at": "2026-02-20T22:33:38+09:00",
+    "privacy_status": "private"
+  }
+}
