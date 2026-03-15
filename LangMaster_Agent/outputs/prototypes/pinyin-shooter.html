@@ -1,0 +1,1304 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Pinyin Shooter - HSK 병음 게임</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, "Noto Sans KR", sans-serif;
+        background: #0a0e27;
+        color: #fff;
+        overflow: hidden;
+        touch-action: none;
+        user-select: none;
+      }
+      #game {
+        width: 100vw;
+        height: 100vh;
+        max-width: 430px;
+        margin: 0 auto;
+        position: relative;
+        background: linear-gradient(
+          180deg,
+          #0a0e27 0%,
+          #1a1e47 50%,
+          #2a1e57 100%
+        );
+        overflow: hidden;
+      }
+
+      /* Top HUD */
+      .hud {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        position: relative;
+        z-index: 10;
+      }
+      .hud-score {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffd700;
+      }
+      .hud-timer {
+        font-size: 16px;
+        color: #ff6b6b;
+        font-weight: 600;
+      }
+      .hud-combo {
+        font-size: 14px;
+        color: #7afcff;
+        opacity: 0.8;
+        min-width: 80px;
+        text-align: center;
+      }
+      .hud-level {
+        font-size: 12px;
+        color: #aaa;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Progress bar */
+      .progress-bar {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 0 16px;
+        border-radius: 2px;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ffd700, #ff6b6b);
+        border-radius: 2px;
+        transition: width 0.3s;
+      }
+
+      /* Hanzi display area */
+      .hanzi-display {
+        text-align: center;
+        padding: 16px 16px 8px;
+        position: relative;
+        z-index: 10;
+      }
+      .hanzi-char {
+        font-size: 80px;
+        font-weight: 900;
+        color: #fff;
+        text-shadow:
+          0 0 30px rgba(122, 252, 255, 0.4),
+          0 0 60px rgba(122, 252, 255, 0.15),
+          0 4px 8px rgba(0, 0, 0, 0.5);
+        line-height: 1.1;
+        animation: hanziPulse 2s ease-in-out infinite;
+      }
+      .hanzi-meaning {
+        font-size: 14px;
+        color: #888;
+        margin-top: 4px;
+      }
+      .word-counter {
+        font-size: 11px;
+        color: #555;
+        margin-top: 2px;
+      }
+
+      @keyframes hanziPulse {
+        0%,
+        100% {
+          text-shadow:
+            0 0 30px rgba(122, 252, 255, 0.4),
+            0 0 60px rgba(122, 252, 255, 0.15),
+            0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        50% {
+          text-shadow:
+            0 0 40px rgba(122, 252, 255, 0.6),
+            0 0 80px rgba(122, 252, 255, 0.25),
+            0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      /* Bubble play area */
+      .bubble-area {
+        position: relative;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      /* Pinyin bubbles */
+      .pinyin-bubble {
+        position: absolute;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        font-weight: 700;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 0.1s;
+        z-index: 5;
+      }
+      .pinyin-bubble:active {
+        transform: scale(0.9);
+      }
+      .pinyin-bubble.c0 {
+        background: radial-gradient(circle at 35% 35%, #00e5ff, #006064);
+        border: 2px solid rgba(0, 229, 255, 0.6);
+        box-shadow:
+          0 0 20px rgba(0, 229, 255, 0.4),
+          inset 0 0 15px rgba(255, 255, 255, 0.1);
+        color: #fff;
+        text-shadow: 0 0 8px rgba(0, 229, 255, 0.8);
+      }
+      .pinyin-bubble.c1 {
+        background: radial-gradient(circle at 35% 35%, #ff4081, #880e4f);
+        border: 2px solid rgba(255, 64, 129, 0.6);
+        box-shadow:
+          0 0 20px rgba(255, 64, 129, 0.4),
+          inset 0 0 15px rgba(255, 255, 255, 0.1);
+        color: #fff;
+        text-shadow: 0 0 8px rgba(255, 64, 129, 0.8);
+      }
+      .pinyin-bubble.c2 {
+        background: radial-gradient(circle at 35% 35%, #76ff03, #33691e);
+        border: 2px solid rgba(118, 255, 3, 0.6);
+        box-shadow:
+          0 0 20px rgba(118, 255, 3, 0.4),
+          inset 0 0 15px rgba(255, 255, 255, 0.1);
+        color: #fff;
+        text-shadow: 0 0 8px rgba(118, 255, 3, 0.8);
+      }
+      .pinyin-bubble.c3 {
+        background: radial-gradient(circle at 35% 35%, #ffd740, #f57f17);
+        border: 2px solid rgba(255, 215, 64, 0.6);
+        box-shadow:
+          0 0 20px rgba(255, 215, 64, 0.4),
+          inset 0 0 15px rgba(255, 255, 255, 0.1);
+        color: #fff;
+        text-shadow: 0 0 8px rgba(255, 215, 64, 0.8);
+      }
+      .pinyin-bubble.correct-hit {
+        background: radial-gradient(
+          circle at 35% 35%,
+          #69f0ae,
+          #1b5e20
+        ) !important;
+        border-color: #69f0ae !important;
+        box-shadow: 0 0 40px rgba(105, 240, 174, 0.8) !important;
+        animation: correctBubble 0.5s ease-out;
+      }
+      .pinyin-bubble.wrong-hit {
+        border-color: #ff1744 !important;
+        box-shadow: 0 0 30px rgba(255, 23, 68, 0.6) !important;
+        animation: wrongShake 0.5s;
+      }
+
+      @keyframes correctBubble {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.3);
+        }
+        100% {
+          transform: scale(0);
+          opacity: 0;
+        }
+      }
+      @keyframes wrongShake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-10px);
+        }
+        40% {
+          transform: translateX(10px);
+        }
+        60% {
+          transform: translateX(-6px);
+        }
+        80% {
+          transform: translateX(6px);
+        }
+      }
+
+      /* Screens */
+      .screen {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        background: rgba(10, 14, 39, 0.97);
+      }
+      .screen.hidden {
+        display: none;
+      }
+
+      /* Start screen */
+      .title {
+        font-size: 36px;
+        font-weight: 900;
+        background: linear-gradient(135deg, #00e5ff, #ff4081, #76ff03, #ffd740);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 300% 300%;
+        animation: gradientShift 3s ease infinite;
+        margin-bottom: 4px;
+      }
+      .title-sub {
+        font-size: 14px;
+        color: #7afcff;
+        margin-bottom: 6px;
+        letter-spacing: 3px;
+      }
+      .subtitle {
+        font-size: 15px;
+        color: #888;
+        margin-bottom: 32px;
+      }
+      .start-btn {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        border-radius: 16px;
+        padding: 16px 48px;
+        font-size: 20px;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      }
+      .start-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+      }
+      .level-select {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+      .level-tag {
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: #aaa;
+        background: transparent;
+        transition: all 0.2s;
+      }
+      .level-tag.active {
+        border-color: #ffd700;
+        color: #ffd700;
+        background: rgba(255, 215, 0, 0.1);
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Pre-round */
+      .pre-round {
+        text-align: center;
+      }
+      .pre-title {
+        font-size: 14px;
+        color: #7afcff;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      .pre-word {
+        margin-bottom: 16px;
+        animation: fadeInUp 0.5s ease-out;
+      }
+      .pre-word .hz {
+        font-size: 64px;
+        font-weight: 900;
+      }
+      .pre-word .py {
+        font-size: 22px;
+        color: #7afcff;
+        margin-top: 4px;
+      }
+      .pre-word .mn {
+        font-size: 18px;
+        color: #ccc;
+        margin-top: 8px;
+      }
+      .pre-counter {
+        font-size: 14px;
+        color: #888;
+        margin-top: 24px;
+      }
+
+      /* Result screen */
+      .result-score {
+        font-size: 64px;
+        font-weight: 900;
+        color: #ffd700;
+      }
+      .result-label {
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .result-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        margin: 20px 0 30px;
+        width: 80%;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat-val {
+        font-size: 28px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .stat-lbl {
+        font-size: 11px;
+        color: #888;
+        margin-top: 4px;
+      }
+      .missed-words {
+        width: 85%;
+        margin-bottom: 24px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      .missed-title {
+        font-size: 13px;
+        color: #ff6b6b;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .missed-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 15px;
+      }
+      .missed-item .hz {
+        color: #fff;
+        font-weight: 600;
+      }
+      .missed-item .py {
+        color: #7afcff;
+        margin-left: 8px;
+      }
+      .missed-item .mn {
+        color: #888;
+      }
+
+      /* Effects */
+      .combo-popup {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 36px;
+        font-weight: 900;
+        color: #ffd700;
+        pointer-events: none;
+        animation: comboAnim 0.8s ease-out forwards;
+        z-index: 50;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      }
+      .score-fly {
+        position: absolute;
+        font-size: 22px;
+        font-weight: 700;
+        color: #69f0ae;
+        pointer-events: none;
+        animation: scoreFly 0.9s ease-out forwards;
+        z-index: 50;
+        text-shadow: 0 0 10px rgba(105, 240, 174, 0.6);
+      }
+      .particle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: particleBurst 0.7s ease-out forwards;
+      }
+
+      /* Crosshair / reticle indicator */
+      .reticle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 40px;
+        height: 40px;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 2;
+        opacity: 0.15;
+      }
+      .reticle::before,
+      .reticle::after {
+        content: "";
+        position: absolute;
+        background: #7afcff;
+      }
+      .reticle::before {
+        width: 2px;
+        height: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .reticle::after {
+        height: 2px;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      /* Stage clear interstitial */
+      .stage-clear {
+        text-align: center;
+      }
+      .stage-clear-title {
+        font-size: 28px;
+        font-weight: 900;
+        color: #ffd700;
+        margin-bottom: 8px;
+      }
+      .stage-clear-sub {
+        font-size: 16px;
+        color: #aaa;
+        margin-bottom: 24px;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes comboAnim {
+        0% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(0.5);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.2);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -80%) scale(1);
+        }
+      }
+      @keyframes scoreFly {
+        0% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-70px) scale(1.3);
+        }
+      }
+      @keyframes particleBurst {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--dx), var(--dy)) scale(0);
+        }
+      }
+
+      /* Background stars */
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: #fff;
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: twinkle 3s ease-in-out infinite;
+      }
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game">
+      <!-- Background stars -->
+      <div id="stars"></div>
+
+      <!-- HUD -->
+      <div class="hud" id="hud" style="display: none">
+        <div>
+          <div class="hud-level" id="hudLevel">HSK 1</div>
+          <div class="hud-score" id="hudScore">0</div>
+        </div>
+        <div class="hud-combo" id="hudCombo"></div>
+        <div class="hud-timer" id="hudTimer">30</div>
+      </div>
+      <div class="progress-bar" id="progressBar" style="display: none">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <!-- Hanzi display -->
+      <div class="hanzi-display" id="hanziDisplay" style="display: none">
+        <div class="hanzi-char" id="hanziChar"></div>
+        <div class="hanzi-meaning" id="hanziMeaning"></div>
+        <div class="word-counter" id="wordCounter"></div>
+      </div>
+
+      <!-- Bubble play area -->
+      <div class="bubble-area" id="bubbleArea">
+        <div class="reticle" id="reticle" style="display: none"></div>
+      </div>
+
+      <!-- Start Screen -->
+      <div class="screen" id="startScreen">
+        <div class="title">Pinyin Shooter</div>
+        <div class="title-sub">PINYIN SHOOTER</div>
+        <div class="subtitle">한자를 보고 정확한 병음을 쏴라</div>
+        <div class="level-select" id="levelSelect">
+          <div class="level-tag active" data-stage="1">Stage 1</div>
+          <div class="level-tag" data-stage="2">Stage 2</div>
+          <div class="level-tag" data-stage="3">Stage 3</div>
+        </div>
+        <button class="start-btn" id="startBtn">START</button>
+      </div>
+
+      <!-- Pre-round -->
+      <div class="screen hidden" id="preScreen">
+        <div class="pre-round">
+          <div class="pre-title">NEW WORDS</div>
+          <div class="pre-word" id="preWord">
+            <div class="hz"></div>
+            <div class="py"></div>
+            <div class="mn"></div>
+          </div>
+          <div class="pre-counter" id="preCounter"></div>
+        </div>
+      </div>
+
+      <!-- Result Screen -->
+      <div class="screen hidden" id="resultScreen">
+        <div class="result-label">SCORE</div>
+        <div class="result-score" id="resultScore">0</div>
+        <div class="result-stats">
+          <div class="stat">
+            <div class="stat-val" id="statCorrect" style="color: #69f0ae">
+              0
+            </div>
+            <div class="stat-lbl">Correct</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" id="statWrong" style="color: #ff4757">0</div>
+            <div class="stat-lbl">Wrong</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" id="statCombo" style="color: #ffd700">0</div>
+            <div class="stat-lbl">Max Combo</div>
+          </div>
+        </div>
+        <div class="missed-words" id="missedWords"></div>
+        <button class="start-btn" id="retryBtn">RETRY</button>
+        <div style="margin-top: 12px">
+          <button
+            class="start-btn"
+            id="homeBtn"
+            style="
+              background: linear-gradient(135deg, #444, #666);
+              padding: 12px 32px;
+              font-size: 15px;
+            "
+          >
+            HOME
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // --- Web Audio API Sound Effects ---
+      const SFX = (() => {
+        let ctx = null;
+        function ensureCtx() {
+          if (!ctx)
+            ctx = new (window.AudioContext || window.webkitAudioContext)();
+          if (ctx.state === "suspended") ctx.resume();
+          return ctx;
+        }
+        function tone(freq, duration, type, vol, startTime) {
+          const c = ensureCtx();
+          const osc = c.createOscillator();
+          const gain = c.createGain();
+          osc.type = type;
+          osc.frequency.value = freq;
+          gain.gain.value = vol;
+          osc.connect(gain);
+          gain.connect(c.destination);
+          osc.start(startTime);
+          gain.gain.setValueAtTime(vol, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+          osc.stop(startTime + duration + 0.01);
+        }
+        function sweep(freqStart, freqEnd, duration, type, vol) {
+          const c = ensureCtx();
+          const osc = c.createOscillator();
+          const gain = c.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freqStart, c.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(
+            freqEnd,
+            c.currentTime + duration,
+          );
+          gain.gain.value = vol;
+          osc.connect(gain);
+          gain.connect(c.destination);
+          osc.start();
+          gain.gain.setValueAtTime(vol, c.currentTime);
+          gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            c.currentTime + duration,
+          );
+          osc.stop(c.currentTime + duration + 0.01);
+        }
+        return {
+          correct() {
+            const c = ensureCtx();
+            const t = c.currentTime;
+            tone(523.25, 0.1, "sine", 0.3, t); // C5
+            tone(659.25, 0.1, "sine", 0.3, t + 0.1); // E5
+          },
+          wrong() {
+            tone(150, 0.2, "square", 0.2, ensureCtx().currentTime);
+          },
+          combo() {
+            const c = ensureCtx();
+            const t = c.currentTime;
+            tone(659.25, 0.08, "sine", 0.3, t); // E5
+            tone(783.99, 0.08, "sine", 0.3, t + 0.08); // G5
+            tone(1046.5, 0.08, "sine", 0.3, t + 0.16); // C6
+          },
+          stageClear() {
+            const c = ensureCtx();
+            const t = c.currentTime;
+            tone(523.25, 0.15, "sine", 0.3, t); // C5
+            tone(659.25, 0.15, "sine", 0.3, t + 0.15); // E5
+            tone(783.99, 0.15, "sine", 0.3, t + 0.3); // G5
+            tone(1046.5, 0.15, "sine", 0.3, t + 0.45); // C6
+          },
+          gameOver() {
+            const c = ensureCtx();
+            const t = c.currentTime;
+            tone(329.63, 0.2, "triangle", 0.25, t); // E4
+            tone(261.63, 0.2, "triangle", 0.25, t + 0.2); // C4
+          },
+          tap() {
+            sweep(600, 200, 0.05, "sine", 0.15);
+          },
+        };
+      })();
+
+      // HSK 1 sample data (3 stages x 10 words)
+      const HSK_DATA = [
+        // Stage 1
+        { hanzi: "你", pinyin: "nǐ", ko: "너, 당신" },
+        { hanzi: "好", pinyin: "hǎo", ko: "좋다" },
+        { hanzi: "我", pinyin: "wǒ", ko: "나" },
+        { hanzi: "是", pinyin: "shì", ko: "~이다" },
+        { hanzi: "的", pinyin: "de", ko: "~의" },
+        { hanzi: "不", pinyin: "bù", ko: "~아니다" },
+        { hanzi: "了", pinyin: "le", ko: "~했다" },
+        { hanzi: "在", pinyin: "zài", ko: "~에 있다" },
+        { hanzi: "他", pinyin: "tā", ko: "그" },
+        { hanzi: "人", pinyin: "rén", ko: "사람" },
+        // Stage 2
+        { hanzi: "大", pinyin: "dà", ko: "크다" },
+        { hanzi: "这", pinyin: "zhè", ko: "이것" },
+        { hanzi: "中", pinyin: "zhōng", ko: "가운데" },
+        { hanzi: "来", pinyin: "lái", ko: "오다" },
+        { hanzi: "上", pinyin: "shàng", ko: "위" },
+        { hanzi: "有", pinyin: "yǒu", ko: "있다" },
+        { hanzi: "个", pinyin: "gè", ko: "개 (양사)" },
+        { hanzi: "到", pinyin: "dào", ko: "도착하다" },
+        { hanzi: "说", pinyin: "shuō", ko: "말하다" },
+        { hanzi: "们", pinyin: "men", ko: "~들" },
+        // Stage 3
+        { hanzi: "会", pinyin: "huì", ko: "할 수 있다" },
+        { hanzi: "看", pinyin: "kàn", ko: "보다" },
+        { hanzi: "去", pinyin: "qù", ko: "가다" },
+        { hanzi: "吃", pinyin: "chī", ko: "먹다" },
+        { hanzi: "喝", pinyin: "hē", ko: "마시다" },
+        { hanzi: "学", pinyin: "xué", ko: "배우다" },
+        { hanzi: "做", pinyin: "zuò", ko: "하다, 만들다" },
+        { hanzi: "想", pinyin: "xiǎng", ko: "생각하다" },
+        { hanzi: "开", pinyin: "kāi", ko: "열다" },
+        { hanzi: "家", pinyin: "jiā", ko: "집, 가정" },
+      ];
+
+      // All unique pinyins for distractor generation
+      const ALL_PINYINS = HSK_DATA.map((w) => w.pinyin);
+
+      // Game state
+      const state = {
+        score: 0,
+        combo: 0,
+        maxCombo: 0,
+        correct: 0,
+        wrong: 0,
+        timer: 30,
+        stage: 1,
+        playing: false,
+        currentWord: null,
+        missedWords: [],
+        words: [],
+        reviewQueue: [],
+        timerInterval: null,
+        bubbles: [],
+        bubbleEls: [],
+        animFrame: null,
+        locked: false, // prevent multi-tap
+        wordIndex: 0,
+        totalAnswered: 0,
+        questionStartTime: 0,
+      };
+
+      const $ = (id) => document.getElementById(id);
+
+      // Generate background stars
+      function generateStars() {
+        const container = $("stars");
+        for (let i = 0; i < 40; i++) {
+          const s = document.createElement("div");
+          s.className = "star";
+          s.style.left = Math.random() * 100 + "%";
+          s.style.top = Math.random() * 100 + "%";
+          s.style.animationDelay = Math.random() * 3 + "s";
+          s.style.animationDuration = 2 + Math.random() * 3 + "s";
+          container.appendChild(s);
+        }
+      }
+      generateStars();
+
+      // Level select
+      document.querySelectorAll(".level-tag").forEach((tag) => {
+        tag.addEventListener("click", () => {
+          document
+            .querySelectorAll(".level-tag")
+            .forEach((t) => t.classList.remove("active"));
+          tag.classList.add("active");
+          state.stage = parseInt(tag.dataset.stage);
+        });
+      });
+
+      // Start
+      $("startBtn").addEventListener("click", startPreRound);
+      $("retryBtn").addEventListener("click", () => {
+        $("resultScreen").classList.add("hidden");
+        startPreRound();
+      });
+      $("homeBtn").addEventListener("click", () => {
+        $("resultScreen").classList.add("hidden");
+        $("startScreen").classList.remove("hidden");
+        $("hud").style.display = "none";
+        $("progressBar").style.display = "none";
+        $("hanziDisplay").style.display = "none";
+        $("reticle").style.display = "none";
+      });
+
+      function getStageWords() {
+        const start = (state.stage - 1) * 10;
+        return HSK_DATA.slice(start, start + 10);
+      }
+
+      // --- Pre-round: show 5 new words ---
+      function startPreRound() {
+        state.words = getStageWords();
+        $("startScreen").classList.add("hidden");
+        $("preScreen").classList.remove("hidden");
+        // Show first 5 words (or all if less)
+        const previewWords = state.words.slice(0, 5);
+        showPreWord(previewWords, 0);
+      }
+
+      function showPreWord(words, idx) {
+        if (idx >= words.length) {
+          // Show next batch of 5 if available
+          if (idx === 5 && state.words.length > 5) {
+            const batch2 = state.words.slice(5, 10);
+            showPreWord(batch2, 0);
+            return;
+          }
+          $("preScreen").classList.add("hidden");
+          startGame();
+          return;
+        }
+        const w = words[idx];
+        const pw = $("preWord");
+        pw.querySelector(".hz").textContent = w.hanzi;
+        pw.querySelector(".py").textContent = w.pinyin;
+        pw.querySelector(".mn").textContent = w.ko;
+        pw.style.animation = "none";
+        pw.offsetHeight;
+        pw.style.animation = "";
+        const globalIdx = idx < 5 ? idx : idx + 5;
+        $("preCounter").textContent =
+          `${globalIdx + 1} / ${state.words.length}`;
+        setTimeout(() => showPreWord(words, idx + 1), 2500);
+      }
+
+      // --- Game start ---
+      function startGame() {
+        state.score = 0;
+        state.combo = 0;
+        state.maxCombo = 0;
+        state.correct = 0;
+        state.wrong = 0;
+        state.timer = 30;
+        state.playing = true;
+        state.missedWords = [];
+        state.reviewQueue = [];
+        state.currentWord = null;
+        state.locked = false;
+        state.wordIndex = 0;
+        state.totalAnswered = 0;
+
+        $("hudScore").textContent = "0";
+        $("hudCombo").textContent = "";
+        $("hudLevel").textContent = `HSK 1 \u00B7 Stage ${state.stage}`;
+        $("hud").style.display = "flex";
+        $("progressBar").style.display = "block";
+        $("hanziDisplay").style.display = "block";
+        $("reticle").style.display = "block";
+        updateTimer();
+
+        state.timerInterval = setInterval(() => {
+          state.timer--;
+          updateTimer();
+          if (state.timer <= 0) endGame();
+        }, 1000);
+
+        spawnQuestion();
+      }
+
+      function updateTimer() {
+        $("hudTimer").textContent = state.timer;
+        $("hudTimer").style.color = state.timer <= 10 ? "#ff1744" : "#ff6b6b";
+        if (state.timer <= 10) {
+          $("hudTimer").style.animation = "none";
+          $("hudTimer").offsetHeight;
+          $("hudTimer").style.animation =
+            state.timer <= 5 ? "hanziPulse 0.5s ease-in-out infinite" : "";
+        }
+        $("progressFill").style.width = (state.timer / 30) * 100 + "%";
+      }
+
+      // --- Spawn question: show hanzi + 4 floating pinyin bubbles ---
+      function spawnQuestion() {
+        if (!state.playing) return;
+        state.locked = false;
+
+        // Pick word: review queue 40% chance, else sequential + random
+        let word;
+        if (state.reviewQueue.length > 0 && Math.random() < 0.4) {
+          word = state.reviewQueue.shift();
+        } else {
+          // Cycle through words, then random
+          if (state.wordIndex < state.words.length) {
+            word = state.words[state.wordIndex];
+            state.wordIndex++;
+          } else {
+            word = state.words[Math.floor(Math.random() * state.words.length)];
+          }
+        }
+
+        state.currentWord = word;
+        state.questionStartTime = Date.now();
+
+        // Display hanzi
+        $("hanziChar").textContent = word.hanzi;
+        $("hanziMeaning").textContent = word.ko;
+        $("wordCounter").textContent = `${state.totalAnswered + 1}`;
+
+        // Generate 4 pinyin options (1 correct + 3 distractors)
+        const distractors = getDistractors(word.pinyin, 3);
+        const options = shuffle([word.pinyin, ...distractors]);
+
+        // Clear old bubbles
+        clearBubbles();
+
+        // Create floating bubbles
+        const area = $("bubbleArea");
+        const areaW = area.offsetWidth;
+        const areaH = area.offsetHeight;
+        const bubbleSize = 72;
+        const padding = 10;
+
+        const colors = shuffle([0, 1, 2, 3]);
+        const positions = generateNonOverlappingPositions(
+          4,
+          bubbleSize,
+          areaW,
+          areaH,
+          padding,
+        );
+
+        options.forEach((py, i) => {
+          const el = document.createElement("div");
+          el.className = `pinyin-bubble c${colors[i]}`;
+          el.textContent = py;
+          el.style.left = positions[i].x + "px";
+          el.style.top = positions[i].y + "px";
+
+          const isCorrect = py === word.pinyin;
+          el.addEventListener("click", () =>
+            handleBubbleTap(el, isCorrect, word),
+          );
+          el.addEventListener(
+            "touchstart",
+            (e) => {
+              e.preventDefault();
+              handleBubbleTap(el, isCorrect, word);
+            },
+            { passive: false },
+          );
+
+          area.appendChild(el);
+
+          // Bubble movement data
+          state.bubbles.push({
+            el,
+            x: positions[i].x,
+            y: positions[i].y,
+            vx: (Math.random() - 0.5) * 1.2,
+            vy: (Math.random() - 0.5) * 1.2,
+            pinyin: py,
+            isCorrect,
+          });
+          state.bubbleEls.push(el);
+        });
+
+        // Start bubble animation
+        if (state.animFrame) cancelAnimationFrame(state.animFrame);
+        animateBubbles();
+      }
+
+      function getDistractors(correctPinyin, count) {
+        const pool = ALL_PINYINS.filter((p) => p !== correctPinyin);
+        const result = new Set();
+        while (result.size < count && result.size < pool.length) {
+          result.add(pool[Math.floor(Math.random() * pool.length)]);
+        }
+        return [...result];
+      }
+
+      function generateNonOverlappingPositions(count, size, areaW, areaH, pad) {
+        const positions = [];
+        const margin = 20;
+        const maxX = areaW - size - margin;
+        const maxY = areaH - size - margin;
+        let attempts = 0;
+
+        for (let i = 0; i < count; i++) {
+          let placed = false;
+          while (!placed && attempts < 200) {
+            const x = margin + Math.random() * (maxX - margin);
+            const y = margin + Math.random() * (maxY - margin);
+            let overlaps = false;
+            for (const p of positions) {
+              const dx = x - p.x;
+              const dy = y - p.y;
+              if (Math.sqrt(dx * dx + dy * dy) < size + pad) {
+                overlaps = true;
+                break;
+              }
+            }
+            if (!overlaps) {
+              positions.push({ x, y });
+              placed = true;
+            }
+            attempts++;
+          }
+          if (!placed) {
+            // Fallback: grid placement
+            const col = i % 2;
+            const row = Math.floor(i / 2);
+            positions.push({
+              x: margin + col * (areaW / 2 - margin),
+              y: margin + row * (areaH / 2 - margin),
+            });
+          }
+        }
+        return positions;
+      }
+
+      function animateBubbles() {
+        if (!state.playing) return;
+
+        const area = $("bubbleArea");
+        const areaW = area.offsetWidth;
+        const areaH = area.offsetHeight;
+        const size = 72;
+        const margin = 5;
+
+        state.bubbles.forEach((b) => {
+          b.x += b.vx;
+          b.y += b.vy;
+
+          // Bounce off walls
+          if (b.x < margin) {
+            b.x = margin;
+            b.vx = Math.abs(b.vx);
+          }
+          if (b.x > areaW - size - margin) {
+            b.x = areaW - size - margin;
+            b.vx = -Math.abs(b.vx);
+          }
+          if (b.y < margin) {
+            b.y = margin;
+            b.vy = Math.abs(b.vy);
+          }
+          if (b.y > areaH - size - margin) {
+            b.y = areaH - size - margin;
+            b.vy = -Math.abs(b.vy);
+          }
+
+          // Small random drift
+          b.vx += (Math.random() - 0.5) * 0.05;
+          b.vy += (Math.random() - 0.5) * 0.05;
+
+          // Clamp speed
+          const maxSpeed = 1.5;
+          b.vx = Math.max(-maxSpeed, Math.min(maxSpeed, b.vx));
+          b.vy = Math.max(-maxSpeed, Math.min(maxSpeed, b.vy));
+
+          b.el.style.left = b.x + "px";
+          b.el.style.top = b.y + "px";
+        });
+
+        state.animFrame = requestAnimationFrame(animateBubbles);
+      }
+
+      function clearBubbles() {
+        state.bubbleEls.forEach((el) => el.remove());
+        state.bubbles = [];
+        state.bubbleEls = [];
+        if (state.animFrame) {
+          cancelAnimationFrame(state.animFrame);
+          state.animFrame = null;
+        }
+      }
+
+      // --- Handle tap on bubble ---
+      function handleBubbleTap(el, isCorrect, word) {
+        if (!state.playing || state.locked) return;
+        SFX.tap();
+        state.locked = true;
+        state.totalAnswered++;
+
+        if (isCorrect) {
+          // Correct!
+          el.classList.add("correct-hit");
+          state.combo++;
+          if (state.combo > state.maxCombo) state.maxCombo = state.combo;
+          state.correct++;
+
+          // Speed bonus: faster = more bonus (max 10 bonus)
+          const elapsed = (Date.now() - state.questionStartTime) / 1000;
+          const speedBonus = Math.max(0, Math.round(10 * (1 - elapsed / 8)));
+
+          // Combo multiplier
+          const multipliers = [1, 1.2, 1.5, 2.0, 2.5, 3.0];
+          const mult = multipliers[Math.min(state.combo - 1, 5)];
+          const basePts = 10 + speedBonus;
+          const pts = Math.round(basePts * mult);
+          state.score += pts;
+
+          $("hudScore").textContent = state.score;
+          $("hudCombo").textContent =
+            state.combo >= 2 ? `${state.combo}x COMBO` : "";
+
+          // Effects
+          const rect = el.getBoundingClientRect();
+          const gameRect = $("game").getBoundingClientRect();
+          const cx = rect.left - gameRect.left + rect.width / 2;
+          const cy = rect.top - gameRect.top + rect.height / 2;
+
+          showScoreFly(cx, cy, `+${pts}`);
+          spawnParticles(cx, cy, getComputedStyle(el).borderColor);
+          if (state.combo >= 3) {
+            showComboPopup(state.combo);
+            SFX.combo();
+          } else {
+            SFX.correct();
+          }
+
+          // Next question
+          setTimeout(() => {
+            if (state.playing) spawnQuestion();
+          }, 400);
+        } else {
+          // Wrong!
+          el.classList.add("wrong-hit");
+          SFX.wrong();
+          state.combo = 0;
+          state.wrong++;
+          $("hudCombo").textContent = "";
+
+          // Highlight correct bubble
+          state.bubbles.forEach((b) => {
+            if (b.isCorrect) {
+              b.el.classList.add("correct-hit");
+              b.el.style.animation = "none";
+              b.el.style.transform = "scale(1.2)";
+              b.el.style.boxShadow = "0 0 40px rgba(105,240,174,0.8)";
+            }
+          });
+
+          // Particles on wrong
+          const rect = el.getBoundingClientRect();
+          const gameRect = $("game").getBoundingClientRect();
+          spawnParticles(
+            rect.left - gameRect.left + rect.width / 2,
+            rect.top - gameRect.top + rect.height / 2,
+            "#ff1744",
+          );
+
+          // SRS: add to review queue
+          state.reviewQueue.push(word);
+          if (!state.missedWords.find((w) => w.hanzi === word.hanzi)) {
+            state.missedWords.push(word);
+          }
+
+          // Next after pause
+          setTimeout(() => {
+            if (state.playing) spawnQuestion();
+          }, 1200);
+        }
+      }
+
+      // --- Visual effects ---
+      function showScoreFly(x, y, text) {
+        const el = document.createElement("div");
+        el.className = "score-fly";
+        el.textContent = text;
+        el.style.left = x - 20 + "px";
+        el.style.top = y - 20 + "px";
+        $("game").appendChild(el);
+        setTimeout(() => el.remove(), 900);
+      }
+
+      function showComboPopup(n) {
+        const el = document.createElement("div");
+        el.className = "combo-popup";
+        el.textContent = `${n}x COMBO!`;
+        $("game").appendChild(el);
+        setTimeout(() => el.remove(), 800);
+      }
+
+      function spawnParticles(cx, cy, color) {
+        const count = 12;
+        for (let i = 0; i < count; i++) {
+          const p = document.createElement("div");
+          p.className = "particle";
+          p.style.background = color;
+          p.style.left = cx + "px";
+          p.style.top = cy + "px";
+          const angle = ((Math.PI * 2) / count) * i;
+          const dist = 30 + Math.random() * 50;
+          p.style.setProperty("--dx", Math.cos(angle) * dist + "px");
+          p.style.setProperty("--dy", Math.sin(angle) * dist + "px");
+          p.style.width = 4 + Math.random() * 4 + "px";
+          p.style.height = p.style.width;
+          $("game").appendChild(p);
+          setTimeout(() => p.remove(), 700);
+        }
+      }
+
+      // --- End game ---
+      function endGame() {
+        state.playing = false;
+        clearInterval(state.timerInterval);
+        clearBubbles();
+        SFX.gameOver();
+
+        $("hanziDisplay").style.display = "none";
+        $("reticle").style.display = "none";
+
+        $("resultScore").textContent = state.score;
+        $("statCorrect").textContent = state.correct;
+        $("statWrong").textContent = state.wrong;
+        $("statCombo").textContent = state.maxCombo;
+
+        // Missed words review
+        const mw = $("missedWords");
+        mw.innerHTML = "";
+        if (state.missedWords.length > 0) {
+          mw.innerHTML = '<div class="missed-title">Review These Words</div>';
+          state.missedWords.forEach((w) => {
+            mw.innerHTML += `<div class="missed-item"><span class="hz">${w.hanzi} <span class="py">${w.pinyin}</span></span><span class="mn">${w.ko}</span></div>`;
+          });
+        }
+
+        $("resultScreen").classList.remove("hidden");
+      }
+
+      // --- Utility ---
+      function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+    </script>
+  </body>
+</html>

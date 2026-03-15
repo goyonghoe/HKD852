@@ -1,0 +1,30 @@
+---
+name: "Quality Gate"
+role: "품질관리 매니저"
+division: "ceo-direct"
+path: ".claude/skills/quality-gate/"
+skillCount: 1
+description: "CFMC 매트릭스 검증 및 자동 보안/레드팀 체인 실행"
+---
+
+## 역할
+
+품질관리 매니저는 에이전트 산출물의 품질을 CFMC 매트릭스로 검증합니다. 검증 후 자동으로 Shield_Agent(보안)와 RedTeam_Agent(적대적 리뷰)로 체인을 연결하여 다단계 품질 보증을 수행합니다.
+
+## 보유 스킬
+
+| 스킬            | 설명                                       | 모델 |
+| --------------- | ------------------------------------------ | ---- |
+| `/quality-gate` | CFMC 매트릭스 검증 + 자동 보안/레드팀 체인 | Opus |
+
+## 품질 파이프라인
+
+```
+에이전트 산출물 → Quality Gate → Shield_Agent (보안) → RedTeam_Agent (적대적) → 승인
+```
+
+## 관련 에이전트
+
+- **Shield_Agent** - 보안 검증 체인
+- **RedTeam_Agent** - 적대적 리뷰 체인
+- **모든 에이전트** - 산출물 검증 대상

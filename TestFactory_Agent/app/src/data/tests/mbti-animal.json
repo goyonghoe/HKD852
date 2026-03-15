@@ -1,0 +1,471 @@
+{
+  "version": 1,
+  "meta": {
+    "slug": "mbti-animal",
+    "title": "나는 어떤 동물일까? \uD83D\uDC3E",
+    "description": "12가지 질문으로 알아보는 나의 동물 성격 유형! 골든 리트리버? 고양이? 늑대? 지금 바로 확인해보세요.",
+    "shortDescription": "12문항으로 알아보는 나의 동물 유형",
+    "thumbnail": "/images/tests/mbti-animal/thumb.png",
+    "ogImage": "/images/tests/mbti-animal/og-default.png",
+    "category": "personality",
+    "tags": ["성격", "MBTI", "동물", "유형"],
+    "emoji": "\uD83D\uDC3E",
+    "color": "#FF6B6B",
+    "colorLight": "#FF9B9B",
+    "estimatedMinutes": 3,
+    "questionCount": 12,
+    "popularity": 100,
+    "createdAt": "2026-02-22",
+    "isNew": true,
+    "isTrending": true
+  },
+  "scoring": {
+    "type": "mbti",
+    "dimensions": [
+      { "id": "EI", "poles": ["E", "I"], "labels": ["외향형", "내향형"] },
+      { "id": "SN", "poles": ["S", "N"], "labels": ["현실형", "직관형"] },
+      { "id": "TF", "poles": ["T", "F"], "labels": ["이성형", "감성형"] },
+      { "id": "JP", "poles": ["J", "P"], "labels": ["계획형", "즉흥형"] }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "text": "친구들이랑 놀 때 나는?",
+      "emoji": "\uD83C\uDF89",
+      "options": [
+        {
+          "id": "a",
+          "text": "내가 먼저 연락하고 모임을 만들어!",
+          "emoji": "\uD83D\uDCF1",
+          "scores": { "E": 1 }
+        },
+        {
+          "id": "b",
+          "text": "연락 오면 나가지~ 먼저 하긴 귀찮아",
+          "emoji": "\uD83D\uDE34",
+          "scores": { "I": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "새로운 사람을 만났을 때?",
+      "emoji": "\uD83D\uDC4B",
+      "options": [
+        {
+          "id": "a",
+          "text": "먼저 말 걸고 대화를 이끌어가",
+          "emoji": "\uD83D\uDDE3\uFE0F",
+          "scores": { "E": 1 }
+        },
+        {
+          "id": "b",
+          "text": "상대가 먼저 말 걸어주길 기다려",
+          "emoji": "\uD83E\uDD14",
+          "scores": { "I": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "주말에 에너지를 충전하는 방법?",
+      "emoji": "\uD83D\uDD0B",
+      "options": [
+        {
+          "id": "a",
+          "text": "사람들 만나서 수다 떨면 충전됨!",
+          "emoji": "\u2615",
+          "scores": { "E": 1 }
+        },
+        {
+          "id": "b",
+          "text": "혼자 집에서 쉬어야 진짜 충전됨",
+          "emoji": "\uD83C\uDFE0",
+          "scores": { "I": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "여행 계획을 세울 때?",
+      "emoji": "\u2708\uFE0F",
+      "options": [
+        {
+          "id": "a",
+          "text": "일정, 맛집, 숙소 다 정해놓는 편",
+          "emoji": "\uD83D\uDCCB",
+          "scores": { "J": 1 }
+        },
+        {
+          "id": "b",
+          "text": "가서 그때그때 정하지 뭐~",
+          "emoji": "\uD83C\uDFB2",
+          "scores": { "P": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "과제나 업무 마감이 다가올 때?",
+      "emoji": "\u23F0",
+      "options": [
+        {
+          "id": "a",
+          "text": "미리미리 끝내놓는 타입",
+          "emoji": "\u2705",
+          "scores": { "J": 1 }
+        },
+        {
+          "id": "b",
+          "text": "마감 직전에 폭발적으로 집중하는 타입",
+          "emoji": "\uD83D\uDD25",
+          "scores": { "P": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "방 정리 스타일은?",
+      "emoji": "\uD83C\uDFE0",
+      "options": [
+        {
+          "id": "a",
+          "text": "항상 깔끔하게 정리정돈!",
+          "emoji": "\u2728",
+          "scores": { "J": 1 }
+        },
+        {
+          "id": "b",
+          "text": "나만의 창의적(?) 어지러움이 있어",
+          "emoji": "\uD83C\uDF2A\uFE0F",
+          "scores": { "P": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "친구가 고민 상담을 해올 때?",
+      "emoji": "\uD83D\uDCAD",
+      "options": [
+        {
+          "id": "a",
+          "text": "해결책을 같이 찾아줘야지",
+          "emoji": "\uD83D\uDD27",
+          "scores": { "T": 1 }
+        },
+        {
+          "id": "b",
+          "text": "일단 공감부터! 마음이 중요해",
+          "emoji": "\uD83E\uDD17",
+          "scores": { "F": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "결정을 내릴 때 주로?",
+      "emoji": "\u2696\uFE0F",
+      "options": [
+        {
+          "id": "a",
+          "text": "논리적으로 장단점을 따져봐",
+          "emoji": "\uD83E\uDDE0",
+          "scores": { "T": 1 }
+        },
+        {
+          "id": "b",
+          "text": "직감이랑 느낌을 중요하게 생각해",
+          "emoji": "\uD83D\uDC96",
+          "scores": { "F": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "영화를 볼 때 더 끌리는 장르는?",
+      "emoji": "\uD83C\uDFAC",
+      "options": [
+        {
+          "id": "a",
+          "text": "감동적인 드라마, 로맨스",
+          "emoji": "\uD83D\uDE2D",
+          "scores": { "F": 1 }
+        },
+        {
+          "id": "b",
+          "text": "논리적인 스릴러, SF",
+          "emoji": "\uD83D\uDD2E",
+          "scores": { "T": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "대화할 때 나는?",
+      "emoji": "\uD83D\uDDE8\uFE0F",
+      "options": [
+        {
+          "id": "a",
+          "text": "구체적인 사실과 경험 위주로 얘기해",
+          "emoji": "\uD83D\uDCCA",
+          "scores": { "S": 1 }
+        },
+        {
+          "id": "b",
+          "text": "아이디어나 가능성 위주로 얘기해",
+          "emoji": "\uD83D\uDCA1",
+          "scores": { "N": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "text": "새로운 것을 배울 때?",
+      "emoji": "\uD83D\uDCDA",
+      "options": [
+        {
+          "id": "a",
+          "text": "단계별로 차근차근 배우는 게 좋아",
+          "emoji": "\uD83D\uDC63",
+          "scores": { "S": 1 }
+        },
+        {
+          "id": "b",
+          "text": "큰 그림부터 이해하고 싶어",
+          "emoji": "\uD83C\uDF0D",
+          "scores": { "N": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "text": "미래에 대해 생각할 때?",
+      "emoji": "\uD83D\uDD2E",
+      "options": [
+        {
+          "id": "a",
+          "text": "현실적인 목표를 세우고 실천해",
+          "emoji": "\uD83C\uDFAF",
+          "scores": { "S": 1 }
+        },
+        {
+          "id": "b",
+          "text": "상상하고 꿈꾸는 게 좋아",
+          "emoji": "\u2601\uFE0F",
+          "scores": { "N": 1 }
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "ENFP",
+      "title": "골든 리트리버",
+      "subtitle": "세상 모든 것에 신나는 열정쟁이",
+      "emoji": "\uD83D\uDC15",
+      "description": "당신은 골든 리트리버처럼 밝고 에너지 넘치는 사람이에요!\n\n어디를 가든 분위기 메이커 역할을 하고, 새로운 사람을 만나는 걸 좋아해요. 아이디어가 샘솟고, 가능성을 보는 눈이 탁월하죠.\n\n다만 한 가지에 집중하기 어려울 때가 있어요. 이것저것 하고 싶은 게 너무 많거든요!",
+      "traits": ["열정적", "사교적", "창의적", "낙천적"],
+      "strengths": ["분위기 메이커", "아이디어 뱅크", "적응력 갑"],
+      "weaknesses": ["산만할 수 있음", "계획성 부족", "감정 기복"],
+      "compatibility": { "best": "INTJ", "worst": "ISTJ" },
+      "shareText": "나는 골든 리트리버형! \uD83D\uDC15 세상 모든 것에 신나는 열정쟁이래~ 너는 어떤 동물?",
+      "percentage": "전체의 8%"
+    },
+    {
+      "id": "INTJ",
+      "title": "검은 고양이",
+      "subtitle": "혼자서도 완벽한 전략가",
+      "emoji": "\uD83D\uDC08\u200D\u2B1B",
+      "description": "당신은 검은 고양이처럼 독립적이고 전략적인 사람이에요!\n\n혼자만의 시간을 소중히 여기고, 깊은 사고력으로 복잡한 문제를 척척 풀어내죠. 겉으로는 쿨해 보이지만, 신뢰하는 사람에게는 깊은 애정을 보여요.\n\n완벽주의 성향이 있어서 가끔 스스로에게 너무 엄격할 때가 있어요.",
+      "traits": ["전략적", "독립적", "분석적", "완벽주의"],
+      "strengths": ["뛰어난 계획력", "깊은 통찰력", "자기 관리"],
+      "weaknesses": ["감정 표현 서툼", "완벽주의 스트레스", "사교 에너지 부족"],
+      "compatibility": { "best": "ENFP", "worst": "ESFP" },
+      "shareText": "나는 검은 고양이형! \uD83D\uDC08\u200D\u2B1B 혼자서도 완벽한 전략가래~ 너는 어떤 동물?",
+      "percentage": "전체의 5%"
+    },
+    {
+      "id": "ESFJ",
+      "title": "시바견",
+      "subtitle": "모두를 챙기는 따뜻한 리더",
+      "emoji": "\uD83D\uDC36",
+      "description": "당신은 시바견처럼 충직하고 따뜻한 사람이에요!\n\n주변 사람들을 잘 챙기고, 조화로운 분위기를 만드는 데 탁월해요. 책임감이 강하고, 약속은 반드시 지키는 타입이죠.\n\n다만 남의 시선을 너무 의식하거나, 거절을 어려워할 때가 있어요.",
+      "traits": ["따뜻함", "책임감", "사교적", "헌신적"],
+      "strengths": ["뛰어난 공감력", "조직력", "신뢰감"],
+      "weaknesses": ["남의 눈치", "거절 못함", "변화에 약함"],
+      "compatibility": { "best": "ISTP", "worst": "INTP" },
+      "shareText": "나는 시바견형! \uD83D\uDC36 모두를 챙기는 따뜻한 리더래~ 너는 어떤 동물?",
+      "percentage": "전체의 12%"
+    },
+    {
+      "id": "ISTP",
+      "title": "늑대",
+      "subtitle": "자유로운 영혼의 해결사",
+      "emoji": "\uD83D\uDC3A",
+      "description": "당신은 늑대처럼 독립적이고 행동력 있는 사람이에요!\n\n문제가 생기면 직접 손으로 해결하는 걸 좋아하고, 불필요한 규칙에 얽매이지 않아요. 위기 상황에서 가장 빛나는 타입이죠.\n\n감정 표현이 서툴러서 주변에서 무뚝뚝하다고 느낄 수 있어요.",
+      "traits": ["독립적", "실용적", "침착함", "행동파"],
+      "strengths": ["위기 대처 능력", "손재주", "냉정한 판단력"],
+      "weaknesses": ["감정 표현 부족", "장기 계획 약함", "약속 잘 잊음"],
+      "compatibility": { "best": "ESFJ", "worst": "ENFJ" },
+      "shareText": "나는 늑대형! \uD83D\uDC3A 자유로운 영혼의 해결사래~ 너는 어떤 동물?",
+      "percentage": "전체의 6%"
+    },
+    {
+      "id": "ENFJ",
+      "title": "돌고래",
+      "subtitle": "모두의 마음을 읽는 공감 천재",
+      "emoji": "\uD83D\uDC2C",
+      "description": "당신은 돌고래처럼 사교적이고 공감 능력이 뛰어난 사람이에요!\n\n사람들의 잠재력을 발견하고 이끌어주는 타고난 리더이면서도, 따뜻한 마음으로 모두를 감싸안죠.\n\n하지만 남의 문제에 너무 몰입하다 자신을 잃을 때가 있어요.",
+      "traits": ["카리스마", "공감력", "이상주의", "리더십"],
+      "strengths": ["타고난 리더십", "뛰어난 소통력", "영감을 주는 힘"],
+      "weaknesses": ["자기희생 경향", "비판에 민감", "이상과 현실 괴리"],
+      "compatibility": { "best": "ISTP", "worst": "ESTP" },
+      "shareText": "나는 돌고래형! \uD83D\uDC2C 모두의 마음을 읽는 공감 천재래~ 너는 어떤 동물?",
+      "percentage": "전체의 7%"
+    },
+    {
+      "id": "INTP",
+      "title": "올빼미",
+      "subtitle": "끝없이 사고하는 천재 괴짜",
+      "emoji": "\uD83E\uDD89",
+      "description": "당신은 올빼미처럼 지적 호기심이 넘치는 사람이에요!\n\n복잡한 이론을 파고들고, 남들이 생각하지 못한 관점을 제시하죠. 밤늦게까지 흥미로운 주제에 빠져드는 타입이에요.\n\n하지만 현실적인 일처리나 감정 표현이 어려울 수 있어요.",
+      "traits": ["지적 호기심", "논리적", "창의적", "독립적"],
+      "strengths": ["분석력", "창의적 문제해결", "객관적 시각"],
+      "weaknesses": ["사회성 부족", "실행력 약함", "감정 표현 어려움"],
+      "compatibility": { "best": "ENTJ", "worst": "ESFJ" },
+      "shareText": "나는 올빼미형! \uD83E\uDD89 끝없이 사고하는 천재 괴짜래~ 너는 어떤 동물?",
+      "percentage": "전체의 4%"
+    },
+    {
+      "id": "ESFP",
+      "title": "수달",
+      "subtitle": "지금 이 순간을 즐기는 엔터테이너",
+      "emoji": "\uD83E\uDDA6",
+      "description": "당신은 수달처럼 장난기 넘치고 매력적인 사람이에요!\n\n어디서든 분위기를 띄우고, 사람들에게 웃음을 선사하는 타고난 엔터테이너죠. 오감이 발달해서 맛있는 것, 예쁜 것을 잘 찾아내요.\n\n하지만 깊이 있는 대화나 장기 계획은 좀 힘들 수 있어요.",
+      "traits": ["활발함", "유머", "감각적", "즉흥적"],
+      "strengths": ["순발력", "사교성", "현재를 즐기는 능력"],
+      "weaknesses": ["산만함", "미래 계획 약함", "갈등 회피"],
+      "compatibility": { "best": "ISTJ", "worst": "INTJ" },
+      "shareText": "나는 수달형! \uD83E\uDDA6 지금 이 순간을 즐기는 엔터테이너래~ 너는 어떤 동물?",
+      "percentage": "전체의 10%"
+    },
+    {
+      "id": "ISTJ",
+      "title": "비버",
+      "subtitle": "묵묵히 맡은 바를 완수하는 장인",
+      "emoji": "\uD83E\uDDAB",
+      "description": "당신은 비버처럼 성실하고 꼼꼼한 사람이에요!\n\n한번 맡은 일은 끝까지 해내고, 체계적으로 일을 처리하는 데 탁월해요. 약속을 중요하게 여기고, 신뢰할 수 있는 사람이죠.\n\n하지만 변화에 적응하는 게 느리고, 유연성이 부족할 때가 있어요.",
+      "traits": ["성실함", "책임감", "체계적", "현실적"],
+      "strengths": ["높은 완성도", "시간 관리", "안정감"],
+      "weaknesses": ["융통성 부족", "변화 거부", "감정 표현 서툼"],
+      "compatibility": { "best": "ESFP", "worst": "ENFP" },
+      "shareText": "나는 비버형! \uD83E\uDDAB 묵묵히 맡은 바를 완수하는 장인이래~ 너는 어떤 동물?",
+      "percentage": "전체의 13%"
+    },
+    {
+      "id": "ENTJ",
+      "title": "사자",
+      "subtitle": "타고난 왕의 카리스마",
+      "emoji": "\uD83E\uDD81",
+      "description": "당신은 사자처럼 카리스마 넘치는 타고난 리더에요!\n\n목표를 세우면 반드시 달성하고, 팀을 이끌어 성과를 만들어내는 데 탁월하죠. 자신감이 넘치고, 도전을 즐겨요.\n\n하지만 너무 밀어붙이다 주변 사람을 지치게 할 수 있어요.",
+      "traits": ["리더십", "결단력", "야망", "효율적"],
+      "strengths": ["추진력", "전략적 사고", "카리스마"],
+      "weaknesses": ["독단적", "워커홀릭", "감정 무시"],
+      "compatibility": { "best": "INTP", "worst": "ISFP" },
+      "shareText": "나는 사자형! \uD83E\uDD81 타고난 왕의 카리스마래~ 너는 어떤 동물?",
+      "percentage": "전체의 3%"
+    },
+    {
+      "id": "ISFP",
+      "title": "고양이",
+      "subtitle": "조용히 자기 세계를 즐기는 예술가",
+      "emoji": "\uD83D\uDC31",
+      "description": "당신은 고양이처럼 독립적이면서도 감성적인 사람이에요!\n\n자기만의 미적 감각이 뛰어나고, 아름다운 것에 자연스럽게 끌리죠. 조용하지만 따뜻한 마음을 가지고 있어요.\n\n하지만 자기 세계에 빠져서 주변과 소통이 부족할 때가 있어요.",
+      "traits": ["감성적", "예술적", "온화함", "독립적"],
+      "strengths": ["미적 감각", "공감 능력", "유연함"],
+      "weaknesses": ["결정 장애", "갈등 회피", "자기 표현 부족"],
+      "compatibility": { "best": "ENTJ", "worst": "ESTJ" },
+      "shareText": "나는 고양이형! \uD83D\uDC31 조용히 자기 세계를 즐기는 예술가래~ 너는 어떤 동물?",
+      "percentage": "전체의 9%"
+    },
+    {
+      "id": "ESTP",
+      "title": "치타",
+      "subtitle": "거침없는 액션의 화신",
+      "emoji": "\uD83D\uDC06",
+      "description": "당신은 치타처럼 빠르고 행동력 넘치는 사람이에요!\n\n지루한 건 딱 질색이고, 스릴과 모험을 사랑해요. 위기 상황에서도 당황하지 않고 순발력있게 대처하죠.\n\n하지만 장기적인 계획이나 꾸준함은 좀 힘들어할 수 있어요.",
+      "traits": ["행동파", "순발력", "모험심", "현실적"],
+      "strengths": ["위기 대처", "순발력", "실행력"],
+      "weaknesses": ["인내심 부족", "계획성 약함", "충동적"],
+      "compatibility": { "best": "ISFJ", "worst": "INFJ" },
+      "shareText": "나는 치타형! \uD83D\uDC06 거침없는 액션의 화신이래~ 너는 어떤 동물?",
+      "percentage": "전체의 6%"
+    },
+    {
+      "id": "INFJ",
+      "title": "백조",
+      "subtitle": "겉은 우아하고 속은 열정적인 이상주의자",
+      "emoji": "\uD83E\uDDA2",
+      "description": "당신은 백조처럼 우아하면서도 내면이 깊은 사람이에요!\n\n겉으로는 차분해 보이지만, 속으로는 세상을 더 나은 곳으로 만들고 싶은 열정이 가득해요. 직관이 날카롭고, 사람의 본질을 꿰뚫어 봐요.\n\n하지만 이상이 너무 높아서 현실과의 갈등이 생길 수 있어요.",
+      "traits": ["통찰력", "이상주의", "깊은 내면", "헌신적"],
+      "strengths": ["직관력", "깊은 공감", "비전 제시"],
+      "weaknesses": ["완벽주의", "에너지 소진", "현실 도피"],
+      "compatibility": { "best": "ESTP", "worst": "ESTJ" },
+      "shareText": "나는 백조형! \uD83E\uDDA2 겉은 우아하고 속은 열정적인 이상주의자래~ 너는 어떤 동물?",
+      "percentage": "전체의 2%"
+    },
+    {
+      "id": "ESTJ",
+      "title": "독수리",
+      "subtitle": "원칙을 지키는 강력한 관리자",
+      "emoji": "\uD83E\uDD85",
+      "description": "당신은 독수리처럼 날카로운 눈과 강한 책임감을 가진 사람이에요!\n\n규칙과 질서를 중요시하고, 맡은 일은 반드시 성과를 내는 타입이죠. 조직을 이끄는 데 탁월하고, 효율을 극대화해요.\n\n하지만 너무 원칙적이라 융통성이 없다는 소리를 들을 수 있어요.",
+      "traits": ["원칙적", "리더십", "효율적", "실행력"],
+      "strengths": ["조직 관리", "실행력", "책임감"],
+      "weaknesses": ["고집", "감정 무시", "융통성 부족"],
+      "compatibility": { "best": "ISFP", "worst": "INFP" },
+      "shareText": "나는 독수리형! \uD83E\uDD85 원칙을 지키는 강력한 관리자래~ 너는 어떤 동물?",
+      "percentage": "전체의 9%"
+    },
+    {
+      "id": "INFP",
+      "title": "알파카",
+      "subtitle": "순수하고 상상력 넘치는 몽상가",
+      "emoji": "\uD83E\uDD99",
+      "description": "당신은 알파카처럼 순수하고 감성적인 사람이에요!\n\n풍부한 상상력과 깊은 감정 세계를 가지고 있고, 글이나 예술로 자신을 표현하는 걸 좋아해요. 진심으로 사람을 대하고, 가식이 없어요.\n\n하지만 현실적인 문제 앞에서 무력해질 때가 있어요.",
+      "traits": ["상상력", "순수함", "감성적", "이상주의"],
+      "strengths": ["창작 능력", "깊은 공감", "진정성"],
+      "weaknesses": ["현실 감각 부족", "우유부단", "자기비하"],
+      "compatibility": { "best": "ESTJ", "worst": "ESTP" },
+      "shareText": "나는 알파카형! \uD83E\uDD99 순수하고 상상력 넘치는 몽상가래~ 너는 어떤 동물?",
+      "percentage": "전체의 5%"
+    },
+    {
+      "id": "ENTP",
+      "title": "앵무새",
+      "subtitle": "말빨 최강의 토론왕",
+      "emoji": "\uD83E\uDD9C",
+      "description": "당신은 앵무새처럼 말재주가 뛰어나고 재치있는 사람이에요!\n\n토론을 즐기고, 기존의 상식에 도전하는 걸 좋아해요. 창의적인 아이디어가 넘치고, 어떤 상황에서든 재미를 찾아내죠.\n\n하지만 말로만 하고 실행은 안 할 때가 있어요.",
+      "traits": ["재치", "호기심", "도전적", "논쟁적"],
+      "strengths": ["토론 능력", "창의력", "빠른 두뇌 회전"],
+      "weaknesses": ["실행력 부족", "논쟁 중독", "집중력 부족"],
+      "compatibility": { "best": "ISFJ", "worst": "ISFP" },
+      "shareText": "나는 앵무새형! \uD83E\uDD9C 말빨 최강의 토론왕이래~ 너는 어떤 동물?",
+      "percentage": "전체의 5%"
+    },
+    {
+      "id": "ISFJ",
+      "title": "펭귄",
+      "subtitle": "조용히 헌신하는 수호자",
+      "emoji": "\uD83D\uDC27",
+      "description": "당신은 펭귄처럼 가족과 친구를 소중히 여기는 따뜻한 사람이에요!\n\n묵묵히 주변을 챙기고, 한번 맺은 인연을 끝까지 소중히 해요. 기억력이 좋아서 소소한 것도 잘 챙겨주죠.\n\n하지만 자신의 감정보다 남을 먼저 생각하다 지칠 수 있어요.",
+      "traits": ["따뜻함", "헌신적", "꼼꼼함", "인내심"],
+      "strengths": ["세심한 배려", "성실함", "기억력"],
+      "weaknesses": ["자기희생", "변화 두려움", "감정 억압"],
+      "compatibility": { "best": "ENTP", "worst": "ENTJ" },
+      "shareText": "나는 펭귄형! \uD83D\uDC27 조용히 헌신하는 수호자래~ 너는 어떤 동물?",
+      "percentage": "전체의 14%"
+    }
+  ]
+}

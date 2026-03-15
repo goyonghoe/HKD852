@@ -1,0 +1,55 @@
+Pack #6 includes
+
+5 Music Tracks:
+
+Main_theme_Chinese_Street – main theme for the Chinese Street location
+Alternative_theme_Chinese_Street – alternative version of the theme for the Chinese location
+Calm_theme_Chinese_Street – calm melody, suitable for a main menu or any relaxed, non-intense scene
+Battle_theme_Chinese_Street – battle theme for the Chinese location
+Stealthy_theme_loopable – loopable theme for tense stealth moments where the player must avoid enemies and stay hidden
+
+
+Sounds inspired by the Chinese Street series packs:
+
+Unlocked_chest – chest opening sound
+
+Laser_sword_1 / Laser_sword_2 – samurai laser sword sounds
+Samurai_death – samurai death sound, falling armor effect
+Samurai_footstep_1 / Samurai_footstep_2 – two variations of samurai footsteps with rattling armor
+
+Explosion – explosion of a wheeled barrel
+Karateka_attack – karate fighter strike
+
+Hovering_robot_sting – stinger attack sound of a hovering spine-like robot
+Hovering_robot_walk_loopable – loopable movement sound of the hovering spine-like robot
+
+Flying_platform_attack_1 / Flying_platform_attack_2 – two attack variations of the flying platform carrying a geisha
+Bomb_drop – sound of the boss tractor dropping ammunition
+
+
+Sounds inspired by the Doors and Portals pack:
+
+Sliding_doors – sliding door sound
+Roller_doors – roller door sound
+Creaking_wooden_door – creaking wooden door sound
+Door_with_password – locked door secured with a password
+Push_slide_door – sliding compartment-style door that is pushed forward and slides open
+
+Zipline_loopable – loopable zipline sliding sound
+
+Lift_mechanism – lift mechanism sound
+Elevator_motor – elevator motor sound
+
+Portal_1 / Portal_2 – two variations of portal opening sounds
+Portal_moving – portal travel sound
+Portal_closing – portal closing sound
+
+
+Sounds inspired by the Art Market Location pack:
+
+Bell_on_the_door – door bell chimes, also known as wind chimes; can be used before opening a shop inventory
+
+Melody_of_attraction_loopable – loopable melody to attract the player's attention to a vending machine or interactive object
+Melody_of_the_win – winning melody when the player receives a reward from a machine
+
+Click_digital_1 / Click_digital_2 – digital click sounds

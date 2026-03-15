@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1200" />
+    <title>2026 K-POP 글로벌 슈퍼사이클 분석</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Noto Sans KR", sans-serif;
+        background: #0a0e27;
+        color: #e8e8f0;
+      }
+      .page {
+        width: 1200px;
+        margin: 0 auto;
+        padding: 40px;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 48px;
+        position: relative;
+      }
+      .header::after {
+        content: "";
+        display: block;
+        width: 200px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #a855f7, transparent);
+        margin: 16px auto 0;
+      }
+      .header h1 {
+        font-size: 42px;
+        font-weight: 900;
+        background: linear-gradient(135deg, #a855f7, #ec4899, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -1px;
+      }
+      .header .sub {
+        font-size: 16px;
+        color: #8b8ba7;
+        margin-top: 8px;
+      }
+      .badge {
+        display: inline-block;
+        background: rgba(168, 85, 247, 0.15);
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        color: #c084fc;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+        margin-top: 12px;
+      }
+
+      /* Grid */
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+      .grid3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+      .full {
+        margin-bottom: 24px;
+      }
+
+      /* Card */
+      .card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 28px;
+        position: relative;
+        overflow: hidden;
+      }
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+      }
+      .card.purple::before {
+        background: linear-gradient(90deg, #a855f7, #7c3aed);
+      }
+      .card.pink::before {
+        background: linear-gradient(90deg, #ec4899, #f43f5e);
+      }
+      .card.amber::before {
+        background: linear-gradient(90deg, #f59e0b, #f97316);
+      }
+      .card.emerald::before {
+        background: linear-gradient(90deg, #10b981, #059669);
+      }
+      .card.blue::before {
+        background: linear-gradient(90deg, #3b82f6, #6366f1);
+      }
+      .card.red::before {
+        background: linear-gradient(90deg, #ef4444, #dc2626);
+      }
+
+      .card-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .card-title .icon {
+        font-size: 22px;
+      }
+
+      /* Big numbers */
+      .big-num {
+        font-size: 48px;
+        font-weight: 900;
+        line-height: 1;
+      }
+      .big-num.purple {
+        color: #a855f7;
+      }
+      .big-num.pink {
+        color: #ec4899;
+      }
+      .big-num.amber {
+        color: #f59e0b;
+      }
+      .big-num.emerald {
+        color: #10b981;
+      }
+      .big-num.blue {
+        color: #60a5fa;
+      }
+      .big-label {
+        font-size: 14px;
+        color: #8b8ba7;
+        margin-top: 4px;
+      }
+
+      /* Stats row */
+      .stats-row {
+        display: flex;
+        gap: 32px;
+        margin-top: 16px;
+      }
+      .stat {
+        text-align: center;
+        flex: 1;
+      }
+      .stat-val {
+        font-size: 32px;
+        font-weight: 900;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: #8b8ba7;
+        margin-top: 2px;
+      }
+
+      /* Trend item */
+      .trend {
+        display: flex;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .trend:last-child {
+        border-bottom: none;
+      }
+      .trend-num {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(168, 85, 247, 0.15);
+        color: #c084fc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 15px;
+        flex-shrink: 0;
+      }
+      .trend-title {
+        font-weight: 700;
+        font-size: 15px;
+      }
+      .trend-desc {
+        font-size: 13px;
+        color: #a0a0b8;
+        margin-top: 2px;
+      }
+
+      /* Region bar */
+      .region {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .region:last-child {
+        border-bottom: none;
+      }
+      .region-name {
+        width: 50px;
+        font-weight: 700;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+      .region-bar-bg {
+        flex: 1;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 6px;
+        overflow: hidden;
+        position: relative;
+      }
+      .region-bar {
+        height: 100%;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #fff;
+      }
+      .region-note {
+        font-size: 11px;
+        color: #8b8ba7;
+        width: 160px;
+        text-align: right;
+        flex-shrink: 0;
+      }
+
+      /* Label table */
+      .label-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .label-row:last-child {
+        border-bottom: none;
+      }
+      .label-logo {
+        width: 60px;
+        font-weight: 900;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+      .label-info {
+        flex: 1;
+      }
+      .label-strategy {
+        font-size: 13px;
+        color: #a0a0b8;
+        margin-top: 2px;
+      }
+      .label-tag {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .tag-green {
+        background: rgba(16, 185, 129, 0.15);
+        color: #34d399;
+      }
+      .tag-yellow {
+        background: rgba(245, 158, 11, 0.15);
+        color: #fbbf24;
+      }
+      .tag-red {
+        background: rgba(239, 68, 68, 0.15);
+        color: #f87171;
+      }
+
+      /* Risk */
+      .risk-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .risk-item:last-child {
+        border-bottom: none;
+      }
+      .risk-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .risk-title {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .risk-desc {
+        font-size: 12px;
+        color: #8b8ba7;
+        margin-top: 2px;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        font-size: 12px;
+        color: #555;
+      }
+
+      /* BTS highlight */
+      .bts-box {
+        background: linear-gradient(
+          135deg,
+          rgba(168, 85, 247, 0.08),
+          rgba(236, 72, 153, 0.08)
+        );
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        border-radius: 16px;
+        padding: 28px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Header -->
+      <div class="header">
+        <h1>2026 K-POP 글로벌 슈퍼사이클 분석</h1>
+        <div class="sub">
+          YouTube 25개 소스 기반 | NotebookLM + Claude Code 리서치 파이프라인
+        </div>
+        <div class="badge">2026.03.07 기준</div>
+      </div>
+
+      <!-- Big 4 핵심 수치 -->
+      <div class="grid3">
+        <div class="card purple" style="text-align: center">
+          <div class="big-num purple">+578%</div>
+          <div class="big-label">HYBE 영업이익 성장률 (YoY)</div>
+          <div
+            style="
+              font-size: 24px;
+              font-weight: 700;
+              margin-top: 8px;
+              color: #c084fc;
+            "
+          >
+            ~4,500억 원
+          </div>
+        </div>
+        <div class="card pink" style="text-align: center">
+          <div class="big-num pink">40~60%</div>
+          <div class="big-label">Big 4 합산 매출 성장률</div>
+          <div style="font-size: 14px; color: #8b8ba7; margin-top: 8px">
+            PER 25x → 35x 재평가 예상
+          </div>
+        </div>
+        <div class="card amber" style="text-align: center">
+          <div class="big-num amber">0.55%</div>
+          <div class="big-label">2025년 앨범 수출 성장률</div>
+          <div style="font-size: 14px; color: #8b8ba7; margin-top: 8px">
+            팬덤 벌크바잉 피로 → 경험 경제로 전환
+          </div>
+        </div>
+      </div>
+
+      <!-- BTS 경제효과 -->
+      <div class="full bts-box">
+        <div class="card-title">
+          <span class="icon">👑</span> BTS 경제효과 (BTSnomics) — 5집 ARIRANG
+        </div>
+        <div class="stats-row">
+          <div class="stat">
+            <div class="stat-val" style="color: #a855f7">82회</div>
+            <div class="stat-label">월드투어 공연</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" style="color: #ec4899">34개</div>
+            <div class="stat-label">도시</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" style="color: #f59e0b">300만+</div>
+            <div class="stat-label">예상 관객</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" style="color: #10b981">1~1.4조 원</div>
+            <div class="stat-label">투어 매출 전망</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" style="color: #60a5fa">406만 장</div>
+            <div class="stat-label">초동 판매량</div>
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            gap: 24px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #a0a0b8;
+          "
+        >
+          <div>
+            🇲🇽 멕시코시티 15만 장
+            <strong style="color: #f59e0b">37분 매진</strong>
+          </div>
+          <div>
+            🏨 부산 호텔 검색 <strong style="color: #ec4899">+3,855%</strong>
+          </div>
+          <div>🇫🇷 파리 검색 <strong style="color: #a855f7">+590%</strong></div>
+          <div>
+            🎬 Netflix 다큐 투자
+            <strong style="color: #10b981">$15M~$50M</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <!-- 5대 트렌드 -->
+        <div class="card purple">
+          <div class="card-title">
+            <span class="icon">📊</span> 2026 K-POP 5대 트렌드
+          </div>
+          <div class="trend">
+            <div class="trend-num">1</div>
+            <div>
+              <div class="trend-title">글로벌화 2.0 — "한국인 없는 K-POP"</div>
+              <div class="trend-desc">
+                KATSEYE(북미), NiziU(일본), Santos Braavos(남미) — 트레이닝
+                시스템 수출
+              </div>
+            </div>
+          </div>
+          <div class="trend">
+            <div class="trend-num">2</div>
+            <div>
+              <div class="trend-title">경험 경제</div>
+              <div class="trend-desc">
+                앨범 소유 → 콘서트 체험. 4세대 그룹 바로 3~5만석 스타디움 투어
+              </div>
+            </div>
+          </div>
+          <div class="trend">
+            <div class="trend-num">3</div>
+            <div>
+              <div class="trend-title">트랜스미디어 통합</div>
+              <div class="trend-desc">
+                웹툰·골든글로브 애니·Netflix 다큐 — 다매체 수익화
+              </div>
+            </div>
+          </div>
+          <div class="trend">
+            <div class="trend-num">4</div>
+            <div>
+              <div class="trend-title">플랫폼 수익화</div>
+              <div class="trend-desc">
+                Weverse MAU 1,160만+. 젤리·멤버십 가격 인상에도 이탈 없음
+              </div>
+            </div>
+          </div>
+          <div class="trend">
+            <div class="trend-num">5</div>
+            <div>
+              <div class="trend-title">버추얼 아이돌</div>
+              <div class="trend-desc">
+                Plave 고척돔 매진 — 이동비·노화 리스크 제로, 고수익 모델
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 지역별 확장 -->
+        <div class="card emerald">
+          <div class="card-title">
+            <span class="icon">🌏</span> 지역별 확장 현황
+          </div>
+          <div class="region">
+            <div class="region-name">🇺🇸 북미</div>
+            <div class="region-bar-bg">
+              <div
+                class="region-bar"
+                style="
+                  width: 85%;
+                  background: linear-gradient(90deg, #a855f7, #7c3aed);
+                "
+              >
+                4위 시장 · 6.25%
+              </div>
+            </div>
+            <div class="region-note">ATP $200+ (아시아 2~3배)</div>
+          </div>
+          <div class="region">
+            <div class="region-name">🇯🇵 일본</div>
+            <div class="region-bar-bg">
+              <div
+                class="region-bar"
+                style="
+                  width: 75%;
+                  background: linear-gradient(90deg, #ec4899, #f43f5e);
+                "
+              >
+                2위 유지 · 7.41%
+              </div>
+            </div>
+            <div class="region-note">성숙시장, DVD 고마진</div>
+          </div>
+          <div class="region">
+            <div class="region-name">🇬🇧 유럽</div>
+            <div class="region-bar-bg">
+              <div
+                class="region-bar"
+                style="
+                  width: 55%;
+                  background: linear-gradient(90deg, #3b82f6, #6366f1);
+                "
+              >
+                UK 17위 급상승
+              </div>
+            </div>
+            <div class="region-note">로제 BRIT Award 수상</div>
+          </div>
+          <div class="region">
+            <div class="region-name">🇨🇳 중국</div>
+            <div class="region-bar-bg">
+              <div
+                class="region-bar"
+                style="
+                  width: 50%;
+                  background: linear-gradient(90deg, #f59e0b, #f97316);
+                "
+              >
+                수출 +16.6% 회복
+              </div>
+            </div>
+            <div class="region-note">aespa, Stray Kids 견인</div>
+          </div>
+          <div class="region">
+            <div class="region-name">🌎 남미</div>
+            <div class="region-bar-bg">
+              <div
+                class="region-bar"
+                style="
+                  width: 40%;
+                  background: linear-gradient(90deg, #10b981, #059669);
+                "
+              >
+                Santos Braavos
+              </div>
+            </div>
+            <div class="region-note">데뷔 1만석 매진</div>
+          </div>
+          <div class="region">
+            <div class="region-name">🇹🇼 대만</div>
+            <div class="region-bar-bg">
+              <div
+                class="region-bar"
+                style="
+                  width: 35%;
+                  background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+                "
+              >
+                Top 10 첫 진입
+              </div>
+            </div>
+            <div class="region-note">신흥 시장</div>
+          </div>
+          <div class="region">
+            <div class="region-name">🌴 동남아</div>
+            <div class="region-bar-bg">
+              <div
+                class="region-bar"
+                style="
+                  width: 30%;
+                  background: linear-gradient(90deg, #ef4444, #dc2626);
+                "
+              >
+                보이콧 리스크
+              </div>
+            </div>
+            <div class="region-note">인종 민감도 이슈</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <!-- 주요 레이블 전략 -->
+        <div class="card blue">
+          <div class="card-title">
+            <span class="icon">🏢</span> Big 4 레이블 전략
+          </div>
+          <div class="label-row">
+            <div class="label-logo" style="color: #a855f7">HYBE</div>
+            <div class="label-info">
+              <div style="font-weight: 600">
+                목표 시총 15조 원 · 영업이익 +578%
+              </div>
+              <div class="label-strategy">
+                멀티홈·멀티장르 — 5개 글로벌 신규 그룹 + 북미 구조조정
+              </div>
+            </div>
+            <div class="label-tag tag-green">최선호주</div>
+          </div>
+          <div class="label-row">
+            <div class="label-logo" style="color: #3b82f6">JYP</div>
+            <div class="label-info">
+              <div style="font-weight: 600">신규 3그룹 + 미국 법인</div>
+              <div class="label-strategy">
+                Stray Kids·TWICE 북미 투어. 영업이익률 mid-20% 목표
+              </div>
+            </div>
+            <div class="label-tag tag-green">안정 성장</div>
+          </div>
+          <div class="label-row">
+            <div class="label-logo" style="color: #10b981">SM</div>
+            <div class="label-info">
+              <div style="font-weight: 600">SM 3.0 — Q3 영업이익 +261.6%</div>
+              <div class="label-strategy">
+                UK 보이그룹 데뷔 준비. M&A 전략으로 글로벌 확장
+              </div>
+            </div>
+            <div class="label-tag tag-yellow">턴어라운드</div>
+          </div>
+          <div class="label-row">
+            <div class="label-logo" style="color: #f59e0b">YG</div>
+            <div class="label-info">
+              <div style="font-weight: 600">
+                BLACKPINK 10주년 + 빅뱅 리유니온
+              </div>
+              <div class="label-strategy">
+                고위험 고수익. 2026년 말 BLACKPINK 계약 갱신이 최대 변수
+              </div>
+            </div>
+            <div class="label-tag tag-red">고위험</div>
+          </div>
+        </div>
+
+        <!-- 리스크 + 투자 전망 -->
+        <div style="display: flex; flex-direction: column; gap: 24px">
+          <div class="card red">
+            <div class="card-title">
+              <span class="icon">⚠️</span> 3대 리스크
+            </div>
+            <div class="risk-item">
+              <div class="risk-icon">👶</div>
+              <div>
+                <div class="risk-title">인구절벽</div>
+                <div class="risk-desc">
+                  아이돌 연습생 풀 2020~2022년 38% 급감. 해외 시스템 수출로 대응
+                  중
+                </div>
+              </div>
+            </div>
+            <div class="risk-item">
+              <div class="risk-icon">🌐</div>
+              <div>
+                <div class="risk-title">지정학 리스크</div>
+                <div class="risk-desc">
+                  중국 정치 긴장 / 엔저(일본 투어 수익 감소) / 동남아 보이콧
+                </div>
+              </div>
+            </div>
+            <div class="risk-item">
+              <div class="risk-icon">📝</div>
+              <div>
+                <div class="risk-title">계약 리스크</div>
+                <div class="risk-desc">
+                  BLACKPINK 2026년 말 계약 갱신 실패 시 K-POP 투자심리 동결 가능
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card emerald">
+            <div class="card-title"><span class="icon">💹</span> 투자 전망</div>
+            <div style="font-size: 14px; line-height: 1.8">
+              <div>
+                📉 2025년 말: K-POP 주식 부진
+                <span style="color: #8b8ba7">(반도체·AI로 자금 이동)</span>
+              </div>
+              <div>
+                🎯 <strong style="color: #10b981">매수 확신 구간</strong>:
+                2025.10 ~ 2026년 초
+              </div>
+              <div>📊 PBR 역사적 저평가 수준</div>
+              <div>
+                🚀 <strong style="color: #f59e0b">촉매</strong>: BTS 월드투어
+                공식 발표 → 실적 상향 → 엔터주 랠리
+              </div>
+              <div
+                style="
+                  margin-top: 8px;
+                  padding: 10px;
+                  background: rgba(16, 185, 129, 0.1);
+                  border-radius: 8px;
+                  font-size: 13px;
+                "
+              >
+                💡 산업 성격 전환: <strong>변동성 높은 히트 의존</strong> →
+                <strong style="color: #34d399"
+                  >안정적 글로벌 분산 생태계</strong
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        HKD852 스튜디오 | NotebookLM + Claude Code 리서치 파이프라인 | YouTube
+        25개 소스 기반 분석 | 2026.03.07
+      </div>
+    </div>
+  </body>
+</html>

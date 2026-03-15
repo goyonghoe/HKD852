@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 에이전트 기업 자동화 2026 인포그래픽</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0e27;color:#e2e8f0;font-family:'Noto Sans KR',sans-serif;line-height:1.6}
+.wrap{max-width:1200px;margin:0 auto;padding:40px 24px}
+
+/* header */
+.header{text-align:center;margin-bottom:48px}
+.header h1{font-size:42px;font-weight:900;background:linear-gradient(135deg,#a855f7,#ec4899,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
+.header .sub{font-size:18px;color:#94a3b8;margin-bottom:16px}
+.badge{display:inline-block;background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.3);color:#c084fc;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:500}
+
+/* grid */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:32px}
+
+/* card */
+.card{background:rgba(30,41,59,.55);border:1px solid rgba(148,163,184,.1);border-radius:16px;padding:28px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.card.purple::before{background:linear-gradient(90deg,#a855f7,#7c3aed)}
+.card.pink::before{background:linear-gradient(90deg,#ec4899,#db2777)}
+.card.amber::before{background:linear-gradient(90deg,#f59e0b,#d97706)}
+.card.emerald::before{background:linear-gradient(90deg,#10b981,#059669)}
+.card.blue::before{background:linear-gradient(90deg,#3b82f6,#2563eb)}
+.card.red::before{background:linear-gradient(90deg,#ef4444,#dc2626)}
+.card h3{font-size:16px;font-weight:700;margin-bottom:16px;color:#f1f5f9}
+.card .big{font-size:48px;font-weight:900;line-height:1.1;margin-bottom:8px}
+.card .label{font-size:13px;color:#94a3b8;font-weight:400}
+
+/* highlight */
+.highlight{background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(236,72,153,.15));border:1px solid rgba(168,85,247,.25);border-radius:16px;padding:32px;margin-bottom:32px;text-align:center}
+.highlight h2{font-size:24px;font-weight:700;margin-bottom:12px;color:#e9d5ff}
+.highlight p{font-size:16px;color:#c4b5fd;max-width:800px;margin:0 auto}
+
+/* list */
+.item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.item .num{flex-shrink:0;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.item .num.p{background:rgba(168,85,247,.2);color:#c084fc}
+.item .num.k{background:rgba(236,72,153,.2);color:#f472b6}
+.item .num.a{background:rgba(245,158,11,.2);color:#fbbf24}
+.item .num.e{background:rgba(16,185,129,.2);color:#34d399}
+.item .num.b{background:rgba(59,130,246,.2);color:#60a5fa}
+.item .txt{font-size:14px;color:#cbd5e1}
+.item .txt strong{color:#f1f5f9}
+
+/* table */
+.tbl{width:100%;border-collapse:collapse;margin-top:12px}
+.tbl th{text-align:left;font-size:12px;color:#94a3b8;padding:8px 12px;border-bottom:1px solid rgba(148,163,184,.15);font-weight:500}
+.tbl td{font-size:14px;padding:10px 12px;border-bottom:1px solid rgba(148,163,184,.08);color:#cbd5e1}
+.tbl tr:hover td{background:rgba(148,163,184,.04)}
+
+/* tag */
+.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:500;margin:2px}
+.tag.p{background:rgba(168,85,247,.15);color:#c084fc}
+.tag.k{background:rgba(236,72,153,.15);color:#f472b6}
+.tag.a{background:rgba(245,158,11,.15);color:#fbbf24}
+.tag.e{background:rgba(16,185,129,.15);color:#34d399}
+.tag.b{background:rgba(59,130,246,.15);color:#60a5fa}
+.tag.r{background:rgba(239,68,68,.15);color:#f87171}
+
+/* section title */
+.sec{font-size:22px;font-weight:700;margin-bottom:20px;padding-left:16px;border-left:3px solid #a855f7;color:#f1f5f9}
+
+/* footer */
+.footer{text-align:center;padding:32px 0 16px;color:#475569;font-size:13px;border-top:1px solid rgba(148,163,184,.1);margin-top:48px}
+
+/* risk bar */
+.risk-bar{height:6px;border-radius:3px;background:rgba(148,163,184,.1);margin-top:8px;overflow:hidden}
+.risk-bar .fill{height:100%;border-radius:3px}
+
+/* responsive */
+@media(max-width:768px){
+.grid2,.grid3{grid-template-columns:1fr}
+.header h1{font-size:28px}
+.card .big{font-size:36px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- Header -->
+<div class="header">
+<h1>AI 에이전트 기업 자동화 2026</h1>
+<p class="sub">YouTube 24개 영상 기반 벤치마킹 분석 — 단순 챗봇을 넘어 핵심 인프라로</p>
+<span class="badge">2026-03-07 | NotebookLM 분석 | HKD852</span>
+</div>
+
+<!-- Key Metrics -->
+<div class="grid3">
+<div class="card purple">
+<div class="big" style="color:#c084fc">5분</div>
+<div class="label">고객 실사 소요시간 (기존 3개월)<br><strong style="color:#e9d5ff">Parcha 사례</strong></div>
+</div>
+<div class="card pink">
+<div class="big" style="color:#f472b6">2,500만원</div>
+<div class="label">SiteGPT MRR 순증<br><strong style="color:#fce7f3">AI 군단 단일 목표 부여</strong></div>
+</div>
+<div class="card amber">
+<div class="big" style="color:#fbbf24">2.5시간</div>
+<div class="label">직원 1인당 일일 절약 시간<br><strong style="color:#fef3c7">전략(66%) + 관계(60%) 재투자</strong></div>
+</div>
+</div>
+
+<!-- Highlight -->
+<div class="highlight">
+<h2>기업의 절반 이상이 다단계 업무에 AI 에이전트 도입</h2>
+<p>AI 에이전트는 단순 챗봇을 넘어 <strong>핵심 인프라</strong>로 정착. 오케스트레이터 + 전담 하위 에이전트 병렬 실행이 2026년 표준 패턴으로 자리잡음</p>
+</div>
+
+<!-- Tool Stack -->
+<h2 class="sec">핵심 도구 스택 Top 5</h2>
+<div class="card blue" style="margin-bottom:32px">
+<table class="tbl">
+<thead><tr><th>순위</th><th>도구</th><th>특징</th><th>유형</th></tr></thead>
+<tbody>
+<tr><td><strong>1</strong></td><td><strong>n8n</strong></td><td>노코드 워크플로우 자동화, API 연동 무제한</td><td><span class="tag b">자동화</span></td></tr>
+<tr><td><strong>2</strong></td><td><strong>MCP</strong></td><td>AI와 외부 도구 범용 연결 프로토콜 (AI의 USB-C)</td><td><span class="tag p">프로토콜</span></td></tr>
+<tr><td><strong>3</strong></td><td><strong>Notion</strong></td><td>사내 데이터베이스 참조로 자동 업무 수행</td><td><span class="tag e">생산성</span></td></tr>
+<tr><td><strong>4</strong></td><td><strong>ChatGPT Agent Builder</strong></td><td>노코드 드래그&드롭 에이전트 구축</td><td><span class="tag a">빌더</span></td></tr>
+<tr><td><strong>5</strong></td><td><strong>Claude Code</strong></td><td>터미널 자연어 제어 + MCP/스킬 연동</td><td><span class="tag k">개발</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- 1인 기업 사례 + 수익화 -->
+<h2 class="sec">1인 기업 사례 & 수익화 모델</h2>
+<div class="grid2">
+<div class="card emerald">
+<h3>1인 기업 성공 사례</h3>
+<div class="item"><div class="num e">1</div><div class="txt"><strong>SiteGPT</strong> — AI 군단에 "전환율 높여라" 단일 목표 → 온보딩 자동 진단 → 맞춤 이메일 → <strong>MRR 18,000달러 순증</strong></div></div>
+<div class="item"><div class="num e">2</div><div class="txt"><strong>콘텐츠 1인 창업자</strong> — AI가 대본→편집→썸네일→업로드→분석 자동화 → 혼자서 <strong>YouTube 20~40개 채널 + 뉴스레터 10개</strong> 운영</div></div>
+<div class="item"><div class="num e">3</div><div class="txt"><strong>1인 제조업체</strong> — ChatGPT로 가격 분석, NotebookLM으로 분석 팟캐스트 매주 자동 생성</div></div>
+</div>
+<div class="card amber">
+<h3>3대 수익화 모델</h3>
+<div class="item"><div class="num a">A</div><div class="txt"><strong>자율형 콘텐츠 에코시스템</strong> — 얼굴 없이 시장 리서치→YouTube/뉴스레터 대량 발행→알고리즘 수익</div></div>
+<div class="item"><div class="num a">B</div><div class="txt"><strong>AI 마이크로 에이전시</strong> — 지역 비즈니스에 AI 리드 생성, 챗봇, 자동 온보딩 → 월정액 수익</div></div>
+<div class="item"><div class="num a">C</div><div class="txt"><strong>디지털 프로덕트 파이프라인</strong> — AI가 코스/템플릿 제작→판매→A/B 테스트→고객 응대 전담</div></div>
+</div>
+</div>
+
+<!-- 조직 구조 변화 -->
+<h2 class="sec">조직 구조 변화</h2>
+<div class="grid3">
+<div class="card purple">
+<h3>하이브리드 조직도</h3>
+<p style="font-size:14px;color:#cbd5e1">AI 에이전트가 <strong>공식 구성원</strong>으로 조직도에 등재. 인간과 AI가 역할별 분업</p>
+</div>
+<div class="card pink">
+<h3>인간 역할 전환</h3>
+<p style="font-size:14px;color:#cbd5e1"><strong>실행 → AI</strong><br><strong>전략/승인 → 인간</strong><br>(Human-on-the-loop)</p>
+</div>
+<div class="card blue">
+<h3>시간 재투자</h3>
+<p style="font-size:14px;color:#cbd5e1">일 <strong>2.5시간</strong> 절약<br>→ 전략 수립(66%)<br>→ 관계 구축(60%)</p>
+</div>
+</div>
+
+<!-- HKD852 적용 -->
+<h2 class="sec">HKD852 적용 인사이트</h2>
+<div class="grid2">
+<div class="card emerald">
+<h3>이미 정답에 가까운 구조</h3>
+<div class="item"><div class="num e">1</div><div class="txt"><strong>컨텍스트 격리 + 역할 분담</strong> — 오케스트레이터 1명 + 24개 전담 에이전트 병렬 실행 (업계 베스트 프랙티스 일치)</div></div>
+<div class="item"><div class="num e">2</div><div class="txt"><strong>모델 라우팅</strong> — 스킬별 Opus/Sonnet/Haiku 배정 = 업계 표준 비용 최적화 전략</div></div>
+<div class="item"><div class="num e">3</div><div class="txt"><strong>자가 검증 루프</strong> — Quality Gate→Shield→RedTeam 3단 체인 = 업계 Dogfooding 패턴</div></div>
+</div>
+<div class="card purple">
+<h3>추가 강화 포인트</h3>
+<div class="item"><div class="num p">+</div><div class="txt"><strong>n8n/MCP 외부 연동 확대</strong> — 현재 Jira, Slack, Sheets에 더해 자동화 범위 확장</div></div>
+<div class="item"><div class="num p">+</div><div class="txt"><strong>토큰 비용 모니터링</strong> — ClaudeUsageMonitor 대시보드 고도화</div></div>
+<div class="item"><div class="num p">+</div><div class="txt"><strong>24시간 무인 운영</strong> — Income_Factory + ShortsFactory 수익화 파이프라인 자동화 강화</div></div>
+</div>
+</div>
+
+<!-- Risks -->
+<h2 class="sec">리스크와 한계</h2>
+<div class="grid3">
+<div class="card red">
+<h3>토큰 비용 폭발</h3>
+<p style="font-size:14px;color:#cbd5e1;margin-bottom:12px">에이전트 간 무한 루프 시 <strong>하룻밤에 수백 달러</strong></p>
+<div class="risk-bar"><div class="fill" style="width:85%;background:linear-gradient(90deg,#ef4444,#dc2626)"></div></div>
+<p style="font-size:11px;color:#94a3b8;margin-top:4px">위험도: 높음</p>
+</div>
+<div class="card red">
+<h3>보안/데이터 주권</h3>
+<p style="font-size:14px;color:#cbd5e1;margin-bottom:12px">루트 권한 남용 → <strong>파일 삭제/유출</strong>. 샌드박스 필수</p>
+<div class="risk-bar"><div class="fill" style="width:75%;background:linear-gradient(90deg,#ef4444,#f59e0b)"></div></div>
+<p style="font-size:11px;color:#94a3b8;margin-top:4px">위험도: 중상</p>
+</div>
+<div class="card red">
+<h3>고정밀 작업 한계</h3>
+<p style="font-size:14px;color:#cbd5e1;margin-bottom:12px">90% 정확도는 수분, <strong>98%+ 고정밀은 수개월</strong> 소요</p>
+<div class="risk-bar"><div class="fill" style="width:60%;background:linear-gradient(90deg,#f59e0b,#eab308)"></div></div>
+<p style="font-size:11px;color:#94a3b8;margin-top:4px">위험도: 중간</p>
+</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+<p>AI 에이전트 기업 자동화 2026 벤치마킹 분석 | YouTube 24개 영상 (영문 15 + 한국어 9) | NotebookLM 분석</p>
+<p style="margin-top:8px">2026-03-07 | HKD852 Studio</p>
+</div>
+
+</div>
+</body>
+</html>

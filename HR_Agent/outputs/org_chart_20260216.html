@@ -1,0 +1,1996 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HKD852 스튜디오 - 조직도 v7</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #0d1117;
+        --surface: #161b22;
+        --border: #30363d;
+        --text: #e6edf3;
+        --dim: #8b949e;
+        --accent: #58a6ff;
+        --green: #3fb950;
+        --orange: #d29922;
+        --red: #f85149;
+        --purple: #bc8cff;
+        --pink: #f778ba;
+        --cyan: #39d2c0;
+      }
+      body {
+        font-family:
+          "SF Pro Display",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        padding: 40px 20px 30px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 30px;
+      }
+      .header h1 {
+        font-size: 2.2em;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+      .header h1 span {
+        color: var(--accent);
+      }
+      .header .subtitle {
+        color: var(--dim);
+        margin-top: 8px;
+        font-size: 1.05em;
+      }
+      .header .version {
+        display: inline-block;
+        background: var(--accent);
+        color: #0d1117;
+        padding: 3px 12px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+
+      /* Stats Bar */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 16px;
+        margin-bottom: 30px;
+      }
+      .stat-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.2s;
+      }
+      .stat-card:hover {
+        transform: translateY(-2px);
+      }
+      .stat-card .num {
+        font-size: 2.2em;
+        font-weight: 700;
+        line-height: 1;
+      }
+      .stat-card .label {
+        color: var(--dim);
+        font-size: 0.85em;
+        margin-top: 6px;
+      }
+      .stat-card.blue .num {
+        color: var(--accent);
+      }
+      .stat-card.green .num {
+        color: var(--green);
+      }
+      .stat-card.orange .num {
+        color: var(--orange);
+      }
+      .stat-card.purple .num {
+        color: var(--purple);
+      }
+      .stat-card.cyan .num {
+        color: var(--cyan);
+      }
+      .stat-card.pink .num {
+        color: var(--pink);
+      }
+
+      /* Search */
+      .search-bar {
+        position: relative;
+        max-width: 500px;
+        margin: 0 auto 30px;
+      }
+      .search-bar input {
+        width: 100%;
+        padding: 12px 16px 12px 42px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--text);
+        font-size: 1em;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .search-bar input:focus {
+        border-color: var(--accent);
+      }
+      .search-bar .icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--dim);
+      }
+      .search-bar kbd {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--border);
+        color: var(--dim);
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.75em;
+      }
+
+      /* Tab Nav */
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .tab {
+        padding: 8px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9em;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--dim);
+        transition: all 0.2s;
+      }
+      .tab.active,
+      .tab:hover {
+        background: var(--accent);
+        color: #0d1117;
+        border-color: var(--accent);
+      }
+
+      /* Section */
+      .section {
+        display: none;
+      }
+      .section.active {
+        display: block;
+      }
+
+      /* Org Tree */
+      .org-tree {
+        padding: 10px 0;
+      }
+      .dept {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        margin-bottom: 16px;
+        overflow: hidden;
+      }
+      .dept-header {
+        padding: 16px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        user-select: none;
+        transition: background 0.2s;
+      }
+      .dept-header:hover {
+        background: rgba(88, 166, 255, 0.06);
+      }
+      .dept-header .arrow {
+        transition: transform 0.3s;
+        color: var(--dim);
+        font-size: 0.8em;
+      }
+      .dept-header.open .arrow {
+        transform: rotate(90deg);
+      }
+      .dept-header .badge {
+        font-size: 0.7em;
+        padding: 3px 10px;
+        border-radius: 10px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .badge-ceo {
+        background: rgba(248, 81, 73, 0.15);
+        color: var(--red);
+      }
+      .badge-game {
+        background: rgba(63, 185, 80, 0.15);
+        color: var(--green);
+      }
+      .badge-biz {
+        background: rgba(210, 153, 34, 0.15);
+        color: var(--orange);
+      }
+      .badge-support {
+        background: rgba(188, 140, 255, 0.15);
+        color: var(--purple);
+      }
+      .dept-name {
+        font-weight: 600;
+        flex: 1;
+      }
+      .dept-count {
+        color: var(--dim);
+        font-size: 0.85em;
+      }
+      .dept-body {
+        display: none;
+        padding: 0 20px 16px;
+        border-top: 1px solid var(--border);
+      }
+      .dept-body.open {
+        display: block;
+      }
+
+      /* Agent Card */
+      .agent {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px;
+        margin-top: 12px;
+        transition: border-color 0.2s;
+      }
+      .agent:hover {
+        border-color: var(--accent);
+      }
+      .agent-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .agent-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1em;
+        flex-shrink: 0;
+      }
+      .agent-name {
+        font-weight: 600;
+        font-size: 1.05em;
+      }
+      .agent-title {
+        color: var(--dim);
+        font-size: 0.85em;
+      }
+      .agent-path {
+        color: var(--dim);
+        font-size: 0.75em;
+        font-family: "SF Mono", monospace;
+        background: var(--surface);
+        padding: 2px 8px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+      .impl-status {
+        display: inline-block;
+        font-size: 0.7em;
+        padding: 2px 8px;
+        border-radius: 8px;
+        font-weight: 600;
+        margin-left: 8px;
+      }
+      .impl-full {
+        background: rgba(63, 185, 80, 0.15);
+        color: var(--green);
+      }
+      .impl-partial {
+        background: rgba(210, 153, 34, 0.15);
+        color: var(--orange);
+      }
+      .impl-planned {
+        background: rgba(139, 148, 158, 0.15);
+        color: var(--dim);
+      }
+
+      /* Skills */
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .skill {
+        font-size: 0.78em;
+        padding: 4px 10px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+        cursor: default;
+        transition: all 0.2s;
+      }
+      .skill:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .skill .model-dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        margin-right: 4px;
+        vertical-align: middle;
+      }
+      .dot-opus {
+        background: var(--red);
+      }
+      .dot-sonnet {
+        background: var(--accent);
+      }
+      .dot-haiku {
+        background: var(--green);
+      }
+
+      /* Pipeline */
+      .pipeline {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        padding: 40px 20px;
+        flex-wrap: wrap;
+      }
+      .pipe-node {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px 24px;
+        text-align: center;
+        min-width: 160px;
+        transition: transform 0.2s;
+      }
+      .pipe-node:hover {
+        transform: scale(1.03);
+      }
+      .pipe-node .pipe-icon {
+        font-size: 1.8em;
+        margin-bottom: 8px;
+      }
+      .pipe-node .pipe-name {
+        font-weight: 600;
+        font-size: 0.95em;
+      }
+      .pipe-node .pipe-desc {
+        color: var(--dim);
+        font-size: 0.78em;
+        margin-top: 4px;
+      }
+      .pipe-arrow {
+        color: var(--dim);
+        font-size: 1.5em;
+        padding: 0 8px;
+        flex-shrink: 0;
+      }
+
+      /* Model Distribution */
+      .model-chart {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+      }
+      .model-bar {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px;
+      }
+      .model-bar .bar-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 0.9em;
+      }
+      .model-bar .bar-track {
+        height: 8px;
+        background: var(--bg);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .model-bar .bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.5s ease;
+      }
+
+      /* Implementation Progress */
+      .progress-section {
+        margin-top: 20px;
+      }
+      .progress-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 8px;
+      }
+      .progress-item .prog-name {
+        flex: 1;
+        font-weight: 500;
+      }
+      .progress-item .prog-bar {
+        width: 120px;
+        height: 6px;
+        background: var(--bg);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .progress-item .prog-fill {
+        height: 100%;
+        border-radius: 3px;
+      }
+      .progress-item .prog-pct {
+        width: 40px;
+        text-align: right;
+        font-size: 0.85em;
+        color: var(--dim);
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding: 30px;
+        color: var(--dim);
+        font-size: 0.8em;
+        border-top: 1px solid var(--border);
+        margin-top: 40px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .stats {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .pipeline {
+          flex-direction: column;
+        }
+        .pipe-arrow {
+          transform: rotate(90deg);
+        }
+        .header h1 {
+          font-size: 1.6em;
+        }
+      }
+      @media (max-width: 480px) {
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .tabs {
+          gap: 4px;
+        }
+        .tab {
+          padding: 6px 12px;
+          font-size: 0.8em;
+        }
+      }
+
+      /* Animation */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .section.active {
+        animation: fadeIn 0.3s ease;
+      }
+
+      /* Highlight */
+      .highlight {
+        background: rgba(88, 166, 255, 0.15) !important;
+        border-color: var(--accent) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1><span>HKD852</span> Studio</h1>
+        <div class="subtitle">AI 에이전트 기반 게임/콘텐츠 제작 조직</div>
+        <div class="version">v7 &mdash; 2026-02-18</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat-card blue">
+          <div class="num">20</div>
+          <div class="label">전체 에이전트</div>
+        </div>
+        <div class="stat-card green">
+          <div class="num">54</div>
+          <div class="label">구현된 스킬</div>
+        </div>
+        <div class="stat-card orange">
+          <div class="num">~100</div>
+          <div class="label">목표 스킬</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="num">4</div>
+          <div class="label">본부</div>
+        </div>
+        <div class="stat-card cyan">
+          <div class="num">5</div>
+          <div class="label">타겟 시장</div>
+        </div>
+        <div class="stat-card pink">
+          <div class="num">1</div>
+          <div class="label">게임 엔진</div>
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="search-bar">
+        <span class="icon">&#128269;</span>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="에이전트, 스킬, 부서 검색..."
+        />
+        <kbd>/</kbd>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <div class="tab active" data-tab="tree">조직 트리</div>
+        <div class="tab" data-tab="pipeline">품질 파이프라인</div>
+        <div class="tab" data-tab="models">모델 분포</div>
+        <div class="tab" data-tab="progress">구현 현황</div>
+      </div>
+
+      <!-- Section: Org Tree -->
+      <div class="section active" id="sec-tree">
+        <div class="org-tree">
+          <!-- CEO 직속 -->
+          <div class="dept" data-dept="ceo">
+            <div class="dept-header open" onclick="toggleDept(this)">
+              <span class="arrow">&#9654;</span>
+              <span class="badge badge-ceo">대표 직속</span>
+              <span class="dept-name">CEO 직속 &mdash; 7개 에이전트</span>
+              <span class="dept-count">22개 스킬</span>
+            </div>
+            <div class="dept-body open">
+              <div class="agent" data-agent="Secretary_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(248, 81, 73, 0.15)"
+                  >
+                    &#128221;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      Secretary_Agent
+                      <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">비서실장</div>
+                  </div>
+                </div>
+                <div class="agent-path">./Secretary_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/daily-brief</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/work-log</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/weekly-report</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/escalation-brief</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="orchestrator">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(88, 166, 255, 0.15)"
+                  >
+                    &#9881;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      Orchestrator (COO)
+                      <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">운영총괄</div>
+                  </div>
+                </div>
+                <div class="agent-path">.claude/skills/orchestrator/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/orchestrator</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="quality-gate">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(63, 185, 80, 0.15)"
+                  >
+                    &#9989;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      Quality Gate
+                      <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">품질관리 매니저</div>
+                  </div>
+                </div>
+                <div class="agent-path">.claude/skills/quality-gate/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/quality-gate</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="Growth_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(57, 210, 192, 0.15)"
+                  >
+                    &#128200;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      Growth_Agent
+                      <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">성장전략 매니저</div>
+                  </div>
+                </div>
+                <div class="agent-path">./Growth_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/funnel-audit</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/onboarding-review</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/kpi-dashboard</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="PMO_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(210, 153, 34, 0.15)"
+                  >
+                    &#128203;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      PMO_Agent
+                      <span class="impl-status impl-planned">예정</span>
+                    </div>
+                    <div class="agent-title">프로젝트매니저</div>
+                  </div>
+                </div>
+                <div class="agent-path">./PMO_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/sprint-plan</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/sprint-review</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span
+                    >/milestone-track</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/dep-map</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span
+                    >/risk-register</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/roadmap</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span>/standup</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="Shield_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(248, 81, 73, 0.15)"
+                  >
+                    &#128737;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      Shield_Agent
+                      <span class="impl-status impl-planned">예정</span>
+                    </div>
+                    <div class="agent-title">보안책임자 (CISO)</div>
+                  </div>
+                </div>
+                <div class="agent-path">./Shield_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/privacy-scan</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span
+                    >/compliance-check</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span
+                    >/security-audit</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/threat-model</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/data-flow</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span>/secret-scan</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="RedTeam_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(248, 81, 73, 0.25)"
+                  >
+                    &#9760;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      RedTeam_Agent
+                      <span class="impl-status impl-planned">예정</span>
+                    </div>
+                    <div class="agent-title">레드팀</div>
+                  </div>
+                </div>
+                <div class="agent-path">./RedTeam_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/red-review</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/exploit-hunt</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span
+                    >/narrative-attack</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/comp-tear</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span
+                    >/cultural-review</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span
+                    >/devils-advocate</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 공유 스킬 -->
+          <div class="dept" data-dept="shared">
+            <div class="dept-header" onclick="toggleDept(this)">
+              <span class="arrow">&#9654;</span>
+              <span
+                class="badge"
+                style="background: rgba(57, 210, 192, 0.15); color: var(--cyan)"
+                >공유</span
+              >
+              <span class="dept-name">공유 스킬</span>
+              <span class="dept-count">1개 스킬</span>
+            </div>
+            <div class="dept-body">
+              <div class="agent" data-agent="debate-synthesize">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(57, 210, 192, 0.15)"
+                  >
+                    &#9878;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      debate-synthesize
+                      <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">다관점 합의 도출</div>
+                  </div>
+                </div>
+                <div class="agent-path">.claude/skills/debate-synthesize/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span
+                    >/debate-synthesize</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 게임본부 -->
+          <div class="dept" data-dept="game">
+            <div class="dept-header" onclick="toggleDept(this)">
+              <span class="arrow">&#9654;</span>
+              <span class="badge badge-game">게임본부</span>
+              <span class="dept-name">게임본부 &mdash; 4개 에이전트</span>
+              <span class="dept-count">31개 스킬</span>
+            </div>
+            <div class="dept-body">
+              <div class="agent" data-agent="GameDesign_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(63, 185, 80, 0.15)"
+                  >
+                    &#127918;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      GameDesign_Agent
+                      <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">기획팀장</div>
+                  </div>
+                </div>
+                <div class="agent-path">./GameDesign_Agent/</div>
+                <div class="skills">
+                  <span class="skill">/requirement</span>
+                  <span class="skill">/pd-review</span>
+                  <span class="skill">/art-status</span>
+                  <span class="skill">/report</span>
+                  <span class="skill">/concept-designer</span>
+                  <span class="skill">/balance-designer</span>
+                  <span class="skill">/monetization-expert</span>
+                  <span class="skill">/liveops-specialist</span>
+                  <span class="skill">/market-analyst</span>
+                  <span class="skill">/ux-advisor</span>
+                  <span class="skill">/task-coordinator</span>
+                  <span class="skill">/proposal-writer</span>
+                </div>
+              </div>
+
+              <div class="agent" data-agent="team-kowloon">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(247, 120, 186, 0.15)"
+                  >
+                    &#127912;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      team-kowloon
+                      <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">아트디렉터</div>
+                  </div>
+                </div>
+                <div class="agent-path">./team-kowloon/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/game-art-spec</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span>/art-export</span
+                  >
+                  <span class="skill">ssbl-cto</span>
+                  <span class="skill">ssbl-art-lead</span>
+                  <span class="skill">ssbl-qa-lead</span>
+                  <span class="skill">ssbl-data-manager</span>
+                </div>
+              </div>
+
+              <div class="agent" data-agent="GameDev_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(63, 185, 80, 0.15)"
+                  >
+                    &#128187;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      GameDev_Agent
+                      <span class="impl-status impl-planned">예정</span>
+                    </div>
+                    <div class="agent-title">개발팀장</div>
+                  </div>
+                </div>
+                <div class="agent-path">./GameDev_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/unity-init</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/unity-arch</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/unity-scene</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/unity-script</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/unity-shader</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/unity-ui</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span>/unity-build</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/unity-review</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/unity-refactor</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="QATest_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(63, 185, 80, 0.15)"
+                  >
+                    &#128270;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      QATest_Agent
+                      <span class="impl-status impl-planned">예정</span>
+                    </div>
+                    <div class="agent-title">QA팀장</div>
+                  </div>
+                </div>
+                <div class="agent-path">./QATest_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/test-plan</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/test-script</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/platform-check</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/perf-profile</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span>/bug-report</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span
+                    >/compat-matrix</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 사업본부 -->
+          <div class="dept" data-dept="biz">
+            <div class="dept-header" onclick="toggleDept(this)">
+              <span class="arrow">&#9654;</span>
+              <span class="badge badge-biz">사업본부</span>
+              <span class="dept-name">사업본부 &mdash; 3개 에이전트</span>
+              <span class="dept-count">19개 스킬</span>
+            </div>
+            <div class="dept-body">
+              <div class="agent" data-agent="Income_Factory">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(210, 153, 34, 0.15)"
+                  >
+                    &#128176;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      Income_Factory
+                      <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">사업개발 매니저</div>
+                  </div>
+                </div>
+                <div class="agent-path">./Income_Factory/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/factory</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span>/idea-scan</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/idea-eval</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/idea-critic</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/idea-plan</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/idea-build</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/idea-review</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span>/idea-launch</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/idea-analyze</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="Marketing_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(210, 153, 34, 0.15)"
+                  >
+                    &#128226;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      Marketing_Agent
+                      <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">마케팅 매니저</div>
+                  </div>
+                </div>
+                <div class="agent-path">./Marketing_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/aso</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/social-copy</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/launch-plan</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/steam-page</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/influencer-brief</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="Community_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(210, 153, 34, 0.15)"
+                  >
+                    &#128483;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      Community_Agent
+                      <span class="impl-status impl-planned">예정</span>
+                    </div>
+                    <div class="agent-title">커뮤니티 매니저</div>
+                  </div>
+                </div>
+                <div class="agent-path">./Community_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/sentiment-scan</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/community-post</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span
+                    >/review-response</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/discord-plan</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/crisis-comms</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 지원본부 -->
+          <div class="dept" data-dept="support">
+            <div class="dept-header" onclick="toggleDept(this)">
+              <span class="arrow">&#9654;</span>
+              <span class="badge badge-support">지원본부</span>
+              <span class="dept-name">지원본부 &mdash; 5개 에이전트</span>
+              <span class="dept-count">26개 스킬</span>
+            </div>
+            <div class="dept-body">
+              <div class="agent" data-agent="PT_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(188, 140, 255, 0.15)"
+                  >
+                    &#127916;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      PT_Agent <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">커뮤니케이션 디렉터</div>
+                  </div>
+                </div>
+                <div class="agent-path">./PT_Agent/</div>
+                <div class="skills">
+                  <span class="skill">/pt</span>
+                  <span class="skill">/pt-from-design</span>
+                  <span class="skill">/pt-reception</span>
+                  <span class="skill">/pt-content</span>
+                  <span class="skill">/pt-research</span>
+                  <span class="skill">/pt-visual</span>
+                  <span class="skill">/pt-export</span>
+                  <span class="skill">/pt-manager</span>
+                  <span class="skill">/pt-redteam</span>
+                  <span class="skill">/pt-update-check</span>
+                </div>
+              </div>
+
+              <div class="agent" data-agent="Translate_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(188, 140, 255, 0.15)"
+                  >
+                    &#127760;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      Translate_Agent
+                      <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">현지화 매니저</div>
+                  </div>
+                </div>
+                <div class="agent-path">./Translate_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/translate</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/translate-cn</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/translate-eu</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span
+                    >/localize-validate</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span
+                    >/cultural-adapt</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="HR_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(188, 140, 255, 0.15)"
+                  >
+                    &#128101;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      HR_Agent <span class="impl-status impl-full">운영중</span>
+                    </div>
+                    <div class="agent-title">인사팀장</div>
+                  </div>
+                </div>
+                <div class="agent-path">./HR_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/org-chart</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-opus"></span>/reorg</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="Video_Analyzer">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(188, 140, 255, 0.15)"
+                  >
+                    &#127909;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      Video_Analyzer
+                      <span class="impl-status impl-partial">최소</span>
+                    </div>
+                    <div class="agent-title">기술지원</div>
+                  </div>
+                </div>
+                <div class="agent-path">./Video_Analyzer/</div>
+                <div class="skills">
+                  <span class="skill" style="color: var(--dim)"
+                    >스킬 미구현</span
+                  >
+                </div>
+              </div>
+
+              <div class="agent" data-agent="DevOps_Agent">
+                <div class="agent-top">
+                  <div
+                    class="agent-icon"
+                    style="background: rgba(188, 140, 255, 0.15)"
+                  >
+                    &#9881;
+                  </div>
+                  <div>
+                    <div class="agent-name">
+                      DevOps_Agent
+                      <span class="impl-status impl-planned">예정</span>
+                    </div>
+                    <div class="agent-title">빌드엔지니어</div>
+                  </div>
+                </div>
+                <div class="agent-path">./DevOps_Agent/</div>
+                <div class="skills">
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/pipeline-config</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/build-ios</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/build-android</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/build-steam</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span
+                    >/deploy-stage</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span
+                    >/deploy-prod</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-haiku"></span
+                    >/platform-status</span
+                  >
+                  <span class="skill"
+                    ><span class="model-dot dot-sonnet"></span>/hotfix</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Pipeline -->
+      <div class="section" id="sec-pipeline">
+        <h2
+          style="text-align: center; margin-bottom: 30px; color: var(--accent)"
+        >
+          자동 품질 파이프라인
+        </h2>
+        <div class="pipeline">
+          <div class="pipe-node">
+            <div class="pipe-icon">&#128196;</div>
+            <div class="pipe-name">에이전트 산출물</div>
+            <div class="pipe-desc">모든 에이전트 결과물</div>
+          </div>
+          <div class="pipe-arrow">&#10132;</div>
+          <div class="pipe-node" style="border-color: var(--green)">
+            <div class="pipe-icon">&#9989;</div>
+            <div class="pipe-name">Quality Gate</div>
+            <div class="pipe-desc">CFMC 매트릭스 점수<br />등급 A~F</div>
+          </div>
+          <div class="pipe-arrow">&#10132;</div>
+          <div class="pipe-node" style="border-color: var(--accent)">
+            <div class="pipe-icon">&#128737;</div>
+            <div class="pipe-name">Shield_Agent</div>
+            <div class="pipe-desc">
+              보안 리뷰<br />OWASP / PII / 컴플라이언스
+            </div>
+          </div>
+          <div class="pipe-arrow">&#10132;</div>
+          <div class="pipe-node" style="border-color: var(--red)">
+            <div class="pipe-icon">&#9760;</div>
+            <div class="pipe-name">RedTeam_Agent</div>
+            <div class="pipe-desc">적대적 리뷰<br />4가지 공격 벡터</div>
+          </div>
+          <div class="pipe-arrow">&#10132;</div>
+          <div class="pipe-node" style="border-color: var(--green)">
+            <div class="pipe-icon">&#127942;</div>
+            <div class="pipe-name">승인 완료</div>
+            <div class="pipe-desc">프로덕션 준비 완료</div>
+          </div>
+        </div>
+
+        <div
+          style="
+            max-width: 700px;
+            margin: 30px auto 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+          "
+        >
+          <h3 style="margin-bottom: 16px">에스컬레이션 규칙</h3>
+          <table style="width: 100%; font-size: 0.9em">
+            <tr style="color: var(--green)">
+              <td style="padding: 6px 0">Quality Gate A/B (80점 이상)</td>
+              <td>자동 승인</td>
+            </tr>
+            <tr style="color: var(--green)">
+              <td style="padding: 6px 0">일반 코드 리뷰</td>
+              <td>자동 승인</td>
+            </tr>
+            <tr style="border-top: 1px solid var(--border); color: var(--red)">
+              <td style="padding: 6px 0">RedTeam REJECT</td>
+              <td>CEO 에스컬레이션</td>
+            </tr>
+            <tr style="color: var(--red)">
+              <td style="padding: 6px 0">Shield SECURITY_HOLD</td>
+              <td>CEO 에스컬레이션</td>
+            </tr>
+            <tr style="color: var(--red)">
+              <td style="padding: 6px 0">Quality Gate F등급</td>
+              <td>CEO 에스컬레이션</td>
+            </tr>
+            <tr style="color: var(--orange)">
+              <td style="padding: 6px 0">프로덕션 배포</td>
+              <td>CEO 승인 필수</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section: Model Distribution -->
+      <div class="section" id="sec-models">
+        <h2
+          style="text-align: center; margin-bottom: 30px; color: var(--accent)"
+        >
+          모델 사용 분포
+        </h2>
+        <div class="model-chart">
+          <div class="model-bar">
+            <div class="bar-label">
+              <span
+                ><span
+                  class="model-dot dot-opus"
+                  style="
+                    display: inline-block;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    margin-right: 6px;
+                    vertical-align: middle;
+                  "
+                ></span
+                >Opus</span
+              ><span>약 22개 스킬</span>
+            </div>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="width: 22%; background: var(--red)"
+              ></div>
+            </div>
+            <div style="color: var(--dim); font-size: 0.78em; margin-top: 4px">
+              비판적 분석, 적대적 리뷰, 복잡한 추론
+            </div>
+          </div>
+          <div class="model-bar">
+            <div class="bar-label">
+              <span
+                ><span
+                  class="model-dot dot-sonnet"
+                  style="
+                    display: inline-block;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    margin-right: 6px;
+                    vertical-align: middle;
+                  "
+                ></span
+                >Sonnet</span
+              ><span>약 60개 스킬</span>
+            </div>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="width: 60%; background: var(--accent)"
+              ></div>
+            </div>
+            <div style="color: var(--dim); font-size: 0.78em; margin-top: 4px">
+              콘텐츠 생성, 코드 작성, 균형잡힌 성능
+            </div>
+          </div>
+          <div class="model-bar">
+            <div class="bar-label">
+              <span
+                ><span
+                  class="model-dot dot-haiku"
+                  style="
+                    display: inline-block;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    margin-right: 6px;
+                    vertical-align: middle;
+                  "
+                ></span
+                >Haiku</span
+              ><span>약 18개 스킬</span>
+            </div>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="width: 18%; background: var(--green)"
+              ></div>
+            </div>
+            <div style="color: var(--dim); font-size: 0.78em; margin-top: 4px">
+              라우팅, 단순 분류, 비용 효율적 작업
+            </div>
+          </div>
+        </div>
+
+        <div style="max-width: 500px; margin: 30px auto; text-align: center">
+          <h3 style="margin-bottom: 16px">타겟 시장 (우선순위)</h3>
+          <div
+            style="
+              display: flex;
+              gap: 8px;
+              justify-content: center;
+              flex-wrap: wrap;
+            "
+          >
+            <div
+              style="
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 10px 20px;
+                font-weight: 600;
+              "
+            >
+              &#127482;&#127480; 북미
+            </div>
+            <div
+              style="
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 10px 20px;
+                font-weight: 600;
+              "
+            >
+              &#127466;&#127482; 유럽
+            </div>
+            <div
+              style="
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 10px 20px;
+                font-weight: 600;
+              "
+            >
+              &#127464;&#127475; 중국
+            </div>
+            <div
+              style="
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 10px 20px;
+                font-weight: 600;
+              "
+            >
+              &#127472;&#127479; 한국
+            </div>
+            <div
+              style="
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 10px 20px;
+                font-weight: 600;
+              "
+            >
+              &#127471;&#127477; 일본
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Implementation Progress -->
+      <div class="section" id="sec-progress">
+        <h2
+          style="text-align: center; margin-bottom: 30px; color: var(--accent)"
+        >
+          구현 현황
+        </h2>
+
+        <div class="progress-section">
+          <div class="progress-item">
+            <span style="color: var(--green)">&#9679;</span
+            ><span class="prog-name">Secretary_Agent (비서실장)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 50%; background: var(--orange)"
+              ></div>
+            </div>
+            <span class="prog-pct">2/4</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--green)">&#9679;</span
+            ><span class="prog-name">Orchestrator (운영총괄)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 100%; background: var(--green)"
+              ></div>
+            </div>
+            <span class="prog-pct">1/1</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--green)">&#9679;</span
+            ><span class="prog-name">Quality Gate (품질관리)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 100%; background: var(--green)"
+              ></div>
+            </div>
+            <span class="prog-pct">1/1</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--green)">&#9679;</span
+            ><span class="prog-name">Growth_Agent (성장전략)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 100%; background: var(--green)"
+              ></div>
+            </div>
+            <span class="prog-pct">3/3</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--dim)">&#9675;</span
+            ><span class="prog-name">PMO_Agent (프로젝트매니저)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 0%; background: var(--dim)"
+              ></div>
+            </div>
+            <span class="prog-pct">0/7</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--dim)">&#9675;</span
+            ><span class="prog-name">Shield_Agent (보안책임자)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 0%; background: var(--dim)"
+              ></div>
+            </div>
+            <span class="prog-pct">0/6</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--dim)">&#9675;</span
+            ><span class="prog-name">RedTeam_Agent (레드팀)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 0%; background: var(--dim)"
+              ></div>
+            </div>
+            <span class="prog-pct">0/6</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--green)">&#9679;</span
+            ><span class="prog-name">GameDesign_Agent (기획팀장)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 100%; background: var(--green)"
+              ></div>
+            </div>
+            <span class="prog-pct">12/12</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--green)">&#9679;</span
+            ><span class="prog-name">team-kowloon (아트디렉터)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 100%; background: var(--green)"
+              ></div>
+            </div>
+            <span class="prog-pct">6/6</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--dim)">&#9675;</span
+            ><span class="prog-name">GameDev_Agent (개발팀장)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 0%; background: var(--dim)"
+              ></div>
+            </div>
+            <span class="prog-pct">0/9</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--dim)">&#9675;</span
+            ><span class="prog-name">QATest_Agent (QA팀장)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 0%; background: var(--dim)"
+              ></div>
+            </div>
+            <span class="prog-pct">0/6</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--green)">&#9679;</span
+            ><span class="prog-name">Income_Factory (사업개발)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 100%; background: var(--green)"
+              ></div>
+            </div>
+            <span class="prog-pct">9/9</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--green)">&#9679;</span
+            ><span class="prog-name">Marketing_Agent (마케팅)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 60%; background: var(--orange)"
+              ></div>
+            </div>
+            <span class="prog-pct">3/5</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--dim)">&#9675;</span
+            ><span class="prog-name">Community_Agent (커뮤니티)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 0%; background: var(--dim)"
+              ></div>
+            </div>
+            <span class="prog-pct">0/5</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--green)">&#9679;</span
+            ><span class="prog-name">PT_Agent (커뮤니케이션)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 100%; background: var(--green)"
+              ></div>
+            </div>
+            <span class="prog-pct">10/10</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--green)">&#9679;</span
+            ><span class="prog-name">Translate_Agent (현지화)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 100%; background: var(--green)"
+              ></div>
+            </div>
+            <span class="prog-pct">5/5</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--green)">&#9679;</span
+            ><span class="prog-name">HR_Agent (인사)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 100%; background: var(--green)"
+              ></div>
+            </div>
+            <span class="prog-pct">2/2</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--orange)">&#9679;</span
+            ><span class="prog-name">Video_Analyzer (기술지원)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 0%; background: var(--dim)"
+              ></div>
+            </div>
+            <span class="prog-pct">0/1</span>
+          </div>
+          <div class="progress-item">
+            <span style="color: var(--dim)">&#9675;</span
+            ><span class="prog-name">DevOps_Agent (빌드엔지니어)</span>
+            <div class="prog-bar">
+              <div
+                class="prog-fill"
+                style="width: 0%; background: var(--dim)"
+              ></div>
+            </div>
+            <span class="prog-pct">0/8</span>
+          </div>
+        </div>
+
+        <div
+          style="
+            max-width: 600px;
+            margin: 30px auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+          "
+        >
+          <h3 style="margin-bottom: 16px; text-align: center">전체 진행률</h3>
+          <div style="display: flex; align-items: center; gap: 16px">
+            <div style="flex: 1">
+              <div
+                style="
+                  height: 12px;
+                  background: var(--bg);
+                  border-radius: 6px;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  style="
+                    width: 54%;
+                    height: 100%;
+                    background: linear-gradient(
+                      90deg,
+                      var(--green),
+                      var(--accent)
+                    );
+                    border-radius: 6px;
+                  "
+                ></div>
+              </div>
+            </div>
+            <span
+              style="font-size: 1.3em; font-weight: 700; color: var(--accent)"
+              >54%</span
+            >
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: 12px;
+              font-size: 0.85em;
+              color: var(--dim);
+            "
+          >
+            <span>54개 스킬 구현 완료</span>
+            <span>목표 약 100개 스킬</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>HKD852 Studio &mdash; AI 에이전트 기반 게임/콘텐츠 제작 조직</p>
+        <p>
+          생성일: 2026-02-18 | 버전: v7 | 엔진: Unity 6000.3.6f1 | 모델: Claude
+          Opus 4.6
+        </p>
+      </div>
+    </div>
+
+    <script>
+      function toggleDept(el) {
+        el.classList.toggle("open");
+        const body = el.nextElementSibling;
+        body.classList.toggle("open");
+      }
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab")
+            .forEach((t) => t.classList.remove("active"));
+          document
+            .querySelectorAll(".section")
+            .forEach((s) => s.classList.remove("active"));
+          tab.classList.add("active");
+          document
+            .getElementById("sec-" + tab.dataset.tab)
+            .classList.add("active");
+        });
+      });
+      const searchInput = document.getElementById("searchInput");
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "/" && document.activeElement !== searchInput) {
+          e.preventDefault();
+          searchInput.focus();
+        }
+        if (e.key === "Escape") {
+          searchInput.value = "";
+          searchInput.blur();
+          clearSearch();
+        }
+      });
+      searchInput.addEventListener("input", () => {
+        const q = searchInput.value.toLowerCase().trim();
+        if (!q) {
+          clearSearch();
+          return;
+        }
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document.querySelector('[data-tab="tree"]').classList.add("active");
+        document.getElementById("sec-tree").classList.add("active");
+        document.querySelectorAll(".agent").forEach((agent) => {
+          const text = agent.textContent.toLowerCase();
+          const match = text.includes(q);
+          agent.style.display = match ? "" : "none";
+          if (match) {
+            agent.classList.add("highlight");
+          } else {
+            agent.classList.remove("highlight");
+          }
+        });
+        document.querySelectorAll(".dept").forEach((dept) => {
+          const hasVisible = Array.from(dept.querySelectorAll(".agent")).some(
+            (a) => a.style.display !== "none",
+          );
+          if (hasVisible) {
+            dept.querySelector(".dept-header").classList.add("open");
+            dept.querySelector(".dept-body").classList.add("open");
+          }
+        });
+      });
+      function clearSearch() {
+        document.querySelectorAll(".agent").forEach((a) => {
+          a.style.display = "";
+          a.classList.remove("highlight");
+        });
+      }
+      document
+        .querySelector('[data-dept="ceo"] .dept-header')
+        .classList.add("open");
+      document
+        .querySelector('[data-dept="ceo"] .dept-body')
+        .classList.add("open");
+    </script>
+  </body>
+</html>

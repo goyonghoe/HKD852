@@ -1,0 +1,1547 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Tone Surf - HSK 성조 게임</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, "Noto Sans KR", sans-serif;
+        background: #0a1628;
+        color: #fff;
+        overflow: hidden;
+        touch-action: none;
+        user-select: none;
+      }
+      #game {
+        width: 100vw;
+        height: 100vh;
+        max-width: 430px;
+        margin: 0 auto;
+        position: relative;
+        background: linear-gradient(
+          180deg,
+          #0a1628 0%,
+          #0d2137 30%,
+          #134e5e 60%,
+          #1a7a6d 100%
+        );
+        overflow: hidden;
+      }
+
+      /* Top HUD */
+      .hud {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        position: relative;
+        z-index: 10;
+      }
+      .hud-score {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffd700;
+      }
+      .hud-timer {
+        font-size: 16px;
+        color: #ff6b6b;
+        font-weight: 600;
+      }
+      .hud-combo {
+        font-size: 14px;
+        color: #7afcff;
+        opacity: 0.8;
+      }
+      .hud-level {
+        font-size: 12px;
+        color: #aaa;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Progress bar */
+      .progress-bar {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 0 16px;
+        border-radius: 2px;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+        border-radius: 2px;
+        transition: width 0.3s;
+      }
+
+      /* Character display area */
+      .char-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 16px 10px;
+        position: relative;
+        z-index: 10;
+        min-height: 140px;
+      }
+      .char-hanzi {
+        font-size: 72px;
+        font-weight: 900;
+        color: #fff;
+        text-shadow:
+          0 0 30px rgba(122, 252, 255, 0.4),
+          0 4px 8px rgba(0, 0, 0, 0.5);
+        transition:
+          transform 0.3s,
+          opacity 0.3s;
+      }
+      .char-hanzi.correct-anim {
+        animation: charCorrect 0.5s ease-out;
+      }
+      .char-hanzi.wrong-anim {
+        animation: charWrong 0.5s ease-out;
+      }
+      .char-pinyin {
+        font-size: 18px;
+        color: #7afcff;
+        margin-top: 4px;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .char-pinyin.show {
+        opacity: 1;
+      }
+      .char-meaning {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 6px;
+      }
+
+      /* Wave area */
+      .wave-area {
+        position: relative;
+        height: 180px;
+        overflow: hidden;
+        z-index: 5;
+      }
+
+      /* Surfer */
+      .surfer {
+        position: absolute;
+        font-size: 40px;
+        z-index: 8;
+        transition:
+          transform 0.4s ease-out,
+          left 0.6s ease-out;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+      }
+      .surfer.wipeout {
+        animation: wipeout 0.8s ease-out forwards;
+      }
+      .surfer.ride-up {
+        animation: rideUp 0.6s ease-out;
+      }
+
+      /* Wave SVG */
+      .wave-svg {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 200%;
+        height: 100%;
+      }
+      .wave-path-back {
+        fill: rgba(0, 180, 216, 0.15);
+        animation: waveMove 6s linear infinite;
+      }
+      .wave-path-mid {
+        fill: rgba(0, 210, 255, 0.25);
+        animation: waveMove 4s linear infinite reverse;
+      }
+      .wave-path-front {
+        fill: rgba(26, 122, 109, 0.5);
+        animation: waveMove 3s linear infinite;
+      }
+
+      /* Splash particles */
+      .splash {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: splashAnim 0.7s ease-out forwards;
+      }
+
+      /* Tone buttons area */
+      .tone-area {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 16px 12px 40px;
+        background: linear-gradient(
+          0deg,
+          rgba(10, 22, 40, 0.95) 0%,
+          rgba(10, 22, 40, 0.7) 70%,
+          transparent 100%
+        );
+        z-index: 10;
+      }
+      .tone-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 8px;
+      }
+      .tone-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.06);
+        border: 2px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 10px 4px 8px;
+        cursor: pointer;
+        transition: all 0.15s;
+        -webkit-tap-highlight-color: transparent;
+        min-height: 88px;
+      }
+      .tone-btn:active {
+        transform: scale(0.93);
+      }
+      .tone-btn svg {
+        width: 50px;
+        height: 28px;
+        margin-bottom: 4px;
+      }
+      .tone-btn .tone-label {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 500;
+      }
+      .tone-btn .tone-num {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 2px;
+      }
+      .tone-btn.correct {
+        background: rgba(46, 213, 115, 0.3);
+        border-color: #2ed573;
+        animation: correctPulse 0.4s;
+      }
+      .tone-btn.correct .tone-label,
+      .tone-btn.correct .tone-num {
+        color: #2ed573;
+      }
+      .tone-btn.correct svg path {
+        stroke: #2ed573;
+      }
+      .tone-btn.wrong {
+        background: rgba(255, 71, 87, 0.3);
+        border-color: #ff4757;
+        animation: shake 0.4s;
+      }
+      .tone-btn.wrong .tone-label,
+      .tone-btn.wrong .tone-num {
+        color: #ff4757;
+      }
+      .tone-btn.wrong svg path {
+        stroke: #ff4757;
+      }
+
+      /* Screens */
+      .screen {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        background: rgba(10, 22, 40, 0.97);
+      }
+      .screen.hidden {
+        display: none;
+      }
+
+      /* Start screen */
+      .title {
+        font-size: 42px;
+        font-weight: 900;
+        background: linear-gradient(135deg, #00d2ff, #3a7bd5, #7afcff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 4px;
+      }
+      .title-icon {
+        font-size: 56px;
+        margin-bottom: 12px;
+      }
+      .subtitle {
+        font-size: 16px;
+        color: #888;
+        margin-bottom: 32px;
+      }
+      .start-btn {
+        background: linear-gradient(135deg, #00b4d8, #0077b6);
+        border: none;
+        border-radius: 16px;
+        padding: 16px 48px;
+        font-size: 20px;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        box-shadow: 0 4px 15px rgba(0, 180, 216, 0.4);
+      }
+      .start-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 180, 216, 0.6);
+      }
+      .stage-select {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+      .stage-tag {
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: #aaa;
+        transition: all 0.2s;
+      }
+      .stage-tag.active {
+        border-color: #00d2ff;
+        color: #00d2ff;
+        background: rgba(0, 210, 255, 0.1);
+      }
+
+      /* Tone guide on start screen */
+      .tone-guide {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 80%;
+        margin-bottom: 28px;
+      }
+      .tone-guide-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .tone-guide-item svg {
+        width: 36px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+      .tone-guide-item span {
+        font-size: 13px;
+        color: #aaa;
+      }
+
+      /* Pre-round */
+      .pre-round {
+        text-align: center;
+      }
+      .pre-title {
+        font-size: 14px;
+        color: #7afcff;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      .pre-word {
+        margin-bottom: 16px;
+        animation: fadeInUp 0.5s ease-out;
+      }
+      .pre-word .hz {
+        font-size: 64px;
+        font-weight: 900;
+      }
+      .pre-word .py {
+        font-size: 22px;
+        color: #7afcff;
+        margin-top: 4px;
+      }
+      .pre-word .tone-mark {
+        display: inline-block;
+        margin-left: 8px;
+        padding: 2px 8px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .pre-word .tone-mark.t1 {
+        background: rgba(0, 210, 255, 0.2);
+        color: #00d2ff;
+      }
+      .pre-word .tone-mark.t2 {
+        background: rgba(46, 213, 115, 0.2);
+        color: #2ed573;
+      }
+      .pre-word .tone-mark.t3 {
+        background: rgba(255, 165, 0, 0.2);
+        color: #ffa500;
+      }
+      .pre-word .tone-mark.t4 {
+        background: rgba(255, 71, 87, 0.2);
+        color: #ff4757;
+      }
+      .pre-word .mn {
+        font-size: 16px;
+        color: #ccc;
+        margin-top: 8px;
+      }
+      .pre-counter {
+        font-size: 14px;
+        color: #888;
+        margin-top: 24px;
+      }
+
+      /* Result screen */
+      .result-score {
+        font-size: 64px;
+        font-weight: 900;
+        color: #ffd700;
+      }
+      .result-label {
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .result-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        margin: 20px 0 30px;
+        width: 80%;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat-val {
+        font-size: 28px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .stat-lbl {
+        font-size: 11px;
+        color: #888;
+        margin-top: 4px;
+      }
+      .missed-words {
+        width: 80%;
+        margin-bottom: 24px;
+        max-height: 180px;
+        overflow-y: auto;
+      }
+      .missed-title {
+        font-size: 13px;
+        color: #ff6b6b;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .missed-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 15px;
+      }
+      .missed-item .hz {
+        color: #fff;
+        font-weight: 600;
+      }
+      .missed-item .tone-info {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .missed-item .tone-badge {
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 6px;
+        background: rgba(0, 210, 255, 0.15);
+        color: #7afcff;
+      }
+
+      /* Effects */
+      .combo-popup {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 36px;
+        font-weight: 900;
+        color: #ffd700;
+        pointer-events: none;
+        animation: comboAnim 0.8s ease-out forwards;
+        z-index: 50;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      }
+      .score-fly {
+        position: absolute;
+        font-size: 20px;
+        font-weight: 700;
+        color: #2ed573;
+        pointer-events: none;
+        animation: scoreFly 0.8s ease-out forwards;
+        z-index: 50;
+      }
+
+      /* Correct tone indicator (shown on wrong answer) */
+      .correct-tone-show {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.85);
+        border: 2px solid #00d2ff;
+        border-radius: 16px;
+        padding: 16px 28px;
+        z-index: 60;
+        text-align: center;
+        animation: fadeInUp 0.3s ease-out;
+      }
+      .correct-tone-show .label {
+        font-size: 13px;
+        color: #7afcff;
+        margin-bottom: 6px;
+      }
+      .correct-tone-show .content {
+        font-size: 24px;
+        font-weight: 700;
+        color: #fff;
+      }
+
+      @keyframes correctPulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-8px);
+        }
+        75% {
+          transform: translateX(8px);
+        }
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes comboAnim {
+        0% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(0.5);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.2);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -80%) scale(1);
+        }
+      }
+      @keyframes scoreFly {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-60px);
+        }
+      }
+      @keyframes waveMove {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      @keyframes wipeout {
+        0% {
+          transform: rotate(0deg) translateY(0);
+          opacity: 1;
+        }
+        40% {
+          transform: rotate(45deg) translateY(-20px);
+        }
+        100% {
+          transform: rotate(180deg) translateY(80px);
+          opacity: 0;
+        }
+      }
+      @keyframes rideUp {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        30% {
+          transform: translateY(-18px) rotate(-8deg);
+        }
+        60% {
+          transform: translateY(-10px) rotate(-4deg);
+        }
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+      }
+      @keyframes charCorrect {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.15);
+          color: #2ed573;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      @keyframes charWrong {
+        0% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-12px);
+        }
+        40% {
+          transform: translateX(12px);
+        }
+        60% {
+          transform: translateX(-8px);
+        }
+        80% {
+          transform: translateX(8px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+      @keyframes splashAnim {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--sx), var(--sy)) scale(0.3);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game">
+      <!-- HUD -->
+      <div class="hud">
+        <div>
+          <div class="hud-level" id="hudLevel">HSK 1</div>
+          <div class="hud-score" id="hudScore">0</div>
+        </div>
+        <div class="hud-combo" id="hudCombo"></div>
+        <div class="hud-timer" id="hudTimer">30</div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <!-- Character display -->
+      <div class="char-area" id="charArea">
+        <div class="char-hanzi" id="charHanzi"></div>
+        <div class="char-pinyin" id="charPinyin"></div>
+        <div class="char-meaning" id="charMeaning"></div>
+      </div>
+
+      <!-- Wave area with surfer -->
+      <div class="wave-area" id="waveArea">
+        <div class="surfer" id="surfer">&#127940;</div>
+        <svg class="wave-svg" viewBox="0 0 1440 180" preserveAspectRatio="none">
+          <path
+            class="wave-path-back"
+            d="M0,80 C120,40 240,120 360,80 C480,40 600,120 720,80 C840,40 960,120 1080,80 C1200,40 1320,120 1440,80 L1440,180 L0,180 Z"
+          />
+          <path
+            class="wave-path-mid"
+            d="M0,100 C100,60 200,130 360,90 C520,50 600,140 720,100 C840,60 960,130 1080,90 C1200,50 1320,130 1440,100 L1440,180 L0,180 Z"
+          />
+          <path
+            class="wave-path-front"
+            d="M0,120 C80,90 180,140 360,110 C540,80 600,150 720,120 C840,90 960,140 1080,110 C1200,80 1320,140 1440,120 L1440,180 L0,180 Z"
+          />
+        </svg>
+      </div>
+
+      <!-- Tone buttons -->
+      <div class="tone-area">
+        <div class="tone-grid" id="toneGrid"></div>
+      </div>
+
+      <!-- Start Screen -->
+      <div class="screen" id="startScreen">
+        <div class="title-icon">&#127940;</div>
+        <div class="title">Tone Surf</div>
+        <div class="subtitle">HSK 성조를 파도로 마스터</div>
+
+        <div class="tone-guide">
+          <div class="tone-guide-item">
+            <svg viewBox="0 0 50 24">
+              <path
+                d="M5,12 L45,12"
+                stroke="#00d2ff"
+                stroke-width="3"
+                fill="none"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>1성 &#8213; 높고 평탄</span>
+          </div>
+          <div class="tone-guide-item">
+            <svg viewBox="0 0 50 24">
+              <path
+                d="M5,18 L45,6"
+                stroke="#2ed573"
+                stroke-width="3"
+                fill="none"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>2성 &#769; 올라감</span>
+          </div>
+          <div class="tone-guide-item">
+            <svg viewBox="0 0 50 24">
+              <path
+                d="M5,8 Q25,22 45,8"
+                stroke="#ffa500"
+                stroke-width="3"
+                fill="none"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>3성 &#780; 내려갔다 올라감</span>
+          </div>
+          <div class="tone-guide-item">
+            <svg viewBox="0 0 50 24">
+              <path
+                d="M5,6 L45,18"
+                stroke="#ff4757"
+                stroke-width="3"
+                fill="none"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>4성 &#768; 내려감</span>
+          </div>
+        </div>
+
+        <div class="stage-select" id="stageSelect">
+          <div class="stage-tag active" data-stage="1">Stage 1</div>
+          <div class="stage-tag" data-stage="2">Stage 2</div>
+          <div class="stage-tag" data-stage="3">Stage 3</div>
+        </div>
+        <button class="start-btn" id="startBtn">START</button>
+      </div>
+
+      <!-- Pre-round -->
+      <div class="screen hidden" id="preScreen">
+        <div class="pre-round">
+          <div class="pre-title">PREVIEW WORDS</div>
+          <div class="pre-word" id="preWord">
+            <div class="hz"></div>
+            <div class="py"></div>
+            <div class="mn"></div>
+          </div>
+          <div class="pre-counter" id="preCounter"></div>
+        </div>
+      </div>
+
+      <!-- Result Screen -->
+      <div class="screen hidden" id="resultScreen">
+        <div class="result-label">SCORE</div>
+        <div class="result-score" id="resultScore">0</div>
+        <div class="result-stats">
+          <div class="stat">
+            <div class="stat-val" id="statCorrect" style="color: #2ed573">
+              0
+            </div>
+            <div class="stat-lbl">Correct</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" id="statWrong" style="color: #ff4757">0</div>
+            <div class="stat-lbl">Wrong</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" id="statCombo" style="color: #ffd700">0</div>
+            <div class="stat-lbl">Max Combo</div>
+          </div>
+        </div>
+        <div class="missed-words" id="missedWords"></div>
+        <button class="start-btn" id="retryBtn">RETRY</button>
+      </div>
+    </div>
+
+    <script>
+      // ─── SoundFX Module (Web Audio API) ───
+      const SFX = (() => {
+        let ctx = null;
+        function ensure() {
+          if (!ctx)
+            ctx = new (window.AudioContext || window.webkitAudioContext)();
+          if (ctx.state === "suspended") ctx.resume();
+          return ctx;
+        }
+
+        function tone(freq, start, dur, type, vol, endFreq) {
+          const c = ensure();
+          const o = c.createOscillator();
+          const g = c.createGain();
+          o.type = type || "sine";
+          o.frequency.setValueAtTime(freq, start);
+          if (endFreq !== undefined)
+            o.frequency.linearRampToValueAtTime(endFreq, start + dur);
+          g.gain.setValueAtTime(vol, start);
+          g.gain.linearRampToValueAtTime(0, start + dur);
+          o.connect(g).connect(c.destination);
+          o.start(start);
+          o.stop(start + dur);
+        }
+
+        return {
+          // 1. Correct: ascending C5→E5
+          correct() {
+            const c = ensure(),
+              t = c.currentTime;
+            tone(523.25, t, 0.1, "sine", 0.3);
+            tone(659.25, t + 0.1, 0.1, "sine", 0.3);
+          },
+          // 2. Wrong / wipeout: low burst + descending sweep
+          wrong() {
+            const c = ensure(),
+              t = c.currentTime;
+            tone(150, t, 0.2, "square", 0.2);
+            tone(400, t + 0.05, 0.15, "sine", 0.2, 100);
+          },
+          // 3. Combo (3+): triple ding E5→G5→C6
+          combo() {
+            const c = ensure(),
+              t = c.currentTime;
+            tone(659.25, t, 0.08, "sine", 0.3);
+            tone(783.99, t + 0.08, 0.08, "sine", 0.3);
+            tone(1046.5, t + 0.16, 0.08, "sine", 0.3);
+          },
+          // 4. Stage clear: arpeggio C5→E5→G5→C6
+          stageClear() {
+            const c = ensure(),
+              t = c.currentTime;
+            tone(523.25, t, 0.15, "sine", 0.3);
+            tone(659.25, t + 0.15, 0.15, "sine", 0.3);
+            tone(783.99, t + 0.3, 0.15, "sine", 0.3);
+            tone(1046.5, t + 0.45, 0.15, "sine", 0.3);
+          },
+          // 5. Game over: descending E4→C4
+          gameOver() {
+            const c = ensure(),
+              t = c.currentTime;
+            tone(329.63, t, 0.2, "triangle", 0.25);
+            tone(261.63, t + 0.2, 0.2, "triangle", 0.25);
+          },
+          // 6. Tone button tap — audio contour matching the tone
+          toneTap(n) {
+            const c = ensure(),
+              t = c.currentTime;
+            if (n === 1) {
+              // steady high
+              tone(523.25, t, 0.15, "sine", 0.3);
+            } else if (n === 2) {
+              // rising sweep
+              tone(400, t, 0.15, "sine", 0.3, 600);
+            } else if (n === 3) {
+              // dip then rise
+              tone(500, t, 0.1, "sine", 0.3, 350);
+              tone(350, t + 0.1, 0.1, "sine", 0.3, 550);
+            } else if (n === 4) {
+              // falling sweep
+              tone(600, t, 0.15, "sine", 0.3, 350);
+            }
+          },
+        };
+      })();
+
+      // HSK 1 sample data: 30 words with tones, Korean + English meanings
+      const HSK_DATA = [
+        // Stage 1 (10 words)
+        {
+          hanzi: "\u5988",
+          pinyin: "m\u0101",
+          tone: 1,
+          ko: "\uc5c4\ub9c8",
+          en: "mother",
+        },
+        {
+          hanzi: "\u9ebb",
+          pinyin: "m\u00e1",
+          tone: 2,
+          ko: "\uc0bc\ubca0",
+          en: "hemp, numb",
+        },
+        {
+          hanzi: "\u9a6c",
+          pinyin: "m\u01ce",
+          tone: 3,
+          ko: "\ub9d0",
+          en: "horse",
+        },
+        {
+          hanzi: "\u9a82",
+          pinyin: "m\u00e0",
+          tone: 4,
+          ko: "\uc695\ud558\ub2e4",
+          en: "to scold",
+        },
+        {
+          hanzi: "\u4f60",
+          pinyin: "n\u01d0",
+          tone: 3,
+          ko: "\ub108, \ub2f9\uc2e0",
+          en: "you",
+        },
+        {
+          hanzi: "\u597d",
+          pinyin: "h\u01ceo",
+          tone: 3,
+          ko: "\uc88b\ub2e4",
+          en: "good",
+        },
+        {
+          hanzi: "\u662f",
+          pinyin: "sh\u00ec",
+          tone: 4,
+          ko: "~\uc774\ub2e4",
+          en: "to be",
+        },
+        {
+          hanzi: "\u5728",
+          pinyin: "z\u00e0i",
+          tone: 4,
+          ko: "~\uc5d0 \uc788\ub2e4",
+          en: "at, in",
+        },
+        {
+          hanzi: "\u5403",
+          pinyin: "ch\u012b",
+          tone: 1,
+          ko: "\uba39\ub2e4",
+          en: "to eat",
+        },
+        {
+          hanzi: "\u8336",
+          pinyin: "ch\u00e1",
+          tone: 2,
+          ko: "\ucc28",
+          en: "tea",
+        },
+        // Stage 2 (10 words)
+        {
+          hanzi: "\u6c34",
+          pinyin: "shu\u01d0",
+          tone: 3,
+          ko: "\ubb3c",
+          en: "water",
+        },
+        {
+          hanzi: "\u5927",
+          pinyin: "d\u00e0",
+          tone: 4,
+          ko: "\ud06c\ub2e4",
+          en: "big",
+        },
+        { hanzi: "\u4ed6", pinyin: "t\u0101", tone: 1, ko: "\uadf8", en: "he" },
+        {
+          hanzi: "\u6765",
+          pinyin: "l\u00e1i",
+          tone: 2,
+          ko: "\uc624\ub2e4",
+          en: "to come",
+        },
+        {
+          hanzi: "\u6211",
+          pinyin: "w\u01d2",
+          tone: 3,
+          ko: "\ub098",
+          en: "I, me",
+        },
+        {
+          hanzi: "\u770b",
+          pinyin: "k\u00e0n",
+          tone: 4,
+          ko: "\ubcf4\ub2e4",
+          en: "to look",
+        },
+        {
+          hanzi: "\u4e66",
+          pinyin: "sh\u016b",
+          tone: 1,
+          ko: "\ucc45",
+          en: "book",
+        },
+        {
+          hanzi: "\u5b66",
+          pinyin: "xu\u00e9",
+          tone: 2,
+          ko: "\ubc30\uc6b0\ub2e4",
+          en: "to study",
+        },
+        {
+          hanzi: "\u4e70",
+          pinyin: "m\u01cei",
+          tone: 3,
+          ko: "\uc0ac\ub2e4",
+          en: "to buy",
+        },
+        {
+          hanzi: "\u53bb",
+          pinyin: "q\u00f9",
+          tone: 4,
+          ko: "\uac00\ub2e4",
+          en: "to go",
+        },
+        // Stage 3 (10 words)
+        {
+          hanzi: "\u542c",
+          pinyin: "t\u012bng",
+          tone: 1,
+          ko: "\ub4e3\ub2e4",
+          en: "to listen",
+        },
+        {
+          hanzi: "\u4eba",
+          pinyin: "r\u00e9n",
+          tone: 2,
+          ko: "\uc0ac\ub78c",
+          en: "person",
+        },
+        {
+          hanzi: "\u706b",
+          pinyin: "hu\u01d2",
+          tone: 3,
+          ko: "\ubd88",
+          en: "fire",
+        },
+        {
+          hanzi: "\u6708",
+          pinyin: "yu\u00e8",
+          tone: 4,
+          ko: "\ub2ec",
+          en: "moon, month",
+        },
+        {
+          hanzi: "\u5929",
+          pinyin: "ti\u0101n",
+          tone: 1,
+          ko: "\ud558\ub298",
+          en: "sky, day",
+        },
+        {
+          hanzi: "\u6ca1",
+          pinyin: "m\u00e9i",
+          tone: 2,
+          ko: "\uc5c6\ub2e4",
+          en: "not have",
+        },
+        {
+          hanzi: "\u8d70",
+          pinyin: "z\u01d2u",
+          tone: 3,
+          ko: "\uac77\ub2e4",
+          en: "to walk",
+        },
+        {
+          hanzi: "\u5bf9",
+          pinyin: "du\u00ec",
+          tone: 4,
+          ko: "\ub9de\ub2e4",
+          en: "correct",
+        },
+        {
+          hanzi: "\u4e2d",
+          pinyin: "zh\u014dng",
+          tone: 1,
+          ko: "\uc911\uac04",
+          en: "middle",
+        },
+        {
+          hanzi: "\u8fd8",
+          pinyin: "h\u00e1i",
+          tone: 2,
+          ko: "\uc544\uc9c1",
+          en: "still, yet",
+        },
+      ];
+
+      const TONE_NAMES = [
+        "",
+        "\u4e00\u58f0",
+        "\u4e8c\u58f0",
+        "\u4e09\u58f0",
+        "\u56db\u58f0",
+      ];
+      const TONE_COLORS = ["", "#00d2ff", "#2ed573", "#ffa500", "#ff4757"];
+
+      // Tone button SVG paths
+      const TONE_SVGS = {
+        1: '<path d="M8,16 L42,16" stroke="#00d2ff" stroke-width="3.5" fill="none" stroke-linecap="round"/>',
+        2: '<path d="M8,22 L42,8" stroke="#2ed573" stroke-width="3.5" fill="none" stroke-linecap="round"/>',
+        3: '<path d="M8,10 Q25,26 42,10" stroke="#ffa500" stroke-width="3.5" fill="none" stroke-linecap="round"/>',
+        4: '<path d="M8,8 L42,22" stroke="#ff4757" stroke-width="3.5" fill="none" stroke-linecap="round"/>',
+      };
+
+      // Game state
+      let state = {
+        score: 0,
+        combo: 0,
+        maxCombo: 0,
+        correct: 0,
+        wrong: 0,
+        timer: 30,
+        stage: 1,
+        playing: false,
+        currentWord: null,
+        missedWords: [],
+        words: [],
+        reviewQueue: [],
+        timerInterval: null,
+        locked: false,
+        wordIndex: 0,
+      };
+
+      const $ = (id) => document.getElementById(id);
+
+      // Build tone buttons
+      function buildToneButtons() {
+        const grid = $("toneGrid");
+        grid.innerHTML = "";
+        for (let t = 1; t <= 4; t++) {
+          const btn = document.createElement("div");
+          btn.className = "tone-btn";
+          btn.dataset.tone = t;
+          btn.innerHTML = `
+            <svg viewBox="0 0 50 30">${TONE_SVGS[t]}</svg>
+            <div class="tone-label">${TONE_NAMES[t]}</div>
+            <div class="tone-num">${t}\uc131</div>
+          `;
+          btn.addEventListener("click", () => {
+            SFX.toneTap(t);
+            handleToneSelect(t, btn);
+          });
+          grid.appendChild(btn);
+        }
+      }
+      buildToneButtons();
+
+      // Stage select
+      document.querySelectorAll(".stage-tag").forEach((tag) => {
+        tag.addEventListener("click", () => {
+          document
+            .querySelectorAll(".stage-tag")
+            .forEach((t) => t.classList.remove("active"));
+          tag.classList.add("active");
+          state.stage = parseInt(tag.dataset.stage);
+        });
+      });
+
+      // Start / Retry
+      $("startBtn").addEventListener("click", startPreRound);
+      $("retryBtn").addEventListener("click", () => {
+        $("resultScreen").classList.add("hidden");
+        startPreRound();
+      });
+
+      function getStageWords() {
+        const start = (state.stage - 1) * 10;
+        return HSK_DATA.slice(start, start + 10);
+      }
+
+      // Shuffle array in place
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      // Pre-round: preview 5 words
+      function startPreRound() {
+        state.words = getStageWords();
+        $("startScreen").classList.add("hidden");
+        $("preScreen").classList.remove("hidden");
+
+        // Show first 5 words as preview
+        const preview = state.words.slice(0, 5);
+        showPreWord(preview, 0);
+      }
+
+      function showPreWord(words, idx) {
+        if (idx >= words.length) {
+          $("preScreen").classList.add("hidden");
+          startGame();
+          return;
+        }
+        const w = words[idx];
+        const pw = $("preWord");
+        pw.querySelector(".hz").textContent = w.hanzi;
+
+        const toneClass = "t" + w.tone;
+        pw.querySelector(".py").innerHTML =
+          w.pinyin +
+          ' <span class="tone-mark ' +
+          toneClass +
+          '">' +
+          TONE_NAMES[w.tone] +
+          "</span>";
+
+        pw.querySelector(".mn").textContent = w.ko + " / " + w.en;
+        pw.style.animation = "none";
+        pw.offsetHeight;
+        pw.style.animation = "";
+        $("preCounter").textContent = idx + 1 + " / " + words.length;
+        setTimeout(() => showPreWord(words, idx + 1), 2000);
+      }
+
+      function startGame() {
+        state.score = 0;
+        state.combo = 0;
+        state.maxCombo = 0;
+        state.correct = 0;
+        state.wrong = 0;
+        state.timer = 30;
+        state.playing = true;
+        state.locked = false;
+        state.missedWords = [];
+        state.reviewQueue = [];
+        state.currentWord = null;
+        state.wordIndex = 0;
+
+        $("hudScore").textContent = "0";
+        $("hudCombo").textContent = "";
+        $("hudLevel").textContent = "HSK 1 \u00b7 Stage " + state.stage;
+        updateTimer();
+
+        // Position surfer
+        const surfer = $("surfer");
+        surfer.className = "surfer";
+        surfer.style.left = "50%";
+        surfer.style.top = "60px";
+        surfer.style.transform = "translateX(-50%)";
+
+        state.timerInterval = setInterval(() => {
+          state.timer--;
+          updateTimer();
+          if (state.timer <= 0) endGame();
+        }, 1000);
+
+        // Build shuffled word queue
+        state.wordQueue = shuffle([...state.words]);
+        spawnWord();
+      }
+
+      function updateTimer() {
+        $("hudTimer").textContent = state.timer;
+        $("hudTimer").style.color = state.timer <= 10 ? "#ff4757" : "#ff6b6b";
+        $("progressFill").style.width = (state.timer / 30) * 100 + "%";
+      }
+
+      function spawnWord() {
+        if (!state.playing) return;
+        state.locked = false;
+
+        // Pick from review queue (40% chance) or next word
+        let word;
+        if (state.reviewQueue.length > 0 && Math.random() < 0.4) {
+          word = state.reviewQueue.shift();
+        } else {
+          if (state.wordIndex >= state.wordQueue.length) {
+            state.wordQueue = shuffle([...state.words]);
+            state.wordIndex = 0;
+          }
+          word = state.wordQueue[state.wordIndex++];
+        }
+
+        state.currentWord = word;
+
+        // Display character
+        const hanziEl = $("charHanzi");
+        const pinyinEl = $("charPinyin");
+        const meaningEl = $("charMeaning");
+
+        hanziEl.textContent = word.hanzi;
+        hanziEl.className = "char-hanzi";
+        pinyinEl.textContent = word.pinyin;
+        pinyinEl.className = "char-pinyin"; // hidden until answered
+        meaningEl.textContent = word.ko + " / " + word.en;
+
+        // Reset tone buttons
+        document.querySelectorAll(".tone-btn").forEach((b) => {
+          b.className = "tone-btn";
+        });
+
+        // Animate character in
+        hanziEl.style.animation = "none";
+        hanziEl.offsetHeight;
+        hanziEl.style.animation = "fadeInUp 0.3s ease-out";
+      }
+
+      function handleToneSelect(tone, btn) {
+        if (!state.playing || state.locked || !state.currentWord) return;
+        state.locked = true;
+
+        const word = state.currentWord;
+        const isCorrect = tone === word.tone;
+        const surfer = $("surfer");
+
+        if (isCorrect) {
+          btn.classList.add("correct");
+          state.combo++;
+          if (state.combo > state.maxCombo) state.maxCombo = state.combo;
+          state.correct++;
+
+          // Score with combo multiplier
+          const mults = [1, 1, 1.2, 1.5, 2.0, 2.5];
+          const mult = mults[Math.min(state.combo, 5)];
+          const pts = Math.round(10 * mult);
+          state.score += pts;
+
+          $("hudScore").textContent = state.score;
+          $("hudCombo").textContent =
+            state.combo >= 2 ? state.combo + "x COMBO" : "";
+
+          // Animate character
+          $("charHanzi").classList.add("correct-anim");
+
+          // Surfer rides up
+          surfer.className = "surfer ride-up";
+
+          // Spawn splash particles (water)
+          spawnSplash(surfer, TONE_COLORS[tone]);
+
+          // SFX
+          if (state.combo >= 3) {
+            SFX.combo();
+          } else {
+            SFX.correct();
+          }
+
+          // Score fly
+          showScoreFly(btn, "+" + pts);
+          if (state.combo >= 3) showComboPopup(state.combo);
+
+          // Show pinyin briefly
+          $("charPinyin").classList.add("show");
+
+          setTimeout(() => {
+            surfer.className = "surfer";
+            if (state.playing) spawnWord();
+          }, 500);
+        } else {
+          btn.classList.add("wrong");
+          SFX.wrong();
+          state.combo = 0;
+          state.wrong++;
+          $("hudCombo").textContent = "";
+
+          // Highlight correct button
+          document.querySelectorAll(".tone-btn").forEach((b) => {
+            if (parseInt(b.dataset.tone) === word.tone) {
+              b.classList.add("correct");
+            }
+          });
+
+          // Animate character
+          $("charHanzi").classList.add("wrong-anim");
+
+          // Show pinyin
+          $("charPinyin").classList.add("show");
+
+          // Surfer wipeout
+          surfer.className = "surfer wipeout";
+
+          // Splash (red)
+          spawnSplash(surfer, "#ff4757");
+
+          // Show correct tone overlay
+          showCorrectTone(word);
+
+          // Add to review queue
+          state.reviewQueue.push(word);
+          if (!state.missedWords.find((w) => w.hanzi === word.hanzi)) {
+            state.missedWords.push(word);
+          }
+
+          setTimeout(() => {
+            surfer.className = "surfer";
+            surfer.style.left = "50%";
+            surfer.style.top = "60px";
+            surfer.style.transform = "translateX(-50%)";
+            surfer.style.opacity = "1";
+            removeCorrectToneOverlay();
+            if (state.playing) spawnWord();
+          }, 1500);
+        }
+      }
+
+      function showCorrectTone(word) {
+        const overlay = document.createElement("div");
+        overlay.className = "correct-tone-show";
+        overlay.id = "correctToneOverlay";
+        overlay.innerHTML =
+          '<div class="label">Correct Tone</div>' +
+          '<div class="content" style="color:' +
+          TONE_COLORS[word.tone] +
+          '">' +
+          word.pinyin +
+          " = " +
+          TONE_NAMES[word.tone] +
+          " (" +
+          word.tone +
+          "\uc131)</div>";
+        $("game").appendChild(overlay);
+      }
+
+      function removeCorrectToneOverlay() {
+        const el = $("correctToneOverlay");
+        if (el) el.remove();
+      }
+
+      function spawnSplash(surfer, color) {
+        const waveArea = $("waveArea");
+        const rect = surfer.getBoundingClientRect();
+        const areaRect = waveArea.getBoundingClientRect();
+        const cx = rect.left - areaRect.left + rect.width / 2;
+        const cy = rect.top - areaRect.top + rect.height;
+
+        for (let i = 0; i < 10; i++) {
+          const p = document.createElement("div");
+          p.className = "splash";
+          p.style.background = color;
+          p.style.left = cx + "px";
+          p.style.top = cy + "px";
+          const angle = ((Math.PI * 2) / 10) * i - Math.PI / 2;
+          const dist = 20 + Math.random() * 35;
+          p.style.setProperty("--sx", Math.cos(angle) * dist + "px");
+          p.style.setProperty("--sy", Math.sin(angle) * dist + "px");
+          p.style.width = 4 + Math.random() * 6 + "px";
+          p.style.height = p.style.width;
+          waveArea.appendChild(p);
+          setTimeout(() => p.remove(), 700);
+        }
+      }
+
+      function showScoreFly(btn, text) {
+        const el = document.createElement("div");
+        el.className = "score-fly";
+        el.textContent = text;
+        const rect = btn.getBoundingClientRect();
+        const gameRect = $("game").getBoundingClientRect();
+        el.style.left = rect.left - gameRect.left + rect.width / 2 - 15 + "px";
+        el.style.top = rect.top - gameRect.top - 10 + "px";
+        $("game").appendChild(el);
+        setTimeout(() => el.remove(), 800);
+      }
+
+      function showComboPopup(n) {
+        const el = document.createElement("div");
+        el.className = "combo-popup";
+        el.textContent = n + "x COMBO!";
+        $("game").appendChild(el);
+        setTimeout(() => el.remove(), 800);
+      }
+
+      function endGame() {
+        state.playing = false;
+        clearInterval(state.timerInterval);
+        if (state.correct > state.wrong) {
+          SFX.stageClear();
+        } else {
+          SFX.gameOver();
+        }
+
+        $("resultScore").textContent = state.score;
+        $("statCorrect").textContent = state.correct;
+        $("statWrong").textContent = state.wrong;
+        $("statCombo").textContent = state.maxCombo;
+
+        // Missed words
+        const mw = $("missedWords");
+        mw.innerHTML = "";
+        if (state.missedWords.length > 0) {
+          let html = '<div class="missed-title">Review These Tones</div>';
+          state.missedWords.forEach((w) => {
+            html +=
+              '<div class="missed-item">' +
+              '<span class="hz">' +
+              w.hanzi +
+              " (" +
+              w.pinyin +
+              ")</span>" +
+              '<div class="tone-info">' +
+              '<span class="tone-badge" style="background:' +
+              TONE_COLORS[w.tone] +
+              "22;color:" +
+              TONE_COLORS[w.tone] +
+              '">' +
+              TONE_NAMES[w.tone] +
+              "</span>" +
+              '<span style="color:#888;font-size:13px">' +
+              w.ko +
+              "</span>" +
+              "</div></div>";
+          });
+          mw.innerHTML = html;
+        }
+
+        $("resultScreen").classList.remove("hidden");
+      }
+    </script>
+  </body>
+</html>

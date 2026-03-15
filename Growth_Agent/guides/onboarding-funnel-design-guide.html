@@ -1,0 +1,2501 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>온보딩 퍼널 설계 가이드 | HKD852</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      :root {
+        --bg: #0d1117;
+        --bg2: #161b22;
+        --bg3: #21262d;
+        --tx: #f0f6fc;
+        --tx2: #8b949e;
+        --bd: #30363d;
+        --blue: #58a6ff;
+        --green: #3fb950;
+        --yellow: #d29922;
+        --red: #f85149;
+        --purple: #a371f7;
+        --pink: #d96cc0;
+        --orange: #f0883e;
+        --cyan: #39d2c0;
+        --teal: #2ea88a;
+      }
+      body {
+        background: var(--bg);
+        color: var(--tx);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR",
+          sans-serif;
+        line-height: 1.7;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh;
+        background: var(--bg2);
+        border-right: 1px solid var(--bd);
+        overflow-y: auto;
+        padding: 20px 14px;
+        z-index: 100;
+      }
+      .sidebar h2 {
+        font-size: 0.8rem;
+        color: var(--tx2);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 14px;
+      }
+      .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--tx2);
+        text-decoration: none;
+        font-size: 0.82rem;
+        padding: 6px 10px;
+        border-radius: 6px;
+        margin-bottom: 2px;
+        transition: 0.2s;
+      }
+      .sidebar a:hover {
+        color: var(--tx);
+        background: var(--bg3);
+      }
+      .sidebar .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #fff;
+        flex-shrink: 0;
+      }
+      .sidebar .divider {
+        border-top: 1px solid var(--bd);
+        margin: 12px 0;
+      }
+
+      /* Main */
+      .main {
+        margin-left: 260px;
+        max-width: 1000px;
+        padding: 48px 40px 80px;
+      }
+
+      /* Header */
+      .page-header {
+        text-align: center;
+        padding-bottom: 40px;
+        border-bottom: 1px solid var(--bd);
+        margin-bottom: 48px;
+      }
+      .page-header h1 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+        background: linear-gradient(
+          135deg,
+          var(--cyan),
+          var(--blue),
+          var(--purple)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .page-header .subtitle {
+        color: var(--tx2);
+        font-size: 1.05rem;
+        margin-bottom: 6px;
+      }
+      .page-header .meta {
+        color: var(--tx2);
+        font-size: 0.8rem;
+      }
+
+      /* Section */
+      .section {
+        margin-bottom: 56px;
+      }
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--bd);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* Step Card */
+      .step-card {
+        background: var(--bg2);
+        border: 1px solid var(--bd);
+        border-radius: 12px;
+        padding: 28px;
+        margin-bottom: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      .step-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        border-radius: 4px 0 0 4px;
+      }
+      .step-card h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .step-card .step-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        font-size: 0.85rem;
+        font-weight: 800;
+        color: #fff;
+        flex-shrink: 0;
+      }
+      .step-card .step-time {
+        font-size: 0.8rem;
+        color: var(--tx2);
+        margin-bottom: 16px;
+      }
+      .step-card .step-goal {
+        display: inline-block;
+        padding: 3px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        border: 1px solid;
+      }
+
+      /* Sub items */
+      h4 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin: 20px 0 8px;
+        color: var(--tx2);
+      }
+      p {
+        margin-bottom: 10px;
+        font-size: 0.92rem;
+      }
+      ul,
+      ol {
+        margin: 8px 0 16px;
+        padding-left: 20px;
+        font-size: 0.9rem;
+      }
+      li {
+        margin-bottom: 4px;
+      }
+
+      /* Tables */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 14px 0 20px;
+        font-size: 0.87rem;
+      }
+      th {
+        background: var(--bg3);
+        text-align: left;
+        padding: 9px 12px;
+        border: 1px solid var(--bd);
+        font-weight: 600;
+        color: var(--tx2);
+      }
+      td {
+        padding: 9px 12px;
+        border: 1px solid var(--bd);
+        background: var(--bg2);
+      }
+
+      /* Boxes */
+      .box {
+        padding: 14px 18px;
+        border-radius: 8px;
+        margin: 14px 0 20px;
+        font-size: 0.88rem;
+        border-left: 4px solid;
+      }
+      .box-info {
+        background: rgba(88, 166, 255, 0.08);
+        border-color: var(--blue);
+      }
+      .box-warn {
+        background: rgba(210, 153, 34, 0.08);
+        border-color: var(--yellow);
+      }
+      .box-danger {
+        background: rgba(248, 81, 73, 0.08);
+        border-color: var(--red);
+      }
+      .box-tip {
+        background: rgba(63, 185, 80, 0.08);
+        border-color: var(--green);
+      }
+      .box-agent {
+        background: rgba(163, 113, 247, 0.08);
+        border-color: var(--purple);
+      }
+      .box strong {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      /* Metrics bar */
+      .metrics {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 14px 0 20px;
+      }
+      .metric {
+        background: var(--bg3);
+        border: 1px solid var(--bd);
+        border-radius: 8px;
+        padding: 12px 16px;
+        flex: 1;
+        min-width: 140px;
+        text-align: center;
+      }
+      .metric .val {
+        font-size: 1.4rem;
+        font-weight: 800;
+        display: block;
+      }
+      .metric .label {
+        font-size: 0.75rem;
+        color: var(--tx2);
+        margin-top: 2px;
+      }
+
+      /* Dropoff bar */
+      .dropoff-bar {
+        background: var(--bg3);
+        border-radius: 6px;
+        height: 28px;
+        margin: 6px 0 4px;
+        overflow: hidden;
+        position: relative;
+      }
+      .dropoff-fill {
+        height: 100%;
+        border-radius: 6px;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #fff;
+      }
+      .dropoff-label {
+        font-size: 0.78rem;
+        color: var(--tx2);
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2px;
+      }
+
+      /* Details */
+      details {
+        background: var(--bg2);
+        border: 1px solid var(--bd);
+        border-radius: 8px;
+        margin: 14px 0;
+        padding: 0;
+      }
+      details summary {
+        padding: 11px 14px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.88rem;
+        color: var(--tx2);
+        user-select: none;
+      }
+      details summary:hover {
+        color: var(--tx);
+      }
+      details[open] summary {
+        border-bottom: 1px solid var(--bd);
+      }
+      details .detail-content {
+        padding: 14px;
+      }
+
+      /* Checklist */
+      .checklist {
+        list-style: none;
+        padding: 0;
+        margin: 12px 0 20px;
+      }
+      .checklist li {
+        padding: 7px 12px;
+        border: 1px solid var(--bd);
+        border-radius: 6px;
+        margin-bottom: 5px;
+        background: var(--bg2);
+        font-size: 0.87rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .checklist input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--green);
+        flex-shrink: 0;
+      }
+
+      /* Code */
+      code {
+        background: var(--bg3);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.83rem;
+        font-family: "SF Mono", Consolas, monospace;
+      }
+
+      /* SVG wrap */
+      .svg-wrap {
+        background: var(--bg2);
+        border: 1px solid var(--bd);
+        border-radius: 12px;
+        padding: 24px;
+        margin: 20px 0;
+        text-align: center;
+        overflow-x: auto;
+      }
+
+      /* Comparison */
+      .compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 14px 0 20px;
+      }
+      .compare-card {
+        background: var(--bg2);
+        border: 1px solid var(--bd);
+        border-radius: 8px;
+        padding: 16px;
+      }
+      .compare-card h5 {
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .compare-card ul {
+        padding-left: 16px;
+        font-size: 0.85rem;
+      }
+
+      /* Flow connector */
+      .flow-arrow {
+        text-align: center;
+        color: var(--tx2);
+        font-size: 1.2rem;
+        margin: 8px 0;
+        line-height: 1;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .sidebar {
+          display: none;
+        }
+        .main {
+          margin-left: 0;
+          padding: 20px 16px 60px;
+        }
+        .page-header h1 {
+          font-size: 1.5rem;
+        }
+        .compare {
+          grid-template-columns: 1fr;
+        }
+        .metrics {
+          flex-direction: column;
+        }
+      }
+      @media print {
+        .sidebar {
+          display: none;
+        }
+        .main {
+          margin-left: 0;
+          max-width: 100%;
+        }
+        body {
+          background: #fff;
+          color: #000;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <h2>온보딩 퍼널</h2>
+      <a href="#overview"
+        ><span class="num" style="background: var(--tx2)">0</span>개요</a
+      >
+      <a href="#full-flow"
+        ><span class="num" style="background: var(--tx2)">F</span>전체 플로우</a
+      >
+      <div class="divider"></div>
+      <a href="#step-install"
+        ><span class="num" style="background: var(--cyan)">1</span>설치 →
+        실행</a
+      >
+      <a href="#step-splash"
+        ><span class="num" style="background: var(--blue)">2</span>BI/CI
+        스플래시</a
+      >
+      <a href="#step-terms"
+        ><span class="num" style="background: var(--purple)">3</span>약관
+        동의</a
+      >
+      <a href="#step-login"
+        ><span class="num" style="background: var(--pink)">4</span>로그인 /
+        게스트</a
+      >
+      <a href="#step-download"
+        ><span class="num" style="background: var(--orange)">5</span>추가 리소스
+        다운로드</a
+      >
+      <a href="#step-account"
+        ><span class="num" style="background: var(--yellow)">6</span>계정 생성 /
+        프로필</a
+      >
+      <a href="#step-permission"
+        ><span class="num" style="background: var(--teal)">7</span>권한 요청</a
+      >
+      <a href="#step-tutorial"
+        ><span class="num" style="background: var(--green)">8</span>튜토리얼 /
+        FTUE</a
+      >
+      <a href="#step-aha"
+        ><span class="num" style="background: var(--red)">9</span>Aha Moment</a
+      >
+      <div class="divider"></div>
+      <a href="#dropoff-summary">이탈률 종합</a>
+      <a href="#market-diff">시장별 차이</a>
+      <a href="#antipatterns">안티패턴 모음</a>
+      <a href="#master-checklist">종합 체크리스트</a>
+    </nav>
+
+    <!-- MAIN -->
+    <div class="main">
+      <!-- HEADER -->
+      <header class="page-header">
+        <h1>온보딩 퍼널 설계 가이드</h1>
+        <p class="subtitle">
+          설치부터 Aha Moment까지 — 최초 실행 경험(FTUE) 마이크로 퍼널
+        </p>
+        <p class="meta">
+          HKD852 Studio | 2026-02-13 | v1.0 | 관련:
+          <a href="mobile-funnel-strategy-guide.html" style="color: var(--blue)"
+            >모바일서비스 퍼널전략 기초 가이드</a
+          >
+        </p>
+      </header>
+
+      <!-- ==================== OVERVIEW ==================== -->
+      <section class="section" id="overview">
+        <h2 class="section-title">개요</h2>
+
+        <p>
+          <a href="mobile-funnel-strategy-guide.html" style="color: var(--blue)"
+            >AAARRR 퍼널 가이드</a
+          >의 <strong>Activation 단계</strong>를 더 깊이 다루는 문서입니다. 앱
+          설치 후 첫 실행부터 튜토리얼 완료까지의
+          <strong>마이크로 퍼널</strong>을 단계별로 설계합니다.
+        </p>
+
+        <div class="box box-info">
+          <strong>왜 온보딩 퍼널이 중요한가?</strong>
+          - 설치 후 <strong>첫 세션에서 50~70%</strong>의 유저가 이탈합니다<br />
+          - 각 단계마다 5~30%씩 이탈이 발생하며, 이탈은
+          <strong>누적</strong>됩니다<br />
+          - 온보딩 퍼널 최적화 없이 UA 비용을 늘리면 돈을 태우는 것과
+          같습니다<br />
+          - <strong>목표: 설치 유저의 70%+ 를 Aha Moment까지 도달시키기</strong>
+        </div>
+
+        <h3>핵심 원칙</h3>
+        <table>
+          <tr>
+            <th>원칙</th>
+            <th>설명</th>
+          </tr>
+          <tr>
+            <td>마찰 최소화</td>
+            <td>
+              유저에게 가치를 제공하기 전에 요구하지 않는다. 모든 필수가 아닌
+              단계는 뒤로 미룬다.
+            </td>
+          </tr>
+          <tr>
+            <td>가치 먼저</td>
+            <td>약관, 회원가입, 권한보다 핵심 경험을 먼저 보여준다.</td>
+          </tr>
+          <tr>
+            <td>탈출구 제공</td>
+            <td>모든 단계에 스킵/나중에 옵션을 제공한다. 강제하면 이탈한다.</td>
+          </tr>
+          <tr>
+            <td>진행감 표시</td>
+            <td>
+              유저가 어디에 있고 무엇이 남았는지 보여준다. 불확실성은 이탈을
+              부른다.
+            </td>
+          </tr>
+          <tr>
+            <td>즉각 피드백</td>
+            <td>모든 유저 행동에 시각적/청각적 즉시 반응을 제공한다.</td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- ==================== FULL FLOW ==================== -->
+      <section class="section" id="full-flow">
+        <h2 class="section-title">전체 플로우</h2>
+
+        <div class="svg-wrap">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 860 520"
+            width="860"
+            height="520"
+          >
+            <defs>
+              <marker
+                id="arr"
+                markerWidth="8"
+                markerHeight="6"
+                refX="8"
+                refY="3"
+                orient="auto"
+              >
+                <polygon points="0 0,8 3,0 6" fill="#8b949e" />
+              </marker>
+            </defs>
+
+            <!-- Step boxes -->
+            <!-- Row 1 -->
+            <rect
+              x="20"
+              y="20"
+              width="170"
+              height="56"
+              rx="10"
+              fill="var(--cyan)"
+              opacity=".85"
+            />
+            <text
+              x="105"
+              y="43"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="12"
+              font-weight="700"
+            >
+              1. 설치 → 실행
+            </text>
+            <text
+              x="105"
+              y="59"
+              text-anchor="middle"
+              fill="rgba(255,255,255,.7)"
+              font-size="9"
+            >
+              0초
+            </text>
+
+            <path
+              d="M195 48 L220 48"
+              stroke="#8b949e"
+              stroke-width="2"
+              marker-end="url(#arr)"
+            />
+
+            <rect
+              x="225"
+              y="20"
+              width="170"
+              height="56"
+              rx="10"
+              fill="var(--blue)"
+              opacity=".85"
+            />
+            <text
+              x="310"
+              y="43"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="12"
+              font-weight="700"
+            >
+              2. BI/CI 스플래시
+            </text>
+            <text
+              x="310"
+              y="59"
+              text-anchor="middle"
+              fill="rgba(255,255,255,.7)"
+              font-size="9"
+            >
+              0~3초
+            </text>
+
+            <path
+              d="M400 48 L425 48"
+              stroke="#8b949e"
+              stroke-width="2"
+              marker-end="url(#arr)"
+            />
+
+            <rect
+              x="430"
+              y="20"
+              width="170"
+              height="56"
+              rx="10"
+              fill="var(--purple)"
+              opacity=".85"
+            />
+            <text
+              x="515"
+              y="43"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="12"
+              font-weight="700"
+            >
+              3. 약관 동의
+            </text>
+            <text
+              x="515"
+              y="59"
+              text-anchor="middle"
+              fill="rgba(255,255,255,.7)"
+              font-size="9"
+            >
+              3~8초
+            </text>
+
+            <path
+              d="M605 48 L630 48"
+              stroke="#8b949e"
+              stroke-width="2"
+              marker-end="url(#arr)"
+            />
+
+            <rect
+              x="635"
+              y="20"
+              width="170"
+              height="56"
+              rx="10"
+              fill="var(--pink)"
+              opacity=".85"
+            />
+            <text
+              x="720"
+              y="43"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="12"
+              font-weight="700"
+            >
+              4. 로그인 / 게스트
+            </text>
+            <text
+              x="720"
+              y="59"
+              text-anchor="middle"
+              fill="rgba(255,255,255,.7)"
+              font-size="9"
+            >
+              8~15초
+            </text>
+
+            <!-- Down arrow from step 4 -->
+            <path
+              d="M720 81 L720 115"
+              stroke="#8b949e"
+              stroke-width="2"
+              marker-end="url(#arr)"
+            />
+
+            <!-- Row 2 (reversed) -->
+            <rect
+              x="635"
+              y="120"
+              width="170"
+              height="56"
+              rx="10"
+              fill="var(--orange)"
+              opacity=".85"
+            />
+            <text
+              x="720"
+              y="143"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="12"
+              font-weight="700"
+            >
+              5. 추가 리소스 DL
+            </text>
+            <text
+              x="720"
+              y="159"
+              text-anchor="middle"
+              fill="rgba(255,255,255,.7)"
+              font-size="9"
+            >
+              15초~2분
+            </text>
+
+            <path
+              d="M630 148 L605 148"
+              stroke="#8b949e"
+              stroke-width="2"
+              marker-end="url(#arr)"
+            />
+
+            <rect
+              x="430"
+              y="120"
+              width="170"
+              height="56"
+              rx="10"
+              fill="var(--yellow)"
+              opacity=".85"
+            />
+            <text
+              x="515"
+              y="143"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="12"
+              font-weight="700"
+            >
+              6. 계정 / 프로필
+            </text>
+            <text
+              x="515"
+              y="159"
+              text-anchor="middle"
+              fill="rgba(255,255,255,.7)"
+              font-size="9"
+            >
+              ~30초
+            </text>
+
+            <path
+              d="M425 148 L400 148"
+              stroke="#8b949e"
+              stroke-width="2"
+              marker-end="url(#arr)"
+            />
+
+            <rect
+              x="225"
+              y="120"
+              width="170"
+              height="56"
+              rx="10"
+              fill="var(--teal)"
+              opacity=".85"
+            />
+            <text
+              x="310"
+              y="143"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="12"
+              font-weight="700"
+            >
+              7. 권한 요청
+            </text>
+            <text
+              x="310"
+              y="159"
+              text-anchor="middle"
+              fill="rgba(255,255,255,.7)"
+              font-size="9"
+            >
+              상황별
+            </text>
+
+            <path
+              d="M220 148 L195 148"
+              stroke="#8b949e"
+              stroke-width="2"
+              marker-end="url(#arr)"
+            />
+
+            <rect
+              x="20"
+              y="120"
+              width="170"
+              height="56"
+              rx="10"
+              fill="var(--green)"
+              opacity=".85"
+            />
+            <text
+              x="105"
+              y="143"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="12"
+              font-weight="700"
+            >
+              8. 튜토리얼 / FTUE
+            </text>
+            <text
+              x="105"
+              y="159"
+              text-anchor="middle"
+              fill="rgba(255,255,255,.7)"
+              font-size="9"
+            >
+              1~5분
+            </text>
+
+            <!-- Down arrow from step 8 -->
+            <path
+              d="M105 181 L105 215"
+              stroke="#8b949e"
+              stroke-width="2"
+              marker-end="url(#arr)"
+            />
+
+            <!-- Final step -->
+            <rect
+              x="20"
+              y="220"
+              width="380"
+              height="64"
+              rx="12"
+              fill="var(--red)"
+              opacity=".9"
+            />
+            <text
+              x="210"
+              y="247"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="14"
+              font-weight="800"
+            >
+              9. Aha Moment!
+            </text>
+            <text
+              x="210"
+              y="267"
+              text-anchor="middle"
+              fill="rgba(255,255,255,.7)"
+              font-size="10"
+            >
+              핵심 가치 체험 완료 — 리텐션 시작
+            </text>
+
+            <!-- Funnel shape (bottom) -->
+            <text
+              x="430"
+              y="240"
+              fill="var(--tx2)"
+              font-size="11"
+              font-weight="600"
+            >
+              설치 유저의 70%+ 가
+            </text>
+            <text
+              x="430"
+              y="258"
+              fill="var(--tx2)"
+              font-size="11"
+              font-weight="600"
+            >
+              여기까지 도달해야 합니다
+            </text>
+
+            <!-- Drop-off visualization -->
+            <text
+              x="430"
+              y="310"
+              fill="var(--tx2)"
+              font-size="10"
+              font-weight="600"
+            >
+              단계별 예상 이탈률 (누적)
+            </text>
+
+            <!-- Funnel bars -->
+            <rect
+              x="430"
+              y="325"
+              width="400"
+              height="18"
+              rx="4"
+              fill="var(--cyan)"
+              opacity=".7"
+            />
+            <text x="435" y="338" fill="#fff" font-size="9" font-weight="600">
+              100% — 설치
+            </text>
+
+            <rect
+              x="430"
+              y="348"
+              width="380"
+              height="18"
+              rx="4"
+              fill="var(--blue)"
+              opacity=".7"
+            />
+            <text x="435" y="361" fill="#fff" font-size="9" font-weight="600">
+              95% — 첫 실행
+            </text>
+
+            <rect
+              x="430"
+              y="371"
+              width="360"
+              height="18"
+              rx="4"
+              fill="var(--purple)"
+              opacity=".7"
+            />
+            <text x="435" y="384" fill="#fff" font-size="9" font-weight="600">
+              90% — 약관 통과
+            </text>
+
+            <rect
+              x="430"
+              y="394"
+              width="330"
+              height="18"
+              rx="4"
+              fill="var(--pink)"
+              opacity=".7"
+            />
+            <text x="435" y="407" fill="#fff" font-size="9" font-weight="600">
+              82% — 로그인 완료
+            </text>
+
+            <rect
+              x="430"
+              y="417"
+              width="310"
+              height="18"
+              rx="4"
+              fill="var(--orange)"
+              opacity=".7"
+            />
+            <text x="435" y="430" fill="#fff" font-size="9" font-weight="600">
+              77% — 다운로드 완료
+            </text>
+
+            <rect
+              x="430"
+              y="440"
+              width="295"
+              height="18"
+              rx="4"
+              fill="var(--green)"
+              opacity=".7"
+            />
+            <text x="435" y="453" fill="#fff" font-size="9" font-weight="600">
+              73% — 튜토리얼 시작
+            </text>
+
+            <rect
+              x="430"
+              y="463"
+              width="280"
+              height="18"
+              rx="4"
+              fill="var(--red)"
+              opacity=".7"
+            />
+            <text x="435" y="476" fill="#fff" font-size="9" font-weight="600">
+              70% — Aha Moment 도달
+            </text>
+
+            <text x="430" y="503" fill="var(--tx2)" font-size="9">
+              * 최적화된 퍼널 기준. 미최적화 시 40~50%까지 하락 가능
+            </text>
+          </svg>
+        </div>
+
+        <div class="box box-warn">
+          <strong>순서는 유연하게</strong>
+          위 플로우는 일반적인 순서이며, 장르/서비스 특성에 따라 순서를 바꿀 수
+          있습니다. 핵심은 <strong>가치 제공 전 마찰을 최소화</strong>하는
+          것입니다. 예를 들어 게스트 플레이를 먼저 제공하고 로그인/계정생성을
+          튜토리얼 후로 미루는 것이 일반적으로 더 좋은 전환율을 보입니다.
+        </div>
+      </section>
+
+      <!-- ==================== STEP 1: INSTALL → LAUNCH ==================== -->
+      <section class="section" id="step-install">
+        <div class="step-card" style="border-color: var(--cyan)">
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 4px;
+              height: 100%;
+              background: var(--cyan);
+              border-radius: 4px 0 0 4px;
+            "
+          ></div>
+          <h3>
+            <span class="step-num" style="background: var(--cyan)">1</span> 설치
+            → 첫 실행
+          </h3>
+          <div class="step-time">
+            소요 시간: 0초 (사용자 터치 1회) &nbsp;|&nbsp; 목표 이탈률: &lt;5%
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <span class="val" style="color: var(--cyan)">95%+</span
+              ><span class="label">설치→실행 전환율</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--cyan)">&lt;3초</span
+              ><span class="label">Cold Start 시간</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--cyan)">&lt;100MB</span
+              ><span class="label">초기 앱 용량</span>
+            </div>
+          </div>
+
+          <h4>설계 포인트</h4>
+          <table>
+            <tr>
+              <th>항목</th>
+              <th>권장</th>
+              <th>주의</th>
+            </tr>
+            <tr>
+              <td>앱 용량</td>
+              <td>iOS: 200MB 이하, Android: 150MB 이하 (초기)</td>
+              <td>200MB 초과 시 Wi-Fi 필수 → 즉시 설치 불가</td>
+            </tr>
+            <tr>
+              <td>Cold Start</td>
+              <td>3초 이내 첫 화면 표시</td>
+              <td>검은 화면 2초+ → "앱 고장" 인식</td>
+            </tr>
+            <tr>
+              <td>Launch Screen</td>
+              <td>정적 이미지 → 즉시 표시 (iOS LaunchScreen.storyboard)</td>
+              <td>동영상 X, 복잡한 애니메이션 X</td>
+            </tr>
+            <tr>
+              <td>크래시 방지</td>
+              <td>첫 실행 크래시율 0.1% 이하</td>
+              <td>첫 실행 크래시 = 영구 이탈 + 1점 리뷰</td>
+            </tr>
+          </table>
+
+          <h4>앱 용량 최적화 전략</h4>
+          <ul>
+            <li>
+              <strong>Thin APK / App Thinning</strong>: 디바이스별 최적화
+              리소스만 포함
+            </li>
+            <li>
+              <strong>On-Demand Resources</strong> (iOS) /
+              <strong>Asset Delivery</strong> (Android): 필요할 때 다운로드
+            </li>
+            <li>
+              <strong>초기 필수 리소스</strong>만 앱에 포함, 나머지는 Step 5에서
+              다운로드
+            </li>
+            <li>
+              <strong>이미지 포맷</strong>: WebP/AVIF 사용 (PNG 대비 30~50%
+              절감)
+            </li>
+          </ul>
+
+          <div class="box box-danger">
+            <strong>흔한 실수</strong>
+            - 앱 용량 500MB+ → Wi-Fi 전용 다운로드 → 설치 전환율 20~30% 하락<br />
+            - 첫 실행 시 강제 업데이트 팝업 → "방금 설치했는데?" → 이탈<br />
+            - Launch Screen 없이 검은 화면 → 크래시로 오인
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STEP 2: BI/CI SPLASH ==================== -->
+      <section class="section" id="step-splash">
+        <div class="step-card" style="border-color: var(--blue)">
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 4px;
+              height: 100%;
+              background: var(--blue);
+              border-radius: 4px 0 0 4px;
+            "
+          ></div>
+          <h3>
+            <span class="step-num" style="background: var(--blue)">2</span>
+            BI/CI 스플래시 화면
+          </h3>
+          <div class="step-time">
+            소요 시간: 1~3초 &nbsp;|&nbsp; 목표 이탈률: &lt;2%
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <span class="val" style="color: var(--blue)">&lt;3초</span
+              ><span class="label">총 스플래시 시간</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--blue)">1~2장</span
+              ><span class="label">로고 화면 수</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--blue)">98%+</span
+              ><span class="label">통과율</span>
+            </div>
+          </div>
+
+          <h4>설계 포인트</h4>
+          <table>
+            <tr>
+              <th>항목</th>
+              <th>권장</th>
+              <th>주의</th>
+            </tr>
+            <tr>
+              <td>스플래시 수</td>
+              <td>최대 2개 (퍼블리셔 + 개발사)</td>
+              <td>3개 이상 → 이탈 급증</td>
+            </tr>
+            <tr>
+              <td>각 스플래시 시간</td>
+              <td>1~1.5초</td>
+              <td>3초 이상 → 강제 대기감</td>
+            </tr>
+            <tr>
+              <td>스킵 옵션</td>
+              <td>터치 시 스킵 (2회차 이후)</td>
+              <td>첫 실행은 브랜드 노출, 이후는 스킵</td>
+            </tr>
+            <tr>
+              <td>백그라운드 로딩</td>
+              <td>스플래시 중 데이터/에셋 로딩 병행</td>
+              <td>단순 대기 시간으로 쓰지 않기</td>
+            </tr>
+          </table>
+
+          <h4>스플래시 구성 패턴</h4>
+          <div class="compare">
+            <div class="compare-card">
+              <h5 style="color: var(--green)">Good Pattern</h5>
+              <ul>
+                <li>퍼블리셔 로고 1초 → 개발사 로고 1초 (total 2초)</li>
+                <li>스플래시 중 필수 데이터 프리로드</li>
+                <li>2회차부터 자동 스킵</li>
+                <li>로고 페이드인/아웃 간결한 트랜지션</li>
+              </ul>
+            </div>
+            <div class="compare-card">
+              <h5 style="color: var(--red)">Bad Pattern</h5>
+              <ul>
+                <li>엔진 로고 + 미들웨어 + 퍼블리셔 + 개발사 (4개, 8초)</li>
+                <li>로딩은 별도 화면에서 다시 대기</li>
+                <li>매번 스킵 불가</li>
+                <li>과도한 애니메이션으로 3~5초 소요</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="box box-tip">
+            <strong>팁: 스플래시를 로딩 시간으로 활용하세요</strong>
+            스플래시 표시 동안 뒤에서 네트워크 연결, 설정 파일 로드, 필수 에셋
+            프리로드를 수행하면 유저가 느끼는 대기 시간이 줄어듭니다.
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STEP 3: TERMS ==================== -->
+      <section class="section" id="step-terms">
+        <div class="step-card" style="border-color: var(--purple)">
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 4px;
+              height: 100%;
+              background: var(--purple);
+              border-radius: 4px 0 0 4px;
+            "
+          ></div>
+          <h3>
+            <span class="step-num" style="background: var(--purple)">3</span>
+            약관 동의
+          </h3>
+          <div class="step-time">
+            소요 시간: 3~10초 &nbsp;|&nbsp; 목표 이탈률: &lt;5%
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <span class="val" style="color: var(--purple)">90%+</span
+              ><span class="label">동의 완료율</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--purple)">&lt;1화면</span
+              ><span class="label">UI 크기</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--purple)">2~3개</span
+              ><span class="label">동의 항목 수</span>
+            </div>
+          </div>
+
+          <h4>필수 약관 항목</h4>
+          <table>
+            <tr>
+              <th>항목</th>
+              <th>필수/선택</th>
+              <th>법적 근거</th>
+            </tr>
+            <tr>
+              <td>이용약관 (Terms of Service)</td>
+              <td>필수</td>
+              <td>전자상거래법, 정보통신망법</td>
+            </tr>
+            <tr>
+              <td>개인정보 처리방침 (Privacy Policy)</td>
+              <td>필수</td>
+              <td>개인정보보호법, GDPR, CCPA</td>
+            </tr>
+            <tr>
+              <td>마케팅 수신 동의</td>
+              <td>선택</td>
+              <td>정보통신망법 (사전 동의 필요)</td>
+            </tr>
+            <tr>
+              <td>제3자 정보 제공 동의</td>
+              <td>선택 (해당 시)</td>
+              <td>개인정보보호법</td>
+            </tr>
+            <tr>
+              <td>만 14세 이상 확인</td>
+              <td>필수 (한국)</td>
+              <td>개인정보보호법</td>
+            </tr>
+          </table>
+
+          <h4>설계 원칙</h4>
+          <ul>
+            <li>
+              <strong>전체 동의 버튼</strong>: 최상단에 크게 배치 → 1탭으로 완료
+            </li>
+            <li>
+              <strong>개별 동의</strong>: 필수/선택 명확히 구분 (색상, 태그)
+            </li>
+            <li>
+              <strong>약관 전문</strong>: 링크로 제공 (팝업 or 새 화면), 동의
+              흐름을 끊지 않음
+            </li>
+            <li>
+              <strong>최소 스크롤</strong>: 1화면에 모든 항목 + 동의 버튼 표시
+            </li>
+            <li>
+              <strong>선택 항목 미체크 기본</strong>: GDPR 요구사항 (사전 체크
+              금지)
+            </li>
+          </ul>
+
+          <h4>지역별 법적 요구사항</h4>
+          <details>
+            <summary>한국 / 글로벌 / 중국 차이</summary>
+            <div class="detail-content">
+              <table>
+                <tr>
+                  <th>항목</th>
+                  <th>한국</th>
+                  <th>글로벌 (GDPR/CCPA)</th>
+                  <th>중국</th>
+                </tr>
+                <tr>
+                  <td>만 나이 제한</td>
+                  <td>만 14세 미만 법정대리인 동의</td>
+                  <td>만 16세 (GDPR) / 만 13세 (COPPA)</td>
+                  <td>만 14세 실명 인증</td>
+                </tr>
+                <tr>
+                  <td>마케팅 동의</td>
+                  <td>별도 선택 동의</td>
+                  <td>명시적 동의 (Opt-in)</td>
+                  <td>별도 동의</td>
+                </tr>
+                <tr>
+                  <td>데이터 삭제권</td>
+                  <td>있음</td>
+                  <td>있음 (Right to be Forgotten)</td>
+                  <td>있음</td>
+                </tr>
+                <tr>
+                  <td>실명 인증</td>
+                  <td>해당 시</td>
+                  <td>불필요</td>
+                  <td>필수 (게임 시간 제한 연동)</td>
+                </tr>
+              </table>
+            </div>
+          </details>
+
+          <div class="box box-danger">
+            <strong>흔한 실수</strong>
+            - 약관 전문을 스크롤 강제 → 불필요한 마찰<br />
+            - 선택 동의를 사전 체크 → GDPR 위반 가능<br />
+            - 동의 버튼이 화면 밖 → 스크롤 필요 → 이탈<br />
+            - 약관 거부 시 앱 종료만 제공 → 설명 없이 차단감
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STEP 4: LOGIN ==================== -->
+      <section class="section" id="step-login">
+        <div class="step-card" style="border-color: var(--pink)">
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 4px;
+              height: 100%;
+              background: var(--pink);
+              border-radius: 4px 0 0 4px;
+            "
+          ></div>
+          <h3>
+            <span class="step-num" style="background: var(--pink)">4</span>
+            로그인 / 게스트 플레이
+          </h3>
+          <div class="step-time">
+            소요 시간: 5~15초 &nbsp;|&nbsp; 목표 이탈률: &lt;8%
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <span class="val" style="color: var(--pink)">82%+</span
+              ><span class="label">로그인 완료율</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--pink)">1탭</span
+              ><span class="label">소셜 로그인</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--pink)">필수</span
+              ><span class="label">게스트 옵션</span>
+            </div>
+          </div>
+
+          <h4>로그인 방식 우선순위</h4>
+          <table>
+            <tr>
+              <th>순위</th>
+              <th>방식</th>
+              <th>전환율</th>
+              <th>적합 상황</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td><strong>게스트 플레이 (권장)</strong></td>
+              <td>95%+</td>
+              <td>게임, 체험 우선 서비스</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Apple Sign In / Google One Tap</td>
+              <td>80~90%</td>
+              <td>데이터 연동 필요 서비스</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>소셜 로그인 (카카오, Facebook 등)</td>
+              <td>70~85%</td>
+              <td>소셜 기능 중심 서비스</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>이메일/비밀번호</td>
+              <td>50~65%</td>
+              <td>B2B, 보안 중시 서비스</td>
+            </tr>
+          </table>
+
+          <h4>설계 원칙</h4>
+          <div class="box box-tip">
+            <strong>Best Practice: 게스트 → 나중에 연동</strong>
+            1. 첫 실행 시 <strong>게스트로 즉시 시작</strong> (백그라운드에서
+            익명 계정 자동 생성)<br />
+            2. 튜토리얼 완료 후
+            <strong>"진행 상황을 저장하시겠습니까?"</strong>로 계정 연동 유도<br />
+            3. 이 패턴으로 첫 실행 이탈률 <strong>10~20%p 개선</strong> 가능
+          </div>
+
+          <h4>로그인 화면 UI 가이드</h4>
+          <ul>
+            <li>
+              <strong>게스트 버튼</strong>: 가장 눈에 띄게 (크기, 색상) — 또는
+              "바로 시작" 문구
+            </li>
+            <li>
+              <strong>소셜 로그인</strong>: 플랫폼별 공식 버튼 가이드라인 준수
+            </li>
+            <li>
+              <strong>Apple Sign In</strong>: iOS에서 소셜 로그인 제공 시
+              Apple도 필수 (App Store 정책)
+            </li>
+            <li>
+              <strong>"나중에 로그인" 링크</strong>: 게스트 버튼이 없을 경우
+              반드시 제공
+            </li>
+            <li>
+              <strong>비밀번호 입력</strong>: 최소 화면 전환, 자동 완성 지원
+            </li>
+          </ul>
+
+          <h4>지역별 로그인 필수 옵션</h4>
+          <table>
+            <tr>
+              <th>지역</th>
+              <th>필수 제공</th>
+              <th>비고</th>
+            </tr>
+            <tr>
+              <td>한국</td>
+              <td>카카오, Apple, Google, 게스트</td>
+              <td>카카오 점유율 90%+</td>
+            </tr>
+            <tr>
+              <td>일본</td>
+              <td>Apple, Google, LINE, X(Twitter)</td>
+              <td>LINE 필수급</td>
+            </tr>
+            <tr>
+              <td>북미/유럽</td>
+              <td>Apple, Google, Facebook, 게스트</td>
+              <td>Apple 필수 (iOS 정책)</td>
+            </tr>
+            <tr>
+              <td>중국</td>
+              <td>WeChat, QQ, 휴대폰 번호</td>
+              <td>실명 인증 연동 필수</td>
+            </tr>
+          </table>
+
+          <div class="box box-danger">
+            <strong>흔한 실수</strong>
+            - 게스트 옵션 없이 회원가입 강제 → 30~50% 이탈<br />
+            - 이메일/비밀번호만 제공 → 소셜 대비 전환율 30% 하락<br />
+            - iOS에서 Apple Sign In 미제공 → App Store 리젝 사유<br />
+            - 로그인 실패 시 에러 메시지 불명확 → 재시도 포기
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STEP 5: DOWNLOAD ==================== -->
+      <section class="section" id="step-download">
+        <div class="step-card" style="border-color: var(--orange)">
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 4px;
+              height: 100%;
+              background: var(--orange);
+              border-radius: 4px 0 0 4px;
+            "
+          ></div>
+          <h3>
+            <span class="step-num" style="background: var(--orange)">5</span>
+            추가 리소스 다운로드
+          </h3>
+          <div class="step-time">
+            소요 시간: 15초~3분 &nbsp;|&nbsp; 목표 이탈률: &lt;5%
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <span class="val" style="color: var(--orange)">95%+</span
+              ><span class="label">다운로드 완료율</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--orange)">&lt;500MB</span
+              ><span class="label">추가 다운로드</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--orange)">필수</span
+              ><span class="label">진행률 표시</span>
+            </div>
+          </div>
+
+          <h4>설계 포인트</h4>
+          <table>
+            <tr>
+              <th>항목</th>
+              <th>권장</th>
+              <th>주의</th>
+            </tr>
+            <tr>
+              <td>다운로드 크기</td>
+              <td>500MB 이하 (Wi-Fi), 100MB 이하 (셀룰러)</td>
+              <td>1GB+ → 완료율 급감</td>
+            </tr>
+            <tr>
+              <td>진행률 표시</td>
+              <td>% + 남은 용량 + 예상 시간</td>
+              <td>"다운로드 중..." 만 표시 → 불안감</td>
+            </tr>
+            <tr>
+              <td>백그라운드 DL</td>
+              <td>앱 전환 시에도 계속 다운로드</td>
+              <td>포그라운드 전용 → 전화 오면 재시작</td>
+            </tr>
+            <tr>
+              <td>일시정지/재개</td>
+              <td>네트워크 끊김 시 자동 재개, 수동 일시정지</td>
+              <td>처음부터 재다운로드 → 이탈</td>
+            </tr>
+            <tr>
+              <td>분할 다운로드</td>
+              <td>필수 리소스 먼저, 나머지 점진적</td>
+              <td>전체 다운로드 완료까지 플레이 불가 → 최악</td>
+            </tr>
+          </table>
+
+          <h4>대기 시간 활용 전략</h4>
+          <div class="box box-tip">
+            <strong>다운로드 대기 시간을 가치 있게 만드세요</strong>
+            - 캐릭터/세계관 소개 (짧은 애니메이션 또는 슬라이드)<br />
+            - 게임 팁/조작법 미리보기<br />
+            - 미니 게임 (로딩 중 플레이 가능한 간단한 인터랙션)<br />
+            - 커뮤니티/SNS 팔로우 유도<br />
+            - 사전 설정 (언어, 그래픽 품질, 조작 방식)
+          </div>
+
+          <h4>분할 다운로드 전략</h4>
+          <table>
+            <tr>
+              <th>단계</th>
+              <th>포함 리소스</th>
+              <th>크기</th>
+              <th>시점</th>
+            </tr>
+            <tr>
+              <td>앱 번들</td>
+              <td>코드 + 핵심 UI + 스플래시</td>
+              <td>50~100MB</td>
+              <td>스토어 설치</td>
+            </tr>
+            <tr>
+              <td>필수 DL</td>
+              <td>튜토리얼 + 챕터1 에셋</td>
+              <td>100~300MB</td>
+              <td>첫 실행 (이 단계)</td>
+            </tr>
+            <tr>
+              <td>점진 DL</td>
+              <td>나머지 챕터, 고해상도 에셋</td>
+              <td>무제한</td>
+              <td>플레이 중 백그라운드</td>
+            </tr>
+          </table>
+
+          <div class="box box-danger">
+            <strong>흔한 실수</strong>
+            - 진행률 없이 "로딩 중" → 무한 로딩으로 오인 → 앱 종료<br />
+            - 셀룰러에서 대용량 다운로드 경고 없이 시작 → 데이터 요금 불만<br />
+            - 다운로드 실패 시 처음부터 재시작 → 즉시 이탈<br />
+            - 다운로드 중 아무 컨텐츠 없이 빈 화면 → 대기 지루함
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STEP 6: ACCOUNT ==================== -->
+      <section class="section" id="step-account">
+        <div class="step-card" style="border-color: var(--yellow)">
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 4px;
+              height: 100%;
+              background: var(--yellow);
+              border-radius: 4px 0 0 4px;
+            "
+          ></div>
+          <h3>
+            <span class="step-num" style="background: var(--yellow)">6</span>
+            계정 생성 / 프로필 설정
+          </h3>
+          <div class="step-time">
+            소요 시간: 10~30초 &nbsp;|&nbsp; 목표 이탈률: &lt;5%
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <span class="val" style="color: var(--yellow)">95%+</span
+              ><span class="label">완료율</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--yellow)">1~2</span
+              ><span class="label">입력 필드 수</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--yellow)">필수</span
+              ><span class="label">랜덤 생성 옵션</span>
+            </div>
+          </div>
+
+          <h4>최소 수집 정보</h4>
+          <table>
+            <tr>
+              <th>항목</th>
+              <th>필수?</th>
+              <th>입력 방식</th>
+              <th>비고</th>
+            </tr>
+            <tr>
+              <td>닉네임</td>
+              <td>필수</td>
+              <td>입력 + 랜덤 생성 버튼</td>
+              <td>중복 검사 실시간, 금칙어 필터</td>
+            </tr>
+            <tr>
+              <td>아바타/프로필</td>
+              <td>선택</td>
+              <td>프리셋 선택 (3~6개)</td>
+              <td>나중에 변경 가능 표시</td>
+            </tr>
+            <tr>
+              <td>서버 선택</td>
+              <td>해당 시</td>
+              <td>자동 추천 + 수동 변경</td>
+              <td>친구 초대 코드로 서버 합류 연동</td>
+            </tr>
+            <tr>
+              <td>생년월일</td>
+              <td>지역별</td>
+              <td>피커 UI</td>
+              <td>연령 확인 필요 지역만</td>
+            </tr>
+          </table>
+
+          <h4>설계 원칙</h4>
+          <ul>
+            <li>
+              <strong>"랜덤 닉네임" 버튼</strong>: 형용사+명사 조합 자동 생성
+              (예: "빠른기사", "용감한마법사")
+            </li>
+            <li>
+              <strong>나중에 변경 가능</strong>: 모든 설정에 "나중에 바꿀 수
+              있어요" 안내
+            </li>
+            <li>
+              <strong>최소 입력</strong>: 닉네임 1개만 필수, 나머지는 기본값
+              자동 적용
+            </li>
+            <li>
+              <strong>키보드 최적화</strong>: 입력 필드 포커스 시 화면 스크롤,
+              완료 버튼 키보드 위에 배치
+            </li>
+          </ul>
+
+          <div class="box box-warn">
+            <strong
+              >주의: 이 단계를 튜토리얼 후로 미루는 것을 고려하세요</strong
+            >
+            게스트 플레이를 먼저 제공하는 경우, 계정/프로필 설정은
+            <strong>튜토리얼 완료 후</strong> 자연스럽게 유도할 수 있습니다.
+            유저가 제품 가치를 먼저 경험한 뒤에 정보를 요청하면 거부감이
+            줄어듭니다.
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STEP 7: PERMISSIONS ==================== -->
+      <section class="section" id="step-permission">
+        <div class="step-card" style="border-color: var(--teal)">
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 4px;
+              height: 100%;
+              background: var(--teal);
+              border-radius: 4px 0 0 4px;
+            "
+          ></div>
+          <h3>
+            <span class="step-num" style="background: var(--teal)">7</span> 권한
+            요청
+          </h3>
+          <div class="step-time">
+            소요 시간: 상황별 &nbsp;|&nbsp; 목표: 최소 권한, 최적 타이밍
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <span class="val" style="color: var(--teal)">60%+</span
+              ><span class="label">알림 허용률</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--teal)">상황별</span
+              ><span class="label">요청 타이밍</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--teal)">0~1개</span
+              ><span class="label">첫 실행 시 요청</span>
+            </div>
+          </div>
+
+          <h4>권한 요청 타이밍 전략</h4>
+          <table>
+            <tr>
+              <th>권한</th>
+              <th>최적 타이밍</th>
+              <th>허용률</th>
+              <th>절대 하지 말 것</th>
+            </tr>
+            <tr>
+              <td>푸시 알림</td>
+              <td>튜토리얼 완료 후, 가치를 경험한 뒤</td>
+              <td>사전 설명 시 60%+, 갑자기 시 40%</td>
+              <td>첫 실행 즉시 요청</td>
+            </tr>
+            <tr>
+              <td>카메라</td>
+              <td>카메라 사용 기능 첫 진입 시</td>
+              <td>기능 맥락에서 80%+</td>
+              <td>온보딩 중 일괄 요청</td>
+            </tr>
+            <tr>
+              <td>위치</td>
+              <td>위치 기반 기능 첫 사용 시</td>
+              <td>기능 맥락에서 70%+</td>
+              <td>이유 설명 없이 요청</td>
+            </tr>
+            <tr>
+              <td>마이크</td>
+              <td>음성 채팅/녹음 기능 첫 사용 시</td>
+              <td>기능 맥락에서 75%+</td>
+              <td>온보딩 중 일괄 요청</td>
+            </tr>
+            <tr>
+              <td>연락처</td>
+              <td>친구 찾기 기능 사용 시</td>
+              <td>기능 맥락에서 50%+</td>
+              <td>설명 없이 요청 (신뢰 손상)</td>
+            </tr>
+            <tr>
+              <td>ATT (iOS)</td>
+              <td>가치 경험 후, 개인화 혜택 설명</td>
+              <td>사전 설명 시 30~40%</td>
+              <td>첫 실행 즉시 (Apple 권고 위반)</td>
+            </tr>
+          </table>
+
+          <h4>Pre-Permission 패턴 (권장)</h4>
+          <div class="box box-tip">
+            <strong>시스템 팝업 전에 자체 UI로 먼저 설명하세요</strong>
+            1. <strong>자체 팝업</strong>: "전투 결과를 알려드릴까요?" + 혜택
+            설명 + [허용] [나중에]<br />
+            2. 유저가 [허용] 선택 시 → 시스템 권한 팝업 표시<br />
+            3. 유저가 [나중에] 선택 시 → 시스템 팝업 표시 안 함 (기회 보존)<br />
+            <br />
+            이유: iOS 시스템 팝업은 <strong>앱 당 1회만</strong> 표시됩니다.
+            거부하면 설정 앱에서만 변경 가능. Pre-Permission으로 허용률 +20~30%p
+            향상.
+          </div>
+
+          <div class="box box-danger">
+            <strong>흔한 실수</strong>
+            - 첫 실행 시 알림+카메라+위치+연락처 한꺼번에 요청 → 공포감 → 전부
+            거부<br />
+            - iOS ATT를 최초 실행에 요청 → 맥락 없이 거부 → 광고 수익 손실<br />
+            - 권한 거부 후 기능 완전 차단 → "이 기능은 XX 권한이 필요합니다" +
+            설정 이동 안내 제공해야
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STEP 8: TUTORIAL ==================== -->
+      <section class="section" id="step-tutorial">
+        <div class="step-card" style="border-color: var(--green)">
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 4px;
+              height: 100%;
+              background: var(--green);
+              border-radius: 4px 0 0 4px;
+            "
+          ></div>
+          <h3>
+            <span class="step-num" style="background: var(--green)">8</span>
+            튜토리얼 / FTUE
+          </h3>
+          <div class="step-time">
+            소요 시간: 1~5분 &nbsp;|&nbsp; 목표 이탈률: &lt;10%
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <span class="val" style="color: var(--green)">70%+</span
+              ><span class="label">완료율</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--green)">&lt;3분</span
+              ><span class="label">핵심 체험 시간</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--green)">필수</span
+              ><span class="label">스킵 옵션</span>
+            </div>
+          </div>
+
+          <h4>튜토리얼 4계층 (Layered Onboarding)</h4>
+          <table>
+            <tr>
+              <th>계층</th>
+              <th>시점</th>
+              <th>목적</th>
+              <th>내용</th>
+              <th>원칙</th>
+            </tr>
+            <tr>
+              <td style="color: var(--green); font-weight: 700">Tier 1</td>
+              <td>첫 1~3분</td>
+              <td>Aha Moment 도달</td>
+              <td>핵심 조작 1~2가지만, 즉시 재미</td>
+              <td>Show Don't Tell, 최소 텍스트</td>
+            </tr>
+            <tr>
+              <td style="color: var(--blue); font-weight: 700">Tier 2</td>
+              <td>세션 1~2</td>
+              <td>기본 시스템 이해</td>
+              <td>2차 기능, 상점, 장비</td>
+              <td>맥락 기반 교육 (필요할 때)</td>
+            </tr>
+            <tr>
+              <td style="color: var(--yellow); font-weight: 700">Tier 3</td>
+              <td>D1~D3</td>
+              <td>투자감 형성</td>
+              <td>커스터마이징, 소셜, 길드</td>
+              <td>선택적 학습, 팁 시스템</td>
+            </tr>
+            <tr>
+              <td style="color: var(--red); font-weight: 700">Tier 4</td>
+              <td>D7+</td>
+              <td>장기 목표 제시</td>
+              <td>엔드게임, PvP, 시즌</td>
+              <td>자연스러운 발견, 도전 과제</td>
+            </tr>
+          </table>
+
+          <h4>튜토리얼 설계 원칙</h4>
+          <table>
+            <tr>
+              <th>원칙</th>
+              <th>방법</th>
+              <th>구현 예시</th>
+            </tr>
+            <tr>
+              <td>Show, Don't Tell</td>
+              <td>텍스트 대신 시각적 가이드</td>
+              <td>터치 위치 하이라이트, 손가락 애니메이션, 화살표</td>
+            </tr>
+            <tr>
+              <td>Do, Don't Watch</td>
+              <td>설명보다 직접 행동</td>
+              <td>"검을 들어보세요" → 직접 장비 장착 → 즉시 전투</td>
+            </tr>
+            <tr>
+              <td>마찰 제거</td>
+              <td>실패 불가능한 첫 경험</td>
+              <td>첫 전투는 반드시 승리, 첫 퍼즐은 2~3수면 해결</td>
+            </tr>
+            <tr>
+              <td>즉시 보상</td>
+              <td>행동마다 피드백과 보상</td>
+              <td>골드 획득 효과음 + 파티클 + UI 반짝임</td>
+            </tr>
+            <tr>
+              <td>점진적 공개</td>
+              <td>한번에 1가지만 가르침</td>
+              <td>메뉴 점진 해제 (레벨2→상점, 레벨5→강화)</td>
+            </tr>
+            <tr>
+              <td>스킵 제공</td>
+              <td>경험자/재설치 유저 배려</td>
+              <td>[스킵] 버튼 + 확인 팝업 "보상을 놓칠 수 있어요"</td>
+            </tr>
+          </table>
+
+          <h4>분 단위 FTUE 타임라인 (게임 예시)</h4>
+          <table>
+            <tr>
+              <th>시간</th>
+              <th>경험</th>
+              <th>유저 감정</th>
+              <th>설계 목표</th>
+            </tr>
+            <tr>
+              <td>0~30초</td>
+              <td>첫 화면, 세계관 한 줄, 캐릭터 등장</td>
+              <td>"뭔데 이거?"</td>
+              <td>호기심 유발</td>
+            </tr>
+            <tr>
+              <td>30초~1분</td>
+              <td>첫 행동 (탭/스와이프), 즉시 반응</td>
+              <td>"오 반응한다"</td>
+              <td>조작 학습</td>
+            </tr>
+            <tr>
+              <td>1~2분</td>
+              <td>첫 성공 (적 처치, 퍼즐 해결), 보상</td>
+              <td>"재밌네!"</td>
+              <td><strong>Aha Moment</strong></td>
+            </tr>
+            <tr>
+              <td>2~3분</td>
+              <td>보상으로 강화/업그레이드, 성장 체감</td>
+              <td>"나 잘하나?"</td>
+              <td>성장 루프 체험</td>
+            </tr>
+            <tr>
+              <td>3~5분</td>
+              <td>2번째 도전 (약간 어려움), 극복</td>
+              <td>"한 판 더!"</td>
+              <td>핵심 루프 완성</td>
+            </tr>
+          </table>
+
+          <h4>튜토리얼 이탈 분석 이벤트</h4>
+          <div class="box box-info">
+            <strong
+              >각 튜토리얼 스텝별로 이벤트를 심어 이탈 지점을 정확히
+              파악하세요</strong
+            >
+            <code>tutorial_start</code> → <code>tutorial_step_1</code> →
+            <code>tutorial_step_2</code> → ... → <code>tutorial_complete</code
+            ><br />
+            각 스텝 통과율이 <strong>90% 미만</strong>이면 해당 스텝에 마찰
+            요소가 있는 것입니다.
+          </div>
+
+          <div class="box box-danger">
+            <strong>흔한 실수</strong>
+            - 5분 이상 강제 튜토리얼 → 핵심 재미 도달 전 이탈<br />
+            - NPC 대사 스킵 불가 → "대사 다 읽어야 해?" → 이탈<br />
+            - 실패 가능한 첫 전투 → 좌절감 → 이탈<br />
+            - 모든 기능을 한번에 설명 → 정보 과부하 → 이탈<br />
+            - 스킵 옵션 없음 → 재설치/경험자 이탈
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STEP 9: AHA MOMENT ==================== -->
+      <section class="section" id="step-aha">
+        <div class="step-card" style="border-color: var(--red)">
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 4px;
+              height: 100%;
+              background: var(--red);
+              border-radius: 4px 0 0 4px;
+            "
+          ></div>
+          <h3>
+            <span class="step-num" style="background: var(--red)">9</span> Aha
+            Moment — 핵심 가치 체험
+          </h3>
+          <div class="step-time">
+            목표: 설치 후 3분 이내 도달 &nbsp;|&nbsp; 누적 도달률: 70%+
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <span class="val" style="color: var(--red)">70%+</span
+              ><span class="label">도달률</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--red)">&lt;3분</span
+              ><span class="label">도달 시간</span>
+            </div>
+            <div class="metric">
+              <span class="val" style="color: var(--red)">D1 +15%p</span
+              ><span class="label">리텐션 영향</span>
+            </div>
+          </div>
+
+          <h4>Aha Moment = 리텐션의 시작점</h4>
+          <p>
+            Aha Moment에 도달한 유저는 그렇지 않은 유저 대비
+            <strong>D1 리텐션이 15~25%p 높습니다</strong>. 온보딩 퍼널의 모든
+            단계는 유저를 이 순간으로 이끌기 위해 존재합니다.
+          </p>
+
+          <h4>장르별 Aha Moment 정의</h4>
+          <table>
+            <tr>
+              <th>장르</th>
+              <th>Aha Moment</th>
+              <th>도달 시간 목표</th>
+            </tr>
+            <tr>
+              <td>퍼즐</td>
+              <td>첫 레벨 클리어 + 별 3개 보상</td>
+              <td>1~2분</td>
+            </tr>
+            <tr>
+              <td>RPG</td>
+              <td>첫 스킬 사용 → 몬스터 처치 → 장비 획득</td>
+              <td>2~3분</td>
+            </tr>
+            <tr>
+              <td>전략</td>
+              <td>첫 건물 건설 완료 → 자원 생산 시작</td>
+              <td>3~5분</td>
+            </tr>
+            <tr>
+              <td>소셜 카지노</td>
+              <td>첫 빅윈 → 코인 폭발 연출</td>
+              <td>1분</td>
+            </tr>
+            <tr>
+              <td>하이퍼캐주얼</td>
+              <td>첫 스테이지 클리어 → 만족스러운 연출</td>
+              <td>30초</td>
+            </tr>
+            <tr>
+              <td>생산성 앱</td>
+              <td>첫 작업 완료 → 결과물 확인</td>
+              <td>2~3분</td>
+            </tr>
+            <tr>
+              <td>소셜 앱</td>
+              <td>첫 친구 추가 → 첫 메시지 수신</td>
+              <td>5분</td>
+            </tr>
+          </table>
+
+          <h4>Aha Moment 강화 기법</h4>
+          <ul>
+            <li>
+              <strong>감각 피드백 극대화</strong>: 화면 흔들림, 파티클, 효과음,
+              진동 (Haptic)
+            </li>
+            <li>
+              <strong>과장된 보상</strong>: 첫 보상은 실제보다 화려하게 연출
+              (골드 비 내리기, 축하 배너)
+            </li>
+            <li>
+              <strong>달성감</strong>: "축하합니다!" + 구체적 성과 ("3성
+              클리어!", "레벨 2 달성!")
+            </li>
+            <li>
+              <strong>다음 목표 즉시 제시</strong>: "다음 도전: 보스 몬스터!" →
+              계속 플레이 유도
+            </li>
+          </ul>
+
+          <h4>Aha Moment 이후 설계</h4>
+          <div class="box box-tip">
+            <strong>Aha 이후가 진짜 시작입니다</strong>
+            1. <strong>계정 연동 유도</strong>: "진행 상황을 저장하세요!"
+            (게스트 유저 대상)<br />
+            2. <strong>푸시 알림 요청</strong>: 가치를 경험한 직후가 최적
+            타이밍<br />
+            3. <strong>다음 세션 예고</strong>: "에너지가 2시간 후 충전됩니다" /
+            "내일 보상이 기다리고 있어요"<br />
+            4. <strong>핵심 루프 반복</strong>: 2~3번 더 핵심 루프를 체험시켜
+            습관화 시작
+          </div>
+
+          <div class="box box-agent">
+            <strong>HKD852 에이전트 활용</strong>
+            - <code>GameDesign_Agent /ux</code> → Aha Moment 정의, FTUE 플로우
+            전체 설계<br />
+            - <code>GameDesign_Agent /balance</code> → 튜토리얼 보상 밸런싱, 첫
+            경험 난이도<br />
+            - <code>GameDesign_Agent /monetize</code> → 첫 과금 유도 타이밍 (Aha
+            이후)
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== DROP-OFF SUMMARY ==================== -->
+      <section class="section" id="dropoff-summary">
+        <h2 class="section-title">단계별 이탈률 종합</h2>
+
+        <p>
+          각 단계의 이탈률은 <strong>누적</strong>됩니다. 작은 이탈도 쌓이면 큰
+          손실입니다.
+        </p>
+
+        <table>
+          <tr>
+            <th>단계</th>
+            <th>단계 이탈률</th>
+            <th>누적 잔존율</th>
+            <th>100명 기준</th>
+            <th>최대 허용</th>
+          </tr>
+          <tr>
+            <td style="color: var(--cyan)">1. 설치→실행</td>
+            <td>3~5%</td>
+            <td>95~97%</td>
+            <td>95명</td>
+            <td>5%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--blue)">2. BI/CI</td>
+            <td>1~2%</td>
+            <td>93~96%</td>
+            <td>94명</td>
+            <td>2%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--purple)">3. 약관 동의</td>
+            <td>3~5%</td>
+            <td>88~93%</td>
+            <td>90명</td>
+            <td>5%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--pink)">4. 로그인</td>
+            <td>5~15%</td>
+            <td>78~88%</td>
+            <td>82명</td>
+            <td>10%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--orange)">5. 리소스 DL</td>
+            <td>3~8%</td>
+            <td>72~85%</td>
+            <td>77명</td>
+            <td>5%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--yellow)">6. 계정/프로필</td>
+            <td>2~5%</td>
+            <td>68~83%</td>
+            <td>74명</td>
+            <td>3%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--teal)">7. 권한 요청</td>
+            <td>1~3%</td>
+            <td>66~82%</td>
+            <td>73명</td>
+            <td>2%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--green)">8. 튜토리얼</td>
+            <td>5~15%</td>
+            <td>56~78%</td>
+            <td>65명</td>
+            <td>10%</td>
+          </tr>
+          <tr>
+            <td style="color: var(--red); font-weight: 700">9. Aha Moment</td>
+            <td>—</td>
+            <td style="font-weight: 700">56~78%</td>
+            <td style="font-weight: 700">65~78명</td>
+            <td>—</td>
+          </tr>
+        </table>
+
+        <div class="box box-info">
+          <strong>최적화 우선순위: 이탈률이 가장 높은 단계부터</strong>
+          - 이탈률 10%+ 단계: <strong>즉시 개선</strong> (보통 로그인,
+          튜토리얼)<br />
+          - 이탈률 5~10% 단계: <strong>A/B 테스트로 개선</strong><br />
+          - 이탈률 5% 미만: 유지 관리 수준<br />
+          <br />
+          로그인 이탈이 15%라면 게스트 플레이 도입만으로 5~10%p 회복 가능합니다.
+        </div>
+      </section>
+
+      <!-- ==================== MARKET DIFFERENCES ==================== -->
+      <section class="section" id="market-diff">
+        <h2 class="section-title">시장별 온보딩 차이</h2>
+
+        <table>
+          <tr>
+            <th>단계</th>
+            <th>한국</th>
+            <th>북미/유럽</th>
+            <th>중국</th>
+            <th>일본</th>
+          </tr>
+          <tr>
+            <td>약관</td>
+            <td>만14세+, 마케팅 별도</td>
+            <td>GDPR/CCPA, 최소 수집</td>
+            <td>실명인증, 게임시간 제한</td>
+            <td>특정상거래법 표기</td>
+          </tr>
+          <tr>
+            <td>로그인</td>
+            <td>카카오 필수급</td>
+            <td>Apple+Google, 게스트</td>
+            <td>WeChat/QQ 필수</td>
+            <td>Apple, LINE</td>
+          </tr>
+          <tr>
+            <td>다운로드</td>
+            <td>Wi-Fi 보편, 큰 용량 수용</td>
+            <td>용량 민감, 셀룰러 경고</td>
+            <td>3rd파티 스토어 주의</td>
+            <td>용량 민감</td>
+          </tr>
+          <tr>
+            <td>튜토리얼</td>
+            <td>3~5분 수용, NPC 안내 친숙</td>
+            <td>2~3분 선호, 미니멀</td>
+            <td>5~10분 수용, 상세 가이드</td>
+            <td>3~5분, 스토리 중시</td>
+          </tr>
+          <tr>
+            <td>첫 보상</td>
+            <td>사전등록 보상 일반적</td>
+            <td>배틀패스 무료트랙</td>
+            <td>10연차+첫충전2배 필수</td>
+            <td>가챠 무료 10연차</td>
+          </tr>
+          <tr>
+            <td>권한</td>
+            <td>알림 수용도 보통</td>
+            <td>알림 거부율 높음</td>
+            <td>알림 수용도 높음</td>
+            <td>알림 수용도 보통</td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- ==================== ANTI-PATTERNS ==================== -->
+      <section class="section" id="antipatterns">
+        <h2 class="section-title">안티패턴 모음</h2>
+
+        <p>피해야 할 대표적인 온보딩 안티패턴입니다.</p>
+
+        <table>
+          <tr>
+            <th>안티패턴</th>
+            <th>문제</th>
+            <th>해결</th>
+          </tr>
+          <tr>
+            <td><strong>정보 폭탄</strong><br />첫 실행에 모든 기능 설명</td>
+            <td>인지 과부하, 핵심 기능 파악 불가</td>
+            <td>Tier 1 핵심 1~2개만 → 나머지 점진 해제</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>강제 회원가입</strong><br />플레이 전 이메일/비번 요구
+            </td>
+            <td>30~50% 즉시 이탈</td>
+            <td>게스트 → 가치 경험 → 계정 연동 유도</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>권한 폭격</strong><br />알림+카메라+위치+연락처 일괄 요청
+            </td>
+            <td>전부 거부 + 앱 삭제</td>
+            <td>기능 맥락에서 1개씩 요청 (Pre-Permission)</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>스킵 불가 튜토리얼</strong><br />5분 강제 진행, 스킵 X
+            </td>
+            <td>재설치 유저, 경험자 이탈</td>
+            <td>스킵 버튼 + "보상을 놓칠 수 있어요" 안내</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>텍스트 벽</strong><br />스토리/설명 텍스트 10줄 이상
+            </td>
+            <td>읽지 않고 무시 → 조작 미학습</td>
+            <td>Show Don't Tell, 시각적 가이드</td>
+          </tr>
+          <tr>
+            <td><strong>무한 로딩</strong><br />진행률 표시 없는 긴 로딩</td>
+            <td>앱 고장으로 오인 → 강제 종료</td>
+            <td>% + 남은 시간 + 팁/컨텐츠 표시</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>실패 가능한 첫 전투</strong><br />튜토리얼에서 게임오버
+            </td>
+            <td>좌절감 → "나에게 안 맞는 게임"</td>
+            <td>첫 전투 반드시 승리, 난이도 후반에 점진 증가</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>다시 시작 강제</strong><br />이탈 후 재접속 시 처음부터
+            </td>
+            <td>반복 피로 → 영구 이탈</td>
+            <td>체크포인트 저장, 이어하기 지원</td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- ==================== MASTER CHECKLIST ==================== -->
+      <section class="section" id="master-checklist">
+        <h2 class="section-title">종합 체크리스트</h2>
+
+        <h3>앱 런칭 전</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" /> 앱 초기 용량 200MB 이하 확인</li>
+          <li><input type="checkbox" /> Cold Start 3초 이내 확인</li>
+          <li>
+            <input type="checkbox" /> BI/CI 스플래시 총 3초 이내, 2개 이하
+          </li>
+          <li>
+            <input type="checkbox" /> 약관 동의 UI 1화면 완결 (전체 동의 버튼)
+          </li>
+          <li>
+            <input type="checkbox" /> 게스트 플레이 / "바로 시작" 옵션 제공
+          </li>
+          <li>
+            <input type="checkbox" /> 추가 다운로드 진행률 표시 + 백그라운드
+            지원
+          </li>
+          <li><input type="checkbox" /> 닉네임 랜덤 생성 기능</li>
+          <li>
+            <input type="checkbox" /> 권한 요청 타이밍 정의 (첫 실행 시 0~1개만)
+          </li>
+          <li>
+            <input type="checkbox" /> 튜토리얼 3분 이내 Aha Moment 도달 확인
+          </li>
+          <li><input type="checkbox" /> 튜토리얼 스킵 옵션 제공</li>
+          <li>
+            <input type="checkbox" /> 각 온보딩 스텝별 이벤트 계측 코드 삽입
+          </li>
+        </ul>
+
+        <h3>런칭 후 모니터링</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" /> 단계별 이탈률 대시보드 구축</li>
+          <li><input type="checkbox" /> 이탈률 10%+ 단계 주간 리뷰</li>
+          <li><input type="checkbox" /> 로그인 방식별 전환율 비교</li>
+          <li>
+            <input type="checkbox" /> 튜토리얼 스텝별 통과율 모니터링 (90%+
+            목표)
+          </li>
+          <li>
+            <input type="checkbox" /> Aha Moment 도달률 vs D1 리텐션 상관관계
+            분석
+          </li>
+          <li>
+            <input type="checkbox" /> A/B 테스트: 게스트 vs 로그인 우선,
+            튜토리얼 길이, 스플래시 스킵
+          </li>
+        </ul>
+
+        <h3>최적화 우선순위</h3>
+        <div class="box box-info">
+          <strong>이탈 임팩트 순서로 개선하세요</strong>
+          1. <strong>로그인 이탈 > 10%</strong> → 게스트 플레이 도입 / 소셜
+          로그인 추가<br />
+          2. <strong>튜토리얼 이탈 > 10%</strong> → 튜토리얼 단축, 스킵 추가,
+          Show Don't Tell<br />
+          3. <strong>다운로드 이탈 > 5%</strong> → 분할 다운로드, 대기 컨텐츠
+          추가<br />
+          4. <strong>약관 이탈 > 5%</strong> → 전체 동의 간소화, 1화면 완결<br />
+          5. <strong>설치→실행 이탈 > 5%</strong> → 앱 용량 축소, 크래시 수정
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer
+        style="
+          text-align: center;
+          padding: 48px 0 24px;
+          color: var(--tx2);
+          font-size: 0.8rem;
+          border-top: 1px solid var(--bd);
+          margin-top: 48px;
+        "
+      >
+        <p><strong>HKD852 Studio</strong> — AI Agent-Based Game Studio</p>
+        <p>
+          v1.0 | 2026-02-13 | 관련:
+          <a href="mobile-funnel-strategy-guide.html" style="color: var(--blue)"
+            >AAARRR 퍼널 전략 가이드</a
+          >
+        </p>
+      </footer>
+    </div>
+    <!-- .main -->
+  </body>
+</html>

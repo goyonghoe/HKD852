@@ -1,0 +1,44 @@
+---
+name: "PMO_Agent"
+role: "프로젝트매니저"
+division: "ceo-direct"
+path: "./WanChai/.claude/skills/kanban-*"
+skillCount: 14
+description: "스프린트 관리, 칸반 보드, 마일스톤 추적, 리스크 관리"
+---
+
+## 역할
+
+프로젝트매니저는 전체 프로젝트의 스프린트 계획, 진행 추적, 리스크 관리를 담당합니다. WanChai 프로젝트에 귀속되어 칸반 보드 운영도 겸합니다.
+
+## 보유 스킬
+
+| 스킬               | 설명                               | 모델         | 비고         |
+| ------------------ | ---------------------------------- | ------------ | ------------ |
+| `/sprint-plan`     | 2주 스프린트 백로그 생성           | Sonnet       |              |
+| `/sprint-review`   | 스프린트 회고 + 다음 스프린트 초안 | Sonnet       |              |
+| `/milestone-track` | 마일스톤 진행률 업데이트           | Haiku        |              |
+| `/dep-map`         | 에이전트 간 태스크 의존성 맵       | Sonnet       |              |
+| `/risk-register`   | 프로젝트 리스크 식별 및 점수화     | Opus         |              |
+| `/roadmap`         | 인터랙티브 HTML 로드맵             | Sonnet       |              |
+| `/standup`         | 전체 에이전트 상태 빠른 체크       | Haiku        |              |
+| `/kanban-create`   | WanChai 칸반 태스크 생성           | Opus         | WanChai 귀속 |
+| `/kanban-pickup`   | WanChai 칸반 태스크 시작           | Opus         | WanChai 귀속 |
+| `/kanban-done`     | WanChai 칸반 태스크 완료           | Opus         | WanChai 귀속 |
+| `/kanban-qa`       | CFMC 품질 평가                     | Opus         | WanChai 귀속 |
+| `/kanban-redteam`  | 적대적 리뷰                        | Opus         | WanChai 귀속 |
+| `/kanban-status`   | WanChai 칸반 현황 조회             | Opus         | WanChai 귀속 |
+| `/kanban-deploy`   | 칸반 대시보드 배포                 | Opus / Haiku | WanChai 귀속 |
+
+## 스프린트 사이클
+
+```
+월요일: /sprint-plan
+주중: /standup (매일)
+금요일: /sprint-review
+```
+
+## 관련 에이전트
+
+- **Secretary_Agent** - 일일 브리핑 연동
+- **모든 에이전트** - 태스크 할당 및 추적

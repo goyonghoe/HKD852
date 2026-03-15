@@ -1,0 +1,53 @@
+---
+title: "게임본부 스킬"
+description: "기획팀장, 아트디렉터, 개발팀장, QA팀장, SSBL의 스킬 목록"
+division: "game"
+---
+
+## 기획팀장 (GameDesign_Agent)
+
+| 스킬 | 설명 |
+|------|------|
+| `/requirement` | 요구사항 분석 |
+| `/pd-review` | PD 관점 최종 평가 |
+| `/art-status` | 아트디렉터 리소스 완성도 조회 |
+| `/report` | HTML 보고서 생성 |
+
+## 아트디렉터 (team-kowloon)
+
+| 스킬 | 설명 | 모델 |
+|------|------|------|
+| `/game-art-spec` | 게임용 아트 스펙 (스프라이트, 타일셋, UI) | Sonnet |
+| `/art-export` | 플랫폼별 해상도 내보내기 (iOS/Android/PC) | Haiku |
+
+## 개발팀장 (GameDev_Agent)
+
+| 스킬 | 설명 | 모델 |
+|------|------|------|
+| `/unity-init` | Unity 프로젝트 스캐폴딩 + 패키지 설정 | Sonnet |
+| `/unity-arch` | 시스템 아키텍처 설계 (ECS/MVC) | Opus |
+| `/unity-scene` | 씬/프리팹 스크립트 생성 | Sonnet |
+| `/unity-script` | C# MonoBehaviour/ScriptableObject | Sonnet |
+| `/unity-shader` | URP/ShaderGraph 셰이더 | Sonnet |
+| `/unity-ui` | UI Toolkit / uGUI 구성 | Sonnet |
+| `/unity-build` | Unity CLI 빌드 실행 (headless) | Haiku |
+| `/unity-review` | 다관점 코드 리뷰 (성능/보안/유지보수) | Opus |
+| `/unity-refactor` | 리팩토링 | Sonnet |
+
+## QA팀장 (QATest_Agent)
+
+| 스킬 | 설명 | 모델 |
+|------|------|------|
+| `/test-plan` | 게임 디자인 기반 테스트 계획 | Sonnet |
+| `/test-script` | C# 유닛 테스트 (NUnit) | Sonnet |
+| `/platform-check` | Apple/Google/Steam 정책 준수 검증 | Sonnet |
+| `/perf-profile` | Unity Profiler 성능 분석 | Sonnet |
+| `/bug-report` | 구조화된 버그 리포트 | Haiku |
+| `/compat-matrix` | 디바이스/OS 호환성 매트릭스 | Haiku |
+
+## SSBL 프로젝트
+
+| 스킬 | 설명 | 모델 |
+|------|------|------|
+| `/player-monetization` | 플레이 기록 ↔ 과금 유저 상관관계 분석 | Opus |
+| `/launch-checklist` | 런칭 체크리스트 상태 추적, 의존성 체인, 대시보드 | Haiku |

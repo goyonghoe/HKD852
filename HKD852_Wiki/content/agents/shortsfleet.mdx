@@ -1,0 +1,26 @@
+---
+name: "ShortsFleet"
+role: "쇼츠총괄 매니저"
+division: "business"
+path: "./ShortsFleet/"
+skillCount: 4
+description: "멀티채널 상태 관리, 채널 추가, 병렬 생산 오케스트레이션, 크로스채널 대시보드"
+---
+
+## 역할
+
+쇼츠총괄 매니저는 여러 YouTube Shorts 채널을 통합 관리합니다. 전 채널 상태 조회, 새 채널 스캐폴딩, 멀티채널 일일 병렬 생산 오케스트레이션, 크로스채널 성과 대시보드를 제공합니다.
+
+## 보유 스킬
+
+| 스킬 | 설명 | 모델 |
+|------|------|------|
+| `/fleet-status` | 전 채널 상태 조회 (읽기 전용) | Haiku |
+| `/fleet-add` | 새 채널 스캐폴딩 + 레지스트리 등록 | Sonnet |
+| `/shorts-fleet` | 멀티채널 일일 병렬 생산 오케스트레이터 | Sonnet |
+| `/fleet-analytics` | 크로스채널 HTML 대시보드 | Sonnet |
+
+## 관련 에이전트
+
+- **ShortsFactory_Agent** - 개별 채널 생산 파이프라인
+- **Income_Factory** - 수익 분석 연계

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 에이전트 개인 수익화 모델 2026 인포그래픽</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0e27;color:#e2e8f0;font-family:'Noto Sans KR',sans-serif;line-height:1.6}
+.wrap{max-width:1200px;margin:0 auto;padding:40px 24px}
+.header{text-align:center;margin-bottom:48px}
+.header h1{font-size:40px;font-weight:900;background:linear-gradient(135deg,#f59e0b,#ec4899,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
+.header .sub{font-size:18px;color:#94a3b8;margin-bottom:16px}
+.badge{display:inline-block;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);color:#fbbf24;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:500;margin:0 4px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:32px}
+.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px;margin-bottom:32px}
+.card{background:rgba(30,41,59,.55);border:1px solid rgba(148,163,184,.1);border-radius:16px;padding:28px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.card.purple::before{background:linear-gradient(90deg,#a855f7,#7c3aed)}
+.card.pink::before{background:linear-gradient(90deg,#ec4899,#db2777)}
+.card.amber::before{background:linear-gradient(90deg,#f59e0b,#d97706)}
+.card.emerald::before{background:linear-gradient(90deg,#10b981,#059669)}
+.card.blue::before{background:linear-gradient(90deg,#3b82f6,#2563eb)}
+.card.red::before{background:linear-gradient(90deg,#ef4444,#dc2626)}
+.card.cyan::before{background:linear-gradient(90deg,#06b6d4,#0891b2)}
+.card h3{font-size:16px;font-weight:700;margin-bottom:14px;color:#f1f5f9}
+.card .big{font-size:44px;font-weight:900;line-height:1.1;margin-bottom:6px}
+.card .label{font-size:13px;color:#94a3b8;font-weight:400}
+.highlight{background:linear-gradient(135deg,rgba(245,158,11,.18),rgba(236,72,153,.12));border:1px solid rgba(245,158,11,.25);border-radius:16px;padding:32px;margin-bottom:32px;text-align:center}
+.highlight h2{font-size:24px;font-weight:700;margin-bottom:12px;color:#fef3c7}
+.highlight p{font-size:16px;color:#fde68a;max-width:800px;margin:0 auto}
+.sec{font-size:22px;font-weight:700;margin-bottom:20px;padding-left:16px;border-left:3px solid #f59e0b;color:#f1f5f9}
+.item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.item .num{flex-shrink:0;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.item .num.a{background:rgba(245,158,11,.2);color:#fbbf24}
+.item .num.e{background:rgba(16,185,129,.2);color:#34d399}
+.item .num.p{background:rgba(168,85,247,.2);color:#c084fc}
+.item .num.k{background:rgba(236,72,153,.2);color:#f472b6}
+.item .num.b{background:rgba(59,130,246,.2);color:#60a5fa}
+.item .num.r{background:rgba(239,68,68,.2);color:#f87171}
+.item .txt{font-size:14px;color:#cbd5e1}
+.item .txt strong{color:#f1f5f9}
+.tbl{width:100%;border-collapse:collapse;margin-top:12px}
+.tbl th{text-align:left;font-size:12px;color:#94a3b8;padding:8px 12px;border-bottom:1px solid rgba(148,163,184,.15);font-weight:500}
+.tbl td{font-size:13px;padding:10px 12px;border-bottom:1px solid rgba(148,163,184,.08);color:#cbd5e1}
+.tbl tr:hover td{background:rgba(148,163,184,.04)}
+.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:500;margin:2px}
+.tag.easy{background:rgba(16,185,129,.15);color:#34d399}
+.tag.mid{background:rgba(245,158,11,.15);color:#fbbf24}
+.tag.hard{background:rgba(239,68,68,.15);color:#f87171}
+.tag.top{background:rgba(168,85,247,.15);color:#c084fc}
+.model-card{background:rgba(30,41,59,.4);border:1px solid rgba(148,163,184,.08);border-radius:12px;padding:20px;margin-bottom:16px}
+.model-card .rank{font-size:28px;font-weight:900;float:left;margin-right:16px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px}
+.model-card h4{font-size:15px;font-weight:700;color:#f1f5f9;margin-bottom:6px}
+.model-card .meta{font-size:12px;color:#94a3b8}
+.model-card .rev{font-size:20px;font-weight:900;color:#fbbf24;margin-top:8px}
+.bar{height:6px;border-radius:3px;background:rgba(148,163,184,.1);margin-top:8px;overflow:hidden}
+.bar .fill{height:100%;border-radius:3px}
+.footer{text-align:center;padding:32px 0 16px;color:#475569;font-size:13px;border-top:1px solid rgba(148,163,184,.1);margin-top:48px}
+@media(max-width:768px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.header h1{font-size:28px}.card .big{font-size:32px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+<h1>AI 에이전트 개인 수익화 2026</h1>
+<p class="sub">YouTube 40개 영상 (EN·KR·JA·ZH) 종합 분석 — 검증된 수익 모델과 실전 데이터</p>
+<span class="badge">2026-03-07</span>
+<span class="badge">4개 언어 리서치</span>
+<span class="badge">HKD852</span>
+</div>
+
+<!-- Key Metrics -->
+<div class="grid3">
+<div class="card amber">
+<div class="big" style="color:#fbbf24">40억원</div>
+<div class="label">19세 Alex — AI 앱 10일 개발<br><strong style="color:#fef3c7">코딩 경험 제로</strong></div>
+</div>
+<div class="card pink">
+<div class="big" style="color:#f472b6">6,000만</div>
+<div class="label">23세 한국인 CEO 월 순수익<br><strong style="color:#fce7f3">AI 드랍쉬핑 자동화</strong></div>
+</div>
+<div class="card emerald">
+<div class="big" style="color:#34d399">0원</div>
+<div class="label">50대 부부 초기 투자금<br><strong style="color:#d1fae5">첫 달 매출 1,148만 원</strong></div>
+</div>
+</div>
+
+<!-- Highlight -->
+<div class="highlight">
+<h2>도구가 돈을 버는 게 아니라, 상업적 사고방식이 돈을 번다</h2>
+<p>40개 소스 공통 메시지: AI 도구 사용법보다 <strong>"누구에게, 어떻게 팔 것인가"</strong>가 수익의 핵심. 10일 만에 대충이라도 런칭하라.</p>
+</div>
+
+<!-- Top 7 Models -->
+<h2 class="sec">수익화 모델 Top 7</h2>
+
+<div class="model-card">
+<div class="rank" style="background:rgba(245,158,11,.15);color:#fbbf24">1</div>
+<h4>AI 섀도우 오퍼레이터 <span class="tag mid">난이도: 낮음</span> <span class="tag top">2026 유망</span></h4>
+<div class="meta">크리에이터와 파트너십 → AI로 런칭/마케팅 대행 → 수익 분배</div>
+<div class="rev">월 $10,000 ~ $1,000,000+</div>
+</div>
+
+<div class="model-card">
+<div class="rank" style="background:rgba(236,72,153,.15);color:#f472b6">2</div>
+<h4>얼굴 없는 자동화 숏폼 채널 <span class="tag mid">난이도: 중간</span></h4>
+<div class="meta">AI 페르소나 생성 → 대본/영상/더빙 자동화 → 광고 + 제휴 수익</div>
+<div class="rev">월 1,500만 원 ~ $32,000+</div>
+</div>
+
+<div class="model-card">
+<div class="rank" style="background:rgba(168,85,247,.15);color:#c084fc">3</div>
+<h4>Micro SaaS (AI 앱 창업) <span class="tag hard">난이도: 중~높</span> <span class="tag top">2026 유망</span></h4>
+<div class="meta">바이브 코딩으로 아이디어 → 앱 런칭 → 글로벌 구독 수익</div>
+<div class="rev">연 $300,000 ~ $3,000,000+</div>
+</div>
+
+<div class="model-card">
+<div class="rank" style="background:rgba(59,130,246,.15);color:#60a5fa">4</div>
+<h4>B2B AI 자동화 에이전시 <span class="tag hard">난이도: 높음</span> <span class="tag top">2026 유망</span></h4>
+<div class="meta">기업 반복업무 AI 자동화 세팅 → 월 유지보수 SaaS 수익</div>
+<div class="rev">월 $20,000 ~ $50,000+</div>
+</div>
+
+<div class="model-card">
+<div class="rank" style="background:rgba(6,182,212,.15);color:#22d3ee">5</div>
+<h4>AI 드랍쉬핑 <span class="tag mid">난이도: 중간</span></h4>
+<div class="meta">AI가 트렌드 상품 발굴 → 자동 등록/주문 처리 → 무재고</div>
+<div class="rev">월 1,000만 ~ 6,000만 원</div>
+</div>
+
+<div class="model-card">
+<div class="rank" style="background:rgba(16,185,129,.15);color:#34d399">6</div>
+<h4>AI POD / 디지털 상품 <span class="tag easy">난이도: 낮음</span></h4>
+<div class="meta">AI 디자인 → Etsy/Amazon 등록 → 주문형 인쇄 자동 배송</div>
+<div class="rev">월 100만 ~ 400만 원</div>
+</div>
+
+<div class="model-card">
+<div class="rank" style="background:rgba(16,185,129,.15);color:#34d399">7</div>
+<h4>정보 차익 거래 <span class="tag easy">난이도: 매우 낮음</span></h4>
+<div class="meta">해외 콘텐츠 → AI 번역/가공 → 자국 플랫폼 유료 판매</div>
+<div class="rev">월 500만 원 ~ 연 수억 원</div>
+</div>
+
+<!-- Market Comparison -->
+<h2 class="sec">시장별 특성 비교</h2>
+<div class="grid4">
+<div class="card blue">
+<h3>미국/글로벌</h3>
+<p style="font-size:13px;color:#cbd5e1">스케일 최대. 구독형 SaaS + TikTok Shop 활성화. 브랜딩 > 가격 경쟁</p>
+<div class="bar"><div class="fill" style="width:95%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div></div>
+<p style="font-size:11px;color:#94a3b8;margin-top:4px">수익 잠재력: 최상</p>
+</div>
+<div class="card pink">
+<h3>한국</h3>
+<p style="font-size:13px;color:#cbd5e1">단가 경쟁 치열. 역직구 또는 노년층 콘텐츠 + AI 대행이 블루오션</p>
+<div class="bar"><div class="fill" style="width:65%;background:linear-gradient(90deg,#ec4899,#f472b6)"></div></div>
+<p style="font-size:11px;color:#94a3b8;margin-top:4px">수익 잠재력: 중상</p>
+</div>
+<div class="card purple">
+<h3>일본</h3>
+<p style="font-size:13px;color:#cbd5e1">전통/애니메이션 니치 단가 높음. 완벽주의 문화, 실행 속도 느림</p>
+<div class="bar"><div class="fill" style="width:70%;background:linear-gradient(90deg,#a855f7,#c084fc)"></div></div>
+<p style="font-size:11px;color:#94a3b8;margin-top:4px">수익 잠재력: 중상</p>
+</div>
+<div class="card amber">
+<h3>중화권</h3>
+<p style="font-size:13px;color:#cbd5e1">정보 비대칭 극심. 해외 자료 번역/가공 판매 = 정보 차익 거래 천국</p>
+<div class="bar"><div class="fill" style="width:75%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div>
+<p style="font-size:11px;color:#94a3b8;margin-top:4px">수익 잠재력: 상</p>
+</div>
+</div>
+
+<!-- Beginner Path -->
+<h2 class="sec">초보자 시작 순서</h2>
+<div class="card emerald" style="margin-bottom:32px">
+<div class="item"><div class="num e">1</div><div class="txt"><strong>정보 가공 및 판매</strong> — 기술 필요 없음. 해외 자료를 번역/요약하여 PDF/템플릿으로 판매</div></div>
+<div class="item"><div class="num e">2</div><div class="txt"><strong>AI POD (주문형 인쇄)</strong> — 초기 자본 2,000원. AI 디자인 → Etsy 등록 → 재고 리스크 제로</div></div>
+<div class="item"><div class="num a">3</div><div class="txt"><strong>얼굴 없는 숏폼 채널</strong> — n8n 자동화 세팅 후 하루 10분 투자로 영상 대량 배포</div></div>
+<div class="item"><div class="num a">4</div><div class="txt"><strong>AI 웹사이트 대행</strong> — 템플릿 AI로 로컬 업체에 홈페이지 제작, 단기 현금 흐름</div></div>
+<div class="item"><div class="num p">5</div><div class="txt"><strong>독립 AI 앱 개발</strong> — Cursor/Bolt로 나만의 비즈니스 로직을 직접 구현</div></div>
+</div>
+
+<!-- Warnings -->
+<h2 class="sec">실패 요인 TOP 5</h2>
+<div class="grid2" style="margin-bottom:32px">
+<div class="card red">
+<h3>치명적 실수</h3>
+<div class="item"><div class="num r">!</div><div class="txt"><strong>도구 집착</strong> — 사용법만 배우고 비즈니스 로직 부재. 1원도 못 법</div></div>
+<div class="item"><div class="num r">!</div><div class="txt"><strong>저작권 위반</strong> — 남의 콘텐츠 그대로 복사 → 채널/수익 한순간에 증발</div></div>
+<div class="item"><div class="num r">!</div><div class="txt"><strong>플랫폼 의존</strong> — TikTok 등 단일 플랫폼 집중 → 계정 정지 시 전부 상실</div></div>
+</div>
+<div class="card amber">
+<h3>흔한 함정</h3>
+<div class="item"><div class="num a">!</div><div class="txt"><strong>완벽주의</strong> — "완벽한 제품 만들려고" 시간 끌기. 10일 만에 대충이라도 런칭하라</div></div>
+<div class="item"><div class="num a">!</div><div class="txt"><strong>AI 쓰레기 양산</strong> — 무검수 배포 → "AI 특유의 템플릿 느낌"에 고객 외면</div></div>
+</div>
+</div>
+
+<!-- Tool Stack -->
+<h2 class="sec">핵심 도구 스택</h2>
+<div class="card blue" style="margin-bottom:32px">
+<table class="tbl">
+<thead><tr><th>카테고리</th><th>도구</th><th>용도</th></tr></thead>
+<tbody>
+<tr><td rowspan="2"><strong>앱/웹 개발</strong></td><td>Cursor / Bolt</td><td>AI 코드 에디터 + 웹 서비스 개발</td></tr>
+<tr><td>Lovable / Anti-gravity</td><td>프롬프트 한 줄로 MVP 생성 (바이브 코딩)</td></tr>
+<tr><td rowspan="2"><strong>영상/이미지</strong></td><td>Nano Banana</td><td>극사실주의 이미지 + 텍스트 렌더링</td></tr>
+<tr><td>VEO3 / Kling</td><td>고화질 AI 비디오 생성</td></tr>
+<tr><td rowspan="2"><strong>자동화</strong></td><td>n8n</td><td>노코드 워크플로우 자동화 (비용 효율 극강)</td></tr>
+<tr><td>Make / Zapier</td><td>API 연동 기반 대중적 자동화</td></tr>
+<tr><td rowspan="2"><strong>올인원/리서치</strong></td><td>Claude Code</td><td>터미널 자연어 제어 + MCP/스킬 연동</td></tr>
+<tr><td>NotebookLM</td><td>대량 문서 학습 → 팟캐스트/리포트 (무료)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="footer">
+<p>AI 에이전트 개인 수익화 2026 | YouTube 40개 영상 (EN 10 + KR 10 + JA 10 + ZH 10) | NotebookLM 분석</p>
+<p style="margin-top:8px">2026-03-07 | HKD852 Studio</p>
+</div>
+
+</div>
+</body>
+</html>

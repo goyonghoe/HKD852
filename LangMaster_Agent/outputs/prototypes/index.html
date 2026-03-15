@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LangMaster — HSK 미니게임</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, "Noto Sans KR", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0a0a2e 0%,
+          #1a1a4e 50%,
+          #0d0d3a 100%
+        );
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .container {
+        max-width: 430px;
+        width: 100%;
+        padding: 20px;
+      }
+      .header {
+        text-align: center;
+        margin: 30px 0 10px;
+      }
+      .header h1 {
+        font-size: 28px;
+        background: linear-gradient(90deg, #00e5ff, #ff6ec7, #ffe44d);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.5px;
+      }
+      .header .sub {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 6px;
+      }
+      .badge-row {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin: 16px 0 28px;
+      }
+      .badge {
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .badge.active {
+        background: rgba(0, 229, 255, 0.15);
+        border-color: rgba(0, 229, 255, 0.4);
+        color: #00e5ff;
+      }
+
+      .game-card {
+        position: relative;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 14px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        overflow: hidden;
+        text-decoration: none;
+        display: block;
+        color: #fff;
+      }
+      .game-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: 16px 16px 0 0;
+      }
+      .game-card:hover,
+      .game-card:active {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      }
+      .game-card.cyan::before {
+        background: linear-gradient(90deg, #00e5ff, #00b8d4);
+      }
+      .game-card.magenta::before {
+        background: linear-gradient(90deg, #ff6ec7, #e040fb);
+      }
+      .game-card.lime::before {
+        background: linear-gradient(90deg, #76ff03, #64dd17);
+      }
+      .game-card.gold::before {
+        background: linear-gradient(90deg, #ffe44d, #ffab00);
+      }
+
+      .game-card.coming-soon {
+        opacity: 0.4;
+        cursor: default;
+        pointer-events: none;
+      }
+
+      .card-top {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 10px;
+      }
+      .card-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        flex-shrink: 0;
+      }
+      .cyan .card-icon {
+        background: rgba(0, 229, 255, 0.15);
+      }
+      .magenta .card-icon {
+        background: rgba(255, 110, 199, 0.15);
+      }
+      .lime .card-icon {
+        background: rgba(118, 255, 3, 0.15);
+      }
+      .gold .card-icon {
+        background: rgba(255, 228, 77, 0.15);
+      }
+      .gray .card-icon {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .card-title {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+      }
+      .card-subtitle {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: 2px;
+      }
+      .card-desc {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.5;
+      }
+      .card-tags {
+        display: flex;
+        gap: 6px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+      .tag {
+        font-size: 10px;
+        padding: 3px 8px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.5);
+      }
+      .tag.hsk {
+        color: #00e5ff;
+        background: rgba(0, 229, 255, 0.1);
+      }
+      .tag.diff {
+        color: #ffe44d;
+        background: rgba(255, 228, 77, 0.1);
+      }
+
+      .section-title {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.35);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin: 28px 0 14px;
+        padding-left: 4px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 20px 0 30px;
+      }
+      .stat-box {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 14px 10px;
+        text-align: center;
+      }
+      .stat-num {
+        font-size: 22px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #00e5ff, #76ff03);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .stat-label {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 4px;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 30px 0 40px;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.25);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>LangMaster</h1>
+        <div class="sub">HSK 3.0 하이퍼캐주얼 단어 게임</div>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge active">HSK 1</span>
+        <span class="badge">HSK 2</span>
+        <span class="badge">HSK 3</span>
+        <span class="badge">HSK 4-9</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-num">300</div>
+          <div class="stat-label">HSK 1 단어</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">4</div>
+          <div class="stat-label">미니게임</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">30s</div>
+          <div class="stat-label">세션</div>
+        </div>
+      </div>
+
+      <div class="section-title">플레이 가능</div>
+
+      <a href="word-fall.html" class="game-card cyan">
+        <div class="card-top">
+          <div class="card-icon">🌊</div>
+          <div>
+            <div class="card-title">Word Fall</div>
+            <div class="card-subtitle">떨어지는 한자 → 뜻 선택</div>
+          </div>
+        </div>
+        <div class="card-desc">
+          하늘에서 한자가 떨어집니다. 하단의 4개 보기 중 올바른 뜻을 터치하세요.
+          빠를수록 높은 점수!
+        </div>
+        <div class="card-tags">
+          <span class="tag hsk">HSK 1-9</span>
+          <span class="tag diff">★☆☆ 쉬움</span>
+          <span class="tag">인식 속도</span>
+          <span class="tag">30초</span>
+        </div>
+      </a>
+
+      <a href="pinyin-shooter.html" class="game-card magenta">
+        <div class="card-top">
+          <div class="card-icon">🎯</div>
+          <div>
+            <div class="card-title">Pinyin Shooter</div>
+            <div class="card-subtitle">한자 보고 → 병음 버블 사격</div>
+          </div>
+        </div>
+        <div class="card-desc">
+          한자가 표시되면 떠다니는 네온 병음 버블 중 정확한 발음을 터치하세요.
+          버블이 움직이니 빠르게!
+        </div>
+        <div class="card-tags">
+          <span class="tag hsk">HSK 1-9</span>
+          <span class="tag diff">★★☆ 보통</span>
+          <span class="tag">발음 매핑</span>
+          <span class="tag">30초</span>
+        </div>
+      </a>
+
+      <a href="match-rush.html" class="game-card lime">
+        <div class="card-top">
+          <div class="card-icon">🃏</div>
+          <div>
+            <div class="card-title">Match Rush</div>
+            <div class="card-subtitle">한자-뜻 카드 매칭</div>
+          </div>
+        </div>
+        <div class="card-desc">
+          카드를 뒤집어 한자와 뜻을 짝맞추세요. 6쌍을 최대한 빨리 완성하면 타임
+          보너스!
+        </div>
+        <div class="card-tags">
+          <span class="tag hsk">HSK 1-9</span>
+          <span class="tag diff">★☆☆ 쉬움</span>
+          <span class="tag">쌍 기억</span>
+          <span class="tag">45초</span>
+        </div>
+      </a>
+
+      <a href="tone-surf.html" class="game-card gold">
+        <div class="card-top">
+          <div class="card-icon">🏄</div>
+          <div>
+            <div class="card-title">Tone Surf</div>
+            <div class="card-subtitle">성조별 파도타기</div>
+          </div>
+        </div>
+        <div class="card-desc">
+          서퍼가 파도를 탑니다. 한자의 성조를 맞추면 스무스 라이딩, 틀리면
+          와이프아웃!
+        </div>
+        <div class="card-tags">
+          <span class="tag hsk">HSK 1-6</span>
+          <span class="tag diff">★★☆ 보통</span>
+          <span class="tag">성조 구별</span>
+          <span class="tag">30초</span>
+        </div>
+      </a>
+
+      <div class="section-title">개발 중</div>
+
+      <div class="game-card gray coming-soon">
+        <div class="card-top">
+          <div class="card-icon">💣</div>
+          <div>
+            <div class="card-title">Fill Blast</div>
+            <div class="card-subtitle">문장 빈칸 폭탄 투입</div>
+          </div>
+        </div>
+        <div class="card-desc">
+          문장의 빈칸에 알맞은 단어를 넣으세요. 맥락을 이해해야 풀 수 있습니다.
+        </div>
+        <div class="card-tags">
+          <span class="tag hsk">HSK 2-9</span>
+          <span class="tag diff">★★★ 어려움</span>
+          <span class="tag">맥락 이해</span>
+        </div>
+      </div>
+
+      <div class="game-card gray coming-soon">
+        <div class="card-top">
+          <div class="card-icon">🧱</div>
+          <div>
+            <div class="card-title">Radical Builder</div>
+            <div class="card-subtitle">부수 조합 → 한자 완성</div>
+          </div>
+        </div>
+        <div class="card-desc">
+          부수를 조합해 한자를 완성하세요. 한자의 구조를 자연스럽게 익힙니다.
+        </div>
+        <div class="card-tags">
+          <span class="tag hsk">HSK 3-9</span>
+          <span class="tag diff">★★★ 어려움</span>
+          <span class="tag">한자 구조</span>
+        </div>
+      </div>
+
+      <div class="game-card gray coming-soon">
+        <div class="card-top">
+          <div class="card-icon">🔄</div>
+          <div>
+            <div class="card-title">Translate Sprint</div>
+            <div class="card-subtitle">모국어 → 중국어 번역</div>
+          </div>
+        </div>
+        <div class="card-desc">
+          HSK 3.0 신규! 모국어 문장을 보고 정확한 중국어 번역을 선택하세요.
+        </div>
+        <div class="card-tags">
+          <span class="tag hsk">HSK 6-9</span>
+          <span class="tag diff">★★★★ 고급</span>
+          <span class="tag">번역 능력</span>
+        </div>
+      </div>
+
+      <div class="game-card gray coming-soon">
+        <div class="card-top">
+          <div class="card-icon">🧵</div>
+          <div>
+            <div class="card-title">Context Weaver</div>
+            <div class="card-subtitle">고급 문맥 단어 배치</div>
+          </div>
+        </div>
+        <div class="card-desc">
+          HSK 3.0 신규! 복잡한 문장에서 적절한 위치에 단어를 배치하세요.
+        </div>
+        <div class="card-tags">
+          <span class="tag hsk">HSK 5-9</span>
+          <span class="tag diff">★★★★ 고급</span>
+          <span class="tag">문맥/문법</span>
+        </div>
+      </div>
+
+      <div class="footer">
+        LangMaster v0.1 — HKD852 Studio<br />
+        HSK 3.0 (2026) 완전 대응 · 9급 11,092단어
+      </div>
+    </div>
+  </body>
+</html>

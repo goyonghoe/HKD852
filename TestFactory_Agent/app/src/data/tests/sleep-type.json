@@ -1,0 +1,335 @@
+{
+  "version": 1,
+  "meta": {
+    "slug": "sleep-type",
+    "title": "나의 수면 유형은? \uD83D\uDE34",
+    "description": "10가지 질문으로 알아보는 나만의 수면 스타일! 아침형인간? 올빼미족? 꿀잠러? 예민잠러? 지금 확인해보세요.",
+    "shortDescription": "10문항으로 알아보는 나만의 수면 유형",
+    "thumbnail": "/images/tests/sleep-type/thumb.png",
+    "ogImage": "/images/tests/sleep-type/og-default.png",
+    "category": "lifestyle",
+    "tags": ["수면", "건강", "생활패턴", "아침형", "수면유형"],
+    "emoji": "\uD83D\uDE34",
+    "color": "#2D3436",
+    "colorLight": "#636E72",
+    "estimatedMinutes": 2,
+    "questionCount": 10,
+    "popularity": 82,
+    "createdAt": "2026-02-22",
+    "isNew": true,
+    "isTrending": false
+  },
+  "scoring": {
+    "type": "mbti",
+    "dimensions": [
+      {
+        "id": "EL",
+        "poles": ["early", "late"],
+        "labels": ["\uC544\uCE68\uD615", "\uC800\uB141\uD615"]
+      },
+      {
+        "id": "DL",
+        "poles": ["deep", "light"],
+        "labels": ["\uAE4A\uC740\uC7A0", "\uC5D5\uC740\uC7A0"]
+      }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "text": "\uC54C\uB78C \uC5C6\uC774 \uC790\uC5F0\uC2A4\uB7FD\uAC8C \uC77C\uC5B4\uB098\uB294 \uC2DC\uAC04\uC740?",
+      "emoji": "\u23F0",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC624\uC804 6~8\uC2DC, \uC544\uCE68\uD615 \uC778\uAC04!",
+          "emoji": "\uD83C\uDF05",
+          "scores": { "early": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC624\uC804 10\uC2DC \uC774\uD6C4... \uD63C\uC790 \uB450\uBA74 \uD55C\uCC38 \uC790",
+          "emoji": "\uD83C\uDF19",
+          "scores": { "late": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "\uC7A0\uB4E4\uAE30\uAE4C\uC9C0 \uAC78\uB9AC\uB294 \uC2DC\uAC04\uC740?",
+      "emoji": "\uD83D\uDECF\uFE0F",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uBA38\uB9AC \uB300\uBA74 5\uBD84 \uC774\uB0B4 \uAFC8\uB098\uB77C~",
+          "emoji": "\uD83D\uDCA4",
+          "scores": { "deep": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC774\uB7F0\uC800\uB7F0 \uC0DD\uAC01\uD558\uB2E4 30\uBD84\uC740 \uACE4\uD788 \uAE4C\uC57C...",
+          "emoji": "\uD83D\uDCAD",
+          "scores": { "light": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "\uD55C\uBC24\uC911\uC5D0 \uAE68\uB294 \uC77C\uC774 \uC788\uB098\uC694?",
+      "emoji": "\uD83C\uDF03",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uAC70\uC758 \uC5C6\uC5B4! \uD55C\uBC88 \uC790\uBA74 \uC544\uCE68\uAE4C\uC9C0 \uCAD3~",
+          "emoji": "\uD83D\uDE07",
+          "scores": { "deep": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC591\uAE30 \uCC28\uACE0, \uD654\uC7A5\uC2E4 \uAC00\uACE0, \uC790\uC8FC \uAE68...",
+          "emoji": "\uD83E\uDD71",
+          "scores": { "light": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "\uAC00\uC7A5 \uC9D1\uC911\uB825\uC774 \uB192\uC740 \uC2DC\uAC04\uB300\uB294?",
+      "emoji": "\uD83E\uDDE0",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC624\uC804! \uC544\uCE68\uC5D0 \uBA38\uB9AC\uAC00 \uC81C\uC77C \uB9D1\uC544",
+          "emoji": "\u2600\uFE0F",
+          "scores": { "early": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uBC24! \uD574 \uC9C0\uACE0 \uB098\uBA74 \uC9D1\uC911\uB825 UP",
+          "emoji": "\uD83C\uDF1A",
+          "scores": { "late": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "\uC8FC\uB9D0 \uC218\uBA74 \uD328\uD134\uC740?",
+      "emoji": "\uD83D\uDECB\uFE0F",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uD3C9\uC77C\uACFC \uBE44\uC2B7\uD558\uAC8C \uC790\uACE0 \uC77C\uC5B4\uB098!",
+          "emoji": "\uD83D\uDCAA",
+          "scores": { "early": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uAE08\uD1A0\uC77C \uBC24\uC0C8\uACE0 \uC77C\uC694\uC77C \uC624\uD6C4\uC5D0 \uC77C\uC5B4\uB098\uC9C0...",
+          "emoji": "\uD83D\uDE34",
+          "scores": { "late": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "\uC7A0\uC790\uB9AC\uC5D0 \uB204\uC6CC\uC788\uB294\uB370 \uC606\uC9D1\uC5D0\uC11C \uC18C\uB9AC\uAC00 \uB098\uBA74?",
+      "emoji": "\uD83D\uDD0A",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uBB34\uC2A8 \uC18C\uB9AC? \uBAB0\uB77C~ \uB098 \uC790\uACE0 \uC788\uC5C8\uB294\uB370",
+          "emoji": "\uD83D\uDE2A",
+          "scores": { "deep": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uBC14\uB85C \uB208\uC774 \uB5A0\uC838... \uADF8\uB9AC\uACE0 \uB2E4\uC2DC \uBABB \uC790",
+          "emoji": "\uD83D\uDE29",
+          "scores": { "light": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "\uCE74\uD398\uC778\uACFC \uC218\uBA74\uC758 \uAD00\uACC4\uB294?",
+      "emoji": "\u2615",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC800\uB141\uC5D0 \uCEE4\uD53C \uBA39\uC5B4\uB3C4 \uAFC8\uB098\uB77C \uC7A0~",
+          "emoji": "\uD83D\uDCAA",
+          "scores": { "deep": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC624\uD6C4\uC5D0 \uCEE4\uD53C \uBA39\uC73C\uBA74 \uBC24\uC0C8... \uCEE4\uD53C \uAE08\uC9C0",
+          "emoji": "\uD83D\uDE35",
+          "scores": { "light": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "\uAC00\uC7A5 \uC88B\uC544\uD558\uB294 \uC57C\uC2DD\uC2DC\uAC04 \uD65C\uB3D9\uC740?",
+      "emoji": "\uD83C\uDF19",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC57C\uC2DD? \uADF8 \uC2DC\uAC04\uC774\uBA74 \uC774\uBBF8 \uC790\uACE0 \uC788\uC5B4...",
+          "emoji": "\uD83D\uDE34",
+          "scores": { "early": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uBC24 10\uC2DC \uBD80\uD130\uAC00 \uB098\uC758 \uACE8\uB4E0\uD0C0\uC784!",
+          "emoji": "\uD83C\uDF1F",
+          "scores": { "late": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "\uAFC8\uC744 \uC790\uC8FC \uAFB8\uB098\uC694?",
+      "emoji": "\uD83D\uDCAD",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uAFC8? \uAFC8 \uC548 \uAFE8! \uC790\uBA74 \uADF8\uB0E5 \uC544\uCE68\uC774\uC57C",
+          "emoji": "\uD83D\uDE07",
+          "scores": { "deep": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uB9E4\uC77C \uC0DD\uC0DD\uD55C \uAFC8\uC744 \uAFE8... \uB54C\uB860 \uAC00\uC704\uB3C4",
+          "emoji": "\uD83D\uDE28",
+          "scores": { "light": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "\uC774\uC0C1\uC801\uC778 \uC218\uBA74 \uD658\uACBD\uC740?",
+      "emoji": "\uD83C\uDFE0",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC5B4\uB514\uC11C\uB4E0 OK! \uBC14\uB2E5\uC774\uB4E0 \uC18C\uD30C\uB4E0 \uC7A0\uC740 \uC640",
+          "emoji": "\uD83D\uDECC",
+          "scores": { "deep": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC644\uBCBD\uD55C \uC5B4\uB460, \uC801\uC815 \uC628\uB3C4, \uC870\uC6A9\uD568 \uD544\uC218!",
+          "emoji": "\uD83C\uDF11",
+          "scores": { "light": 1 }
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "early-deep",
+      "title": "\uC544\uCE68\uD615\uC778\uAC04 \u2600\uFE0F",
+      "subtitle": "\uC77C\uCC0D \uC790\uACE0 \uC77C\uCC0D \uC77C\uC5B4\uB098\uB294 \uAC74\uAC15\uD55C \uC218\uBA74 \uCC54\uD53C\uC5B8",
+      "emoji": "\u2600\uFE0F",
+      "description": "\uB2F9\uC2E0\uC740 \uC544\uCE68\uD615\uC778\uAC04! \uC544\uCE68\uC5D0 \uC77C\uCC0D \uC77C\uC5B4\uB098\uACE0, \uD55C\uBC88 \uB204\uC6B0\uBA74 \uB2E4\uC74C \uB0A0 \uC544\uCE68\uAE4C\uC9C0 \uD478\uC2DD\uD558\uB294 \uCD5C\uACE0\uC758 \uC218\uBA74 \uC720\uD615\uC774\uC5D0\uC694.\n\n\uC5B4\uB5A4 \uD658\uACBD\uC5D0\uC11C\uB3C4 \uC798 \uC790\uACE0, \uC544\uCE68\uC5D0 \uAC00\uC7A5 \uD65C\uB3D9\uC801\uC774\uC5D0\uC694. \uAC74\uAC15\uD55C \uC0DD\uD65C \uD328\uD134\uC758 \uC18C\uC720\uC790! \uB2E4\uB9CC \uBC24 \uBAA8\uC784\uC5D0\uC11C\uB294 \uC880 \uC77C\uCC0D \uBE60\uC9C0\uB294 \uD3B8\uC774\uC5D0\uC694 \uD558\uD558!",
+      "traits": [
+        "\uADDC\uCE59\uC801",
+        "\uAC74\uAC15\uD568",
+        "\uD65C\uB825 \uB118\uCE68",
+        "\uC548\uC815\uC801"
+      ],
+      "strengths": [
+        "\uAC74\uAC15\uD55C \uC218\uBA74 \uC2B5\uAD00",
+        "\uB192\uC740 \uC0DD\uC0B0\uC131",
+        "\uC548\uC815\uC801 \uB9AC\uB4EC"
+      ],
+      "weaknesses": [
+        "\uBC24 \uC0AC\uAD50 \uC5B4\uB824\uC6C0",
+        "\uC720\uC5F0\uC131 \uBD80\uC871",
+        "\uC5EC\uD589 \uC2DC \uD328\uD134 \uAD50\uB780"
+      ],
+      "compatibility": { "best": "late-light", "worst": "early-deep" },
+      "shareText": "\uB098\uC758 \uC218\uBA74 \uC720\uD615\uC740 \uC544\uCE68\uD615\uC778\uAC04! \u2600\uFE0F \uC77C\uCC0D \uC790\uACE0 \uC77C\uCC0D \uC77C\uC5B4\uB098\uB294 \uAC74\uAC15\uD55C \uC218\uBA74 \uCC54\uD53C\uC5B8~ \uB108\uB294?",
+      "percentage": "20%"
+    },
+    {
+      "id": "late-deep",
+      "title": "\uC62C\uBE7C\uBBF8\uC871 \uD83E\uDD89",
+      "subtitle": "\uBC24\uC774 \uAE38\uC5B4\uC57C \uC0B4\uB9DB\uB098\uB294 \uBC24\uD615 \uC778\uAC04",
+      "emoji": "\uD83E\uDD89",
+      "description": "\uB2F9\uC2E0\uC740 \uC62C\uBE7C\uBBF8\uC871! \uBC24\uC5D0 \uAC00\uC7A5 \uD65C\uBC1C\uD558\uACE0, \uD55C\uBC88 \uC7A0\uB4E4\uBA74 \uC138\uC0C1 \uBAA8\uB974\uACE0 \uC7A0\uC5D0 \uBE60\uC838\uB4DC\uB294 \uD0C0\uC785\uC774\uC5D0\uC694.\n\n\uBC24\uB2A6\uAC8C\uAE4C\uC9C0 \uCC3D\uC791\uD65C\uB3D9\uC774\uB098 \uC791\uC5C5\uC744 \uD558\uACE0, \uC544\uCE68\uC5D0\uB294 \uC77C\uC5B4\uB098\uAE30 \uD798\uB4E4\uC5B4\uD558\uC9C0\uB9CC \uC794 \uC790\uCCB4\uC758 \uD488\uC9C8\uC740 \uCD5C\uACE0! \uC0AC\uD68C \uC2DC\uC2A4\uD15C\uC774 \uC544\uCE68\uD615\uC5D0 \uB9DE\uCDB0\uC838 \uC788\uC5B4\uC11C \uACE0\uC0DD\uC77C \uBFD0\uC774\uC5D0\uC694!",
+      "traits": [
+        "\uCC3D\uC758\uC801",
+        "\uBC24\uD615",
+        "\uD478\uC2DD\uB825",
+        "\uC790\uC720\uB85C\uC6C0"
+      ],
+      "strengths": [
+        "\uC218\uBA74 \uD488\uC9C8 \uB192\uC74C",
+        "\uBC24 \uCC3D\uC758\uB825 \uD3ED\uBC1C",
+        "\uD55C\uBC88 \uC790\uBA74 \uC644\uC804 \uCDA9\uC804"
+      ],
+      "weaknesses": [
+        "\uC544\uCE68 \uAE30\uC0C1 \uC5B4\uB824\uC6C0",
+        "\uC0AC\uD68C\uC801 \uC2DC\uAC04 \uBD88\uC77C\uCE58",
+        "\uBD88\uADDC\uCE59\uD55C \uC0DD\uD65C"
+      ],
+      "compatibility": { "best": "early-light", "worst": "late-deep" },
+      "shareText": "\uB098\uC758 \uC218\uBA74 \uC720\uD615\uC740 \uC62C\uBE7C\uBBF8\uC871! \uD83E\uDD89 \uBC24\uC774 \uAE38\uC5B4\uC57C \uC0B4\uB9DB\uB098\uB294 \uBC24\uD615 \uC778\uAC04\uC774\uB798~ \uB108\uB294?",
+      "percentage": "28%"
+    },
+    {
+      "id": "early-light",
+      "title": "\uAFB8\uC7A0\uB7EC \uD83D\uDCA4",
+      "subtitle": "\uC77C\uCC0D \uC790\uC9C0\uB9CC \uC608\uBBFC\uD558\uAC8C \uC790\uB294 \uB178\uB825\uD30C",
+      "emoji": "\uD83D\uDCA4",
+      "description": "\uB2F9\uC2E0\uC740 \uAFB8\uC7A0\uB7EC! \uC544\uCE68\uD615 \uC778\uAC04\uC774\uC9C0\uB9CC \uC218\uBA74\uC5D0 \uBBFC\uAC10\uD55C \uD3B8\uC774\uC5D0\uC694. \uC77C\uCC0D \uC790\uB824\uACE0 \uB178\uB825\uD558\uC9C0\uB9CC \uC218\uBA74\uC758 \uC9C8\uC774 \uD56D\uC0C1 \uCD5C\uACE0\uB294 \uC544\uB2C8\uC8E0.\n\n\uC218\uBA74 \uD658\uACBD\uC5D0 \uC2E0\uACBD\uC744 \uB9CE\uC774 \uC4F0\uACE0, \uC88B\uC740 \uC218\uBA74\uC744 \uC704\uD574 \uB178\uB825\uD558\uB294 \uD0C0\uC785\uC774\uC5D0\uC694. \uC218\uBA74 \uB8E8\uD2F4\uC744 \uB9CC\uB4E4\uC5B4\uBCF4\uBA74 \uB3C4\uC6C0\uC774 \uB420 \uAC70\uC608\uC694!",
+      "traits": [
+        "\uADDC\uCE59\uC801",
+        "\uC608\uBBFC\uD568",
+        "\uB178\uB825\uD30C",
+        "\uC2E0\uC911\uD568"
+      ],
+      "strengths": [
+        "\uADDC\uCE59\uC801 \uC0DD\uD65C",
+        "\uC218\uBA74 \uAD00\uB9AC \uC758\uC9C0",
+        "\uC544\uCE68 \uC2DC\uAC04 \uD65C\uC6A9"
+      ],
+      "weaknesses": [
+        "\uC218\uBA74 \uD488\uC9C8 \uBB38\uC81C",
+        "\uD658\uACBD\uC5D0 \uBBFC\uAC10",
+        "\uD53C\uB85C \uB204\uC801 \uC704\uD5D8"
+      ],
+      "compatibility": { "best": "late-deep", "worst": "early-light" },
+      "shareText": "\uB098\uC758 \uC218\uBA74 \uC720\uD615\uC740 \uAFB8\uC7A0\uB7EC! \uD83D\uDCA4 \uC77C\uCC0D \uC790\uC9C0\uB9CC \uC608\uBBFC\uD558\uAC8C \uC790\uB294 \uB178\uB825\uD30C\uB798~ \uB108\uB294?",
+      "percentage": "25%"
+    },
+    {
+      "id": "late-light",
+      "title": "\uC608\uBBFC\uC7A0\uB7EC \uD83C\uDF19",
+      "subtitle": "\uBC24\uB2A6\uAC8C \uC790\uACE0 \uC608\uBBFC\uD558\uAC8C \uC790\uB294 \uB9CC\uC131 \uC218\uBA74 \uBD80\uC871\uD615",
+      "emoji": "\uD83C\uDF19",
+      "description": "\uB2F9\uC2E0\uC740 \uC608\uBBFC\uC7A0\uB7EC! \uBC24\uB2A6\uAC8C\uAE4C\uC9C0 \uC798 \uBABB \uC790\uACE0, \uC7A0\uC774 \uB4E4\uC5B4\uB3C4 \uC608\uBBFC\uD574\uC11C \uC790\uC8FC \uAE68\uB294 \uD0C0\uC785\uC774\uC5D0\uC694.\n\n\uB9CC\uC131\uC801\uC778 \uC218\uBA74 \uBD80\uC871\uACFC \uD53C\uB85C\uAC00 \uC788\uC744 \uC218 \uC788\uC5B4\uC694. \uCE74\uD398\uC778 \uC12D\uCDE8\uB97C \uC904\uC774\uACE0, \uC218\uBA74 \uD658\uACBD\uC744 \uAC1C\uC120\uD558\uACE0, \uD544\uC694\uD558\uBA74 \uC804\uBB38\uAC00 \uC0C1\uB2F4\uB3C4 \uACE0\uB824\uD574\uBCF4\uC138\uC694!",
+      "traits": [
+        "\uC608\uBBFC\uD568",
+        "\uBB34\uAE30\uB825",
+        "\uAC10\uC131\uC801",
+        "\uC138\uC2EC\uD568"
+      ],
+      "strengths": [
+        "\uAC10\uAC01\uC774 \uC608\uBBFC\uD568",
+        "\uACF5\uAC10 \uB2A5\uB825",
+        "\uC12C\uC138\uD55C \uAD00\uCC30\uB825"
+      ],
+      "weaknesses": [
+        "\uB9CC\uC131 \uD53C\uB85C",
+        "\uC9D1\uC911\uB825 \uC800\uD558",
+        "\uAC10\uC815 \uAE30\uBCF5"
+      ],
+      "compatibility": { "best": "early-deep", "worst": "late-light" },
+      "shareText": "\uB098\uC758 \uC218\uBA74 \uC720\uD615\uC740 \uC608\uBBFC\uC7A0\uB7EC! \uD83C\uDF19 \uBC24\uB2A6\uAC8C \uC790\uACE0 \uC608\uBBFC\uD558\uAC8C \uC790\uB294 \uD0C0\uC785\uC774\uB798~ \uB108\uB294?",
+      "percentage": "27%"
+    }
+  ]
+}

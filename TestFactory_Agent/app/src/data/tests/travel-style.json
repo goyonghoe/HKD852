@@ -1,0 +1,335 @@
+{
+  "version": 1,
+  "meta": {
+    "slug": "travel-style",
+    "title": "나의 여행 스타일은? \u2708\uFE0F",
+    "description": "10가지 질문으로 알아보는 나만의 여행 유형! 탐험가? 힐링족? 계획왕? 자유영혼? 지금 확인해보세요.",
+    "shortDescription": "10문항으로 알아보는 나만의 여행 유형",
+    "thumbnail": "/images/tests/travel-style/thumb.png",
+    "ogImage": "/images/tests/travel-style/og-default.png",
+    "category": "lifestyle",
+    "tags": ["여행", "유형", "라이프스타일", "취향", "휴가"],
+    "emoji": "\u2708\uFE0F",
+    "color": "#0984E3",
+    "colorLight": "#74B9FF",
+    "estimatedMinutes": 2,
+    "questionCount": 10,
+    "popularity": 86,
+    "createdAt": "2026-02-22",
+    "isNew": true,
+    "isTrending": false
+  },
+  "scoring": {
+    "type": "mbti",
+    "dimensions": [
+      {
+        "id": "PS",
+        "poles": ["plan", "spontaneous"],
+        "labels": ["\uACC4\uD68D\uD615", "\uC989\uD765\uD615"]
+      },
+      {
+        "id": "AR",
+        "poles": ["active", "relax"],
+        "labels": ["\uD65C\uB3D9\uD615", "\uD734\uC2DD\uD615"]
+      }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "text": "\uC5EC\uD589 \uC804\uB0A0 \uBC24, \uB098\uB294?",
+      "emoji": "\uD83C\uDF19",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC2DC\uAC04\uB2E8\uC704 \uC77C\uC815\uD45C\uB97C \uC644\uBC31\uD558\uAC8C \uC644\uC131\uD574\uB450\uC9C0!",
+          "emoji": "\uD83D\uDCCB",
+          "scores": { "plan": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uBE44\uD589\uAE30\uD45C\uB9CC \uC788\uC73C\uBA74 \uB098\uBA38\uC9C0\uB294 \uAC00\uC11C \uC815\uD558\uC9C0~",
+          "emoji": "\uD83C\uDF1F",
+          "scores": { "spontaneous": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "\uC5EC\uD589\uC9C0\uC5D0\uC11C \uC544\uCE68\uC774 \uBC1D\uC558\uB2E4! \uB098\uB294?",
+      "emoji": "\uD83C\uDF05",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC77C\uCC0D \uC77C\uC5B4\uB098\uC11C \uC544\uCE68 \uBA85\uC18C\uBD80\uD130 \uACF5\uB7B5!",
+          "emoji": "\uD83C\uDFC3",
+          "scores": { "active": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uB2AA\uC7A0 \uC790\uACE0 \uC5EC\uC720\uB86D\uAC8C \uBE0C\uB7F0\uCE58 \uBA39\uC744\uB798~",
+          "emoji": "\uD83E\uDD50",
+          "scores": { "relax": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "\uC5EC\uD589\uC9C0\uC5D0\uC11C \uC608\uC0C1\uCE58 \uBABB\uD55C \uACE8\uBAA9\uC744 \uBC1C\uACAC\uD588\uB2E4\uBA74?",
+      "emoji": "\uD83D\uDDFA\uFE0F",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC77C\uC815 \uBCC0\uACBD! \uBC14\uB85C \uADF8\uB9AC\uB85C \uAC00\uBCF4\uC790!",
+          "emoji": "\uD83D\uDE06",
+          "scores": { "spontaneous": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uB2E4\uC74C\uC5D0 \uB2E4\uC2DC \uC624\uBA74 \uB418\uC9C0, \uC624\uB298\uC740 \uACC4\uD68D\uB300\uB85C!",
+          "emoji": "\uD83D\uDCC5",
+          "scores": { "plan": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "\uC774\uC0C1\uC801\uC778 \uC5EC\uD589 \uC219\uC18C\uB294?",
+      "emoji": "\uD83C\uDFE8",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uD504\uB77C\uC774\uBE57 \uD480\uC7A5 \uC788\uB294 \uACE0\uAE09 \uB9AC\uC870\uD2B8",
+          "emoji": "\uD83C\uDFD6\uFE0F",
+          "scores": { "relax": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uD604\uC9C0\uC778\uACFC \uB300\uD654\uD560 \uC218 \uC788\uB294 \uAC8C\uC2A4\uD2B8\uD558\uC6B0\uC2A4",
+          "emoji": "\uD83C\uDFE0",
+          "scores": { "active": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "\uC5EC\uD589 \uC0AC\uC9C4\uC740 \uC5B4\uB5BB\uAC8C \uCC0D\uB294 \uD3B8?",
+      "emoji": "\uD83D\uDCF8",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC778\uC0DD\uC0F7 \uBA85\uC18C\uB294 \uBC18\uB4DC\uC2DC! \uC778\uC0DD \uC0AC\uC9C4 \uB9E8\uB0A0",
+          "emoji": "\uD83E\uDD33",
+          "scores": { "plan": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC0AC\uC9C4? \uB208\uC73C\uB85C \uB2F4\uC73C\uBA74 \uB418\uC9C0~ \uD3F0 \uC548 \uAEBC\uB0BC \uB54C\uB3C4 \uC788\uC5B4",
+          "emoji": "\uD83D\uDE0E",
+          "scores": { "spontaneous": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "\uC5EC\uD589\uC9C0\uC5D0\uC11C \uBC25\uC744 \uBA39\uB294\uB2E4\uBA74?",
+      "emoji": "\uD83C\uDF5C",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uD604\uC9C0\uC778\uB9CC \uC544\uB294 \uC228\uC740 \uB9DB\uC9D1 \uD0D0\uBC29!",
+          "emoji": "\uD83D\uDE0B",
+          "scores": { "active": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uD638\uD154 \uB8F8\uC11C\uBE44\uC2A4\uB85C \uD3B8\uD558\uAC8C \uBA39\uC744\uB798~",
+          "emoji": "\uD83D\uDECF\uFE0F",
+          "scores": { "relax": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "\uC5EC\uD589 \uC911 \uBE44\uAC00 \uC624\uBA74?",
+      "emoji": "\uD83C\uDF27\uFE0F",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uBE44 \uC640\uB3C4 \uAC08 \uACF3\uC740 \uC788\uC9C0! \uBC15\uBB3C\uAD00/\uCE74\uD398 \uACE0\uACE0",
+          "emoji": "\uD83C\uDFDB\uFE0F",
+          "scores": { "plan": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uBE44 \uC624\uB294 \uB0A0\uC740 \uC5EC\uD589\uC9C0\uC5D0\uC11C\uB3C4 \uB2AA\uC7A0! \uCD5C\uACE0\uB2E4~",
+          "emoji": "\uD83D\uDE34",
+          "scores": { "spontaneous": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "\uC5EC\uD589\uC5D0\uC11C \uAC00\uC7A5 \uAE30\uB300\uB418\uB294 \uAC83\uC740?",
+      "emoji": "\uD83E\uDD29",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC0C8\uB85C\uC6B4 \uACBD\uD5D8\uACFC \uBAA8\uD5D8! \uBC88\uC9C0\uC810\uD504, \uC2A4\uCFE0\uBC84\uB2E4\uC774\uBE59 \uB3C4\uC804!",
+          "emoji": "\uD83E\uDD3F",
+          "scores": { "active": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC544\uBB34\uAC83\uB3C4 \uC548 \uD558\uACE0 \uBA4D\uB54C\uB9AC\uBA70 \uC26C\uB294 \uAC83!",
+          "emoji": "\uD83C\uDF34",
+          "scores": { "relax": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "\uC5EC\uD589 \uC9C0\uCD9C \uC2A4\uD0C0\uC77C\uC740?",
+      "emoji": "\uD83D\uDCB3",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC608\uC0B0\uC744 \uBBF8\uB9AC \uC815\uD574\uB450\uACE0 \uADF8 \uC548\uC5D0\uC11C \uC4F0\uB294 \uD3B8",
+          "emoji": "\uD83D\uDCCA",
+          "scores": { "plan": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uADF8\uB54C\uADF8\uB54C \uB05D\uB9AC\uB294 \uB300\uB85C! \uC778\uC0DD \uBB50 \uC788\uC5B4~",
+          "emoji": "\uD83D\uDCB8",
+          "scores": { "spontaneous": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "\uC5EC\uD589\uC5D0\uC11C \uB3CC\uC544\uC628 \uD6C4 \uB098\uB294?",
+      "emoji": "\uD83C\uDFE1",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uBC14\uB85C \uB2E4\uC74C \uC5EC\uD589 \uACC4\uD68D \uC9DC\uACE0 \uC2F6\uC5B4!",
+          "emoji": "\u2708\uFE0F",
+          "scores": { "active": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC9D1\uC774 \uCD5C\uACE0\uC57C... \uB2F9\uBD84\uAC04 \uC9D1\uCF55 \uBAA8\uB4DC!",
+          "emoji": "\uD83D\uDECB\uFE0F",
+          "scores": { "relax": 1 }
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "plan-active",
+      "title": "\uD0D0\uD5D8\uAC00 \uD83E\uDDED",
+      "subtitle": "\uCCA0\uC800\uD55C \uACC4\uD68D\uC73C\uB85C \uBAA8\uB4E0 \uAC83\uC744 \uC815\uBCF5\uD558\uB294 \uC5EC\uD589\uC790",
+      "emoji": "\uD83E\uDDED",
+      "description": "\uB2F9\uC2E0\uC740 \uC9C4\uC815\uD55C \uD0D0\uD5D8\uAC00! \uBE48\uD2C8\uC5C6\uB294 \uC77C\uC815\uACFC \uCCA0\uC800\uD55C \uC900\uBE44\uB85C \uC5EC\uD589\uC9C0\uC758 \uBAA8\uB4E0 \uAC83\uC744 \uC999\uC999\uB4E4\uC774 \uACBD\uD5D8\uD558\uB294 \uD0C0\uC785\uC774\uC5D0\uC694.\n\n\uC720\uBA85 \uAD00\uAD11\uC9C0\uBD80\uD130 \uC228\uC740 \uBA85\uC18C\uAE4C\uC9C0 \uD558\uB098\uB3C4 \uBE60\uC9D0\uC5C6\uC774 \uB2E4\uB2C8\uACE0, \uC5EC\uD589 \uD6C4 \uC0AC\uC9C4\uACFC \uAE30\uB85D\uC774 \uAC00\uB4DD\uD574\uC694. \uB2E4\uB9CC \uAC00\uB054\uC740 \uACC4\uD68D \uC5C6\uC774 \uD5E4\uB9E4\uB294 \uAC83\uB3C4 \uC5EC\uD589\uC758 \uB9DB\uC774\uB77C\uB294 \uAC78 \uAE30\uC5B5\uD574\uC694!",
+      "traits": [
+        "\uCCB4\uACC4\uC801",
+        "\uC5D0\uB108\uC9C0\uB118\uCE68",
+        "\uBAA8\uD5D8\uC2EC",
+        "\uAE30\uB85D\uAD11"
+      ],
+      "strengths": [
+        "\uC644\uBCBD\uD55C \uC5EC\uD589 \uACC4\uD68D",
+        "\uD6A8\uC728\uC801\uC778 \uB3D9\uC120",
+        "\uD480\uBD80\uD55C \uACBD\uD5D8"
+      ],
+      "weaknesses": [
+        "\uC720\uC5F0\uC131 \uBD80\uC871",
+        "\uC77C\uC815 \uC9D1\uCC29",
+        "\uD53C\uB85C \uB204\uC801"
+      ],
+      "compatibility": { "best": "spontaneous-relax", "worst": "plan-active" },
+      "shareText": "\uB098\uC758 \uC5EC\uD589 \uC2A4\uD0C0\uC77C\uC740 \uD0D0\uD5D8\uAC00! \uD83E\uDDED \uCCA0\uC800\uD55C \uACC4\uD68D\uC73C\uB85C \uBAA8\uB4E0 \uAC78 \uC815\uBCF5\uD558\uB294 \uD0C0\uC785\uC774\uB798~ \uB108\uB294?",
+      "percentage": "22%"
+    },
+    {
+      "id": "spontaneous-relax",
+      "title": "\uD798\uB9C1\uC871 \uD83C\uDFD6\uFE0F",
+      "subtitle": "\uC5B4\uB514\uC11C\uB4E0 \uD3B8\uC548\uD558\uAC8C \uC26C\uB294 \uAC83\uC774 \uBAA9\uC801\uC778 \uC5EC\uD589\uC790",
+      "emoji": "\uD83C\uDFD6\uFE0F",
+      "description": "\uB2F9\uC2E0\uC740 \uC9C4\uC815\uD55C \uD798\uB9C1\uC5EC\uD589 \uB9E4\uB2C8\uC544! \uC5EC\uD589\uC758 \uBAA9\uC801\uC740 \uC624\uC9C1 '\uD734\uC2DD'\uC774\uACE0, \uBE48\uB4EF\uC5C6\uB294 \uC77C\uC815\uBCF4\uB2E4 \uC5EC\uC720\uB85C\uC6B4 \uC2DC\uAC04\uC744 \uC120\uD638\uD574\uC694.\n\n\uD574\uBCC0\uC5D0\uC11C \uB4A4\uAD6C\uB974\uBA70 \uCC45\uC744 \uC77D\uAC70\uB098, \uC88B\uC740 \uD638\uD154\uC5D0\uC11C \uB712\uC7A0 \uC790\uB294 \uAC83\uC774 \uCD5C\uACE0\uC758 \uD589\uBCF5\uC774\uC8E0. \uB2E4\uB9CC \uAC00\uB054\uC740 \uC0C8\uB85C\uC6B4 \uACBD\uD5D8\uC5D0\uB3C4 \uB3C4\uC804\uD574\uBCF4\uC138\uC694!",
+      "traits": [
+        "\uC5EC\uC720\uB85C\uC6C0",
+        "\uC790\uC720\uB85C\uC6C0",
+        "\uD3B8\uC548\uD568",
+        "\uB290\uAE0B\uD568"
+      ],
+      "strengths": [
+        "\uC2A4\uD2B8\uB808\uC2A4 \uD574\uC18C",
+        "\uC720\uC5F0\uD55C \uC77C\uC815",
+        "\uC9C4\uC815\uD55C \uD734\uC2DD"
+      ],
+      "weaknesses": [
+        "\uAD00\uAD11\uC9C0 \uB193\uCE60 \uC218 \uC788\uC74C",
+        "\uACF5\uD56D\uC5D0\uC11C \uC758\uC678\uC758 \uC9C0\uCD9C",
+        "\uACC4\uD68D \uBD80\uC7AC"
+      ],
+      "compatibility": { "best": "plan-active", "worst": "spontaneous-relax" },
+      "shareText": "\uB098\uC758 \uC5EC\uD589 \uC2A4\uD0C0\uC77C\uC740 \uD798\uB9C1\uC871! \uD83C\uDFD6\uFE0F \uC5B4\uB514\uC11C\uB4E0 \uD3B8\uC548\uD558\uAC8C \uC26C\uB294 \uAC8C \uBAA9\uC801\uC774\uB798~ \uB108\uB294?",
+      "percentage": "30%"
+    },
+    {
+      "id": "plan-relax",
+      "title": "\uACC4\uD68D\uC655 \uD83D\uDCC5",
+      "subtitle": "\uC644\uBCBD\uD55C \uACC4\uD68D \uC18D\uC5D0\uC11C \uC5EC\uC720\uB97C \uCC3E\uB294 \uC5EC\uD589\uC790",
+      "emoji": "\uD83D\uDCC5",
+      "description": "\uB2F9\uC2E0\uC740 \uACC4\uD68D\uC655! \uC5EC\uD589\uC804 \uCCA0\uC800\uD55C \uB9AC\uC11C\uCE58\uC640 \uC608\uC57D\uC744 \uB9C8\uCE58\uACE0, \uC5EC\uD589\uC9C0\uC5D0\uC11C\uB294 \uACC4\uD68D\uB300\uB85C \uD3B8\uC548\uD558\uAC8C \uC990\uAE30\uB294 \uD0C0\uC785\uC774\uC5D0\uC694.\n\n\uCD5C\uACE0\uC758 \uD638\uD154, \uCD5C\uACE0\uC758 \uB9DB\uC9D1, \uCD5C\uACE0\uC758 \uBDF0\uD3EC\uC778\uD2B8\uB97C \uBBF8\uB9AC \uCC3E\uC544\uB450\uACE0 \uD6A8\uC728\uC801\uC73C\uB85C \uC990\uAE30\uC8E0. \uB2E4\uB9CC \uACC4\uD68D\uC5D0 \uC5C6\uB294 \uC77C\uC774 \uC0DD\uACA8\uB3C4 \uB108\uBB34 \uC2A4\uD2B8\uB808\uC2A4 \uBC1B\uC9C0 \uB9C8\uC138\uC694!",
+      "traits": [
+        "\uCCB4\uACC4\uC801",
+        "\uC2E0\uC911\uD568",
+        "\uD6A8\uC728\uC801",
+        "\uC548\uC815\uC9C0\uD5A5"
+      ],
+      "strengths": [
+        "\uC644\uBCBD\uD55C \uC900\uBE44",
+        "\uBE44\uC6A9 \uD6A8\uC728\uC801",
+        "\uC2A4\uD2B8\uB808\uC2A4 \uC5C6\uB294 \uC5EC\uD589"
+      ],
+      "weaknesses": [
+        "\uC608\uC0C1\uCE58 \uBABB\uD55C \uC0C1\uD669\uC5D0 \uC57D\uD568",
+        "\uC720\uC5F0\uC131 \uBD80\uC871",
+        "\uC774 \uACF5\uBC31 \uBD88\uC548"
+      ],
+      "compatibility": { "best": "spontaneous-active", "worst": "plan-relax" },
+      "shareText": "\uB098\uC758 \uC5EC\uD589 \uC2A4\uD0C0\uC77C\uC740 \uACC4\uD68D\uC655! \uD83D\uDCC5 \uC644\uBCBD\uD55C \uACC4\uD68D \uC18D \uC5EC\uC720\uB97C \uCC3E\uB294 \uD0C0\uC785\uC774\uB798~ \uB108\uB294?",
+      "percentage": "25%"
+    },
+    {
+      "id": "spontaneous-active",
+      "title": "\uC790\uC720\uC601\uD63C \uD83C\uDF0D",
+      "subtitle": "\uBC14\uB78C\uCC98\uB7FC \uC790\uC720\uB86D\uAC8C \uB5A0\uB098\uB294 \uBAA8\uD5D8\uAC00",
+      "emoji": "\uD83C\uDF0D",
+      "description": "\uB2F9\uC2E0\uC740 \uC790\uC720\uC601\uD63C! \uACC4\uD68D \uC5C6\uC774 \uD640\uC5B0 \uB5A0\uB098\uACE0, \uD604\uC9C0\uC5D0\uC11C \uC989\uD765\uC801\uC73C\uB85C \uBAA8\uD5D8\uC744 \uCC3E\uC544 \uB098\uC11C\uB294 \uD0C0\uC785\uC774\uC5D0\uC694.\n\n\uC608\uC0C1\uCE58 \uBABB\uD55C \uC0C1\uD669\uC5D0\uC11C \uC624\uD788\uB824 \uD589\uBCF5\uC744 \uBC1C\uACAC\uD558\uACE0, \uD604\uC9C0\uC778\uACFC \uC18D \uAE4A\uC740 \uAD50\uB958\uB97C \uC990\uAE30\uC8E0. \uB2E4\uB9CC \uC608\uC0B0 \uAD00\uB9AC\uC640 \uC548\uC804\uC5D0\uB294 \uC870\uAE08 \uB354 \uC2E0\uACBD \uC4F0\uBA74 \uC644\uBCBD\uD574\uC694!",
+      "traits": [
+        "\uC989\uD765\uC801",
+        "\uBAA8\uD5D8\uC2EC",
+        "\uC790\uC720\uB85C\uC6C0",
+        "\uC801\uC751\uB825"
+      ],
+      "strengths": [
+        "\uC608\uC0C1\uCE58 \uBABB\uD55C \uBC1C\uACAC",
+        "\uD604\uC9C0 \uBB38\uD654 \uCCB4\uD5D8",
+        "\uC720\uC5F0\uD55C \uB300\uCC98"
+      ],
+      "weaknesses": [
+        "\uC608\uC0B0 \uCD08\uACFC \uC704\uD5D8",
+        "\uC548\uC804 \uBD88\uAC10\uC99D",
+        "\uC900\uBE44 \uBD80\uC871"
+      ],
+      "compatibility": { "best": "plan-relax", "worst": "spontaneous-active" },
+      "shareText": "\uB098\uC758 \uC5EC\uD589 \uC2A4\uD0C0\uC77C\uC740 \uC790\uC720\uC601\uD63C! \uD83C\uDF0D \uBC14\uB78C\uCC98\uB7FC \uC790\uC720\uB86D\uAC8C \uB5A0\uB098\uB294 \uBAA8\uD5D8\uAC00\uB798~ \uB108\uB294?",
+      "percentage": "23%"
+    }
+  ]
+}

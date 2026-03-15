@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SSBL 런칭 체크리스트 현황 보고 — 2026.03.02</title>
+    <style>
+      :root {
+        --bg: #0f1117;
+        --card: #1a1d27;
+        --card2: #161822;
+        --border: #2a2d3a;
+        --text: #e4e4e7;
+        --text2: #c8c9cf;
+        --muted: #8b8d98;
+        --dim: #5a5d6e;
+        --p0: #ef4444;
+        --p1: #f59e0b;
+        --p2: #6b7280;
+        --done: #22c55e;
+        --wip: #3b82f6;
+        --accent: #8b5cf6;
+        --red-bg: rgba(239, 68, 68, 0.1);
+        --green-bg: rgba(34, 197, 94, 0.1);
+        --blue-bg: rgba(59, 130, 246, 0.1);
+        --yellow-bg: rgba(245, 158, 11, 0.1);
+        --purple-bg: rgba(139, 92, 246, 0.1);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, "Pretendard", "Noto Sans KR", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        font-size: 16px;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 40px 100px;
+      }
+
+      .slide {
+        margin-bottom: 80px;
+        padding-bottom: 60px;
+        border-bottom: 1px solid var(--border);
+      }
+      .slide:last-child {
+        border-bottom: none;
+      }
+
+      /* === HEADER === */
+      .report-header {
+        text-align: center;
+        margin-bottom: 80px;
+        padding-bottom: 60px;
+        border-bottom: 1px solid var(--border);
+      }
+      .report-header h1 {
+        font-size: 48px;
+        font-weight: 900;
+        letter-spacing: -1px;
+        margin-bottom: 8px;
+      }
+      .report-sub {
+        font-size: 20px;
+        color: var(--muted);
+        margin-bottom: 40px;
+      }
+      .report-meta {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        color: var(--dim);
+        font-size: 15px;
+        margin-bottom: 48px;
+      }
+      .verdict-box {
+        display: inline-flex;
+        align-items: center;
+        gap: 20px;
+        background: var(--red-bg);
+        border: 2px solid rgba(239, 68, 68, 0.25);
+        border-radius: 20px;
+        padding: 28px 48px;
+      }
+      .verdict-dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--p0);
+        animation: pulse 2s infinite;
+        flex-shrink: 0;
+      }
+      .verdict-text {
+        font-size: 32px;
+        font-weight: 900;
+        color: var(--p0);
+      }
+      .verdict-sub {
+        font-size: 16px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      /* === SECTION === */
+      .section-title {
+        font-size: 32px;
+        font-weight: 800;
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        letter-spacing: -0.5px;
+      }
+      .section-num {
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--accent);
+        background: var(--purple-bg);
+        padding: 6px 16px;
+        border-radius: 12px;
+        letter-spacing: 1px;
+      }
+
+      /* === CARDS === */
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 32px;
+        text-align: center;
+      }
+      .card .label {
+        font-size: 15px;
+        color: var(--muted);
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .card .value {
+        font-size: 64px;
+        font-weight: 900;
+        letter-spacing: -2px;
+      }
+      .card .sub {
+        font-size: 16px;
+        color: var(--dim);
+        font-weight: 500;
+        margin-top: 4px;
+      }
+      .card.red {
+        border: 2px solid rgba(239, 68, 68, 0.3);
+        background: linear-gradient(
+          135deg,
+          var(--card),
+          rgba(239, 68, 68, 0.04)
+        );
+      }
+      .card.red .value {
+        color: var(--p0);
+      }
+
+      /* === 3-STAT === */
+      .stat3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 32px;
+      }
+      .stat3-item {
+        text-align: center;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 32px 20px;
+      }
+      .stat3-val {
+        font-size: 56px;
+        font-weight: 900;
+        letter-spacing: -2px;
+      }
+      .stat3-label {
+        font-size: 16px;
+        color: var(--muted);
+        margin-top: 8px;
+        font-weight: 600;
+      }
+
+      /* === PROGRESS === */
+      .prog-row {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin-bottom: 16px;
+        padding: 24px 32px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+      }
+      .prog-label {
+        min-width: 120px;
+      }
+      .prog-bar-wrap {
+        flex: 1;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .prog-bar {
+        height: 100%;
+        border-radius: 10px;
+      }
+      .prog-bar.p0 {
+        background: linear-gradient(90deg, var(--p0), #f97316);
+      }
+      .prog-bar.p1 {
+        background: linear-gradient(90deg, var(--p1), #eab308);
+      }
+      .prog-bar.p2 {
+        background: linear-gradient(90deg, var(--p2), #9ca3af);
+      }
+      .prog-pct {
+        min-width: 80px;
+        text-align: right;
+        font-size: 36px;
+        font-weight: 900;
+        letter-spacing: -1px;
+      }
+      .prog-detail {
+        font-size: 18px;
+        color: var(--dim);
+        min-width: 90px;
+        text-align: right;
+        font-weight: 600;
+      }
+
+      /* === BADGE === */
+      .badge {
+        display: inline-block;
+        padding: 6px 18px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .badge-sm {
+        padding: 4px 14px;
+        font-size: 13px;
+        border-radius: 10px;
+      }
+      .badge-p0 {
+        background: var(--red-bg);
+        color: var(--p0);
+      }
+      .badge-p1 {
+        background: var(--yellow-bg);
+        color: var(--p1);
+      }
+      .badge-p2 {
+        background: rgba(107, 114, 128, 0.1);
+        color: var(--p2);
+      }
+
+      /* === RISK === */
+      .risk-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .risk-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        border-top: 4px solid var(--p0);
+      }
+      .risk-card.high {
+        border-top-color: var(--p1);
+      }
+      .risk-num {
+        font-size: 40px;
+        font-weight: 900;
+        color: var(--p0);
+        margin-bottom: 8px;
+      }
+      .risk-card.high .risk-num {
+        color: var(--p1);
+      }
+      .risk-card h4 {
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 10px;
+        line-height: 1.4;
+      }
+      .risk-card p {
+        font-size: 15px;
+        color: var(--text2);
+        line-height: 1.7;
+      }
+
+      /* === CALLOUT === */
+      .callout {
+        background: var(--red-bg);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        border-radius: 16px;
+        padding: 28px 36px;
+        margin-top: 28px;
+        font-size: 18px;
+        color: var(--text2);
+        line-height: 1.7;
+      }
+      .callout strong {
+        color: var(--p0);
+        font-weight: 800;
+      }
+
+      /* === TABLE === */
+      .tbl {
+        overflow-x: auto;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        background: var(--card2);
+        padding: 16px 20px;
+        text-align: left;
+        font-size: 14px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 700;
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+      td {
+        padding: 18px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        font-size: 16px;
+        color: var(--text2);
+        line-height: 1.5;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* === CALENDAR === */
+      .cal-wrap {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      .cal-month {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        overflow: hidden;
+      }
+      .cal-month-title {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        text-align: center;
+        letter-spacing: -0.3px;
+      }
+      .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        text-align: center;
+      }
+      .cal-dow {
+        font-size: 12px;
+        color: var(--dim);
+        font-weight: 700;
+        padding: 8px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .cal-day {
+        position: relative;
+        padding: 10px 4px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text2);
+        min-height: 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+      }
+      .cal-day.empty {
+        color: transparent;
+      }
+      .cal-day.today {
+        background: var(--purple-bg);
+        color: var(--accent);
+        font-weight: 800;
+        border: 2px solid var(--accent);
+      }
+      .cal-day.past {
+        color: var(--dim);
+      }
+      .cal-day .cal-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .cal-day .cal-dots {
+        display: flex;
+        gap: 3px;
+        justify-content: center;
+      }
+      .dot-p0 {
+        background: var(--p0);
+      }
+      .dot-p1 {
+        background: var(--p1);
+      }
+      .dot-done {
+        background: var(--done);
+      }
+      .dot-wip {
+        background: var(--wip);
+      }
+      .cal-legend {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+      .cal-leg {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .cal-leg .cal-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      .cal-note {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 16px;
+        color: var(--dim);
+        font-style: italic;
+      }
+      .cal-marker {
+        font-size: 9px;
+        font-weight: 700;
+        padding: 1px 6px;
+        border-radius: 6px;
+        white-space: nowrap;
+        line-height: 1.3;
+      }
+      .cal-marker.deadline {
+        background: var(--yellow-bg);
+        color: var(--p1);
+      }
+      .cal-marker.today-mark {
+        background: var(--purple-bg);
+        color: var(--accent);
+      }
+
+      /* === FOOTER === */
+      .report-footer {
+        margin-top: 60px;
+        padding-top: 32px;
+        border-top: 1px solid var(--border);
+        font-size: 14px;
+        color: var(--dim);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      /* === PRINT === */
+      @media print {
+        body {
+          background: #fff;
+          color: #111;
+          font-size: 13px;
+        }
+        .container {
+          padding: 20px;
+        }
+        .slide {
+          page-break-after: always;
+          border-bottom: none;
+          margin-bottom: 0;
+          padding-bottom: 20px;
+        }
+        .card,
+        .stat3-item,
+        .prog-row,
+        .risk-card,
+        .cal-month,
+        .tbl {
+          border-color: #ddd;
+        }
+        .card,
+        .stat3-item,
+        .cal-month {
+          background: #f9f9f9;
+        }
+        th {
+          background: #f0f0f0;
+        }
+        .report-footer {
+          display: none;
+        }
+      }
+
+      /* === MOBILE === */
+      @media (max-width: 768px) {
+        .container {
+          padding: 32px 20px 60px;
+        }
+        .report-header h1 {
+          font-size: 28px;
+        }
+        .verdict-text {
+          font-size: 22px;
+        }
+        .verdict-box {
+          padding: 20px 24px;
+        }
+        .summary-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stat3 {
+          grid-template-columns: 1fr;
+        }
+        .risk-row {
+          grid-template-columns: 1fr;
+        }
+        .cal-wrap {
+          grid-template-columns: 1fr;
+        }
+        .card .value {
+          font-size: 40px;
+        }
+        .stat3-val {
+          font-size: 36px;
+        }
+        .section-title {
+          font-size: 22px;
+        }
+        .prog-pct {
+          font-size: 24px;
+          min-width: 60px;
+        }
+        .prog-row {
+          flex-wrap: wrap;
+          gap: 12px;
+          padding: 16px 20px;
+        }
+        .prog-label {
+          min-width: auto;
+          width: 100%;
+        }
+        .slide {
+          margin-bottom: 48px;
+          padding-bottom: 40px;
+        }
+        .risk-num {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- ==================== TITLE ==================== -->
+      <div class="report-header">
+        <h1>SSBL 런칭 체크리스트</h1>
+        <div class="report-sub">SUPERSTAR THEBLACKLABEL — 현황 보고</div>
+        <div class="report-meta">
+          <span>2026.03.02 (일)</span>
+          <span>작성: PMO</span>
+        </div>
+        <div class="verdict-box">
+          <div class="verdict-dot"></div>
+          <div>
+            <div class="verdict-text">NO-GO</div>
+            <div class="verdict-sub">
+              P0 완료 45% · P1 완료 0% · 미배정 20건
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 1. BIG PICTURE ==================== -->
+      <div class="slide">
+        <div class="section-title">
+          <span class="section-num">01</span>전체 현황
+        </div>
+        <div class="summary-grid">
+          <div class="card">
+            <div class="label">전체</div>
+            <div class="value">83</div>
+            <div class="sub">P0:22 · P1:37 · P2:24</div>
+          </div>
+          <div class="card">
+            <div class="label">완료</div>
+            <div class="value" style="color: var(--done)">15</div>
+            <div class="sub">18%</div>
+          </div>
+          <div class="card">
+            <div class="label">진행중</div>
+            <div class="value" style="color: var(--wip)">5</div>
+            <div class="sub">6%</div>
+          </div>
+          <div class="card red">
+            <div class="label">미착수</div>
+            <div class="value">63</div>
+            <div class="sub">76%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 2. PRIORITY PROGRESS ==================== -->
+      <div class="slide">
+        <div class="section-title">
+          <span class="section-num">02</span>우선순위별 진행률
+        </div>
+        <div class="stat3">
+          <div class="stat3-item">
+            <div class="stat3-val" style="color: var(--p0)">45%</div>
+            <div class="stat3-label">P0 필수 — 10 / 22</div>
+          </div>
+          <div class="stat3-item">
+            <div class="stat3-val" style="color: var(--p1)">0%</div>
+            <div class="stat3-label">P1 중요 — 0 / 37</div>
+          </div>
+          <div class="stat3-item">
+            <div class="stat3-val">21%</div>
+            <div class="stat3-label">P2 후속 — 5 / 24</div>
+          </div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">
+            <span class="badge badge-p0">P0 필수</span>
+          </div>
+          <div class="prog-bar-wrap">
+            <div class="prog-bar p0" style="width: 45%"></div>
+          </div>
+          <div class="prog-pct" style="color: var(--p0)">45%</div>
+          <div class="prog-detail">10 / 22</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">
+            <span class="badge badge-p1">P1 중요</span>
+          </div>
+          <div class="prog-bar-wrap">
+            <div class="prog-bar p1" style="width: 0%"></div>
+          </div>
+          <div class="prog-pct" style="color: var(--p1)">0%</div>
+          <div class="prog-detail">0 / 37</div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-label">
+            <span class="badge badge-p2">P2 후속</span>
+          </div>
+          <div class="prog-bar-wrap">
+            <div class="prog-bar p2" style="width: 21%"></div>
+          </div>
+          <div class="prog-pct">21%</div>
+          <div class="prog-detail">5 / 24</div>
+        </div>
+        <div class="callout">
+          P0 완료 항목은 대부분 법무/라이선스/계약류.
+          <strong>P1 37건이 전부 0%</strong> — 개발, QA, 보안, 운영 등 실제 런칭
+          품질 항목이 여기에 집중.
+        </div>
+      </div>
+
+      <!-- ==================== 3. TOP 3 RISKS ==================== -->
+      <div class="slide">
+        <div class="section-title">
+          <span class="section-num">03</span>핵심 블로커 3건
+        </div>
+        <div class="risk-row">
+          <div class="risk-card">
+            <div class="risk-num">5+</div>
+            <h4>프로덕션 서버 미구축</h4>
+            <p>
+              서버(#4) 하나가 부하 테스트, 사전등록 전환, 운영툴, 모니터링, KPI
+              로깅 등 <strong>5건 이상</strong>을 차단 중
+            </p>
+          </div>
+          <div class="risk-card">
+            <div class="risk-num">3단계</div>
+            <h4>스토어 심사 체인<br />전부 미착수</h4>
+            <p>
+              버그 픽스 → 릴리즈 빌드 → 스토어 심사. 3단계 순차 의존인데
+              <strong>1단계도 시작 안 됨</strong>. 심사만 1~2주
+            </p>
+          </div>
+          <div class="risk-card high">
+            <div class="risk-num">20건</div>
+            <h4>담당자 미배정</h4>
+            <p>
+              전체의 <strong>24%가 주인 없음</strong>. P0 중 3건(오디오 싱크,
+              카드 검증, 스태미나)도 미배정 상태
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 4. NEXT ACTIONS ==================== -->
+      <div class="slide">
+        <div class="section-title">
+          <span class="section-num">04</span>즉시 필요 액션
+        </div>
+        <div class="tbl">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 50px">#</th>
+                <th>액션</th>
+                <th style="width: 120px">담당</th>
+                <th style="width: 100px">긴급도</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1</strong></td>
+                <td>
+                  <strong>프로덕션 서버 구축 착수</strong> — 후속 5건+ 언블로킹
+                </td>
+                <td>고덕환</td>
+                <td><span class="badge badge-sm badge-p0">즉시</span></td>
+              </tr>
+              <tr>
+                <td><strong>2</strong></td>
+                <td>
+                  <strong>크리티컬 버그 픽스 → 빌드 → 심사</strong> 체인 개시
+                </td>
+                <td>정재호</td>
+                <td><span class="badge badge-sm badge-p0">즉시</span></td>
+              </tr>
+              <tr>
+                <td><strong>3</strong></td>
+                <td><strong>미배정 20건 담당자 지정</strong> (P0 3건 우선)</td>
+                <td>PM</td>
+                <td><span class="badge badge-sm badge-p0">즉시</span></td>
+              </tr>
+              <tr>
+                <td><strong>4</strong></td>
+                <td><strong>가챠 확률 + 상점 구성 확정</strong></td>
+                <td>박상헌 / 고용회</td>
+                <td><span class="badge badge-sm badge-p1">이번주</span></td>
+              </tr>
+              <tr>
+                <td><strong>5</strong></td>
+                <td><strong>P1 37건 착수 계획 + 마감일 배분</strong></td>
+                <td>PM</td>
+                <td><span class="badge badge-sm badge-p1">이번주</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ==================== 5. CALENDAR ==================== -->
+      <div class="slide" style="border-bottom: none">
+        <div class="section-title">
+          <span class="section-num">05</span>3~4월 일정 캘린더
+        </div>
+        <div class="cal-wrap">
+          <!-- MARCH -->
+          <div class="cal-month">
+            <div class="cal-month-title">2026년 3월</div>
+            <div class="cal-grid">
+              <div class="cal-dow">일</div>
+              <div class="cal-dow">월</div>
+              <div class="cal-dow">화</div>
+              <div class="cal-dow">수</div>
+              <div class="cal-dow">목</div>
+              <div class="cal-dow">금</div>
+              <div class="cal-dow">토</div>
+              <div class="cal-day">1</div>
+              <div class="cal-day today">
+                2
+                <div class="cal-marker today-mark">TODAY</div>
+              </div>
+              <div class="cal-day">3</div>
+              <div class="cal-day">4</div>
+              <div class="cal-day">5</div>
+              <div class="cal-day">6</div>
+              <div class="cal-day">7</div>
+              <div class="cal-day">8</div>
+              <div class="cal-day">
+                9
+                <div class="cal-dots"><div class="cal-dot dot-p0"></div></div>
+              </div>
+              <div class="cal-day">10</div>
+              <div class="cal-day">11</div>
+              <div class="cal-day">12</div>
+              <div class="cal-day">
+                13
+                <div class="cal-dots"><div class="cal-dot dot-p0"></div></div>
+              </div>
+              <div class="cal-day">14</div>
+              <div class="cal-day">15</div>
+              <div class="cal-day">16</div>
+              <div class="cal-day">17</div>
+              <div class="cal-day">18</div>
+              <div class="cal-day">19</div>
+              <div class="cal-day">
+                20
+                <div class="cal-dots"><div class="cal-dot dot-p0"></div></div>
+              </div>
+              <div class="cal-day">21</div>
+              <div class="cal-day">22</div>
+              <div class="cal-day">23</div>
+              <div class="cal-day">24</div>
+              <div class="cal-day">25</div>
+              <div class="cal-day">26</div>
+              <div class="cal-day">
+                27
+                <div class="cal-marker deadline">MMP+KPI</div>
+              </div>
+              <div class="cal-day">28</div>
+              <div class="cal-day">29</div>
+              <div class="cal-day">30</div>
+              <div class="cal-day">31</div>
+              <div class="cal-day empty">.</div>
+              <div class="cal-day empty">.</div>
+              <div class="cal-day empty">.</div>
+              <div class="cal-day empty">.</div>
+            </div>
+            <div
+              style="
+                margin-top: 16px;
+                padding: 14px 16px;
+                background: var(--red-bg);
+                border-radius: 10px;
+                font-size: 13px;
+                color: var(--text2);
+                line-height: 1.6;
+                text-align: center;
+              "
+            >
+              <strong style="color: var(--p0)">3/9</strong> 서버 구축 착수 권고
+              · <strong style="color: var(--p0)">3/13</strong> 버그 픽스 완료
+              목표 · <strong style="color: var(--p0)">3/20</strong> 릴리즈 빌드
+              목표 · <strong style="color: var(--p1)">3/27</strong> MMP·KPI 마감
+            </div>
+          </div>
+
+          <!-- APRIL -->
+          <div class="cal-month">
+            <div class="cal-month-title">2026년 4월</div>
+            <div class="cal-grid">
+              <div class="cal-dow">일</div>
+              <div class="cal-dow">월</div>
+              <div class="cal-dow">화</div>
+              <div class="cal-dow">수</div>
+              <div class="cal-dow">목</div>
+              <div class="cal-dow">금</div>
+              <div class="cal-dow">토</div>
+              <div class="cal-day empty">.</div>
+              <div class="cal-day empty">.</div>
+              <div class="cal-day empty">.</div>
+              <div class="cal-day">1</div>
+              <div class="cal-day">2</div>
+              <div class="cal-day">
+                3
+                <div class="cal-dots"><div class="cal-dot dot-p0"></div></div>
+              </div>
+              <div class="cal-day">4</div>
+              <div class="cal-day">5</div>
+              <div class="cal-day">6</div>
+              <div class="cal-day">7</div>
+              <div class="cal-day">8</div>
+              <div class="cal-day">9</div>
+              <div class="cal-day">
+                10
+                <div class="cal-dots"><div class="cal-dot dot-p1"></div></div>
+              </div>
+              <div class="cal-day">11</div>
+              <div class="cal-day">12</div>
+              <div class="cal-day">13</div>
+              <div class="cal-day">14</div>
+              <div class="cal-day">15</div>
+              <div class="cal-day">16</div>
+              <div class="cal-day">
+                17
+                <div class="cal-dots"><div class="cal-dot dot-p1"></div></div>
+              </div>
+              <div class="cal-day">18</div>
+              <div class="cal-day">19</div>
+              <div class="cal-day">20</div>
+              <div class="cal-day">21</div>
+              <div class="cal-day">22</div>
+              <div class="cal-day">23</div>
+              <div class="cal-day">24</div>
+              <div class="cal-day">25</div>
+              <div class="cal-day">26</div>
+              <div class="cal-day">27</div>
+              <div class="cal-day">28</div>
+              <div class="cal-day">29</div>
+              <div class="cal-day">30</div>
+              <div class="cal-day empty">.</div>
+              <div class="cal-day empty">.</div>
+            </div>
+            <div
+              style="
+                margin-top: 16px;
+                padding: 14px 16px;
+                background: var(--yellow-bg);
+                border-radius: 10px;
+                font-size: 13px;
+                color: var(--text2);
+                line-height: 1.6;
+                text-align: center;
+              "
+            >
+              <strong style="color: var(--p0)">4/3</strong> 스토어 심사 제출
+              목표 · <strong style="color: var(--p1)">4/10</strong> QA 완료 목표
+              · <strong style="color: var(--p1)">4/17</strong> P1 전체 완료 목표
+            </div>
+          </div>
+        </div>
+
+        <div class="cal-legend">
+          <div class="cal-leg">
+            <div class="cal-dot dot-p0"></div>
+            P0 마일스톤
+          </div>
+          <div class="cal-leg">
+            <div class="cal-dot dot-p1"></div>
+            P1 마일스톤
+          </div>
+          <div class="cal-leg">
+            <div class="cal-dot" style="background: var(--accent)"></div>
+            오늘
+          </div>
+          <div class="cal-leg">
+            <div class="cal-dot" style="background: var(--p1)"></div>
+            확정 마감일
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top: 28px; text-align: center">
+          현재 <strong>확정된 마감일은 2건(3/27)뿐</strong>. 나머지 81건은
+          마감일 미설정 상태.<br />
+          위 캘린더의 마일스톤은 의존성 체인 기반
+          <strong>권고 일정</strong>이며, 전체 마감일 배분이 시급합니다.
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="report-footer">
+        <div>SSBL Launch Checklist Status Report · 2026-03-02</div>
+        <div>
+          <a
+            class="footer-link"
+            href="https://ssbl-launch-dashboard.vercel.app"
+            target="_blank"
+            >대시보드 바로가기 &rarr;</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

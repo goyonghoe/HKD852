@@ -1,0 +1,335 @@
+{
+  "version": 1,
+  "meta": {
+    "slug": "color-psychology",
+    "title": "나를 색깔로 표현하면? \uD83C\uDFA8",
+    "description": "10가지 질문으로 알아보는 나의 컬러 심리! 빨강? 파랑? 노랑? 초록? 당신의 영혼 컬러를 찾아보세요.",
+    "shortDescription": "10문항으로 알아보는 나의 영혼 컬러",
+    "thumbnail": "/images/tests/color-psychology/thumb.png",
+    "ogImage": "/images/tests/color-psychology/og-default.png",
+    "category": "psychology",
+    "tags": ["색깔", "심리", "성격", "컬러", "유형"],
+    "emoji": "\uD83C\uDFA8",
+    "color": "#E17055",
+    "colorLight": "#FAB1A0",
+    "estimatedMinutes": 2,
+    "questionCount": 10,
+    "popularity": 88,
+    "createdAt": "2026-02-22",
+    "isNew": true,
+    "isTrending": true
+  },
+  "scoring": {
+    "type": "mbti",
+    "dimensions": [
+      {
+        "id": "WC",
+        "poles": ["warm", "cool"],
+        "labels": ["\uB530\uB73B\uD55C", "\uCC28\uAC00\uC6B4"]
+      },
+      {
+        "id": "BD",
+        "poles": ["bright", "deep"],
+        "labels": ["\uBC1D\uC740", "\uAE4A\uC740"]
+      }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "text": "\uCE5C\uAD6C\uAC00 \uC6B8\uACE0 \uC788\uC744 \uB54C \uB098\uB294?",
+      "emoji": "\uD83D\uDE22",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uBC14\uB85C \uB2EC\uB824\uAC00\uC11C \uC548\uC544\uC900\uB2E4",
+          "emoji": "\uD83E\uDD17",
+          "scores": { "warm": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC6D0\uC778\uC744 \uD30C\uC545\uD558\uACE0 \uD574\uACB0\uCC45\uC744 \uCC3E\uC544\uC900\uB2E4",
+          "emoji": "\uD83E\uDDE0",
+          "scores": { "cool": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "\uC8FC\uB9D0\uC5D0 \uC5D0\uB108\uC9C0\uAC00 \uB118\uCE60 \uB54C \uD558\uACE0 \uC2F6\uC740 \uAC83\uC740?",
+      "emoji": "\uD83C\uDF1F",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uCE5C\uAD6C\uB4E4\uC774\uB791 \uC2E0\uB098\uAC8C \uB180\uB7EC \uAC00\uACE0 \uC2F6\uC5B4!",
+          "emoji": "\uD83C\uDF89",
+          "scores": { "bright": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC870\uC6A9\uD55C \uCE74\uD398\uC5D0\uC11C \uD63C\uC790 \uCC45 \uC77D\uACE0 \uC2F6\uC5B4",
+          "emoji": "\uD83D\uDCDA",
+          "scores": { "deep": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "\uB9CC\uC57D \uBC29\uC744 \uB0B4 \uB9C8\uC74C\uB300\uB85C \uAFB8\uBBF8\uBA74?",
+      "emoji": "\uD83C\uDFE0",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uB530\uB73B\uD55C \uC6B0\uB4DC\uD1A4\uACFC \uC624\uB80C\uC9C0 \uC870\uBA85\uC73C\uB85C!",
+          "emoji": "\uD83D\uDD36",
+          "scores": { "warm": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uBAA8\uB358\uD55C \uD68C\uC0C9\uACFC \uD30C\uB780 \uD3EC\uC778\uD2B8\uB85C!",
+          "emoji": "\uD83D\uDD37",
+          "scores": { "cool": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "\uC0C8\uB85C\uC6B4 \uD504\uB85C\uC81D\uD2B8\uB97C \uC2DC\uC791\uD560 \uB54C \uB098\uB294?",
+      "emoji": "\uD83D\uDE80",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC77C\uB2E8 \uC2DC\uC791\uD574\uBCF4\uACE0 \uBD10! \uC2E0\uB09C\uB2E4~",
+          "emoji": "\u26A1",
+          "scores": { "bright": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uCDA9\uBD84\uD788 \uACC4\uD68D\uC744 \uC138\uC6B0\uACE0 \uCC9C\uCC9C\uD788 \uC2DC\uC791\uD574",
+          "emoji": "\uD83D\uDCDD",
+          "scores": { "deep": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "\uB9CC\uC57D \uD558\uB8E8\uB9CC \uCD08\uB2A5\uB825\uC774 \uC0DD\uAE34\uB2E4\uBA74?",
+      "emoji": "\u2728",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uB2E4\uB978 \uC0AC\uB78C\uC758 \uAC10\uC815\uC744 \uB290\uB07C\uB294 \uB2A5\uB825",
+          "emoji": "\uD83D\uDC96",
+          "scores": { "warm": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uBAA8\uB4E0 \uC9C0\uC2DD\uC744 \uD55C\uBC88\uC5D0 \uD30C\uC545\uD558\uB294 \uB2A5\uB825",
+          "emoji": "\uD83E\uDDE0",
+          "scores": { "cool": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "\uB2E4\uD234 \uC774 \uC0DD\uAE34 \uB0A0, \uB098\uC758 \uB300\uCC98\uBC95\uC740?",
+      "emoji": "\uD83D\uDE44",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uCE5C\uAD6C\uD55C\uD14C \uC5F0\uB77D\uD574\uC11C \uC218\uB2E4 \uB5A0\uBA74 \uD480\uB824!",
+          "emoji": "\uD83D\uDCDE",
+          "scores": { "bright": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uD63C\uC790\uB9CC\uC758 \uC2DC\uAC04\uC744 \uAC00\uC9C0\uBA70 \uC815\uB9AC\uD574",
+          "emoji": "\uD83C\uDF19",
+          "scores": { "deep": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "\uC120\uBB3C\uC744 \uACE0\uB97C \uB54C \uB098\uB294?",
+      "emoji": "\uD83C\uDF81",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uBC1B\uB294 \uC0AC\uB78C\uC774 \uAC10\uB3D9\uD560 \uB9CC\uD55C \uC815\uC131 \uAC00\uB4DD\uD55C \uAC83",
+          "emoji": "\uD83D\uDC8C",
+          "scores": { "warm": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC2E4\uC6A9\uC801\uC774\uACE0 \uC13C\uC2A4 \uC788\uB294 \uAC83",
+          "emoji": "\uD83C\uDF96\uFE0F",
+          "scores": { "cool": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "\uC0AC\uC9C4\uC744 \uCC0D\uC744 \uB54C \uB354 \uB04C\uB9AC\uB294 \uC2A4\uD0C0\uC77C\uC740?",
+      "emoji": "\uD83D\uDCF8",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uBC1D\uACE0 \uD654\uB824\uD55C \uC0C9\uAC10\uC758 \uC0AC\uC9C4",
+          "emoji": "\uD83C\uDF08",
+          "scores": { "bright": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uBAA8\uB178\uD1A4\uC774\uB098 \uCC28\uBD84\uD55C \uBB34\uB4DC\uC758 \uC0AC\uC9C4",
+          "emoji": "\uD83D\uDDA4",
+          "scores": { "deep": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "\uD300 \uD504\uB85C\uC81D\uD2B8\uC5D0\uC11C \uB098\uC758 \uC5ED\uD560\uC740?",
+      "emoji": "\uD83E\uDD1D",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uBD84\uC704\uAE30 \uBA54\uC774\uCEE4! \uD300\uC6D0\uB4E4 \uC0AC\uAE30 \uB2F4\uB2F9",
+          "emoji": "\uD83D\uDE04",
+          "scores": { "warm": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC804\uB7B5 \uB2F4\uB2F9! \uACC4\uD68D\uACFC \uBD84\uC11D \uB9E1\uC740 \uC0AC\uB78C",
+          "emoji": "\uD83D\uDCCA",
+          "scores": { "cool": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "\uC778\uC0DD\uC5D0\uC11C \uAC00\uC7A5 \uC911\uC694\uD55C \uAC83\uC740?",
+      "emoji": "\uD83D\uDCAD",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC0AC\uB791\uD558\uB294 \uC0AC\uB78C\uB4E4\uACFC\uC758 \uAD00\uACC4",
+          "emoji": "\uD83D\uDC95",
+          "scores": { "warm": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uB098 \uC790\uC2E0\uC758 \uC131\uC7A5\uACFC \uC131\uCDE8",
+          "emoji": "\uD83C\uDFC6",
+          "scores": { "cool": 1 }
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "warm-bright",
+      "title": "\uBE68\uAC15 - \uC5F4\uC815\uD30C \uD83D\uDD34",
+      "subtitle": "\uC5B4\uB514\uC11C\uB4E0 \uC5D0\uB108\uC9C0\uB97C \uBFDC\uC5B4\uB0B4\uB294 \uD0DC\uC591",
+      "emoji": "\uD83D\uDD34",
+      "description": "\uB2F9\uC2E0\uC758 \uC601\uD63C \uCEEC\uB7EC\uB294 \uBE68\uAC15\uC774\uC5D0\uC694! \uB530\uB73B\uD55C \uB9C8\uC74C\uACFC \uBC1D\uC740 \uC5D0\uB108\uC9C0\uB97C \uAC00\uC9C4 \uB2F9\uC2E0\uC740, \uC0AC\uB78C\uB4E4 \uC0AC\uC774\uC5D0\uC11C \uB298 \uC911\uC2EC\uC774 \uB418\uB294 \uC874\uC7AC\uC608\uC694.\n\n\uAC10\uC815 \uD45C\uD604\uC774 \uC194\uC9C1\uD558\uACE0, \uC88B\uC544\uD558\uB294 \uAC83\uC5D0 \uC628 \uD798\uC744 \uC3DF\uB294 \uD0C0\uC785\uC774\uC8E0. \uC5F4\uC815\uC774 \uB118\uCE58\uB294 \uB9CC\uD07C \uAC00\uB054 \uD765\uBD84\uC774 \uC9C0\uB098\uCE60 \uB54C\uB3C4 \uC788\uC9C0\uB9CC, \uADF8 \uD65C\uB825\uC774 \uB9CE\uC740 \uC0AC\uB78C\uB4E4\uC5D0\uAC8C \uC601\uAC10\uC744 \uC918\uC694!",
+      "traits": [
+        "\uC5F4\uC815\uC801",
+        "\uC0AC\uAD50\uC801",
+        "\uC194\uC9C1\uD568",
+        "\uC561\uC158\uD30C"
+      ],
+      "strengths": [
+        "\uBD84\uC704\uAE30 \uBA54\uC774\uCEE4",
+        "\uACAC\uC778\uB825",
+        "\uAC10\uC815 \uD45C\uD604\uB825"
+      ],
+      "weaknesses": [
+        "\uC131\uAE09\uD568",
+        "\uAC10\uC815 \uAE30\uBCF5",
+        "\uCC38\uC744\uC131 \uBD80\uC871"
+      ],
+      "compatibility": { "best": "cool-deep", "worst": "warm-bright" },
+      "shareText": "\uB0B4 \uC601\uD63C \uCEEC\uB7EC\uB294 \uBE68\uAC15! \uD83D\uDD34 \uC5B4\uB514\uC11C\uB4E0 \uC5D0\uB108\uC9C0\uB97C \uBFDC\uC5B4\uB0B4\uB294 \uC5F4\uC815\uD30C\uB798~ \uB108\uB294 \uBB34\uC2A8 \uC0C9?",
+      "percentage": "23%"
+    },
+    {
+      "id": "cool-bright",
+      "title": "\uB178\uB791 - \uD65C\uB825\uD30C \uD83D\uDFE1",
+      "subtitle": "\uBC1D\uC740 \uC9C0\uC131\uC73C\uB85C \uC138\uC0C1\uC744 \uBE5B\uB0B4\uB294 \uBCC4",
+      "emoji": "\uD83D\uDFE1",
+      "description": "\uB2F9\uC2E0\uC758 \uC601\uD63C \uCEEC\uB7EC\uB294 \uB178\uB791\uC774\uC5D0\uC694! \uB17C\uB9AC\uC801\uC774\uBA74\uC11C\uB3C4 \uBC1D\uC740 \uC5D0\uB108\uC9C0\uB97C \uAC00\uC9C4 \uB2F9\uC2E0\uC740, \uCC3D\uC758\uC801\uC778 \uC544\uC774\uB514\uC5B4\uB85C \uC0AC\uB78C\uB4E4\uC744 \uB193\uB77C\uAC8C \uD558\uB294 \uD0C0\uC785\uC774\uC5D0\uC694.\n\n\uD638\uAE30\uC2EC\uC774 \uB9CE\uACE0 \uC0C8\uB85C\uC6B4 \uAC83\uC744 \uBC30\uC6B0\uB294 \uAC78 \uC88B\uC544\uD574\uC694. \uBA38\uB9BF\uC18D\uC774 \uD56D\uC0C1 \uBC14\uC058\uAC8C \uB3CC\uC544\uAC00\uC9C0\uB9CC, \uADF8 \uB355\uBD84\uC5D0 \uB0A8\uB4E4\uC774 \uBAAB \uBCF4\uB294 \uAD00\uC810\uC744 \uC81C\uC2DC\uD574\uC694!",
+      "traits": [
+        "\uCC3D\uC758\uC801",
+        "\uD638\uAE30\uC2EC",
+        "\uBD84\uC11D\uC801",
+        "\uD65C\uBC1C\uD568"
+      ],
+      "strengths": [
+        "\uCC3D\uC758\uC801 \uBB38\uC81C\uD574\uACB0",
+        "\uBE60\uB978 \uD559\uC2B5\uB825",
+        "\uCEE4\uBBA4\uB2C8\uCF00\uC774\uC158 \uB2A5\uB825"
+      ],
+      "weaknesses": [
+        "\uC9D1\uC911\uB825 \uBD80\uC871",
+        "\uAE4A\uC774 \uBD80\uC871",
+        "\uACFC\uB3C4\uD55C \uB0D9\uAD00"
+      ],
+      "compatibility": { "best": "warm-deep", "worst": "cool-bright" },
+      "shareText": "\uB0B4 \uC601\uD63C \uCEEC\uB7EC\uB294 \uB178\uB791! \uD83D\uDFE1 \uBC1D\uC740 \uC9C0\uC131\uC73C\uB85C \uC138\uC0C1\uC744 \uBE5B\uB0B4\uB294 \uD65C\uB825\uD30C\uB798~ \uB108\uB294?",
+      "percentage": "27%"
+    },
+    {
+      "id": "cool-deep",
+      "title": "\uD30C\uB791 - \uC9C0\uC131\uD30C \uD83D\uDD35",
+      "subtitle": "\uAE4A\uC740 \uBC14\uB2E4\uCC98\uB7FC \uACE0\uC694\uD558\uACE0 \uB2E8\uB2E8\uD55C \uC9C0\uC131\uC778",
+      "emoji": "\uD83D\uDD35",
+      "description": "\uB2F9\uC2E0\uC758 \uC601\uD63C \uCEEC\uB7EC\uB294 \uD30C\uB791\uC774\uC5D0\uC694! \uCC28\uBD84\uD558\uACE0 \uAE4A\uC774 \uC788\uB294 \uB2F9\uC2E0\uC740, \uC0AC\uB78C\uB4E4\uC774 \uC2E0\uB8B0\uD558\uACE0 \uC758\uC9C0\uD558\uB294 \uC874\uC7AC\uC608\uC694.\n\n\uD55C \uAC00\uC9C0\uC5D0 \uBAB0\uB450\uD558\uBA74 \uC804\uBB38\uAC00 \uC218\uC900\uC73C\uB85C \uD30C\uACE0\uB4DC\uB294 \uC9D1\uC911\uB825\uC744 \uAC00\uC84C\uC5B4\uC694. \uAC10\uC815\uBCF4\uB2E4 \uB17C\uB9AC\uB85C \uD310\uB2E8\uD558\uC9C0\uB9CC, \uB9C8\uC74C \uAE4A\uC740 \uACF3\uC5D0\uB294 \uC9C4\uC2EC \uC5B4\uB9B0 \uB530\uB73B\uD568\uC774 \uC228\uC5B4 \uC788\uC5B4\uC694!",
+      "traits": [
+        "\uBD84\uC11D\uC801",
+        "\uC2E0\uC911\uD568",
+        "\uC9D1\uC911\uB825",
+        "\uB3C5\uB9BD\uC801"
+      ],
+      "strengths": [
+        "\uB17C\uB9AC\uC801 \uC0AC\uACE0",
+        "\uB192\uC740 \uC9D1\uC911\uB825",
+        "\uC2E0\uB8B0\uAC10"
+      ],
+      "weaknesses": [
+        "\uAC10\uC815 \uD45C\uD604 \uC11C\uD234",
+        "\uBCC0\uD654 \uAC70\uBD80",
+        "\uACE0\uC9D1"
+      ],
+      "compatibility": { "best": "warm-bright", "worst": "cool-deep" },
+      "shareText": "\uB0B4 \uC601\uD63C \uCEEC\uB7EC\uB294 \uD30C\uB791! \uD83D\uDD35 \uAE4A\uC740 \uBC14\uB2E4\uCC98\uB7FC \uACE0\uC694\uD55C \uC9C0\uC131\uD30C\uB798~ \uB108\uB294?",
+      "percentage": "22%"
+    },
+    {
+      "id": "warm-deep",
+      "title": "\uCD08\uB85D - \uD3C9\uD654\uD30C \uD83D\uDFE2",
+      "subtitle": "\uBAA8\uB450\uB97C \uD3B8\uC548\uD558\uAC8C \uB9CC\uB4DC\uB294 \uC790\uC5F0\uC758 \uCE58\uC720\uC0AC",
+      "emoji": "\uD83D\uDFE2",
+      "description": "\uB2F9\uC2E0\uC758 \uC601\uD63C \uCEEC\uB7EC\uB294 \uCD08\uB85D\uC774\uC5D0\uC694! \uB530\uB73B\uD558\uBA74\uC11C\uB3C4 \uAE4A\uC740 \uB0B4\uBA74\uC744 \uAC00\uC9C4 \uB2F9\uC2E0\uC740, \uC8FC\uBCC0 \uC0AC\uB78C\uB4E4\uC5D0\uAC8C \uD3B8\uC548\uD568\uC744 \uC8FC\uB294 \uC874\uC7AC\uC608\uC694.\n\n\uACF5\uAC10 \uB2A5\uB825\uC774 \uB6F0\uC5B4\uB098\uACE0, \uAC08\uB4F1 \uC0C1\uD669\uC5D0\uC11C \uC911\uC7AC\uC790 \uC5ED\uD560\uC744 \uC790\uC5F0\uC2A4\uB7FD\uAC8C \uD574\uB0B4\uC694. \uB0A8\uB4E4\uC744 \uB9CE\uC774 \uCC59\uAE30\uC9C0\uB9CC, \uC815\uC791 \uBCF8\uC778\uC740 \uCC59\uAE40\uC744 \uBC1B\uC9C0 \uBABB\uD560 \uB54C\uAC00 \uC788\uC5B4\uC694!",
+      "traits": [
+        "\uACF5\uAC10\uB825",
+        "\uC778\uB0B4\uC2EC",
+        "\uC870\uD654\uB85C\uC6C0",
+        "\uD5CC\uC2E0\uC801"
+      ],
+      "strengths": [
+        "\uAC08\uB4F1 \uC911\uC7AC \uB2A5\uB825",
+        "\uAE4A\uC740 \uACF5\uAC10\uB825",
+        "\uC548\uC815\uAC10"
+      ],
+      "weaknesses": [
+        "\uAC70\uC808 \uBABB\uD568",
+        "\uC790\uAE30 \uD76C\uC0DD",
+        "\uC6B0\uC720\uBD80\uB2E8"
+      ],
+      "compatibility": { "best": "cool-bright", "worst": "warm-deep" },
+      "shareText": "\uB0B4 \uC601\uD63C \uCEEC\uB7EC\uB294 \uCD08\uB85D! \uD83D\uDFE2 \uBAA8\uB450\uB97C \uD3B8\uC548\uD558\uAC8C \uD558\uB294 \uD3C9\uD654\uD30C\uB798~ \uB108\uB294?",
+      "percentage": "28%"
+    }
+  ]
+}

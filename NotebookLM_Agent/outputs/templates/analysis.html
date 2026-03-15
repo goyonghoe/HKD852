@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* === ANALYSIS TEMPLATE ===
+   용도: 시장 분석, 벤치마킹, 트렌드 분석
+   특징: 비교 매트릭스 + 스코어카드 + 데이터 테이블 중심
+*/
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:{{BG_COLOR}};color:#e2e8f0;font-family:'Noto Sans KR',sans-serif;line-height:1.7}
+a{color:{{PRIMARY}};text-decoration:none}
+
+/* NAV — 상단 고정 목차 */
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,14,39,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(148,163,184,.1);padding:12px 0}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;gap:16px;overflow-x:auto;padding:0 24px;font-size:13px;font-weight:500}
+.nav a{color:#94a3b8;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent;transition:.2s}
+.nav a:hover{color:{{PRIMARY}};border-color:{{PRIMARY}};text-decoration:none}
+
+.wrap{max-width:1100px;margin:0 auto;padding:32px 24px 64px}
+
+/* HEADER */
+.header{text-align:center;padding:48px 0 40px;border-bottom:1px solid rgba(148,163,184,.08);margin-bottom:40px}
+.header h1{font-size:36px;font-weight:900;background:linear-gradient(135deg,{{GRADIENT}});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
+.header .meta{font-size:14px;color:#64748b}
+
+/* SCORECARD ROW — 핵심 수치 3~4개 */
+.score-row{display:flex;gap:16px;margin:24px 0}
+.score{flex:1;text-align:center;padding:24px 16px;background:rgba(30,41,59,.4);border-radius:14px;border:1px solid rgba(148,163,184,.08)}
+.score .val{font-size:36px;font-weight:900;margin-bottom:4px}
+.score .desc{font-size:12px;color:#94a3b8}
+
+/* SECTION */
+.section{margin-bottom:48px;scroll-margin-top:72px}
+.section h2{font-size:24px;font-weight:700;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid {{PRIMARY_20}};color:#f1f5f9}
+
+/* COMPARISON MATRIX — 비교 매트릭스 */
+.matrix{width:100%;border-collapse:collapse;margin:16px 0}
+.matrix th{text-align:left;font-size:13px;color:#94a3b8;padding:12px 14px;border-bottom:2px solid {{PRIMARY_20}};font-weight:600;background:rgba(15,23,42,.5)}
+.matrix td{font-size:14px;padding:12px 14px;border-bottom:1px solid rgba(148,163,184,.08);color:#cbd5e1}
+.matrix tr:hover td{background:rgba(148,163,184,.04)}
+.matrix .highlight-cell{background:{{PRIMARY_08}};font-weight:700;color:{{PRIMARY}}}
+
+/* CARD */
+.card{background:rgba(30,41,59,.55);border:1px solid rgba(148,163,184,.1);border-radius:12px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,{{PRIMARY}},{{SECONDARY}})}
+.card h3{font-size:17px;font-weight:700;margin-bottom:12px;color:#f1f5f9}
+
+/* GRID */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+
+/* QUOTE — 핵심 인용 */
+.quote{border-left:3px solid {{PRIMARY}};padding:16px 20px;margin:16px 0;background:{{PRIMARY_06}};border-radius:0 8px 8px 0;font-size:15px;color:{{PRIMARY_LIGHT}}}
+
+/* TAG */
+.tag{display:inline-block;padding:2px 10px;border-radius:10px;font-size:12px;font-weight:500}
+.tag-high{background:rgba(16,185,129,.15);color:#34d399}
+.tag-mid{background:rgba(245,158,11,.15);color:#fbbf24}
+.tag-low{background:rgba(239,68,68,.15);color:#f87171}
+
+/* BAR — 비율/진행 바 */
+.bar{height:8px;border-radius:4px;background:rgba(148,163,184,.1);margin-top:8px;overflow:hidden}
+.bar .fill{height:100%;border-radius:4px;background:linear-gradient(90deg,{{PRIMARY}},{{SECONDARY}})}
+
+/* LIST */
+ul{padding-left:20px;margin:8px 0}
+li{margin-bottom:8px;font-size:15px;color:#cbd5e1}
+li strong{color:#f1f5f9}
+
+/* FOOTER */
+.footer{text-align:center;padding:32px 0;color:#475569;font-size:13px;border-top:1px solid rgba(148,163,184,.1);margin-top:48px}
+
+/* PRINT */
+@media print{body{background:#fff;color:#1e293b}.nav{display:none}.card{border:1px solid #e2e8f0;background:#f8fafc}.card::before{display:none}.header h1{-webkit-text-fill-color:#1e293b}.matrix th{background:#f1f5f9;color:#475569}.matrix td{color:#334155}}
+@media(max-width:768px){.grid2,.grid3{grid-template-columns:1fr}.score-row{flex-direction:column}.header h1{font-size:26px}}
+</style>
+</head>
+<body>
+<!--
+  ANALYSIS TEMPLATE
+  사용법: {{변수명}}을 실제 값으로 치환하여 사용
+
+  필수 섹션:
+  1. nav — 목차 (섹션 앵커 링크)
+  2. header — 제목 + 메타
+  3. score-row — 핵심 수치 3~4개
+  4. section × N — 분석 본문 (matrix 테이블 + card + quote)
+  5. footer — 출처 + 날짜
+
+  차별화 포인트:
+  - matrix 테이블에 .highlight-cell로 핵심 셀 강조
+  - bar 차트로 비율/점수 시각화
+  - quote로 핵심 인사이트 강조
+  - grid2/grid3로 병렬 비교
+-->
+<div class="nav"><div class="nav-inner">
+{{NAV_LINKS}}
+</div></div>
+<div class="wrap">
+<div class="header">
+<h1>{{TITLE}}</h1>
+<p style="font-size:18px;color:#94a3b8;margin-bottom:16px">{{SUBTITLE}}</p>
+<div class="meta">{{META}}</div>
+</div>
+{{CONTENT}}
+<div class="footer">{{FOOTER}}</div>
+</div>
+</body>
+</html>

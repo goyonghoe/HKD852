@@ -1,0 +1,4027 @@
+[
+  {
+    "name": ".claude",
+    "type": "dir",
+    "path": ".claude",
+    "children": [
+      {
+        "name": "skills",
+        "type": "dir",
+        "path": ".claude/skills",
+        "children": [
+          {
+            "name": "debate-synthesize",
+            "type": "dir",
+            "path": ".claude/skills/debate-synthesize",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/debate-synthesize/SKILL.md"
+              }
+            ]
+          },
+          {
+            "name": "guide-update-check",
+            "type": "dir",
+            "path": ".claude/skills/guide-update-check",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/guide-update-check/SKILL.md"
+              }
+            ]
+          },
+          {
+            "name": "market-research",
+            "type": "dir",
+            "path": ".claude/skills/market-research",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/market-research/SKILL.md"
+              }
+            ]
+          },
+          {
+            "name": "orchestrator",
+            "type": "dir",
+            "path": ".claude/skills/orchestrator",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/orchestrator/SKILL.md"
+              }
+            ]
+          },
+          {
+            "name": "paper-factory",
+            "type": "dir",
+            "path": ".claude/skills/paper-factory",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/paper-factory/SKILL.md"
+              }
+            ]
+          },
+          {
+            "name": "paper-mine",
+            "type": "dir",
+            "path": ".claude/skills/paper-mine",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/paper-mine/SKILL.md"
+              }
+            ]
+          },
+          {
+            "name": "paper-render",
+            "type": "dir",
+            "path": ".claude/skills/paper-render",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/paper-render/SKILL.md"
+              }
+            ]
+          },
+          {
+            "name": "paper-review",
+            "type": "dir",
+            "path": ".claude/skills/paper-review",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/paper-review/SKILL.md"
+              }
+            ]
+          },
+          {
+            "name": "paper-script",
+            "type": "dir",
+            "path": ".claude/skills/paper-script",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/paper-script/SKILL.md"
+              }
+            ]
+          },
+          {
+            "name": "paper-translate",
+            "type": "dir",
+            "path": ".claude/skills/paper-translate",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/paper-translate/SKILL.md"
+              }
+            ]
+          },
+          {
+            "name": "paper-upload",
+            "type": "dir",
+            "path": ".claude/skills/paper-upload",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/paper-upload/SKILL.md"
+              }
+            ]
+          },
+          {
+            "name": "quality-gate",
+            "type": "dir",
+            "path": ".claude/skills/quality-gate",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "type": "file",
+                "path": ".claude/skills/quality-gate/SKILL.md"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Art_Studio",
+    "type": "dir",
+    "path": "Art_Studio",
+    "children": [
+      {
+        "name": "배경_컨셉_기획안.md",
+        "type": "file",
+        "path": "Art_Studio/배경_컨셉_기획안.md"
+      }
+    ]
+  },
+  {
+    "name": "CLAUDE.md",
+    "type": "file",
+    "path": "CLAUDE.md"
+  },
+  {
+    "name": "ClaudeUsageMonitor",
+    "type": "dir",
+    "path": "ClaudeUsageMonitor",
+    "children": [
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "ClaudeUsageMonitor/README.md"
+      }
+    ]
+  },
+  {
+    "name": "GameDesign_Agent",
+    "type": "dir",
+    "path": "GameDesign_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "GameDesign_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "GameDesign_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "GameDesign_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "art-status",
+                "type": "dir",
+                "path": "GameDesign_Agent/.claude/skills/art-status",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "GameDesign_Agent/.claude/skills/art-status/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "balance-designer.md",
+                "type": "file",
+                "path": "GameDesign_Agent/.claude/skills/balance-designer.md"
+              },
+              {
+                "name": "concept-designer.md",
+                "type": "file",
+                "path": "GameDesign_Agent/.claude/skills/concept-designer.md"
+              },
+              {
+                "name": "liveops-specialist.md",
+                "type": "file",
+                "path": "GameDesign_Agent/.claude/skills/liveops-specialist.md"
+              },
+              {
+                "name": "market-analyst.md",
+                "type": "file",
+                "path": "GameDesign_Agent/.claude/skills/market-analyst.md"
+              },
+              {
+                "name": "monetization-expert.md",
+                "type": "file",
+                "path": "GameDesign_Agent/.claude/skills/monetization-expert.md"
+              },
+              {
+                "name": "pd-reviewer.md",
+                "type": "file",
+                "path": "GameDesign_Agent/.claude/skills/pd-reviewer.md"
+              },
+              {
+                "name": "proposal-writer.md",
+                "type": "file",
+                "path": "GameDesign_Agent/.claude/skills/proposal-writer.md"
+              },
+              {
+                "name": "report-generator.md",
+                "type": "file",
+                "path": "GameDesign_Agent/.claude/skills/report-generator.md"
+              },
+              {
+                "name": "requirement-analyst.md",
+                "type": "file",
+                "path": "GameDesign_Agent/.claude/skills/requirement-analyst.md"
+              },
+              {
+                "name": "task-coordinator.md",
+                "type": "file",
+                "path": "GameDesign_Agent/.claude/skills/task-coordinator.md"
+              },
+              {
+                "name": "ux-advisor.md",
+                "type": "file",
+                "path": "GameDesign_Agent/.claude/skills/ux-advisor.md"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "output",
+        "type": "dir",
+        "path": "GameDesign_Agent/output",
+        "children": [
+          {
+            "name": "CRM_Review_Presentation.md",
+            "type": "file",
+            "path": "GameDesign_Agent/output/CRM_Review_Presentation.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "GameDev_Agent",
+    "type": "dir",
+    "path": "GameDev_Agent",
+    "children": [
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "GameDev_Agent/README.md"
+      }
+    ]
+  },
+  {
+    "name": "Growth_Agent",
+    "type": "dir",
+    "path": "Growth_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "Growth_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "Growth_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "Growth_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "funnel-audit",
+                "type": "dir",
+                "path": "Growth_Agent/.claude/skills/funnel-audit",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Growth_Agent/.claude/skills/funnel-audit/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "kpi-dashboard",
+                "type": "dir",
+                "path": "Growth_Agent/.claude/skills/kpi-dashboard",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Growth_Agent/.claude/skills/kpi-dashboard/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "onboarding-review",
+                "type": "dir",
+                "path": "Growth_Agent/.claude/skills/onboarding-review",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Growth_Agent/.claude/skills/onboarding-review/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "Growth_Agent/README.md"
+      }
+    ]
+  },
+  {
+    "name": "HR_Agent",
+    "type": "dir",
+    "path": "HR_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "HR_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "HR_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "HR_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "org-chart",
+                "type": "dir",
+                "path": "HR_Agent/.claude/skills/org-chart",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "HR_Agent/.claude/skills/org-chart/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "reorg",
+                "type": "dir",
+                "path": "HR_Agent/.claude/skills/reorg",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "HR_Agent/.claude/skills/reorg/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "HR_Agent/README.md"
+      }
+    ]
+  },
+  {
+    "name": "Income_Factory",
+    "type": "dir",
+    "path": "Income_Factory",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "Income_Factory/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "Income_Factory/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "Income_Factory/.claude/skills",
+            "children": [
+              {
+                "name": "factory",
+                "type": "dir",
+                "path": "Income_Factory/.claude/skills/factory",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Income_Factory/.claude/skills/factory/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "idea-analyze",
+                "type": "dir",
+                "path": "Income_Factory/.claude/skills/idea-analyze",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Income_Factory/.claude/skills/idea-analyze/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "idea-build",
+                "type": "dir",
+                "path": "Income_Factory/.claude/skills/idea-build",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Income_Factory/.claude/skills/idea-build/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "idea-critic",
+                "type": "dir",
+                "path": "Income_Factory/.claude/skills/idea-critic",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Income_Factory/.claude/skills/idea-critic/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "idea-eval",
+                "type": "dir",
+                "path": "Income_Factory/.claude/skills/idea-eval",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Income_Factory/.claude/skills/idea-eval/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "idea-launch",
+                "type": "dir",
+                "path": "Income_Factory/.claude/skills/idea-launch",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Income_Factory/.claude/skills/idea-launch/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "idea-plan",
+                "type": "dir",
+                "path": "Income_Factory/.claude/skills/idea-plan",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Income_Factory/.claude/skills/idea-plan/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "idea-review",
+                "type": "dir",
+                "path": "Income_Factory/.claude/skills/idea-review",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Income_Factory/.claude/skills/idea-review/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "idea-scan",
+                "type": "dir",
+                "path": "Income_Factory/.claude/skills/idea-scan",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Income_Factory/.claude/skills/idea-scan/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "QUICKSTART.md",
+        "type": "file",
+        "path": "Income_Factory/QUICKSTART.md"
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "Income_Factory/README.md"
+      },
+      {
+        "name": "agents",
+        "type": "dir",
+        "path": "Income_Factory/agents",
+        "children": [
+          {
+            "name": "research",
+            "type": "dir",
+            "path": "Income_Factory/agents/research",
+            "children": [
+              {
+                "name": "trend_research.md",
+                "type": "file",
+                "path": "Income_Factory/agents/research/trend_research.md"
+              }
+            ]
+          },
+          {
+            "name": "script",
+            "type": "dir",
+            "path": "Income_Factory/agents/script",
+            "children": [
+              {
+                "name": "shorts_script.md",
+                "type": "file",
+                "path": "Income_Factory/agents/script/shorts_script.md"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "data",
+        "type": "dir",
+        "path": "Income_Factory/data",
+        "children": [
+          {
+            "name": "income_tracker.md",
+            "type": "file",
+            "path": "Income_Factory/data/income_tracker.md"
+          }
+        ]
+      },
+      {
+        "name": "outputs",
+        "type": "dir",
+        "path": "Income_Factory/outputs",
+        "children": [
+          {
+            "name": "2024-02-03_scripts.md",
+            "type": "file",
+            "path": "Income_Factory/outputs/2024-02-03_scripts.md"
+          },
+          {
+            "name": "proj-20260207-gumroad",
+            "type": "dir",
+            "path": "Income_Factory/outputs/proj-20260207-gumroad",
+            "children": [
+              {
+                "name": "gumroad-listing.md",
+                "type": "file",
+                "path": "Income_Factory/outputs/proj-20260207-gumroad/gumroad-listing.md"
+              }
+            ]
+          },
+          {
+            "name": "proj-20260207-kr-prompts",
+            "type": "dir",
+            "path": "Income_Factory/outputs/proj-20260207-kr-prompts",
+            "children": [
+              {
+                "name": "ai-mate-listing.md",
+                "type": "file",
+                "path": "Income_Factory/outputs/proj-20260207-kr-prompts/ai-mate-listing.md"
+              },
+              {
+                "name": "kmong-listing.md",
+                "type": "file",
+                "path": "Income_Factory/outputs/proj-20260207-kr-prompts/kmong-listing.md"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "pipeline",
+        "type": "dir",
+        "path": "Income_Factory/pipeline",
+        "children": [
+          {
+            "name": "launches",
+            "type": "dir",
+            "path": "Income_Factory/pipeline/launches",
+            "children": [
+              {
+                "name": "proj-20260207-gumroad",
+                "type": "dir",
+                "path": "Income_Factory/pipeline/launches/proj-20260207-gumroad",
+                "children": [
+                  {
+                    "name": "launch-guide.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/launches/proj-20260207-gumroad/launch-guide.md"
+                  }
+                ]
+              },
+              {
+                "name": "proj-20260207-kr-prompts",
+                "type": "dir",
+                "path": "Income_Factory/pipeline/launches/proj-20260207-kr-prompts",
+                "children": [
+                  {
+                    "name": "launch-guide.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/launches/proj-20260207-kr-prompts/launch-guide.md"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "products",
+            "type": "dir",
+            "path": "Income_Factory/pipeline/products",
+            "children": [
+              {
+                "name": "proj-20260207-gumroad",
+                "type": "dir",
+                "path": "Income_Factory/pipeline/products/proj-20260207-gumroad",
+                "children": [
+                  {
+                    "name": "AI-Product-Photo-Prompt-Master-Pack.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-gumroad/AI-Product-Photo-Prompt-Master-Pack.md"
+                  },
+                  {
+                    "name": "Free-Sample-10-Prompts.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-gumroad/Free-Sample-10-Prompts.md"
+                  },
+                  {
+                    "name": "build-log.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-gumroad/build-log.md"
+                  },
+                  {
+                    "name": "gumroad-listing.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-gumroad/gumroad-listing.md"
+                  },
+                  {
+                    "name": "prompts-cat1-5.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-gumroad/prompts-cat1-5.md"
+                  },
+                  {
+                    "name": "usage-guide.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-gumroad/usage-guide.md"
+                  }
+                ]
+              },
+              {
+                "name": "proj-20260207-kr-prompts",
+                "type": "dir",
+                "path": "Income_Factory/pipeline/products/proj-20260207-kr-prompts",
+                "children": [
+                  {
+                    "name": "README.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-kr-prompts/README.md"
+                  },
+                  {
+                    "name": "ai-mate-listing.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-kr-prompts/ai-mate-listing.md"
+                  },
+                  {
+                    "name": "kmong-listing.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-kr-prompts/kmong-listing.md"
+                  },
+                  {
+                    "name": "prompts-cat1-5.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-kr-prompts/prompts-cat1-5.md"
+                  },
+                  {
+                    "name": "prompts-cat6-10.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-kr-prompts/prompts-cat6-10.md"
+                  },
+                  {
+                    "name": "usage-guide.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-kr-prompts/usage-guide.md"
+                  },
+                  {
+                    "name": "마케팅-카피-AI-프롬프트-마스터팩.md",
+                    "type": "file",
+                    "path": "Income_Factory/pipeline/products/proj-20260207-kr-prompts/마케팅-카피-AI-프롬프트-마스터팩.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "workflows",
+        "type": "dir",
+        "path": "Income_Factory/workflows",
+        "children": [
+          {
+            "name": "daily_shorts_workflow.md",
+            "type": "file",
+            "path": "Income_Factory/workflows/daily_shorts_workflow.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Invest_Agent",
+    "type": "dir",
+    "path": "Invest_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "Invest_Agent/.claude",
+        "children": [
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "Invest_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "invest-analyze",
+                "type": "dir",
+                "path": "Invest_Agent/.claude/skills/invest-analyze",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Invest_Agent/.claude/skills/invest-analyze/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "invest-dashboard",
+                "type": "dir",
+                "path": "Invest_Agent/.claude/skills/invest-dashboard",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Invest_Agent/.claude/skills/invest-dashboard/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "invest-journal",
+                "type": "dir",
+                "path": "Invest_Agent/.claude/skills/invest-journal",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Invest_Agent/.claude/skills/invest-journal/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "invest-plan",
+                "type": "dir",
+                "path": "Invest_Agent/.claude/skills/invest-plan",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Invest_Agent/.claude/skills/invest-plan/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "invest-review",
+                "type": "dir",
+                "path": "Invest_Agent/.claude/skills/invest-review",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Invest_Agent/.claude/skills/invest-review/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "invest-screen",
+                "type": "dir",
+                "path": "Invest_Agent/.claude/skills/invest-screen",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Invest_Agent/.claude/skills/invest-screen/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "market-brief",
+                "type": "dir",
+                "path": "Invest_Agent/.claude/skills/market-brief",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Invest_Agent/.claude/skills/market-brief/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "CLAUDE.md",
+        "type": "file",
+        "path": "Invest_Agent/CLAUDE.md"
+      },
+      {
+        "name": "docs",
+        "type": "dir",
+        "path": "Invest_Agent/docs",
+        "children": [
+          {
+            "name": "strategy.md",
+            "type": "file",
+            "path": "Invest_Agent/docs/strategy.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "LangMaster_Agent",
+    "type": "dir",
+    "path": "LangMaster_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "LangMaster_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "LangMaster_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "LangMaster_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "game-balance",
+                "type": "dir",
+                "path": "LangMaster_Agent/.claude/skills/game-balance",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "LangMaster_Agent/.claude/skills/game-balance/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "hsk-data",
+                "type": "dir",
+                "path": "LangMaster_Agent/.claude/skills/hsk-data",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "LangMaster_Agent/.claude/skills/hsk-data/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "monetize",
+                "type": "dir",
+                "path": "LangMaster_Agent/.claude/skills/monetize",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "LangMaster_Agent/.claude/skills/monetize/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "placement",
+                "type": "dir",
+                "path": "LangMaster_Agent/.claude/skills/placement",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "LangMaster_Agent/.claude/skills/placement/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "progress-dash",
+                "type": "dir",
+                "path": "LangMaster_Agent/.claude/skills/progress-dash",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "LangMaster_Agent/.claude/skills/progress-dash/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "word-drill",
+                "type": "dir",
+                "path": "LangMaster_Agent/.claude/skills/word-drill",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "LangMaster_Agent/.claude/skills/word-drill/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "word-game",
+                "type": "dir",
+                "path": "LangMaster_Agent/.claude/skills/word-game",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "LangMaster_Agent/.claude/skills/word-game/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Marketing_Agent",
+    "type": "dir",
+    "path": "Marketing_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "Marketing_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "Marketing_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "Marketing_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "aso",
+                "type": "dir",
+                "path": "Marketing_Agent/.claude/skills/aso",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Marketing_Agent/.claude/skills/aso/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "launch-plan",
+                "type": "dir",
+                "path": "Marketing_Agent/.claude/skills/launch-plan",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Marketing_Agent/.claude/skills/launch-plan/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "social-copy",
+                "type": "dir",
+                "path": "Marketing_Agent/.claude/skills/social-copy",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Marketing_Agent/.claude/skills/social-copy/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "NotebookLM_Agent",
+    "type": "dir",
+    "path": "NotebookLM_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "NotebookLM_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "NotebookLM_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "NotebookLM_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "notebooklm",
+                "type": "dir",
+                "path": "NotebookLM_Agent/.claude/skills/notebooklm",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "NotebookLM_Agent/.claude/skills/notebooklm/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "research",
+                "type": "dir",
+                "path": "NotebookLM_Agent/.claude/skills/research",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "NotebookLM_Agent/.claude/skills/research/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "yt-search",
+                "type": "dir",
+                "path": "NotebookLM_Agent/.claude/skills/yt-search",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "NotebookLM_Agent/.claude/skills/yt-search/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "NotebookLM_Agent/README.md"
+      },
+      {
+        "name": "inputs",
+        "type": "dir",
+        "path": "NotebookLM_Agent/inputs",
+        "children": [
+          {
+            "name": "kpop_2026_analysis_kr.md",
+            "type": "file",
+            "path": "NotebookLM_Agent/inputs/kpop_2026_analysis_kr.md"
+          }
+        ]
+      },
+      {
+        "name": "outputs",
+        "type": "dir",
+        "path": "NotebookLM_Agent/outputs",
+        "children": [
+          {
+            "name": "analysis_ai_agent_workforce_20260307.md",
+            "type": "file",
+            "path": "NotebookLM_Agent/outputs/analysis_ai_agent_workforce_20260307.md"
+          },
+          {
+            "name": "analysis_ai_monetization_20260307.md",
+            "type": "file",
+            "path": "NotebookLM_Agent/outputs/analysis_ai_monetization_20260307.md"
+          },
+          {
+            "name": "analysis_kpop_2026_20260307.md",
+            "type": "file",
+            "path": "NotebookLM_Agent/outputs/analysis_kpop_2026_20260307.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "PMO_Agent",
+    "type": "dir",
+    "path": "PMO_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "PMO_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "PMO_Agent/.claude/CLAUDE.md"
+          }
+        ]
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "PMO_Agent/README.md"
+      },
+      {
+        "name": "app",
+        "type": "dir",
+        "path": "PMO_Agent/app",
+        "children": [
+          {
+            "name": "public",
+            "type": "dir",
+            "path": "PMO_Agent/app/public",
+            "children": [
+              {
+                "name": "wiki",
+                "type": "dir",
+                "path": "PMO_Agent/app/public/wiki",
+                "children": [
+                  {
+                    "name": "architecture.md",
+                    "type": "file",
+                    "path": "PMO_Agent/app/public/wiki/architecture.md"
+                  },
+                  {
+                    "name": "design",
+                    "type": "dir",
+                    "path": "PMO_Agent/app/public/wiki/design",
+                    "children": [
+                      {
+                        "name": "balance.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/design/balance.md"
+                      },
+                      {
+                        "name": "ui-ux.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/design/ui-ux.md"
+                      },
+                      {
+                        "name": "world.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/design/world.md"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "dev",
+                    "type": "dir",
+                    "path": "PMO_Agent/app/public/wiki/dev",
+                    "children": [
+                      {
+                        "name": "conventions.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/dev/conventions.md"
+                      },
+                      {
+                        "name": "kanban.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/dev/kanban.md"
+                      },
+                      {
+                        "name": "setup.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/dev/setup.md"
+                      },
+                      {
+                        "name": "testing.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/dev/testing.md"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "evaluation.md",
+                    "type": "file",
+                    "path": "PMO_Agent/app/public/wiki/evaluation.md"
+                  },
+                  {
+                    "name": "overview.md",
+                    "type": "file",
+                    "path": "PMO_Agent/app/public/wiki/overview.md"
+                  },
+                  {
+                    "name": "scene-flow.md",
+                    "type": "file",
+                    "path": "PMO_Agent/app/public/wiki/scene-flow.md"
+                  },
+                  {
+                    "name": "sprints.md",
+                    "type": "file",
+                    "path": "PMO_Agent/app/public/wiki/sprints.md"
+                  },
+                  {
+                    "name": "systems",
+                    "type": "dir",
+                    "path": "PMO_Agent/app/public/wiki/systems",
+                    "children": [
+                      {
+                        "name": "combat.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/systems/combat.md"
+                      },
+                      {
+                        "name": "critters.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/systems/critters.md"
+                      },
+                      {
+                        "name": "enemies.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/systems/enemies.md"
+                      },
+                      {
+                        "name": "progression.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/systems/progression.md"
+                      },
+                      {
+                        "name": "weather.md",
+                        "type": "file",
+                        "path": "PMO_Agent/app/public/wiki/systems/weather.md"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "PT_Agent",
+    "type": "dir",
+    "path": "PT_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "PT_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "PT_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "PT_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "pt",
+                "type": "dir",
+                "path": "PT_Agent/.claude/skills/pt",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "PT_Agent/.claude/skills/pt/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pt-content",
+                "type": "dir",
+                "path": "PT_Agent/.claude/skills/pt-content",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "PT_Agent/.claude/skills/pt-content/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pt-export",
+                "type": "dir",
+                "path": "PT_Agent/.claude/skills/pt-export",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "PT_Agent/.claude/skills/pt-export/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pt-from-design",
+                "type": "dir",
+                "path": "PT_Agent/.claude/skills/pt-from-design",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "PT_Agent/.claude/skills/pt-from-design/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pt-manager",
+                "type": "dir",
+                "path": "PT_Agent/.claude/skills/pt-manager",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "PT_Agent/.claude/skills/pt-manager/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pt-reception",
+                "type": "dir",
+                "path": "PT_Agent/.claude/skills/pt-reception",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "PT_Agent/.claude/skills/pt-reception/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pt-redteam",
+                "type": "dir",
+                "path": "PT_Agent/.claude/skills/pt-redteam",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "PT_Agent/.claude/skills/pt-redteam/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pt-research",
+                "type": "dir",
+                "path": "PT_Agent/.claude/skills/pt-research",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "PT_Agent/.claude/skills/pt-research/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pt-update-check",
+                "type": "dir",
+                "path": "PT_Agent/.claude/skills/pt-update-check",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "PT_Agent/.claude/skills/pt-update-check/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pt-visual",
+                "type": "dir",
+                "path": "PT_Agent/.claude/skills/pt-visual",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "PT_Agent/.claude/skills/pt-visual/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "docs",
+        "type": "dir",
+        "path": "PT_Agent/docs",
+        "children": [
+          {
+            "name": "claude-official-guide",
+            "type": "dir",
+            "path": "PT_Agent/docs/claude-official-guide",
+            "children": [
+              {
+                "name": "INDEX.md",
+                "type": "file",
+                "path": "PT_Agent/docs/claude-official-guide/INDEX.md"
+              },
+              {
+                "name": "agent-sdk",
+                "type": "dir",
+                "path": "PT_Agent/docs/claude-official-guide/agent-sdk",
+                "children": [
+                  {
+                    "name": "01-overview.md",
+                    "type": "file",
+                    "path": "PT_Agent/docs/claude-official-guide/agent-sdk/01-overview.md"
+                  }
+                ]
+              },
+              {
+                "name": "best-practices",
+                "type": "dir",
+                "path": "PT_Agent/docs/claude-official-guide/best-practices",
+                "children": [
+                  {
+                    "name": "01-skill-best-practices.md",
+                    "type": "file",
+                    "path": "PT_Agent/docs/claude-official-guide/best-practices/01-skill-best-practices.md"
+                  }
+                ]
+              },
+              {
+                "name": "skills",
+                "type": "dir",
+                "path": "PT_Agent/docs/claude-official-guide/skills",
+                "children": [
+                  {
+                    "name": "01-skill-structure.md",
+                    "type": "file",
+                    "path": "PT_Agent/docs/claude-official-guide/skills/01-skill-structure.md"
+                  },
+                  {
+                    "name": "02-skill-examples.md",
+                    "type": "file",
+                    "path": "PT_Agent/docs/claude-official-guide/skills/02-skill-examples.md"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "pipeline.md",
+            "type": "file",
+            "path": "PT_Agent/docs/pipeline.md"
+          },
+          {
+            "name": "quality-checklist.md",
+            "type": "file",
+            "path": "PT_Agent/docs/quality-checklist.md"
+          }
+        ]
+      },
+      {
+        "name": "outputs",
+        "type": "dir",
+        "path": "PT_Agent/outputs",
+        "children": [
+          {
+            "name": "v5_2026-02-04",
+            "type": "dir",
+            "path": "PT_Agent/outputs/v5_2026-02-04",
+            "children": [
+              {
+                "name": "presentation.md",
+                "type": "file",
+                "path": "PT_Agent/outputs/v5_2026-02-04/presentation.md"
+              }
+            ]
+          },
+          {
+            "name": "v8_2026-02-04",
+            "type": "dir",
+            "path": "PT_Agent/outputs/v8_2026-02-04",
+            "children": [
+              {
+                "name": "research_notes.md",
+                "type": "file",
+                "path": "PT_Agent/outputs/v8_2026-02-04/research_notes.md"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "skills",
+        "type": "dir",
+        "path": "PT_Agent/skills",
+        "children": [
+          {
+            "name": "00_orchestrator.md",
+            "type": "file",
+            "path": "PT_Agent/skills/00_orchestrator.md"
+          },
+          {
+            "name": "01_reception_desk.md",
+            "type": "file",
+            "path": "PT_Agent/skills/01_reception_desk.md"
+          },
+          {
+            "name": "02_content_architect.md",
+            "type": "file",
+            "path": "PT_Agent/skills/02_content_architect.md"
+          },
+          {
+            "name": "03_visual_expert.md",
+            "type": "file",
+            "path": "PT_Agent/skills/03_visual_expert.md"
+          },
+          {
+            "name": "04_red_team.md",
+            "type": "file",
+            "path": "PT_Agent/skills/04_red_team.md"
+          },
+          {
+            "name": "05_manager.md",
+            "type": "file",
+            "path": "PT_Agent/skills/05_manager.md"
+          }
+        ]
+      },
+      {
+        "name": "templates",
+        "type": "dir",
+        "path": "PT_Agent/templates",
+        "children": [
+          {
+            "name": "marp_minimal.md",
+            "type": "file",
+            "path": "PT_Agent/templates/marp_minimal.md"
+          },
+          {
+            "name": "marp_quality.md",
+            "type": "file",
+            "path": "PT_Agent/templates/marp_quality.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "SSBL",
+    "type": "dir",
+    "path": "SSBL",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "SSBL/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "SSBL/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "SSBL/.claude/skills",
+            "children": [
+              {
+                "name": "launch-checklist",
+                "type": "dir",
+                "path": "SSBL/.claude/skills/launch-checklist",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "SSBL/.claude/skills/launch-checklist/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "player-monetization",
+                "type": "dir",
+                "path": "SSBL/.claude/skills/player-monetization",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "SSBL/.claude/skills/player-monetization/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "SSBL/README.md"
+      },
+      {
+        "name": "design",
+        "type": "dir",
+        "path": "SSBL/design",
+        "children": [
+          {
+            "name": "SSBL_명세서.md",
+            "type": "file",
+            "path": "SSBL/design/SSBL_명세서.md"
+          },
+          {
+            "name": "런칭체크리스트_인수인계.md",
+            "type": "file",
+            "path": "SSBL/design/런칭체크리스트_인수인계.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Saju_Agent",
+    "type": "dir",
+    "path": "Saju_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "Saju_Agent/.claude",
+        "children": [
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "Saju_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "saju-analyze",
+                "type": "dir",
+                "path": "Saju_Agent/.claude/skills/saju-analyze",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Saju_Agent/.claude/skills/saju-analyze/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "saju-deploy",
+                "type": "dir",
+                "path": "Saju_Agent/.claude/skills/saju-deploy",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Saju_Agent/.claude/skills/saju-deploy/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "saju-prompt",
+                "type": "dir",
+                "path": "Saju_Agent/.claude/skills/saju-prompt",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Saju_Agent/.claude/skills/saju-prompt/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "CLAUDE.md",
+        "type": "file",
+        "path": "Saju_Agent/CLAUDE.md"
+      }
+    ]
+  },
+  {
+    "name": "Secretary_Agent",
+    "type": "dir",
+    "path": "Secretary_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "Secretary_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "Secretary_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "Secretary_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "daily-brief",
+                "type": "dir",
+                "path": "Secretary_Agent/.claude/skills/daily-brief",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Secretary_Agent/.claude/skills/daily-brief/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "work-log",
+                "type": "dir",
+                "path": "Secretary_Agent/.claude/skills/work-log",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Secretary_Agent/.claude/skills/work-log/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shield_Agent",
+    "type": "dir",
+    "path": "Shield_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "Shield_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "Shield_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "Shield_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "compliance-check",
+                "type": "dir",
+                "path": "Shield_Agent/.claude/skills/compliance-check",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Shield_Agent/.claude/skills/compliance-check/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "data-flow",
+                "type": "dir",
+                "path": "Shield_Agent/.claude/skills/data-flow",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Shield_Agent/.claude/skills/data-flow/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "privacy-scan",
+                "type": "dir",
+                "path": "Shield_Agent/.claude/skills/privacy-scan",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Shield_Agent/.claude/skills/privacy-scan/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "secret-scan",
+                "type": "dir",
+                "path": "Shield_Agent/.claude/skills/secret-scan",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Shield_Agent/.claude/skills/secret-scan/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "security-audit",
+                "type": "dir",
+                "path": "Shield_Agent/.claude/skills/security-audit",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Shield_Agent/.claude/skills/security-audit/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "threat-model",
+                "type": "dir",
+                "path": "Shield_Agent/.claude/skills/threat-model",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Shield_Agent/.claude/skills/threat-model/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "Shield_Agent/README.md"
+      }
+    ]
+  },
+  {
+    "name": "ShortsFactory2_Agent",
+    "type": "dir",
+    "path": "ShortsFactory2_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "ShortsFactory2_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "ShortsFactory2_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "ShortsFactory2_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "paper-factory",
+                "type": "dir",
+                "path": "ShortsFactory2_Agent/.claude/skills/paper-factory",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory2_Agent/.claude/skills/paper-factory/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "paper-mine",
+                "type": "dir",
+                "path": "ShortsFactory2_Agent/.claude/skills/paper-mine",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory2_Agent/.claude/skills/paper-mine/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "paper-render",
+                "type": "dir",
+                "path": "ShortsFactory2_Agent/.claude/skills/paper-render",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory2_Agent/.claude/skills/paper-render/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "paper-review",
+                "type": "dir",
+                "path": "ShortsFactory2_Agent/.claude/skills/paper-review",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory2_Agent/.claude/skills/paper-review/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "paper-script",
+                "type": "dir",
+                "path": "ShortsFactory2_Agent/.claude/skills/paper-script",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory2_Agent/.claude/skills/paper-script/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "paper-translate",
+                "type": "dir",
+                "path": "ShortsFactory2_Agent/.claude/skills/paper-translate",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory2_Agent/.claude/skills/paper-translate/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "paper-upload",
+                "type": "dir",
+                "path": "ShortsFactory2_Agent/.claude/skills/paper-upload",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory2_Agent/.claude/skills/paper-upload/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ShortsFactory3_Agent",
+    "type": "dir",
+    "path": "ShortsFactory3_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "ShortsFactory3_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "ShortsFactory3_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "ShortsFactory3_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "book-analyze",
+                "type": "dir",
+                "path": "ShortsFactory3_Agent/.claude/skills/book-analyze",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory3_Agent/.claude/skills/book-analyze/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "book-factory",
+                "type": "dir",
+                "path": "ShortsFactory3_Agent/.claude/skills/book-factory",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory3_Agent/.claude/skills/book-factory/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "book-mine",
+                "type": "dir",
+                "path": "ShortsFactory3_Agent/.claude/skills/book-mine",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory3_Agent/.claude/skills/book-mine/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "book-review",
+                "type": "dir",
+                "path": "ShortsFactory3_Agent/.claude/skills/book-review",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory3_Agent/.claude/skills/book-review/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "book-script",
+                "type": "dir",
+                "path": "ShortsFactory3_Agent/.claude/skills/book-script",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory3_Agent/.claude/skills/book-script/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ShortsFactory_Agent",
+    "type": "dir",
+    "path": "ShortsFactory_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "ShortsFactory_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "ShortsFactory_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "ShortsFactory_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "shorts-analyze",
+                "type": "dir",
+                "path": "ShortsFactory_Agent/.claude/skills/shorts-analyze",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory_Agent/.claude/skills/shorts-analyze/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "shorts-factory",
+                "type": "dir",
+                "path": "ShortsFactory_Agent/.claude/skills/shorts-factory",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory_Agent/.claude/skills/shorts-factory/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "shorts-render",
+                "type": "dir",
+                "path": "ShortsFactory_Agent/.claude/skills/shorts-render",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory_Agent/.claude/skills/shorts-render/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "shorts-review",
+                "type": "dir",
+                "path": "ShortsFactory_Agent/.claude/skills/shorts-review",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory_Agent/.claude/skills/shorts-review/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "shorts-script",
+                "type": "dir",
+                "path": "ShortsFactory_Agent/.claude/skills/shorts-script",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory_Agent/.claude/skills/shorts-script/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "shorts-upload",
+                "type": "dir",
+                "path": "ShortsFactory_Agent/.claude/skills/shorts-upload",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory_Agent/.claude/skills/shorts-upload/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "topic-mine",
+                "type": "dir",
+                "path": "ShortsFactory_Agent/.claude/skills/topic-mine",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFactory_Agent/.claude/skills/topic-mine/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "data",
+        "type": "dir",
+        "path": "ShortsFactory_Agent/data",
+        "children": [
+          {
+            "name": "ai_shorts_market_research_2026.md",
+            "type": "file",
+            "path": "ShortsFactory_Agent/data/ai_shorts_market_research_2026.md"
+          },
+          {
+            "name": "niche_analysis_2026.md",
+            "type": "file",
+            "path": "ShortsFactory_Agent/data/niche_analysis_2026.md"
+          }
+        ]
+      },
+      {
+        "name": "docs",
+        "type": "dir",
+        "path": "ShortsFactory_Agent/docs",
+        "children": [
+          {
+            "name": "common-mistakes.md",
+            "type": "file",
+            "path": "ShortsFactory_Agent/docs/common-mistakes.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ShortsFleet",
+    "type": "dir",
+    "path": "ShortsFleet",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "ShortsFleet/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "ShortsFleet/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "ShortsFleet/.claude/skills",
+            "children": [
+              {
+                "name": "fleet-add",
+                "type": "dir",
+                "path": "ShortsFleet/.claude/skills/fleet-add",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFleet/.claude/skills/fleet-add/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "fleet-analytics",
+                "type": "dir",
+                "path": "ShortsFleet/.claude/skills/fleet-analytics",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFleet/.claude/skills/fleet-analytics/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "fleet-status",
+                "type": "dir",
+                "path": "ShortsFleet/.claude/skills/fleet-status",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFleet/.claude/skills/fleet-status/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "shorts-fleet",
+                "type": "dir",
+                "path": "ShortsFleet/.claude/skills/shorts-fleet",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "ShortsFleet/.claude/skills/shorts-fleet/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "TestFactory_Agent",
+    "type": "dir",
+    "path": "TestFactory_Agent",
+    "children": [
+      {
+        "name": "app",
+        "type": "dir",
+        "path": "TestFactory_Agent/app",
+        "children": [
+          {
+            "name": "README.md",
+            "type": "file",
+            "path": "TestFactory_Agent/app/README.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Translate_Agent",
+    "type": "dir",
+    "path": "Translate_Agent",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "Translate_Agent/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "Translate_Agent/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "Translate_Agent/.claude/skills",
+            "children": [
+              {
+                "name": "cultural-adapt",
+                "type": "dir",
+                "path": "Translate_Agent/.claude/skills/cultural-adapt",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Translate_Agent/.claude/skills/cultural-adapt/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "localize-validate",
+                "type": "dir",
+                "path": "Translate_Agent/.claude/skills/localize-validate",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Translate_Agent/.claude/skills/localize-validate/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "translate",
+                "type": "dir",
+                "path": "Translate_Agent/.claude/skills/translate",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Translate_Agent/.claude/skills/translate/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "translate-cn",
+                "type": "dir",
+                "path": "Translate_Agent/.claude/skills/translate-cn",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Translate_Agent/.claude/skills/translate-cn/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "translate-eu",
+                "type": "dir",
+                "path": "Translate_Agent/.claude/skills/translate-eu",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "Translate_Agent/.claude/skills/translate-eu/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "Translate_Agent/README.md"
+      }
+    ]
+  },
+  {
+    "name": "TsimShaTsui",
+    "type": "dir",
+    "path": "TsimShaTsui",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "TsimShaTsui/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "TsimShaTsui/.claude/CLAUDE.md"
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "TsimShaTsui/.claude/skills",
+            "children": [
+              {
+                "name": "hello",
+                "type": "dir",
+                "path": "TsimShaTsui/.claude/skills/hello",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "TsimShaTsui/.claude/skills/hello/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "report",
+                "type": "dir",
+                "path": "TsimShaTsui/.claude/skills/report",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "TsimShaTsui/.claude/skills/report/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Video_Analyzer",
+    "type": "dir",
+    "path": "Video_Analyzer",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "Video_Analyzer/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "Video_Analyzer/.claude/CLAUDE.md"
+          }
+        ]
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "Video_Analyzer/README.md"
+      }
+    ]
+  },
+  {
+    "name": "WanChai",
+    "type": "dir",
+    "path": "WanChai",
+    "children": [
+      {
+        "name": ".claude",
+        "type": "dir",
+        "path": "WanChai/.claude",
+        "children": [
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "WanChai/.claude/CLAUDE.md"
+          },
+          {
+            "name": "agents",
+            "type": "dir",
+            "path": "WanChai/.claude/agents",
+            "children": [
+              {
+                "name": "art-director.md",
+                "type": "file",
+                "path": "WanChai/.claude/agents/art-director.md"
+              },
+              {
+                "name": "audio-designer.md",
+                "type": "file",
+                "path": "WanChai/.claude/agents/audio-designer.md"
+              },
+              {
+                "name": "balance-designer.md",
+                "type": "file",
+                "path": "WanChai/.claude/agents/balance-designer.md"
+              },
+              {
+                "name": "game-designer.md",
+                "type": "file",
+                "path": "WanChai/.claude/agents/game-designer.md"
+              },
+              {
+                "name": "programmer.md",
+                "type": "file",
+                "path": "WanChai/.claude/agents/programmer.md"
+              },
+              {
+                "name": "ui-designer.md",
+                "type": "file",
+                "path": "WanChai/.claude/agents/ui-designer.md"
+              }
+            ]
+          },
+          {
+            "name": "rules",
+            "type": "dir",
+            "path": "WanChai/.claude/rules",
+            "children": [
+              {
+                "name": "architecture.md",
+                "type": "file",
+                "path": "WanChai/.claude/rules/architecture.md"
+              },
+              {
+                "name": "design-principles.md",
+                "type": "file",
+                "path": "WanChai/.claude/rules/design-principles.md"
+              },
+              {
+                "name": "handoff-protocol.md",
+                "type": "file",
+                "path": "WanChai/.claude/rules/handoff-protocol.md"
+              },
+              {
+                "name": "mistake-registry.md",
+                "type": "file",
+                "path": "WanChai/.claude/rules/mistake-registry.md"
+              },
+              {
+                "name": "verification-gates.md",
+                "type": "file",
+                "path": "WanChai/.claude/rules/verification-gates.md"
+              }
+            ]
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "WanChai/.claude/skills",
+            "children": [
+              {
+                "name": "art-fx",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/art-fx",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/art-fx/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "art-review",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/art-review",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/art-review/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "art-sprite",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/art-sprite",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/art-sprite/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "art-theme",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/art-theme",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/art-theme/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "aud-bgm",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/aud-bgm",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/aud-bgm/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "aud-mix",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/aud-mix",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/aud-mix/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "aud-review",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/aud-review",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/aud-review/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "aud-sfx",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/aud-sfx",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/aud-sfx/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "bal-build-analysis",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/bal-build-analysis",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/bal-build-analysis/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "bal-change-proposal",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/bal-change-proposal",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/bal-change-proposal/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "bal-difficulty-audit",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/bal-difficulty-audit",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/bal-difficulty-audit/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "bal-dps-matrix",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/bal-dps-matrix",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/bal-dps-matrix/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "bal-economy-sim",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/bal-economy-sim",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/bal-economy-sim/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "bal-growth-curves",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/bal-growth-curves",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/bal-growth-curves/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "design-status-sync",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/design-status-sync",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/design-status-sync/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "gd-balance",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/gd-balance",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/gd-balance/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "gd-experience",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/gd-experience",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/gd-experience/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "gd-level",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/gd-level",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/gd-level/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "gd-mechanic",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/gd-mechanic",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/gd-mechanic/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "gd-review",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/gd-review",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/gd-review/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "gd-ux",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/gd-ux",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/gd-ux/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "gd-verify-spec",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/gd-verify-spec",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/gd-verify-spec/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "kanban-create",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/kanban-create",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/kanban-create/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "kanban-deploy",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/kanban-deploy",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/kanban-deploy/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "kanban-done",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/kanban-done",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/kanban-done/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "kanban-pickup",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/kanban-pickup",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/kanban-pickup/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "kanban-qa",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/kanban-qa",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/kanban-qa/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "kanban-redteam",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/kanban-redteam",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/kanban-redteam/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "kanban-status",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/kanban-status",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/kanban-status/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "log-mistake",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/log-mistake",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/log-mistake/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "model-audit",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/model-audit",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/model-audit/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pg-build-check",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/pg-build-check",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/pg-build-check/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pg-checkpoint",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/pg-checkpoint",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/pg-checkpoint/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pg-deploy",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/pg-deploy",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/pg-deploy/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pg-implement",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/pg-implement",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/pg-implement/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pg-playtest-trace",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/pg-playtest-trace",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/pg-playtest-trace/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pg-refactor",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/pg-refactor",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/pg-refactor/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pg-review",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/pg-review",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/pg-review/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pg-scene",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/pg-scene",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/pg-scene/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pg-test",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/pg-test",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/pg-test/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "pg-wiring-check",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/pg-wiring-check",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/pg-wiring-check/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "ui-animate",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/ui-animate",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/ui-animate/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "ui-layout",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/ui-layout",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/ui-layout/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "ui-polish",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/ui-polish",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/ui-polish/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "ui-review",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/ui-review",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/ui-review/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "ux-gate",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/ux-gate",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/ux-gate/SKILL.md"
+                  }
+                ]
+              },
+              {
+                "name": "wanchai-sprint",
+                "type": "dir",
+                "path": "WanChai/.claude/skills/wanchai-sprint",
+                "children": [
+                  {
+                    "name": "SKILL.md",
+                    "type": "file",
+                    "path": "WanChai/.claude/skills/wanchai-sprint/SKILL.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "WanChai/README.md"
+      },
+      {
+        "name": "SPRINT_028_INDEX.md",
+        "type": "file",
+        "path": "WanChai/SPRINT_028_INDEX.md"
+      },
+      {
+        "name": "TASK_3_COMPLETION_REPORT.md",
+        "type": "file",
+        "path": "WanChai/TASK_3_COMPLETION_REPORT.md"
+      },
+      {
+        "name": "design",
+        "type": "dir",
+        "path": "WanChai/design",
+        "children": [
+          {
+            "name": "art-asset-list.md",
+            "type": "file",
+            "path": "WanChai/design/art-asset-list.md"
+          },
+          {
+            "name": "art-brief-core.md",
+            "type": "file",
+            "path": "WanChai/design/art-brief-core.md"
+          },
+          {
+            "name": "balance",
+            "type": "dir",
+            "path": "WanChai/design/balance",
+            "children": [
+              {
+                "name": "_template.md",
+                "type": "file",
+                "path": "WanChai/design/balance/_template.md"
+              },
+              {
+                "name": "bal-60s-run-validation-2026-03-01.md",
+                "type": "file",
+                "path": "WanChai/design/balance/bal-60s-run-validation-2026-03-01.md"
+              },
+              {
+                "name": "world-1-overview.md",
+                "type": "file",
+                "path": "WanChai/design/balance/world-1-overview.md"
+              }
+            ]
+          },
+          {
+            "name": "levels",
+            "type": "dir",
+            "path": "WanChai/design/levels",
+            "children": [
+              {
+                "name": "_template.md",
+                "type": "file",
+                "path": "WanChai/design/levels/_template.md"
+              },
+              {
+                "name": "world-1",
+                "type": "dir",
+                "path": "WanChai/design/levels/world-1",
+                "children": [
+                  {
+                    "name": "stage-001.md",
+                    "type": "file",
+                    "path": "WanChai/design/levels/world-1/stage-001.md"
+                  },
+                  {
+                    "name": "stage-002.md",
+                    "type": "file",
+                    "path": "WanChai/design/levels/world-1/stage-002.md"
+                  },
+                  {
+                    "name": "stage-003.md",
+                    "type": "file",
+                    "path": "WanChai/design/levels/world-1/stage-003.md"
+                  },
+                  {
+                    "name": "stage-004.md",
+                    "type": "file",
+                    "path": "WanChai/design/levels/world-1/stage-004.md"
+                  },
+                  {
+                    "name": "stage-005.md",
+                    "type": "file",
+                    "path": "WanChai/design/levels/world-1/stage-005.md"
+                  },
+                  {
+                    "name": "stage-006.md",
+                    "type": "file",
+                    "path": "WanChai/design/levels/world-1/stage-006.md"
+                  },
+                  {
+                    "name": "stage-007.md",
+                    "type": "file",
+                    "path": "WanChai/design/levels/world-1/stage-007.md"
+                  },
+                  {
+                    "name": "stage-008.md",
+                    "type": "file",
+                    "path": "WanChai/design/levels/world-1/stage-008.md"
+                  },
+                  {
+                    "name": "stage-009.md",
+                    "type": "file",
+                    "path": "WanChai/design/levels/world-1/stage-009.md"
+                  },
+                  {
+                    "name": "stage-010.md",
+                    "type": "file",
+                    "path": "WanChai/design/levels/world-1/stage-010.md"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "reference",
+            "type": "dir",
+            "path": "WanChai/design/reference",
+            "children": [
+              {
+                "name": "about-face-ux-principles.md",
+                "type": "file",
+                "path": "WanChai/design/reference/about-face-ux-principles.md"
+              },
+              {
+                "name": "art-style-guide.md",
+                "type": "file",
+                "path": "WanChai/design/reference/art-style-guide.md"
+              },
+              {
+                "name": "numerical-bible.md",
+                "type": "file",
+                "path": "WanChai/design/reference/numerical-bible.md"
+              },
+              {
+                "name": "projectile-orientation-spec.md",
+                "type": "file",
+                "path": "WanChai/design/reference/projectile-orientation-spec.md"
+              },
+              {
+                "name": "ui-ux-guideline.md",
+                "type": "file",
+                "path": "WanChai/design/reference/ui-ux-guideline.md"
+              }
+            ]
+          },
+          {
+            "name": "specs",
+            "type": "dir",
+            "path": "WanChai/design/specs",
+            "children": [
+              {
+                "name": "SPEC-021-order-puzzle-combat.md",
+                "type": "file",
+                "path": "WanChai/design/specs/SPEC-021-order-puzzle-combat.md"
+              },
+              {
+                "name": "SPEC-023-pre-boss-floor-pacing.md",
+                "type": "file",
+                "path": "WanChai/design/specs/SPEC-023-pre-boss-floor-pacing.md"
+              },
+              {
+                "name": "_template.md",
+                "type": "file",
+                "path": "WanChai/design/specs/_template.md"
+              },
+              {
+                "name": "auto-shooter-combat-spec.md",
+                "type": "file",
+                "path": "WanChai/design/specs/auto-shooter-combat-spec.md"
+              },
+              {
+                "name": "boss-mechanics-01-aero.md",
+                "type": "file",
+                "path": "WanChai/design/specs/boss-mechanics-01-aero.md"
+              },
+              {
+                "name": "boss-mechanics-02-hydra.md",
+                "type": "file",
+                "path": "WanChai/design/specs/boss-mechanics-02-hydra.md"
+              },
+              {
+                "name": "boss-mechanics-03-blaze.md",
+                "type": "file",
+                "path": "WanChai/design/specs/boss-mechanics-03-blaze.md"
+              },
+              {
+                "name": "boss-mechanics-04-terra.md",
+                "type": "file",
+                "path": "WanChai/design/specs/boss-mechanics-04-terra.md"
+              },
+              {
+                "name": "boss-mechanics-05-lumen.md",
+                "type": "file",
+                "path": "WanChai/design/specs/boss-mechanics-05-lumen.md"
+              },
+              {
+                "name": "boss-mechanics-06-umbra.md",
+                "type": "file",
+                "path": "WanChai/design/specs/boss-mechanics-06-umbra.md"
+              },
+              {
+                "name": "boss-mechanics-07-harvester.md",
+                "type": "file",
+                "path": "WanChai/design/specs/boss-mechanics-07-harvester.md"
+              },
+              {
+                "name": "boss-profiles.md",
+                "type": "file",
+                "path": "WanChai/design/specs/boss-profiles.md"
+              },
+              {
+                "name": "chapter-01-central.md",
+                "type": "file",
+                "path": "WanChai/design/specs/chapter-01-central.md"
+              },
+              {
+                "name": "chapter-02-aberdeen.md",
+                "type": "file",
+                "path": "WanChai/design/specs/chapter-02-aberdeen.md"
+              },
+              {
+                "name": "chapter-03-mongkok.md",
+                "type": "file",
+                "path": "WanChai/design/specs/chapter-03-mongkok.md"
+              },
+              {
+                "name": "chapter-04-shamshuipo.md",
+                "type": "file",
+                "path": "WanChai/design/specs/chapter-04-shamshuipo.md"
+              },
+              {
+                "name": "chapter-05-wongtaisin.md",
+                "type": "file",
+                "path": "WanChai/design/specs/chapter-05-wongtaisin.md"
+              },
+              {
+                "name": "chapter-06-kowloon.md",
+                "type": "file",
+                "path": "WanChai/design/specs/chapter-06-kowloon.md"
+              },
+              {
+                "name": "chapter-07-lantau.md",
+                "type": "file",
+                "path": "WanChai/design/specs/chapter-07-lantau.md"
+              },
+              {
+                "name": "critter-optimized-link.md",
+                "type": "file",
+                "path": "WanChai/design/specs/critter-optimized-link.md"
+              },
+              {
+                "name": "critter-system.md",
+                "type": "file",
+                "path": "WanChai/design/specs/critter-system.md"
+              },
+              {
+                "name": "data",
+                "type": "dir",
+                "path": "WanChai/design/specs/data",
+                "children": [
+                  {
+                    "name": "SPEC-006A-hero-grid-level-data.md",
+                    "type": "file",
+                    "path": "WanChai/design/specs/data/SPEC-006A-hero-grid-level-data.md"
+                  }
+                ]
+              },
+              {
+                "name": "enemy-bestiary.md",
+                "type": "file",
+                "path": "WanChai/design/specs/enemy-bestiary.md"
+              },
+              {
+                "name": "mechanics",
+                "type": "dir",
+                "path": "WanChai/design/specs/mechanics",
+                "children": [
+                  {
+                    "name": "SPEC-001-circular-conveyor.md",
+                    "type": "file",
+                    "path": "WanChai/design/specs/mechanics/SPEC-001-circular-conveyor.md"
+                  },
+                  {
+                    "name": "SPEC-002-element-matching.md",
+                    "type": "file",
+                    "path": "WanChai/design/specs/mechanics/SPEC-002-element-matching.md"
+                  },
+                  {
+                    "name": "SPEC-003-sling-combo.md",
+                    "type": "file",
+                    "path": "WanChai/design/specs/mechanics/SPEC-003-sling-combo.md"
+                  },
+                  {
+                    "name": "SPEC-004-armored-cubes.md",
+                    "type": "file",
+                    "path": "WanChai/design/specs/mechanics/SPEC-004-armored-cubes.md"
+                  },
+                  {
+                    "name": "SPEC-005-score-system.md",
+                    "type": "file",
+                    "path": "WanChai/design/specs/mechanics/SPEC-005-score-system.md"
+                  },
+                  {
+                    "name": "SPEC-006-hero-grid.md",
+                    "type": "file",
+                    "path": "WanChai/design/specs/mechanics/SPEC-006-hero-grid.md"
+                  },
+                  {
+                    "name": "SPEC-007-bench-mechanic.md",
+                    "type": "file",
+                    "path": "WanChai/design/specs/mechanics/SPEC-007-bench-mechanic.md"
+                  },
+                  {
+                    "name": "SPEC-020-hero-queue-system.md",
+                    "type": "file",
+                    "path": "WanChai/design/specs/mechanics/SPEC-020-hero-queue-system.md"
+                  }
+                ]
+              },
+              {
+                "name": "meta-progression.md",
+                "type": "file",
+                "path": "WanChai/design/specs/meta-progression.md"
+              },
+              {
+                "name": "optimized-bestiary.md",
+                "type": "file",
+                "path": "WanChai/design/specs/optimized-bestiary.md"
+              },
+              {
+                "name": "relic-system.md",
+                "type": "file",
+                "path": "WanChai/design/specs/relic-system.md"
+              },
+              {
+                "name": "roguelike-core.md",
+                "type": "file",
+                "path": "WanChai/design/specs/roguelike-core.md"
+              },
+              {
+                "name": "runscene-refactor.md",
+                "type": "file",
+                "path": "WanChai/design/specs/runscene-refactor.md"
+              },
+              {
+                "name": "synopsis.md",
+                "type": "file",
+                "path": "WanChai/design/specs/synopsis.md"
+              },
+              {
+                "name": "world-map.md",
+                "type": "file",
+                "path": "WanChai/design/specs/world-map.md"
+              },
+              {
+                "name": "worldbuilding.md",
+                "type": "file",
+                "path": "WanChai/design/specs/worldbuilding.md"
+              }
+            ]
+          },
+          {
+            "name": "sprite-additional-request.md",
+            "type": "file",
+            "path": "WanChai/design/sprite-additional-request.md"
+          },
+          {
+            "name": "sprite-improvement-request.md",
+            "type": "file",
+            "path": "WanChai/design/sprite-improvement-request.md"
+          },
+          {
+            "name": "ui",
+            "type": "dir",
+            "path": "WanChai/design/ui",
+            "children": [
+              {
+                "name": "about-face-evaluation.md",
+                "type": "file",
+                "path": "WanChai/design/ui/about-face-evaluation.md"
+              },
+              {
+                "name": "ui-ux-audit-2026-02-25.md",
+                "type": "file",
+                "path": "WanChai/design/ui/ui-ux-audit-2026-02-25.md"
+              }
+            ]
+          },
+          {
+            "name": "ux",
+            "type": "dir",
+            "path": "WanChai/design/ux",
+            "children": [
+              {
+                "name": "expected-play-experience.md",
+                "type": "file",
+                "path": "WanChai/design/ux/expected-play-experience.md"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "memory",
+        "type": "dir",
+        "path": "WanChai/memory",
+        "children": [
+          {
+            "name": "SESSION_LOG.md",
+            "type": "file",
+            "path": "WanChai/memory/SESSION_LOG.md"
+          },
+          {
+            "name": "SPRINT_SUMMARY.md",
+            "type": "file",
+            "path": "WanChai/memory/SPRINT_SUMMARY.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "docs",
+    "type": "dir",
+    "path": "docs",
+    "children": [
+      {
+        "name": "claude-code-guide",
+        "type": "dir",
+        "path": "docs/claude-code-guide",
+        "children": [
+          {
+            "name": "INDEX.md",
+            "type": "file",
+            "path": "docs/claude-code-guide/INDEX.md"
+          },
+          {
+            "name": "agent-sdk",
+            "type": "dir",
+            "path": "docs/claude-code-guide/agent-sdk",
+            "children": [
+              {
+                "name": "01-overview.md",
+                "type": "file",
+                "path": "docs/claude-code-guide/agent-sdk/01-overview.md"
+              }
+            ]
+          },
+          {
+            "name": "agent-teams",
+            "type": "dir",
+            "path": "docs/claude-code-guide/agent-teams",
+            "children": [
+              {
+                "name": "01-overview.md",
+                "type": "file",
+                "path": "docs/claude-code-guide/agent-teams/01-overview.md"
+              }
+            ]
+          },
+          {
+            "name": "best-practices",
+            "type": "dir",
+            "path": "docs/claude-code-guide/best-practices",
+            "children": [
+              {
+                "name": "01-best-practices.md",
+                "type": "file",
+                "path": "docs/claude-code-guide/best-practices/01-best-practices.md"
+              },
+              {
+                "name": "02-boris-cherny-42-tips.md",
+                "type": "file",
+                "path": "docs/claude-code-guide/best-practices/02-boris-cherny-42-tips.md"
+              }
+            ]
+          },
+          {
+            "name": "memory",
+            "type": "dir",
+            "path": "docs/claude-code-guide/memory",
+            "children": [
+              {
+                "name": "01-memory.md",
+                "type": "file",
+                "path": "docs/claude-code-guide/memory/01-memory.md"
+              }
+            ]
+          },
+          {
+            "name": "overview",
+            "type": "dir",
+            "path": "docs/claude-code-guide/overview",
+            "children": [
+              {
+                "name": "01-overview.md",
+                "type": "file",
+                "path": "docs/claude-code-guide/overview/01-overview.md"
+              }
+            ]
+          },
+          {
+            "name": "settings",
+            "type": "dir",
+            "path": "docs/claude-code-guide/settings",
+            "children": [
+              {
+                "name": "01-settings.md",
+                "type": "file",
+                "path": "docs/claude-code-guide/settings/01-settings.md"
+              }
+            ]
+          },
+          {
+            "name": "skills",
+            "type": "dir",
+            "path": "docs/claude-code-guide/skills",
+            "children": [
+              {
+                "name": "01-skill-structure.md",
+                "type": "file",
+                "path": "docs/claude-code-guide/skills/01-skill-structure.md"
+              },
+              {
+                "name": "02-skill-examples.md",
+                "type": "file",
+                "path": "docs/claude-code-guide/skills/02-skill-examples.md"
+              }
+            ]
+          },
+          {
+            "name": "sub-agents",
+            "type": "dir",
+            "path": "docs/claude-code-guide/sub-agents",
+            "children": [
+              {
+                "name": "01-sub-agents.md",
+                "type": "file",
+                "path": "docs/claude-code-guide/sub-agents/01-sub-agents.md"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "outputs",
+    "type": "dir",
+    "path": "outputs",
+    "children": [
+      {
+        "name": "HKD852_AGENT_MAP.md",
+        "type": "file",
+        "path": "outputs/HKD852_AGENT_MAP.md"
+      },
+      {
+        "name": "ai-product-photo-prompt-master-pack.md",
+        "type": "file",
+        "path": "outputs/ai-product-photo-prompt-master-pack.md"
+      },
+      {
+        "name": "claude_code_art_shorts_intro.md",
+        "type": "file",
+        "path": "outputs/claude_code_art_shorts_intro.md"
+      },
+      {
+        "name": "claude_code_art_shorts_intro_v2.md",
+        "type": "file",
+        "path": "outputs/claude_code_art_shorts_intro_v2.md"
+      },
+      {
+        "name": "hangoutwith_books_revival_strategy.md",
+        "type": "file",
+        "path": "outputs/hangoutwith_books_revival_strategy.md"
+      },
+      {
+        "name": "youtube_shorts_algorithm_growth_strategy_2025_2026.md",
+        "type": "file",
+        "path": "outputs/youtube_shorts_algorithm_growth_strategy_2025_2026.md"
+      }
+    ]
+  },
+  {
+    "name": "team-kowloon",
+    "type": "dir",
+    "path": "team-kowloon",
+    "children": [
+      {
+        "name": "0_organization",
+        "type": "dir",
+        "path": "team-kowloon/0_organization",
+        "children": [
+          {
+            "name": "AGENTS_ROLES.md",
+            "type": "file",
+            "path": "team-kowloon/0_organization/AGENTS_ROLES.md"
+          },
+          {
+            "name": "PIPELINE_DESIGN.md",
+            "type": "file",
+            "path": "team-kowloon/0_organization/PIPELINE_DESIGN.md"
+          },
+          {
+            "name": "README.md",
+            "type": "file",
+            "path": "team-kowloon/0_organization/README.md"
+          },
+          {
+            "name": "SYSTEM_DIAGRAM.md",
+            "type": "file",
+            "path": "team-kowloon/0_organization/SYSTEM_DIAGRAM.md"
+          }
+        ]
+      },
+      {
+        "name": "1_human_control",
+        "type": "dir",
+        "path": "team-kowloon/1_human_control",
+        "children": [
+          {
+            "name": "README.md",
+            "type": "file",
+            "path": "team-kowloon/1_human_control/README.md"
+          }
+        ]
+      },
+      {
+        "name": "2_ai_agents",
+        "type": "dir",
+        "path": "team-kowloon/2_ai_agents",
+        "children": [
+          {
+            "name": "README.md",
+            "type": "file",
+            "path": "team-kowloon/2_ai_agents/README.md"
+          }
+        ]
+      },
+      {
+        "name": "3_ai_output",
+        "type": "dir",
+        "path": "team-kowloon/3_ai_output",
+        "children": [
+          {
+            "name": "README.md",
+            "type": "file",
+            "path": "team-kowloon/3_ai_output/README.md"
+          },
+          {
+            "name": "generated_specs",
+            "type": "dir",
+            "path": "team-kowloon/3_ai_output/generated_specs",
+            "children": [
+              {
+                "name": "SSBL_명세서.md",
+                "type": "file",
+                "path": "team-kowloon/3_ai_output/generated_specs/SSBL_명세서.md"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "4_human_view",
+        "type": "dir",
+        "path": "team-kowloon/4_human_view",
+        "children": [
+          {
+            "name": "README.md",
+            "type": "file",
+            "path": "team-kowloon/4_human_view/README.md"
+          }
+        ]
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "team-kowloon/README.md"
+      },
+      {
+        "name": "RESTRUCTURE_COMPLETE.md",
+        "type": "file",
+        "path": "team-kowloon/RESTRUCTURE_COMPLETE.md"
+      },
+      {
+        "name": "docs",
+        "type": "dir",
+        "path": "team-kowloon/docs",
+        "children": [
+          {
+            "name": "AI_TEAM_ORGANIZATION.md",
+            "type": "file",
+            "path": "team-kowloon/docs/AI_TEAM_ORGANIZATION.md"
+          },
+          {
+            "name": "CLAUDE.md",
+            "type": "file",
+            "path": "team-kowloon/docs/CLAUDE.md"
+          },
+          {
+            "name": "FOLDER_RESTRUCTURE_PLAN.md",
+            "type": "file",
+            "path": "team-kowloon/docs/FOLDER_RESTRUCTURE_PLAN.md"
+          },
+          {
+            "name": "PRESENTATION_GUIDE.md",
+            "type": "file",
+            "path": "team-kowloon/docs/PRESENTATION_GUIDE.md"
+          },
+          {
+            "name": "PRESENTATION_STYLE_GUIDE.md",
+            "type": "file",
+            "path": "team-kowloon/docs/PRESENTATION_STYLE_GUIDE.md"
+          },
+          {
+            "name": "QUICKSTART.md",
+            "type": "file",
+            "path": "team-kowloon/docs/QUICKSTART.md"
+          },
+          {
+            "name": "README.md",
+            "type": "file",
+            "path": "team-kowloon/docs/README.md"
+          },
+          {
+            "name": "SYSTEM_VISUALIZATION.md",
+            "type": "file",
+            "path": "team-kowloon/docs/SYSTEM_VISUALIZATION.md"
+          },
+          {
+            "name": "analysis",
+            "type": "dir",
+            "path": "team-kowloon/docs/analysis",
+            "children": [
+              {
+                "name": "ANALYSIS_레퍼런스시트_분석.md",
+                "type": "file",
+                "path": "team-kowloon/docs/analysis/ANALYSIS_레퍼런스시트_분석.md"
+              }
+            ]
+          },
+          {
+            "name": "architecture",
+            "type": "dir",
+            "path": "team-kowloon/docs/architecture",
+            "children": [
+              {
+                "name": "data-architecture.md",
+                "type": "file",
+                "path": "team-kowloon/docs/architecture/data-architecture.md"
+              },
+              {
+                "name": "layer2-schema.md",
+                "type": "file",
+                "path": "team-kowloon/docs/architecture/layer2-schema.md"
+              },
+              {
+                "name": "system_architecture.md",
+                "type": "file",
+                "path": "team-kowloon/docs/architecture/system_architecture.md"
+              }
+            ]
+          },
+          {
+            "name": "guides",
+            "type": "dir",
+            "path": "team-kowloon/docs/guides",
+            "children": [
+              {
+                "name": "GOOGLE_SHEETS_UPLOAD.md",
+                "type": "file",
+                "path": "team-kowloon/docs/guides/GOOGLE_SHEETS_UPLOAD.md"
+              },
+              {
+                "name": "JSON_KEY_다운로드_가이드.md",
+                "type": "file",
+                "path": "team-kowloon/docs/guides/JSON_KEY_다운로드_가이드.md"
+              },
+              {
+                "name": "NEXT_STEPS.md",
+                "type": "file",
+                "path": "team-kowloon/docs/guides/NEXT_STEPS.md"
+              },
+              {
+                "name": "SERVICE_ACCOUNT_SETUP.md",
+                "type": "file",
+                "path": "team-kowloon/docs/guides/SERVICE_ACCOUNT_SETUP.md"
+              },
+              {
+                "name": "SKILLS_INSTALLATION_GUIDE.md",
+                "type": "file",
+                "path": "team-kowloon/docs/guides/SKILLS_INSTALLATION_GUIDE.md"
+              },
+              {
+                "name": "image_validation_guide.md",
+                "type": "file",
+                "path": "team-kowloon/docs/guides/image_validation_guide.md"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "scripts",
+        "type": "dir",
+        "path": "team-kowloon/scripts",
+        "children": [
+          {
+            "name": "명세서",
+            "type": "dir",
+            "path": "team-kowloon/scripts/명세서",
+            "children": [
+              {
+                "name": "SSBL_명세서.md",
+                "type": "file",
+                "path": "team-kowloon/scripts/명세서/SSBL_명세서.md"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "skills",
+        "type": "dir",
+        "path": "team-kowloon/skills",
+        "children": [
+          {
+            "name": "ssbl-cto",
+            "type": "dir",
+            "path": "team-kowloon/skills/ssbl-cto",
+            "children": [
+              {
+                "name": "README.md",
+                "type": "file",
+                "path": "team-kowloon/skills/ssbl-cto/README.md"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

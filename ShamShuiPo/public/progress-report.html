@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>네온 서바이버즈 — 자율 개발 진행 보고서</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <style>
+      @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css");
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --base: #0f0f1a;
+        --mantle: #161625;
+        --surface0: #1e1e33;
+        --surface1: #2a2a44;
+        --surface2: #363655;
+        --overlay0: #6c7086;
+        --text: #e0e0f0;
+        --subtext0: #a0a0c0;
+        --cyan: #00f0ff;
+        --magenta: #ff00aa;
+        --green: #00ff88;
+        --peach: #ffaa44;
+        --red: #ff4466;
+        --yellow: #ffee66;
+        --purple: #aa66ff;
+        --blue: #4488ff;
+      }
+
+      body {
+        font-family:
+          "Pretendard",
+          -apple-system,
+          sans-serif;
+        background: var(--base);
+        color: var(--text);
+        min-height: 100vh;
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      .dashboard {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        padding: 48px 24px 32px;
+        position: relative;
+      }
+      .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--cyan), var(--magenta));
+        border-radius: 2px;
+      }
+      .header h1 {
+        font-size: 32px;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--cyan), var(--magenta));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 8px;
+      }
+      .header .subtitle {
+        font-size: 16px;
+        color: var(--subtext0);
+      }
+      .header .date {
+        font-size: 13px;
+        color: var(--overlay0);
+        margin-top: 4px;
+      }
+
+      /* KPI Cards */
+      .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+      .kpi-card {
+        background: var(--surface0);
+        border: 1px solid var(--surface1);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        transition: border-color 0.2s;
+      }
+      .kpi-card:hover {
+        border-color: var(--cyan);
+      }
+      .kpi-value {
+        font-size: 36px;
+        font-weight: 800;
+        margin-bottom: 4px;
+      }
+      .kpi-label {
+        font-size: 13px;
+        color: var(--subtext0);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Section */
+      .section {
+        margin-bottom: 32px;
+      }
+      .section-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .section-title::before {
+        content: "";
+        width: 4px;
+        height: 20px;
+        border-radius: 2px;
+        background: var(--cyan);
+      }
+
+      /* Charts */
+      .chart-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+      .chart-card {
+        background: var(--surface0);
+        border: 1px solid var(--surface1);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .chart-card h3 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: var(--subtext0);
+      }
+
+      /* Module Grid */
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 8px;
+        margin-bottom: 32px;
+      }
+      .module-tag {
+        background: var(--surface0);
+        border: 1px solid var(--surface1);
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 12px;
+        font-family: "SF Mono", "Fira Code", monospace;
+        color: var(--cyan);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.2s;
+        cursor: default;
+      }
+      .module-tag:hover {
+        background: var(--surface1);
+        border-color: var(--cyan);
+        transform: translateY(-1px);
+      }
+
+      /* Session Table */
+      .session-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      .session-table th {
+        text-align: left;
+        padding: 10px 12px;
+        background: var(--surface0);
+        color: var(--subtext0);
+        font-weight: 600;
+        border-bottom: 2px solid var(--surface1);
+        position: sticky;
+        top: 0;
+        z-index: 1;
+      }
+      .session-table td {
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--surface0);
+        vertical-align: top;
+      }
+      .session-table tr:hover td {
+        background: var(--surface0);
+      }
+      .session-num {
+        color: var(--cyan);
+        font-weight: 700;
+        font-family: monospace;
+      }
+      .session-modules {
+        color: var(--green);
+      }
+      .table-wrap {
+        background: var(--mantle);
+        border-radius: 12px;
+        border: 1px solid var(--surface1);
+        overflow: auto;
+        max-height: 600px;
+      }
+
+      /* Milestone */
+      .milestone-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .milestone {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        background: var(--surface0);
+        border-radius: 12px;
+        padding: 16px 20px;
+        border-left: 3px solid var(--cyan);
+      }
+      .milestone-round {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--cyan);
+        min-width: 40px;
+        font-family: monospace;
+      }
+      .milestone-text {
+        font-size: 14px;
+        color: var(--text);
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding: 32px;
+        color: var(--overlay0);
+        font-size: 12px;
+        border-top: 1px solid var(--surface0);
+        margin-top: 32px;
+      }
+      .footer a {
+        color: var(--cyan);
+        text-decoration: none;
+      }
+
+      /* Tabs */
+      .tab-bar {
+        display: flex;
+        gap: 4px;
+        background: var(--mantle);
+        border-radius: 10px;
+        padding: 4px;
+        margin-bottom: 24px;
+        width: fit-content;
+        flex-wrap: wrap;
+      }
+      .tab {
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--subtext0);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .tab.active {
+        background: var(--surface0);
+        color: var(--cyan);
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .dashboard {
+          padding: 16px;
+        }
+        .header h1 {
+          font-size: 24px;
+        }
+        .kpi-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .chart-grid {
+          grid-template-columns: 1fr;
+        }
+        .module-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- Header -->
+      <div class="header">
+        <h1>NEON SURVIVORS</h1>
+        <div class="subtitle">자율 개발 진행 보고서</div>
+        <div class="date">
+          세션 014 ~ 064 | 2026-03-13 | 사이버펑크 불릿 헤븐 로그라이크
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-value" style="color: var(--cyan)">133</div>
+          <div class="kpi-label">코어 모듈</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" style="color: var(--green)">132</div>
+          <div class="kpi-label">테스트 파일</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" style="color: var(--magenta)">7,394</div>
+          <div class="kpi-label">유닛 테스트</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" style="color: var(--peach)">50</div>
+          <div class="kpi-label">세션</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" style="color: var(--yellow)">0</div>
+          <div class="kpi-label">실패 테스트</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" style="color: var(--purple)">100%</div>
+          <div class="kpi-label">빌드 성공률</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tab-bar">
+        <button class="tab active" onclick="showTab('overview')">개요</button>
+        <button class="tab" onclick="showTab('modules')">전체 모듈</button>
+        <button class="tab" onclick="showTab('sessions')">세션 로그</button>
+        <button class="tab" onclick="showTab('milestones')">마일스톤</button>
+      </div>
+
+      <!-- Tab: Overview -->
+      <div id="tab-overview" class="tab-content active">
+        <div class="chart-grid">
+          <div class="chart-card">
+            <h3>세션별 모듈 증가 추이</h3>
+            <canvas id="growthChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3>모듈 카테고리</h3>
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">아키텍처</div>
+          <div
+            style="
+              background: var(--surface0);
+              border-radius: 12px;
+              padding: 20px;
+              font-size: 14px;
+              line-height: 2;
+            "
+          >
+            <strong style="color: var(--cyan)">엔진:</strong> Phaser 3.90+
+            (WebGL/Canvas)<br />
+            <strong style="color: var(--cyan)">언어:</strong> TypeScript 5.7+
+            (strict mode)<br />
+            <strong style="color: var(--cyan)">빌드:</strong> Vite 6 |
+            <strong style="color: var(--cyan)">테스트:</strong> Vitest 3<br />
+            <strong style="color: var(--cyan)">배포:</strong> Vercel (빌드 시
+            자동 배포)<br />
+            <strong style="color: var(--cyan)">해상도:</strong> 720x1280 (9:16
+            세로, 모바일 우선)<br />
+            <strong style="color: var(--cyan)">패턴:</strong> 순수 코어 로직
+            (Phaser import 없음) + 불변 상태<br />
+            <strong style="color: var(--cyan)">파이프라인:</strong> 라운드당 3개
+            병렬 에이전트 → tsc → vitest → build → deploy
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Modules -->
+      <div id="tab-modules" class="tab-content">
+        <div class="section">
+          <div class="section-title">133개 코어 모듈 (src/core/)</div>
+          <div class="module-grid">
+            <div class="module-tag">AbilityCalc</div>
+            <div class="module-tag">AchievementCalc</div>
+            <div class="module-tag">AchievementTrackerCalc</div>
+            <div class="module-tag">AggroCalc</div>
+            <div class="module-tag">AimAssistCalc</div>
+            <div class="module-tag">AnalyticsCalc</div>
+            <div class="module-tag">AreaEffectCalc</div>
+            <div class="module-tag">ArenaCalc</div>
+            <div class="module-tag">ArmorCalc</div>
+            <div class="module-tag">AttackSpeedCalc</div>
+            <div class="module-tag">AudioCalc</div>
+            <div class="module-tag">AuraCalc</div>
+            <div class="module-tag">BattlePassCalc</div>
+            <div class="module-tag">BeamCalc</div>
+            <div class="module-tag">BossPhaseCalc</div>
+            <div class="module-tag">BounceCalc</div>
+            <div class="module-tag">BuffDebuffCalc</div>
+            <div class="module-tag">BurstFireCalc</div>
+            <div class="module-tag">CameraShakeCalc</div>
+            <div class="module-tag">ChainLightningCalc</div>
+            <div class="module-tag">ChallengeCalc</div>
+            <div class="module-tag">CharacterPassiveCalc</div>
+            <div class="module-tag">CollisionCalc</div>
+            <div class="module-tag">CombatStatsCalc</div>
+            <div class="module-tag">ComboCalc</div>
+            <div class="module-tag">ComboChainCalc</div>
+            <div class="module-tag">CooldownReductionCalc</div>
+            <div class="module-tag">CraftingCalc</div>
+            <div class="module-tag">CritCalc</div>
+            <div class="module-tag">CurrencyCalc</div>
+            <div class="module-tag">DailyLoginCalc</div>
+            <div class="module-tag">DailyRewardCalc</div>
+            <div class="module-tag">DashCalc</div>
+            <div class="module-tag">DialogueCalc</div>
+            <div class="module-tag">DifficultyModifierCalc</div>
+            <div class="module-tag">DifficultyScalingCalc</div>
+            <div class="module-tag">DodgeCalc</div>
+            <div class="module-tag">DropCalc</div>
+            <div class="module-tag">DropTableCalc</div>
+            <div class="module-tag">ElementalCalc</div>
+            <div class="module-tag">EliteEnemyCalc</div>
+            <div class="module-tag">EndlessModeCalc</div>
+            <div class="module-tag">EnemyAICalc</div>
+            <div class="module-tag">EnemySpawnerCalc</div>
+            <div class="module-tag">EnvironmentHazardCalc</div>
+            <div class="module-tag">EventBusCalc</div>
+            <div class="module-tag">EvolutionCalc</div>
+            <div class="module-tag">ExplosionCalc</div>
+            <div class="module-tag">FloatingTextCalc</div>
+            <div class="module-tag">FogOfWarCalc</div>
+            <div class="module-tag">FormationCalc</div>
+            <div class="module-tag">FreezeCalc</div>
+            <div class="module-tag">GachaCalc</div>
+            <div class="module-tag">GoldMultiplierCalc</div>
+            <div class="module-tag">HitFlashCalc</div>
+            <div class="module-tag">HomingCalc</div>
+            <div class="module-tag">IdGenerator</div>
+            <div class="module-tag">IndicatorCalc</div>
+            <div class="module-tag">InputBufferCalc</div>
+            <div class="module-tag">InputCalc</div>
+            <div class="module-tag">InventoryCalc</div>
+            <div class="module-tag">KnockbackCalc</div>
+            <div class="module-tag">LeaderboardCalc</div>
+            <div class="module-tag">LifetimeCalc</div>
+            <div class="module-tag">LootTableCalc</div>
+            <div class="module-tag">LuckCalc</div>
+            <div class="module-tag">MagnetCalc</div>
+            <div class="module-tag">MapGeneratorCalc</div>
+            <div class="module-tag">MatchmakingCalc</div>
+            <div class="module-tag">MetaCalc</div>
+            <div class="module-tag">MiniBossCalc</div>
+            <div class="module-tag">MinimapCalc</div>
+            <div class="module-tag">MissCalc</div>
+            <div class="module-tag">MovementModCalc</div>
+            <div class="module-tag">NotificationCalc</div>
+            <div class="module-tag">ObjectPool</div>
+            <div class="module-tag">OrbitalCalc</div>
+            <div class="module-tag">ParallaxCalc</div>
+            <div class="module-tag">ParticleCalc</div>
+            <div class="module-tag">ParticleEmitterCalc</div>
+            <div class="module-tag">PathfindingCalc</div>
+            <div class="module-tag">PauseCalc</div>
+            <div class="module-tag">PiercingCalc</div>
+            <div class="module-tag">PlayerProgressionCalc</div>
+            <div class="module-tag">PoisonCalc</div>
+            <div class="module-tag">PoolManagerCalc</div>
+            <div class="module-tag">PostProcessCalc</div>
+            <div class="module-tag">PowerUpCalc</div>
+            <div class="module-tag">PrestigeCalc</div>
+            <div class="module-tag">ProjectilePatternCalc</div>
+            <div class="module-tag">QuestCalc</div>
+            <div class="module-tag">ReflectCalc</div>
+            <div class="module-tag">RegenCalc</div>
+            <div class="module-tag">RelicCalc</div>
+            <div class="module-tag">ReviveCalc</div>
+            <div class="module-tag">RunStateManager</div>
+            <div class="module-tag">RunSummaryCalc</div>
+            <div class="module-tag">SaveSlotCalc</div>
+            <div class="module-tag">ScoreCalc</div>
+            <div class="module-tag">ScreenFlashCalc</div>
+            <div class="module-tag">ScreenShakeCalc</div>
+            <div class="module-tag">ScreenTransitionCalc</div>
+            <div class="module-tag">SeasonalEventCalc</div>
+            <div class="module-tag">SettingsCalc</div>
+            <div class="module-tag">ShieldCalc</div>
+            <div class="module-tag">ShopCalc</div>
+            <div class="module-tag">SlowFieldCalc</div>
+            <div class="module-tag">SpawnCalc</div>
+            <div class="module-tag">SpawnWeightCalc</div>
+            <div class="module-tag">StageProgressCalc</div>
+            <div class="module-tag">StatsTrackerCalc</div>
+            <div class="module-tag">StatusEffectCalc</div>
+            <div class="module-tag">SummonCalc</div>
+            <div class="module-tag">SynergyCalc</div>
+            <div class="module-tag">TalentTreeCalc</div>
+            <div class="module-tag">TeleportCalc</div>
+            <div class="module-tag">TimerCalc</div>
+            <div class="module-tag">TrapCalc</div>
+            <div class="module-tag">TutorialCalc</div>
+            <div class="module-tag">TutorialFlowCalc</div>
+            <div class="module-tag">UIAnimCalc</div>
+            <div class="module-tag">UIScaleCalc</div>
+            <div class="module-tag">UpgradeCalc</div>
+            <div class="module-tag">VampirismCalc</div>
+            <div class="module-tag">WavePatternCalc</div>
+            <div class="module-tag">WaveScheduleCalc</div>
+            <div class="module-tag">WaveformCalc</div>
+            <div class="module-tag">WeaponCalc</div>
+            <div class="module-tag">WeaponSynergyMatrixCalc</div>
+            <div class="module-tag">WeaponUnlockCalc</div>
+            <div class="module-tag">WeaponUpgradePathCalc</div>
+            <div class="module-tag">WeaponVisualCalc</div>
+            <div class="module-tag">XpCalc</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Sessions -->
+      <div id="tab-sessions" class="tab-content">
+        <div class="section">
+          <div class="section-title">50개 개발 세션</div>
+          <div class="table-wrap">
+            <table class="session-table">
+              <thead>
+                <tr>
+                  <th>R#</th>
+                  <th>세션명</th>
+                  <th>생성된 모듈</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="session-num">14</td>
+                  <td>게임오버 통계 그리드</td>
+                  <td class="session-modules">
+                    GameOverCalc, StatsTrackerCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">15</td>
+                  <td>3종 계산 모듈</td>
+                  <td class="session-modules">
+                    CombatStatsCalc, DifficultyModifierCalc, IndicatorCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">16</td>
+                  <td>넉백 & 진화</td>
+                  <td class="session-modules">KnockbackCalc, EvolutionCalc</td>
+                </tr>
+                <tr>
+                  <td class="session-num">17</td>
+                  <td>난이도 & 전투</td>
+                  <td class="session-modules">
+                    DifficultyScalingCalc, WeaponCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">18</td>
+                  <td>보스 & 업적</td>
+                  <td class="session-modules">
+                    BossPhaseCalc, AchievementCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">19</td>
+                  <td>일시정지 & 자석</td>
+                  <td class="session-modules">PauseCalc, MagnetCalc</td>
+                </tr>
+                <tr>
+                  <td class="session-num">20</td>
+                  <td>보스 & 체력 재생</td>
+                  <td class="session-modules">
+                    RegenCalc, CharacterPassiveCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">21</td>
+                  <td>미니맵 & 메타</td>
+                  <td class="session-modules">MinimapCalc, MetaCalc</td>
+                </tr>
+                <tr>
+                  <td class="session-num">22</td>
+                  <td>미니맵 & 재생 통합</td>
+                  <td class="session-modules">(통합 수정)</td>
+                </tr>
+                <tr>
+                  <td class="session-num">23</td>
+                  <td>점수 & 흔들림 & 루트</td>
+                  <td class="session-modules">
+                    ScoreCalc, CameraShakeCalc, LootTableCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">24</td>
+                  <td>흔들림 & 일일보상 & 웨이브</td>
+                  <td class="session-modules">
+                    DailyRewardCalc, WavePatternCalc, ScreenShakeCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">25</td>
+                  <td>루트 & 상태이상 & 튜토리얼</td>
+                  <td class="session-modules">DropCalc, TutorialCalc</td>
+                </tr>
+                <tr>
+                  <td class="session-num">26</td>
+                  <td>무한모드 & 리더보드 & 파워업</td>
+                  <td class="session-modules">
+                    EndlessModeCalc, LeaderboardCalc, PowerUpCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">27</td>
+                  <td>유물 & 시너지 & 챌린지</td>
+                  <td class="session-modules">
+                    RelicCalc, SynergyCalc, ChallengeCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">28</td>
+                  <td>무기 & AI & 파티클</td>
+                  <td class="session-modules">
+                    WeaponUpgradePathCalc, EnemyAICalc, ParticleCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">29</td>
+                  <td>분석 & 설정 & 충돌</td>
+                  <td class="session-modules">
+                    AnalyticsCalc, SettingsCalc, CollisionCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">30</td>
+                  <td>맵생성 & 오디오 & UI애니메이션</td>
+                  <td class="session-modules">
+                    MapGeneratorCalc, AudioCalc, UIAnimCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">31</td>
+                  <td>인벤토리 & 상점 & 크리티컬</td>
+                  <td class="session-modules">
+                    InventoryCalc, ShopCalc, CritCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">32</td>
+                  <td>투사체 & 엘리트 & 런요약</td>
+                  <td class="session-modules">
+                    ProjectilePatternCalc (v1), EliteEnemyCalc, RunSummaryCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">33</td>
+                  <td>버프/디버프 & 환경위험 & 포메이션</td>
+                  <td class="session-modules">
+                    BuffDebuffCalc, EnvironmentHazardCalc, FormationCalc (v1)
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">34</td>
+                  <td>콤보 & 회피 & 범위효과</td>
+                  <td class="session-modules">
+                    ComboChainCalc, DodgeCalc, AreaEffectCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">35</td>
+                  <td>퀘스트 & 탤런트 & 아레나</td>
+                  <td class="session-modules">
+                    QuestCalc, TalentTreeCalc, ArenaCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">36</td>
+                  <td>시너지 & 스포너 & 미니보스</td>
+                  <td class="session-modules">
+                    WeaponSynergyMatrixCalc, EnemySpawnerCalc, MiniBossCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">37</td>
+                  <td>이벤트버스 & 입력 & 후처리</td>
+                  <td class="session-modules">
+                    EventBusCalc, InputCalc, PostProcessCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">38</td>
+                  <td>타이머 & 대화 & 업적</td>
+                  <td class="session-modules">
+                    TimerCalc, DialogueCalc, AchievementTrackerCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">39</td>
+                  <td>오브젝트풀 & 난이도 & 프레스티지</td>
+                  <td class="session-modules">
+                    ObjectPool, PoolManagerCalc, PrestigeCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">40</td>
+                  <td>세이브 & 알림 & 해금</td>
+                  <td class="session-modules">
+                    SaveSlotCalc, NotificationCalc, WeaponUnlockCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">41</td>
+                  <td>길찾기 & 웨이브 & 성장</td>
+                  <td class="session-modules">
+                    WaveScheduleCalc, PlayerProgressionCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">42</td>
+                  <td>가챠 & 배틀패스 & 일일로그인</td>
+                  <td class="session-modules">
+                    GachaCalc, BattlePassCalc, DailyLoginCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">43</td>
+                  <td>재화 & 이벤트 & 스테이지</td>
+                  <td class="session-modules">
+                    CurrencyCalc, SeasonalEventCalc, StageProgressCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">44</td>
+                  <td>매칭 & 튜토리얼 & 어빌리티</td>
+                  <td class="session-modules">
+                    MatchmakingCalc, TutorialFlowCalc, AbilityCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">45</td>
+                  <td>리더보드 & 제작 & 유물</td>
+                  <td class="session-modules">CraftingCalc (확장)</td>
+                </tr>
+                <tr>
+                  <td class="session-num">46</td>
+                  <td>파티클 & 전장안개 & 상태이상</td>
+                  <td class="session-modules">
+                    ParticleEmitterCalc, FogOfWarCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">47</td>
+                  <td>퀘스트 & 업적 & 대화</td>
+                  <td class="session-modules">(개선 작업)</td>
+                </tr>
+                <tr>
+                  <td class="session-num">48</td>
+                  <td>입력버퍼 & 탤런트트리 & 콤보</td>
+                  <td class="session-modules">InputBufferCalc</td>
+                </tr>
+                <tr>
+                  <td class="session-num">49</td>
+                  <td>리더보드 & 미니맵 & 알림</td>
+                  <td class="session-modules">(기존 모듈 확장)</td>
+                </tr>
+                <tr>
+                  <td class="session-num">50</td>
+                  <td>패럴랙스 & 히트플래시 & 화면전환</td>
+                  <td class="session-modules">
+                    ParallaxCalc, HitFlashCalc, ScreenTransitionCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">51</td>
+                  <td>에임보정 & 대시 & 방어막</td>
+                  <td class="session-modules">
+                    AimAssistCalc, DashCalc, ShieldCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">52</td>
+                  <td>플로팅텍스트 & 텔레포트 & 체인라이트닝</td>
+                  <td class="session-modules">
+                    FloatingTextCalc, TeleportCalc, ChainLightningCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">53</td>
+                  <td>흡혈 & 슬로우필드 & 폭발</td>
+                  <td class="session-modules">
+                    VampirismCalc, SlowFieldCalc, ExplosionCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">54</td>
+                  <td>궤도 & 반사 & 소환</td>
+                  <td class="session-modules">
+                    OrbitalCalc, ReflectCalc, SummonCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">55</td>
+                  <td>독 & 빙결 & 반사</td>
+                  <td class="session-modules">
+                    PoisonCalc, FreezeCalc, BounceCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">56</td>
+                  <td>관통 & 유도 & 연사</td>
+                  <td class="session-modules">
+                    PiercingCalc, HomingCalc, BurstFireCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">57</td>
+                  <td>오라 & 함정 & 빗나감</td>
+                  <td class="session-modules">AuraCalc, TrapCalc, MissCalc</td>
+                </tr>
+                <tr>
+                  <td class="session-num">58</td>
+                  <td>빔 & 웨이브폼 & 쿨다운감소</td>
+                  <td class="session-modules">
+                    BeamCalc, WaveformCalc, CooldownReductionCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">59</td>
+                  <td>행운 & 방어구 & 이동보정</td>
+                  <td class="session-modules">
+                    LuckCalc, ArmorCalc, MovementModCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">60</td>
+                  <td>화면흔들림 & 부활 & 공격속도</td>
+                  <td class="session-modules">
+                    ScreenFlashCalc, ReviveCalc, AttackSpeedCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">61</td>
+                  <td>속성 & 어그로 & 지속시간</td>
+                  <td class="session-modules">
+                    ElementalCalc, AggroCalc, LifetimeCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">62</td>
+                  <td>골드배율 & 스폰가중치 & UI스케일</td>
+                  <td class="session-modules">
+                    GoldMultiplierCalc, SpawnWeightCalc, UIScaleCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">63</td>
+                  <td>상태이상 & 길찾기 & 포메이션</td>
+                  <td class="session-modules">
+                    StatusEffectCalc, PathfindingCalc, FormationCalc
+                  </td>
+                </tr>
+                <tr>
+                  <td class="session-num">64</td>
+                  <td>콤보 & 드롭테이블 & 투사체패턴</td>
+                  <td class="session-modules">
+                    ComboCalc, DropTableCalc, ProjectilePatternCalc
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Milestones -->
+      <div id="tab-milestones" class="tab-content">
+        <div class="section">
+          <div class="section-title">주요 마일스톤</div>
+          <div class="milestone-list">
+            <div class="milestone">
+              <div class="milestone-round">R14</div>
+              <div class="milestone-text">
+                프로젝트 시작 — 첫 자율 세션, GameOver 통계 그리드 및 파이프라인
+                구축
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-round">R20</div>
+              <div class="milestone-text">
+                핵심 전투 루프 완성 — 보스 페이즈, 체력 재생, 캐릭터 패시브
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-round">R25</div>
+              <div class="milestone-text">
+                메타 성장 레이어 — 루트 드롭, 튜토리얼, 일일 보상
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-round">R30</div>
+              <div class="milestone-text">
+                3-에이전트 병렬 파이프라인 확립 — 라운드당 3모듈 안정 생산
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-round">R35</div>
+              <div class="milestone-text">
+                RPG 시스템 — 퀘스트, 탤런트 트리, 아레나 모드, 시너지 매트릭스
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-round">R40</div>
+              <div class="milestone-text">
+                영속성 & 성장 — 세이브 슬롯, 알림, 무기 해금, 프레스티지
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-round">R42</div>
+              <div class="milestone-text">
+                수익화 시스템 — 가챠, 배틀패스, 출석 보상
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-round">R50</div>
+              <div class="milestone-text">
+                비주얼 폴리시 — 패럴랙스, 히트 플래시, 화면 전환, 파티클
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-round">R55</div>
+              <div class="milestone-text">
+                전투 이펙트 완성 — 독, 빙결, 반사, 관통, 유도, 연사
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-round">R60</div>
+              <div class="milestone-text">
+                고급 시스템 — 속성, 어그로, 부활, 공격속도 보정
+              </div>
+            </div>
+            <div class="milestone">
+              <div class="milestone-round">R64</div>
+              <div class="milestone-text">
+                최신 — 콤보 시스템, 피티 드롭 테이블, 투사체 패턴
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <a href="https://neon-survivors-tau.vercel.app" target="_blank"
+        >네온 서바이버즈 플레이</a
+      >
+      &middot; HKD852 스튜디오 제작 &middot; Claude Opus 4.6 자율 에이전트로
+      구축
+    </div>
+
+    <script>
+      // Tab switching
+      function showTab(id) {
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        document.getElementById("tab-" + id).classList.add("active");
+        event.target.classList.add("active");
+      }
+
+      // Growth Chart
+      const growthCtx = document.getElementById("growthChart").getContext("2d");
+      new Chart(growthCtx, {
+        type: "line",
+        data: {
+          labels: [
+            "R14",
+            "R18",
+            "R22",
+            "R26",
+            "R30",
+            "R34",
+            "R38",
+            "R42",
+            "R46",
+            "R50",
+            "R54",
+            "R58",
+            "R62",
+            "R64",
+          ],
+          datasets: [
+            {
+              label: "모듈",
+              data: [
+                2, 12, 22, 34, 46, 58, 70, 82, 92, 102, 112, 122, 130, 133,
+              ],
+              borderColor: "#00f0ff",
+              backgroundColor: "rgba(0,240,255,0.1)",
+              fill: true,
+              tension: 0.3,
+              pointRadius: 4,
+              pointBackgroundColor: "#00f0ff",
+            },
+            {
+              label: "테스트 (÷100)",
+              data: [1, 8, 16, 24, 32, 40, 48, 54, 60, 66, 70, 73, 74, 74],
+              borderColor: "#00ff88",
+              backgroundColor: "rgba(0,255,136,0.05)",
+              fill: true,
+              tension: 0.3,
+              pointRadius: 4,
+              pointBackgroundColor: "#00ff88",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              labels: { color: "#a0a0c0", font: { family: "Pretendard" } },
+            },
+          },
+          scales: {
+            x: { ticks: { color: "#6c7086" }, grid: { color: "#1e1e33" } },
+            y: { ticks: { color: "#6c7086" }, grid: { color: "#1e1e33" } },
+          },
+        },
+      });
+
+      // Category Chart
+      const categories = {
+        전투: 22,
+        성장: 18,
+        무기: 14,
+        "UI/비주얼": 16,
+        "메타/경제": 14,
+        "적 AI": 10,
+        시스템: 12,
+        이동: 8,
+        "오디오/FX": 6,
+        유틸리티: 13,
+      };
+      const catCtx = document.getElementById("categoryChart").getContext("2d");
+      new Chart(catCtx, {
+        type: "doughnut",
+        data: {
+          labels: Object.keys(categories),
+          datasets: [
+            {
+              data: Object.values(categories),
+              backgroundColor: [
+                "#ff4466",
+                "#00f0ff",
+                "#ffaa44",
+                "#aa66ff",
+                "#00ff88",
+                "#ff00aa",
+                "#ffee66",
+                "#4488ff",
+                "#66ffcc",
+                "#ff6644",
+              ],
+              borderWidth: 0,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "right",
+              labels: {
+                color: "#a0a0c0",
+                padding: 12,
+                font: { family: "Pretendard", size: 12 },
+              },
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

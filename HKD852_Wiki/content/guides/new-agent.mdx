@@ -1,0 +1,38 @@
+---
+title: "새 에이전트 생성 가이드"
+description: "HKD852에 새로운 에이전트를 추가하는 방법"
+---
+
+## 체크리스트
+
+새 에이전트를 생성할 때 다음 항목을 확인합니다.
+
+- [ ] `.claude/` 폴더 생성
+- [ ] `CLAUDE.md` 생성 (루트 가이드 참조 포함)
+- [ ] 스킬은 공식 가이드 구조 준수
+- [ ] README.md에 에이전트 목적 명시
+
+## CLAUDE.md 필수 포함 내용
+
+모든 하위 에이전트의 CLAUDE.md에는 다음 내용이 반드시 포함되어야 합니다:
+
+```markdown
+## 공통 표준
+
+이 에이전트는 HKD852 루트의 Claude Code 가이드를 따릅니다.
+
+- 가이드: [Claude Code 공식 가이드](../docs/claude-code-guide/INDEX.md)
+```
+
+## 스킬 파일 위치
+
+```
+.claude/skills/<skill-name>/SKILL.md
+```
+
+## 참고 가이드
+
+- 가이드 인덱스: `docs/claude-code-guide/INDEX.md`
+- 스킬 구조: `docs/claude-code-guide/skills/01-skill-structure.md`
+- 스킬 예제: `docs/claude-code-guide/skills/02-skill-examples.md`
+- Agent SDK: `docs/claude-code-guide/agent-sdk/01-overview.md`

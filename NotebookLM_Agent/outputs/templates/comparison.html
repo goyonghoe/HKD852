@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* === COMPARISON TEMPLATE ===
+   용도: 도구/제품 비교, 시장 비교, 기술 선택, A vs B
+   특징: 나란히 비교 카드 + 레이더 차트(CSS) + 프로/콘 + 점수 매트릭스
+*/
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:{{BG_COLOR}};color:#e2e8f0;font-family:'Noto Sans KR',sans-serif;line-height:1.7}
+a{color:{{PRIMARY}};text-decoration:none}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,14,39,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(148,163,184,.1);padding:12px 0}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;gap:16px;overflow-x:auto;padding:0 24px;font-size:13px;font-weight:500}
+.nav a{color:#94a3b8;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent;transition:.2s}
+.nav a:hover{color:{{PRIMARY}};border-color:{{PRIMARY}};text-decoration:none}
+
+.wrap{max-width:1100px;margin:0 auto;padding:32px 24px 64px}
+
+.header{text-align:center;padding:48px 0 40px;border-bottom:1px solid rgba(148,163,184,.08);margin-bottom:40px}
+.header h1{font-size:36px;font-weight:900;background:linear-gradient(135deg,{{GRADIENT}});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
+.header .meta{font-size:14px;color:#64748b}
+
+/* VS HEADER — A vs B 비교 헤더 */
+.vs-header{display:flex;align-items:center;justify-content:center;gap:24px;margin:32px 0}
+.vs-item{text-align:center;padding:24px 32px;background:rgba(30,41,59,.4);border-radius:16px;border:1px solid rgba(148,163,184,.1);min-width:200px}
+.vs-item h3{font-size:20px;font-weight:900;margin-bottom:4px}
+.vs-item p{font-size:13px;color:#94a3b8}
+.vs-badge{font-size:28px;font-weight:900;color:#475569;padding:0 8px}
+
+/* SIDE-BY-SIDE — 나란히 비교 */
+.side-by-side{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:24px 0;border:1px solid rgba(148,163,184,.1);border-radius:16px;overflow:hidden}
+.side-left,.side-right{padding:24px}
+.side-left{background:rgba(30,41,59,.4);border-right:1px solid rgba(148,163,184,.1)}
+.side-right{background:rgba(30,41,59,.55)}
+.side-left h4,.side-right h4{font-size:15px;font-weight:700;margin-bottom:12px;color:#f1f5f9}
+
+/* SCORE ROW — 점수 비교 행 */
+.score-compare{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(148,163,184,.06)}
+.score-compare .label{flex:1;font-size:13px;color:#94a3b8;text-align:right}
+.score-compare .bar-left{flex:2;display:flex;justify-content:flex-end}
+.score-compare .bar-right{flex:2}
+.score-compare .bar-left .fill-bar,.score-compare .bar-right .fill-bar{height:8px;border-radius:4px;min-width:4px}
+.score-compare .bar-left .fill-bar{background:{{PRIMARY}};margin-left:auto}
+.score-compare .bar-right .fill-bar{background:{{SECONDARY}}}
+
+/* PRO/CON — 장단점 카드 */
+.procon{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:12px;overflow:hidden;margin:16px 0;border:1px solid rgba(148,163,184,.1)}
+.pro,.con{padding:20px}
+.pro{background:rgba(16,185,129,.06)}
+.con{background:rgba(239,68,68,.06)}
+.pro h4{color:#34d399;font-size:14px;margin-bottom:10px}
+.con h4{color:#f87171;font-size:14px;margin-bottom:10px}
+.pro li,.con li{font-size:13px;margin-bottom:6px}
+
+/* VERDICT — 결론 뱃지 */
+.verdict{text-align:center;padding:24px;margin:24px 0;background:linear-gradient(135deg,{{PRIMARY_15}},{{SECONDARY_12}});border-radius:16px;border:1px solid {{PRIMARY_25}}}
+.verdict h3{font-size:20px;font-weight:900;color:{{PRIMARY_LIGHT}};margin-bottom:8px}
+.verdict p{font-size:15px;color:{{PRIMARY_MID}}}
+
+/* 공통 */
+.section{margin-bottom:48px;scroll-margin-top:72px}
+.section h2{font-size:24px;font-weight:700;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid {{PRIMARY_20}};color:#f1f5f9}
+.card{background:rgba(30,41,59,.55);border:1px solid rgba(148,163,184,.1);border-radius:12px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,{{PRIMARY}},{{SECONDARY}})}
+.card h3{font-size:17px;font-weight:700;margin-bottom:12px;color:#f1f5f9}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.tbl{width:100%;border-collapse:collapse;margin:16px 0}
+.tbl th{text-align:left;font-size:13px;color:#94a3b8;padding:10px 14px;border-bottom:1px solid rgba(148,163,184,.15);font-weight:500;background:rgba(15,23,42,.4)}
+.tbl td{font-size:14px;padding:10px 14px;border-bottom:1px solid rgba(148,163,184,.08);color:#cbd5e1}
+.quote{border-left:3px solid {{PRIMARY}};padding:16px 20px;margin:16px 0;background:{{PRIMARY_06}};border-radius:0 8px 8px 0;font-size:15px;color:{{PRIMARY_LIGHT}}}
+.tag{display:inline-block;padding:2px 10px;border-radius:10px;font-size:12px;font-weight:500}
+ul{padding-left:20px;margin:8px 0}li{margin-bottom:8px;font-size:15px;color:#cbd5e1}li strong{color:#f1f5f9}
+.footer{text-align:center;padding:32px 0;color:#475569;font-size:13px;border-top:1px solid rgba(148,163,184,.1);margin-top:48px}
+@media print{body{background:#fff;color:#1e293b}.nav{display:none}.card{border:1px solid #e2e8f0;background:#f8fafc}.card::before{display:none}.header h1{-webkit-text-fill-color:#1e293b}}
+@media(max-width:768px){.grid2,.grid3,.side-by-side,.procon{grid-template-columns:1fr}.vs-header{flex-direction:column}.header h1{font-size:26px}}
+</style>
+</head>
+<body>
+<!--
+  COMPARISON TEMPLATE
+  차별화 컴포넌트:
+  - .vs-header — A vs B 비교 헤더
+  - .side-by-side — 좌/우 나란히 비교
+  - .score-compare — 항목별 점수 바 비교
+  - .procon — 장단점 카드
+  - .verdict — 최종 결론/추천
+-->
+<div class="nav"><div class="nav-inner">{{NAV_LINKS}}</div></div>
+<div class="wrap">
+<div class="header">
+<h1>{{TITLE}}</h1>
+<p style="font-size:18px;color:#94a3b8;margin-bottom:16px">{{SUBTITLE}}</p>
+<div class="meta">{{META}}</div>
+</div>
+{{CONTENT}}
+<div class="footer">{{FOOTER}}</div>
+</div>
+</body>
+</html>

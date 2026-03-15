@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Match Rush - HSK 카드 매칭</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, "Noto Sans KR", sans-serif;
+        background: #0f0c29;
+        color: #fff;
+        overflow: hidden;
+        touch-action: none;
+        user-select: none;
+      }
+      #game {
+        width: 100vw;
+        height: 100vh;
+        max-width: 430px;
+        margin: 0 auto;
+        position: relative;
+        background: linear-gradient(
+          180deg,
+          #0f0c29 0%,
+          #302b63 50%,
+          #24243e 100%
+        );
+      }
+
+      .hud {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        position: relative;
+        z-index: 10;
+      }
+      .hud-score {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffd700;
+      }
+      .hud-timer {
+        font-size: 16px;
+        color: #ff6b6b;
+        font-weight: 600;
+      }
+      .hud-matches {
+        font-size: 14px;
+        color: #7afcff;
+      }
+      .hud-level {
+        font-size: 12px;
+        color: #aaa;
+        letter-spacing: 1px;
+      }
+      .progress-bar {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 0 16px;
+        border-radius: 2px;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #a18cd1, #fbc2eb);
+        border-radius: 2px;
+        transition: width 0.3s;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        padding: 16px;
+        margin-top: 8px;
+      }
+      .card {
+        aspect-ratio: 3/4;
+        border-radius: 14px;
+        cursor: pointer;
+        perspective: 600px;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.4s;
+        transform-style: preserve-3d;
+      }
+      .card.flipped .card-inner {
+        transform: rotateY(180deg);
+      }
+      .card-front,
+      .card-back {
+        position: absolute;
+        inset: 0;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backface-visibility: hidden;
+        padding: 6px;
+      }
+      .card-front {
+        background: linear-gradient(
+          135deg,
+          rgba(161, 140, 209, 0.3),
+          rgba(251, 194, 235, 0.2)
+        );
+        border: 2px solid rgba(255, 255, 255, 0.15);
+      }
+      .card-front::after {
+        content: "?";
+        font-size: 28px;
+        color: rgba(255, 255, 255, 0.3);
+        font-weight: 700;
+      }
+      .card-back {
+        transform: rotateY(180deg);
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        text-align: center;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .card-back.hanzi-card {
+        background: linear-gradient(
+          135deg,
+          rgba(102, 126, 234, 0.4),
+          rgba(118, 75, 162, 0.3)
+        );
+      }
+      .card-back.meaning-card {
+        background: linear-gradient(
+          135deg,
+          rgba(46, 213, 115, 0.3),
+          rgba(46, 213, 115, 0.1)
+        );
+      }
+      .card-back .main-text {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+      .card-back .sub-text {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.1;
+      }
+      .card.matched .card-inner {
+        transform: rotateY(180deg) scale(0.9);
+        opacity: 0.4;
+        pointer-events: none;
+      }
+      .card.matched .card-back {
+        border-color: rgba(46, 213, 115, 0.5);
+      }
+      .card.wrong .card-back {
+        border-color: #ff4757;
+        animation: cardShake 0.4s;
+      }
+
+      .screen {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        background: rgba(15, 12, 41, 0.97);
+      }
+      .screen.hidden {
+        display: none;
+      }
+      .title {
+        font-size: 38px;
+        font-weight: 900;
+        background: linear-gradient(135deg, #a18cd1, #fbc2eb, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 8px;
+      }
+      .subtitle {
+        font-size: 16px;
+        color: #888;
+        margin-bottom: 32px;
+      }
+      .start-btn {
+        background: linear-gradient(135deg, #a18cd1, #764ba2);
+        border: none;
+        border-radius: 16px;
+        padding: 16px 48px;
+        font-size: 20px;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(161, 140, 209, 0.4);
+      }
+      .start-btn:active {
+        transform: scale(0.97);
+      }
+
+      .result-score {
+        font-size: 56px;
+        font-weight: 900;
+        color: #ffd700;
+      }
+      .result-label {
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .result-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        margin: 16px 0 28px;
+        width: 80%;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat-val {
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .stat-lbl {
+        font-size: 11px;
+        color: #888;
+        margin-top: 4px;
+      }
+      .result-time {
+        font-size: 14px;
+        color: #a18cd1;
+        margin-bottom: 24px;
+      }
+
+      .combo-flash {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 50;
+        animation: flashAnim 0.3s ease-out forwards;
+      }
+
+      @keyframes cardShake {
+        0%,
+        100% {
+          transform: rotateY(180deg) translateX(0);
+        }
+        25% {
+          transform: rotateY(180deg) translateX(-5px);
+        }
+        75% {
+          transform: rotateY(180deg) translateX(5px);
+        }
+      }
+      @keyframes flashAnim {
+        0% {
+          background: rgba(255, 215, 0, 0.15);
+        }
+        100% {
+          background: transparent;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game">
+      <div class="hud">
+        <div>
+          <div class="hud-level" id="hudLevel">HSK 1 · Match Rush</div>
+          <div class="hud-score" id="hudScore">0</div>
+        </div>
+        <div class="hud-matches" id="hudMatches">0 / 6</div>
+        <div class="hud-timer" id="hudTimer">45</div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="card-grid" id="cardGrid"></div>
+
+      <div class="screen" id="startScreen">
+        <div class="title">Match Rush</div>
+        <div class="subtitle">한자와 뜻을 매칭하세요</div>
+        <button class="start-btn" id="startBtn">START</button>
+      </div>
+
+      <div class="screen hidden" id="resultScreen">
+        <div class="result-label">SCORE</div>
+        <div class="result-score" id="resultScore">0</div>
+        <div class="result-stats">
+          <div class="stat">
+            <div class="stat-val" id="statMatches" style="color: #2ed573">
+              0
+            </div>
+            <div class="stat-lbl">Matches</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" id="statMisses" style="color: #ff4757">0</div>
+            <div class="stat-lbl">Misses</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" id="statTime" style="color: #a18cd1">0s</div>
+            <div class="stat-lbl">Time</div>
+          </div>
+        </div>
+        <button class="start-btn" id="retryBtn">PLAY AGAIN</button>
+      </div>
+    </div>
+
+    <script>
+      /* ── SoundFX Module (Web Audio API, no external files) ── */
+      const SFX = (() => {
+        let ctx = null;
+        function ensureCtx() {
+          if (!ctx)
+            ctx = new (window.AudioContext || window.webkitAudioContext)();
+          if (ctx.state === "suspended") ctx.resume();
+          return ctx;
+        }
+        function tone(freq, start, dur, type, vol) {
+          const c = ensureCtx();
+          const osc = c.createOscillator();
+          const gain = c.createGain();
+          osc.type = type;
+          osc.frequency.value = freq;
+          gain.gain.value = vol;
+          osc.connect(gain).connect(c.destination);
+          osc.start(start);
+          osc.stop(start + dur);
+        }
+        return {
+          flip() {
+            // 800Hz, 30ms, sine, 0.15
+            const t = ensureCtx().currentTime;
+            tone(800, t, 0.03, "sine", 0.15);
+          },
+          match() {
+            // C5→E5, 100ms each, sine, 0.3
+            const t = ensureCtx().currentTime;
+            tone(523.25, t, 0.1, "sine", 0.3);
+            tone(659.25, t + 0.1, 0.1, "sine", 0.3);
+          },
+          mismatch() {
+            // 150Hz, 200ms, square, 0.2
+            const t = ensureCtx().currentTime;
+            tone(150, t, 0.2, "square", 0.2);
+          },
+          combo() {
+            // E5→G5→C6, 80ms each, sine, 0.3
+            const t = ensureCtx().currentTime;
+            tone(659.25, t, 0.08, "sine", 0.3);
+            tone(783.99, t + 0.08, 0.08, "sine", 0.3);
+            tone(1046.5, t + 0.16, 0.08, "sine", 0.3);
+          },
+          stageClear() {
+            // C5→E5→G5→C6, 150ms each, sine, 0.3
+            const t = ensureCtx().currentTime;
+            tone(523.25, t, 0.15, "sine", 0.3);
+            tone(659.25, t + 0.15, 0.15, "sine", 0.3);
+            tone(783.99, t + 0.3, 0.15, "sine", 0.3);
+            tone(1046.5, t + 0.45, 0.15, "sine", 0.3);
+          },
+          gameOver() {
+            // E4→C4, 200ms each, triangle, 0.25
+            const t = ensureCtx().currentTime;
+            tone(329.63, t, 0.2, "triangle", 0.25);
+            tone(261.63, t + 0.2, 0.2, "triangle", 0.25);
+          },
+        };
+      })();
+
+      const WORDS = [
+        { hanzi: "你", pinyin: "nǐ", ko: "너" },
+        { hanzi: "好", pinyin: "hǎo", ko: "좋다" },
+        { hanzi: "我", pinyin: "wǒ", ko: "나" },
+        { hanzi: "是", pinyin: "shì", ko: "~이다" },
+        { hanzi: "大", pinyin: "dà", ko: "크다" },
+        { hanzi: "小", pinyin: "xiǎo", ko: "작다" },
+        { hanzi: "爱", pinyin: "ài", ko: "사랑하다" },
+        { hanzi: "吃", pinyin: "chī", ko: "먹다" },
+        { hanzi: "喝", pinyin: "hē", ko: "마시다" },
+        { hanzi: "看", pinyin: "kàn", ko: "보다" },
+        { hanzi: "听", pinyin: "tīng", ko: "듣다" },
+        { hanzi: "说", pinyin: "shuō", ko: "말하다" },
+        { hanzi: "买", pinyin: "mǎi", ko: "사다" },
+        { hanzi: "去", pinyin: "qù", ko: "가다" },
+        { hanzi: "来", pinyin: "lái", ko: "오다" },
+        { hanzi: "家", pinyin: "jiā", ko: "집" },
+        { hanzi: "人", pinyin: "rén", ko: "사람" },
+        { hanzi: "水", pinyin: "shuǐ", ko: "물" },
+        { hanzi: "书", pinyin: "shū", ko: "책" },
+        { hanzi: "多", pinyin: "duō", ko: "많다" },
+      ];
+
+      let state = {
+        score: 0,
+        matches: 0,
+        misses: 0,
+        timer: 45,
+        playing: false,
+        selected: null,
+        locked: false,
+        totalPairs: 6,
+        startTime: 0,
+      };
+      const $ = (id) => document.getElementById(id);
+
+      $("startBtn").addEventListener("click", startGame);
+      $("retryBtn").addEventListener("click", () => {
+        $("resultScreen").classList.add("hidden");
+        startGame();
+      });
+
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      function startGame() {
+        $("startScreen").classList.add("hidden");
+        state = {
+          score: 0,
+          matches: 0,
+          misses: 0,
+          timer: 45,
+          playing: true,
+          selected: null,
+          locked: false,
+          totalPairs: 6,
+          startTime: Date.now(),
+          streak: 0,
+        };
+
+        // Pick 6 random words
+        const picked = shuffle([...WORDS]).slice(0, state.totalPairs);
+
+        // Create card pairs: hanzi card + meaning card
+        const cards = [];
+        picked.forEach((w, i) => {
+          cards.push({
+            id: i,
+            type: "hanzi",
+            word: w,
+            display: w.hanzi,
+            sub: w.pinyin,
+          });
+          cards.push({
+            id: i,
+            type: "meaning",
+            word: w,
+            display: w.ko,
+            sub: "",
+          });
+        });
+
+        shuffle(cards);
+        renderCards(cards);
+
+        $("hudScore").textContent = "0";
+        $("hudMatches").textContent = `0 / ${state.totalPairs}`;
+        updateTimer();
+
+        state.timerInterval = setInterval(() => {
+          state.timer--;
+          updateTimer();
+          if (state.timer <= 0) endGame(false);
+        }, 1000);
+      }
+
+      function renderCards(cards) {
+        const grid = $("cardGrid");
+        grid.innerHTML = "";
+
+        // Adjust grid: 12 cards = 4x3
+        grid.style.gridTemplateColumns = "repeat(4, 1fr)";
+
+        cards.forEach((c, idx) => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.dataset.pairId = c.id;
+          card.dataset.type = c.type;
+          card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-front"></div>
+        <div class="card-back ${c.type}-card">
+          <div class="main-text">${c.display}</div>
+          ${c.sub ? `<div class="sub-text">${c.sub}</div>` : ""}
+        </div>
+      </div>`;
+
+          card.addEventListener("click", () => handleCardClick(card));
+          grid.appendChild(card);
+        });
+      }
+
+      function handleCardClick(card) {
+        if (!state.playing || state.locked) return;
+        if (
+          card.classList.contains("flipped") ||
+          card.classList.contains("matched")
+        )
+          return;
+
+        card.classList.add("flipped");
+        SFX.flip();
+
+        if (!state.selected) {
+          state.selected = card;
+          return;
+        }
+
+        const first = state.selected;
+        const second = card;
+        state.selected = null;
+        state.locked = true;
+
+        const match =
+          first.dataset.pairId === second.dataset.pairId &&
+          first.dataset.type !== second.dataset.type;
+
+        if (match) {
+          state.matches++;
+          state.streak++;
+          state.score += 20;
+          $("hudScore").textContent = state.score;
+          $("hudMatches").textContent =
+            `${state.matches} / ${state.totalPairs}`;
+
+          if (state.streak >= 2) SFX.combo();
+          else SFX.match();
+
+          setTimeout(() => {
+            first.classList.add("matched");
+            second.classList.add("matched");
+            state.locked = false;
+
+            // Flash effect
+            const flash = document.createElement("div");
+            flash.className = "combo-flash";
+            $("game").appendChild(flash);
+            setTimeout(() => flash.remove(), 300);
+
+            if (state.matches >= state.totalPairs) {
+              SFX.stageClear();
+              endGame(true);
+            }
+          }, 400);
+        } else {
+          state.misses++;
+          state.streak = 0;
+          state.score = Math.max(0, state.score - 5);
+          $("hudScore").textContent = state.score;
+          SFX.mismatch();
+
+          setTimeout(() => {
+            first.classList.add("wrong");
+            second.classList.add("wrong");
+          }, 100);
+
+          setTimeout(() => {
+            first.classList.remove("flipped", "wrong");
+            second.classList.remove("flipped", "wrong");
+            state.locked = false;
+          }, 1000);
+        }
+      }
+
+      function updateTimer() {
+        $("hudTimer").textContent = state.timer;
+        $("hudTimer").style.color = state.timer <= 10 ? "#ff4757" : "#ff6b6b";
+        $("progressFill").style.width = (state.timer / 45) * 100 + "%";
+      }
+
+      function endGame(won) {
+        state.playing = false;
+        clearInterval(state.timerInterval);
+
+        if (!won) SFX.gameOver();
+
+        const elapsed = Math.round((Date.now() - state.startTime) / 1000);
+        if (won) state.score += Math.max(0, state.timer * 2); // Time bonus
+
+        $("resultScore").textContent = state.score;
+        $("statMatches").textContent = state.matches;
+        $("statMisses").textContent = state.misses;
+        $("statTime").textContent = elapsed + "s";
+        $("resultScreen").classList.remove("hidden");
+      }
+    </script>
+  </body>
+</html>

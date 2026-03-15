@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangMaster — Market Viability Analysis</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #0a0a1a;
+  --card: #12122a;
+  --card2: #1a1a3a;
+  --border: rgba(255,255,255,0.06);
+  --text: #e0e0f0;
+  --dim: rgba(255,255,255,0.45);
+  --cyan: #00e5ff;
+  --magenta: #ff6ec7;
+  --lime: #76ff03;
+  --gold: #ffd740;
+  --red: #ff5252;
+  --orange: #ff9100;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  padding: 60px 0 40px;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  background: rgba(0,229,255,0.1);
+  border: 1px solid rgba(0,229,255,0.2);
+  border-radius: 20px;
+  padding: 6px 16px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.hero h1 .gradient {
+  background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero .sub {
+  font-size: 16px;
+  color: var(--dim);
+  max-width: 500px;
+  margin: 0 auto;
+}
+.hero-date {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 16px;
+}
+
+/* ── Section ── */
+.section {
+  margin-top: 56px;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+}
+
+/* ── Market Size Viz ── */
+.market-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 700px) { .market-grid { grid-template-columns: 1fr; } }
+
+.market-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.market-card .mc-label {
+  font-size: 12px;
+  color: var(--dim);
+  margin-bottom: 4px;
+}
+.market-card .mc-value {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+.market-card .mc-sub {
+  font-size: 13px;
+  color: var(--dim);
+  margin-top: 4px;
+}
+.market-card .mc-bar {
+  margin-top: 16px;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+.market-card .mc-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1.5s ease;
+}
+
+/* ── Funnel ── */
+.funnel-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 32px 0;
+}
+.funnel-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-radius: 12px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s;
+}
+.funnel-step .f-label {
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 140px;
+  text-align: right;
+}
+.funnel-step .f-bar {
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  min-width: 60px;
+}
+.funnel-step .f-note {
+  font-size: 11px;
+  color: var(--dim);
+  min-width: 120px;
+  text-align: left;
+}
+.funnel-arrow {
+  font-size: 16px;
+  color: rgba(255,255,255,0.15);
+}
+
+/* ── Competition Radar ── */
+.comp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.comp-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  position: relative;
+}
+.comp-card .cc-name {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.comp-card .cc-type {
+  font-size: 11px;
+  color: var(--dim);
+  margin-bottom: 14px;
+}
+.comp-card .cc-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.comp-card .cc-stat:last-child { border: none; }
+.comp-card .cc-stat-label {
+  font-size: 12px;
+  color: var(--dim);
+}
+.comp-bar-wrap {
+  width: 80px;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.comp-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+.comp-card .threat-badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── Revenue Simulation ── */
+.rev-scenarios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 700px) { .rev-scenarios { grid-template-columns: 1fr; } }
+
+.rev-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.rev-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.rev-card.optimistic::before { background: var(--lime); }
+.rev-card.realistic::before { background: var(--gold); }
+.rev-card.pessimistic::before { background: var(--red); }
+
+.rev-card .rc-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+}
+.rev-card .rc-amount {
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+.rev-card .rc-period {
+  font-size: 12px;
+  color: var(--dim);
+  margin-bottom: 20px;
+}
+.rev-card .rc-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.rev-card .rc-row:last-child { border: none; }
+.rev-card .rc-row .rc-k { color: var(--dim); }
+
+/* ── Bar Chart ── */
+.hbar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 24px 0;
+}
+.hbar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hbar-label {
+  font-size: 13px;
+  font-weight: 500;
+  min-width: 100px;
+  text-align: right;
+  color: var(--dim);
+}
+.hbar-track {
+  flex: 1;
+  height: 28px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.hbar-fill {
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  transition: width 1.5s ease;
+}
+.hbar-value {
+  font-size: 13px;
+  font-weight: 700;
+  min-width: 50px;
+}
+
+/* ── Risk Matrix ── */
+.risk-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) { .risk-matrix { grid-template-columns: 1fr; } }
+
+.risk-card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 20px;
+  border-left: 4px solid;
+  position: relative;
+}
+.risk-card.critical { border-color: var(--red); }
+.risk-card.high { border-color: var(--orange); }
+.risk-card.medium { border-color: var(--gold); }
+
+.risk-card .risk-level {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.risk-card.critical .risk-level { color: var(--red); }
+.risk-card.high .risk-level { color: var(--orange); }
+.risk-card.medium .risk-level { color: var(--gold); }
+
+.risk-card .risk-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.risk-card .risk-desc {
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.5;
+}
+
+/* ── Opportunity ── */
+.opp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.opp-card {
+  background: linear-gradient(135deg, rgba(0,229,255,0.05), rgba(118,255,3,0.03));
+  border: 1px solid rgba(0,229,255,0.12);
+  border-radius: 14px;
+  padding: 22px;
+}
+.opp-card .opp-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+.opp-card .opp-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.opp-card .opp-desc {
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.5;
+}
+
+/* ── Verdict ── */
+.verdict {
+  background: linear-gradient(135deg, var(--card), var(--card2));
+  border: 1px solid rgba(255,215,64,0.2);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  margin-top: 56px;
+  position: relative;
+  overflow: hidden;
+}
+.verdict::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%; transform: translateX(-50%);
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(255,215,64,0.06) 0%, transparent 70%);
+}
+.verdict .v-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.verdict .v-title {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+.verdict .v-desc {
+  font-size: 14px;
+  color: var(--dim);
+  max-width: 600px;
+  margin: 0 auto 24px;
+  line-height: 1.7;
+}
+
+/* ── Go/No-Go ── */
+.gng-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  text-align: left;
+}
+@media (max-width: 600px) { .gng-grid { grid-template-columns: 1fr; } }
+
+.gng-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.gng-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.gng-card ul {
+  list-style: none;
+  padding: 0;
+}
+.gng-card li {
+  font-size: 12px;
+  color: var(--dim);
+  padding: 5px 0;
+  padding-left: 20px;
+  position: relative;
+}
+.gng-card li::before {
+  position: absolute;
+  left: 0;
+  font-size: 12px;
+}
+.gng-card.go li::before { content: '\2713'; color: var(--lime); }
+.gng-card.nogo li::before { content: '\2717'; color: var(--red); }
+
+/* ── Roadmap ── */
+.roadmap {
+  display: flex;
+  gap: 0;
+  margin: 24px 0;
+  position: relative;
+}
+.roadmap::before {
+  content: '';
+  position: absolute;
+  top: 36px; left: 24px; right: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--lime), var(--gold), var(--magenta));
+  opacity: 0.3;
+}
+.rm-step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  padding: 0 8px;
+}
+.rm-dot {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  margin: 28px auto 14px;
+  position: relative;
+  z-index: 1;
+}
+.rm-step:nth-child(1) .rm-dot { background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+.rm-step:nth-child(2) .rm-dot { background: var(--lime); box-shadow: 0 0 12px var(--lime); }
+.rm-step:nth-child(3) .rm-dot { background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+.rm-step:nth-child(4) .rm-dot { background: var(--magenta); box-shadow: 0 0 12px var(--magenta); }
+.rm-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.rm-desc {
+  font-size: 11px;
+  color: var(--dim);
+  line-height: 1.4;
+}
+.rm-cost {
+  font-size: 10px;
+  font-weight: 700;
+  margin-top: 6px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+@media (max-width: 600px) {
+  .roadmap { flex-direction: column; gap: 8px; }
+  .roadmap::before { display: none; }
+  .rm-step { text-align: left; display: flex; align-items: center; gap: 12px; }
+  .rm-dot { margin: 0; flex-shrink: 0; }
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ── Donut Chart (CSS only) ── */
+.donut-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+.donut {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.donut-center {
+  position: absolute;
+  width: 90px; height: 90px;
+  background: var(--bg);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.donut-center .dc-val {
+  font-size: 24px;
+  font-weight: 900;
+}
+.donut-center .dc-label {
+  font-size: 10px;
+  color: var(--dim);
+}
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.donut-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Conversion benchmark visual ── */
+.bench-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.bench-row:last-child { border: none; }
+.bench-logo {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.bench-info { flex: 1; }
+.bench-name { font-size: 14px; font-weight: 700; }
+.bench-sub { font-size: 11px; color: var(--dim); }
+.bench-rate {
+  font-size: 20px;
+  font-weight: 900;
+  min-width: 60px;
+  text-align: right;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero">
+    <div class="hero-badge">Market Viability Analysis</div>
+    <h1><span class="gradient">LangMaster</span><br>상용화 가능성 검토</h1>
+    <div class="sub">HSK 3.0 하이퍼캐주얼 단어 게임 — 시장, 경쟁, 수익, 리스크를 데이터로 검증</div>
+    <div class="hero-date">2026-03-07 | HKD852 Studio</div>
+  </div>
+
+  <!-- ═══ MARKET SIZE ═══ -->
+  <div class="section">
+    <div class="section-label">01 / Market Size</div>
+    <div class="section-title">시장은 크지만, 우리 몫은?</div>
+
+    <div class="market-grid">
+      <div class="market-card">
+        <div class="mc-label">Global Language Learning Apps</div>
+        <div class="mc-value" style="color:var(--cyan)">$6.3B</div>
+        <div class="mc-sub">2024 &rarr; $24.4B by 2033 (CAGR 16%)</div>
+        <div class="mc-bar"><div class="mc-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--cyan),#0088a8)"></div></div>
+      </div>
+      <div class="market-card">
+        <div class="mc-label">Chinese/Mandarin Learning</div>
+        <div class="mc-value" style="color:var(--magenta)">$2.0B</div>
+        <div class="mc-sub">2024 &rarr; $3.5B by 2033 (CAGR 5.7%)</div>
+        <div class="mc-bar"><div class="mc-bar-fill" style="width:32%;background:linear-gradient(90deg,var(--magenta),#a0006e)"></div></div>
+      </div>
+      <div class="market-card">
+        <div class="mc-label">HSK Exam Prep (estimated niche)</div>
+        <div class="mc-value" style="color:var(--gold)">~$50M</div>
+        <div class="mc-sub">PASS HSK, SuperTest, 학원 교재 등 포함 추정</div>
+        <div class="mc-bar"><div class="mc-bar-fill" style="width:2.5%;background:linear-gradient(90deg,var(--gold),#b8860b)"></div></div>
+      </div>
+      <div class="market-card">
+        <div class="mc-label" style="color:var(--red)">Our Realistic TAM</div>
+        <div class="mc-value" style="color:var(--red)">$10-20M</div>
+        <div class="mc-sub">"HSK + 게이미파이드 단어학습" 마이크로 니치</div>
+        <div class="mc-bar"><div class="mc-bar-fill" style="width:1%;background:linear-gradient(90deg,var(--red),#880000)"></div></div>
+      </div>
+    </div>
+
+    <!-- Donut: Duolingo dominance -->
+    <div style="margin-top:32px">
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px;text-align:center">언어학습 앱 매출 점유율</div>
+      <div style="font-size:11px;color:var(--dim);text-align:center;margin-bottom:16px">Duolingo가 전체의 67%를 독식</div>
+    </div>
+    <div class="donut-wrap">
+      <div class="donut" style="background:conic-gradient(var(--cyan) 0% 67%, var(--magenta) 67% 78%, var(--gold) 78% 88%, rgba(255,255,255,0.1) 88% 100%)">
+        <div class="donut-center">
+          <div class="dc-val" style="color:var(--cyan)">67%</div>
+          <div class="dc-label">Duolingo</div>
+        </div>
+      </div>
+      <div class="donut-legend">
+        <div class="donut-legend-item"><span class="legend-dot" style="background:var(--cyan)"></span> Duolingo — $748M</div>
+        <div class="donut-legend-item"><span class="legend-dot" style="background:var(--magenta)"></span> Babbel, Busuu 등 — ~$120M</div>
+        <div class="donut-legend-item"><span class="legend-dot" style="background:var(--gold)"></span> HelloChinese, Drops 등 — ~$110M</div>
+        <div class="donut-legend-item"><span class="legend-dot" style="background:rgba(255,255,255,0.15)"></span> 기타 수백 개 앱 — ~$140M</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ COMPETITION ═══ -->
+  <div class="section">
+    <div class="section-label">02 / Competition</div>
+    <div class="section-title">경쟁 지형 — 이길 수 있는가?</div>
+
+    <div class="comp-grid">
+      <div class="comp-card">
+        <span class="threat-badge" style="background:rgba(255,82,82,0.15);color:var(--red)">Extreme</span>
+        <div class="cc-name">Duolingo</div>
+        <div class="cc-type">게이미피케이션 최강자</div>
+        <div class="cc-stat"><span class="cc-stat-label">DAU</span><span style="font-size:13px;font-weight:700">50.5M</span></div>
+        <div class="cc-stat"><span class="cc-stat-label">연매출</span><span style="font-size:13px;font-weight:700">$748M</span></div>
+        <div class="cc-stat">
+          <span class="cc-stat-label">HSK 최적화</span>
+          <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:20%;background:var(--red)"></div></div>
+        </div>
+        <div class="cc-stat">
+          <span class="cc-stat-label">게임성</span>
+          <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:90%;background:var(--lime)"></div></div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <span class="threat-badge" style="background:rgba(255,145,0,0.15);color:var(--orange)">High</span>
+        <div class="cc-name">HelloChinese</div>
+        <div class="cc-type">중국어 전문 #1</div>
+        <div class="cc-stat"><span class="cc-stat-label">평점</span><span style="font-size:13px;font-weight:700">4.8/5</span></div>
+        <div class="cc-stat"><span class="cc-stat-label">특징</span><span style="font-size:12px">성조 피드백</span></div>
+        <div class="cc-stat">
+          <span class="cc-stat-label">HSK 최적화</span>
+          <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:65%;background:var(--orange)"></div></div>
+        </div>
+        <div class="cc-stat">
+          <span class="cc-stat-label">게임성</span>
+          <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:50%;background:var(--gold)"></div></div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <span class="threat-badge" style="background:rgba(255,215,64,0.15);color:var(--gold)">Medium</span>
+        <div class="cc-name">PASS HSK</div>
+        <div class="cc-type">HSK 3.0 선점 주장</div>
+        <div class="cc-stat"><span class="cc-stat-label">가격</span><span style="font-size:13px;font-weight:700">$79.99/yr</span></div>
+        <div class="cc-stat"><span class="cc-stat-label">DL</span><span style="font-size:12px">2M+</span></div>
+        <div class="cc-stat">
+          <span class="cc-stat-label">HSK 최적화</span>
+          <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:95%;background:var(--lime)"></div></div>
+        </div>
+        <div class="cc-stat">
+          <span class="cc-stat-label">게임성</span>
+          <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:10%;background:var(--red)"></div></div>
+        </div>
+      </div>
+
+      <div class="comp-card" style="border:1px dashed rgba(0,229,255,0.3)">
+        <span class="threat-badge" style="background:rgba(0,229,255,0.15);color:var(--cyan)">Us</span>
+        <div class="cc-name" style="color:var(--cyan)">LangMaster</div>
+        <div class="cc-type">HSK + 하이퍼캐주얼</div>
+        <div class="cc-stat"><span class="cc-stat-label">가격</span><span style="font-size:13px;font-weight:700">$5.99/mo</span></div>
+        <div class="cc-stat"><span class="cc-stat-label">상태</span><span style="font-size:12px">프로토타입</span></div>
+        <div class="cc-stat">
+          <span class="cc-stat-label">HSK 최적화</span>
+          <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:85%;background:var(--cyan)"></div></div>
+        </div>
+        <div class="cc-stat">
+          <span class="cc-stat-label">게임성</span>
+          <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:80%;background:var(--cyan)"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border-radius:14px;padding:20px;margin-top:20px;border:1px solid var(--border)">
+      <div style="font-size:14px;font-weight:700;margin-bottom:12px">포지셔닝 갭 분석</div>
+      <div style="font-size:12px;color:var(--dim);line-height:1.6">
+        <span style="color:var(--cyan);font-weight:700">핵심 발견:</span> Duolingo는 게임적이지만 HSK 비최적화. PASS HSK는 HSK지만 게임 아님.<br>
+        <strong style="color:#fff">"HSK 3.0 + 하이퍼캐주얼 게임" 정확한 교차점을 점유하는 앱이 실제로 없음.</strong><br>
+        단, HelloChinese가 3.0 업데이트 시 이 갭을 빠르게 채울 수 있음 &mdash; 시간적 우위 6~12개월.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CONVERSION BENCHMARK ═══ -->
+  <div class="section">
+    <div class="section-label">03 / Monetization</div>
+    <div class="section-title">무료→유료 전환의 냉혹한 현실</div>
+
+    <div style="background:var(--card);border-radius:16px;padding:24px;border:1px solid var(--border)">
+      <div class="bench-row">
+        <div class="bench-logo" style="background:rgba(0,229,255,0.15)">🦉</div>
+        <div class="bench-info">
+          <div class="bench-name">Duolingo</div>
+          <div class="bench-sub">10년+ 최적화, $748M 매출</div>
+        </div>
+        <div class="bench-rate" style="color:var(--lime)">9%</div>
+      </div>
+      <div class="bench-row">
+        <div class="bench-logo" style="background:rgba(255,215,64,0.15)">&#9733;</div>
+        <div class="bench-info">
+          <div class="bench-name">업계 우수 앱</div>
+          <div class="bench-sub">잘 나가는 B2C 프리미엄 앱</div>
+        </div>
+        <div class="bench-rate" style="color:var(--gold)">4%</div>
+      </div>
+      <div class="bench-row">
+        <div class="bench-logo" style="background:rgba(255,255,255,0.06)">&#9679;</div>
+        <div class="bench-info">
+          <div class="bench-name">업계 평균</div>
+          <div class="bench-sub">대부분의 프리미엄 B2C 앱</div>
+        </div>
+        <div class="bench-rate" style="color:var(--dim)">2%</div>
+      </div>
+      <div class="bench-row" style="border:none">
+        <div class="bench-logo" style="background:rgba(255,82,82,0.15)">?</div>
+        <div class="bench-info">
+          <div class="bench-name" style="color:var(--cyan)">LangMaster (예상)</div>
+          <div class="bench-sub">신규 앱, 브랜드 인지도 0</div>
+        </div>
+        <div class="bench-rate" style="color:var(--red)">1-2%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ REVENUE SIMULATION ═══ -->
+  <div class="section">
+    <div class="section-label">04 / Revenue Simulation</div>
+    <div class="section-title">1년차 수익 시뮬레이션</div>
+
+    <div class="rev-scenarios">
+      <div class="rev-card optimistic">
+        <div class="rc-label" style="color:var(--lime)">Optimistic</div>
+        <div class="rc-amount" style="color:var(--lime)">$287K</div>
+        <div class="rc-period">/year</div>
+        <div class="rc-row"><span class="rc-k">Downloads</span><span>100,000</span></div>
+        <div class="rc-row"><span class="rc-k">Conversion</span><span>4%</span></div>
+        <div class="rc-row"><span class="rc-k">Paid Users</span><span>4,000</span></div>
+        <div class="rc-row"><span class="rc-k">ARPU</span><span>$5.99/mo</span></div>
+        <div class="rc-row"><span class="rc-k">Monthly Net</span><span style="color:var(--lime)">$16.7K</span></div>
+      </div>
+
+      <div class="rev-card realistic" style="border:1px solid rgba(255,215,64,0.3)">
+        <div class="rc-label" style="color:var(--gold)">Realistic</div>
+        <div class="rc-amount" style="color:var(--gold)">$43K</div>
+        <div class="rc-period">/year</div>
+        <div class="rc-row"><span class="rc-k">Downloads</span><span>30,000</span></div>
+        <div class="rc-row"><span class="rc-k">Conversion</span><span>2%</span></div>
+        <div class="rc-row"><span class="rc-k">Paid Users</span><span>600</span></div>
+        <div class="rc-row"><span class="rc-k">ARPU</span><span>$5.99/mo</span></div>
+        <div class="rc-row"><span class="rc-k">Monthly Net</span><span style="color:var(--gold)">$2.5K</span></div>
+      </div>
+
+      <div class="rev-card pessimistic">
+        <div class="rc-label" style="color:var(--red)">Pessimistic</div>
+        <div class="rc-amount" style="color:var(--red)">$7.2K</div>
+        <div class="rc-period">/year</div>
+        <div class="rc-row"><span class="rc-k">Downloads</span><span>10,000</span></div>
+        <div class="rc-row"><span class="rc-k">Conversion</span><span>1%</span></div>
+        <div class="rc-row"><span class="rc-k">Paid Users</span><span>100</span></div>
+        <div class="rc-row"><span class="rc-k">ARPU</span><span>$5.99/mo</span></div>
+        <div class="rc-row"><span class="rc-k">Monthly Net</span><span style="color:var(--red)">$420</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:11px;color:var(--dim);margin-top:12px">
+      * Monthly Net = 앱스토어 수수료 30% 차감 후 실수령액
+    </div>
+  </div>
+
+  <!-- ═══ RISK MATRIX ═══ -->
+  <div class="section">
+    <div class="section-label">05 / Risk Matrix</div>
+    <div class="section-title">킬러 리스크 6가지</div>
+
+    <div class="risk-matrix">
+      <div class="risk-card critical">
+        <div class="risk-level">Critical</div>
+        <div class="risk-title">데이터 정확성</div>
+        <div class="risk-desc">AI 생성 11,092단어의 병음/뜻/예문에 오류 불가피. 학습자가 틀린 발음 암기 시 신뢰 상실 &rarr; 별점 1점 리뷰 폭탄. 경쟁사는 전문 교사팀이 검수.</div>
+      </div>
+      <div class="risk-card critical">
+        <div class="risk-level">Critical</div>
+        <div class="risk-title">게이미피케이션 피로</div>
+        <div class="risk-desc">연구: 게임 레이어가 심리적 피로 유발, 지속 사용 방해. "30초 게임"이 300단어 후 반복 학습에서 속도 저해. 게임이 학습을 돕는 게 아니라 방해할 수 있음.</div>
+      </div>
+      <div class="risk-card high">
+        <div class="risk-level">High</div>
+        <div class="risk-title">HSK 7-9 수요 부재</div>
+        <div class="risk-desc">HSK 7-9 응시자는 유학생/통번역 전공 극소수. Master 티어 $9.99/월 실 구매자 100명 이하 가능. 앱 부재 = 수요 부재의 신호일 수 있음.</div>
+      </div>
+      <div class="risk-card high">
+        <div class="risk-level">High</div>
+        <div class="risk-title">TTS 발음 품질</div>
+        <div class="risk-desc">Edge/Google TTS는 원어민과 차이. HelloChinese는 자체 녹음 음성 사용. 발음 학습 앱에서 TTS 품질은 코어 가치와 직결.</div>
+      </div>
+      <div class="risk-card medium">
+        <div class="risk-level">Medium</div>
+        <div class="risk-title">1인 개발 한계</div>
+        <div class="risk-desc">9급 x 8게임 x 11,092단어 = 조합 폭발. 콘텐츠 양이 방대. Phase 1 (HSK 1-2)은 가능하나, 전체 완성은 1인 물리적 한계.</div>
+      </div>
+      <div class="risk-card medium">
+        <div class="risk-level">Medium</div>
+        <div class="risk-title">앱스토어 발견성</div>
+        <div class="risk-desc">"HSK" "Chinese" 키워드 경쟁 치열. 마케팅 예산 없이 오가닉 30,000 다운로드 달성은 최소 6-12개월 소요.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ OPPORTUNITIES ═══ -->
+  <div class="section">
+    <div class="section-label">06 / Opportunities</div>
+    <div class="section-title">그래도 해볼 만한 5가지 이유</div>
+
+    <div class="opp-grid">
+      <div class="opp-card">
+        <div class="opp-icon">&#9200;</div>
+        <div class="opp-title">HSK 3.0 전환기 윈도우</div>
+        <div class="opp-desc">2026.7월 정식 시행. 기존 앱들의 9급 전환에 6-12개월. 선점 윈도우 존재.</div>
+      </div>
+      <div class="opp-card">
+        <div class="opp-icon">&#10010;</div>
+        <div class="opp-title">포지셔닝 갭</div>
+        <div class="opp-desc">"HSK 최적화 + 하이퍼캐주얼 게임" 교차점을 점유하는 앱이 실제로 0개.</div>
+      </div>
+      <div class="opp-card">
+        <div class="opp-icon">&#127472;&#127479;</div>
+        <div class="opp-title">한국 시장 특수성</div>
+        <div class="opp-desc">한국어 UI + 한국어 뜻의 게이미파이드 HSK 앱 부재. 수십만 한국인 HSK 응시자.</div>
+      </div>
+      <div class="opp-card">
+        <div class="opp-icon">&#127970;</div>
+        <div class="opp-title">B2B 확장</div>
+        <div class="opp-desc">중국어 학원/대학 라이선스 시 ARPU 6-8배. 기업 교육 시장 진출 가능.</div>
+      </div>
+      <div class="opp-card">
+        <div class="opp-icon">$0</div>
+        <div class="opp-title">MVP 비용 제로</div>
+        <div class="opp-desc">Claude Code로 개발, Vercel 무료 호스팅. 실패해도 금전적 손실 최소화.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ VERDICT ═══ -->
+  <div class="verdict">
+    <div class="v-badge" style="background:rgba(255,215,64,0.15);color:var(--gold)">Final Verdict</div>
+    <div class="v-title">조건부 <span style="color:var(--gold)">GO</span></div>
+    <div class="v-desc">
+      시장 기회는 존재하나, "HSK 게임 앱" 니치의 실제 수요는 <strong>실측으로만 판단 가능</strong>.<br>
+      개발 비용이 거의 제로이므로, MVP 출시 후 데이터로 Go/Kill 결정하는 것이 합리적.<br>
+      <span style="color:var(--red);font-weight:600">단, 데이터 품질 검증 없이 출시하면 신뢰 상실로 복구 불가.</span>
+    </div>
+
+    <div class="gng-grid">
+      <div class="gng-card go">
+        <h4 style="color:var(--lime)">Go 조건</h4>
+        <ul>
+          <li>HSK 1-3 무료 버전으로 1,000+ DAU 달성</li>
+          <li>D7 리텐션 20% 이상</li>
+          <li>유저 자발적 유료 전환 문의</li>
+          <li>중국어 전문가 1인 데이터 검수 완료</li>
+        </ul>
+      </div>
+      <div class="gng-card nogo">
+        <h4 style="color:var(--red)">Kill 시그널</h4>
+        <ul>
+          <li>3개월 내 DAU 100 미만</li>
+          <li>D7 리텐션 5% 미만</li>
+          <li>"데이터 오류" 리뷰 10% 이상</li>
+          <li>유료 전환율 0.5% 미만</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ROADMAP ═══ -->
+  <div class="section">
+    <div class="section-label">07 / Lean Roadmap</div>
+    <div class="section-title">검증 우선 로드맵</div>
+
+    <div class="roadmap">
+      <div class="rm-step">
+        <div class="rm-dot"></div>
+        <div>
+          <div class="rm-label" style="color:var(--cyan)">Phase 0</div>
+          <div class="rm-desc">Web 프로토타입<br>유저 테스트</div>
+          <div class="rm-cost" style="background:rgba(0,229,255,0.15);color:var(--cyan)">$0</div>
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-dot"></div>
+        <div>
+          <div class="rm-label" style="color:var(--lime)">Phase 1</div>
+          <div class="rm-desc">HSK 1-2 무료 웹앱<br>+ 분석 도구</div>
+          <div class="rm-cost" style="background:rgba(118,255,3,0.15);color:var(--lime)">$0</div>
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-dot"></div>
+        <div>
+          <div class="rm-label" style="color:var(--gold)">Phase 2</div>
+          <div class="rm-desc">HSK 3-6 + 구독<br>앱스토어 출시</div>
+          <div class="rm-cost" style="background:rgba(255,215,64,0.15);color:var(--gold)">$99/yr</div>
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-dot"></div>
+        <div>
+          <div class="rm-label" style="color:var(--magenta)">Phase 3</div>
+          <div class="rm-desc">HSK 7-9 + B2B<br>스케일업</div>
+          <div class="rm-cost" style="background:rgba(255,110,199,0.15);color:var(--magenta)">검증 후</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border-radius:14px;padding:20px;margin-top:16px;border:1px solid var(--border);text-align:center">
+      <div style="font-size:14px;font-weight:700;margin-bottom:8px">핵심 원칙</div>
+      <div style="font-size:24px;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px">
+        "전체 9급 완성 전에, HSK 1-2만으로 시장 반응 확인"
+      </div>
+      <div style="font-size:12px;color:var(--dim)">반응 없으면 빠르게 피봇 또는 종료. 반응 있으면 단계적 확장.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    LangMaster Market Viability Analysis v1.0 &mdash; HKD852 Studio<br>
+    Sources: Business of Apps, Statista, Business Research Insights, Motley Fool, PASS HSK, Starter Story
+  </div>
+
+</div>
+</body>
+</html>

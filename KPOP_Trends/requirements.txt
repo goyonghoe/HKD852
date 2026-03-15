@@ -1,0 +1,5 @@
+billboard.py>=7.0
+requests>=2.28
+beautifulsoup4>=4.12
+trendspyg>=0.1
+feedparser>=6.0

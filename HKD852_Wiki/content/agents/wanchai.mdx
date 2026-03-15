@@ -1,0 +1,57 @@
+---
+name: "WanChai"
+role: "NeonSurvivor 게임 프로젝트"
+division: "game"
+path: "./WanChai/"
+skillCount: 52
+description: "사이버펑크 홍콩 배경 사이드뷰 오토슈터 서바이버 게임 (Phaser 3, TypeScript, Vite 6)"
+---
+
+## 역할
+
+WanChai(NeonSurvivor)는 사이버펑크 홍콩을 배경으로 한 사이드뷰 오토슈터 서바이버 게임 프로젝트입니다. Phaser 3 엔진, TypeScript 5.7+, Vite 6 기반으로 개발되며, 1280x720 해상도의 랜드스케이프 모드로 제작됩니다. 현재 v1.5.3으로 코어 게임루프가 100% 완성된 상태입니다.
+
+## 프로젝트 현황
+
+- **버전**: v1.5.3
+- **배포**: https://project-wanchai.vercel.app
+- **게임 구조**: 9개 씬, 5명 캐릭터, 6 스테이지, 10종 무기, 11종 적, 3종 보스
+- **테스트**: 87 파일 / 3116 케이스 전체 통과
+- **스프라이트**: 258개 (CraftPix 기반)
+
+## 에이전트 팀 (6명)
+
+| 에이전트 | 역할 | 스킬 |
+|---------|------|------|
+| game-designer | 메카닉/레벨/밸런스 설계 | `/gd-*` (7개) |
+| programmer | 구현/배선/배포 | `/pg-*` (8개) |
+| art-director | 프로시저럴 텍스처, VFX | `/art-*` (4개) |
+| ui-designer | 레이아웃, 애니메이션, UX | `/ui-*` (5개) |
+| balance-designer | DPS/TTK, 성장 곡선, 경제 시뮬 | `/bal-*` (6개) |
+| audio-designer | BGM/SFX, 오디오 믹싱 | `/aud-*` (4개) |
+
+## 보유 스킬 (주요)
+
+| 스킬 | 설명 | 모델 |
+|------|------|------|
+| `/gd-mechanic` | 메카닉 설계 | Opus |
+| `/gd-level` | 레벨 디자인 | Opus |
+| `/gd-balance` | 밸런스 설계 | Opus |
+| `/pg-implement` | 스펙 → 코드 구현 | Sonnet |
+| `/pg-deploy` | 빌드+배포 파이프라인 | Sonnet |
+| `/pg-review` | 코드 리뷰 | Opus |
+| `/pg-test` | 테스트 작성 | Sonnet |
+| `/art-sprite` | 스프라이트 생성 | Sonnet |
+| `/ui-layout` | UI 레이아웃 | Sonnet |
+| `/bal-dps-matrix` | DPS/TTK 분석 | Opus |
+| `/aud-sfx` | SFX 생성 | Sonnet |
+| `/kanban-create` | 칸반 태스크 생성 | Opus |
+| `/kanban-status` | 칸반 현황 조회 | Haiku |
+| `/log-mistake` | 실수 레지스트리 등록 | Sonnet |
+
+## 관련 에이전트
+
+- **GameDesign_Agent** - 게임 기획 연동 (상위 기획팀장)
+- **team-kowloon** - 아트 에셋 제작/관리
+- **PMO_Agent** - 칸반 대시보드, 스프린트 관리
+- **GameDev_Agent** - 개발 가이드라인 (Unity 프로젝트와 공유)

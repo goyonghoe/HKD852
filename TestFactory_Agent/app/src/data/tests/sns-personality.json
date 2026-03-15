@@ -1,0 +1,335 @@
+{
+  "version": 1,
+  "meta": {
+    "slug": "sns-personality",
+    "title": "SNS 속 나의 성격은? \uD83D\uDCF1",
+    "description": "10가지 질문으로 알아보는 SNS 속 나의 진짜 성격! 인플루언서형? 관찰자형? 기록자형? 은둔형? 지금 확인해보세요.",
+    "shortDescription": "10문항으로 알아보는 SNS 속 내 성격",
+    "thumbnail": "/images/tests/sns-personality/thumb.png",
+    "ogImage": "/images/tests/sns-personality/og-default.png",
+    "category": "personality",
+    "tags": ["SNS", "성격", "인스타", "소셜미디어", "유형"],
+    "emoji": "\uD83D\uDCF1",
+    "color": "#6C5CE7",
+    "colorLight": "#A29BFE",
+    "estimatedMinutes": 2,
+    "questionCount": 10,
+    "popularity": 85,
+    "createdAt": "2026-02-22",
+    "isNew": true,
+    "isTrending": false
+  },
+  "scoring": {
+    "type": "mbti",
+    "dimensions": [
+      {
+        "id": "AL",
+        "poles": ["active", "lurker"],
+        "labels": ["\uD65C\uBC1C\uD615", "\uC7A0\uC218\uD615"]
+      },
+      {
+        "id": "SP",
+        "poles": ["share", "private"],
+        "labels": ["\uACF5\uC720\uD615", "\uBE44\uACF5\uAC1C\uD615"]
+      }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "text": "\uB9DB\uC9D1\uC744 \uBC1C\uACAC\uD588\uC744 \uB54C \uB098\uB294?",
+      "emoji": "\uD83C\uDF5C",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uBC14\uB85C \uC778\uC2A4\uD0C0 \uC2A4\uD1A0\uB9AC\uC5D0 \uC62C\uB9B0\uB2E4!",
+          "emoji": "\uD83D\uDCF8",
+          "scores": { "active": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC0AC\uC9C4\uC740 \uCC0D\uC9C0\uB9CC \uC62C\uB9AC\uC9C4 \uC54A\uC544",
+          "emoji": "\uD83D\uDE36",
+          "scores": { "lurker": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "\uCE5C\uAD6C\uC758 SNS \uAC8C\uC2DC\uBB3C\uC744 \uBD04 \uB54C?",
+      "emoji": "\uD83D\uDC40",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC88B\uC544\uC694 + \uB313\uAE00 \uD544\uC218! \uBC18\uC751\uD574\uC918\uC57C\uC9C0",
+          "emoji": "\u2764\uFE0F",
+          "scores": { "active": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC870\uC6A9\uD788 \uAD6C\uACBD\uB9CC \uD558\uACE0 \uB118\uACA8~",
+          "emoji": "\uD83D\uDC7B",
+          "scores": { "lurker": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "\uC5EC\uD589 \uC0AC\uC9C4\uC744 \uCC0D\uC5C8\uB2E4\uBA74?",
+      "emoji": "\u2708\uFE0F",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uBC14\uB85C \uD53C\uB4DC\uC5D0 \uC62C\uB824\uC11C \uBAA8\uB450\uC640 \uACF5\uC720!",
+          "emoji": "\uD83C\uDF0D",
+          "scores": { "share": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uD3F0\uC5D0\uB9CC \uC800\uC7A5\uD574\uB458\uAC8C~ \uB0B4 \uCD94\uC5B5\uC774\uB2C8\uAE4C",
+          "emoji": "\uD83D\uDD10",
+          "scores": { "private": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "\uD504\uB85C\uD544 \uC0AC\uC9C4\uC744 \uBC14\uAFB8\uB294 \uC8FC\uAE30\uB294?",
+      "emoji": "\uD83E\uDD33",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC790\uC8FC! \uB0B4 \uBCC0\uD654\uB97C \uBCF4\uC5EC\uC8FC\uACE0 \uC2F6\uC5B4",
+          "emoji": "\uD83D\uDD04",
+          "scores": { "share": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uAC70\uC758 \uC548 \uBC14\uAFD4... \uAD73\uC774?",
+          "emoji": "\uD83E\uDD37",
+          "scores": { "private": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "\uC0C8\uB85C\uC6B4 SNS \uD50C\uB7AB\uD3FC\uC774 \uB098\uC624\uBA74?",
+      "emoji": "\uD83C\uDD95",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uBC14\uB85C \uAC00\uC785\uD574\uC11C \uD0D0\uC0C9\uD574\uBD10!",
+          "emoji": "\uD83D\uDE80",
+          "scores": { "active": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uB0A8\uB4E4 \uBC18\uC751 \uBCF4\uACE0 \uB098\uC911\uC5D0 \uD569\uB958\uD574",
+          "emoji": "\uD83D\uDC40",
+          "scores": { "lurker": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "\uC77C\uC0C1\uC5D0\uC11C \uC18C\uC18C\uD55C \uD589\uBCF5\uC744 \uB290\uAF08 \uB54C?",
+      "emoji": "\uD83C\uDF38",
+      "options": [
+        {
+          "id": "a",
+          "text": "SNS\uC5D0 \uAE00\uACFC \uC0AC\uC9C4\uC73C\uB85C \uAE30\uB85D\uD574!",
+          "emoji": "\u270D\uFE0F",
+          "scores": { "share": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uB9C8\uC74C\uC18D\uC73C\uB85C \uAC04\uC9C1\uD558\uBA74 \uCDA9\uBD84\uD574",
+          "emoji": "\uD83D\uDE0C",
+          "scores": { "private": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "\uB2E4\uB978 \uC0AC\uB78C\uC758 \uC77C\uC0C1 \uBE0C\uB85C\uADF8/\uBE0C\uB85C\uADF8\uB97C \uBCF4\uBA74?",
+      "emoji": "\uD83D\uDCBB",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uB098\uB3C4 \uD574\uBCFC\uAE4C? \uB3D9\uAE30\uBD80\uC5EC\uAC00 \uB3FC!",
+          "emoji": "\uD83D\uDCAA",
+          "scores": { "active": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uAD6C\uACBD\uC740 \uC88B\uC544\uD558\uB294\uB370 \uC9C1\uC811 \uD558\uAE34 \uADC0\uCC2E\uC544",
+          "emoji": "\uD83D\uDECB\uFE0F",
+          "scores": { "lurker": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "\uD314\uB85C\uC6CC \uC218\uAC00 \uB298\uC5B4\uB098\uBA74?",
+      "emoji": "\uD83D\uDCC8",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uC2E0\uB09C\uB2E4! \uB354 \uC5F4\uC2EC\uD788 \uCF58\uD150\uCE20 \uB9CC\uB4E4\uC5B4\uC57C\uC9C0",
+          "emoji": "\uD83C\uDF89",
+          "scores": { "share": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC74C... \uBAA8\uB974\uB294 \uC0AC\uB78C\uC774 \uB9CE\uC544\uC9C0\uB2C8 \uBD88\uD3B8\uD574",
+          "emoji": "\uD83D\uDE30",
+          "scores": { "private": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "SNS\uC5D0\uC11C \uB17C\uC7C1\uC774 \uBD99\uC73C\uBA74?",
+      "emoji": "\uD83D\uDD25",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uB0B4 \uC758\uACAC\uC744 \uB313\uAE00\uB85C \uD45C\uD604\uD574!",
+          "emoji": "\uD83D\uDCAC",
+          "scores": { "active": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC870\uC6A9\uD788 \uC77D\uAE30\uB9CC \uD558\uACE0 \uB098\uAC00",
+          "emoji": "\uD83D\uDEB6",
+          "scores": { "lurker": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "SNS\uB97C \uD558\uB294 \uC8FC\uC694 \uBAA9\uC801\uC740?",
+      "emoji": "\uD83C\uDFAF",
+      "options": [
+        {
+          "id": "a",
+          "text": "\uB098\uB97C \uD45C\uD604\uD558\uACE0 \uC0AC\uB78C\uB4E4\uACFC \uC18C\uD1B5\uD558\uACE0 \uC2F6\uC5B4\uC11C",
+          "emoji": "\uD83D\uDCAC",
+          "scores": { "share": 1 }
+        },
+        {
+          "id": "b",
+          "text": "\uC815\uBCF4 \uC218\uC9D1\uACFC \uD2B8\uB80C\uB4DC \uD30C\uC545\uC774 \uBAA9\uC801\uC774\uC57C",
+          "emoji": "\uD83D\uDD0D",
+          "scores": { "private": 1 }
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "active-share",
+      "title": "\uC778\uD50C\uB8E8\uC5B8\uC11C\uD615 \uD83C\uDF1F",
+      "subtitle": "SNS\uC758 \uC8FC\uC778\uACF5! \uBAA8\uB450\uC758 \uAD00\uC2EC\uC744 \uC990\uAE30\uB294 \uD0C0\uC785",
+      "emoji": "\uD83C\uDF1F",
+      "description": "\uB2F9\uC2E0\uC740 \uC778\uD50C\uB8E8\uC5B8\uC11C\uD615! SNS\uC5D0\uC11C \uC801\uADF9\uC801\uC73C\uB85C \uD65C\uB3D9\uD558\uACE0, \uC790\uC2E0\uC758 \uC77C\uC0C1\uC744 \uC790\uC5F0\uC2A4\uB7FD\uAC8C \uACF5\uC720\uD558\uB294 \uD0C0\uC785\uC774\uC5D0\uC694.\n\n\uCF58\uD150\uCE20\uB97C \uB9CC\uB4DC\uB294 \uAC83\uC744 \uC990\uAE30\uACE0, \uC0AC\uB78C\uB4E4\uACFC\uC758 \uC18C\uD1B5\uC5D0\uC11C \uC5D0\uB108\uC9C0\uB97C \uC5BB\uC5B4\uC694. \uB2E4\uB9CC SNS \uC18D \uBAA8\uC2B5\uACFC \uC2E4\uC81C \uBAA8\uC2B5\uC758 \uAC04\uADF9\uC5D0 \uC2A4\uD2B8\uB808\uC2A4\uB97C \uBC1B\uC744 \uC218\uB3C4 \uC788\uC5B4\uC694!",
+      "traits": [
+        "\uC0AC\uAD50\uC801",
+        "\uCC3D\uC758\uC801",
+        "\uAC1C\uBC29\uC801",
+        "\uD2B8\uB80C\uB4DC\uC5D0 \uBBFC\uAC10"
+      ],
+      "strengths": [
+        "\uCEE4\uBBA4\uB2C8\uCF00\uC774\uC158 \uB2A5\uB825",
+        "\uCF58\uD150\uCE20 \uC81C\uC791\uB825",
+        "\uC778\uB9E5 \uAD00\uB9AC"
+      ],
+      "weaknesses": [
+        "SNS \uC758\uC874",
+        "\uBE44\uAD50 \uC2AC\uAD00",
+        "\uACFC\uC2DC\uC695"
+      ],
+      "compatibility": { "best": "lurker-private", "worst": "active-share" },
+      "shareText": "SNS \uC18D \uB098\uC758 \uC131\uACA9\uC740 \uC778\uD50C\uB8E8\uC5B8\uC11C\uD615! \uD83C\uDF1F \uBAA8\uB450\uC758 \uAD00\uC2EC\uC744 \uC990\uAE30\uB294 \uD0C0\uC785\uC774\uB798~ \uB108\uB294?",
+      "percentage": "18%"
+    },
+    {
+      "id": "lurker-share",
+      "title": "\uAE30\uB85D\uC790\uD615 \uD83D\uDCDD",
+      "subtitle": "\uC870\uC6A9\uD558\uC9C0\uB9CC \uAF2C\uBC15\uAF2C\uBC15 \uAE30\uB85D\uD558\uB294 \uC2E4\uC77C\uB7EC",
+      "emoji": "\uD83D\uDCDD",
+      "description": "\uB2F9\uC2E0\uC740 \uAE30\uB85D\uC790\uD615! \uB300\uB2E8\uD55C \uD65C\uB3D9\uB825\uC740 \uC544\uB2C8\uC9C0\uB9CC, \uC77C\uC0C1\uC758 \uC18C\uC18C\uD55C \uAC83\uB4E4\uC744 \uAE30\uB85D\uD558\uACE0 \uACF5\uC720\uD558\uB294 \uAC83\uC744 \uC88B\uC544\uD574\uC694.\n\n\uB0A8\uB4E4\uC758 \uAC8C\uC2DC\uBB3C\uC5D0 \uC801\uADF9\uC801\uC73C\uB85C \uBC18\uC751\uD558\uAE30\uBCF4\uB2E4 \uC790\uC2E0\uC758 \uCF58\uD150\uCE20\uB97C \uBB35\uBB35\uD788 \uC313\uC544\uAC00\uB294 \uD0C0\uC785\uC774\uC5D0\uC694. \uB098\uC911\uC5D0 \uB3CC\uC544\uBCF4\uBA74 \uC18C\uC911\uD55C \uAE30\uB85D\uC774 \uB420 \uAC70\uC608\uC694!",
+      "traits": [
+        "\uAD00\uCC30\uB825",
+        "\uC131\uC2E4\uD568",
+        "\uAE30\uB85D \uC2B5\uAD00",
+        "\uC18C\uC2EC\uD568"
+      ],
+      "strengths": [
+        "\uAE30\uB85D \uC2B5\uAD00",
+        "\uC18C\uC18C\uD55C \uD589\uBCF5 \uBC1C\uACAC",
+        "\uAFB8\uC900\uD568"
+      ],
+      "weaknesses": [
+        "\uC0C1\uD638\uC791\uC6A9 \uBD80\uC871",
+        "\uBC18\uC751 \uB290\uB9BC",
+        "\uC18C\uADF9\uC801"
+      ],
+      "compatibility": { "best": "active-private", "worst": "lurker-share" },
+      "shareText": "SNS \uC18D \uB098\uC758 \uC131\uACA9\uC740 \uAE30\uB85D\uC790\uD615! \uD83D\uDCDD \uC870\uC6A9\uD558\uC9C0\uB9CC \uAF2C\uBC15\uAF2C\uBC15 \uAE30\uB85D\uD558\uB294 \uD0C0\uC785\uC774\uB798~ \uB108\uB294?",
+      "percentage": "27%"
+    },
+    {
+      "id": "active-private",
+      "title": "\uAD00\uCC30\uC790\uD615 \uD83D\uDD0D",
+      "subtitle": "\uBAA8\uB4E0 \uAC83\uC744 \uBCF4\uC9C0\uB9CC \uB0B4 \uAC83\uC740 \uBCF4\uC5EC\uC8FC\uC9C0 \uC54A\uB294\uB2E4",
+      "emoji": "\uD83D\uDD0D",
+      "description": "\uB2F9\uC2E0\uC740 \uAD00\uCC30\uC790\uD615! SNS\uC5D0\uC11C \uC801\uADF9\uC801\uC73C\uB85C \uD65C\uB3D9\uD558\uC9C0\uB9CC, \uC790\uC2E0\uC758 \uC815\uBCF4\uB294 \uB9CE\uC774 \uACF5\uAC1C\uD558\uC9C0 \uC54A\uB294 \uD0C0\uC785\uC774\uC5D0\uC694.\n\n\uB313\uAE00\uACFC \uC88B\uC544\uC694\uB294 \uC801\uADF9\uC801\uC73C\uB85C \uD558\uC9C0\uB9CC, \uB0B4 \uD53C\uB4DC\uB294 \uBE44\uACF5\uAC1C\uC774\uAC70\uB098 \uC5C6\uB294 \uACBD\uC6B0\uAC00 \uB9CE\uC544\uC694. \uC815\uBCF4 \uC218\uC9D1\uACFC \uD2B8\uB80C\uB4DC \uD30C\uC545\uC5D0 \uB2A5\uD558\uC9C0\uB9CC, \uAC00\uB054\uC740 \uB098\uB97C \uB4DC\uB7EC\uB0B4\uB294 \uAC83\uB3C4 \uC88B\uC544\uC694!",
+      "traits": [
+        "\uBD84\uC11D\uC801",
+        "\uD638\uAE30\uC2EC",
+        "\uC804\uB7B5\uC801",
+        "\uC2E0\uC911\uD568"
+      ],
+      "strengths": [
+        "\uD2B8\uB80C\uB4DC \uD30C\uC545\uB825",
+        "\uC815\uBCF4 \uC218\uC9D1",
+        "\uD504\uB77C\uC774\uBC84\uC2DC \uBCF4\uD638"
+      ],
+      "weaknesses": [
+        "\uC18C\uD1B5 \uBD80\uC871",
+        "\uBBF8\uC2A4\uD130\uB9AC\uD568",
+        "\uAD00\uACC4 \uC5D0\uB108\uC9C0 \uBD88\uADE0\uD615"
+      ],
+      "compatibility": { "best": "lurker-share", "worst": "active-private" },
+      "shareText": "SNS \uC18D \uB098\uC758 \uC131\uACA9\uC740 \uAD00\uCC30\uC790\uD615! \uD83D\uDD0D \uBAA8\uB4E0 \uAC78 \uBCF4\uC9C0\uB9CC \uB0B4 \uAC83\uC740 \uC548 \uBCF4\uC5EC\uC8FC\uB294 \uD0C0\uC785\uC774\uB798~ \uB108\uB294?",
+      "percentage": "23%"
+    },
+    {
+      "id": "lurker-private",
+      "title": "\uC740\uB454\uD615 \uD83D\uDC7B",
+      "subtitle": "SNS? \uADF8\uAC8C \uBB50\uC57C? \uD604\uC2E4 \uC138\uACC4\uAC00 \uB354 \uC88B\uC544!",
+      "emoji": "\uD83D\uDC7B",
+      "description": "\uB2F9\uC2E0\uC740 \uC740\uB454\uD615! SNS\uC5D0 \uBCC4\uB85C \uAD00\uC2EC\uC774 \uC5C6\uACE0, \uD65C\uB3D9\uB3C4 \uAC70\uC758 \uD558\uC9C0 \uC54A\uB294 \uD0C0\uC785\uC774\uC5D0\uC694.\n\n\uACC4\uC815\uC740 \uC788\uC9C0\uB9CC \uAC00\uB054 \uB4E4\uC5B4\uAC00\uBCF4\uB294 \uC815\uB3C4? SNS\uBCF4\uB2E4 \uC9C1\uC811 \uB9CC\uB098\uACE0 \uACBD\uD5D8\uD558\uB294 \uAC83\uC744 \uC120\uD638\uD574\uC694. \uB514\uC9C0\uD138 \uB514\uD1A1\uC2A4\uAC00 \uD544\uC694\uD560 \uB54C\uB3C4 \uC788\uC73C\uB2C8 \uAC00\uB054\uC740 \uB4E4\uB824\uB2E4\uBCF4\uC138\uC694!",
+      "traits": [
+        "\uB3C5\uB9BD\uC801",
+        "\uD604\uC2E4 \uC9C0\uD5A5",
+        "\uD504\uB77C\uC774\uBC84\uC2DC \uC911\uC2DC",
+        "\uBBF8\uB2C8\uBA40\uB9AC\uC2A4\uD2B8"
+      ],
+      "strengths": [
+        "SNS \uC2A4\uD2B8\uB808\uC2A4 \uC81C\uB85C",
+        "\uD604\uC2E4 \uC9D1\uC911",
+        "\uBE44\uAD50 \uC5C6\uC74C"
+      ],
+      "weaknesses": [
+        "\uC815\uBCF4 \uB4A4\uCC98\uC9C0",
+        "\uC5F0\uB77D \uBD88\uD3B8",
+        "\uD2B8\uB80C\uB4DC \uD30C\uC545 \uC5B4\uB824\uC6C0"
+      ],
+      "compatibility": { "best": "active-share", "worst": "lurker-private" },
+      "shareText": "SNS \uC18D \uB098\uC758 \uC131\uACA9\uC740 \uC740\uB454\uD615! \uD83D\uDC7B SNS? \uADF8\uAC8C \uBB50? \uD604\uC2E4\uC774 \uB354 \uC88B\uC740 \uD0C0\uC785\uC774\uB798~ \uB108\uB294?",
+      "percentage": "32%"
+    }
+  ]
+}

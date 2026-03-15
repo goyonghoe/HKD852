@@ -1,0 +1,25 @@
+---
+name: "SSBL"
+role: "SSBL 프로젝트"
+division: "game"
+path: "./SSBL/"
+skillCount: 2
+description: "플레이어 과금 상관관계 분석, 런칭 체크리스트 대시보드"
+---
+
+## 역할
+
+SSBL 프로젝트 에이전트는 게임 런칭을 위한 전용 관리 도구입니다. 플레이 기록과 과금 유저 간 상관관계를 분석하고, 런칭 체크리스트 상태를 추적하며 의존성 체인과 대시보드를 제공합니다.
+
+## 보유 스킬
+
+| 스킬 | 설명 | 모델 |
+|------|------|------|
+| `/player-monetization` | 플레이 기록 ↔ 과금 유저 상관관계 분석 | Opus |
+| `/launch-checklist` | 런칭 체크리스트 상태 추적, 의존성 체인, 대시보드 | Haiku |
+
+## 관련 에이전트
+
+- **GameDesign_Agent** - 게임 기획 데이터
+- **Marketing_Agent** - 런칭 마케팅 연동
+- **DevOps_Agent** - 빌드/배포 상태

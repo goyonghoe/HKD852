@@ -1,0 +1,59 @@
+---
+title: "코딩 컨벤션"
+description: "스킬 작성, 모델 선택, YAML frontmatter 표준"
+---
+
+## 필수 YAML Frontmatter
+
+모든 스킬 파일에는 다음 YAML frontmatter가 필수입니다:
+
+```yaml
+---
+name: skill-name
+description: "스킬 설명 (한글 권장)"
+user-invocable: true
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
+---
+```
+
+## 권장 모델 선택 기준
+
+| 작업 유형 | 권장 모델 | 이유 |
+|-----------|-----------|------|
+| 비판적 분석, 복잡한 추론 | `opus` | 깊이 있는 사고 필요 |
+| 콘텐츠 생성, 코드 작성 | `sonnet` | 균형잡힌 성능 |
+| 단순 분류, 라우팅 | `haiku` | 빠른 응답, 비용 효율 |
+
+## 모델 설정
+
+현재 기본 모델: **Opus (최신 버전)**
+
+설정 위치: `.claude/settings.local.json`
+
+```json
+{
+  "model": "opus"
+}
+```
+
+`"model": "opus"`는 자동으로 최신 Opus 버전을 사용합니다.
+
+## 스킬 파일 위치
+
+```
+.claude/skills/<skill-name>/SKILL.md
+```
+
+## Claude Code 공식 가이드
+
+- 가이드 인덱스: `docs/claude-code-guide/INDEX.md`
+- 스킬 구조: `docs/claude-code-guide/skills/01-skill-structure.md`
+- 스킬 예제: `docs/claude-code-guide/skills/02-skill-examples.md`
+- Agent SDK: `docs/claude-code-guide/agent-sdk/01-overview.md`
+
+## 문서 링크
+
+- 공식 Anthropic 문서: https://docs.anthropic.com
+- Claude Code: https://docs.anthropic.com/en/docs/claude-code
+- Agent SDK: https://docs.anthropic.com/en/docs/agents
+- API Reference: https://docs.anthropic.com/en/api

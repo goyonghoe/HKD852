@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Word Fall - HSK 단어 게임</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, "Noto Sans KR", sans-serif;
+        background: #0a0e27;
+        color: #fff;
+        overflow: hidden;
+        touch-action: none;
+        user-select: none;
+      }
+      #game {
+        width: 100vw;
+        height: 100vh;
+        max-width: 430px;
+        margin: 0 auto;
+        position: relative;
+        background: linear-gradient(
+          180deg,
+          #0a0e27 0%,
+          #1a1e47 50%,
+          #2a1e57 100%
+        );
+      }
+
+      /* Top HUD */
+      .hud {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        position: relative;
+        z-index: 10;
+      }
+      .hud-score {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffd700;
+      }
+      .hud-timer {
+        font-size: 16px;
+        color: #ff6b6b;
+        font-weight: 600;
+      }
+      .hud-combo {
+        font-size: 14px;
+        color: #7afcff;
+        opacity: 0.8;
+      }
+      .hud-level {
+        font-size: 12px;
+        color: #aaa;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Progress bar */
+      .progress-bar {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 0 16px;
+        border-radius: 2px;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ffd700, #ff6b6b);
+        border-radius: 2px;
+        transition: width 0.3s;
+      }
+
+      /* Falling area */
+      .fall-area {
+        position: relative;
+        height: calc(100vh - 260px);
+        overflow: hidden;
+      }
+
+      /* Falling character */
+      .falling-char {
+        position: absolute;
+        font-size: 56px;
+        font-weight: 900;
+        color: #fff;
+        text-shadow:
+          0 0 20px rgba(122, 252, 255, 0.5),
+          0 4px 8px rgba(0, 0, 0, 0.5);
+        transition: none;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .falling-char .pinyin {
+        font-size: 16px;
+        color: #7afcff;
+        font-weight: 400;
+        margin-top: 2px;
+        opacity: 0.9;
+      }
+
+      /* Choices */
+      .choices-area {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 12px 16px 40px;
+        background: linear-gradient(
+          0deg,
+          rgba(10, 14, 39, 0.95) 0%,
+          transparent 100%
+        );
+        z-index: 10;
+      }
+      .choices-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .choice-btn {
+        background: rgba(255, 255, 255, 0.08);
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        border-radius: 14px;
+        padding: 14px 12px;
+        font-size: 17px;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.15s;
+        text-align: center;
+        font-weight: 500;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .choice-btn:active {
+        transform: scale(0.95);
+      }
+      .choice-btn.correct {
+        background: rgba(46, 213, 115, 0.3);
+        border-color: #2ed573;
+        color: #2ed573;
+        animation: correctPulse 0.4s;
+      }
+      .choice-btn.wrong {
+        background: rgba(255, 71, 87, 0.3);
+        border-color: #ff4757;
+        color: #ff4757;
+        animation: shake 0.4s;
+      }
+
+      /* Screens */
+      .screen {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        background: rgba(10, 14, 39, 0.97);
+      }
+      .screen.hidden {
+        display: none;
+      }
+
+      /* Start screen */
+      .title {
+        font-size: 42px;
+        font-weight: 900;
+        background: linear-gradient(135deg, #ffd700, #ff6b6b, #7afcff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 8px;
+      }
+      .subtitle {
+        font-size: 16px;
+        color: #888;
+        margin-bottom: 40px;
+      }
+      .start-btn {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        border-radius: 16px;
+        padding: 16px 48px;
+        font-size: 20px;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      }
+      .start-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+      }
+      .level-select {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+      .level-tag {
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: #aaa;
+        transition: all 0.2s;
+      }
+      .level-tag.active {
+        border-color: #ffd700;
+        color: #ffd700;
+        background: rgba(255, 215, 0, 0.1);
+      }
+
+      /* Pre-round */
+      .pre-round {
+        text-align: center;
+      }
+      .pre-title {
+        font-size: 14px;
+        color: #7afcff;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      .pre-word {
+        margin-bottom: 16px;
+        animation: fadeInUp 0.5s ease-out;
+      }
+      .pre-word .hz {
+        font-size: 64px;
+        font-weight: 900;
+      }
+      .pre-word .py {
+        font-size: 20px;
+        color: #7afcff;
+        margin-top: 4px;
+      }
+      .pre-word .mn {
+        font-size: 18px;
+        color: #ccc;
+        margin-top: 8px;
+      }
+      .pre-counter {
+        font-size: 14px;
+        color: #888;
+        margin-top: 24px;
+      }
+
+      /* Result screen */
+      .result-score {
+        font-size: 64px;
+        font-weight: 900;
+        color: #ffd700;
+      }
+      .result-label {
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .result-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        margin: 20px 0 30px;
+        width: 80%;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat-val {
+        font-size: 28px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .stat-lbl {
+        font-size: 11px;
+        color: #888;
+        margin-top: 4px;
+      }
+      .missed-words {
+        width: 80%;
+        margin-bottom: 24px;
+      }
+      .missed-title {
+        font-size: 13px;
+        color: #ff6b6b;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .missed-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 15px;
+      }
+      .missed-item .hz {
+        color: #fff;
+        font-weight: 600;
+      }
+      .missed-item .mn {
+        color: #888;
+      }
+
+      /* Effects */
+      .combo-popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 36px;
+        font-weight: 900;
+        color: #ffd700;
+        pointer-events: none;
+        animation: comboAnim 0.8s ease-out forwards;
+        z-index: 50;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      }
+      .score-fly {
+        position: absolute;
+        font-size: 20px;
+        font-weight: 700;
+        color: #2ed573;
+        pointer-events: none;
+        animation: scoreFly 0.8s ease-out forwards;
+        z-index: 50;
+      }
+
+      /* Particle burst */
+      .particle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: particleBurst 0.6s ease-out forwards;
+      }
+
+      @keyframes correctPulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-8px);
+        }
+        75% {
+          transform: translateX(8px);
+        }
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes comboAnim {
+        0% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(0.5);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.2);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -80%) scale(1);
+        }
+      }
+      @keyframes scoreFly {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-60px);
+        }
+      }
+      @keyframes particleBurst {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--dx), var(--dy)) scale(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game">
+      <!-- HUD -->
+      <div class="hud">
+        <div>
+          <div class="hud-level" id="hudLevel">HSK 1</div>
+          <div class="hud-score" id="hudScore">0</div>
+        </div>
+        <div class="hud-combo" id="hudCombo"></div>
+        <div class="hud-timer" id="hudTimer">30</div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <!-- Fall area -->
+      <div class="fall-area" id="fallArea"></div>
+
+      <!-- Choices -->
+      <div class="choices-area">
+        <div class="choices-grid" id="choicesGrid"></div>
+      </div>
+
+      <!-- Start Screen -->
+      <div class="screen" id="startScreen">
+        <div class="title">Word Fall</div>
+        <div class="subtitle">HSK 단어를 게임으로 마스터</div>
+        <div class="level-select" id="levelSelect">
+          <div class="level-tag active" data-stage="1">Stage 1</div>
+          <div class="level-tag" data-stage="2">Stage 2</div>
+          <div class="level-tag" data-stage="3">Stage 3</div>
+        </div>
+        <button class="start-btn" id="startBtn">START</button>
+      </div>
+
+      <!-- Pre-round -->
+      <div class="screen hidden" id="preScreen">
+        <div class="pre-round">
+          <div class="pre-title">NEW WORDS</div>
+          <div class="pre-word" id="preWord">
+            <div class="hz"></div>
+            <div class="py"></div>
+            <div class="mn"></div>
+          </div>
+          <div class="pre-counter" id="preCounter"></div>
+        </div>
+      </div>
+
+      <!-- Result Screen -->
+      <div class="screen hidden" id="resultScreen">
+        <div class="result-label">SCORE</div>
+        <div class="result-score" id="resultScore">0</div>
+        <div class="result-stats">
+          <div class="stat">
+            <div class="stat-val" id="statCorrect">0</div>
+            <div class="stat-lbl">Correct</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" id="statWrong">0</div>
+            <div class="stat-lbl">Wrong</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val" id="statCombo">0</div>
+            <div class="stat-lbl">Max Combo</div>
+          </div>
+        </div>
+        <div class="missed-words" id="missedWords"></div>
+        <button class="start-btn" id="retryBtn">RETRY</button>
+      </div>
+    </div>
+
+    <script>
+      // HSK 1 sample data (Stage 1-3, 30 words)
+      const HSK_DATA = [
+        { hanzi: "你", pinyin: "nǐ", ko: "너, 당신" },
+        { hanzi: "好", pinyin: "hǎo", ko: "좋다" },
+        { hanzi: "我", pinyin: "wǒ", ko: "나" },
+        { hanzi: "是", pinyin: "shì", ko: "~이다" },
+        { hanzi: "不", pinyin: "bù", ko: "~아니다" },
+        { hanzi: "他", pinyin: "tā", ko: "그" },
+        { hanzi: "她", pinyin: "tā", ko: "그녀" },
+        { hanzi: "大", pinyin: "dà", ko: "크다" },
+        { hanzi: "小", pinyin: "xiǎo", ko: "작다" },
+        { hanzi: "多", pinyin: "duō", ko: "많다" },
+        // Stage 2
+        { hanzi: "爱", pinyin: "ài", ko: "사랑하다" },
+        { hanzi: "吃", pinyin: "chī", ko: "먹다" },
+        { hanzi: "喝", pinyin: "hē", ko: "마시다" },
+        { hanzi: "看", pinyin: "kàn", ko: "보다" },
+        { hanzi: "听", pinyin: "tīng", ko: "듣다" },
+        { hanzi: "说", pinyin: "shuō", ko: "말하다" },
+        { hanzi: "写", pinyin: "xiě", ko: "쓰다" },
+        { hanzi: "读", pinyin: "dú", ko: "읽다" },
+        { hanzi: "买", pinyin: "mǎi", ko: "사다" },
+        { hanzi: "去", pinyin: "qù", ko: "가다" },
+        // Stage 3
+        { hanzi: "来", pinyin: "lái", ko: "오다" },
+        { hanzi: "回", pinyin: "huí", ko: "돌아가다" },
+        { hanzi: "开", pinyin: "kāi", ko: "열다" },
+        { hanzi: "坐", pinyin: "zuò", ko: "앉다" },
+        { hanzi: "做", pinyin: "zuò", ko: "하다" },
+        { hanzi: "想", pinyin: "xiǎng", ko: "생각하다" },
+        { hanzi: "家", pinyin: "jiā", ko: "집" },
+        { hanzi: "人", pinyin: "rén", ko: "사람" },
+        { hanzi: "水", pinyin: "shuǐ", ko: "물" },
+        { hanzi: "书", pinyin: "shū", ko: "책" },
+      ];
+
+      // Game state
+      let state = {
+        score: 0,
+        combo: 0,
+        maxCombo: 0,
+        correct: 0,
+        wrong: 0,
+        timer: 30,
+        stage: 1,
+        playing: false,
+        currentWord: null,
+        missedWords: [],
+        words: [],
+        usedIndices: new Set(),
+        reviewQueue: [],
+        fallSpeed: 1.2,
+        animFrame: null,
+        lastTime: 0,
+      };
+
+      const $ = (id) => document.getElementById(id);
+
+      // ── SoundFX Module (Web Audio API) ──
+      const SFX = (() => {
+        let ctx = null;
+        function ensure() {
+          if (!ctx)
+            ctx = new (window.AudioContext || window.webkitAudioContext)();
+          if (ctx.state === "suspended") ctx.resume();
+          return ctx;
+        }
+        function tone(freq, dur, type, vol, startOffset) {
+          const c = ensure();
+          const o = c.createOscillator();
+          const g = c.createGain();
+          o.type = type;
+          o.frequency.value = freq;
+          g.gain.value = vol;
+          o.connect(g);
+          g.connect(c.destination);
+          const t = c.currentTime + (startOffset || 0);
+          o.start(t);
+          g.gain.setValueAtTime(vol, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + dur / 1000);
+          o.stop(t + dur / 1000 + 0.01);
+        }
+        return {
+          correct() {
+            // C5→E5 ascending chime
+            tone(523.25, 100, "sine", 0.3, 0);
+            tone(659.25, 100, "sine", 0.3, 0.1);
+          },
+          wrong() {
+            // low buzz
+            tone(150, 200, "square", 0.2, 0);
+          },
+          combo() {
+            // E5→G5→C6 triple ding
+            tone(659.25, 80, "sine", 0.3, 0);
+            tone(783.99, 80, "sine", 0.3, 0.08);
+            tone(1046.5, 80, "sine", 0.3, 0.16);
+          },
+          stageClear() {
+            // C5→E5→G5→C6 arpeggio
+            tone(523.25, 150, "sine", 0.3, 0);
+            tone(659.25, 150, "sine", 0.3, 0.15);
+            tone(783.99, 150, "sine", 0.3, 0.3);
+            tone(1046.5, 150, "sine", 0.3, 0.45);
+          },
+          gameOver() {
+            // E4→C4 descending
+            tone(329.63, 200, "triangle", 0.25, 0);
+            tone(261.63, 200, "triangle", 0.25, 0.2);
+          },
+          tap() {
+            // short click
+            tone(800, 30, "sine", 0.15, 0);
+          },
+        };
+      })();
+
+      // Level select
+      document.querySelectorAll(".level-tag").forEach((tag) => {
+        tag.addEventListener("click", () => {
+          SFX.tap();
+          document
+            .querySelectorAll(".level-tag")
+            .forEach((t) => t.classList.remove("active"));
+          tag.classList.add("active");
+          state.stage = parseInt(tag.dataset.stage);
+        });
+      });
+
+      // Start
+      $("startBtn").addEventListener("click", () => {
+        SFX.tap();
+        startPreRound();
+      });
+      $("retryBtn").addEventListener("click", () => {
+        SFX.tap();
+        $("resultScreen").classList.add("hidden");
+        startPreRound();
+      });
+
+      function getStageWords() {
+        const start = (state.stage - 1) * 10;
+        return HSK_DATA.slice(start, start + 10);
+      }
+
+      function startPreRound() {
+        state.words = getStageWords();
+        $("startScreen").classList.add("hidden");
+        $("preScreen").classList.remove("hidden");
+        showPreWord(0);
+      }
+
+      function showPreWord(idx) {
+        if (idx >= state.words.length) {
+          $("preScreen").classList.add("hidden");
+          startGame();
+          return;
+        }
+        const w = state.words[idx];
+        const pw = $("preWord");
+        pw.querySelector(".hz").textContent = w.hanzi;
+        pw.querySelector(".py").textContent = w.pinyin;
+        pw.querySelector(".mn").textContent = w.ko;
+        pw.style.animation = "none";
+        pw.offsetHeight;
+        pw.style.animation = "";
+        $("preCounter").textContent = `${idx + 1} / ${state.words.length}`;
+        setTimeout(() => showPreWord(idx + 1), 2000);
+      }
+
+      function startGame() {
+        state.score = 0;
+        state.combo = 0;
+        state.maxCombo = 0;
+        state.correct = 0;
+        state.wrong = 0;
+        state.timer = 30;
+        state.playing = true;
+        state.missedWords = [];
+        state.usedIndices = new Set();
+        state.reviewQueue = [];
+        state.currentWord = null;
+        $("hudScore").textContent = "0";
+        $("hudCombo").textContent = "";
+        $("hudLevel").textContent = `HSK 1 · Stage ${state.stage}`;
+        updateTimer();
+
+        // Timer countdown
+        state.timerInterval = setInterval(() => {
+          state.timer--;
+          updateTimer();
+          if (state.timer <= 0) endGame();
+        }, 1000);
+
+        spawnWord();
+      }
+
+      function updateTimer() {
+        $("hudTimer").textContent = state.timer;
+        $("hudTimer").style.color = state.timer <= 10 ? "#ff4757" : "#ff6b6b";
+        $("progressFill").style.width = (state.timer / 30) * 100 + "%";
+      }
+
+      function spawnWord() {
+        if (!state.playing) return;
+
+        // Pick next word: review queue first, then new
+        let word;
+        if (state.reviewQueue.length > 0 && Math.random() < 0.4) {
+          word = state.reviewQueue.shift();
+        } else {
+          // Pick random from stage words
+          const available = state.words.filter((_, i) => true);
+          word = available[Math.floor(Math.random() * available.length)];
+        }
+
+        state.currentWord = word;
+
+        // Create falling element
+        const fallArea = $("fallArea");
+        fallArea.innerHTML = "";
+
+        const el = document.createElement("div");
+        el.className = "falling-char";
+        el.innerHTML = `${word.hanzi}<span class="pinyin">${word.pinyin}</span>`;
+
+        const areaW = fallArea.offsetWidth;
+        const x = 40 + Math.random() * (areaW - 120);
+        el.style.left = x + "px";
+        el.style.top = "-80px";
+        fallArea.appendChild(el);
+
+        // Generate choices
+        generateChoices(word);
+
+        // Animate falling
+        let y = -80;
+        const areaH = fallArea.offsetHeight;
+        const speed = state.fallSpeed + (state.stage - 1) * 0.3;
+
+        if (state.animFrame) cancelAnimationFrame(state.animFrame);
+
+        function fall(ts) {
+          if (!state.playing || state.currentWord !== word) return;
+          y += speed;
+          el.style.top = y + "px";
+
+          if (y > areaH) {
+            // Missed - count as wrong
+            handleAnswer(null, word);
+            return;
+          }
+          state.animFrame = requestAnimationFrame(fall);
+        }
+        state.animFrame = requestAnimationFrame(fall);
+      }
+
+      function generateChoices(correct) {
+        const grid = $("choicesGrid");
+        grid.innerHTML = "";
+
+        // Get 3 wrong answers
+        const allMeanings = HSK_DATA.map((w) => w.ko);
+        const wrongSet = new Set();
+        while (wrongSet.size < 3) {
+          const r = allMeanings[Math.floor(Math.random() * allMeanings.length)];
+          if (r !== correct.ko) wrongSet.add(r);
+        }
+
+        const choices = [correct.ko, ...wrongSet];
+        // Shuffle
+        for (let i = choices.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [choices[i], choices[j]] = [choices[j], choices[i]];
+        }
+
+        choices.forEach((ch) => {
+          const btn = document.createElement("div");
+          btn.className = "choice-btn";
+          btn.textContent = ch;
+          btn.addEventListener("click", () => {
+            if (
+              btn.classList.contains("correct") ||
+              btn.classList.contains("wrong")
+            )
+              return;
+            handleAnswer(
+              ch === correct.ko ? "correct" : "wrong",
+              correct,
+              btn,
+              ch,
+            );
+          });
+          grid.appendChild(btn);
+        });
+      }
+
+      function handleAnswer(result, word, btn, chosen) {
+        if (!state.playing) return;
+        if (state.animFrame) cancelAnimationFrame(state.animFrame);
+
+        if (result === "correct") {
+          btn.classList.add("correct");
+          state.combo++;
+          if (state.combo > state.maxCombo) state.maxCombo = state.combo;
+          state.correct++;
+
+          // Score: base 10 + speed bonus + combo multiplier
+          const multipliers = [1, 1.1, 1.2, 1.5, 2.0];
+          const mult = multipliers[Math.min(state.combo - 1, 4)];
+          const pts = Math.round(10 * mult);
+          state.score += pts;
+
+          $("hudScore").textContent = state.score;
+          $("hudCombo").textContent =
+            state.combo >= 2 ? `${state.combo}x COMBO` : "";
+
+          // Effects
+          showScoreFly(btn, `+${pts}`);
+          if (state.combo >= 3) {
+            showComboPopup(state.combo);
+            SFX.combo();
+          } else {
+            SFX.correct();
+          }
+          spawnParticles(btn, "#2ed573");
+        } else {
+          if (btn) btn.classList.add("wrong");
+          SFX.wrong();
+          state.combo = 0;
+          state.wrong++;
+          $("hudCombo").textContent = "";
+
+          // Show correct answer
+          document.querySelectorAll(".choice-btn").forEach((b) => {
+            if (b.textContent === word.ko) b.classList.add("correct");
+          });
+
+          // Add to review queue
+          state.reviewQueue.push(word);
+          if (!state.missedWords.find((w) => w.hanzi === word.hanzi)) {
+            state.missedWords.push(word);
+          }
+
+          if (btn) spawnParticles(btn, "#ff4757");
+        }
+
+        // Next word after delay
+        setTimeout(
+          () => {
+            if (state.playing) spawnWord();
+          },
+          result === "correct" ? 400 : 1200,
+        );
+      }
+
+      function showScoreFly(btn, text) {
+        const el = document.createElement("div");
+        el.className = "score-fly";
+        el.textContent = text;
+        const rect = btn.getBoundingClientRect();
+        const gameRect = $("game").getBoundingClientRect();
+        el.style.left = rect.left - gameRect.left + rect.width / 2 - 15 + "px";
+        el.style.top = rect.top - gameRect.top - 10 + "px";
+        $("game").appendChild(el);
+        setTimeout(() => el.remove(), 800);
+      }
+
+      function showComboPopup(n) {
+        const el = document.createElement("div");
+        el.className = "combo-popup";
+        el.textContent = `${n}x COMBO!`;
+        $("game").appendChild(el);
+        setTimeout(() => el.remove(), 800);
+      }
+
+      function spawnParticles(btn, color) {
+        const rect = btn.getBoundingClientRect();
+        const gameRect = $("game").getBoundingClientRect();
+        const cx = rect.left - gameRect.left + rect.width / 2;
+        const cy = rect.top - gameRect.top + rect.height / 2;
+
+        for (let i = 0; i < 8; i++) {
+          const p = document.createElement("div");
+          p.className = "particle";
+          p.style.background = color;
+          p.style.left = cx + "px";
+          p.style.top = cy + "px";
+          const angle = ((Math.PI * 2) / 8) * i;
+          const dist = 30 + Math.random() * 40;
+          p.style.setProperty("--dx", Math.cos(angle) * dist + "px");
+          p.style.setProperty("--dy", Math.sin(angle) * dist + "px");
+          $("game").appendChild(p);
+          setTimeout(() => p.remove(), 600);
+        }
+      }
+
+      function endGame() {
+        state.playing = false;
+        clearInterval(state.timerInterval);
+        if (state.animFrame) cancelAnimationFrame(state.animFrame);
+        $("fallArea").innerHTML = "";
+        $("choicesGrid").innerHTML = "";
+
+        // Play game-over or stage-clear sound based on performance
+        if (state.correct > state.wrong) {
+          SFX.stageClear();
+        } else {
+          SFX.gameOver();
+        }
+
+        // Show results
+        $("resultScore").textContent = state.score;
+        $("statCorrect").textContent = state.correct;
+        $("statCorrect").style.color = "#2ed573";
+        $("statWrong").textContent = state.wrong;
+        $("statWrong").style.color = "#ff4757";
+        $("statCombo").textContent = state.maxCombo;
+        $("statCombo").style.color = "#ffd700";
+
+        // Missed words
+        const mw = $("missedWords");
+        mw.innerHTML = "";
+        if (state.missedWords.length > 0) {
+          mw.innerHTML = `<div class="missed-title">Review These Words</div>`;
+          state.missedWords.forEach((w) => {
+            mw.innerHTML += `<div class="missed-item"><span class="hz">${w.hanzi} (${w.pinyin})</span><span class="mn">${w.ko}</span></div>`;
+          });
+        }
+
+        $("resultScreen").classList.remove("hidden");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+---
+title: "지원본부 스킬"
+description: "커뮤니케이션, 현지화, 인사, 기술지원, 빌드엔지니어의 스킬 목록"
+division: "support"
+---
+
+## 커뮤니케이션 디렉터 (PT_Agent)
+
+| 스킬 | 설명 |
+|------|------|
+| `/pt` | 프레젠테이션 전체 파이프라인 |
+| `/pt-from-design` | 기획 분석 → 발표자료 변환 |
+| `/pt-reception` | 요구사항 분석 |
+| `/pt-content` | 콘텐츠 설계 |
+| `/pt-visual` | SVG 시각화 |
+| `/pt-redteam` | 품질 검토 |
+
+## 현지화 (Translate_Agent)
+
+| 스킬 | 설명 | 모델 |
+|------|------|------|
+| `/translate` | 한글→영문/일본어 번역 | Sonnet+Haiku |
+| `/translate-cn` | 한글→중국어 (간체/번체) | Sonnet |
+| `/translate-eu` | 한글→프랑스어/독일어/스페인어 | Sonnet |
+| `/localize-validate` | UI 텍스트 길이/깨짐 검증 | Haiku |
+| `/cultural-adapt` | 문화적 맥락 적응 컨설팅 | Opus |
+
+## 인사 (HR_Agent)
+
+| 스킬 | 설명 | 모델 |
+|------|------|------|
+| `/org-chart` | 조직도 인터랙티브 HTML | Sonnet |
+| `/reorg` | 재조직 분석 | Opus |
+
+## 기술지원 (Video_Analyzer)
+
+| 스킬 | 설명 |
+|------|------|
+| 영상 분석 | 영상 콘텐츠 분석 및 리포트 |
+
+## 빌드엔지니어 (DevOps_Agent)
+
+| 스킬 | 설명 | 모델 |
+|------|------|------|
+| `/pipeline-config` | GitHub Actions CI/CD 설정 | Sonnet |
+| `/build-ios` | iOS 빌드 + App Store Connect | Sonnet |
+| `/build-android` | Android AAB + Play Console | Sonnet |
+| `/build-steam` | Steam + Steamworks SDK | Sonnet |
+| `/deploy-stage` | 스테이징 배포 (TestFlight/내부트랙/Beta) | Haiku |
+| `/deploy-prod` | 프로덕션 배포 + 롤백 (CEO 승인 필수) | Sonnet |
+| `/platform-status` | 전체 플랫폼 빌드/리뷰 상태 | Haiku |
+| `/hotfix` | 긴급 핫픽스 파이프라인 | Sonnet |

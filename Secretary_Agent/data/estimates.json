@@ -1,0 +1,19 @@
+{
+  "correction_factor": 2.0,
+  "correction_note": "초기값 2.0x. retro-log 데이터 쌓이면 Kowloon 개인 보정계수로 자동 조정",
+  "daily_capacity_hours": 8,
+  "records": [
+    {
+      "date": "2026-03-15",
+      "task": "루트 CLAUDE.md에 비서실 스킬 반영",
+      "estimated_hours": 1,
+      "category": "familiar",
+      "correction_factor": 1.5,
+      "adjusted_hours": 1.5,
+      "status": "done",
+      "actual_hours": 0.15,
+      "started_at": "2026-03-15T17:30:00",
+      "completed_at": "2026-03-15T17:39:00"
+    }
+  ]
+}

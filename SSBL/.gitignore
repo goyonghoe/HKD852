@@ -1,0 +1,21 @@
+# 환경변수
+.env
+.env.local
+.env*.local
+
+# OS
+.DS_Store
+
+# 임시 파일
+*.tmp
+*.bak
+
+# 데이터 (대용량)
+data/*.csv
+data/*.parquet
+data/*.db
+!data/.gitkeep
+
+# Node
+node_modules/
+.vercel

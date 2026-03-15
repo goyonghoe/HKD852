@@ -1,0 +1,29 @@
+---
+name: "ShortsFactory_Agent"
+role: "쇼츠공장 매니저"
+division: "business"
+path: "./ShortsFactory_Agent/"
+skillCount: 6
+description: "YouTube Shorts 자동 생산 파이프라인: 토픽 발굴, 스크립트, 렌더링, 품질 검증, 성과 분석"
+---
+
+## 역할
+
+쇼츠공장 매니저는 YouTube Shorts 콘텐츠의 자동 생산 파이프라인을 운영합니다. 트렌드 리서치로 고RPM 토픽을 선정하고, 스크립트 생성, TTS+FFmpeg 영상 렌더링, YouTube 정책 준수 검증, 주간 성과 분석까지 전 과정을 자동화합니다.
+
+## 보유 스킬
+
+| 스킬 | 설명 | 모델 |
+|------|------|------|
+| `/shorts-factory` | 일일 파이프라인 오케스트레이터 | Sonnet |
+| `/topic-mine` | 트렌드 리서치 + 고RPM 토픽 자동 선정 | Sonnet |
+| `/shorts-script` | 스크립트 + 메타데이터 생성 | Sonnet |
+| `/shorts-render` | TTS + FFmpeg 영상 렌더링 | Haiku |
+| `/shorts-review` | YouTube 정책 준수 + 품질 검증 | Opus |
+| `/shorts-analyze` | 주간 성과 분석 + 전략 조정 | Sonnet |
+
+## 관련 에이전트
+
+- **ShortsFleet** - 멀티채널 총괄 관리
+- **Income_Factory** - 콘텐츠 수익화 연계
+- **Translate_Agent** - 다국어 자막/TTS

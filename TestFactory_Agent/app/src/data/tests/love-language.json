@@ -1,0 +1,283 @@
+{
+  "version": 1,
+  "meta": {
+    "slug": "love-language",
+    "title": "나의 연애 유형은? \uD83D\uDC98",
+    "description": "10가지 질문으로 알아보는 나의 사랑 표현 방식! 연인에게 사랑을 어떻게 표현하는지 알아보세요.",
+    "shortDescription": "10문항으로 알아보는 나의 사랑 언어",
+    "thumbnail": "/images/tests/love-language/thumb.png",
+    "ogImage": "/images/tests/love-language/og-default.png",
+    "category": "love",
+    "tags": ["연애", "사랑", "궁합", "연애유형"],
+    "emoji": "\uD83D\uDC98",
+    "color": "#FD79A8",
+    "colorLight": "#FDCFE8",
+    "estimatedMinutes": 2,
+    "questionCount": 10,
+    "popularity": 95,
+    "createdAt": "2026-02-22",
+    "isNew": true,
+    "isTrending": true
+  },
+  "scoring": {
+    "type": "mbti",
+    "dimensions": [
+      {
+        "id": "WT",
+        "poles": ["W", "T"],
+        "labels": ["말로 표현", "행동으로 표현"]
+      },
+      {
+        "id": "GQ",
+        "poles": ["G", "Q"],
+        "labels": ["함께하는 시간", "혼자만의 공간"]
+      }
+    ]
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "text": "연인이 힘들어할 때 나는?",
+      "emoji": "\uD83D\uDE22",
+      "options": [
+        {
+          "id": "a",
+          "text": "\"괜찮아, 내가 있잖아\" 말해줘",
+          "emoji": "\uD83D\uDCAC",
+          "scores": { "W": 1 }
+        },
+        {
+          "id": "b",
+          "text": "말없이 안아줘",
+          "emoji": "\uD83E\uDD17",
+          "scores": { "T": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "기념일에 더 좋은 건?",
+      "emoji": "\uD83C\uDF81",
+      "options": [
+        {
+          "id": "a",
+          "text": "손편지나 진심 어린 메시지",
+          "emoji": "\uD83D\uDC8C",
+          "scores": { "W": 1 }
+        },
+        {
+          "id": "b",
+          "text": "직접 만든 음식이나 깜짝 선물",
+          "emoji": "\uD83C\uDF70",
+          "scores": { "T": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "사랑한다는 말, 얼마나 자주?",
+      "emoji": "\u2764\uFE0F",
+      "options": [
+        {
+          "id": "a",
+          "text": "자주! 말로 표현해야 전해지지",
+          "emoji": "\uD83D\uDDE3\uFE0F",
+          "scores": { "W": 1 }
+        },
+        {
+          "id": "b",
+          "text": "말보다는 행동으로 보여줘",
+          "emoji": "\uD83D\uDCAA",
+          "scores": { "T": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "싸운 후 화해할 때?",
+      "emoji": "\uD83E\uDD1D",
+      "options": [
+        {
+          "id": "a",
+          "text": "진심으로 대화하고 감정 나누기",
+          "emoji": "\uD83D\uDCAC",
+          "scores": { "W": 1 }
+        },
+        {
+          "id": "b",
+          "text": "맛있는 거 사주거나 뭔가 해주기",
+          "emoji": "\uD83C\uDF5C",
+          "scores": { "T": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "최고의 데이트는?",
+      "emoji": "\uD83C\uDF05",
+      "options": [
+        {
+          "id": "a",
+          "text": "카페에서 오래 수다 떠는 것",
+          "emoji": "\u2615",
+          "scores": { "W": 1 }
+        },
+        {
+          "id": "b",
+          "text": "같이 요리하거나 뭔가 만드는 것",
+          "emoji": "\uD83C\uDF73",
+          "scores": { "T": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "연인과 함께 있을 때 더 좋은 건?",
+      "emoji": "\uD83D\uDC91",
+      "options": [
+        {
+          "id": "a",
+          "text": "24시간 붙어있고 싶어!",
+          "emoji": "\uD83E\uDD70",
+          "scores": { "G": 1 }
+        },
+        {
+          "id": "b",
+          "text": "적당히 만나고 나만의 시간도 필요해",
+          "emoji": "\uD83D\uDE0C",
+          "scores": { "Q": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "연인이 바쁠 때?",
+      "emoji": "\uD83D\uDCBC",
+      "options": [
+        {
+          "id": "a",
+          "text": "연락 많이 하고 싶어! 보고싶으니까",
+          "emoji": "\uD83D\uDCF2",
+          "scores": { "G": 1 }
+        },
+        {
+          "id": "b",
+          "text": "이해하고 기다려줘. 나도 내 할 일 해",
+          "emoji": "\uD83D\uDCDA",
+          "scores": { "Q": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "이상적인 동거/결혼 생활은?",
+      "emoji": "\uD83C\uDFE0",
+      "options": [
+        {
+          "id": "a",
+          "text": "같은 공간에서 항상 함께!",
+          "emoji": "\uD83D\uDC65",
+          "scores": { "G": 1 }
+        },
+        {
+          "id": "b",
+          "text": "각자 방이 있으면 좋겠어",
+          "emoji": "\uD83D\uDEAA",
+          "scores": { "Q": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "연인의 SNS에 우리 사진이?",
+      "emoji": "\uD83D\uDCF8",
+      "options": [
+        {
+          "id": "a",
+          "text": "많으면 많을수록 좋아! 자랑하고 싶지",
+          "emoji": "\uD83E\uDD29",
+          "scores": { "G": 1 }
+        },
+        {
+          "id": "b",
+          "text": "우리만 알면 되지, 굳이 올릴 필요 없어",
+          "emoji": "\uD83E\uDD2B",
+          "scores": { "Q": 1 }
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "연인에게 가장 서운한 건?",
+      "emoji": "\uD83D\uDE14",
+      "options": [
+        {
+          "id": "a",
+          "text": "같이 보내는 시간이 부족할 때",
+          "emoji": "\u23F3",
+          "scores": { "G": 1 }
+        },
+        {
+          "id": "b",
+          "text": "나의 개인 시간을 존중 안 해줄 때",
+          "emoji": "\uD83D\uDE45",
+          "scores": { "Q": 1 }
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "WG",
+      "title": "\uD83D\uDC97 달달한 토끼 커플형",
+      "subtitle": "말로도, 시간으로도 사랑을 쏟는 타입",
+      "emoji": "\uD83D\uDC30",
+      "description": "당신은 사랑을 말과 함께하는 시간으로 표현하는 타입이에요!\n\n\"사랑해\", \"보고싶어\"를 자주 말하고, 연인과 최대한 많은 시간을 함께 보내고 싶어해요. 연인에게 온 세상의 관심과 애정을 쏟아부는 스타일이죠.\n\n함께 있을 때 가장 행복하고, 떨어져 있으면 계속 연락하고 싶은 타입이에요.",
+      "traits": ["표현력", "애정 표현", "함께하기", "로맨틱"],
+      "strengths": ["따뜻한 표현력", "관계에 충실", "연인을 특별하게 만듦"],
+      "weaknesses": ["집착으로 보일 수 있음", "혼자만의 시간 부족", "의존성"],
+      "compatibility": { "best": "TQ", "worst": "WG" },
+      "shareText": "나는 달달한 토끼 커플형! \uD83D\uDC30 말로도, 시간으로도 사랑을 쏟는대~ 너의 연애 유형은?",
+      "percentage": "전체의 30%"
+    },
+    {
+      "id": "WQ",
+      "title": "\uD83E\uDD8A 댕댕이 프로 고백러형",
+      "subtitle": "말로 표현하되, 개인 공간도 존중하는 타입",
+      "emoji": "\uD83E\uDD8A",
+      "description": "당신은 사랑을 말로 잘 표현하면서도, 서로의 공간을 존중하는 타입이에요!\n\n\"사랑해\"를 자주 말하지만, 24시간 붙어있을 필요는 없다고 생각해요. 각자의 시간을 보낸 후 만났을 때 더 반갑고 대화할 것도 많죠.\n\n성숙한 연애를 추구하는 스타일이에요.",
+      "traits": ["표현력", "존중", "균형감", "독립적"],
+      "strengths": ["건강한 거리감", "풍부한 소통", "자기 관리"],
+      "weaknesses": ["냉정해 보일 때", "연락 텀이 길 수 있음"],
+      "compatibility": { "best": "TG", "worst": "WQ" },
+      "shareText": "나는 댕댕이 프로 고백러형! \uD83E\uDD8A 표현은 잘하면서 개인 시간도 중요하대~ 너는?",
+      "percentage": "전체의 25%"
+    },
+    {
+      "id": "TG",
+      "title": "\uD83D\uDC3B 곰돌이 헌신파형",
+      "subtitle": "말보다 행동으로, 항상 곁에 있는 타입",
+      "emoji": "\uD83D\uDC3B",
+      "description": "당신은 말보다는 행동으로 사랑을 표현하고, 연인 곁에 항상 있고 싶은 타입이에요!\n\n직접 요리해주고, 아플 때 약 사다주고, 짐 들어주는 스타일이죠. 거창한 말보다 소소한 행동에서 진심이 드러나요.\n\n함께하는 시간이 곧 사랑의 증거라고 생각해요.",
+      "traits": ["행동파", "헌신적", "함께하기", "든든함"],
+      "strengths": ["든든한 파트너", "실질적 도움", "변함없는 곁"],
+      "weaknesses": ["표현 부족으로 오해", "집착처럼 보일 수 있음"],
+      "compatibility": { "best": "WQ", "worst": "TG" },
+      "shareText": "나는 곰돌이 헌신파형! \uD83D\uDC3B 말보다 행동으로 사랑을 표현하는 타입이래~ 너는?",
+      "percentage": "전체의 25%"
+    },
+    {
+      "id": "TQ",
+      "title": "\uD83D\uDC31 고양이 쿨한 사랑형",
+      "subtitle": "행동으로 보여주되, 각자의 공간을 지키는 타입",
+      "emoji": "\uD83D\uDC31",
+      "description": "당신은 말보다 행동으로 사랑을 표현하면서, 서로의 자유를 존중하는 타입이에요!\n\n입으론 쿨한 척 하지만, 몰래 좋아하는 간식을 사다놓거나 기념일을 챙기는 츤데레 스타일이죠. 겉은 도도하지만 속은 따뜻해요.\n\n서로 의지하면서도 독립적인 관계를 추구해요.",
+      "traits": ["행동파", "독립적", "쿨함", "배려"],
+      "strengths": ["서로 존중하는 관계", "몰래 챙기는 센스", "안정적"],
+      "weaknesses": ["감정 표현 부족", "무관심으로 보일 수 있음"],
+      "compatibility": { "best": "WG", "worst": "TQ" },
+      "shareText": "나는 고양이 쿨한 사랑형! \uD83D\uDC31 겉은 쿨하지만 속은 따뜻한 츤데레래~ 너는?",
+      "percentage": "전체의 20%"
+    }
+  ]
+}

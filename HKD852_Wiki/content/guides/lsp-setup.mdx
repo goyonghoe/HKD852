@@ -1,0 +1,129 @@
+---
+title: "LSP 활성화 가이드"
+description: "Claude Code LSP 통합 — 설정, 모니터링, 롤백"
+---
+
+## 개요
+
+Claude Code에 LSP(Language Server Protocol)를 활성화하여 코드 탐색 성능을 대폭 향상시킵니다.
+
+- **적용일**: 2026-03-09
+- **버전**: Claude Code 2.1.71+
+- **상태**: 활성화 완료, 정상 동작 확인됨
+- **참고**: [영문 원문](https://karanbansal.in/blog/claude-code-lsp/) · [국문 해설](https://bkamp.ai/ko/recipes/a68916b5-059b-4659-bfa6-64f96af3cfab)
+
+## 적용 배경
+
+| 항목 | 기존 (grep) | LSP |
+|------|------------|-----|
+| 심볼 검색 | ~3-5초 (전체 프로젝트) | ~50ms |
+| 정확도 | 텍스트 매칭 (노이즈) | 시맨틱 심볼 추적 |
+| 정의 이동 | 파일 여러 개 Read | goToDefinition 1회 |
+| 참조 찾기 | grep + 수동 필터 | findReferences 정확 |
+
+HKD852 프로젝트는 **TypeScript 15,900개 파일**을 보유하고 있어 grep 기반 탐색의 한계가 큽니다.
+
+## 설정 내역
+
+### 1. 환경변수 (두 곳 모두 설정)
+
+**~/.zshrc**:
+```bash
+export ENABLE_LSP_TOOL=1
+```
+
+**~/.claude/settings.json**:
+```json
+{
+  "env": {
+    "ENABLE_LSP_TOOL": "1"
+  }
+}
+```
+
+### 2. 바이너리 설치
+
+```bash
+# TypeScript (필수 — 프로젝트 TS 15,900개)
+npm install -g typescript-language-server typescript
+
+# Python (선택 — ShortsFactory 등)
+pip3 install pyright
+```
+
+### 3. LSP 플러그인 설치
+
+Claude Code 세션 내에서 (블로그 글의 명령어는 틀림, 아래가 공식):
+```
+/plugin install typescript-lsp@claude-plugins-official
+/plugin install pyright-lsp@claude-plugins-official
+```
+
+> **주의**: `/plugins` 아니라 `/plugin` 이고, 마켓플레이스는 `claude-code-lsps`가 아니라 `claude-plugins-official`
+
+### 4. 제공 기능
+
+| 기능 | 설명 |
+|------|------|
+| goToDefinition | 함수/클래스 정의 위치로 즉시 이동 |
+| findReferences | 전체 코드베이스에서 사용처 검색 |
+| hover | 타입·문서 정보 즉시 조회 |
+| documentSymbol | 파일 내 심볼 목록 |
+| workspaceSymbol | 프로젝트 전체 심볼 검색 |
+| incomingCalls | 이 함수를 호출하는 곳 추적 |
+| outgoingCalls | 이 함수가 호출하는 곳 추적 |
+
+## 검증 결과 (2026-03-09)
+
+| LSP 기능 | 테스트 대상 | 결과 |
+|----------|------------|------|
+| documentSymbol | DamageCalc.ts | 함수/인터페이스 전체 즉시 나열 |
+| findReferences | Player.ts | 10개 참조 즉시 추적 |
+| hover | calculateDamage() | 함수 시그니처+타입 즉시 표시 |
+| incomingCalls | calculateDamage() | WeaponSystem 7개 호출처 추적 |
+| 자동 진단 | Player.ts | 미사용 변수 2개 자동 감지 |
+
+## 벤치마크 기준선 (grep 속도, 비교용)
+
+```
+측정일: 2026-03-09 11:36
+프로젝트 TS 파일: 15,900개
+메모리: 24GB 총 / 1.2GB 사용
+
+grep 검색 속도:
+  [1] 'function render' in WanChai/src: 43ms
+  [2] 'export' in full project: 4,498ms
+  [3] 'interface.*Config' in full project: 3,157ms
+  [4] find all TS files: 2,051ms
+```
+
+> grep 자체 속도는 변하지 않음. LSP의 효과는 grep을 대체하는 시맨틱 탐색에 있음.
+
+## 성과 모니터링
+
+벤치마크 재실행:
+```bash
+bash ~/.claude/lsp-benchmark.sh
+```
+
+로그 위치: `~/.claude/lsp-benchmark-log.md`
+
+## 롤백 방법
+
+문제 발생 시 즉시 되돌리기:
+```bash
+bash ~/.claude/lsp-rollback.sh
+```
+
+이 스크립트는:
+1. `~/.claude/settings.json`에서 `env` 블록 제거
+2. `~/.zshrc`에서 `ENABLE_LSP_TOOL` 라인 제거
+3. Claude Code 재시작 안내
+
+## 주의사항
+
+- **공식 플러그인 시스템**: `claude-plugins-official` 마켓플레이스 통해 설치 (공식 문서: [code.claude.com/docs/en/discover-plugins](https://code.claude.com/docs/en/discover-plugins))
+- **블로그 글 오류**: `vtsls@claude-code-lsps` 마켓플레이스는 존재하지 않음. 실제로는 `typescript-lsp@claude-plugins-official`
+- **메모리**: LSP 서버 상시 구동으로 RAM 추가 사용 (24GB 중 1.2→1.4GB 미미한 증가)
+- **초기 로딩**: 15,900개 파일 인덱싱에 첫 시작 시 시간 소요
+- **안정성**: 문제 시 `lsp-rollback.sh`로 즉시 복원 가능

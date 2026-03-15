@@ -1,0 +1,40 @@
+Pack #5 includes:
+
+Music Tracks:
+
+Winter_ambient_loopable – winter ambient track suitable for interface/background use
+Mine_theme_snow_city_loopable – main theme for the Snow City location
+Main_theme_snow_city_alternative_loopable – alternative main theme
+Battle_theme_snow_city_loopable – battle theme for the Snow City location
+Dark_winter_theme – dark winter theme for tense or dramatic moments
+
+Sounds inspired by the SIGNS AND BARRIERS pack:
+
+Barrier_rises – barrier gate raising
+Barrier_lowered – barrier gate lowering
+Countdown – countdown sound before the round starts, suitable for traffic lights
+Warning_Bell_loopable – loopable warning bell sound, typically used at railway crossings after the barrier lowers
+
+Notification_1 / Notification_2 – two notification sound variations for UI use (e.g., new mission, task, quest)
+Notification_incorrect – sound indicating incorrect action or access denied
+Notification_correct – sound indicating successful action or access granted
+
+Sounds inspired by the SNOW CITY series packs:
+
+Snow_fall – sound of a chunk of snow falling
+Icicle_breaks – icicle breaking sound
+Snowstorm_loopable – loopable background snowstorm/blizzard sound
+Ice_chest – opening an ice chest
+
+Blaster – blaster shot
+Ice_laser / Laser – frost laser shot and regular laser shot
+Ice_Tank_shot / Tank_shot – frost tank shot and regular tank shot
+Mech_claw / Claw – mechanical claw click (with and without mechanical effect)
+Tank_attacks – tank attack sound
+Sledgehammer_1 / Sledgehammer_2 – sledgehammer hit
+
+Snowman_death – snowman death sound (snowman collapsing)
+Cube_sounds_1 / Cube_sounds_2 – sounds of a rotating/reassembling cube
+Cube_death – cube death sound (cube breaking apart)
+
+Snowman_spider_steps – four randomized step variations for the Snowman Spider enemy

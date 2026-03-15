@@ -1,0 +1,2748 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SSBL Log Schema Viewer</title>
+    <style>
+      :root {
+        --bg: #0f1117;
+        --card: #1a1d27;
+        --card2: #161822;
+        --border: #2a2d3a;
+        --text: #e4e4e7;
+        --text2: #c8c9cf;
+        --muted: #8b8d98;
+        --dim: #5a5d6e;
+        --accent: #8b5cf6;
+        --done: #22c55e;
+        --wip: #3b82f6;
+        --p0: #ef4444;
+        --p1: #f59e0b;
+        --green-bg: rgba(34, 197, 94, 0.1);
+        --blue-bg: rgba(59, 130, 246, 0.1);
+        --red-bg: rgba(239, 68, 68, 0.1);
+        --yellow-bg: rgba(245, 158, 11, 0.1);
+        --purple-bg: rgba(139, 92, 246, 0.1);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, "Pretendard", "Noto Sans KR", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+        font-size: 15px;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 40px 32px 80px;
+      }
+      h1 {
+        font-size: 36px;
+        font-weight: 900;
+        letter-spacing: -1.5px;
+        margin-bottom: 6px;
+      }
+      .sub {
+        font-size: 16px;
+        color: var(--muted);
+        margin-bottom: 32px;
+      }
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      }
+      .tab {
+        padding: 8px 18px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        background: var(--card);
+        color: var(--muted);
+        transition: all 0.2s;
+      }
+      .tab:hover {
+        border-color: var(--accent);
+        color: var(--text);
+      }
+      .tab.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .stats {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+      }
+      .stat {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px 24px;
+        min-width: 120px;
+      }
+      .stat-val {
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: -1px;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 700;
+        margin-top: 2px;
+      }
+      .search-bar {
+        margin-bottom: 24px;
+      }
+      .search-bar input {
+        width: 100%;
+        max-width: 400px;
+        padding: 10px 16px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        color: var(--text);
+        font-size: 14px;
+        outline: none;
+      }
+      .search-bar input:focus {
+        border-color: var(--accent);
+      }
+      .log-group {
+        margin-bottom: 16px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      .log-group.open {
+        border-color: var(--accent);
+      }
+      .log-header {
+        padding: 20px 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        user-select: none;
+        transition: background 0.15s;
+      }
+      .log-header:hover {
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .log-status {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .log-name {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        flex: 1;
+      }
+      .log-cat {
+        font-size: 12px;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 8px;
+        background: var(--purple-bg);
+        color: var(--accent);
+      }
+      .log-count {
+        font-size: 13px;
+        color: var(--dim);
+        font-weight: 700;
+      }
+      .log-chevron {
+        font-size: 20px;
+        color: var(--muted);
+        transition: transform 0.3s;
+      }
+      .log-group.open .log-chevron {
+        transform: rotate(180deg);
+        color: var(--accent);
+      }
+      .log-def {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      .log-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out;
+      }
+      .log-group.open .log-body {
+        max-height: 2000px;
+        transition: max-height 0.5s ease-in;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        text-align: left;
+        padding: 10px 16px;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 700;
+        border-bottom: 1px solid var(--border);
+        background: var(--card2);
+        white-space: nowrap;
+      }
+      td {
+        padding: 10px 16px;
+        font-size: 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        color: var(--text2);
+      }
+      tr:hover td {
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .col-name {
+        font-weight: 700;
+        color: var(--text);
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 13px;
+      }
+      .col-type {
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 12px;
+        color: var(--wip);
+      }
+      .col-sample {
+        font-size: 12px;
+        color: var(--dim);
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .col-note {
+        font-size: 12px;
+        color: var(--dim);
+        max-width: 250px;
+      }
+      .ver-badge {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 6px;
+      }
+      .ver-001 {
+        background: var(--green-bg);
+        color: var(--done);
+      }
+      .ver-002 {
+        background: var(--blue-bg);
+        color: var(--wip);
+      }
+      .status-icon {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 6px;
+      }
+      .st-green {
+        background: var(--done);
+      }
+      .st-yellow {
+        background: var(--p1);
+      }
+      .st-red {
+        background: var(--p0);
+      }
+      .st-black {
+        background: var(--dim);
+      }
+      .footer {
+        margin-top: 48px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        font-size: 14px;
+        color: var(--dim);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .footer a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .legend {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 24px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .legend span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .funnel-map {
+        padding: 16px 24px;
+        border-top: 1px solid var(--border);
+      }
+      .funnel-map-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+      .funnel-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 0;
+        font-size: 13px;
+      }
+      .funnel-screen {
+        font-weight: 700;
+        color: var(--accent);
+        min-width: 120px;
+      }
+      .funnel-action {
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 12px;
+        color: var(--text2);
+        padding: 3px 10px;
+        border-radius: 6px;
+        background: var(--card2);
+      }
+      @media (max-width: 768px) {
+        .container {
+          padding: 24px 16px 60px;
+        }
+        h1 {
+          font-size: 24px;
+        }
+        .stats {
+          gap: 10px;
+        }
+        .stat {
+          padding: 12px 16px;
+          min-width: 100px;
+        }
+        .stat-val {
+          font-size: 22px;
+        }
+        .log-header {
+          padding: 14px 16px;
+          gap: 10px;
+        }
+        .log-name {
+          font-size: 15px;
+        }
+        th,
+        td {
+          padding: 8px 10px;
+          font-size: 12px;
+        }
+        .col-sample,
+        .col-note {
+          max-width: 120px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>SSBL Log Schema</h1>
+      <div class="sub">v0.0.1 (기존) + v0.0.2 (신규) — 총 로그 스키마 뷰어</div>
+
+      <div class="stats" id="stats"></div>
+
+      <div class="legend">
+        <span><span class="status-icon st-green"></span>구현완료 🟢</span>
+        <span><span class="status-icon st-yellow"></span>부분구현 🟡</span>
+        <span><span class="status-icon st-red"></span>미구현 🔴</span>
+        <span><span class="status-icon st-black"></span>논의필요 ⚫️</span>
+      </div>
+
+      <div class="tabs" id="tabs"></div>
+      <div class="search-bar">
+        <input
+          type="text"
+          id="search"
+          placeholder="로그명 또는 속성명 검색..."
+        />
+      </div>
+      <div id="logs"></div>
+
+      <div class="footer">
+        <div>SSBL Log Schema Viewer</div>
+        <div>
+          <a href="/">대시보드 &rarr;</a> &nbsp;
+          <a href="/briefing.html">브리핑 &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const LOGS = [
+        // ===== v0.0.1 기존 =====
+        {
+          name: "purchase_result",
+          cat: "결제/수익",
+          def: "결제 완료 시 기록되는 로그",
+          ver: "0.0.1",
+          status: "red",
+          props: [
+            {
+              name: "project_name",
+              def: "프로젝트 구분",
+              type: "string",
+              sample: "SSBL, SSCB, SSGO, SSM, SSJ",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "member_oid",
+              def: "유저 구분자",
+              type: "string",
+              sample: "99999",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "country",
+              def: "국가 구분자",
+              type: "string",
+              sample: "KR, US, JP, CN, XX, ZZ",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "os_type",
+              def: "운영체제 타입",
+              type: "string",
+              sample: "iOS, AOS, UNKNOWN",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "store_type",
+              def: "결제 진행된 스토어 타입",
+              type: "string",
+              sample: "apple, google, cafe24",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "store_sku",
+              def: "스토어 상품 식별자",
+              type: "string",
+              sample: "season_pass_1",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "product_id",
+              def: "게임 데이터 테이블 상품 식별자",
+              type: "int",
+              sample: "1001",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "product_type",
+              def: "상품 타입 구분자",
+              type: "string",
+              sample: "starpass, draw_photo_card",
+              note: "테이블 조인 vs 직접 기록 논의",
+              status: "black",
+            },
+            {
+              name: "artist_group_code",
+              def: "아티스트 소속 그룹 코드",
+              type: "int",
+              sample: "0(=unknown), 1,2,3,4,5",
+              note: "테이블 조인 vs 직접 기록 논의",
+              status: "black",
+            },
+            {
+              name: "artist_code",
+              def: "아티스트 이름 코드",
+              type: "int",
+              sample: "0(=unknown), 101,102,103",
+              note: "테이블 조인 vs 직접 기록 논의",
+              status: "black",
+            },
+            {
+              name: "price_type",
+              def: "결제 타입",
+              type: "string",
+              sample: "cash, dia, rp, ad, free",
+              note: "rp price_value=0이면 free",
+              status: "black",
+            },
+            {
+              name: "price_value",
+              def: "상품 가격 (cash=달러 기준)",
+              type: "int",
+              sample: "9.99",
+              note: "테이블 조인 vs 직접 기록 논의",
+              status: "black",
+            },
+            {
+              name: "date",
+              def: "로그 기록 날짜 시간",
+              type: "datetime",
+              sample: "2077-02-17 23:59:59",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "app_version",
+              def: "앱 버전",
+              type: "string",
+              sample: "1.0.10",
+              note: "",
+              status: "red",
+            },
+          ],
+        },
+        {
+          name: "get_collection_point",
+          cat: "컬렉션",
+          def: "수집 포인트 획득 시 기록되는 로그",
+          ver: "0.0.1",
+          status: "red",
+          props: [
+            {
+              name: "member_oid",
+              def: "유저 구분자",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "artist_group_code",
+              def: "아티스트 소속 그룹 코드",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "album_code",
+              def: "수집 포인트 획득 앨범 코드",
+              type: "int",
+              sample: "1,2,3,4,5",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "point_source",
+              def: "수집 포인트 획득 루트",
+              type: "string",
+              sample: "music, photocard, background",
+              note: "어떤 과업으로 획득했는지",
+              status: "red",
+            },
+            {
+              name: "point_amount",
+              def: "수집 포인트 획득량",
+              type: "int",
+              sample: "10, 20, 30, 40",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "date",
+              def: "로그 기록 날짜 시간",
+              type: "datetime",
+              sample: "2077-02-17 23:59:59",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "app_version",
+              def: "앱 버전",
+              type: "string",
+              sample: "1.0.10",
+              note: "",
+              status: "red",
+            },
+          ],
+        },
+        {
+          name: "AlbumLeagueAllocateLog",
+          cat: "앨범 리그",
+          def: "각 앨범 리그 배치 시 기록되는 로그",
+          ver: "0.0.1",
+          status: "yellow",
+          props: [
+            {
+              name: "createdAt",
+              def: "로그 생성 시간",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "yellow",
+            },
+            {
+              name: "actionId",
+              def: "액션 아이디",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "yellow",
+            },
+            {
+              name: "owner",
+              def: "유저 구분자",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "yellow",
+            },
+            {
+              name: "seasonId",
+              def: "앨범 리그 시즌 ID",
+              type: "int",
+              sample: "1",
+              note: "",
+              status: "yellow",
+            },
+            {
+              name: "albumCode",
+              def: "유저가 배치된 앨범 코드",
+              type: "int",
+              sample: "1001",
+              note: "",
+              status: "yellow",
+            },
+            {
+              name: "matchCode",
+              def: "경쟁 구간 코드",
+              type: "int",
+              sample: "1",
+              note: "AlbumLeagueMatchData.code",
+              status: "yellow",
+            },
+            {
+              name: "realCollectionLevel",
+              def: "배치 시 실제 컬렉션 레벨",
+              type: "int",
+              sample: "1",
+              note: "",
+              status: "yellow",
+            },
+          ],
+        },
+        {
+          name: "AlbumLeagueSettlementLog",
+          cat: "앨범 리그",
+          def: "앨범 리그 결산 보상 획득 시 기록",
+          ver: "0.0.1",
+          status: "yellow",
+          props: [
+            {
+              name: "createdAt",
+              def: "로그 생성 시간",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "yellow",
+            },
+            {
+              name: "actionId",
+              def: "액션 아이디",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "yellow",
+            },
+            {
+              name: "owner",
+              def: "유저 아이디",
+              type: "bigint",
+              sample: "99999",
+              note: "",
+              status: "yellow",
+            },
+            {
+              name: "seasonId",
+              def: "앨범 리그 시즌 ID",
+              type: "int",
+              sample: "1",
+              note: "",
+              status: "yellow",
+            },
+            {
+              name: "rewardJson",
+              def: "앨범 리그 참여 결과 보상",
+              type: "json",
+              sample: "[{AlbumCode, MatchCode, RewardGroupId, Rank, Score}]",
+              note: "참여 앨범별 결과",
+              status: "yellow",
+            },
+          ],
+        },
+        {
+          name: "AlbumCollectionLog",
+          cat: "앨범",
+          def: "앨범 컬렉션 포인트 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "albumCode",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "collectionType",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "앨범/카드/배경 포인트",
+              status: "green",
+            },
+            {
+              name: "beforePoint",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "afterPoint",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "amount",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "AlbumStarterPackLog",
+          cat: "앨범",
+          def: "앨범 스타터팩 트랜잭션",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "생성일",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "유저 아이디",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "albumDataCode",
+              def: "앨범 데이터 코드",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "AssetStackLedgerLog",
+          cat: "재화",
+          def: "재화 증감 이력 추적",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "userObjectId",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "controllerName",
+              def: "로그 발생 controller",
+              type: "varchar(50)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionName",
+              def: "로그 발생 ActionName",
+              type: "varchar(50)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "logActionType",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "itemType",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "delta",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "before",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "after",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "AttendanceLog",
+          cat: "출석",
+          def: "출석 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "day",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "eventType",
+              def: "",
+              type: "smallint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "itemType",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "month",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "normalDouble",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "quantity",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "CardAcquireLog",
+          cat: "카드",
+          def: "카드 획득 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "logActionType",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "subType1",
+              def: "",
+              type: "varchar(50)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "subType2",
+              def: "",
+              type: "varchar(50)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "cardObjectId",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "cardId",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "cardLevel",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "cardGrade",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "metaData",
+              def: "",
+              type: "json",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "CardConsumeLog",
+          cat: "카드",
+          def: "카드 소모 로그 (판매 포함)",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "logActionType",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "cardId",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "cardGrade",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "cardLevel",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "cardLimitBreak",
+              def: "",
+              type: "bit(1)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardObjectId",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardId",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardGrade",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardLevel",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "amount",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "CardGradeUpLog",
+          cat: "카드",
+          def: "카드 등급업 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardObjectId",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardId",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardLevel",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "beforeCardGrade",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "afterCardGrade",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "amount",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "CardLevelUpLog",
+          cat: "카드",
+          def: "카드 레벨업 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardObjectId",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardId",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "beforeLevel",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "afterLevel",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "beforeExp",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "afterExp",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "amount",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "레벨업에 소모된 재화 양",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "CardLimitBreakLog",
+          cat: "카드",
+          def: "카드 리미트브레이크 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardObjectId",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardId",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardLevel",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "targetCardGrade",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "beforeMileage",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "afterMileage",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "amount",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "isSuccess",
+              def: "성공 여부",
+              type: "bit(1)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "CardPackLog",
+          cat: "카드팩/뽑기",
+          def: "카드팩 획득 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "logActionType",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "cardPackCode",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "messageBoxId",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "인벤토리 만석 시 우편 발송",
+              status: "green",
+            },
+            {
+              name: "isPickUp",
+              def: "픽업 뽑기 여부",
+              type: "bit(1)",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "pityBefore",
+              def: "뽑기 전 천장 카운트",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "pityAfter",
+              def: "뽑기 후 천장 카운트",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "isPityTriggered",
+              def: "천장 발동 여부",
+              type: "bit(1)",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+          ],
+        },
+        {
+          name: "ContentEntitlementLog",
+          cat: "콘텐츠",
+          def: "한번만 구매 가능한 항목 획득 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "logActionType",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "providableItemType",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "itemCode",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "itemObjectId",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "GachaTicketLog",
+          cat: "카드팩/뽑기",
+          def: "뽑기 티켓 획득 소모 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "gachaId",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "beforeValue",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "afterValue",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "MessageLog",
+          cat: "우편함",
+          def: "우편함 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "deleteType",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "수령/만료/유저삭제",
+              status: "green",
+            },
+            {
+              name: "messageObjectId",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "expiredAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "itemType",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "itemId",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "quantity",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "itemV1",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "itemV2",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "status",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "receivedAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "NicknameChangeLog",
+          cat: "유저",
+          def: "닉네임 변경 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "changeNickname",
+              def: "",
+              type: "varchar(50)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        {
+          name: "StageStartLog",
+          cat: "플레이",
+          def: "플레이 시작 로그",
+          ver: "0.0.1",
+          status: "green",
+          props: [
+            {
+              name: "createdAt",
+              def: "",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "actionId",
+              def: "",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "owner",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "albumCode",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "musicCode",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "difficult",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "collectionRealLevel",
+              def: "",
+              type: "int",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+            {
+              name: "albumLeagueId",
+              def: "",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "green",
+            },
+          ],
+        },
+        // ===== v0.0.2 신규 =====
+        {
+          name: "StageEndLog",
+          cat: "플레이",
+          def: "플레이 종료 시 기록되는 로그",
+          ver: "0.0.2",
+          status: "red",
+          props: [
+            {
+              name: "createdAt",
+              def: "로그 생성 시간",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "actionId",
+              def: "액션 아이디",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "owner",
+              def: "유저 구분자",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "albumCode",
+              def: "앨범 코드",
+              type: "int",
+              sample: "1001",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "musicCode",
+              def: "음악 코드",
+              type: "int",
+              sample: "2001",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "difficult",
+              def: "난이도",
+              type: "int",
+              sample: "1,2,3",
+              note: "StageStartLog와 동일",
+              status: "red",
+            },
+            {
+              name: "score",
+              def: "최종 점수",
+              type: "int",
+              sample: "982350",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "maxCombo",
+              def: "최대 콤보",
+              type: "int",
+              sample: "347",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "perfectCount",
+              def: "Perfect 판정 수",
+              type: "int",
+              sample: "280",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "greatCount",
+              def: "Great 판정 수",
+              type: "int",
+              sample: "50",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "goodCount",
+              def: "Good 판정 수",
+              type: "int",
+              sample: "15",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "missCount",
+              def: "Miss 판정 수",
+              type: "int",
+              sample: "5",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "isClear",
+              def: "클리어 여부",
+              type: "bit(1)",
+              sample: "1",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "isFullCombo",
+              def: "풀콤보 여부",
+              type: "bit(1)",
+              sample: "0",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "isAllPerfect",
+              def: "올퍼펙트 여부",
+              type: "bit(1)",
+              sample: "0",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "playTime",
+              def: "플레이 시간(초)",
+              type: "int",
+              sample: "135",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "collectionRealLevel",
+              def: "플레이 시 컬렉션 레벨",
+              type: "int",
+              sample: "5",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "albumLeagueId",
+              def: "앨범 리그 ID",
+              type: "bigint",
+              sample: "",
+              note: "null이면 리그 외 플레이",
+              status: "red",
+            },
+            {
+              name: "endType",
+              def: "종료 유형",
+              type: "varchar(20)",
+              sample: "clear, fail, pause_exit",
+              note: "클리어/실패/일시정지 후 나가기",
+              status: "red",
+            },
+          ],
+        },
+        {
+          name: "OnboardingLog",
+          cat: "온보딩",
+          def: "온보딩 단계 진행 시 기록되는 로그",
+          ver: "0.0.2",
+          status: "red",
+          props: [
+            {
+              name: "createdAt",
+              def: "로그 생성 시간",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "actionId",
+              def: "액션 아이디",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "owner",
+              def: "유저 구분자",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "stepCode",
+              def: "온보딩 단계 코드",
+              type: "varchar(30)",
+              sample:
+                "welcome, nickname, artist_select, first_play, first_draw, collection_intro, shop_intro, league_intro, complete",
+              note: "각 단계를 고유 코드로 구분",
+              status: "red",
+            },
+            {
+              name: "stepOrder",
+              def: "온보딩 단계 순서",
+              type: "int",
+              sample: "1,2,...,9",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "action",
+              def: "단계 내 액션",
+              type: "varchar(20)",
+              sample: "start, complete, skip",
+              note: "시작/완료/스킵 구분",
+              status: "red",
+            },
+            {
+              name: "durationSec",
+              def: "해당 단계 소요 시간(초)",
+              type: "int",
+              sample: "45",
+              note: "start~complete 사이",
+              status: "red",
+            },
+          ],
+        },
+        {
+          name: "TutorialLog",
+          cat: "튜토리얼",
+          def: "튜토리얼 진행 시 기록되는 로그",
+          ver: "0.0.2",
+          status: "red",
+          props: [
+            {
+              name: "createdAt",
+              def: "로그 생성 시간",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "actionId",
+              def: "액션 아이디",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "owner",
+              def: "유저 구분자",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "tutorialId",
+              def: "튜토리얼 식별자",
+              type: "varchar(30)",
+              sample:
+                "tut_play_basic, tut_draw, tut_upgrade, tut_league, tut_shop",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "stepIndex",
+              def: "튜토리얼 내 스텝 인덱스",
+              type: "int",
+              sample: "1,2,3",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "totalSteps",
+              def: "튜토리얼 총 스텝 수",
+              type: "int",
+              sample: "5",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "action",
+              def: "액션",
+              type: "varchar(20)",
+              sample: "start, step_complete, complete, skip",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "durationSec",
+              def: "소요 시간(초)",
+              type: "int",
+              sample: "30",
+              note: "",
+              status: "red",
+            },
+          ],
+        },
+        {
+          name: "AlbumLevelLog",
+          cat: "앨범",
+          def: "앨범 레벨 변동 시 기록되는 로그",
+          ver: "0.0.2",
+          status: "red",
+          props: [
+            {
+              name: "createdAt",
+              def: "로그 생성 시간",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "actionId",
+              def: "액션 아이디",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "owner",
+              def: "유저 구분자",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "albumCode",
+              def: "앨범 코드",
+              type: "int",
+              sample: "1001",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "beforeLevel",
+              def: "변경 전 레벨",
+              type: "int",
+              sample: "3",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "afterLevel",
+              def: "변경 후 레벨",
+              type: "int",
+              sample: "4",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "beforeExp",
+              def: "변경 전 경험치",
+              type: "int",
+              sample: "950",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "afterExp",
+              def: "변경 후 경험치",
+              type: "int",
+              sample: "50",
+              note: "레벨업 후 잔여",
+              status: "red",
+            },
+            {
+              name: "source",
+              def: "레벨업 원인",
+              type: "varchar(30)",
+              sample: "play, card_upgrade, collection",
+              note: "",
+              status: "red",
+            },
+          ],
+        },
+        {
+          name: "SeasonPassLog",
+          cat: "시즌패스",
+          def: "시즌패스 관련 기록 로그",
+          ver: "0.0.2",
+          status: "red",
+          props: [
+            {
+              name: "createdAt",
+              def: "로그 생성 시간",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "actionId",
+              def: "액션 아이디",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "owner",
+              def: "유저 구분자",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "seasonId",
+              def: "시즌 식별자",
+              type: "int",
+              sample: "1",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "action",
+              def: "액션 유형",
+              type: "varchar(20)",
+              sample: "purchase, level_up, reward_claim",
+              note: "구매/레벨업/보상수령",
+              status: "red",
+            },
+            {
+              name: "passType",
+              def: "패스 타입",
+              type: "varchar(20)",
+              sample: "free, premium",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "beforeLevel",
+              def: "변경 전 레벨",
+              type: "int",
+              sample: "10",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "afterLevel",
+              def: "변경 후 레벨",
+              type: "int",
+              sample: "11",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "rewardId",
+              def: "수령한 보상 ID",
+              type: "int",
+              sample: "5001",
+              note: "reward_claim 시",
+              status: "red",
+            },
+            {
+              name: "rewardType",
+              def: "보상 아이템 타입",
+              type: "varchar(30)",
+              sample: "dia, card_pack, profile_bg",
+              note: "reward_claim 시",
+              status: "red",
+            },
+            {
+              name: "rewardQuantity",
+              def: "보상 수량",
+              type: "int",
+              sample: "100",
+              note: "reward_claim 시",
+              status: "red",
+            },
+          ],
+        },
+        {
+          name: "EventPassLog",
+          cat: "이벤트패스",
+          def: "이벤트패스 관련 기록 로그",
+          ver: "0.0.2",
+          status: "red",
+          props: [
+            {
+              name: "createdAt",
+              def: "로그 생성 시간",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "actionId",
+              def: "액션 아이디",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "owner",
+              def: "유저 구분자",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "eventId",
+              def: "이벤트 식별자",
+              type: "int",
+              sample: "1",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "eventName",
+              def: "이벤트명",
+              type: "varchar(50)",
+              sample: "valentine_2026",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "action",
+              def: "액션 유형",
+              type: "varchar(20)",
+              sample: "purchase, level_up, reward_claim, mission_complete",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "passType",
+              def: "패스 타입",
+              type: "varchar(20)",
+              sample: "free, premium",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "beforeLevel",
+              def: "변경 전 레벨",
+              type: "int",
+              sample: "5",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "afterLevel",
+              def: "변경 후 레벨",
+              type: "int",
+              sample: "6",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "rewardId",
+              def: "수령한 보상 ID",
+              type: "int",
+              sample: "7001",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "rewardType",
+              def: "보상 아이템 타입",
+              type: "varchar(30)",
+              sample: "dia, card_pack, limited_card",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "rewardQuantity",
+              def: "보상 수량",
+              type: "int",
+              sample: "1",
+              note: "",
+              status: "red",
+            },
+          ],
+        },
+        {
+          name: "ProfileCustomizeLog",
+          cat: "유저",
+          def: "프로필 커스터마이즈 변경 로그",
+          ver: "0.0.2",
+          status: "red",
+          props: [
+            {
+              name: "createdAt",
+              def: "로그 생성 시간",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "actionId",
+              def: "액션 아이디",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "owner",
+              def: "유저 구분자",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "customizeType",
+              def: "커스텀 유형",
+              type: "varchar(30)",
+              sample: "profile_icon, profile_bg, title_badge, favorite_card",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "beforeItemId",
+              def: "변경 전 아이템 ID",
+              type: "int",
+              sample: "0",
+              note: "0=미설정",
+              status: "red",
+            },
+            {
+              name: "afterItemId",
+              def: "변경 후 아이템 ID",
+              type: "int",
+              sample: "3001",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "source",
+              def: "획득 경로",
+              type: "varchar(30)",
+              sample: "default, purchase, event, achievement, season_pass",
+              note: "",
+              status: "red",
+            },
+          ],
+        },
+        {
+          name: "ScreenEventLog",
+          cat: "퍼널",
+          def: "화면 단위 유저 인터랙션 퍼널 로그",
+          ver: "0.0.2",
+          status: "red",
+          funnel: [
+            {
+              screen: "pause",
+              actions: ["close (닫기)", "exit (나가기)", "restart (재시작)"],
+            },
+            {
+              screen: "result",
+              actions: [
+                "restart (재시작)",
+                "inventory (인벤토리)",
+                "next (다음)",
+              ],
+            },
+            {
+              screen: "weekly_league",
+              actions: [
+                "enter (화면 진입)",
+                "hall_of_fame (명예의 전당)",
+                "reward_detail (보상 상세)",
+                "my_score (내 점수)",
+                "album_select (앨범 선택)",
+              ],
+            },
+            {
+              screen: "nav_fixed",
+              actions: [
+                "nav_popup (네비 팝업 진입)",
+                "shop (상점)",
+                "inventory (인벤토리)",
+                "collection (콜렉션)",
+                "league (리그)",
+                "season_pass (시즌패스)",
+                "event_pass (이벤트패스)",
+                "settings (설정)",
+                "help (도움말)",
+                "restore_purchase (구매복원)",
+                "notice (공지)",
+                "attendance (출석부)",
+              ],
+            },
+          ],
+          props: [
+            {
+              name: "createdAt",
+              def: "로그 생성 시간",
+              type: "datetime",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "actionId",
+              def: "액션 아이디",
+              type: "binary(16)",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "owner",
+              def: "유저 구분자",
+              type: "bigint",
+              sample: "",
+              note: "",
+              status: "red",
+            },
+            {
+              name: "screenName",
+              def: "화면 이름",
+              type: "varchar(50)",
+              sample: "pause, result, weekly_league, nav_fixed",
+              note: "화면/영역 구분",
+              status: "red",
+            },
+            {
+              name: "actionName",
+              def: "액션 이름",
+              type: "varchar(50)",
+              sample: "close, exit, restart, shop...",
+              note: "화면 내 구체적 행동",
+              status: "red",
+            },
+            {
+              name: "contextJson",
+              def: "부가 컨텍스트 (선택)",
+              type: "json",
+              sample: '{"albumCode":1001}',
+              note: "화면별 추가 정보",
+              status: "red",
+            },
+          ],
+        },
+      ];
+
+      const STATUS_COLOR = {
+        green: "st-green",
+        yellow: "st-yellow",
+        red: "st-red",
+        black: "st-black",
+      };
+      const STATUS_LABEL = {
+        green: "🟢",
+        yellow: "🟡",
+        red: "🔴",
+        black: "⚫️",
+      };
+
+      // Compute stats
+      const totalLogs = LOGS.length;
+      const totalProps = LOGS.reduce((s, l) => s + l.props.length, 0);
+      const v1 = LOGS.filter((l) => l.ver === "0.0.1").length;
+      const v2 = LOGS.filter((l) => l.ver === "0.0.2").length;
+      const greens = LOGS.filter((l) => l.status === "green").length;
+
+      document.getElementById("stats").innerHTML = `
+  <div class="stat"><div class="stat-val">${totalLogs}</div><div class="stat-label">로그 종류</div></div>
+  <div class="stat"><div class="stat-val">${totalProps}</div><div class="stat-label">총 속성</div></div>
+  <div class="stat"><div class="stat-val">${v1}</div><div class="stat-label">v0.0.1 기존</div></div>
+  <div class="stat"><div class="stat-val" style="color:var(--wip)">${v2}</div><div class="stat-label">v0.0.2 신규</div></div>
+  <div class="stat"><div class="stat-val" style="color:var(--done)">${greens}</div><div class="stat-label">구현완료</div></div>
+`;
+
+      // Tabs
+      const cats = ["전체", ...new Set(LOGS.map((l) => l.cat))];
+      let activeCat = "전체";
+      function renderTabs() {
+        document.getElementById("tabs").innerHTML = cats
+          .map(
+            (c) =>
+              `<div class="tab${c === activeCat ? " active" : ""}" onclick="filterCat('${c}')">${c}</div>`,
+          )
+          .join("");
+      }
+      function filterCat(c) {
+        activeCat = c;
+        renderTabs();
+        renderLogs();
+      }
+
+      // Search
+      document
+        .getElementById("search")
+        .addEventListener("input", () => renderLogs());
+
+      function renderLogs() {
+        const q = document.getElementById("search").value.toLowerCase();
+        const el = document.getElementById("logs");
+        let html = "";
+        LOGS.forEach((log, i) => {
+          if (activeCat !== "전체" && log.cat !== activeCat) return;
+          const matchLog =
+            log.name.toLowerCase().includes(q) ||
+            log.def.toLowerCase().includes(q) ||
+            log.cat.toLowerCase().includes(q);
+          const matchProps = log.props.some(
+            (p) =>
+              p.name.toLowerCase().includes(q) ||
+              p.def.toLowerCase().includes(q),
+          );
+          if (q && !matchLog && !matchProps) return;
+
+          const verClass = log.ver === "0.0.1" ? "ver-001" : "ver-002";
+          html += `<div class="log-group" id="lg-${i}">`;
+          html += `<div class="log-header" onclick="toggleLog(${i})">`;
+          html += `<span class="log-status ${STATUS_COLOR[log.status]}"></span>`;
+          html += `<span class="log-name">${log.name}</span>`;
+          html += `<span class="log-cat">${log.cat}</span>`;
+          html += `<span class="ver-badge ${verClass}">${log.ver}</span>`;
+          html += `<span class="log-count">${log.props.length}개 속성</span>`;
+          html += `<span class="log-chevron">▾</span>`;
+          html += `</div>`;
+          html += `<div class="log-body">`;
+          if (log.def)
+            html += `<div style="padding:0 24px 12px;font-size:14px;color:var(--muted)">${log.def}</div>`;
+          html += `<table><thead><tr><th>상태</th><th>속성명</th><th>설명</th><th>타입</th><th>샘플 값</th><th>비고</th></tr></thead><tbody>`;
+          log.props.forEach((p) => {
+            const icon = `<span class="status-icon ${STATUS_COLOR[p.status]}"></span>`;
+            html += `<tr><td>${icon}</td><td class="col-name">${p.name}</td><td>${p.def}</td><td class="col-type">${p.type}</td><td class="col-sample" title="${p.sample}">${p.sample}</td><td class="col-note">${p.note}</td></tr>`;
+          });
+          html += `</tbody></table>`;
+          // Funnel map
+          if (log.funnel) {
+            html += `<div class="funnel-map"><div class="funnel-map-title">screenName + actionName 조합 맵</div>`;
+            log.funnel.forEach((f) => {
+              html += `<div style="margin-bottom:10px"><div class="funnel-row"><span class="funnel-screen">${f.screen}</span></div>`;
+              f.actions.forEach((a) => {
+                html += `<div class="funnel-row" style="padding-left:24px"><span style="color:var(--dim);margin-right:4px">└</span><span class="funnel-action">${a}</span></div>`;
+              });
+              html += `</div>`;
+            });
+            html += `</div>`;
+          }
+          html += `</div></div>`;
+        });
+        el.innerHTML =
+          html ||
+          '<div style="text-align:center;padding:60px;color:var(--muted)">검색 결과 없음</div>';
+      }
+      function toggleLog(i) {
+        document.getElementById("lg-" + i).classList.toggle("open");
+      }
+
+      renderTabs();
+      renderLogs();
+    </script>
+  </body>
+</html>
