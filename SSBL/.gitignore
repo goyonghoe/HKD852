@@ -16,6 +16,12 @@ data/*.parquet
 data/*.db
 !data/.gitkeep
 
+# 민감 데이터 — 게임 기획/밸런스/로그
+input/*.xlsx
+input/*.csv
+input/*.json
+design/*.xlsx
+
 # Node
 node_modules/
 .vercel
