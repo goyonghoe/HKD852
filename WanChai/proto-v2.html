@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>WanChai v2 — Prototype (Portrait Idle Auto-battler)</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #0b0d12;
+        color: #eaeaea;
+        font-family: -apple-system, 'Pretendard', sans-serif;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        padding: 10px 14px;
+        border-bottom: 1px solid #1d2129;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+      header .sub {
+        font-size: 11px;
+        color: #8a93a6;
+      }
+      header a {
+        color: #7aa2f7;
+        text-decoration: none;
+        margin-left: 12px;
+        font-size: 12px;
+      }
+      #game-wrap {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 12px 0 24px;
+      }
+      #game {
+        box-shadow:
+          0 0 0 1px #1d2129,
+          0 20px 60px rgba(0, 0, 0, 0.6);
+        border-radius: 28px;
+        overflow: hidden;
+        image-rendering: pixelated;
+      }
+      footer {
+        text-align: center;
+        color: #5b6478;
+        font-size: 11px;
+        padding: 10px;
+      }
+      kbd {
+        background: #1d2129;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 11px;
+        border: 1px solid #2a2f3b;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>WanChai v2 — Prototype</h1>
+        <div class="sub">세로 모드 Idle Auto-battler · 9:16</div>
+      </div>
+      <div>
+        <a href="tools/character-viewer.html">Characters</a>
+        <a href="tools/resource-viewer.html">Resources</a>
+      </div>
+    </header>
+
+    <div id="game-wrap"><div id="game"></div></div>
+
+    <footer>
+      <kbd>Space</kbd> 속도 · <kbd>R</kbd> 리셋 · <kbd>H</kbd> +HP
+      <span style="opacity: 0.5">· 터치 대응: 하단 버튼 탭</span>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.86.0/dist/phaser.min.js"></script>
+    <script>
+      // ============================================================
+      //  WanChai v2 — PORTRAIT prototype (9:16)
+      //  Layout: top battle area (0..BATTLE_H), bottom UI panel (BATTLE_H..GAME_H)
+      // ============================================================
+
+      const GAME_W = 480;
+      const GAME_H = 854;
+      const BATTLE_H = 560; // battle viewport
+      const UI_H = GAME_H - BATTLE_H; // 294
+      const GROUND_Y = 495; // feet line
+      const HERO_X = 140;
+      const SPRITE_SCALE = 3;
+
+      // Colors
+      const C = {
+        ui: 0x0f121a,
+        uiBorder: 0x1d2129,
+        accent: 0x7aa2f7,
+        gold: 0xfbbf24,
+        hp: 0x4ade80,
+        enemyHp: 0xef4444,
+        skill: 0x2a3142,
+        skillOn: 0x3b4868,
+        text: '#e6e6e6',
+        dim: '#94a3b8',
+      };
+
+      // Asset paths (relative to WanChai root)
+      const HERO_BASE =
+        'raw-assets/craftpix-cyberpunk/characters/craftpix-net-550902-police-cyberpunk-characters-pixel-art/1 Officer';
+      const ENEMY_PACK = 'raw-assets/craftpix-cyberpunk/enemies/craftpix-net-255422-enemies-chinese-street-pixel-art';
+      const BG_BASE =
+        'raw-assets/craftpix-cyberpunk/backgrounds/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Night';
+
+      const HERO_ANIMS = { Idle: 4, Walk: 6, Attack: 6, Hurt: 2, Death: 4 };
+      const ENEMY_ANIMS = { Idle: 4, Walk: 6, Attack: 6, Hurt: 2, Death: 6 };
+      const FRAME_SIZE = 48;
+
+      const TUNING = {
+        hero: { maxHp: 100, atk: 16, atkInterval: 900, range: 150 },
+        enemy: { maxHp: 35, atk: 6, atkInterval: 1200, range: 140, walkSpeed: 50 },
+        spawn: { interval: 1800, jitter: 600 },
+        gold: { perKill: 10 },
+        parallax: [6, 12, 20, 36, 60],
+        speedSteps: [1, 2, 3],
+      };
+
+      // ============================================================
+      class BattleScene extends Phaser.Scene {
+        constructor() {
+          super('battle');
+        }
+
+        preload() {
+          for (let i = 1; i <= 5; i++) this.load.image(`bg_${i}`, `${BG_BASE}/${i}.png`);
+          for (const [name, _] of Object.entries(HERO_ANIMS))
+            this.load.spritesheet(`hero_${name}`, `${HERO_BASE}/${name}.png`, {
+              frameWidth: FRAME_SIZE,
+              frameHeight: FRAME_SIZE,
+            });
+          for (const [name, _] of Object.entries(ENEMY_ANIMS))
+            this.load.spritesheet(`enemy_${name}`, `${ENEMY_PACK}/1/${name}.png`, {
+              frameWidth: FRAME_SIZE,
+              frameHeight: FRAME_SIZE,
+            });
+        }
+
+        create() {
+          this.state = {
+            speedMult: 1,
+            gold: 0,
+            kills: 0,
+            stage: 1,
+            waveInStage: 0,
+          };
+
+          this.buildParallax();
+          this.buildAnimations();
+          this.spawnHero();
+          this.enemies = this.add.group();
+          this.scheduleNextSpawn(1000);
+          this.buildUiPanel();
+          this.bindKeys();
+        }
+
+        // ---- Parallax ------------------------------------------------
+        buildParallax() {
+          this.bgLayers = [];
+          // battle area occupies y=0..BATTLE_H
+          for (let i = 1; i <= 5; i++) {
+            const tex = this.textures.get(`bg_${i}`);
+            const src = tex.getSourceImage();
+            // fit to cover full width+height of battle area (scale = max ratio)
+            const scale = Math.max(GAME_W / src.width, BATTLE_H / src.height);
+            const ts = this.add.tileSprite(0, 0, GAME_W, BATTLE_H, `bg_${i}`).setOrigin(0, 0);
+            ts.setTileScale(scale, scale);
+            this.bgLayers.push(ts);
+          }
+          // ground line highlight (subtle)
+          this.add.rectangle(0, GROUND_Y + 6, GAME_W, 2, 0x000000, 0.5).setOrigin(0, 0);
+          // battle/ui divider
+          this.add.rectangle(0, BATTLE_H, GAME_W, 1, 0x2a2f3b).setOrigin(0, 0);
+        }
+
+        // ---- Animations ----------------------------------------------
+        buildAnimations() {
+          const mk = (prefix, animMap) => {
+            for (const [name, frames] of Object.entries(animMap)) {
+              const key = `${prefix}_${name}_anim`;
+              if (this.anims.exists(key)) continue;
+              this.anims.create({
+                key,
+                frames: this.anims.generateFrameNumbers(`${prefix}_${name}`, { start: 0, end: frames - 1 }),
+                frameRate: name === 'Attack' ? 10 : 8,
+                repeat: name === 'Death' || name === 'Hurt' ? 0 : -1,
+              });
+            }
+          };
+          mk('hero', HERO_ANIMS);
+          mk('enemy', ENEMY_ANIMS);
+        }
+
+        // ---- Hero ----------------------------------------------------
+        spawnHero() {
+          const h = this.add.sprite(HERO_X, GROUND_Y, 'hero_Idle').setOrigin(0.5, 1).setScale(SPRITE_SCALE);
+          h.play('hero_Walk_anim');
+          h.state = {
+            hp: TUNING.hero.maxHp,
+            maxHp: TUNING.hero.maxHp,
+            atk: TUNING.hero.atk,
+            range: TUNING.hero.range,
+            atkInterval: TUNING.hero.atkInterval,
+            lastAttackAt: 0,
+            mode: 'walk',
+          };
+          this.hero = h;
+        }
+
+        // ---- Enemy ---------------------------------------------------
+        spawnEnemy() {
+          const stageScale = 1 + (this.state.stage - 1) * 0.15;
+          const e = this.add
+            .sprite(GAME_W + 80, GROUND_Y, 'enemy_Idle')
+            .setOrigin(0.5, 1)
+            .setScale(SPRITE_SCALE);
+          e.flipX = true;
+          e.play('enemy_Walk_anim');
+          e.state = {
+            hp: Math.round(TUNING.enemy.maxHp * stageScale),
+            maxHp: Math.round(TUNING.enemy.maxHp * stageScale),
+            atk: Math.round(TUNING.enemy.atk * stageScale),
+            range: TUNING.enemy.range,
+            atkInterval: TUNING.enemy.atkInterval,
+            walkSpeed: TUNING.enemy.walkSpeed,
+            lastAttackAt: 0,
+            mode: 'walk',
+          };
+          e.hpBar = this.buildSimpleBar(e.x, GROUND_Y - 155, 60, 5, C.enemyHp);
+          this.enemies.add(e);
+        }
+
+        scheduleNextSpawn(delay) {
+          const jitter = Phaser.Math.Between(-TUNING.spawn.jitter / 2, TUNING.spawn.jitter / 2);
+          this.time.delayedCall((delay ?? TUNING.spawn.interval) + jitter, () => {
+            this.spawnEnemy();
+            this.scheduleNextSpawn();
+          });
+        }
+
+        // ---- HP bar helper (above-sprite style) ----------------------
+        buildSimpleBar(x, y, w, h, color) {
+          const bg = this.add.rectangle(x, y, w, h, 0x1a1d24).setOrigin(0.5, 0.5).setStrokeStyle(1, 0x000000, 0.7);
+          const fg = this.add.rectangle(x - w / 2, y, w, h, color).setOrigin(0, 0.5);
+          return { bg, fg, w, h };
+        }
+        updateSimpleBar(bar, hp, maxHp, x) {
+          if (x !== undefined) {
+            bar.bg.x = x;
+            bar.fg.x = x - bar.w / 2;
+          }
+          bar.fg.width = bar.w * Phaser.Math.Clamp(hp / maxHp, 0, 1);
+        }
+        destroySimpleBar(bar) {
+          bar.bg.destroy();
+          bar.fg.destroy();
+        }
+
+        // ============================================================
+        //  Bottom UI Panel (y = BATTLE_H ..GAME_H)
+        // ============================================================
+        buildUiPanel() {
+          const u = this.add.container(0, BATTLE_H);
+          // panel bg
+          u.add(this.add.rectangle(0, 0, GAME_W, UI_H, C.ui).setOrigin(0, 0));
+          u.add(this.add.rectangle(0, 0, GAME_W, 2, 0x2a2f3b).setOrigin(0, 0));
+
+          // ---- Row 1: Stage / Gold / Kills (y 12~40) ----
+          this.uiStage = this.add.text(16, 14, '', { fontFamily: 'Pretendard', fontSize: '14px', color: C.text });
+          this.uiGold = this.add.text(16, 34, '', {
+            fontFamily: 'Pretendard',
+            fontSize: '14px',
+            color: '#fbbf24',
+            fontStyle: 'bold',
+          });
+          this.uiKills = this.add.text(140, 34, '', { fontFamily: 'Pretendard', fontSize: '14px', color: C.dim });
+          u.add([this.uiStage, this.uiGold, this.uiKills]);
+
+          // ---- Speed button (top-right, y 12) ----
+          const spdBtn = this.buildButton(GAME_W - 78, 14, 62, 32, '⚡ x1', () => {
+            const idx = TUNING.speedSteps.indexOf(this.state.speedMult);
+            this.state.speedMult = TUNING.speedSteps[(idx + 1) % TUNING.speedSteps.length];
+            this.time.timeScale = this.state.speedMult;
+            this.tweens.timeScale = this.state.speedMult;
+            spdBtn.setText(`⚡ x${this.state.speedMult}`);
+          });
+          u.add(spdBtn.container);
+          this.uiSpeedBtn = spdBtn;
+
+          // ---- Row 2: Hero status (y 60~100) ----
+          // portrait box
+          const portraitBg = this.add.rectangle(16, 60, 60, 60, 0x2a3142).setOrigin(0, 0).setStrokeStyle(1, 0x3b4868);
+          const portrait = this.add.sprite(46, 110, 'hero_Idle', 0).setOrigin(0.5, 1).setScale(2.0);
+          portrait.play('hero_Idle_anim');
+          u.add([portraitBg, portrait]);
+          // name + HP
+          const heroName = this.add.text(86, 62, 'Police Officer', {
+            fontFamily: 'Pretendard',
+            fontSize: '13px',
+            color: C.text,
+            fontStyle: 'bold',
+          });
+          this.uiHeroHpText = this.add.text(86, 80, '', { fontFamily: 'Pretendard', fontSize: '12px', color: C.dim });
+          // hero hp bar
+          this.uiHeroHp = this.buildPanelBar(86, 100, 340, 12, C.hp);
+          u.add([heroName, this.uiHeroHpText]);
+          u.add([this.uiHeroHp.bg, this.uiHeroHp.fg]);
+
+          // ---- Row 3: Skill buttons (y 150~230) ----
+          const skillY = 160;
+          const skillSize = 64;
+          const skillGap = 12;
+          const skillCount = 4;
+          const skillTotalW = skillCount * skillSize + (skillCount - 1) * skillGap;
+          const skillStartX = (GAME_W - skillTotalW) / 2;
+          const skillLabels = ['🥋', '⚡', '💥', '❤️'];
+          const skillNames = ['콤보', '속도', '폭렬', '회복'];
+          this.skillButtons = [];
+          for (let i = 0; i < skillCount; i++) {
+            const sx = skillStartX + i * (skillSize + skillGap);
+            const btn = this.buildSkillButton(sx, skillY, skillSize, skillLabels[i], skillNames[i]);
+            u.add(btn.container);
+            this.skillButtons.push(btn);
+          }
+
+          // ---- Row 4: Restart hint (y 250) ----
+          const hint = this.add
+            .text(GAME_W / 2, 258, 'Space 속도 · R 리셋 · H 힐', {
+              fontFamily: 'Pretendard',
+              fontSize: '11px',
+              color: '#5b6478',
+            })
+            .setOrigin(0.5, 0);
+          u.add(hint);
+
+          this.uiPanel = u;
+          this.refreshUi();
+        }
+
+        buildButton(x, y, w, h, label, onTap) {
+          const bg = this.add.rectangle(0, 0, w, h, 0x3b4868).setOrigin(0, 0).setStrokeStyle(1, 0x5b6478);
+          const txt = this.add
+            .text(w / 2, h / 2, label, { fontFamily: 'Pretendard', fontSize: '13px', color: C.text, fontStyle: 'bold' })
+            .setOrigin(0.5, 0.5);
+          const container = this.add.container(x, y, [bg, txt]);
+          container.setSize(w, h);
+          container.setInteractive(new Phaser.Geom.Rectangle(0, 0, w, h), Phaser.Geom.Rectangle.Contains);
+          container.on('pointerdown', () => {
+            bg.setFillStyle(0x4b5878);
+            onTap?.();
+          });
+          container.on('pointerup', () => bg.setFillStyle(0x3b4868));
+          container.on('pointerout', () => bg.setFillStyle(0x3b4868));
+          return {
+            container,
+            bg,
+            txt,
+            setText: (s) => txt.setText(s),
+          };
+        }
+
+        buildSkillButton(x, y, size, emoji, name) {
+          const bg = this.add.rectangle(0, 0, size, size, C.skill, 1).setOrigin(0, 0).setStrokeStyle(2, 0x3b4868);
+          const icon = this.add.text(size / 2, size / 2 - 6, emoji, { fontSize: '24px' }).setOrigin(0.5);
+          const label = this.add
+            .text(size / 2, size - 10, name, { fontFamily: 'Pretendard', fontSize: '10px', color: C.dim })
+            .setOrigin(0.5);
+          // cooldown overlay (disabled for now — placeholder)
+          const cd = this.add
+            .text(size / 2, size / 2 - 6, '', {
+              fontFamily: 'Pretendard',
+              fontSize: '16px',
+              color: '#fff',
+              fontStyle: 'bold',
+            })
+            .setOrigin(0.5);
+          const container = this.add.container(x, y, [bg, icon, label, cd]);
+          container.setSize(size, size);
+          container.setInteractive(new Phaser.Geom.Rectangle(0, 0, size, size), Phaser.Geom.Rectangle.Contains);
+          container.on('pointerdown', () => {
+            bg.setFillStyle(C.skillOn);
+            // quick feedback only — real skill logic TBD
+            this.spawnFloatingText(this.hero.x, this.hero.y - 160, `${name}!`, '#7aa2f7');
+          });
+          container.on('pointerup', () => bg.setFillStyle(C.skill));
+          container.on('pointerout', () => bg.setFillStyle(C.skill));
+          return { container, bg, icon, label, cd };
+        }
+
+        buildPanelBar(x, y, w, h, color) {
+          const bg = this.add.rectangle(x, y, w, h, 0x1a1d24).setOrigin(0, 0).setStrokeStyle(1, 0x2a2f3b);
+          const fg = this.add.rectangle(x, y, w, h, color).setOrigin(0, 0);
+          return { bg, fg, w, h };
+        }
+
+        refreshUi() {
+          this.uiStage.setText(`Stage ${this.state.stage} — Wave ${this.state.waveInStage + 1}/8`);
+          this.uiGold.setText(`💰 ${this.state.gold}`);
+          this.uiKills.setText(`☠ ${this.state.kills}`);
+          const hs = this.hero.state;
+          this.uiHeroHpText.setText(`HP  ${Math.max(0, Math.ceil(hs.hp))} / ${hs.maxHp}`);
+          this.uiHeroHp.fg.width = this.uiHeroHp.w * Phaser.Math.Clamp(hs.hp / hs.maxHp, 0, 1);
+        }
+
+        // ---- Keys ----------------------------------------------------
+        bindKeys() {
+          this.input.keyboard.on('keydown-SPACE', () => {
+            const idx = TUNING.speedSteps.indexOf(this.state.speedMult);
+            this.state.speedMult = TUNING.speedSteps[(idx + 1) % TUNING.speedSteps.length];
+            this.time.timeScale = this.state.speedMult;
+            this.tweens.timeScale = this.state.speedMult;
+            this.uiSpeedBtn.setText(`⚡ x${this.state.speedMult}`);
+          });
+          this.input.keyboard.on('keydown-R', () => this.scene.restart());
+          this.input.keyboard.on('keydown-H', () => {
+            this.hero.state.hp = Math.min(this.hero.state.maxHp, this.hero.state.hp + 30);
+          });
+        }
+
+        // ---- Update --------------------------------------------------
+        update(time, deltaMs) {
+          const dt = (deltaMs / 1000) * this.state.speedMult;
+          const target = this.pickTarget();
+          const dist = target ? Math.abs(target.x - this.hero.x) : Infinity;
+          const hs = this.hero.state;
+
+          if (hs.mode !== 'dead') {
+            if (target && dist < hs.range) {
+              if (hs.mode !== 'fight') {
+                hs.mode = 'fight';
+                this.hero.play('hero_Attack_anim');
+              }
+              if (time - hs.lastAttackAt > hs.atkInterval / this.state.speedMult) {
+                hs.lastAttackAt = time;
+                this.dealDamage(this.hero, target, hs.atk);
+              }
+            } else {
+              if (hs.mode !== 'walk') {
+                hs.mode = 'walk';
+                this.hero.play('hero_Walk_anim');
+              }
+              this.scrollWorld(dt);
+            }
+          }
+
+          this.enemies.getChildren().forEach((e) => {
+            if (!e.active || !e.state || e.state.mode === 'dead') return;
+            const distE = Math.abs(e.x - this.hero.x);
+            if (distE < e.state.range) {
+              if (e.state.mode !== 'fight') {
+                e.state.mode = 'fight';
+                e.play('enemy_Attack_anim');
+              }
+              if (time - e.state.lastAttackAt > e.state.atkInterval / this.state.speedMult) {
+                e.state.lastAttackAt = time;
+                this.dealDamage(e, this.hero, e.state.atk);
+              }
+            } else {
+              if (e.state.mode !== 'walk') {
+                e.state.mode = 'walk';
+                e.play('enemy_Walk_anim');
+              }
+              e.x -= e.state.walkSpeed * dt;
+            }
+            this.updateSimpleBar(e.hpBar, e.state.hp, e.state.maxHp, e.x);
+          });
+
+          this.refreshUi();
+        }
+
+        pickTarget() {
+          let best = null,
+            bestDx = Infinity;
+          this.enemies.getChildren().forEach((e) => {
+            if (!e.active || !e.state || e.state.mode === 'dead') return;
+            if (e.x < this.hero.x - 30) return;
+            const dx = e.x - this.hero.x;
+            if (dx < bestDx) {
+              bestDx = dx;
+              best = e;
+            }
+          });
+          return best;
+        }
+
+        scrollWorld(dt) {
+          TUNING.parallax.forEach((sp, i) => {
+            this.bgLayers[i].tilePositionX += sp * dt;
+          });
+          this.enemies.getChildren().forEach((e) => {
+            if (!e.active || !e.state || e.state.mode === 'dead') return;
+            e.x -= 30 * dt;
+          });
+        }
+
+        dealDamage(src, tgt, amount) {
+          if (!tgt.active || !tgt.state || tgt.state.mode === 'dead') return;
+          tgt.state.hp -= amount;
+          tgt.setTintFill(0xffffff);
+          this.time.delayedCall(60 / this.state.speedMult, () => tgt.clearTint());
+          this.spawnFloatingText(tgt.x, tgt.y - 170, `-${amount}`, src === this.hero ? '#fbbf24' : '#f87171');
+          if (tgt.state.hp <= 0) this.killUnit(tgt);
+        }
+
+        spawnFloatingText(x, y, text, color) {
+          const t = this.add
+            .text(x, y, text, { fontFamily: 'Pretendard', fontSize: '16px', fontStyle: 'bold', color })
+            .setOrigin(0.5, 0.5);
+          this.tweens.add({
+            targets: t,
+            y: y - 36,
+            alpha: 0,
+            duration: 600 / this.state.speedMult,
+            onComplete: () => t.destroy(),
+          });
+        }
+
+        killUnit(unit) {
+          unit.state.mode = 'dead';
+          const isHero = unit === this.hero;
+          unit.play(isHero ? 'hero_Death_anim' : 'enemy_Death_anim');
+          unit.once('animationcomplete', () => {
+            if (isHero) return this.gameOver();
+            this.tweens.add({
+              targets: unit,
+              alpha: 0,
+              duration: 300,
+              onComplete: () => {
+                this.destroySimpleBar(unit.hpBar);
+                unit.destroy();
+              },
+            });
+            this.state.gold += TUNING.gold.perKill;
+            this.state.kills += 1;
+            this.state.waveInStage += 1;
+            if (this.state.waveInStage >= 8) {
+              this.state.waveInStage = 0;
+              this.state.stage += 1;
+              this.showStageBanner();
+            }
+          });
+        }
+
+        showStageBanner() {
+          const t = this.add
+            .text(GAME_W / 2, BATTLE_H / 2 - 40, `Stage ${this.state.stage}`, {
+              fontFamily: 'Pretendard',
+              fontSize: '38px',
+              fontStyle: 'bold',
+              color: '#fbbf24',
+              stroke: '#000',
+              strokeThickness: 5,
+            })
+            .setOrigin(0.5, 0.5)
+            .setAlpha(0);
+          this.tweens.add({
+            targets: t,
+            alpha: 1,
+            scale: { from: 0.7, to: 1 },
+            duration: 400,
+            yoyo: true,
+            hold: 700,
+            onComplete: () => t.destroy(),
+          });
+        }
+
+        gameOver() {
+          this.add
+            .text(GAME_W / 2, BATTLE_H / 2, 'DEFEATED\n[R] to restart', {
+              fontFamily: 'Pretendard',
+              fontSize: '28px',
+              fontStyle: 'bold',
+              color: '#f87171',
+              align: 'center',
+              stroke: '#000',
+              strokeThickness: 5,
+            })
+            .setOrigin(0.5, 0.5);
+          this.time.timeScale = 0.3;
+        }
+      }
+
+      // ============================================================
+      new Phaser.Game({
+        type: Phaser.AUTO,
+        width: GAME_W,
+        height: GAME_H,
+        parent: 'game',
+        backgroundColor: '#05070d',
+        pixelArt: true,
+        scene: [BattleScene],
+        scale: { mode: Phaser.Scale.NONE },
+      });
+    </script>
+  </body>
+</html>

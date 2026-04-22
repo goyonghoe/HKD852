@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>Resource Viewer — WanChai</title>
+    <style>
+      :root {
+        --bg: #0a0f1a;
+        --panel: #141a2a;
+        --panel-2: #0f1523;
+        --border: #1f2a44;
+        --text: #d8e0f0;
+        --muted: #7b89a8;
+        --accent: #ff4bd8;
+        --accent-2: #38e4ff;
+        --warn: #ffc857;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          14px/1.4 -apple-system,
+          BlinkMacSystemFont,
+          'SF Pro Text',
+          system-ui,
+          sans-serif;
+      }
+      header {
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: 0.5px;
+      }
+      header .stats {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      header .link {
+        margin-left: auto;
+        color: var(--accent-2);
+        text-decoration: none;
+        font-size: 12px;
+      }
+      header .link:hover {
+        color: var(--accent);
+      }
+
+      .shell {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        min-height: calc(100vh - 52px);
+      }
+      aside {
+        background: var(--panel);
+        border-right: 1px solid var(--border);
+        padding: 10px 0;
+        overflow-y: auto;
+      }
+      aside .cat {
+        display: block;
+        padding: 8px 14px;
+        color: var(--text);
+        cursor: pointer;
+        border-left: 3px solid transparent;
+        font-size: 13px;
+      }
+      aside .cat:hover {
+        background: var(--panel-2);
+      }
+      aside .cat.active {
+        background: var(--panel-2);
+        border-left-color: var(--accent);
+        color: var(--accent);
+      }
+      aside .cat .counts {
+        display: block;
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      aside .cat.active .counts {
+        color: var(--accent-2);
+      }
+
+      main {
+        padding: 14px 20px;
+        overflow-y: auto;
+      }
+
+      .controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 10px 12px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 12px;
+      }
+      .controls label {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .controls select,
+      .controls input[type='text'],
+      .controls button {
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 5px 9px;
+        font: inherit;
+      }
+      .controls input[type='text'] {
+        min-width: 160px;
+      }
+      .controls select {
+        max-width: 300px;
+      }
+      .controls input[type='range'] {
+        width: 100px;
+        accent-color: var(--accent);
+      }
+      .controls button {
+        cursor: pointer;
+      }
+      .controls button:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .controls .value {
+        color: var(--accent-2);
+        font-variant-numeric: tabular-nums;
+        min-width: 24px;
+        text-align: right;
+      }
+      .controls .spacer {
+        flex: 1;
+      }
+      .controls .hint {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .pack-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 4px 0 10px;
+      }
+      .pack-header .title {
+        color: var(--accent);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .pack-header .meta {
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(var(--cell-size, 120px), 1fr));
+        gap: 8px;
+      }
+      .cell {
+        background: #050811;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 4px 4px 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+      }
+      .cell .media {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 40px;
+      }
+      .cell canvas,
+      .cell img {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        display: block;
+        max-width: 100%;
+        max-height: 280px;
+      }
+      .cell.audio .media {
+        min-height: 60px;
+      }
+      .cell audio {
+        width: 100%;
+      }
+      .cell .label {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 4px;
+        font-variant-numeric: tabular-nums;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+      .cell .dir {
+        font-size: 9px;
+        color: var(--muted);
+        opacity: 0.7;
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+      .cell .kind-badge {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        background: rgba(255, 75, 216, 0.15);
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        padding: 0 4px;
+        border-radius: 3px;
+        font-size: 9px;
+        letter-spacing: 0.5px;
+      }
+      .cell {
+        position: relative;
+      }
+
+      .group {
+        margin-bottom: 18px;
+      }
+      .group-title {
+        margin: 10px 0 6px;
+        font-size: 12px;
+        color: var(--accent-2);
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+      }
+      .group-title .count {
+        color: var(--muted);
+        font-weight: normal;
+        margin-left: 8px;
+      }
+
+      .empty {
+        color: var(--muted);
+        font-style: italic;
+        padding: 24px;
+        text-align: center;
+      }
+
+      .error {
+        background: #3a0a14;
+        border: 1px solid #6a1525;
+        color: #ffb8c6;
+        padding: 10px 14px;
+        border-radius: 6px;
+        margin-bottom: 12px;
+        font-family: ui-monospace, monospace;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Resource Viewer</h1>
+      <div class="stats" id="stats">loading…</div>
+      <a class="link" href="character-viewer.html">→ Character Compositor</a>
+    </header>
+
+    <div class="shell">
+      <aside id="sidebar"></aside>
+      <main>
+        <div id="error" class="error" style="display: none"></div>
+        <div class="controls">
+          <label
+            >Pack
+            <select id="packSel"></select>
+          </label>
+          <label>Search <input type="text" id="search" placeholder="name, path…" /></label>
+          <label
+            >Kind
+            <select id="kindSel">
+              <option value="">all</option>
+              <option value="animation">animation</option>
+              <option value="static">static</option>
+              <option value="tileset">tileset</option>
+              <option value="audio">audio</option>
+            </select>
+          </label>
+          <label
+            >Group
+            <select id="groupSel">
+              <option value="dir">by folder</option>
+              <option value="kind">by kind</option>
+              <option value="flat">flat</option>
+            </select>
+          </label>
+          <label
+            >FPS
+            <input type="range" id="fps" min="1" max="30" step="1" value="12" />
+            <span id="fpsVal" class="value">12</span>
+          </label>
+          <label
+            >Scale
+            <select id="scale">
+              <option value="1">1×</option>
+              <option value="2" selected>2×</option>
+              <option value="3">3×</option>
+              <option value="4">4×</option>
+            </select>
+          </label>
+          <label><input type="checkbox" id="loop" checked /> Loop</label>
+          <button id="togglePlay">⏸ Pause</button>
+          <span class="spacer"></span>
+          <span class="hint" id="shownInfo"></span>
+        </div>
+        <div id="content"></div>
+      </main>
+    </div>
+
+    <script>
+      const state = {
+        manifest: null,
+        category: null,
+        pack: null,
+        fps: 12,
+        scale: 2,
+        loop: true,
+        playing: true,
+        search: '',
+        kindFilter: '',
+        group: 'dir',
+        frame: 0,
+        lastStep: 0,
+      };
+
+      // Rendering cells that need animation ticks (canvas-based)
+      const animCells = [];
+
+      function setError(msg) {
+        const el = document.getElementById('error');
+        if (!msg) {
+          el.style.display = 'none';
+          return;
+        }
+        el.style.display = 'block';
+        el.textContent = msg;
+      }
+
+      function encodePath(p) {
+        return '../' + p.split('/').map(encodeURIComponent).join('/');
+      }
+
+      async function loadManifest() {
+        const r = await fetch('resource-manifest.json', { cache: 'no-store' });
+        if (!r.ok) throw new Error('manifest fetch failed: ' + r.status);
+        return await r.json();
+      }
+
+      function buildSidebar() {
+        const aside = document.getElementById('sidebar');
+        aside.innerHTML = '';
+        for (const cat of state.manifest.categories) {
+          const el = document.createElement('a');
+          el.className = 'cat';
+          el.dataset.key = cat.key;
+          el.innerHTML = `<span>${cat.title}</span><span class="counts">${cat.packCount} packs · ${cat.assetCount} assets · ${cat.sizeHuman}</span>`;
+          el.addEventListener('click', () => selectCategory(cat.key));
+          aside.appendChild(el);
+        }
+      }
+
+      function selectCategory(key) {
+        const cat = state.manifest.categories.find((c) => c.key === key);
+        if (!cat) return;
+        state.category = cat;
+        state.pack = cat.packs[0] || null;
+        state.search = '';
+        state.kindFilter = '';
+        document.getElementById('search').value = '';
+        document.getElementById('kindSel').value = '';
+        // update sidebar active state
+        for (const el of document.querySelectorAll('aside .cat')) {
+          el.classList.toggle('active', el.dataset.key === key);
+        }
+        // populate pack dropdown
+        const packSel = document.getElementById('packSel');
+        packSel.innerHTML = '';
+        for (const p of cat.packs) {
+          const opt = document.createElement('option');
+          opt.value = p.folder;
+          opt.textContent = `${p.title} · ${p.assetCount}`;
+          packSel.appendChild(opt);
+        }
+        render();
+      }
+
+      function selectPack(folder) {
+        if (!state.category) return;
+        const pack = state.category.packs.find((p) => p.folder === folder);
+        if (!pack) return;
+        state.pack = pack;
+        render();
+      }
+
+      function clearAnimCells() {
+        animCells.length = 0;
+      }
+
+      function createAnimCell(asset) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        const media = document.createElement('div');
+        media.className = 'media';
+        const canvas = document.createElement('canvas');
+        const s = Math.max(1, state.scale);
+        canvas.width = asset.frameSize * s;
+        canvas.height = asset.frameSize * s;
+        media.appendChild(canvas);
+        cell.appendChild(media);
+
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.textContent = `${asset.name} · ${asset.frames}f · ${asset.frameSize}px`;
+        cell.appendChild(label);
+
+        const badge = document.createElement('span');
+        badge.className = 'kind-badge';
+        badge.textContent = `${asset.frames}f`;
+        cell.appendChild(badge);
+
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+
+        const c = { asset, canvas, ctx, img: null, visible: false };
+        animCells.push(c);
+
+        // lazy-load image when visible
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting && !c.img) {
+              const img = new Image();
+              img.onload = () => {
+                c.img = img;
+              };
+              img.onerror = () => {
+                label.textContent = `${asset.name} · FAIL`;
+                io.disconnect();
+              };
+              img.src = encodePath(asset.path);
+              c.visible = true;
+              io.disconnect();
+            }
+          }
+        });
+        io.observe(cell);
+        return cell;
+      }
+
+      function createImageCell(asset) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        const media = document.createElement('div');
+        media.className = 'media';
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.src = encodePath(asset.path);
+        img.style.width = asset.width * state.scale + 'px';
+        img.style.height = 'auto';
+        img.alt = asset.name;
+        img.onerror = () => {
+          media.textContent = 'FAIL';
+        };
+        media.appendChild(img);
+        cell.appendChild(media);
+
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.textContent = `${asset.name} · ${asset.width}×${asset.height}`;
+        cell.appendChild(label);
+
+        if (asset.kind === 'tileset') {
+          const badge = document.createElement('span');
+          badge.className = 'kind-badge';
+          badge.textContent = 'TILE';
+          cell.appendChild(badge);
+        }
+        return cell;
+      }
+
+      function createAudioCell(asset) {
+        const cell = document.createElement('div');
+        cell.className = 'cell audio';
+        const media = document.createElement('div');
+        media.className = 'media';
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.preload = 'none';
+        audio.src = encodePath(asset.path);
+        media.appendChild(audio);
+        cell.appendChild(media);
+
+        const label = document.createElement('div');
+        label.className = 'label';
+        const kb = asset.bytes ? (asset.bytes / 1024).toFixed(1) + 'KB' : '';
+        label.textContent = `${asset.name} · ${asset.ext.toUpperCase()} · ${kb}`;
+        cell.appendChild(label);
+        return cell;
+      }
+
+      function createCell(asset) {
+        if (asset.kind === 'animation') return createAnimCell(asset);
+        if (asset.kind === 'audio') return createAudioCell(asset);
+        return createImageCell(asset);
+      }
+
+      function filterAssets(files) {
+        const q = state.search.toLowerCase();
+        return files.filter((a) => {
+          if (state.kindFilter && a.kind !== state.kindFilter) return false;
+          if (!q) return true;
+          return (a.name + ' ' + a.path + ' ' + (a.dir || '')).toLowerCase().includes(q);
+        });
+      }
+
+      function groupAssets(files) {
+        if (state.group === 'flat') return [['All', files]];
+        if (state.group === 'kind') {
+          const m = new Map();
+          for (const a of files) {
+            const k = a.kind;
+            if (!m.has(k)) m.set(k, []);
+            m.get(k).push(a);
+          }
+          return [...m.entries()].sort();
+        }
+        // by dir
+        const m = new Map();
+        for (const a of files) {
+          const k = a.dir || '(root)';
+          if (!m.has(k)) m.set(k, []);
+          m.get(k).push(a);
+        }
+        return [...m.entries()].sort();
+      }
+
+      function render() {
+        clearAnimCells();
+        const root = document.getElementById('content');
+        root.innerHTML = '';
+
+        if (!state.category || !state.pack) {
+          root.innerHTML = '<div class="empty">Pick a category from the sidebar.</div>';
+          document.getElementById('shownInfo').textContent = '';
+          return;
+        }
+
+        const header = document.createElement('div');
+        header.className = 'pack-header';
+        header.innerHTML = `<span class="title">${state.pack.title}</span><span class="meta">${state.pack.assetCount} assets · ${state.pack.sizeHuman}</span>`;
+        root.appendChild(header);
+
+        const filtered = filterAssets(state.pack.files);
+        document.getElementById('shownInfo').textContent = `${filtered.length} / ${state.pack.files.length} shown`;
+
+        if (filtered.length === 0) {
+          const e = document.createElement('div');
+          e.className = 'empty';
+          e.textContent = 'No assets match the current filter.';
+          root.appendChild(e);
+          return;
+        }
+
+        const groups = groupAssets(filtered);
+        // Compute a uniform cell size per pack view based on dominant frame/image size
+        const sizes = filtered
+          .map((a) => (a.kind === 'animation' ? a.frameSize : a.width))
+          .filter((n) => typeof n === 'number' && n > 0);
+        sizes.sort((a, b) => a - b);
+        const typicalPx = sizes[Math.floor(sizes.length / 2)] || 64;
+        const cellPx = Math.min(240, Math.max(80, typicalPx * state.scale + 16));
+
+        for (const [name, list] of groups) {
+          const g = document.createElement('div');
+          g.className = 'group';
+          if (state.group !== 'flat') {
+            const t = document.createElement('div');
+            t.className = 'group-title';
+            t.innerHTML = `${name}<span class="count">${list.length}</span>`;
+            g.appendChild(t);
+          }
+          const grid = document.createElement('div');
+          grid.className = 'grid';
+          grid.style.setProperty('--cell-size', cellPx + 'px');
+          for (const asset of list) {
+            grid.appendChild(createCell(asset));
+          }
+          g.appendChild(grid);
+          root.appendChild(g);
+        }
+      }
+
+      function step(now) {
+        if (state.playing) {
+          const frameMs = 1000 / state.fps;
+          if (now - state.lastStep >= frameMs) {
+            state.frame += 1;
+            state.lastStep = now;
+          }
+        }
+        for (const c of animCells) {
+          if (!c.img) continue;
+          const total = c.asset.frames;
+          const f = state.loop ? state.frame % total : Math.min(state.frame, total - 1);
+          const ctx = c.ctx;
+          ctx.clearRect(0, 0, c.canvas.width, c.canvas.height);
+          ctx.imageSmoothingEnabled = false;
+          ctx.drawImage(
+            c.img,
+            f * c.asset.frameSize,
+            0,
+            c.asset.frameSize,
+            c.asset.frameSize,
+            0,
+            0,
+            c.canvas.width,
+            c.canvas.height,
+          );
+        }
+        requestAnimationFrame(step);
+      }
+
+      function wire() {
+        document.getElementById('packSel').addEventListener('change', (e) => selectPack(e.target.value));
+
+        const searchEl = document.getElementById('search');
+        let t = null;
+        searchEl.addEventListener('input', () => {
+          clearTimeout(t);
+          t = setTimeout(() => {
+            state.search = searchEl.value.trim();
+            render();
+          }, 150);
+        });
+
+        document.getElementById('kindSel').addEventListener('change', (e) => {
+          state.kindFilter = e.target.value;
+          render();
+        });
+        document.getElementById('groupSel').addEventListener('change', (e) => {
+          state.group = e.target.value;
+          render();
+        });
+
+        const fpsEl = document.getElementById('fps');
+        fpsEl.addEventListener('input', () => {
+          state.fps = Number(fpsEl.value);
+          document.getElementById('fpsVal').textContent = state.fps;
+        });
+
+        document.getElementById('scale').addEventListener('change', (e) => {
+          state.scale = Number(e.target.value);
+          render();
+        });
+        document.getElementById('loop').addEventListener('change', (e) => {
+          state.loop = e.target.checked;
+        });
+        const play = document.getElementById('togglePlay');
+        play.addEventListener('click', () => {
+          state.playing = !state.playing;
+          play.textContent = state.playing ? '⏸ Pause' : '▶ Play';
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+          if (e.key === ' ') {
+            e.preventDefault();
+            play.click();
+          }
+        });
+      }
+
+      (async function main() {
+        try {
+          state.manifest = await loadManifest();
+        } catch (e) {
+          setError('Failed to load resource-manifest.json — run: python3 tools/generate-resource-manifest.py');
+          return;
+        }
+        const m = state.manifest;
+        document.getElementById('stats').textContent =
+          `${m.totalCategories} categories · ${m.totalAssets} assets · ${m.sizeHuman}`;
+        buildSidebar();
+        wire();
+        const preferred = ['characters', 'enemies', 'bosses', 'icons', 'ui'];
+        const initial = preferred.find((k) => m.categories.some((c) => c.key === k)) || m.categories[0]?.key;
+        if (initial) selectCategory(initial);
+        requestAnimationFrame(step);
+      })();
+    </script>
+  </body>
+</html>

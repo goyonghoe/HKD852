@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>Character Animation Viewer — WanChai</title>
+    <style>
+      :root {
+        --bg: #0a0f1a;
+        --panel: #141a2a;
+        --panel-2: #0f1523;
+        --border: #1f2a44;
+        --text: #d8e0f0;
+        --muted: #7b89a8;
+        --accent: #ff4bd8;
+        --accent-2: #38e4ff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 16px;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          14px/1.4 -apple-system,
+          BlinkMacSystemFont,
+          'SF Pro Text',
+          system-ui,
+          sans-serif;
+      }
+      h1 {
+        margin: 0 0 4px;
+        font-size: 18px;
+        letter-spacing: 0.5px;
+      }
+      .subtitle {
+        color: var(--muted);
+        margin-bottom: 16px;
+        font-size: 12px;
+      }
+
+      .controls {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 12px 16px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        margin-bottom: 12px;
+      }
+      .controls label {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .controls input[type='range'] {
+        width: 120px;
+        accent-color: var(--accent);
+      }
+      .controls select,
+      .controls button,
+      .controls input[type='text'] {
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 6px 10px;
+        font: inherit;
+        cursor: pointer;
+      }
+      .controls input[type='text'] {
+        cursor: text;
+        min-width: 180px;
+      }
+      .controls select {
+        max-width: 360px;
+      }
+      .controls button:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .controls .value {
+        color: var(--accent-2);
+        font-variant-numeric: tabular-nums;
+        min-width: 30px;
+        text-align: right;
+      }
+
+      .info {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .info code {
+        color: var(--accent-2);
+        background: var(--panel);
+        padding: 1px 6px;
+        border-radius: 3px;
+      }
+
+      .pack {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-bottom: 14px;
+      }
+      .pack-title {
+        margin: 0 0 10px;
+        font-size: 14px;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .pack-title .count {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: normal;
+      }
+      .pack-title button.toggle {
+        background: none;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        border-radius: 4px;
+        padding: 2px 8px;
+        font-size: 11px;
+        cursor: pointer;
+        margin-left: auto;
+      }
+      .pack-title button.toggle:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .variant {
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 8px 10px;
+        margin-top: 8px;
+      }
+      .variant-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        user-select: none;
+        padding: 2px 0;
+      }
+      .variant-header:hover .chevron,
+      .variant-header:hover .variant-name {
+        color: var(--accent);
+      }
+      .variant .chevron {
+        color: var(--muted);
+        font-size: 10px;
+        width: 12px;
+        transition: color 0.1s;
+      }
+      .variant .variant-name {
+        font-size: 12px;
+        color: var(--accent-2);
+        letter-spacing: 0.3px;
+        transition: color 0.1s;
+      }
+      .variant .variant-count {
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .variant-body {
+        margin-top: 10px;
+      }
+      .anim-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(var(--cell-size, 160px), 1fr));
+        gap: 8px;
+      }
+      .anim-cell {
+        background: #050811;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 6px 4px 4px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: border-color 0.1s;
+        cursor: pointer;
+      }
+      .anim-cell:hover {
+        border-color: var(--accent);
+      }
+      .anim-cell.focused {
+        border-color: var(--accent-2);
+        box-shadow: 0 0 0 2px rgba(56, 228, 255, 0.2);
+      }
+      .anim-cell canvas {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        display: block;
+      }
+      .anim-cell .label {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 4px;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+      .anim-cell.focused .label {
+        color: var(--accent-2);
+      }
+
+      .empty {
+        color: var(--muted);
+        font-style: italic;
+        font-size: 12px;
+        padding: 24px;
+        text-align: center;
+      }
+
+      .error {
+        background: #3a0a14;
+        border: 1px solid #6a1525;
+        color: #ffb8c6;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 12px;
+        font-family: ui-monospace, monospace;
+        font-size: 12px;
+        white-space: pre-wrap;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 2px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .tab {
+        background: none;
+        border: 1px solid transparent;
+        border-bottom: none;
+        color: var(--muted);
+        padding: 8px 16px;
+        font: inherit;
+        cursor: pointer;
+        border-radius: 8px 8px 0 0;
+        letter-spacing: 0.3px;
+      }
+      .tab:hover {
+        color: var(--accent);
+      }
+      .tab.active {
+        color: var(--accent);
+        background: var(--panel);
+        border-color: var(--border);
+        border-bottom: 1px solid var(--panel);
+        margin-bottom: -1px;
+      }
+
+      .composer {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px 16px;
+      }
+      .composer .lanes {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 16px;
+        align-items: start;
+      }
+      .composer .pickers {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .composer .pickers label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .composer .pickers select {
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 6px 8px;
+        font: inherit;
+      }
+      .composer .pickers .hint {
+        font-size: 10px;
+        color: var(--muted);
+        line-height: 1.5;
+        padding-top: 4px;
+        border-top: 1px dashed var(--border);
+      }
+      .composer .lanes .states {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(var(--cell-size, 180px), 1fr));
+        gap: 12px;
+      }
+      .state-card {
+        background: #050811;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 8px 6px 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .state-card.focused {
+        border-color: var(--accent-2);
+        box-shadow: 0 0 0 2px rgba(56, 228, 255, 0.2);
+      }
+      .state-card canvas {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+      }
+      .state-card .title {
+        font-size: 12px;
+        color: var(--accent-2);
+        margin-top: 6px;
+      }
+      .state-card .meta {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 2px;
+        font-variant-numeric: tabular-nums;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Character Animation Viewer</h1>
+    <div class="subtitle">
+      <a href="resource-viewer.html" style="color: #38e4ff; text-decoration: none">← All Resources</a> · Craftpix
+      Cyberpunk · <span id="statsTop">loading…</span>
+    </div>
+
+    <div id="error" class="error" style="display: none"></div>
+
+    <div class="tabs">
+      <button class="tab active" id="tabGallery">Gallery</button>
+      <button class="tab" id="tabComposer">Compositor</button>
+    </div>
+
+    <div class="controls">
+      <label
+        >Pack
+        <select id="packSel">
+          <option value="__all__">All packs</option>
+        </select>
+      </label>
+      <label>Search <input type="text" id="search" placeholder="idle, walk…" /> </label>
+      <label
+        >FPS
+        <input type="range" id="fps" min="1" max="30" step="1" value="12" />
+        <span id="fpsVal" class="value">12</span>
+      </label>
+      <label
+        >Scale
+        <select id="scale">
+          <option value="2">2×</option>
+          <option value="3" selected>3×</option>
+          <option value="4">4×</option>
+          <option value="6">6×</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="loop" checked /> Loop</label>
+      <button id="togglePlay">⏸ Pause</button>
+      <button id="restart">↻ Restart</button>
+      <span style="flex: 1"></span>
+      <span id="activeCellCount" class="info">0 active</span>
+      <span id="focusInfo" class="info"></span>
+    </div>
+
+    <div id="packs"></div>
+
+    <section id="composer" class="composer" style="display: none">
+      <div class="lanes">
+        <div class="pickers">
+          <label
+            >Pack
+            <select id="composerPack"></select>
+          </label>
+          <label
+            >Character
+            <select id="composerChar"></select>
+          </label>
+          <label
+            >Weapon
+            <select id="composerWeapon"></select>
+          </label>
+          <div class="hint" id="composerHint"></div>
+        </div>
+        <div class="states" id="composerStates"></div>
+      </div>
+    </section>
+
+    <div class="info" style="margin-top: 20px">
+      <code>python3 tools/generate-character-manifest.py</code> to rebuild index · Space: play/pause · R: restart ·
+      Click cell to focus · Frame size detected from sheet height (horizontal strip).
+    </div>
+
+    <script>
+      const state = {
+        manifest: null,
+        fps: 12,
+        scale: 3,
+        playing: true,
+        loop: true,
+        search: '',
+        selectedPack: '__all__',
+        focus: null, // { packFolder, variantName, anim }
+        frame: 0,
+        lastStep: 0,
+        mode: 'gallery', // 'gallery' | 'composer'
+      };
+
+      const cells = []; // gallery cells only
+      function getActiveCells() {
+        return state.mode === 'composer' ? composerState.cells : cells;
+      }
+      function allKnownCells() {
+        return cells.concat(composerState.cells);
+      }
+
+      function setError(msg) {
+        const el = document.getElementById('error');
+        if (!msg) {
+          el.style.display = 'none';
+          return;
+        }
+        el.style.display = 'block';
+        el.textContent = msg;
+      }
+
+      function loadImage(src) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = () => reject(new Error('load failed: ' + src));
+          img.src = src;
+        });
+      }
+
+      async function loadManifest() {
+        const res = await fetch('character-manifest.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('manifest fetch failed: ' + res.status);
+        return await res.json();
+      }
+
+      function encodePath(p) {
+        // encode path components (preserve / separators), account for tools being sibling of raw-assets
+        // The manifest paths are relative to WanChai root. Viewer is at WanChai/tools/. So prefix ../
+        const parts = p.split('/').map(encodeURIComponent);
+        return '../' + parts.join('/');
+      }
+
+      function renderPackSelect() {
+        const sel = document.getElementById('packSel');
+        for (const p of state.manifest.packs) {
+          const animCount = p.variants.reduce((s, v) => s + v.animations.length, 0);
+          const opt = document.createElement('option');
+          opt.value = p.folder;
+          opt.textContent = `${p.title} · ${p.variants.length}v / ${animCount}a`;
+          sel.appendChild(opt);
+        }
+      }
+
+      function cellKey(packFolder, variantName, animName) {
+        return `${packFolder}/${variantName}/${animName}`;
+      }
+
+      function matchSearch(anim, variantName, packTitle) {
+        if (!state.search) return true;
+        const hay = (anim.name + ' ' + variantName + ' ' + packTitle).toLowerCase();
+        return hay.includes(state.search.toLowerCase());
+      }
+
+      function buildCell(pack, variant, anim, grid) {
+        const cellEl = document.createElement('div');
+        cellEl.className = 'anim-cell';
+
+        const canvas = document.createElement('canvas');
+        const drawSize = anim.frameSize * state.scale;
+        canvas.width = drawSize;
+        canvas.height = drawSize;
+        grid.style.setProperty('--cell-size', Math.max(120, drawSize + 20) + 'px');
+        cellEl.appendChild(canvas);
+
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.textContent = `${anim.name} · ${anim.frames}f · ${anim.frameSize}px`;
+        cellEl.appendChild(label);
+
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+
+        const cellData = {
+          packFolder: pack.folder,
+          packTitle: pack.title,
+          variantName: variant.name,
+          anim,
+          canvas,
+          ctx,
+          layers: [{ anim, img: null }],
+          cellEl,
+          labelEl: label,
+        };
+
+        cellEl.addEventListener('click', () => setFocus(cellData));
+        grid.appendChild(cellEl);
+        return cellData;
+      }
+
+      function loadCellImages(list) {
+        const errors = [];
+        const tasks = [];
+        for (const c of list) {
+          for (const layer of c.layers) {
+            if (layer.img || !layer.anim) continue;
+            tasks.push(
+              loadImage(encodePath(layer.anim.path))
+                .then((img) => {
+                  layer.img = img;
+                })
+                .catch(() => {
+                  errors.push(layer.anim.path);
+                }),
+            );
+          }
+        }
+        return Promise.all(tasks).then(() => {
+          if (errors.length) {
+            setError(
+              'Missing or failed:\n' +
+                errors.slice(0, 15).join('\n') +
+                (errors.length > 15 ? `\n…+${errors.length - 15} more` : ''),
+            );
+          }
+        });
+      }
+
+      function buildVariant(pack, variant, filtered) {
+        const el = document.createElement('div');
+        el.className = 'variant';
+
+        const header = document.createElement('div');
+        header.className = 'variant-header';
+        const chevron = document.createElement('span');
+        chevron.className = 'chevron';
+        chevron.textContent = '▶';
+        const name = document.createElement('span');
+        name.className = 'variant-name';
+        const categoryPrefix = variant.category ? `${variant.category} / ` : '';
+        name.textContent = `${categoryPrefix}${variant.name}`;
+        const count = document.createElement('span');
+        count.className = 'variant-count';
+        count.textContent = `${filtered.length} anims`;
+        header.appendChild(chevron);
+        header.appendChild(name);
+        header.appendChild(count);
+        el.appendChild(header);
+
+        const body = document.createElement('div');
+        body.className = 'variant-body';
+        body.style.display = 'none';
+        el.appendChild(body);
+
+        const localCells = [];
+        let expanded = false;
+
+        function expand() {
+          if (expanded) return;
+          expanded = true;
+          chevron.textContent = '▼';
+          body.style.display = '';
+
+          const grid = document.createElement('div');
+          grid.className = 'anim-grid';
+          for (const anim of filtered) {
+            const c = buildCell(pack, variant, anim, grid);
+            localCells.push(c);
+            cells.push(c);
+          }
+          body.appendChild(grid);
+          loadCellImages(localCells);
+          updateActiveCount();
+        }
+
+        function collapse() {
+          if (!expanded) return;
+          expanded = false;
+          chevron.textContent = '▶';
+          body.style.display = 'none';
+          for (const c of localCells) {
+            const idx = cells.indexOf(c);
+            if (idx >= 0) cells.splice(idx, 1);
+          }
+          localCells.length = 0;
+          body.innerHTML = '';
+          updateActiveCount();
+        }
+
+        header.addEventListener('click', () => (expanded ? collapse() : expand()));
+        el.expand = expand;
+        el.collapse = collapse;
+        return el;
+      }
+
+      function render() {
+        const root = document.getElementById('packs');
+        root.innerHTML = '';
+        cells.length = 0;
+
+        const packs =
+          state.selectedPack === '__all__'
+            ? state.manifest.packs
+            : state.manifest.packs.filter((p) => p.folder === state.selectedPack);
+
+        const autoExpandAll = state.selectedPack !== '__all__' || state.search.length > 0;
+
+        let renderedPacks = 0;
+        for (const pack of packs) {
+          const packEl = document.createElement('section');
+          packEl.className = 'pack';
+
+          const animCount = pack.variants.reduce((s, v) => s + v.animations.length, 0);
+          const title = document.createElement('h3');
+          title.className = 'pack-title';
+          title.innerHTML = `${pack.title} <span class="count">${pack.variants.length} variants · ${animCount} anims</span>`;
+          const expandAllBtn = document.createElement('button');
+          expandAllBtn.className = 'toggle';
+          expandAllBtn.textContent = 'Expand all';
+          title.appendChild(expandAllBtn);
+          const collapseAllBtn = document.createElement('button');
+          collapseAllBtn.className = 'toggle';
+          collapseAllBtn.textContent = 'Collapse all';
+          collapseAllBtn.style.marginLeft = '6px';
+          title.appendChild(collapseAllBtn);
+          packEl.appendChild(title);
+
+          const variantEls = [];
+          let variantsRendered = 0;
+          for (const variant of pack.variants) {
+            const filtered = variant.animations.filter((a) => matchSearch(a, variant.name, pack.title));
+            if (filtered.length === 0) continue;
+            const vEl = buildVariant(pack, variant, filtered);
+            packEl.appendChild(vEl);
+            variantEls.push(vEl);
+            variantsRendered++;
+            if (autoExpandAll) vEl.expand();
+          }
+
+          expandAllBtn.addEventListener('click', () => variantEls.forEach((v) => v.expand()));
+          collapseAllBtn.addEventListener('click', () => variantEls.forEach((v) => v.collapse()));
+
+          if (variantsRendered === 0) {
+            const empty = document.createElement('div');
+            empty.className = 'empty';
+            empty.textContent = 'No animations match the current search.';
+            packEl.appendChild(empty);
+          }
+
+          root.appendChild(packEl);
+          renderedPacks++;
+        }
+
+        if (renderedPacks === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'empty';
+          empty.textContent = 'No packs to display.';
+          root.appendChild(empty);
+        }
+
+        updateActiveCount();
+      }
+
+      function updateActiveCount() {
+        const pill = document.getElementById('activeCellCount');
+        if (pill) pill.textContent = `${getActiveCells().length} active`;
+      }
+
+      function drawCell(c) {
+        const ctx = c.ctx;
+        ctx.clearRect(0, 0, c.canvas.width, c.canvas.height);
+        ctx.imageSmoothingEnabled = false;
+        for (const layer of c.layers) {
+          if (!layer.img || !layer.anim) continue;
+          const total = layer.anim.frames;
+          const f = state.loop ? state.frame % total : Math.min(state.frame, total - 1);
+          ctx.drawImage(
+            layer.img,
+            f * layer.anim.frameSize,
+            0,
+            layer.anim.frameSize,
+            layer.anim.frameSize,
+            0,
+            0,
+            c.canvas.width,
+            c.canvas.height,
+          );
+        }
+      }
+
+      function step(now) {
+        if (state.playing) {
+          const frameMs = 1000 / state.fps;
+          if (now - state.lastStep >= frameMs) {
+            state.frame += 1;
+            state.lastStep = now;
+          }
+        }
+        for (const c of getActiveCells()) drawCell(c);
+        requestAnimationFrame(step);
+      }
+
+      function setFocus(c) {
+        state.focus = c;
+        for (const other of allKnownCells()) other.cellEl.classList.remove('focused');
+        c.cellEl.classList.add('focused');
+        const info = document.getElementById('focusInfo');
+        const primary = c.anim || (c.layers[0] && c.layers[0].anim);
+        if (!primary) {
+          info.textContent = `${c.packTitle} / ${c.variantName}`;
+          return;
+        }
+        const extra = c.layers && c.layers.length > 1 ? ` · ${c.layers.length} layers` : '';
+        info.textContent = `${c.packTitle} / ${c.variantName} / ${primary.name} · ${primary.frames} frames · ${(primary.frames / state.fps).toFixed(2)}s @ ${state.fps}fps · ${primary.frameSize}px${extra}`;
+      }
+
+      // --- Compositor ---
+
+      function isCharacterCategory(name) {
+        return /character/i.test(name || '');
+      }
+
+      function detectCompositablePacks(manifest) {
+        const out = [];
+        for (const pack of manifest.packs) {
+          const categories = new Set();
+          for (const v of pack.variants) {
+            if (v.category) categories.add(v.category);
+          }
+          const hasChar = [...categories].some(isCharacterCategory);
+          const hasOther = [...categories].some((c) => !isCharacterCategory(c));
+          if (hasChar && hasOther) out.push(pack);
+        }
+        return out;
+      }
+
+      function getCharacterVariants(pack) {
+        return pack.variants.filter((v) => isCharacterCategory(v.category));
+      }
+
+      function getOverlayVariantsByCategory(pack) {
+        const byCat = new Map();
+        for (const v of pack.variants) {
+          if (isCharacterCategory(v.category)) continue;
+          if (!v.category) continue;
+          if (!byCat.has(v.category)) byCat.set(v.category, []);
+          byCat.get(v.category).push(v);
+        }
+        return byCat;
+      }
+
+      function normalizeStateName(s) {
+        return (s || '')
+          .replace(/^[\s\d]+/, '')
+          .trim()
+          .toLowerCase();
+      }
+
+      function analyzeOverlayCategory(variants) {
+        // state-indexed: all animations are numeric names (weapon index), variants are state folders
+        // skin-parallel: variants are skins with named state animations (Idle, Run, ...)
+        const allNumeric = variants.every(
+          (v) => v.animations.length > 0 && v.animations.every((a) => /^\d+$/.test(a.name)),
+        );
+        if (allNumeric) {
+          const indices = new Set();
+          for (const v of variants) for (const a of v.animations) indices.add(a.name);
+          const sorted = [...indices].sort((a, b) => +a - +b);
+          return { mode: 'state-indexed', variants, indices: sorted };
+        }
+        return { mode: 'skin-parallel', variants };
+      }
+
+      function findStateIndexedAnim(info, index, charAnim) {
+        const charKey = normalizeStateName(charAnim.name);
+        for (const v of info.variants) {
+          if (normalizeStateName(v.name) === charKey) {
+            return v.animations.find((a) => a.name === String(index)) || null;
+          }
+        }
+        return null;
+      }
+
+      function findSkinParallelAnim(info, variantName, charAnim) {
+        const v = info.variants.find((x) => x.name === variantName);
+        if (!v) return null;
+        const charKey = normalizeStateName(charAnim.name);
+        return v.animations.find((a) => normalizeStateName(a.name) === charKey) || null;
+      }
+
+      const composerState = {
+        pack: null,
+        charVariant: null,
+        overlayInfos: [], // [{ category, info, pick }]
+        cells: [],
+        wired: false,
+      };
+
+      function clearComposerCells() {
+        composerState.cells.length = 0;
+        updateActiveCount();
+      }
+
+      function renderComposer() {
+        const packs = detectCompositablePacks(state.manifest);
+        const packSel = document.getElementById('composerPack');
+        const charSel = document.getElementById('composerChar');
+        const weaponSel = document.getElementById('composerWeapon');
+        const hint = document.getElementById('composerHint');
+        const grid = document.getElementById('composerStates');
+
+        packSel.innerHTML = '';
+        charSel.innerHTML = '';
+        weaponSel.innerHTML = '';
+        grid.innerHTML = '';
+        clearComposerCells();
+
+        if (packs.length === 0) {
+          hint.textContent =
+            'No compositable packs detected (needs a Characters category + one or more overlay categories).';
+          return;
+        }
+
+        for (const p of packs) {
+          const opt = document.createElement('option');
+          opt.value = p.folder;
+          opt.textContent = p.title;
+          packSel.appendChild(opt);
+        }
+
+        function rebuildCharAndWeapons() {
+          const pack = state.manifest.packs.find((p) => p.folder === packSel.value);
+          composerState.pack = pack;
+          const chars = getCharacterVariants(pack);
+          charSel.innerHTML = '';
+          for (const v of chars) {
+            const opt = document.createElement('option');
+            opt.value = v.name;
+            opt.textContent = v.name;
+            charSel.appendChild(opt);
+          }
+
+          const overlaysByCat = getOverlayVariantsByCategory(pack);
+          weaponSel.innerHTML = '';
+          composerState.overlayInfos = [];
+          if (overlaysByCat.size === 0) {
+            const opt = document.createElement('option');
+            opt.value = '';
+            opt.textContent = '(no overlays)';
+            weaponSel.appendChild(opt);
+          } else {
+            for (const [cat, list] of overlaysByCat) {
+              const info = analyzeOverlayCategory(list);
+              const entry = { category: cat, info, pick: null };
+              const group = document.createElement('optgroup');
+              if (info.mode === 'state-indexed') {
+                group.label = `${cat} (weapon index)`;
+                for (const idx of info.indices) {
+                  const opt = document.createElement('option');
+                  opt.value = `${cat}|idx|${idx}`;
+                  opt.textContent = `#${idx}`;
+                  group.appendChild(opt);
+                }
+                entry.pick = info.indices[0] || null;
+              } else {
+                group.label = `${cat} (skin)`;
+                for (const v of info.variants) {
+                  const opt = document.createElement('option');
+                  opt.value = `${cat}|var|${v.name}`;
+                  opt.textContent = v.name;
+                  group.appendChild(opt);
+                }
+                entry.pick = info.variants[0] ? info.variants[0].name : null;
+              }
+              weaponSel.appendChild(group);
+              composerState.overlayInfos.push(entry);
+            }
+          }
+
+          rebuildStates();
+        }
+
+        function rebuildStates() {
+          grid.innerHTML = '';
+          clearComposerCells();
+
+          const pack = composerState.pack;
+          if (!pack) return;
+          const charVariant = pack.variants.find((v) => isCharacterCategory(v.category) && v.name === charSel.value);
+          if (!charVariant) {
+            hint.textContent = 'Pick a character variant.';
+            return;
+          }
+          composerState.charVariant = charVariant;
+
+          // apply current weapon selection
+          if (weaponSel.value) {
+            const [cat, kind, val] = weaponSel.value.split('|');
+            const entry = composerState.overlayInfos.find((e) => e.category === cat);
+            if (entry) entry.pick = val;
+          }
+
+          const overlayLabels = composerState.overlayInfos
+            .map((e) => `${e.category}:${e.info.mode === 'state-indexed' ? `#${e.pick}` : e.pick}`)
+            .join(' · ');
+          hint.textContent = composerState.overlayInfos.length
+            ? `Layers: Character + ${overlayLabels}`
+            : 'Character only (no overlays).';
+
+          for (const charAnim of charVariant.animations) {
+            const card = document.createElement('div');
+            card.className = 'state-card';
+
+            const canvas = document.createElement('canvas');
+            const drawSize = charAnim.frameSize * state.scale;
+            canvas.width = drawSize;
+            canvas.height = drawSize;
+            grid.style.setProperty('--cell-size', Math.max(140, drawSize + 20) + 'px');
+            card.appendChild(canvas);
+
+            const title = document.createElement('div');
+            title.className = 'title';
+            title.textContent = charAnim.name;
+            card.appendChild(title);
+
+            const meta = document.createElement('div');
+            meta.className = 'meta';
+
+            const layers = [{ anim: charAnim, img: null }];
+            const missing = [];
+            for (const entry of composerState.overlayInfos) {
+              if (entry.pick == null) continue;
+              const found =
+                entry.info.mode === 'state-indexed'
+                  ? findStateIndexedAnim(entry.info, entry.pick, charAnim)
+                  : findSkinParallelAnim(entry.info, entry.pick, charAnim);
+              if (found) layers.push({ anim: found, img: null });
+              else missing.push(entry.category);
+            }
+            meta.textContent = `${charAnim.frames}f · ${charAnim.frameSize}px · ${layers.length}L${missing.length ? ` · missing: ${missing.join(', ')}` : ''}`;
+            card.appendChild(meta);
+
+            const ctx = canvas.getContext('2d');
+            ctx.imageSmoothingEnabled = false;
+
+            const cellData = {
+              packFolder: pack.folder,
+              packTitle: pack.title,
+              variantName: `${charVariant.name} + ${overlayLabels || '—'}`,
+              anim: charAnim,
+              canvas,
+              ctx,
+              layers,
+              cellEl: card,
+              labelEl: title,
+            };
+            card.addEventListener('click', () => setFocus(cellData));
+            grid.appendChild(card);
+            composerState.cells.push(cellData);
+          }
+
+          loadCellImages(composerState.cells);
+          updateActiveCount();
+        }
+
+        if (!composerState.wired) {
+          packSel.addEventListener('change', rebuildCharAndWeapons);
+          charSel.addEventListener('change', rebuildStates);
+          weaponSel.addEventListener('change', rebuildStates);
+          composerState.wired = true;
+        }
+
+        packSel.value = packs[0].folder;
+        rebuildCharAndWeapons();
+      }
+
+      function switchMode(mode) {
+        const galleryTab = document.getElementById('tabGallery');
+        const composerTab = document.getElementById('tabComposer');
+        const packsEl = document.getElementById('packs');
+        const composerEl = document.getElementById('composer');
+
+        state.mode = mode === 'composer' ? 'composer' : 'gallery';
+
+        if (state.mode === 'composer') {
+          galleryTab.classList.remove('active');
+          composerTab.classList.add('active');
+          packsEl.style.display = 'none';
+          composerEl.style.display = '';
+          if (!composerState.wired) renderComposer();
+        } else {
+          galleryTab.classList.add('active');
+          composerTab.classList.remove('active');
+          packsEl.style.display = '';
+          composerEl.style.display = 'none';
+        }
+        updateActiveCount();
+      }
+
+      function wireControls() {
+        const fpsEl = document.getElementById('fps');
+        const fpsVal = document.getElementById('fpsVal');
+        fpsEl.addEventListener('input', () => {
+          state.fps = Number(fpsEl.value);
+          fpsVal.textContent = state.fps;
+          if (state.focus) setFocus(state.focus);
+        });
+
+        const scaleEl = document.getElementById('scale');
+        scaleEl.addEventListener('change', () => {
+          state.scale = Number(scaleEl.value);
+          render();
+          if (composerState.wired) {
+            const charSel = document.getElementById('composerChar');
+            if (charSel) charSel.dispatchEvent(new Event('change'));
+          }
+        });
+
+        document.getElementById('tabGallery').addEventListener('click', () => switchMode('gallery'));
+        document.getElementById('tabComposer').addEventListener('click', () => switchMode('composer'));
+
+        document.getElementById('loop').addEventListener('change', (e) => {
+          state.loop = e.target.checked;
+        });
+
+        const play = document.getElementById('togglePlay');
+        play.addEventListener('click', () => {
+          state.playing = !state.playing;
+          play.textContent = state.playing ? '⏸ Pause' : '▶ Play';
+        });
+
+        document.getElementById('restart').addEventListener('click', () => {
+          state.frame = 0;
+        });
+
+        const packSel = document.getElementById('packSel');
+        packSel.addEventListener('change', () => {
+          state.selectedPack = packSel.value;
+          render();
+        });
+
+        const searchEl = document.getElementById('search');
+        let searchTimer = null;
+        searchEl.addEventListener('input', () => {
+          clearTimeout(searchTimer);
+          searchTimer = setTimeout(() => {
+            state.search = searchEl.value.trim();
+            render();
+          }, 150);
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+          if (e.key === ' ') {
+            e.preventDefault();
+            document.getElementById('togglePlay').click();
+          } else if (e.key === 'r' || e.key === 'R') {
+            document.getElementById('restart').click();
+          }
+        });
+      }
+
+      (async function main() {
+        try {
+          state.manifest = await loadManifest();
+        } catch (e) {
+          setError('Failed to load character-manifest.json — run: python3 tools/generate-character-manifest.py');
+          return;
+        }
+        document.getElementById('statsTop').textContent =
+          `${state.manifest.totalPacks} packs · ${state.manifest.totalAnimations} animations indexed`;
+        renderPackSelect();
+        wireControls();
+        render();
+        requestAnimationFrame(step);
+      })();
+    </script>
+  </body>
+</html>
