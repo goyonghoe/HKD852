@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Rain — GLSL (Fable 5 one-shot demo)</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #06090f;
+      }
+      canvas {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      #panel {
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        z-index: 10;
+        background: rgba(10, 15, 24, 0.74);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(140, 170, 200, 0.16);
+        border-radius: 14px;
+        padding: 16px 18px;
+        color: #cfdce8;
+        font-family: -apple-system, "Apple SD Gothic Neo", sans-serif;
+        width: 256px;
+        user-select: none;
+        transition: opacity 0.4s;
+      }
+      #panel.faded {
+        opacity: 0.12;
+      }
+      #panel:hover {
+        opacity: 1;
+      }
+      #panel h1 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #e8f0f8;
+      }
+      #panel .sub {
+        font-size: 11px;
+        color: #7e93a8;
+        margin: 4px 0 14px;
+        line-height: 1.55;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 11px;
+        font-size: 12.5px;
+      }
+      .row label {
+        color: #a8bccd;
+      }
+      .row .val {
+        color: #6fa8d8;
+        font-variant-numeric: tabular-nums;
+        font-size: 11.5px;
+        min-width: 30px;
+        text-align: right;
+      }
+      input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 104px;
+        height: 3px;
+        border-radius: 2px;
+        background: #2a3a4d;
+        outline: none;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #6fa8d8;
+        cursor: pointer;
+        box-shadow: 0 0 6px rgba(111, 168, 216, 0.6);
+      }
+      .toggle {
+        position: relative;
+        width: 36px;
+        height: 20px;
+        background: #2a3a4d;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.25s;
+      }
+      .toggle.on {
+        background: #3d6f9e;
+      }
+      .toggle::after {
+        content: "";
+        position: absolute;
+        top: 2.5px;
+        left: 3px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: #cfdce8;
+        transition: left 0.25s;
+      }
+      .toggle.on::after {
+        left: 18px;
+      }
+      .seg {
+        display: flex;
+        gap: 4px;
+      }
+      .seg button {
+        background: #1c2838;
+        border: none;
+        color: #8aa2b8;
+        font-size: 11px;
+        padding: 4px 9px;
+        border-radius: 7px;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .seg button.on {
+        background: #3d6f9e;
+        color: #eaf2fa;
+      }
+      .hint {
+        font-size: 10.5px;
+        color: #5a7088;
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(140, 170, 200, 0.12);
+        line-height: 1.6;
+      }
+      #stats {
+        position: fixed;
+        bottom: 14px;
+        right: 18px;
+        z-index: 10;
+        font-family: "SF Mono", Menlo, monospace;
+        font-size: 10px;
+        color: rgba(130, 155, 180, 0.55);
+        text-align: right;
+        line-height: 1.7;
+        pointer-events: none;
+      }
+      #err {
+        position: fixed;
+        inset: 0;
+        display: none;
+        z-index: 99;
+        color: #ff9a9a;
+        background: #0a0e14;
+        padding: 40px;
+        font-family: Menlo, monospace;
+        font-size: 12px;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+    <div id="err"></div>
+
+    <div id="panel">
+      <h1>⛈ Project Rain · GLSL</h1>
+      <div class="sub">
+        씬 전체가 프래그먼트 셰이더 한 장.<br />지오메트리 0개 · 텍스처 0개 ·
+        라이브러리 0개.<br />모든 픽셀이 매 프레임 수학으로 계산됩니다.
+      </div>
+      <div class="row">
+        <label>비 강도</label
+        ><input type="range" id="intensity" min="0" max="100" value="65" /><span
+          class="val"
+          id="intensityVal"
+          >65</span
+        >
+      </div>
+      <div class="row">
+        <label>바람</label
+        ><input type="range" id="wind" min="-100" max="100" value="-30" /><span
+          class="val"
+          id="windVal"
+          >-30</span
+        >
+      </div>
+      <div class="row">
+        <label>유리창 빗방울</label>
+        <div class="toggle on" id="glassToggle"></div>
+      </div>
+      <div class="row">
+        <label>천둥·번개</label>
+        <div class="toggle on" id="thunderToggle"></div>
+      </div>
+      <div class="row">
+        <label>빗소리 (프로시저럴)</label>
+        <div class="toggle" id="soundToggle"></div>
+      </div>
+      <div class="row">
+        <label>화질</label>
+        <div class="seg">
+          <button data-q="0.5">저</button>
+          <button data-q="0.75">중</button>
+          <button data-q="1" class="on">고</button>
+        </div>
+      </div>
+      <div class="hint">
+        화면 클릭 → 그 자리에 번개 ⚡<br />구름·산·강물 반사·번개·빗방울
+        굴절까지<br />전부 하나의 셰이더 패스입니다.
+      </div>
+    </div>
+
+    <div id="stats"></div>
+
+    <script>
+      "use strict";
+      // ============================================================
+      //  Project Rain · GLSL — single-pass procedural rain scene
+      //  Claude Fable 5 one-shot demo · no geometry, no textures
+      // ============================================================
+
+      const VERT = `
+attribute vec2 aPos;
+void main() { gl_Position = vec4(aPos, 0.0, 1.0); }
+`;
+
+      const FRAG = `
+precision highp float;
+
+uniform vec2  u_res;
+uniform float u_time;
+uniform float u_rain;    // 0..1
+uniform float u_wind;    // -1..1
+uniform float u_glass;   // 0/1 유리창 빗방울
+uniform float u_flash;   // 번개 섬광 0..1
+uniform float u_bolt;    // 볼트 가시성 0..1
+uniform float u_boltX;   // 볼트 x (aspect 보정 좌표)
+uniform float u_seed;    // 볼트 모양 시드
+
+#define HORIZON 0.355
+
+// ---------- 노이즈 ----------
+float hash11(float p) { p = fract(p * 0.1031); p *= p + 33.33; p *= p + p; return fract(p); }
+float hash21(vec2 p) {
+  vec3 p3 = fract(vec3(p.xyx) * 0.1031);
+  p3 += dot(p3, p3.yzx + 33.33);
+  return fract((p3.x + p3.y) * p3.z);
+}
+float noise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  float a = hash21(i);
+  float b = hash21(i + vec2(1.0, 0.0));
+  float c = hash21(i + vec2(0.0, 1.0));
+  float d = hash21(i + vec2(1.0, 1.0));
+  return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+float fbm(vec2 p) {
+  float v = 0.0, a = 0.5;
+  for (int i = 0; i < 5; i++) {
+    v += a * noise(p);
+    p = p * 2.03 + vec2(7.3, 9.1);
+    a *= 0.5;
+  }
+  return v;
+}
+
+// ---------- 하늘 + 지형 + 오두막 (수면 위 세계) ----------
+// uv: 화면 좌표 (반사 시 미러된 uv가 들어옴)
+vec3 world(vec2 uv) {
+  float aspect = u_res.x / u_res.y;
+  vec2 w = vec2(uv.x * aspect, uv.y);
+  float hor = HORIZON;
+
+  // --- 하늘 그라디언트 ---
+  vec3 col = mix(vec3(0.075, 0.105, 0.155), vec3(0.030, 0.045, 0.075), smoothstep(hor, 1.0, uv.y));
+
+  // --- 보름달 (오두막 위 하늘) ---
+  vec2 mp = vec2(aspect * 0.73, 0.70);
+  float md = length(w - mp);
+  float disc = smoothstep(0.042, 0.036, md);
+  col = mix(col, vec3(0.93, 0.95, 1.05), disc);
+  // 달 표면 음영 (민무늬 원반 방지)
+  col -= vec3(0.10, 0.10, 0.08) * disc * smoothstep(0.45, 0.75, fbm(w * 38.0 + 5.0));
+  col += vec3(0.55, 0.65, 0.82) * 0.12 * exp(-md * 4.6);
+  col += vec3(0.85, 0.92, 1.00) * 0.35 * exp(-md * 30.0);
+
+  // --- 구름 (도메인 워프 fbm) ---
+  float drift = u_time * (0.012 + u_wind * 0.010);
+  vec2 cq = vec2(w.x * 0.85 - drift, uv.y * 1.7);
+  float warp = fbm(cq * 1.6 + vec2(u_time * 0.008, 0.0));
+  float cd = fbm(cq * 2.3 + warp * 0.9);
+  cd = smoothstep(0.42, 0.78, cd) * smoothstep(hor + 0.02, hor + 0.30, uv.y);
+  col = mix(col, vec3(0.040, 0.055, 0.082), cd * 0.93);
+  // 달을 지나는 구름 가장자리 은빛 라이닝
+  col += vec3(0.70, 0.78, 0.95) * cd * (1.0 - cd) * exp(-md * 3.2) * 0.45;
+  // 번개가 구름 속을 밝힘
+  col += vec3(0.45, 0.55, 0.78) * cd * u_flash * 1.6;
+  col += vec3(0.30, 0.38, 0.55) * cd * u_bolt * exp(-abs(w.x - u_boltX) * 2.2) * 0.9;
+
+  // --- 산 능선 3겹 (멀수록 안개에 묻힘) ---
+  float r1 = hor + 0.150 + 0.105 * fbm(vec2(w.x * 1.35 + 3.7, 2.0));
+  col = mix(col, vec3(0.052, 0.070, 0.100), smoothstep(r1 + 0.0025, r1 - 0.0025, uv.y) * 0.92);
+  float r2 = hor + 0.085 + 0.080 * fbm(vec2(w.x * 2.10 + 17.0, 5.0));
+  col = mix(col, vec3(0.036, 0.049, 0.071), smoothstep(r2 + 0.0020, r2 - 0.0020, uv.y));
+  float r3 = hor + 0.032 + 0.055 * fbm(vec2(w.x * 3.20 + 47.0, 9.0));
+  col = mix(col, vec3(0.022, 0.030, 0.044), smoothstep(r3 + 0.0018, r3 - 0.0018, uv.y));
+
+  // --- 침엽수 숲 실루엣 ---
+  float tn = 46.0;
+  float tid = floor(w.x * tn);
+  float th = 0.016 + 0.044 * hash11(tid + 13.0);
+  float spike = th * (1.0 - abs(fract(w.x * tn) - 0.5) * 2.0);
+  float rt = hor + spike;
+  col = mix(col, vec3(0.011, 0.016, 0.025), smoothstep(rt + 0.0012, rt - 0.0012, uv.y));
+
+  // --- 오두막 ---
+  float cx = aspect * 0.68;
+  float bw = 0.130, bh = 0.082, rh = 0.052;
+  // 몸체
+  float body = step(abs(w.x - cx), bw * 0.5) * step(abs(w.y - (hor + bh * 0.5)), bh * 0.5);
+  // 지붕 (삼각)
+  float roofT = (w.y - (hor + bh)) / rh;
+  float roof = step(0.0, roofT) * step(roofT, 1.0) * step(abs(w.x - cx), bw * 0.62 * (1.0 - roofT));
+  // 굴뚝
+  float chim = step(abs(w.x - (cx + bw * 0.27)), 0.011)
+             * step(hor + bh, w.y) * step(w.y, hor + bh + rh * 0.9);
+  float cab = max(max(body, roof), chim);
+  col = mix(col, vec3(0.013, 0.017, 0.024), cab);
+  // 통나무 라인
+  float logs = smoothstep(0.35, 0.5, abs(sin(w.y * 260.0))) * body;
+  col = mix(col, vec3(0.008, 0.011, 0.016), logs * 0.6);
+
+  // --- 창문 (난로 불빛, 깜빡임) ---
+  vec2 winC = vec2(cx - bw * 0.17, hor + bh * 0.52);
+  float flick = 0.82 + 0.18 * noise(vec2(u_time * 3.2, 7.0));
+  float win = step(abs(w.x - winC.x), 0.0185) * step(abs(w.y - winC.y), 0.0205);
+  float bars = max(step(abs(w.x - winC.x), 0.0022), step(abs(w.y - winC.y), 0.0024));
+  win *= 1.0 - bars * 0.9;
+  vec3 warm = vec3(1.0, 0.60, 0.26) * flick;
+  col = mix(col, warm * 1.35, win);
+  col += warm * 0.16 * exp(-length(w - winC) * 26.0);   // 창문 글로우
+
+  // --- 번개 볼트 (세계 공간 → 수면 반사에도 비침) ---
+  if (u_bolt > 0.002) {
+    float jag = (fbm(vec2(uv.y * 7.0 + u_seed * 43.7, u_seed * 17.0)) - 0.5);
+    float bx = u_boltX + jag * 0.26 * (1.0 - uv.y);
+    float dx = abs(w.x - bx);
+    float vis = smoothstep(hor - 0.02, hor + 0.01, uv.y) * step(uv.y, 0.96);
+    // 가지 하나
+    float jag2 = (fbm(vec2(uv.y * 11.0 + u_seed * 91.3, u_seed * 31.0)) - 0.5);
+    float bx2 = bx + 0.05 + jag2 * 0.18 * (1.0 - uv.y);
+    float dx2 = abs(w.x - bx2);
+    float branchVis = vis * smoothstep(0.85, 0.6, uv.y) * smoothstep(hor + 0.05, hor + 0.2, uv.y);
+    col += vec3(0.85, 0.92, 1.0) * (exp(-dx * 420.0) * 2.4 + exp(-dx * 26.0) * 0.38) * u_bolt * vis;
+    col += vec3(0.80, 0.88, 1.0) * exp(-dx2 * 520.0) * 1.2 * u_bolt * branchVis;
+  }
+
+  return col;
+}
+
+// ---------- 세계 공간 빗줄기 (한 레이어) ----------
+float rainLayer(vec2 uv, float n, float speed, float seed) {
+  float aspect = u_res.x / u_res.y;
+  vec2 p = vec2(uv.x * aspect, uv.y);
+  // 돌풍 — 높이·시간에 따라 휘는 기울기 (균일한 직선 시트 깨기)
+  float gust = (noise(vec2(u_time * 0.3 + seed * 3.1, uv.y * 1.8)) - 0.5) * 0.6;
+  p.x += (1.0 - uv.y) * (u_wind * 0.35 + gust * 0.2);
+  p.x *= n;
+  float colId = floor(p.x);
+  float colH = hash11(colId * 0.731 + seed);
+  // 열마다 낙하 속도·위상이 다름
+  p.y = uv.y * n * 0.38 + u_time * speed * (0.7 + 0.6 * colH) + colH * 19.7;
+  vec2 id = vec2(colId, floor(p.y));
+  vec2 f = vec2(fract(p.x), fract(p.y));
+  float h = hash21(id + seed);
+  float on = step(0.45, hash21(id + seed + 7.0)); // 일부 셀에만
+  // 떨어지며 살짝 흔들리는 중심선 + 방울마다 다른 길이
+  float cx = 0.5 + (h - 0.5) * 0.5 + sin(p.y * 3.1 + h * 31.0) * 0.06;
+  float lenR = 0.20 + 0.30 * hash21(id + seed + 3.0);
+  float y0 = 0.08 + 0.25 * h;
+  float y1 = y0 + lenR;
+  float body = smoothstep(y0, y0 + 0.10, f.y) * smoothstep(y1, y1 - 0.10, f.y);
+  float line = smoothstep(0.060, 0.006, abs(f.x - cx));
+  // 방울마다 밝기 제각각 + 진행 방향 쪽이 살짝 밝음
+  float grade = clamp(mix(0.45, 1.0, (f.y - y0) / max(lenR, 0.001)), 0.0, 1.0);
+  return line * body * on * (0.45 + 0.55 * h) * grade;
+}
+
+// ---------- 전체 씬 (수면 포함) ----------
+vec3 scene(vec2 uv) {
+  float hor = HORIZON;
+  vec3 col;
+
+  if (uv.y >= hor) {
+    col = world(uv);
+  } else {
+    // --- 강 (씬 자체를 미러 샘플 → 일렁이는 반사) ---
+    float depth = (hor - uv.y) / hor;          // 수면선 0 → 화면 하단 1
+    float rip1 = noise(vec2(uv.x * 55.0 + u_time * 0.8, uv.y * 150.0)) - 0.5;
+    float rip2 = noise(vec2(uv.x * 22.0 + u_time * 0.5, uv.y * 55.0)) - 0.5;
+    vec2 ruv;
+    ruv.x = uv.x + (rip1 * 0.018 + rip2 * 0.014) * (0.25 + depth);
+    ruv.y = 2.0 * hor - uv.y + rip1 * 0.012;
+    vec3 refl = world(ruv);
+    vec3 deep = mix(vec3(0.014, 0.020, 0.031), vec3(0.004, 0.006, 0.011), depth);
+    float fres = pow(1.0 - depth, 1.6);         // 수면선 근처가 더 거울 같음
+    col = deep + refl * (0.30 + 0.34 * fres);
+    // 잔물결 하이라이트 — 반사를 왜곡하는 같은 물결의 마루에만 맺힘 (별도 노이즈 층 제거)
+    float spark = smoothstep(0.30, 0.42, rip1 + rip2 * 0.3);
+    col += vec3(0.09, 0.12, 0.17) * spark * (1.0 - depth) * (0.30 + u_flash * 3.0 + u_bolt * 1.2);
+    // 빗방울 착수 반짝임
+    float plip = step(0.9975 - u_rain * 0.0035, hash21(floor(vec2(uv.x * 260.0, uv.y * 110.0 + u_time * 9.0))));
+    col += vec3(0.35, 0.45, 0.60) * plip * (1.0 - depth) * 0.5 * u_rain;
+  }
+
+  // --- 빗줄기 3겹 (깊이감) ---
+  float r = 0.0;
+  r += rainLayer(uv, 24.0, 10.0, 1.0) * 0.12;   // 먼 비
+  r += rainLayer(uv, 14.0, 15.0, 5.0) * 0.19;
+  r += rainLayer(uv, 8.5, 21.0, 9.0) * 0.27;    // 가까운 비
+  col += vec3(0.62, 0.72, 0.88) * r * u_rain * (1.0 + u_flash * 2.5);
+
+  // --- 물안개 (수면선 부근) ---
+  float mist = exp(-abs(uv.y - hor) * 22.0);
+  col += vec3(0.30, 0.38, 0.50) * mist * 0.05;
+
+  return col;
+}
+
+// ---------- 유리창 빗방울 (화면 굴절) ----------
+// xy = uv 굴절 오프셋, z = 방울 마스크
+vec3 glassDrops(vec2 uv, float scale, float seed) {
+  float aspect = u_res.x / u_res.y;
+  vec2 g = vec2(uv.x * aspect, uv.y) * scale;
+  // 대부분의 방울은 유리에 붙어 있고, 일부 열만 흘러내림
+  float colId = floor(g.x);
+  float colSpeed = (0.03 + 0.07 * hash11(colId + seed)) * step(0.55, hash11(colId + seed + 11.0));
+  g.y += u_time * colSpeed;
+  vec2 id = floor(g);
+  vec2 f = fract(g) - 0.5;
+  float h = hash21(id + seed);
+  float on = step(0.72, h);                       // ~28% 셀에만 방울
+  vec2 c = (vec2(hash21(id + seed + 1.3), hash21(id + seed + 2.7)) - 0.5) * 0.55;
+  // 미끄러질 때 좌우로 살짝 흔들림
+  c.x += sin(u_time * 2.0 + h * 40.0) * 0.015;
+  vec2 d = f - c;
+  float r = 0.10 + 0.13 * hash21(id + seed + 3.1);
+  float m = smoothstep(r, r * 0.35, length(d)) * on;
+  return vec3(d * m / scale, m);
+}
+
+void main() {
+  vec2 uv = gl_FragCoord.xy / u_res;
+
+  // 유리창 빗방울 → 배경 샘플 좌표를 굴절
+  vec2 suv = uv;
+  float dropMask = 0.0;
+  if (u_glass > 0.5 && u_rain > 0.02) {
+    vec3 d1 = glassDrops(uv, 9.0, 0.0);
+    vec3 d2 = glassDrops(uv, 17.0, 50.0);
+    float amt = smoothstep(0.02, 0.45, u_rain);
+    suv -= (d1.xy * 3.6 + d2.xy * 2.6) * amt;
+    dropMask = max(d1.z, d2.z) * amt;
+  }
+
+  vec3 col = scene(suv);
+
+  // 방울 가장자리 하이라이트
+  col += vec3(0.70, 0.80, 1.00) * dropMask * 0.05;
+
+  // 번개 전체 섬광
+  col += vec3(0.55, 0.64, 0.85) * u_flash * 0.30;
+
+  // 톤매핑 + 비네트 + 그레인
+  col = col / (col + 0.85);
+  col = pow(col, vec3(0.92));
+  float vig = 1.0 - 0.45 * pow(length(uv - vec2(0.5, 0.45)) * 1.25, 2.2);
+  col *= max(vig, 0.0);
+  col += (hash21(uv * 731.7 + fract(u_time) * 113.1) - 0.5) * 0.028;
+
+  gl_FragColor = vec4(col, 1.0);
+}
+`;
+
+      // ============================================================
+      //  JS 하니스
+      // ============================================================
+      const canvas = document.getElementById("c");
+      const errEl = document.getElementById("err");
+      const gl =
+        canvas.getContext("webgl", { antialias: false, alpha: false }) ||
+        canvas.getContext("experimental-webgl");
+
+      function fatal(msg) {
+        errEl.style.display = "block";
+        errEl.textContent = "WebGL 오류:\n\n" + msg;
+        throw new Error(msg);
+      }
+      if (!gl) fatal("이 브라우저에서 WebGL을 사용할 수 없습니다.");
+
+      function compile(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS))
+          fatal(gl.getShaderInfoLog(s));
+        return s;
+      }
+      const prog = gl.createProgram();
+      gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
+      gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS))
+        fatal(gl.getProgramInfoLog(prog));
+      gl.useProgram(prog);
+
+      // 풀스크린 삼각형
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([-1, -1, 3, -1, -1, 3]),
+        gl.STATIC_DRAW,
+      );
+      const aPos = gl.getAttribLocation(prog, "aPos");
+      gl.enableVertexAttribArray(aPos);
+      gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+      const U = {};
+      for (const name of [
+        "u_res",
+        "u_time",
+        "u_rain",
+        "u_wind",
+        "u_glass",
+        "u_flash",
+        "u_bolt",
+        "u_boltX",
+        "u_seed",
+      ]) {
+        U[name] = gl.getUniformLocation(prog, name);
+      }
+
+      // ---------- 상태 ----------
+      const state = {
+        rain: 0.65,
+        wind: -0.3,
+        glass: true,
+        thunder: true,
+        sound: false,
+        quality: 1.0,
+      };
+      let flash = 0,
+        boltLife = 0,
+        boltX = 0.8,
+        boltSeed = 1.0;
+      let nextLightning = 4 + Math.random() * 7;
+
+      // ---------- 리사이즈 ----------
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2) * state.quality;
+        canvas.width = Math.round(window.innerWidth * dpr);
+        canvas.height = Math.round(window.innerHeight * dpr);
+        gl.viewport(0, 0, canvas.width, canvas.height);
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      // ---------- 프로시저럴 오디오 ----------
+      let actx = null,
+        rainGain = null,
+        noiseBuf = null;
+      function initAudio() {
+        if (actx) return;
+        actx = new (window.AudioContext || window.webkitAudioContext)();
+        const len = actx.sampleRate * 2;
+        noiseBuf = actx.createBuffer(1, len, actx.sampleRate);
+        const data = noiseBuf.getChannelData(0);
+        for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+        const src = actx.createBufferSource();
+        src.buffer = noiseBuf;
+        src.loop = true;
+        const bp = actx.createBiquadFilter();
+        bp.type = "bandpass";
+        bp.frequency.value = 2400;
+        bp.Q.value = 0.4;
+        const lp = actx.createBiquadFilter();
+        lp.type = "lowpass";
+        lp.frequency.value = 5200;
+        rainGain = actx.createGain();
+        rainGain.gain.value = 0;
+        src.connect(bp);
+        bp.connect(lp);
+        lp.connect(rainGain);
+        rainGain.connect(actx.destination);
+        src.start();
+      }
+      function updateRainVolume() {
+        if (!rainGain) return;
+        const target = state.sound ? 0.03 + state.rain * 0.16 : 0;
+        rainGain.gain.setTargetAtTime(target, actx.currentTime, 0.4);
+      }
+      function scheduleThunder(delaySec) {
+        if (!actx) return;
+        const t0 = actx.currentTime + delaySec;
+        const src = actx.createBufferSource();
+        src.buffer = noiseBuf;
+        src.loop = true;
+        const lp = actx.createBiquadFilter();
+        lp.type = "lowpass";
+        lp.frequency.setValueAtTime(320, t0);
+        lp.frequency.exponentialRampToValueAtTime(70, t0 + 2.8);
+        const g = actx.createGain();
+        g.gain.setValueAtTime(0.0001, t0);
+        g.gain.exponentialRampToValueAtTime(0.5, t0 + 0.07);
+        g.gain.exponentialRampToValueAtTime(0.12, t0 + 0.9);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + 3.2);
+        src.connect(lp);
+        lp.connect(g);
+        g.connect(actx.destination);
+        src.start(t0);
+        src.stop(t0 + 3.4);
+      }
+
+      // ---------- 번개 ----------
+      function triggerLightning(clientX) {
+        const aspect = window.innerWidth / window.innerHeight;
+        boltX =
+          clientX !== undefined
+            ? (clientX / window.innerWidth) * aspect
+            : (0.15 + Math.random() * 0.7) * aspect;
+        boltSeed = Math.random() * 100 + 1;
+        boltLife = 1;
+        flash = 0.6 + Math.random() * 0.3;
+        if (state.sound) scheduleThunder(0.4 + Math.random() * 2.0);
+      }
+      canvas.addEventListener("pointerdown", (e) =>
+        triggerLightning(e.clientX),
+      );
+
+      // ---------- 메인 루프 ----------
+      let lastT = performance.now(),
+        t = 0;
+      let fpsAcc = 0,
+        fpsN = 0;
+      const statsEl = document.getElementById("stats");
+
+      function loop(now) {
+        const dt = Math.min(0.05, (now - lastT) / 1000);
+        lastT = now;
+        t += dt;
+
+        if (state.thunder) {
+          nextLightning -= dt;
+          if (nextLightning <= 0) {
+            triggerLightning();
+            nextLightning = 5 + Math.random() * 11;
+          }
+        }
+        if (boltLife > 0) boltLife = Math.max(0, boltLife - dt * 3.0);
+        if (flash > 0) flash = Math.max(0, flash - dt * 1.9);
+        // 볼트 플리커 (실제 번개의 재점화 느낌)
+        const boltVis =
+          boltLife > 0 ? boltLife * (0.5 + 0.5 * Math.random()) : 0;
+
+        gl.uniform2f(U.u_res, canvas.width, canvas.height);
+        gl.uniform1f(U.u_time, t);
+        gl.uniform1f(U.u_rain, state.rain);
+        gl.uniform1f(U.u_wind, state.wind);
+        gl.uniform1f(U.u_glass, state.glass ? 1 : 0);
+        gl.uniform1f(U.u_flash, flash);
+        gl.uniform1f(U.u_bolt, boltVis);
+        gl.uniform1f(U.u_boltX, boltX);
+        gl.uniform1f(U.u_seed, boltSeed);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+        fpsAcc += 1 / dt;
+        fpsN++;
+        if (fpsN >= 30) {
+          const fps = Math.round(fpsAcc / fpsN);
+          fpsAcc = 0;
+          fpsN = 0;
+          statsEl.innerHTML =
+            `${fps} fps · ${canvas.width}×${canvas.height}<br>` +
+            `single fragment shader · Claude Fable 5`;
+        }
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+
+      // ---------- UI ----------
+      const $ = (id) => document.getElementById(id);
+      $("intensity").addEventListener("input", (e) => {
+        state.rain = e.target.value / 100;
+        $("intensityVal").textContent = e.target.value;
+        updateRainVolume();
+      });
+      $("wind").addEventListener("input", (e) => {
+        state.wind = e.target.value / 100;
+        $("windVal").textContent = e.target.value;
+      });
+      $("glassToggle").addEventListener("click", (e) => {
+        state.glass = !state.glass;
+        e.currentTarget.classList.toggle("on", state.glass);
+      });
+      $("thunderToggle").addEventListener("click", (e) => {
+        state.thunder = !state.thunder;
+        e.currentTarget.classList.toggle("on", state.thunder);
+      });
+      $("soundToggle").addEventListener("click", (e) => {
+        state.sound = !state.sound;
+        e.currentTarget.classList.toggle("on", state.sound);
+        if (state.sound) {
+          initAudio();
+          actx.resume();
+        }
+        updateRainVolume();
+      });
+      document.querySelectorAll(".seg button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".seg button")
+            .forEach((b) => b.classList.remove("on"));
+          btn.classList.add("on");
+          state.quality = +btn.dataset.q;
+          resize();
+        });
+      });
+
+      // 패널 자동 페이드
+      let fadeTimer = null;
+      function armFade() {
+        clearTimeout(fadeTimer);
+        $("panel").classList.remove("faded");
+        fadeTimer = setTimeout(() => $("panel").classList.add("faded"), 5000);
+      }
+      window.addEventListener("pointermove", armFade);
+      armFade();
+    </script>
+  </body>
+</html>

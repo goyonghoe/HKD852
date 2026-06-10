@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Project Rain · GLSL</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #05070c;
+      }
+      #gl {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        cursor: crosshair;
+      }
+
+      /* Glassmorphism UI panel */
+      #panel {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 10;
+        width: 248px;
+        padding: 16px 18px;
+        background: rgba(18, 24, 38, 0.42);
+        border: 1px solid rgba(180, 200, 255, 0.18);
+        border-radius: 16px;
+        backdrop-filter: blur(14px) saturate(140%);
+        -webkit-backdrop-filter: blur(14px) saturate(140%);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+        color: #d8e2f5;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+          "Apple SD Gothic Neo", sans-serif;
+        font-size: 13px;
+        transition: opacity 1.2s ease;
+        opacity: 1;
+        user-select: none;
+      }
+      #panel.faded {
+        opacity: 0.06;
+      }
+      #panel:hover {
+        opacity: 1 !important;
+        transition: opacity 0.25s ease;
+      }
+      #panel h1 {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        margin-bottom: 14px;
+        color: #f0c98a;
+        text-shadow: 0 0 12px rgba(240, 180, 100, 0.4);
+      }
+      .row {
+        margin-bottom: 13px;
+      }
+      .row label {
+        display: block;
+        margin-bottom: 6px;
+        color: #a9b8d4;
+        font-size: 12px;
+      }
+      .val {
+        float: right;
+        color: #f0c98a;
+        font-variant-numeric: tabular-nums;
+      }
+      input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        border-radius: 4px;
+        background: rgba(160, 180, 220, 0.22);
+        outline: none;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #f0c98a;
+        cursor: pointer;
+        box-shadow: 0 0 8px rgba(240, 180, 100, 0.7);
+      }
+      .toggles {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+      .tg {
+        flex: 1 1 auto;
+        padding: 7px 4px;
+        text-align: center;
+        border-radius: 9px;
+        cursor: pointer;
+        font-size: 11px;
+        background: rgba(120, 140, 180, 0.12);
+        border: 1px solid rgba(160, 180, 220, 0.16);
+        transition: all 0.18s ease;
+        white-space: nowrap;
+      }
+      .tg.on {
+        background: rgba(240, 180, 100, 0.2);
+        border-color: rgba(240, 180, 100, 0.55);
+        color: #ffe6b8;
+        box-shadow: 0 0 10px rgba(240, 180, 100, 0.25);
+      }
+      .quality {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 10px;
+      }
+      .quality .q {
+        flex: 1;
+        padding: 6px 0;
+        text-align: center;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 12px;
+        background: rgba(120, 140, 180, 0.12);
+        border: 1px solid rgba(160, 180, 220, 0.16);
+        transition: all 0.18s ease;
+      }
+      .quality .q.on {
+        background: rgba(130, 170, 255, 0.22);
+        border-color: rgba(130, 170, 255, 0.55);
+        color: #cfe0ff;
+      }
+      .hint {
+        margin-top: 4px;
+        font-size: 11px;
+        color: #8a9bbd;
+        line-height: 1.5;
+        border-top: 1px solid rgba(160, 180, 220, 0.12);
+        padding-top: 10px;
+      }
+      #stats {
+        position: fixed;
+        bottom: 10px;
+        right: 12px;
+        z-index: 10;
+        font-family: ui-monospace, Menlo, monospace;
+        font-size: 11px;
+        color: rgba(180, 200, 235, 0.55);
+        text-align: right;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        line-height: 1.4;
+      }
+      #err {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 16px;
+        background: rgba(40, 0, 0, 0.92);
+        color: #ff9090;
+        font-family: ui-monospace, monospace;
+        font-size: 12px;
+        white-space: pre-wrap;
+        display: none;
+        max-height: 60%;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gl"></canvas>
+
+    <div id="panel">
+      <h1>⛆ PROJECT RAIN · GLSL</h1>
+      <div class="row">
+        <label>비 강도 <span class="val" id="vRain">0.75</span></label>
+        <input
+          type="range"
+          id="rain"
+          min="0"
+          max="1"
+          step="0.01"
+          value="0.75"
+        />
+      </div>
+      <div class="row">
+        <label>바람 <span class="val" id="vWind">0.30</span></label>
+        <input
+          type="range"
+          id="wind"
+          min="-1"
+          max="1"
+          step="0.01"
+          value="0.30"
+        />
+      </div>
+      <div class="toggles">
+        <div class="tg on" id="tDrop">유리창 빗방울</div>
+        <div class="tg on" id="tLight">천둥·번개</div>
+        <div class="tg" id="tSound">빗소리</div>
+      </div>
+      <div class="quality">
+        <div class="q" id="q0">저</div>
+        <div class="q on" id="q1">중</div>
+        <div class="q" id="q2">고</div>
+      </div>
+      <div class="hint">화면 클릭 → 그 자리에 번개 ⚡</div>
+    </div>
+
+    <div id="stats">– fps<br />– × –</div>
+    <div id="err"></div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        var canvas = document.getElementById("gl");
+        var errBox = document.getElementById("err");
+        var gl =
+          canvas.getContext("webgl", {
+            antialias: false,
+            alpha: false,
+            preserveDrawingBuffer: false,
+          }) || canvas.getContext("experimental-webgl");
+
+        if (!gl) {
+          errBox.style.display = "block";
+          errBox.textContent =
+            "WebGL을 사용할 수 없습니다 (WebGL not available).";
+          return;
+        }
+
+        /* ---------------- Shaders ---------------- */
+        var VERT = [
+          "attribute vec2 aPos;",
+          "void main(){ gl_Position = vec4(aPos, 0.0, 1.0); }",
+        ].join("\n");
+
+        var FRAG = [
+          "precision highp float;",
+          "",
+          "uniform vec2  uRes;",
+          "uniform float uTime;",
+          "uniform float uRain;", // 0..1
+          "uniform float uWind;", // -1..1
+          "uniform float uDrops;", // 0/1
+          "uniform float uLightning;", // 0/1 master enable
+          "uniform float uFlash;", // 0..1 flash amount
+          "uniform float uBoltX;", // 0..1 bolt screen x
+          "uniform float uBoltLife;", // bolt life 0..1 (1 fresh -> 0 gone)
+          "uniform float uBoltSeed;", // changes per strike",
+          "",
+          "#define PI 3.14159265",
+          "",
+          "// ---------- hash / noise ----------",
+          "float hash11(float p){ p = fract(p*0.1031); p *= p+33.33; p *= p+p; return fract(p); }",
+          "float hash21(vec2 p){",
+          "  vec3 p3 = fract(vec3(p.xyx)*0.1031);",
+          "  p3 += dot(p3, p3.yzx+33.33);",
+          "  return fract((p3.x+p3.y)*p3.z);",
+          "}",
+          "vec2 hash22(vec2 p){",
+          "  vec3 p3 = fract(vec3(p.xyx)*vec3(0.1031,0.1030,0.0973));",
+          "  p3 += dot(p3, p3.yzx+33.33);",
+          "  return fract((p3.xx+p3.yz)*p3.zy);",
+          "}",
+          "float vnoise(vec2 p){",
+          "  vec2 i = floor(p); vec2 f = fract(p);",
+          "  vec2 u = f*f*(3.0-2.0*f);",
+          "  float a = hash21(i);",
+          "  float b = hash21(i+vec2(1.0,0.0));",
+          "  float c = hash21(i+vec2(0.0,1.0));",
+          "  float d = hash21(i+vec2(1.0,1.0));",
+          "  return mix(mix(a,b,u.x), mix(c,d,u.x), u.y);",
+          "}",
+          "float fbm(vec2 p){",
+          "  float v = 0.0; float a = 0.5;",
+          "  for(int i=0;i<5;i++){",
+          "    v += a*vnoise(p);",
+          "    p = p*2.02 + vec2(1.7,9.2);",
+          "    a *= 0.5;",
+          "  }",
+          "  return v;",
+          "}",
+          "// domain-warped fbm for clouds",
+          "float warpFbm(vec2 p){",
+          "  vec2 q = vec2(fbm(p), fbm(p+vec2(5.2,1.3)));",
+          "  vec2 r = vec2(fbm(p+2.0*q+vec2(1.7,9.2)), fbm(p+2.0*q+vec2(8.3,2.8)));",
+          "  return fbm(p + 1.8*r);",
+          "}",
+          "",
+          "// ---------- moon ----------",
+          "vec3 skyAndMoon(vec2 uv, vec2 moonPos, out float moonHalo){",
+          "  // vertical gradient (night)",
+          "  vec3 top = vec3(0.015, 0.025, 0.06);",
+          "  vec3 bot = vec3(0.05, 0.07, 0.12);",
+          "  vec3 col = mix(bot, top, clamp(uv.y, 0.0, 1.0));",
+          "  // moon",
+          "  float d = length((uv - moonPos)*vec2(uRes.x/uRes.y,1.0));",
+          "  float disc = smoothstep(0.052, 0.046, d);",
+          "  float halo = exp(-d*5.5)*0.55 + exp(-d*1.6)*0.18;",
+          "  moonHalo = halo;",
+          "  vec3 moonCol = vec3(0.95, 0.95, 0.88);",
+          "  col += moonCol*halo;",
+          "  col = mix(col, moonCol*1.15, disc);",
+          "  // faint stars",
+          "  float st = hash21(floor(uv*vec2(uRes.x/uRes.y,1.0)*420.0));",
+          "  st = step(0.9975, st) * (0.5+0.5*sin(uTime*3.0+st*60.0));",
+          "  col += vec3(st)*0.6*smoothstep(0.35,0.9,uv.y);",
+          "  return col;",
+          "}",
+          "",
+          "// ---------- clouds ----------",
+          "vec3 clouds(vec2 uv, vec3 sky, float flashLight, vec2 boltPos){",
+          "  if(uv.y < 0.42) return sky;",
+          "  float wind = uWind;",
+          "  vec2 cp = uv*vec2(2.6,3.4);",
+          "  cp.x += uTime*(0.012 + wind*0.06);",
+          "  cp.y -= 0.2;",
+          "  float c = warpFbm(cp);",
+          "  c = smoothstep(0.42, 0.95, c);",
+          "  // height falloff so clouds gather mid-high",
+          "  c *= smoothstep(0.42, 0.62, uv.y) * smoothstep(1.02, 0.7, uv.y);",
+          "  vec3 cloudDark = vec3(0.05,0.06,0.10);",
+          "  vec3 cloudLit  = vec3(0.16,0.18,0.24);",
+          "  vec3 cc = mix(cloudDark, cloudLit, c);",
+          "  // lightning local illumination near bolt",
+          "  float bd = length((uv - boltPos)*vec2(uRes.x/uRes.y,1.0));",
+          "  float near = exp(-bd*2.2);",
+          "  cc += vec3(0.55,0.62,0.85)*c*near*flashLight*1.6;",
+          "  cc += vec3(0.5,0.55,0.75)*c*flashLight*0.35;",
+          "  return mix(sky, cc, c*0.92);",
+          "}",
+          "",
+          "// ---------- mountains ----------",
+          "float ridge(float x, float seed, float rough){",
+          "  float h = 0.0; float amp = 1.0; float fr = 1.0;",
+          "  for(int i=0;i<4;i++){",
+          "    h += amp*vnoise(vec2(x*fr+seed, seed*1.7));",
+          "    fr *= 2.1; amp *= rough;",
+          "  }",
+          "  return h;",
+          "}",
+          "vec3 mountains(vec2 uv, vec3 col, float flashLight){",
+          "  // three ridgelines, far->near",
+          "  // far",
+          "  float h0 = 0.30 + 0.10*ridge(uv.x*1.3, 11.0, 0.5);",
+          "  float m0 = smoothstep(h0+0.004, h0-0.004, uv.y);",
+          "  vec3 c0 = vec3(0.10,0.12,0.18) + flashLight*0.10;",
+          "  col = mix(col, c0, m0*0.85);",
+          "  // mid",
+          "  float h1 = 0.26 + 0.13*ridge(uv.x*1.9+3.0, 27.0, 0.52);",
+          "  float m1 = smoothstep(h1+0.003, h1-0.003, uv.y);",
+          "  vec3 c1 = vec3(0.055,0.07,0.11) + flashLight*0.12;",
+          "  col = mix(col, c1, m1);",
+          "  // near",
+          "  float h2 = 0.215 + 0.16*ridge(uv.x*2.6+9.0, 41.0, 0.55);",
+          "  float m2 = smoothstep(h2+0.0025, h2-0.0025, uv.y);",
+          "  vec3 c2 = vec3(0.02,0.028,0.045) + flashLight*0.10;",
+          "  col = mix(col, c2, m2);",
+          "  return col;",
+          "}",
+          "",
+          "// conifer treeline silhouette at the bank",
+          "float treeline(vec2 uv){",
+          "  float base = 0.205;",
+          "  // jagged triangles via repeated abs of noise",
+          "  float t = vnoise(vec2(uv.x*16.0, 3.0))*0.5 + vnoise(vec2(uv.x*42.0, 7.0))*0.5;",
+          "  float spikes = abs(fract(uv.x*38.0)-0.5);",
+          "  float silh = base + t*0.06 - spikes*0.02 + 0.01;",
+          "  return smoothstep(silh+0.002, silh-0.002, uv.y);",
+          "}",
+          "",
+          "// ---------- cabin ----------",
+          "// returns coverage + outputs window glow contribution in wGlow",
+          "vec3 cabin(vec2 uv, vec3 col, out float wGlow){",
+          "  wGlow = 0.0;",
+          "  // cabin placed slightly right of center on the bank",
+          "  vec2 c = vec2(0.62, 0.225);",
+          "  vec2 p = uv - c;",
+          "  // body",
+          "  float bw = 0.052, bh = 0.040;",
+          "  float body = step(abs(p.x), bw) * step(0.0, p.y) * step(p.y, bh);",
+          "  // roof (triangle)",
+          "  float roofH = 0.030; float roofW = 0.066;",
+          "  float ry = p.y - bh;",
+          "  float roof = step(0.0, ry) * step(ry, roofH) * step(abs(p.x), roofW*(1.0 - ry/roofH));",
+          "  // chimney",
+          "  float chim = step(abs(p.x-0.030), 0.009) * step(bh+0.012, p.y) * step(p.y, bh+0.040);",
+          "  vec3 bodyCol = vec3(0.045,0.035,0.03);",
+          "  vec3 roofCol = vec3(0.02,0.018,0.022);",
+          "  col = mix(col, roofCol, max(roof,chim));",
+          "  col = mix(col, bodyCol, body*(1.0-roof));",
+          "  // window with warm flicker",
+          "  vec2 w = p - vec2(-0.012, 0.018);",
+          "  float flick = 0.78 + 0.22*sin(uTime*7.0) + 0.12*vnoise(vec2(uTime*9.0, 1.0));",
+          "  float win = step(abs(w.x),0.014)*step(abs(w.y),0.012);",
+          "  vec3 warm = vec3(1.0,0.62,0.22)*flick;",
+          "  col = mix(col, warm, win*body);",
+          "  // soft glow around window",
+          "  float gd = length((uv - (c+vec2(-0.012,0.018)))*vec2(uRes.x/uRes.y,1.0));",
+          "  float glow = exp(-gd*16.0)*flick;",
+          "  wGlow = glow;",
+          "  col += vec3(1.0,0.5,0.16)*glow*0.9;",
+          "  return col;",
+          "}",
+          "",
+          "// ---------- lightning bolt ----------",
+          "float boltShape(vec2 uv, float xpos, float seed, float life){",
+          "  if(life <= 0.0) return 0.0;",
+          "  // bolt travels from top (y~1.0) down toward horizon (~0.30)",
+          "  float yTop = 1.05; float yBot = 0.30;",
+          "  float t = clamp((yTop - uv.y)/(yTop - yBot), 0.0, 1.0);",
+          "  // jagged horizontal offset using layered noise of seed",
+          "  float n = (vnoise(vec2(uv.y*9.0+seed*13.0, seed*5.0))-0.5)*0.10;",
+          "  n += (vnoise(vec2(uv.y*26.0+seed*7.0, seed))-0.5)*0.045;",
+          "  n += (vnoise(vec2(uv.y*60.0+seed*3.0, seed*2.0))-0.5)*0.02;",
+          "  float pathX = xpos + n * (0.3+t);",
+          "  float d = abs(uv.x - pathX);",
+          "  float core = smoothstep(0.006, 0.0, d);",
+          "  float glow = exp(-d*45.0)*0.6;",
+          "  float visible = step(uv.y, yTop) * step(yBot-0.02, uv.y);",
+          "  // re-strike flicker feel",
+          "  float fl = 0.6 + 0.4*sin(seed*40.0 + (1.0-life)*30.0);",
+          "  return (core + glow) * visible * life * fl;",
+          "}",
+          "",
+          "// ---------- full scene above waterline ----------",
+          "// flashLight already includes lightning master gate",
+          "vec3 scene(vec2 uv, float flashLight, vec2 boltPos, float boltAmt){",
+          "  float moonHalo;",
+          "  vec2 moonPos = vec2(0.28, 0.78);",
+          "  vec3 col = skyAndMoon(uv, moonPos, moonHalo);",
+          "  col = clouds(uv, col, flashLight, boltPos);",
+          "  col = mountains(uv, col, flashLight);",
+          "  // treeline silhouette",
+          "  float tl = treeline(uv);",
+          "  col = mix(col, vec3(0.012,0.02,0.025)+flashLight*0.06, tl);",
+          "  // cabin",
+          "  float wGlow;",
+          "  col = cabin(uv, col, wGlow);",
+          "  // bolt",
+          "  vec3 boltCol = vec3(0.75,0.82,1.0);",
+          "  col += boltCol * boltAmt * 1.4;",
+          "  // overall flash brighten",
+          "  col += vec3(0.4,0.45,0.62) * flashLight * 0.25;",
+          "  return col;",
+          "}",
+          "",
+          "// ---------- rain streaks ----------",
+          "float rainLayer(vec2 uv, float scale, float speed, float slant, float seed){",
+          "  vec2 p = uv;",
+          "  p.x += p.y*slant;",
+          "  p *= scale;",
+          "  p.y += uTime*speed;",
+          "  vec2 id = floor(p);",
+          "  float colRnd = hash11(id.x*1.7 + seed);",
+          "  // only some columns have a drop this row band",
+          "  float fy = fract(p.y + colRnd*7.0);",
+          "  float onCol = step(0.55, hash11(id.x*3.3 + floor(p.y+colRnd*7.0)*0.001 + seed*2.0));",
+          "  // streak: vertical thin segment",
+          "  float fx = fract(p.x);",
+          "  float line = smoothstep(0.5, 0.46, abs(fx-0.5));",
+          "  float seg = smoothstep(0.0,0.1,fy)*smoothstep(0.55,0.25,fy);",
+          "  return line*seg*onCol;",
+          "}",
+          "",
+          "void main(){",
+          "  vec2 frag = gl_FragCoord.xy;",
+          "  vec2 uv = frag / uRes;",
+          "",
+          "  float flashLight = uFlash * uLightning;",
+          "  float waterLine = 0.35;",
+          "",
+          "  // bolt position in screen space (top point)",
+          "  vec2 boltPos = vec2(uBoltX, 0.85);",
+          "",
+          "  // --------- glass droplet refraction offset (camera lens) ---------",
+          "  vec2 sampUV = uv;",
+          "  if(uDrops > 0.5){",
+          "    // a few moving droplet cells",
+          "    vec2 gp = uv*vec2(9.0,14.0);",
+          "    gp.y += uTime*0.18;",
+          "    vec2 cell = floor(gp);",
+          "    vec2 f = fract(gp);",
+          "    vec2 rnd = hash22(cell);",
+          "    // droplet center wobbles, slides down at varying speed",
+          "    float slide = fract(rnd.y + uTime*(0.12+rnd.x*0.5));",
+          "    vec2 center = vec2(0.5+(rnd.x-0.5)*0.5, slide);",
+          "    float r = 0.16 + rnd.x*0.14;",
+          "    float d = length((f-center)*vec2(1.0,0.7));",
+          "    float drop = smoothstep(r, r*0.4, d);",
+          "    // refraction: push sample toward droplet center (lens)",
+          "    vec2 dir = normalize((f-center)+1e-4);",
+          "    sampUV -= dir * drop * 0.045 * (0.3+rnd.y);",
+          "    sampUV.y -= drop*0.01;",
+          "  }",
+          "",
+          "  vec3 col;",
+          "  if(sampUV.y > waterLine){",
+          "    // ABOVE water -> direct scene",
+          "    float boltAmt = uLightning * boltShape(sampUV, uBoltX, uBoltSeed, uBoltLife);",
+          "    col = scene(sampUV, flashLight, boltPos, boltAmt);",
+          "  } else {",
+          "    // BELOW water -> mirror reflect with ripple distortion",
+          "    float refY = waterLine + (waterLine - sampUV.y);",
+          "    vec2 ruv = vec2(sampUV.x, refY);",
+          "    // ripple distortion grows toward bottom (closer water)",
+          "    float depth = (waterLine - sampUV.y)/waterLine; // 0 at line ->1 bottom",
+          "    float rip = fbm(vec2(sampUV.x*22.0, sampUV.y*30.0 - uTime*1.3));",
+          "    float rip2 = vnoise(vec2(sampUV.x*60.0, sampUV.y*70.0 + uTime*2.2));",
+          "    ruv.x += (rip-0.5)*0.020*(0.3+depth);",
+          "    ruv.y += (rip2-0.5)*0.010*(0.3+depth);",
+          "    float boltAmt = uLightning * boltShape(ruv, uBoltX, uBoltSeed, uBoltLife);",
+          "    vec3 refl = scene(ruv, flashLight, boltPos, boltAmt);",
+          "    // darken & tint water",
+          "    refl *= vec3(0.55,0.62,0.72);",
+          "    refl = mix(refl, vec3(0.02,0.04,0.07), depth*0.45);",
+          "    // wave sparkle highlights",
+          "    float spk = pow(rip2, 6.0);",
+          "    refl += vec3(0.5,0.6,0.8)*spk*0.5*(0.4+flashLight);",
+          "    // tiny rain-impact glints on the surface",
+          "    vec2 gp = vec2(sampUV.x*70.0, sampUV.y*40.0);",
+          "    float g = hash21(floor(gp)+floor(uTime*9.0));",
+          "    float glint = step(0.985, g) * smoothstep(0.5,0.0,length(fract(gp)-0.5));",
+          "    refl += vec3(0.6,0.7,0.9)*glint*uRain*0.7;",
+          "    // water reflects flash strongly",
+          "    refl += vec3(0.3,0.36,0.5)*flashLight*0.3;",
+          "    col = refl;",
+          "  }",
+          "",
+          "  // --------- rain streaks (3 layers) ---------",
+          "  float slant = uWind*0.5;",
+          "  float r1 = rainLayer(uv, vec2(60.0,9.0).x>0.0?60.0:60.0, 7.0, slant, 1.0);",
+          "  float r2 = rainLayer(uv, 110.0, 11.0, slant*1.1, 9.0);",
+          "  float r3 = rainLayer(uv, 200.0, 16.0, slant*1.2, 23.0);",
+          "  float rainAll = r1*0.7 + r2*0.45 + r3*0.28;",
+          "  rainAll *= uRain;",
+          "  col += vec3(0.55,0.62,0.78) * rainAll * (0.5 + flashLight);",
+          "",
+          "  // brighten droplet rims for glass feel",
+          "  if(uDrops > 0.5){",
+          "    vec2 gp = uv*vec2(9.0,14.0);",
+          "    gp.y += uTime*0.18;",
+          "    vec2 cell = floor(gp); vec2 f = fract(gp);",
+          "    vec2 rnd = hash22(cell);",
+          "    float slide = fract(rnd.y + uTime*(0.12+rnd.x*0.5));",
+          "    vec2 center = vec2(0.5+(rnd.x-0.5)*0.5, slide);",
+          "    float r = 0.16 + rnd.x*0.14;",
+          "    float d = length((f-center)*vec2(1.0,0.7));",
+          "    float rim = smoothstep(r*1.05, r*0.85, d) - smoothstep(r*0.85,r*0.4,d);",
+          "    col += vec3(0.4,0.5,0.7)*max(rim,0.0)*0.25;",
+          "  }",
+          "",
+          "  // --------- post-processing ---------",
+          "  // tone map (Reinhard-ish)",
+          "  col = col / (col + vec3(0.9));",
+          "  col = pow(col, vec3(0.92));",
+          "  // vignette",
+          "  vec2 q = uv - 0.5;",
+          "  float vig = smoothstep(0.95, 0.35, length(q*vec2(1.05,1.2)));",
+          "  col *= mix(0.55, 1.0, vig);",
+          "  // film grain",
+          "  float grain = hash21(frag + fract(uTime)*vec2(91.7,33.1));",
+          "  col += (grain-0.5)*0.035;",
+          "  // subtle cool color grade",
+          "  col *= vec3(0.97,1.0,1.04);",
+          "",
+          "  gl_FragColor = vec4(clamp(col,0.0,1.0), 1.0);",
+          "}",
+        ].join("\n");
+
+        /* ---------------- Compile helpers ---------------- */
+        function compile(type, src) {
+          var s = gl.createShader(type);
+          gl.shaderSource(s, src);
+          gl.compileShader(s);
+          if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+            var log = gl.getShaderInfoLog(s);
+            showErr(
+              (type === gl.VERTEX_SHADER ? "Vertex" : "Fragment") +
+                " shader error:\n" +
+                log,
+            );
+            return null;
+          }
+          return s;
+        }
+        function showErr(msg) {
+          errBox.style.display = "block";
+          errBox.textContent = msg;
+        }
+
+        var vs = compile(gl.VERTEX_SHADER, VERT);
+        var fs = compile(gl.FRAGMENT_SHADER, FRAG);
+        var prog = null;
+        if (vs && fs) {
+          prog = gl.createProgram();
+          gl.attachShader(prog, vs);
+          gl.attachShader(prog, fs);
+          gl.bindAttribLocation(prog, 0, "aPos");
+          gl.linkProgram(prog);
+          if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+            showErr("Program link error:\n" + gl.getProgramInfoLog(prog));
+            prog = null;
+          }
+        }
+
+        if (prog) {
+          // fullscreen triangle
+          var buf = gl.createBuffer();
+          gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+          gl.bufferData(
+            gl.ARRAY_BUFFER,
+            new Float32Array([-1, -1, 3, -1, -1, 3]),
+            gl.STATIC_DRAW,
+          );
+          gl.useProgram(prog);
+          var aPos = gl.getAttribLocation(prog, "aPos");
+          gl.enableVertexAttribArray(aPos);
+          gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+          var U = {
+            uRes: gl.getUniformLocation(prog, "uRes"),
+            uTime: gl.getUniformLocation(prog, "uTime"),
+            uRain: gl.getUniformLocation(prog, "uRain"),
+            uWind: gl.getUniformLocation(prog, "uWind"),
+            uDrops: gl.getUniformLocation(prog, "uDrops"),
+            uLightning: gl.getUniformLocation(prog, "uLightning"),
+            uFlash: gl.getUniformLocation(prog, "uFlash"),
+            uBoltX: gl.getUniformLocation(prog, "uBoltX"),
+            uBoltLife: gl.getUniformLocation(prog, "uBoltLife"),
+            uBoltSeed: gl.getUniformLocation(prog, "uBoltSeed"),
+          };
+
+          /* ---------------- State ---------------- */
+          var state = {
+            rain: 0.75,
+            wind: 0.3,
+            drops: true,
+            lightning: true,
+            sound: false,
+            quality: 0.75,
+          };
+
+          // lightning runtime
+          var flash = 0.0;
+          var boltX = 0.5;
+          var boltLife = 0.0;
+          var boltSeed = 0.0;
+          var nextStrike = 3.0 + Math.random() * 5.0;
+          var elapsed = 0.0;
+
+          function triggerBolt(xNorm) {
+            boltX = xNorm;
+            boltSeed = Math.random() * 100.0;
+            boltLife = 1.0;
+            flash = 1.0;
+            if (audio && state.sound) scheduleThunder();
+          }
+
+          /* ---------------- WebAudio ---------------- */
+          var audio = null,
+            rainGain = null,
+            rainSrc = null,
+            masterGain = null;
+          function initAudio() {
+            if (audio) return;
+            var Ctx = window.AudioContext || window.webkitAudioContext;
+            if (!Ctx) return;
+            audio = new Ctx();
+            masterGain = audio.createGain();
+            masterGain.gain.value = 0.9;
+            masterGain.connect(audio.destination);
+
+            // rain: looped white noise -> bandpass + lowpass
+            var len = audio.sampleRate * 2;
+            var nb = audio.createBuffer(1, len, audio.sampleRate);
+            var dat = nb.getChannelData(0);
+            for (var i = 0; i < len; i++) dat[i] = Math.random() * 2 - 1;
+            rainSrc = audio.createBufferSource();
+            rainSrc.buffer = nb;
+            rainSrc.loop = true;
+            var bp = audio.createBiquadFilter();
+            bp.type = "bandpass";
+            bp.frequency.value = 1800;
+            bp.Q.value = 0.5;
+            var lp = audio.createBiquadFilter();
+            lp.type = "lowpass";
+            lp.frequency.value = 5200;
+            rainGain = audio.createGain();
+            rainGain.gain.value = 0.0;
+            rainSrc.connect(bp);
+            bp.connect(lp);
+            lp.connect(rainGain);
+            rainGain.connect(masterGain);
+            rainSrc.start();
+          }
+          function scheduleThunder() {
+            if (!audio) return;
+            var delay = 0.4 + Math.random() * 2.1; // distance-like
+            var t0 = audio.currentTime + delay;
+            var len = audio.sampleRate * 3;
+            var nb = audio.createBuffer(1, len, audio.sampleRate);
+            var dat = nb.getChannelData(0);
+            for (var i = 0; i < len; i++) dat[i] = Math.random() * 2 - 1;
+            var src = audio.createBufferSource();
+            src.buffer = nb;
+            var lp = audio.createBiquadFilter();
+            lp.type = "lowpass";
+            lp.frequency.value = 220 + Math.random() * 180;
+            var g = audio.createGain();
+            var peak = 0.55 + Math.random() * 0.3;
+            g.gain.setValueAtTime(0.0001, t0);
+            g.gain.exponentialRampToValueAtTime(peak, t0 + 0.08);
+            g.gain.exponentialRampToValueAtTime(0.0001, t0 + 3.0); // 3s decay
+            src.connect(lp);
+            lp.connect(g);
+            g.connect(masterGain);
+            src.start(t0);
+            src.stop(t0 + 3.2);
+          }
+          function updateRainSound() {
+            if (!rainGain || !audio) return;
+            var target = state.sound ? state.rain * 0.32 : 0.0;
+            rainGain.gain.setTargetAtTime(target, audio.currentTime, 0.25);
+          }
+
+          /* ---------------- Resize ---------------- */
+          var dpr = 1;
+          function resize() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            var scale = state.quality * dpr;
+            var w = Math.max(1, Math.floor(window.innerWidth * scale));
+            var h = Math.max(1, Math.floor(window.innerHeight * scale));
+            canvas.width = w;
+            canvas.height = h;
+            canvas.style.width = window.innerWidth + "px";
+            canvas.style.height = window.innerHeight + "px";
+            gl.viewport(0, 0, w, h);
+          }
+          window.addEventListener("resize", resize);
+          resize();
+
+          /* ---------------- UI ---------------- */
+          var statsEl = document.getElementById("stats");
+          var panel = document.getElementById("panel");
+
+          function bindSlider(id, valId, key) {
+            var el = document.getElementById(id);
+            var v = document.getElementById(valId);
+            el.addEventListener("input", function () {
+              state[key] = parseFloat(el.value);
+              v.textContent = state[key].toFixed(2);
+              if (key === "rain") updateRainSound();
+            });
+          }
+          bindSlider("rain", "vRain", "rain");
+          bindSlider("wind", "vWind", "wind");
+
+          function bindToggle(id, key, onChange) {
+            var el = document.getElementById(id);
+            el.addEventListener("click", function () {
+              state[key] = !state[key];
+              el.classList.toggle("on", state[key]);
+              if (onChange) onChange();
+            });
+          }
+          bindToggle("tDrop", "drops");
+          bindToggle("tLight", "lightning");
+          bindToggle("tSound", "sound", function () {
+            if (state.sound) {
+              initAudio();
+              if (audio && audio.state === "suspended") audio.resume();
+            }
+            updateRainSound();
+          });
+
+          var qEls = [
+            document.getElementById("q0"),
+            document.getElementById("q1"),
+            document.getElementById("q2"),
+          ];
+          var qVals = [0.5, 0.75, 1.0];
+          function setQuality(idx) {
+            state.quality = qVals[idx];
+            for (var i = 0; i < 3; i++)
+              qEls[i].classList.toggle("on", i === idx);
+            resize();
+          }
+          qEls[0].addEventListener("click", function () {
+            setQuality(0);
+          });
+          qEls[1].addEventListener("click", function () {
+            setQuality(1);
+          });
+          qEls[2].addEventListener("click", function () {
+            setQuality(2);
+          });
+
+          // click -> bolt at x
+          canvas.addEventListener("pointerdown", function (e) {
+            var xNorm = e.clientX / window.innerWidth;
+            triggerBolt(xNorm);
+          });
+
+          // auto-fade UI
+          var fadeTimer = null;
+          function poke() {
+            panel.classList.remove("faded");
+            if (fadeTimer) clearTimeout(fadeTimer);
+            fadeTimer = setTimeout(function () {
+              panel.classList.add("faded");
+            }, 5000);
+          }
+          window.addEventListener("mousemove", poke);
+          window.addEventListener("pointerdown", poke);
+          poke();
+
+          /* ---------------- Render loop ---------------- */
+          var last = performance.now();
+          var frameCount = 0;
+          var fpsAccum = 0,
+            fpsFrames = 0;
+
+          function frame(now) {
+            var dt = (now - last) / 1000;
+            if (dt > 0.1) dt = 0.1;
+            last = now;
+            elapsed += dt;
+
+            // lightning timer
+            if (state.lightning) {
+              nextStrike -= dt;
+              if (nextStrike <= 0.0) {
+                triggerBolt(Math.random());
+                nextStrike = 3.0 + Math.random() * 7.0;
+              }
+            }
+            // decays
+            flash *= Math.pow(0.06, dt); // fast flash decay
+            boltLife -= dt * 2.6;
+            if (boltLife < 0.0) boltLife = 0.0;
+
+            gl.uniform2f(U.uRes, canvas.width, canvas.height);
+            gl.uniform1f(U.uTime, elapsed);
+            gl.uniform1f(U.uRain, state.rain);
+            gl.uniform1f(U.uWind, state.wind);
+            gl.uniform1f(U.uDrops, state.drops ? 1.0 : 0.0);
+            gl.uniform1f(U.uLightning, state.lightning ? 1.0 : 0.0);
+            gl.uniform1f(U.uFlash, flash);
+            gl.uniform1f(U.uBoltX, boltX);
+            gl.uniform1f(U.uBoltLife, boltLife);
+            gl.uniform1f(U.uBoltSeed, boltSeed);
+
+            gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+            // stats
+            frameCount++;
+            fpsAccum += dt;
+            fpsFrames++;
+            if (frameCount % 30 === 0) {
+              var fps = fpsFrames / fpsAccum;
+              statsEl.innerHTML =
+                fps.toFixed(0) +
+                " fps<br>" +
+                canvas.width +
+                " × " +
+                canvas.height;
+              fpsAccum = 0;
+              fpsFrames = 0;
+            }
+
+            requestAnimationFrame(frame);
+          }
+          requestAnimationFrame(frame);
+        }
+      })();
+    </script>
+  </body>
+</html>

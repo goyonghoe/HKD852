@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Rain — 비 오는 강가 (Fable 5 one-shot demo)</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #0a0e14;
+      }
+      canvas {
+        display: block;
+      }
+
+      #panel {
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        z-index: 10;
+        background: rgba(12, 18, 28, 0.72);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(140, 170, 200, 0.18);
+        border-radius: 14px;
+        padding: 16px 18px;
+        color: #cfdce8;
+        font-family: -apple-system, "Apple SD Gothic Neo", sans-serif;
+        width: 250px;
+        user-select: none;
+        transition: opacity 0.4s;
+      }
+      #panel.faded {
+        opacity: 0.15;
+      }
+      #panel:hover {
+        opacity: 1;
+      }
+      #panel h1 {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: #e8f0f8;
+      }
+      #panel .sub {
+        font-size: 11px;
+        color: #7e93a8;
+        margin-top: 3px;
+        margin-bottom: 14px;
+        line-height: 1.5;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 11px;
+        font-size: 12.5px;
+      }
+      .row label {
+        color: #a8bccd;
+      }
+      .row .val {
+        color: #6fa8d8;
+        font-variant-numeric: tabular-nums;
+        font-size: 11.5px;
+        min-width: 30px;
+        text-align: right;
+      }
+      input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 110px;
+        height: 3px;
+        border-radius: 2px;
+        background: #2a3a4d;
+        outline: none;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #6fa8d8;
+        cursor: pointer;
+        box-shadow: 0 0 6px rgba(111, 168, 216, 0.6);
+      }
+      .toggle {
+        position: relative;
+        width: 36px;
+        height: 20px;
+        background: #2a3a4d;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.25s;
+      }
+      .toggle.on {
+        background: #3d6f9e;
+      }
+      .toggle::after {
+        content: "";
+        position: absolute;
+        top: 2.5px;
+        left: 3px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: #cfdce8;
+        transition: left 0.25s;
+      }
+      .toggle.on::after {
+        left: 18px;
+      }
+      .hint {
+        font-size: 10.5px;
+        color: #5a7088;
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(140, 170, 200, 0.12);
+        line-height: 1.6;
+      }
+      #stats {
+        position: fixed;
+        bottom: 14px;
+        right: 18px;
+        z-index: 10;
+        font-family: "SF Mono", Menlo, monospace;
+        font-size: 10px;
+        color: rgba(130, 155, 180, 0.55);
+        text-align: right;
+        line-height: 1.7;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+
+    <div id="panel">
+      <h1>🌧 Project Rain</h1>
+      <div class="sub">
+        비 오는 강가의 오두막 — 에셋 0개, 라이브러리 0개.<br />모든 픽셀과
+        소리를 코드로만 생성합니다.
+      </div>
+      <div class="row">
+        <label>비 강도</label
+        ><input type="range" id="intensity" min="5" max="100" value="60" /><span
+          class="val"
+          id="intensityVal"
+          >60</span
+        >
+      </div>
+      <div class="row">
+        <label>바람</label
+        ><input type="range" id="wind" min="-60" max="60" value="-18" /><span
+          class="val"
+          id="windVal"
+          >-18</span
+        >
+      </div>
+      <div class="row">
+        <label>천둥·번개</label>
+        <div class="toggle on" id="thunderToggle"></div>
+      </div>
+      <div class="row">
+        <label>빗소리 (프로시저럴)</label>
+        <div class="toggle" id="soundToggle"></div>
+      </div>
+      <div class="hint">
+        화면 클릭 → 그 자리에 번개 ⚡<br />잠시 가만히 두면 패널이 투명해집니다.
+      </div>
+    </div>
+
+    <div id="stats"></div>
+
+    <script>
+      "use strict";
+      // ============================================================
+      //  Project Rain — single-file procedural rain scene
+      //  Claude Fable 5 one-shot demo · no assets, no libraries
+      // ============================================================
+
+      const canvas = document.getElementById("c");
+      const ctx = canvas.getContext("2d");
+      let W = 0,
+        H = 0,
+        DPR = 1;
+      let waterY = 0;
+
+      // ---------- 상태 ----------
+      const state = {
+        intensity: 60, // 0~100
+        wind: -18, // px/s 가로 풍속 계수
+        thunder: true,
+        sound: false,
+        time: 0,
+      };
+
+      // ---------- 시드 고정 랜덤 (리사이즈 시 지형 일관성) ----------
+      function mulberry32(seed) {
+        return function () {
+          seed |= 0;
+          seed = (seed + 0x6d2b79f5) | 0;
+          let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      // ---------- 지형 레이어 ----------
+      let mountainLayers = []; // [{points, color}]
+      let treeLine = []; // 강 건너 숲 실루엣
+
+      function buildTerrain() {
+        mountainLayers = [];
+        const layerSpecs = [
+          { base: 0.42, amp: 0.16, step: 90, color: "#141d2b", seed: 11 },
+          { base: 0.52, amp: 0.13, step: 70, color: "#0f1622", seed: 47 },
+          { base: 0.62, amp: 0.09, step: 55, color: "#0b111a", seed: 83 },
+        ];
+        for (const spec of layerSpecs) {
+          const rand = mulberry32(spec.seed);
+          const pts = [];
+          let y = H * spec.base + (rand() - 0.5) * H * spec.amp;
+          for (let x = -spec.step; x <= W + spec.step * 2; x += spec.step) {
+            y += (rand() - 0.5) * H * spec.amp * 0.7;
+            const minY = H * (spec.base - spec.amp);
+            const maxY = H * (spec.base + spec.amp * 0.4);
+            y = Math.max(minY, Math.min(maxY, y));
+            pts.push({ x, y });
+          }
+          mountainLayers.push({ points: pts, color: spec.color });
+        }
+        // 침엽수 숲 실루엣 (강둑 바로 위)
+        treeLine = [];
+        const rand = mulberry32(7);
+        let x = -20;
+        while (x < W + 40) {
+          const h = 18 + rand() * 46;
+          const w = h * (0.42 + rand() * 0.2);
+          treeLine.push({ x, h, w });
+          x += w * (0.55 + rand() * 0.5);
+        }
+      }
+
+      // ---------- 오두막 ----------
+      function cabinGeom() {
+        const gx = W * 0.7; // 오두막 기준 x
+        const gy = waterY - 4; // 강둑 지면
+        const bw = Math.min(150, W * 0.13); // 몸체 폭
+        const bh = bw * 0.62;
+        return { gx, gy, bw, bh };
+      }
+
+      // ---------- 파티클 ----------
+      const drops = []; // 빗방울
+      const splashes = []; // 지면 튐
+      const ripples = []; // 수면 파문
+      const smoke = []; // 굴뚝 연기
+
+      function spawnDrop() {
+        const z = 0.35 + Math.random() * 0.65; // 깊이감 (0.35 멀리 ~ 1 가까이)
+        drops.push({
+          x: Math.random() * (W + 400) - 200,
+          y: -30 - Math.random() * H,
+          z,
+          speed: (820 + Math.random() * 480) * z,
+          len: (11 + Math.random() * 14) * z,
+        });
+      }
+
+      // ---------- 번개 ----------
+      let flash = 0; // 화면 섬광 0~1
+      let bolt = null; // {segments, branches, life}
+      let nextLightning = 5 + Math.random() * 8;
+
+      function makeBolt(targetX) {
+        const segs = [];
+        let x =
+          targetX !== undefined
+            ? targetX + (Math.random() - 0.5) * 80
+            : W * (0.15 + Math.random() * 0.7);
+        let y = 0;
+        const endY = waterY * (0.55 + Math.random() * 0.35);
+        segs.push({ x, y });
+        while (y < endY) {
+          x += (Math.random() - 0.5) * 46;
+          y += 14 + Math.random() * 26;
+          segs.push({ x, y });
+        }
+        // 가지 2~3개
+        const branches = [];
+        for (let b = 0; b < 2 + ((Math.random() * 2) | 0); b++) {
+          const start = segs[3 + ((Math.random() * (segs.length - 6)) | 0)];
+          if (!start) continue;
+          const br = [{ x: start.x, y: start.y }];
+          let bx = start.x,
+            by = start.y;
+          const dir = Math.random() < 0.5 ? -1 : 1;
+          for (let i = 0; i < 4 + Math.random() * 5; i++) {
+            bx += dir * (8 + Math.random() * 22);
+            by += 10 + Math.random() * 18;
+            br.push({ x: bx, y: by });
+          }
+          branches.push(br);
+        }
+        return { segments: segs, branches, life: 1 };
+      }
+
+      function triggerLightning(targetX) {
+        bolt = makeBolt(targetX);
+        flash = 0.55 + Math.random() * 0.3;
+        if (state.sound) scheduleThunder(0.4 + Math.random() * 2.0);
+      }
+
+      // ---------- 프로시저럴 오디오 ----------
+      let actx = null,
+        rainGain = null,
+        noiseBuf = null;
+
+      function initAudio() {
+        if (actx) return;
+        actx = new (window.AudioContext || window.webkitAudioContext)();
+        // 2초짜리 화이트노이즈 버퍼
+        const len = actx.sampleRate * 2;
+        noiseBuf = actx.createBuffer(1, len, actx.sampleRate);
+        const data = noiseBuf.getChannelData(0);
+        for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+
+        // 빗소리: 노이즈 → 밴드패스 → 로우패스 → 게인
+        const src = actx.createBufferSource();
+        src.buffer = noiseBuf;
+        src.loop = true;
+        const bp = actx.createBiquadFilter();
+        bp.type = "bandpass";
+        bp.frequency.value = 2400;
+        bp.Q.value = 0.4;
+        const lp = actx.createBiquadFilter();
+        lp.type = "lowpass";
+        lp.frequency.value = 5200;
+        rainGain = actx.createGain();
+        rainGain.gain.value = 0;
+        src.connect(bp);
+        bp.connect(lp);
+        lp.connect(rainGain);
+        rainGain.connect(actx.destination);
+        src.start();
+      }
+
+      function updateRainVolume() {
+        if (!rainGain) return;
+        const target = state.sound ? 0.028 + (state.intensity / 100) * 0.16 : 0;
+        rainGain.gain.setTargetAtTime(target, actx.currentTime, 0.4);
+      }
+
+      function scheduleThunder(delaySec) {
+        if (!actx) return;
+        const t0 = actx.currentTime + delaySec;
+        const src = actx.createBufferSource();
+        src.buffer = noiseBuf;
+        src.loop = true;
+        const lp = actx.createBiquadFilter();
+        lp.type = "lowpass";
+        lp.frequency.setValueAtTime(320, t0);
+        lp.frequency.exponentialRampToValueAtTime(70, t0 + 2.8);
+        const g = actx.createGain();
+        g.gain.setValueAtTime(0.0001, t0);
+        g.gain.exponentialRampToValueAtTime(0.5, t0 + 0.07);
+        g.gain.exponentialRampToValueAtTime(0.12, t0 + 0.9);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + 3.2);
+        src.connect(lp);
+        lp.connect(g);
+        g.connect(actx.destination);
+        src.start(t0);
+        src.stop(t0 + 3.4);
+      }
+
+      // ---------- 리사이즈 ----------
+      function resize() {
+        DPR = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = W * DPR;
+        canvas.height = H * DPR;
+        canvas.style.width = W + "px";
+        canvas.style.height = H + "px";
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+        waterY = H * 0.78;
+        buildTerrain();
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      // ---------- 그리기 ----------
+      function drawSky() {
+        const g = ctx.createLinearGradient(0, 0, 0, waterY);
+        g.addColorStop(0, "#0d1420");
+        g.addColorStop(0.55, "#131c2c");
+        g.addColorStop(1, "#1a2536");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, W, waterY);
+
+        // 구름 뒤 달빛
+        const mx = W * 0.22,
+          my = H * 0.16;
+        const mg = ctx.createRadialGradient(mx, my, 6, mx, my, H * 0.3);
+        mg.addColorStop(0, "rgba(190, 205, 225, 0.16)");
+        mg.addColorStop(0.35, "rgba(160, 180, 205, 0.05)");
+        mg.addColorStop(1, "rgba(160, 180, 205, 0)");
+        ctx.fillStyle = mg;
+        ctx.fillRect(0, 0, W, waterY);
+
+        // 떠다니는 구름 띠
+        const t = state.time;
+        ctx.save();
+        for (let i = 0; i < 4; i++) {
+          const cx = ((t * (6 + i * 3) + i * 521) % (W + 700)) - 350;
+          const cy = H * (0.08 + i * 0.07);
+          const cg = ctx.createRadialGradient(cx, cy, 10, cx, cy, 240 + i * 60);
+          cg.addColorStop(0, "rgba(8, 12, 20, 0.5)");
+          cg.addColorStop(1, "rgba(8, 12, 20, 0)");
+          ctx.fillStyle = cg;
+          ctx.beginPath();
+          ctx.ellipse(cx, cy, 280 + i * 70, 55 + i * 14, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      function drawMountains() {
+        for (const layer of mountainLayers) {
+          ctx.fillStyle = layer.color;
+          ctx.beginPath();
+          ctx.moveTo(-50, waterY + 50);
+          for (const p of layer.points) ctx.lineTo(p.x, p.y);
+          ctx.lineTo(W + 50, waterY + 50);
+          ctx.closePath();
+          ctx.fill();
+        }
+        // 숲 실루엣
+        ctx.fillStyle = "#070b12";
+        for (const tr of treeLine) {
+          ctx.beginPath();
+          ctx.moveTo(tr.x, waterY);
+          ctx.lineTo(tr.x + tr.w / 2, waterY - tr.h);
+          ctx.lineTo(tr.x + tr.w, waterY);
+          ctx.closePath();
+          ctx.fill();
+        }
+        // 물안개
+        const fg = ctx.createLinearGradient(0, waterY - 60, 0, waterY + 30);
+        fg.addColorStop(0, "rgba(140, 165, 195, 0)");
+        fg.addColorStop(0.7, "rgba(140, 165, 195, 0.06)");
+        fg.addColorStop(1, "rgba(140, 165, 195, 0.02)");
+        ctx.fillStyle = fg;
+        ctx.fillRect(0, waterY - 60, W, 90);
+      }
+
+      let windowFlicker = 1;
+      function drawCabin(dt) {
+        const { gx, gy, bw, bh } = cabinGeom();
+        // 창문 불빛 깜빡임 (난로 느낌)
+        windowFlicker += (Math.random() - 0.5) * dt * 6;
+        windowFlicker = Math.max(0.75, Math.min(1.15, windowFlicker));
+
+        // 강둑
+        ctx.fillStyle = "#0a0f17";
+        ctx.beginPath();
+        ctx.ellipse(
+          gx + bw * 0.4,
+          gy + 8,
+          bw * 1.7,
+          22,
+          0,
+          Math.PI,
+          Math.PI * 2,
+        );
+        ctx.fill();
+
+        // 몸체
+        ctx.fillStyle = "#10151e";
+        ctx.fillRect(gx, gy - bh, bw, bh);
+        // 통나무 라인
+        ctx.strokeStyle = "rgba(0,0,0,0.4)";
+        ctx.lineWidth = 1;
+        for (let i = 1; i < 5; i++) {
+          ctx.beginPath();
+          ctx.moveTo(gx, gy - (bh / 5) * i);
+          ctx.lineTo(gx + bw, gy - (bh / 5) * i);
+          ctx.stroke();
+        }
+        // 지붕
+        ctx.fillStyle = "#0b0f16";
+        ctx.beginPath();
+        ctx.moveTo(gx - bw * 0.14, gy - bh);
+        ctx.lineTo(gx + bw / 2, gy - bh - bw * 0.42);
+        ctx.lineTo(gx + bw * 1.14, gy - bh);
+        ctx.closePath();
+        ctx.fill();
+        // 굴뚝
+        const chx = gx + bw * 0.74,
+          chTop = gy - bh - bw * 0.3;
+        ctx.fillStyle = "#0d1219";
+        ctx.fillRect(chx, chTop, bw * 0.11, bw * 0.26);
+
+        // 창문 (따뜻한 빛)
+        const wx = gx + bw * 0.3,
+          wy = gy - bh * 0.62,
+          ww = bw * 0.24,
+          wh = bh * 0.34;
+        const glow = ctx.createRadialGradient(
+          wx + ww / 2,
+          wy + wh / 2,
+          2,
+          wx + ww / 2,
+          wy + wh / 2,
+          bw * 0.85,
+        );
+        glow.addColorStop(0, `rgba(255, 176, 92, ${0.34 * windowFlicker})`);
+        glow.addColorStop(1, "rgba(255, 176, 92, 0)");
+        ctx.fillStyle = glow;
+        ctx.fillRect(wx - bw, wy - bw, bw * 2.5, bw * 2.5);
+        ctx.fillStyle = `rgba(255, 188, 110, ${0.92 * windowFlicker})`;
+        ctx.fillRect(wx, wy, ww, wh);
+        ctx.strokeStyle = "#0b0f16";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(wx, wy, ww, wh);
+        ctx.beginPath();
+        ctx.moveTo(wx + ww / 2, wy);
+        ctx.lineTo(wx + ww / 2, wy + wh);
+        ctx.moveTo(wx, wy + wh / 2);
+        ctx.lineTo(wx + ww, wy + wh / 2);
+        ctx.stroke();
+
+        // 굴뚝 연기 생성
+        if (Math.random() < dt * 9) {
+          smoke.push({
+            x: chx + bw * 0.055,
+            y: chTop,
+            r: 3 + Math.random() * 3,
+            alpha: 0.16 + Math.random() * 0.1,
+            vx: (Math.random() - 0.3) * 6,
+            vy: -14 - Math.random() * 10,
+          });
+        }
+        // 연기 갱신·그리기
+        for (let i = smoke.length - 1; i >= 0; i--) {
+          const s = smoke[i];
+          s.x += (s.vx + state.wind * 0.25) * dt;
+          s.y += s.vy * dt;
+          s.r += dt * 7;
+          s.alpha -= dt * 0.045;
+          if (s.alpha <= 0) {
+            smoke.splice(i, 1);
+            continue;
+          }
+          ctx.fillStyle = `rgba(150, 160, 175, ${s.alpha})`;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function drawWater() {
+        const g = ctx.createLinearGradient(0, waterY, 0, H);
+        g.addColorStop(0, "#101a28");
+        g.addColorStop(1, "#070b12");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, waterY, W, H - waterY);
+
+        // 창문 불빛 반사 (일렁임)
+        const { gx, bw, bh } = cabinGeom();
+        const rx = gx + bw * 0.42;
+        ctx.save();
+        ctx.globalAlpha = 0.2 * windowFlicker;
+        for (let i = 0; i < 14; i++) {
+          const yy = waterY + 6 + i * ((H - waterY) / 16);
+          const jitter = Math.sin(state.time * 2.2 + i * 1.7) * (3 + i * 0.9);
+          const wRef = bw * 0.22 * (1 - i / 18);
+          ctx.fillStyle = "rgba(255, 176, 92, 0.55)";
+          ctx.fillRect(rx + jitter - wRef / 2, yy, wRef, 2.4);
+        }
+        // 달빛 반사
+        ctx.globalAlpha = 0.05;
+        for (let i = 0; i < 10; i++) {
+          const yy = waterY + 10 + i * ((H - waterY) / 12);
+          const jitter = Math.sin(state.time * 1.4 + i * 2.3) * (5 + i);
+          ctx.fillStyle = "rgba(185, 205, 230, 0.6)";
+          ctx.fillRect(W * 0.22 + jitter - 28, yy, 56 * (1 - i / 14), 2);
+        }
+        ctx.restore();
+
+        // 파문
+        for (let i = ripples.length - 1; i >= 0; i--) {
+          const r = ripples[i];
+          r.r += r.speed;
+          r.alpha -= 0.025;
+          if (r.alpha <= 0) {
+            ripples.splice(i, 1);
+            continue;
+          }
+          ctx.strokeStyle = `rgba(160, 190, 220, ${r.alpha})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.ellipse(r.x, r.y, r.r, r.r * 0.22, 0, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      }
+
+      function updateDrops(dt) {
+        const targetCount = Math.floor(state.intensity * 9);
+        while (drops.length < targetCount) spawnDrop();
+        if (drops.length > targetCount) drops.length = targetCount;
+
+        const windPx = state.wind * 3.2;
+        ctx.lineWidth = 1;
+        for (const d of drops) {
+          d.x += windPx * d.z * dt;
+          d.y += d.speed * dt;
+          const hitY = waterY + ((H - waterY) * ((d.x * 7919) % 97)) / 97; // 의사난수 착지선
+          if (d.y > hitY) {
+            if (Math.random() < 0.5) {
+              ripples.push({
+                x: d.x,
+                y: hitY,
+                r: 1,
+                speed: 0.55 + d.z * 0.5,
+                alpha: 0.22 * d.z,
+              });
+            } else if (splashes.length < 320) {
+              splashes.push({
+                x: d.x,
+                y: hitY,
+                vy: -(45 + Math.random() * 65) * d.z,
+                vx: (Math.random() - 0.5) * 40,
+                life: 0.3,
+              });
+            }
+            d.y = -20 - Math.random() * 60;
+            d.x = Math.random() * (W + 400) - 200;
+          }
+          const a = 0.1 + d.z * 0.22;
+          ctx.strokeStyle = `rgba(173, 196, 222, ${a})`;
+          ctx.beginPath();
+          ctx.moveTo(d.x, d.y);
+          ctx.lineTo(d.x + windPx * d.z * 0.025, d.y + d.len);
+          ctx.stroke();
+        }
+        // 튐 파티클
+        ctx.fillStyle = "rgba(173, 196, 222, 0.35)";
+        for (let i = splashes.length - 1; i >= 0; i--) {
+          const s = splashes[i];
+          s.life -= dt;
+          if (s.life <= 0) {
+            splashes.splice(i, 1);
+            continue;
+          }
+          s.vy += 580 * dt;
+          s.x += s.vx * dt;
+          s.y += s.vy * dt;
+          ctx.fillRect(s.x, s.y, 1.4, 1.4);
+        }
+      }
+
+      function drawLightning(dt) {
+        if (state.thunder) {
+          nextLightning -= dt;
+          if (nextLightning <= 0) {
+            triggerLightning();
+            nextLightning = 6 + Math.random() * 12;
+          }
+        }
+        if (bolt) {
+          bolt.life -= dt * 3.2;
+          if (bolt.life <= 0) {
+            bolt = null;
+          } else {
+            const a = Math.max(0, bolt.life);
+            ctx.save();
+            ctx.shadowColor = "rgba(200, 220, 255, 0.9)";
+            ctx.shadowBlur = 18;
+            ctx.strokeStyle = `rgba(225, 238, 255, ${a})`;
+            ctx.lineWidth = 2.4;
+            ctx.beginPath();
+            for (let i = 0; i < bolt.segments.length; i++) {
+              const p = bolt.segments[i];
+              i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+            }
+            ctx.stroke();
+            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = `rgba(200, 220, 255, ${a * 0.7})`;
+            for (const br of bolt.branches) {
+              ctx.beginPath();
+              for (let i = 0; i < br.length; i++) {
+                i === 0
+                  ? ctx.moveTo(br[i].x, br[i].y)
+                  : ctx.lineTo(br[i].x, br[i].y);
+              }
+              ctx.stroke();
+            }
+            ctx.restore();
+          }
+        }
+        if (flash > 0) {
+          ctx.fillStyle = `rgba(205, 222, 248, ${flash * 0.42})`;
+          ctx.fillRect(0, 0, W, H);
+          flash -= dt * 1.8;
+        }
+      }
+
+      // 비네트 (가장자리 어둡게)
+      function drawVignette() {
+        const g = ctx.createRadialGradient(
+          W / 2,
+          H * 0.45,
+          H * 0.25,
+          W / 2,
+          H * 0.55,
+          H * 0.95,
+        );
+        g.addColorStop(0, "rgba(0,0,0,0)");
+        g.addColorStop(1, "rgba(2,4,8,0.55)");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, W, H);
+      }
+
+      // ---------- 메인 루프 ----------
+      let lastT = performance.now();
+      let fpsAcc = 0,
+        fpsN = 0,
+        fpsShown = 0;
+      const statsEl = document.getElementById("stats");
+
+      function loop(now) {
+        const dt = Math.min(0.05, (now - lastT) / 1000);
+        lastT = now;
+        state.time += dt;
+
+        drawSky();
+        drawMountains();
+        drawCabin(dt);
+        drawWater();
+        updateDrops(dt);
+        drawLightning(dt);
+        drawVignette();
+
+        fpsAcc += 1 / dt;
+        fpsN++;
+        if (fpsN >= 30) {
+          fpsShown = Math.round(fpsAcc / fpsN);
+          fpsAcc = 0;
+          fpsN = 0;
+          statsEl.innerHTML =
+            `${fpsShown} fps · drops ${drops.length} · ripples ${ripples.length}<br>` +
+            `single file · zero assets · Claude Fable 5`;
+        }
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+
+      // ---------- UI 바인딩 ----------
+      const $ = (id) => document.getElementById(id);
+
+      $("intensity").addEventListener("input", (e) => {
+        state.intensity = +e.target.value;
+        $("intensityVal").textContent = e.target.value;
+        updateRainVolume();
+      });
+      $("wind").addEventListener("input", (e) => {
+        state.wind = +e.target.value;
+        $("windVal").textContent = e.target.value;
+      });
+      $("thunderToggle").addEventListener("click", (e) => {
+        state.thunder = !state.thunder;
+        e.currentTarget.classList.toggle("on", state.thunder);
+      });
+      $("soundToggle").addEventListener("click", (e) => {
+        state.sound = !state.sound;
+        e.currentTarget.classList.toggle("on", state.sound);
+        if (state.sound) {
+          initAudio();
+          actx.resume();
+        }
+        updateRainVolume();
+      });
+
+      // 화면 클릭 → 번개
+      canvas.addEventListener("pointerdown", (e) => {
+        triggerLightning(e.clientX);
+      });
+
+      // 패널 자동 페이드
+      let fadeTimer = null;
+      function armFade() {
+        clearTimeout(fadeTimer);
+        $("panel").classList.remove("faded");
+        fadeTimer = setTimeout(() => $("panel").classList.add("faded"), 5000);
+      }
+      window.addEventListener("pointermove", armFade);
+      armFade();
+    </script>
+  </body>
+</html>
