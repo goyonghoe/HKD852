@@ -919,15 +919,13 @@
       .bs-flow {
         display: flex;
         flex-direction: column;
-        gap: clamp(5px, 0.7vh, 10px);
+        justify-content: space-between;
+        gap: clamp(6px, 0.8vh, 14px);
         border-left: 1px solid var(--line);
         padding-left: clamp(18px, 1.9vw, 36px);
       }
       .bs-flow .step {
-        flex: 1 1 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        flex: 0 0 auto;
       }
       .varrow {
         align-self: center;
