@@ -1655,7 +1655,7 @@
             <div class="ba-label after">BS PvP Match3</div>
             <img
               class="appicon-img zoom"
-              src="screenshots/match3_appicon.jpg"
+              src="screenshots/match3_appicon_round.png"
               alt="BS PvP Match3 아이콘"
               data-group="bsicon"
               data-role="after"
@@ -1671,8 +1671,8 @@
             <div class="cs-pair">
               <img
                 class="zoom"
-                src="screenshots/bstar_home.png"
-                alt="Boxing Star 메인"
+                src="screenshots/bstar_lobby.png"
+                alt="Boxing Star 로비"
                 data-group="bslobby"
                 data-role="before"
                 loading="lazy"
@@ -1711,7 +1711,29 @@
             </div>
           </div>
           <div class="cs">
-            <div class="cs-k">코어</div>
+            <div class="cs-k">코스튬</div>
+            <div class="cs-pair">
+              <img
+                class="zoom"
+                src="screenshots/bstar_costume.png"
+                alt="Boxing Star 의상"
+                data-group="bsident"
+                data-role="before"
+                loading="lazy"
+              />
+              <span>→</span>
+              <img
+                class="zoom"
+                src="screenshots/match3_costume.png"
+                alt="BS PvP Match3 정체성"
+                data-group="bsident"
+                data-role="after"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="cs">
+            <div class="cs-k">코어 컨셉</div>
             <div class="cs-pair">
               <img
                 class="zoom"
@@ -1727,28 +1749,6 @@
                 src="screenshots/match3_core.png"
                 alt="BS PvP Match3 코어"
                 data-group="bscore"
-                data-role="after"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div class="cs">
-            <div class="cs-k">정체성</div>
-            <div class="cs-pair">
-              <img
-                class="zoom"
-                src="screenshots/bstar_character.png"
-                alt="Boxing Star 캐릭터"
-                data-group="bsident"
-                data-role="before"
-                loading="lazy"
-              />
-              <span>→</span>
-              <img
-                class="zoom"
-                src="screenshots/match3_costume.png"
-                alt="BS PvP Match3 정체성"
-                data-group="bsident"
                 data-role="after"
                 loading="lazy"
               />
@@ -2145,8 +2145,8 @@
           bsicon: "앱 아이콘",
           bslobby: "로비",
           bscompo: "컴포넌트",
-          bscore: "코어",
-          bsident: "정체성",
+          bscore: "코어 컨셉",
+          bsident: "코스튬",
         };
         var GROUP_DESC = {
           lobby:
@@ -2159,10 +2159,14 @@
             "유저의 성과를 더 강조하고, 성장의 핵심인 포토카드의 표현 영역과 비중을 더 확실히 전달했습니다.",
           bsicon:
             "원작 Boxing Star의 정체성을 이어받아, 전혀 다른 장르의 새 게임으로 옮긴 출발점입니다.",
-          bslobby: "✎ 로비 — 한 줄 설명",
-          bscompo: "✎ 컴포넌트 — 한 줄 설명",
-          bscore: "✎ 코어 — 한 줄 설명",
-          bsident: "✎ 정체성 — 한 줄 설명",
+          bslobby:
+            "복싱스타는 길거리 파이터가 스포츠 스타로 성장하며 부와 인맥을 키워가는 게임입니다. 그 정체성을 살리려 로비 첫 화면에 캐릭터와 배경이 충분히 강조될 공간을 확보했습니다. 세로뷰라 배경을 넓게 담기 어려운 만큼, 하늘을 크게 열어 공간감을 주고 캐릭터의 비중을 키워 캐릭터 자체에 집중하도록 설계했습니다.",
+          bscompo:
+            "초반에는 캐주얼 퍼즐 장르에 맞춰 동글동글한 디자인을 시도했습니다. 최종 버전에서는 원작 복싱스타의 UI를 그대로 가져와 세로뷰에 맞게 가공해 썼고, 개발 시간을 크게 아낄 수 있는 결정이었습니다.",
+          bscore:
+            "복싱스타의 핵심 중 하나는 '유머'입니다. 이 유머가 게임 몰입을 한층 끌어올린다고 봤습니다. 캐릭터를 유머러스하게 보여주는 게 중요해서, 새 콘텐츠가 들어올 때도 캐릭터가 충분히 드러날 공간을 먼저 잡고 그다음 버튼을 배치하는 전략을 썼습니다.",
+          bsident:
+            "코스튬 인벤토리처럼 아이템이 나열되는 화면은 가로에서 세로로 바뀌면서, 새로운 탭 구조를 더하고 원본 리소스는 최대한 보존하는 쪽으로 타협하며 개발했습니다.",
         };
         var GROUP_SIDES = {
           bsicon: ["Boxing Star", "BS PvP Match3"],
