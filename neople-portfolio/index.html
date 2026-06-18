@@ -317,17 +317,19 @@
         color: var(--accent);
       }
       .lede {
-        margin-top: 18px;
+        margin-top: clamp(22px, 2.6vh, 40px);
         max-width: 34em;
         font-size: clamp(17px, 1.224vw, 23.5px);
         color: var(--ink);
-        line-height: 1.5;
+        line-height: 1.55;
+        border-left: 3px solid var(--accent);
+        padding-left: clamp(15px, 1.1vw, 22px);
       }
       .lede-points {
         list-style: none;
-        margin-top: 16px;
+        margin-top: clamp(28px, 3.2vh, 50px);
         display: grid;
-        gap: 11px;
+        gap: clamp(12px, 1.4vh, 18px);
         max-width: 40em;
       }
       .lede-points li {
