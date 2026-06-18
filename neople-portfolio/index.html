@@ -885,15 +885,59 @@
       }
       .bs-cases {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: clamp(12px, 1.4vw, 24px);
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(14px, 1.6vw, 28px) clamp(16px, 1.8vw, 32px);
         border-top: 1px solid var(--line);
         padding-top: 14px;
-        margin-bottom: 16px;
+      }
+      /* Boxing 페이지 — 좌우 구도(비교 좌 2/3 · 사고흐름 우 1/3) */
+      .bs-split {
+        display: grid;
+        grid-template-columns: 1.95fr 1fr;
+        gap: clamp(22px, 2.4vw, 48px);
+        align-items: stretch;
+        margin-top: clamp(10px, 1.4vh, 20px);
+      }
+      .bs-left {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(12px, 1.8vh, 26px);
+        min-width: 0;
+      }
+      .bs-flow {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(5px, 0.7vh, 10px);
+        border-left: 1px solid var(--line);
+        padding-left: clamp(18px, 1.9vw, 36px);
+      }
+      .bs-flow .step {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .varrow {
+        align-self: center;
+        color: var(--faint);
+        font-size: clamp(15px, 1vw, 19px);
+        line-height: 1;
+      }
+      @media (max-width: 860px) {
+        .bs-split {
+          grid-template-columns: 1fr;
+        }
+        .bs-flow {
+          border-left: none;
+          padding-left: 0;
+          border-top: 1px solid var(--line);
+          padding-top: 14px;
+          margin-top: 6px;
+        }
       }
       .bs-cases .cs-pair img,
       .bs-cases .ph-shot {
-        height: clamp(108px, 15vh, 178px);
+        height: clamp(120px, 18vh, 222px);
       }
       .ph-shot {
         width: 100%;
@@ -1590,157 +1634,160 @@
           >
         </div>
 
-        <!-- 앱 아이콘 비교 -->
-        <div class="appicon-row">
-          <div class="appicon">
-            <div class="ba-label">Boxing Star</div>
-            <img
-              class="appicon-img zoom"
-              src="screenshots/bs_appicon.webp"
-              alt="Boxing Star 아이콘"
-              data-group="bsicon"
-              data-role="before"
-              loading="lazy"
-            />
-          </div>
-          <span class="ba-arrow">→</span>
-          <div class="appicon">
-            <div class="ba-label after">BS PvP Match3</div>
-            <img
-              class="appicon-img zoom"
-              src="screenshots/match3_appicon_round.png"
-              alt="BS PvP Match3 아이콘"
-              data-group="bsicon"
-              data-role="after"
-              loading="lazy"
-            />
-          </div>
-        </div>
+        <div class="bs-split">
+          <div class="bs-left">
+            <!-- 앱 아이콘 비교 -->
+            <div class="appicon-row">
+              <div class="appicon">
+                <div class="ba-label">Boxing Star</div>
+                <img
+                  class="appicon-img zoom"
+                  src="screenshots/bs_appicon.webp"
+                  alt="Boxing Star 아이콘"
+                  data-group="bsicon"
+                  data-role="before"
+                  loading="lazy"
+                />
+              </div>
+              <span class="ba-arrow">→</span>
+              <div class="appicon">
+                <div class="ba-label after">BS PvP Match3</div>
+                <img
+                  class="appicon-img zoom"
+                  src="screenshots/match3_appicon_round.png"
+                  alt="BS PvP Match3 아이콘"
+                  data-group="bsicon"
+                  data-role="after"
+                  loading="lazy"
+                />
+              </div>
+            </div>
 
-        <!-- 4 케이스: 로비 / 컴포넌트 / 코어 / 정체성 -->
-        <div class="bs-cases">
-          <div class="cs">
-            <div class="cs-k">로비</div>
-            <div class="cs-pair">
-              <img
-                class="zoom"
-                src="screenshots/bs_lobby.png"
-                alt="Boxing Star 로비"
-                data-group="bslobby"
-                data-role="before"
-                loading="lazy"
-              />
-              <span>→</span>
-              <img
-                class="zoom"
-                src="screenshots/match3_lobby.png"
-                alt="BS PvP Match3 로비"
-                data-group="bslobby"
-                data-role="after"
-                loading="lazy"
-              />
+            <!-- 4 케이스: 로비 / 컴포넌트 / 코어 / 정체성 -->
+            <div class="bs-cases">
+              <div class="cs">
+                <div class="cs-k">로비</div>
+                <div class="cs-pair">
+                  <img
+                    class="zoom"
+                    src="screenshots/bs_lobby.png"
+                    alt="Boxing Star 로비"
+                    data-group="bslobby"
+                    data-role="before"
+                    loading="lazy"
+                  />
+                  <span>→</span>
+                  <img
+                    class="zoom"
+                    src="screenshots/match3_lobby.png"
+                    alt="BS PvP Match3 로비"
+                    data-group="bslobby"
+                    data-role="after"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div class="cs">
+                <div class="cs-k">컴포넌트</div>
+                <div class="cs-pair">
+                  <img
+                    class="zoom"
+                    src="screenshots/bs_compo.png"
+                    alt="Boxing Star 글러브 관리"
+                    data-group="bscompo"
+                    data-role="before"
+                    loading="lazy"
+                  />
+                  <span>→</span>
+                  <img
+                    class="zoom"
+                    src="screenshots/match3_compo.png"
+                    alt="BS PvP Match3 컴포넌트"
+                    data-group="bscompo"
+                    data-role="after"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div class="cs">
+                <div class="cs-k">코스튬&인벤토리</div>
+                <div class="cs-pair">
+                  <img
+                    class="zoom"
+                    src="screenshots/bs_costume.png"
+                    alt="Boxing Star 의상"
+                    data-group="bsident"
+                    data-role="before"
+                    loading="lazy"
+                  />
+                  <span>→</span>
+                  <img
+                    class="zoom"
+                    src="screenshots/match3_costume.png"
+                    alt="BS PvP Match3 정체성"
+                    data-group="bsident"
+                    data-role="after"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div class="cs">
+                <div class="cs-k">코어 컨셉</div>
+                <div class="cs-pair">
+                  <img
+                    class="zoom"
+                    src="screenshots/bstar_train_success.png"
+                    alt="Boxing Star 복싱 대전"
+                    data-group="bscore"
+                    data-role="before"
+                    loading="lazy"
+                  />
+                  <span>→</span>
+                  <img
+                    class="zoom"
+                    src="screenshots/match3_core.png"
+                    alt="BS PvP Match3 코어"
+                    data-group="bscore"
+                    data-role="after"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
             </div>
           </div>
-          <div class="cs">
-            <div class="cs-k">컴포넌트</div>
-            <div class="cs-pair">
-              <img
-                class="zoom"
-                src="screenshots/bs_compo.png"
-                alt="Boxing Star 글러브 관리"
-                data-group="bscompo"
-                data-role="before"
-                loading="lazy"
-              />
-              <span>→</span>
-              <img
-                class="zoom"
-                src="screenshots/match3_compo.png"
-                alt="BS PvP Match3 컴포넌트"
-                data-group="bscompo"
-                data-role="after"
-                loading="lazy"
-              />
+          <!-- 사고 흐름 (세로) -->
+          <div class="bs-flow">
+            <div class="step s-problem">
+              <div class="step-k">이슈</div>
+              <p>
+                개발 속도를 확보하려면 원작 Boxing Star의 UI 컴포넌트와 3D 리소스를
+                그대로 재활용해야 했습니다.
+              </p>
             </div>
-          </div>
-          <div class="cs">
-            <div class="cs-k">코스튬&인벤토리</div>
-            <div class="cs-pair">
-              <img
-                class="zoom"
-                src="screenshots/bs_costume.png"
-                alt="Boxing Star 의상"
-                data-group="bsident"
-                data-role="before"
-                loading="lazy"
-              />
-              <span>→</span>
-              <img
-                class="zoom"
-                src="screenshots/match3_costume.png"
-                alt="BS PvP Match3 정체성"
-                data-group="bsident"
-                data-role="after"
-                loading="lazy"
-              />
+            <div class="varrow">↓</div>
+            <div class="step s-diagnose">
+              <div class="step-k">진단</div>
+              <p>
+                가로뷰 원작을 세로뷰로 옮기는 과정에서 레이아웃을 전면 재구성해야
+                했습니다.
+              </p>
             </div>
-          </div>
-          <div class="cs">
-            <div class="cs-k">코어 컨셉</div>
-            <div class="cs-pair">
-              <img
-                class="zoom"
-                src="screenshots/bs_core.png"
-                alt="Boxing Star 복싱 대전"
-                data-group="bscore"
-                data-role="before"
-                loading="lazy"
-              />
-              <span>→</span>
-              <img
-                class="zoom"
-                src="screenshots/match3_core.png"
-                alt="BS PvP Match3 코어"
-                data-group="bscore"
-                data-role="after"
-                loading="lazy"
-              />
+            <div class="varrow">↓</div>
+            <div class="step s-standard">
+              <div class="step-k">기준</div>
+              <p>
+                코어 루프를 먼저 설계하고, 화면 단위로 정보 우선순위를 다시
+                정리했습니다.
+              </p>
             </div>
-          </div>
-        </div>
-
-        <!-- 색상 사고 흐름 -->
-        <div class="case-steps">
-          <div class="step s-problem">
-            <div class="step-k">이슈</div>
-            <p>
-              개발 속도를 확보하려면 원작 Boxing Star의 UI 컴포넌트와 3D 리소스를
-              그대로 재활용해야 했습니다.
-            </p>
-          </div>
-          <div class="step-arrow">→</div>
-          <div class="step s-diagnose">
-            <div class="step-k">진단</div>
-            <p>
-              가로뷰 원작을 세로뷰로 옮기는 과정에서 레이아웃을 전면 재구성해야
-              했습니다.
-            </p>
-          </div>
-          <div class="step-arrow">→</div>
-          <div class="step s-standard">
-            <div class="step-k">기준</div>
-            <p>
-              코어 루프를 먼저 설계하고, 화면 단위로 정보 우선순위를 다시
-              정리했습니다.
-            </p>
-          </div>
-          <div class="step-arrow">→</div>
-          <div class="step s-ship">
-            <div class="step-k">적용·출시</div>
-            <p>
-              원작의 코어 컨셉을 이어받아, 빠르게 결정을 내리며 UI/UX 결과물을
-              순조롭게 완성했습니다.
-            </p>
+            <div class="varrow">↓</div>
+            <div class="step s-ship">
+              <div class="step-k">적용·출시</div>
+              <p>
+                원작의 코어 컨셉을 이어받아, 빠르게 결정을 내리며 UI/UX 결과물을
+                순조롭게 완성했습니다.
+              </p>
+            </div>
           </div>
         </div>
       </div>
