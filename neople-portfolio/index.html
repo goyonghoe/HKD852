@@ -827,11 +827,15 @@
         align-self: center;
       }
       .lb-cap {
-        max-width: 880px;
-        text-align: center;
+        max-width: 760px;
+        margin: 0 auto;
+        text-align: left;
         font-size: clamp(16.5px, 1.12vw, 21.5px);
         color: var(--sub);
-        line-height: 1.55;
+        line-height: 1.78;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+        text-wrap: pretty;
       }
       @media (max-width: 760px) {
         .lb-stage {
@@ -1570,57 +1574,6 @@
       </div>
     </section>
 
-    <!-- 03 대표 경험 — 사례 2 -->
-    <section class="slide" data-title="대표경험 · 복싱스타">
-      <div class="slide-inner">
-        <div class="sec-label">
-          <span class="n">02</span> 대표 경험 · IP를 새 장르로 옮긴 순간
-        </div>
-        <div class="exp">
-          <h3 class="exp-h">
-            IP의 정체성을 계승해 새 장르로 옮기고, 가로→세로 전환에서 생긴 가치
-            충돌을 풀다
-          </h3>
-          <div class="exp-meta">복싱스타 IP · 퍼즐 게임 신규 개발</div>
-
-          <div class="exp-stages">
-            <div class="stage">
-              <span class="stage-k">도전</span>
-              <p>
-                기존 IP(복싱스타)의 정체성을 유지하면서, 전혀 다른 장르인 퍼즐
-                게임으로 옮기는 작업이었습니다. 원작의 감성과 캐릭터는 살리되
-                플레이 방식은 새로 짜야 했습니다.
-              </p>
-            </div>
-
-            <div class="stage">
-              <span class="stage-k">충돌</span>
-              <p>
-                원작은 가로 모드, 신규 프로젝트는 세로 모드였습니다. 화면 방향이
-                바뀌면 단순히 크기만 줄이는 게 아니라 정보의 위계, 조작 영역,
-                레이아웃을 전부 다시 짜야 합니다. IP의 원래 구도·자산을 세로로
-                옮기는 과정에서 "원작을 살리려는 가치"와 "세로 화면에 맞춰야 하는
-                가치"가 충돌했습니다.
-              </p>
-            </div>
-
-            <div class="stage">
-              <span class="stage-k">해결</span>
-              <p>
-                <span class="exp-fill">✎ 본인 채움</span> — 충돌을 어떻게 풀었는지
-                구체적으로. (무엇을 지키고 무엇을 바꿨는지 / 세로에 맞춘 정보
-                위계·조작 재배치의 핵심 결정 한두 가지)
-              </p>
-            </div>
-          </div>
-
-          <div class="exp-bridge">
-            이렇게 기준을 세우고 제약을 푸는 시각으로 ARPG의 UI를 보면? ↓
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- 05 대표 경험 — Boxing Star → BS PvP Match3 -->
     <section class="slide" data-title="복싱스타 · 화면 비교">
       <div class="slide-inner">
@@ -1633,7 +1586,7 @@
               text-transform: none;
               letter-spacing: 0;
             "
-            >· IP를 새 장르로</span
+            >· 챔피언 스튜디오</span
           >
         </div>
 
@@ -1671,7 +1624,7 @@
             <div class="cs-pair">
               <img
                 class="zoom"
-                src="screenshots/bstar_lobby.png"
+                src="screenshots/bs_lobby.png"
                 alt="Boxing Star 로비"
                 data-group="bslobby"
                 data-role="before"
@@ -1693,7 +1646,7 @@
             <div class="cs-pair">
               <img
                 class="zoom"
-                src="screenshots/bstar_glove.png"
+                src="screenshots/bs_compo.png"
                 alt="Boxing Star 글러브 관리"
                 data-group="bscompo"
                 data-role="before"
@@ -1711,11 +1664,11 @@
             </div>
           </div>
           <div class="cs">
-            <div class="cs-k">코스튬</div>
+            <div class="cs-k">코스튬&인벤토리</div>
             <div class="cs-pair">
               <img
                 class="zoom"
-                src="screenshots/bstar_costume.png"
+                src="screenshots/bs_costume.png"
                 alt="Boxing Star 의상"
                 data-group="bsident"
                 data-role="before"
@@ -1737,7 +1690,7 @@
             <div class="cs-pair">
               <img
                 class="zoom"
-                src="screenshots/bstar_vs.png"
+                src="screenshots/bs_core.png"
                 alt="Boxing Star 복싱 대전"
                 data-group="bscore"
                 data-role="before"
@@ -2146,7 +2099,7 @@
           bslobby: "로비",
           bscompo: "컴포넌트",
           bscore: "코어 컨셉",
-          bsident: "코스튬",
+          bsident: "코스튬&인벤토리",
         };
         var GROUP_DESC = {
           lobby:
