@@ -391,7 +391,7 @@
       /* 1. 핵심 역량 */
       .caps {
         display: grid;
-        gap: 10px;
+        gap: clamp(12px, 1.6vh, 22px);
       }
       @media (min-width: 640px) {
         .caps {
@@ -402,10 +402,10 @@
         background: var(--surface);
         border: 1px solid var(--line);
         border-radius: 12px;
-        padding: 18px 20px;
+        padding: clamp(18px, 2.2vh, 28px) clamp(20px, 1.6vw, 30px);
         display: flex;
         align-items: flex-start;
-        gap: 17px;
+        gap: clamp(16px, 1.4vw, 24px);
       }
       .cap-ico {
         flex: 0 0 56px;
@@ -418,9 +418,9 @@
         min-width: 0;
       }
       .cap h3 {
-        font-size: clamp(18px, 1.198vw, 23px);
+        font-size: clamp(19px, 1.32vw, 25px);
         font-weight: 700;
-        margin-bottom: 6px;
+        margin-bottom: 9px;
       }
       .cap h3 b {
         color: var(--accent);
@@ -1342,7 +1342,7 @@
             <div class="cap-body">
               <h3><b>부서 간 소통</b> · 사업·아트·개발을 잇는 능력</h3>
               <p
-                style="font-size: clamp(16px, 1.198vw, 23px); color: var(--sub)"
+                style="font-size: clamp(15px, 0.92vw, 17.5px); color: var(--sub)"
               >
                 사업·아트·프로그램에 대한 이해를 바탕으로 직군 사이의 언어를
                 번역해 협업을 매끄럽게 만들 수 있습니다.
@@ -1373,7 +1373,7 @@
             <div class="cap-body">
               <h3><b>시스템 이해</b> · 복잡한 것을 단순화하는 능력</h3>
               <p
-                style="font-size: clamp(16px, 1.198vw, 23px); color: var(--sub)"
+                style="font-size: clamp(15px, 0.92vw, 17.5px); color: var(--sub)"
               >
                 게임 디자인 전반에 걸친 다양한 경험을 바탕으로, 복잡한 구조를
                 사용자 관점에서 최적으로 재구성하는 데 자신 있습니다.
@@ -1408,7 +1408,7 @@
             <div class="cap-body">
               <h3><b>UX 판단</b> · 논리·맥락 기반</h3>
               <p
-                style="font-size: clamp(16px, 1.198vw, 23px); color: var(--sub)"
+                style="font-size: clamp(15px, 0.92vw, 17.5px); color: var(--sub)"
               >
                 감이 아니라 기획 의도와 맥락을 근거로 UX를 판단하고, 사례
                 중심으로 설득력 있고 실현 가능한 방향을 제시할 수 있습니다.
@@ -1435,7 +1435,7 @@
             <div class="cap-body">
               <h3><b>유연성</b> · 모으고, 빠르게 결론내고, 나아간다</h3>
               <p
-                style="font-size: clamp(16px, 1.198vw, 23px); color: var(--sub)"
+                style="font-size: clamp(15px, 0.92vw, 17.5px); color: var(--sub)"
               >
                 정답을 고집하기보다 여러 의견을 폭넓게 받아들이고, 거기서 빠르게
                 결론을 내 다음 단계로 넘어갑니다. 원칙은 세우되 피드백 앞에서는
@@ -1463,7 +1463,7 @@
             <div class="cap-body">
               <h3><b>글로벌 리서치</b> · 영미권·중화권 현지 경험</h3>
               <p
-                style="font-size: clamp(16px, 1.198vw, 23px); color: var(--sub)"
+                style="font-size: clamp(15px, 0.92vw, 17.5px); color: var(--sub)"
               >
                 게임 만드는 일을 오래 해왔지만, 20대 초반엔 영국에서
                 사회복지사로 일했고 30대 초반엔 중국에서 인터넷 쇼핑몰을
