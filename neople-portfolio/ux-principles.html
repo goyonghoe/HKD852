@@ -92,7 +92,7 @@
             top: 10px;
             left: 12px;
             font-family: "JetBrains Mono", monospace;
-            font-size: 9.5px;
+            font-size: 11px;
             letter-spacing: 0.14em;
             color: #6f6755;
           }
@@ -108,7 +108,7 @@
           }
           .shot .speclist li {
             font-family: "JetBrains Mono", monospace;
-            font-size: 10.5px;
+            font-size: 11px;
             line-height: 1.5;
             color: #a9a08c;
             padding-left: 14px;
@@ -121,20 +121,53 @@
             left: 0;
             color: #d8b15a;
           }
-          @keyframes beltScroll {
-            from {
-              transform: translateY(-50%) translateX(0);
-            }
-            to {
-              transform: translateY(-50%) translateX(-50%);
-            }
+          /* ── 인터랙션 레이어 ── 손에 반응하는 화면 (AI 산출물 '죽은 화면' 회피) */
+          #principle-list > article {
+            transition:
+              border-color 0.22s ease,
+              transform 0.22s ease,
+              box-shadow 0.22s ease;
           }
-          .belt-marquee {
-            animation: beltScroll 38s linear infinite;
+          #principle-list > article:hover {
+            border-color: rgba(216, 177, 90, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.8);
+          }
+          .anti-card {
+            transition:
+              border-color 0.2s ease,
+              transform 0.2s ease,
+              background 0.2s ease;
+          }
+          .anti-card:hover {
+            border-color: rgba(198, 63, 51, 0.55);
+            transform: translateY(-2px);
+          }
+          .shot {
+            transition:
+              border-color 0.2s ease,
+              background 0.2s ease;
+          }
+          .shot:hover {
+            border-color: rgba(216, 177, 90, 0.55);
+          }
+          /* 키보드 포커스 가시성 — 접근성 원칙을 직접 지킨다 */
+          a:focus-visible,
+          .anti-card:focus-visible,
+          #principle-list > article:focus-visible {
+            outline: 2px solid #d8b15a;
+            outline-offset: 3px;
+            border-radius: 8px;
           }
           @media (prefers-reduced-motion: reduce) {
-            .belt-marquee {
-              animation: none;
+            #principle-list > article,
+            .anti-card,
+            .shot {
+              transition: none;
+            }
+            #principle-list > article:hover,
+            .anti-card:hover {
+              transform: none;
             }
           }
         </style>
@@ -417,7 +450,7 @@
               "
             >
               D4와 Path of Exile 시리즈(빌드 깊이 + 후속작 PoE2가 손본 마찰)의
-              <strong style="color: #ece6d8; font-weight: 600"
+              <strong style="color: #ece6d8; font-weight: 700"
                 >장점은 취하고, 단점은 반복하지 않는다.</strong
               >
               탑뷰 핵앤슬래시 · PC+콘솔 하이브리드 · 던파 누적형 코어루프를
@@ -425,7 +458,39 @@
             </p>
             <div
               style="
-                margin-top: 50px;
+                margin-top: 34px;
+                display: inline-flex;
+                align-items: center;
+                gap: 14px;
+                flex-wrap: wrap;
+                justify-content: center;
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 12px;
+                letter-spacing: 0.06em;
+                color: #a9a08c;
+                border: 1px solid rgba(216, 177, 90, 0.18);
+                border-radius: 999px;
+                padding: 9px 18px;
+              "
+            >
+              <span style="color: #d8b15a">처방 — 어떻게 설계할까</span>
+              <span style="opacity: 0.4">·</span>
+              <span
+                >먼저 분석부터 →
+                <a
+                  href="./arpg-teardown.html"
+                  style="
+                    color: #ece6d8;
+                    text-decoration: none;
+                    border-bottom: 1px solid rgba(216, 177, 90, 0.45);
+                  "
+                  >ARPG 티어다운</a
+                ></span
+              >
+            </div>
+            <div
+              style="
+                margin-top: 40px;
                 font-family: &quot;JetBrains Mono&quot;, monospace;
                 font-size: 11px;
                 letter-spacing: 0.2em;
@@ -437,139 +502,10 @@
           </div>
         </section>
 
-        <!-- ===== BELTSCROLL ANCHOR (던파 IP 모티프) ===== -->
-        <section
-          aria-hidden="true"
-          style="
-            position: relative;
-            overflow: hidden;
-            border-bottom: 1px solid rgba(216, 177, 90, 0.12);
-            background: linear-gradient(
-              180deg,
-              #16120b 0%,
-              #1c1710 60%,
-              #14110c 100%
-            );
-            padding: 0;
-            height: 96px;
-          "
-        >
-          <!-- 원경 파랄랙스 띠 -->
-          <div
-            style="
-              position: absolute;
-              left: 0;
-              right: 0;
-              bottom: 30px;
-              height: 2px;
-              background: repeating-linear-gradient(
-                90deg,
-                rgba(216, 177, 90, 0.22),
-                rgba(216, 177, 90, 0.22) 26px,
-                transparent 26px,
-                transparent 64px
-              );
-            "
-          ></div>
-          <!-- 바닥 라인 (벨트) -->
-          <div
-            style="
-              position: absolute;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              height: 30px;
-              background: linear-gradient(
-                180deg,
-                rgba(58, 51, 38, 0.5),
-                rgba(20, 17, 12, 0.9)
-              );
-              border-top: 1px solid rgba(216, 177, 90, 0.18);
-            "
-          ></div>
-          <!-- 던파 시스템 명칭 = 비주얼 앵커 (한글 명조, 흐르는 좌→우) -->
-          <div
-            class="belt-marquee"
-            style="
-              position: absolute;
-              left: 0;
-              top: 50%;
-              transform: translateY(-50%);
-              white-space: nowrap;
-              font-family: &quot;Nanum Myeongjo&quot;, serif;
-              font-weight: 800;
-              font-size: 30px;
-              letter-spacing: 0.08em;
-              color: rgba(236, 230, 216, 0.1);
-            "
-          >
-            <span style="padding: 0 22px"
-              >마법부여<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >엠블렘<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >융합석<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >에픽<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >태초<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >명성<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >탈리스만<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >성안의 마이스터</span
-            ><span style="padding: 0 22px" aria-hidden="true"
-              >마법부여<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >엠블렘<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >융합석<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >에픽<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >태초<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >명성<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >탈리스만<span style="color: rgba(216, 177, 90, 0.42)"> · </span
-              >성안의 마이스터</span
-            >
-          </div>
-          <!-- 전경 캐릭터 마커 (도트 모티프) -->
-          <div
-            style="
-              position: absolute;
-              left: 11%;
-              bottom: 18px;
-              width: 14px;
-              height: 22px;
-              background: #d8b15a;
-              box-shadow:
-                4px 0 0 rgba(198, 63, 51, 0.85),
-                -16px 6px 0 -4px rgba(111, 103, 85, 0.7);
-              border-radius: 2px;
-            "
-          ></div>
-          <div
-            style="
-              position: absolute;
-              right: 13%;
-              bottom: 16px;
-              width: 12px;
-              height: 18px;
-              background: #c63f33;
-              border-radius: 2px;
-              opacity: 0.85;
-            "
-          ></div>
-          <!-- 라벨 -->
-          <div
-            style="
-              position: absolute;
-              left: 32px;
-              top: 14px;
-              font-family: &quot;JetBrains Mono&quot;, monospace;
-              font-size: 10px;
-              letter-spacing: 0.18em;
-              color: #6f6755;
-            "
-          >
-            DNF 벨트스크롤 → 탑뷰 · 누적 성장 계보
-          </div>
-        </section>
-
         <!-- ===== PREMISE ===== -->
         <section
           id="premise"
-          style="max-width: 1180px; margin: 0 auto; padding: 140px 32px 100px"
+          style="max-width: 1180px; margin: 0 auto; padding: 72px 32px 100px"
         >
           <div data-reveal style="text-align: center; margin-bottom: 60px">
             <div
@@ -605,10 +541,10 @@
               "
             >
               원칙을 세우기 전에 좌표를 고정한다. 오버킬은 던전앤파이터 IP를
-              <strong style="color: #ece6d8; font-weight: 600"
+              <strong style="color: #ece6d8; font-weight: 700"
                 >탑뷰 핵앤슬래시</strong
               >로 옮긴 3D 액션 RPG이며, 보도된 내부 레퍼런스 게임은
-              <strong style="color: #ece6d8; font-weight: 600"
+              <strong style="color: #ece6d8; font-weight: 700"
                 >Path of Exile</strong
               >
               계열로 알려져 있다. 또 넥슨이 멀티플랫폼 기조를 밝힌 보도가 있어,
@@ -631,7 +567,7 @@
             <div
               style="
                 font-family: &quot;JetBrains Mono&quot;, monospace;
-                font-size: 10.5px;
+                font-size: 11px;
                 letter-spacing: 0.16em;
                 color: #d8b15a;
                 margin-bottom: 12px;
@@ -641,19 +577,19 @@
             </div>
             <div style="font-size: 14px; line-height: 1.72; color: #cfc7b6">
               보도된 내부 레퍼런스는
-              <strong style="color: #ece6d8; font-weight: 600"
+              <strong style="color: #ece6d8; font-weight: 700"
                 >Path of Exile 계열</strong
               >이다. 어느 편을 콕 집어 가리키기보다, 시리즈가 증명한 빌드
               자유도(깊이)와 후속작 PoE2가 손본 마찰을 함께 참고한다. PoE
               시리즈의 그 깊이는 오래도록 UX 부채와 한 몸으로 붙어 있었다 — (1)
-              <strong style="color: #ece6d8; font-weight: 600"
+              <strong style="color: #ece6d8; font-weight: 700"
                 >아이템 식별을 외부 아이템 필터에 의존</strong
               >해, 필터 스크립트를 직접 짜거나 받지 않으면 바닥에 쏟아지는
               드랍을 읽기 어려웠고, (2)
-              <strong style="color: #ece6d8; font-weight: 600"
+              <strong style="color: #ece6d8; font-weight: 700"
                 >거래가 외부 웹사이트로 빠져</strong
               >나가 인게임 흐름이 끊겼으며, (3)
-              <strong style="color: #ece6d8; font-weight: 600"
+              <strong style="color: #ece6d8; font-weight: 700"
                 >패시브 트리의 정보 과밀</strong
               >로 신규 진입 장벽이 컸다 — 시리즈가 안고 온 알려진 마찰이다.<br /><br />
               후속작 PoE2는 같은 스튜디오가
@@ -874,7 +810,7 @@
             >
               두 선배 게임은 정반대 철학으로 같은 장르를 풀었고, 각자 분명한
               강점과 흉터를 남겼다. 오버킬의 원칙은 이 네 개의 칸 중
-              <strong style="color: #ece6d8; font-weight: 600"
+              <strong style="color: #ece6d8; font-weight: 700"
                 >초록 칸은 흡수하고, 붉은 칸은 피하는 것</strong
               >에서 출발한다.
             </p>
@@ -926,7 +862,7 @@
               >
                 접근성을 출시 초기부터 핵심 축으로 내세우고, 어픽스는 강하게
                 그러나 적게 가져가는
-                <strong style="color: #ece6d8; font-weight: 600"
+                <strong style="color: #ece6d8; font-weight: 700"
                   >방향으로 개선했다</strong
                 >는 게 시즌4 패치노트와 접근성 디자인 인터뷰에서 읽히는 취지다.
                 (어픽스 축소는 시즌4 'Loot Reborn'에서, 접근성 기능 일부는 이후
@@ -950,7 +886,7 @@
               <div
                 style="
                   font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 10.5px;
+                  font-size: 11px;
                   letter-spacing: 0.14em;
                   color: #7fbf8a;
                   margin-bottom: 10px;
@@ -990,7 +926,7 @@
               <div
                 style="
                   font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 10.5px;
+                  font-size: 11px;
                   letter-spacing: 0.14em;
                   color: #e88273;
                   margin-bottom: 10px;
@@ -1068,7 +1004,7 @@
                 <div
                   style="
                     font-family: &quot;JetBrains Mono&quot;, monospace;
-                    font-size: 10px;
+                    font-size: 11px;
                     letter-spacing: 0.14em;
                     color: #d8b15a;
                     margin-bottom: 7px;
@@ -1084,7 +1020,7 @@
                     color: #ecc873;
                   "
                 >
-                  incidental complexity는 제거하되, depth는 최대한 유지한다.
+                  부수적 복잡함은 걷어내되, 깊이는 최대한 지킨다.
                 </div>
                 <div
                   style="
@@ -1116,7 +1052,7 @@
               <div
                 style="
                   font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 10.5px;
+                  font-size: 11px;
                   letter-spacing: 0.14em;
                   color: #7fbf8a;
                   margin-bottom: 10px;
@@ -1159,7 +1095,7 @@
               <div
                 style="
                   font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 10.5px;
+                  font-size: 11px;
                   letter-spacing: 0.14em;
                   color: #e88273;
                   margin-bottom: 10px;
@@ -1187,10 +1123,10 @@
                 <li
                   style="font-size: 13.5px; color: #a9a08c; line-height: 1.55"
                 >
-                  컨트롤러 UI와 M&KB UI가
+                  컨트롤러 UI와 키보드+마우스 UI가
                   <strong style="color: #e88273">완전히 분리</strong>, 콘솔에선
-                  일부 요소 축약/삭제 → "재화 쓸 땐 M&KB로 로그인하라"는
-                  우회법까지
+                  일부 요소 축약/삭제 → "재화 쓸 땐 키보드+마우스로
+                  로그인하라"는 우회법까지
                 </li>
               </ul>
             </div>
@@ -1234,7 +1170,7 @@
               </div>
               <div style="font-size: 14px; line-height: 1.65; color: #a9a08c">
                 누적 성장·수집이 핵심인 던파 루프에서는
-                <strong style="color: #ece6d8; font-weight: 600"
+                <strong style="color: #ece6d8; font-weight: 700"
                   >깊이를 보존하면서(PoE2) 진입 마찰은 제거(D4)</strong
                 >해야 한다. 한쪽을 희생하지 않는 것 — 그것이 오버킬 UI가 풀어야
                 할 본질적 긴장이다.
@@ -1292,6 +1228,273 @@
             </p>
           </div>
 
+          <!-- 7원칙 한눈 카드 — 5초 안에 전체 골격 -->
+          <ol
+            data-reveal
+            style="
+              list-style: none;
+              margin: 0 0 40px;
+              padding: 0;
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+              gap: 12px;
+              counter-reset: pidx;
+            "
+          >
+            <li
+              style="
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+                border: 1px solid rgba(216, 177, 90, 0.16);
+                border-radius: 10px;
+                padding: 14px 16px;
+                background: rgba(216, 177, 90, 0.03);
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: #d8b15a;
+                  flex-shrink: 0;
+                  line-height: 1.5;
+                "
+                >01</span
+              >
+              <span style="font-size: 13.5px; line-height: 1.5; color: #cfc7b6"
+                >깊이는 보존, 부수적 복잡함만 도려낸다
+                <span
+                  style="
+                    display: block;
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 11px;
+                    color: #6f6755;
+                    margin-top: 3px;
+                  "
+                  >PoE2</span
+                ></span
+              >
+            </li>
+            <li
+              style="
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+                border: 1px solid rgba(216, 177, 90, 0.16);
+                border-radius: 10px;
+                padding: 14px 16px;
+                background: rgba(216, 177, 90, 0.03);
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: #d8b15a;
+                  flex-shrink: 0;
+                  line-height: 1.5;
+                "
+                >02</span
+              >
+              <span style="font-size: 13.5px; line-height: 1.5; color: #cfc7b6"
+                >던파 루프는 '드랍 교체'가 아니라 '옵션 커스텀'
+                <span
+                  style="
+                    display: block;
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 11px;
+                    color: #6f6755;
+                    margin-top: 3px;
+                  "
+                  >D4</span
+                ></span
+              >
+            </li>
+            <li
+              style="
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+                border: 1px solid rgba(216, 177, 90, 0.16);
+                border-radius: 10px;
+                padding: 14px 16px;
+                background: rgba(216, 177, 90, 0.03);
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: #d8b15a;
+                  flex-shrink: 0;
+                  line-height: 1.5;
+                "
+                >03</span
+              >
+              <span style="font-size: 13.5px; line-height: 1.5; color: #cfc7b6"
+                >정보구조는 공통, 인터랙션만 입력별로
+                <span
+                  style="
+                    display: block;
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 11px;
+                    color: #6f6755;
+                    margin-top: 3px;
+                  "
+                  >D4 · PoE2</span
+                ></span
+              >
+            </li>
+            <li
+              style="
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+                border: 1px solid rgba(216, 177, 90, 0.16);
+                border-radius: 10px;
+                padding: 14px 16px;
+                background: rgba(216, 177, 90, 0.03);
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: #d8b15a;
+                  flex-shrink: 0;
+                  line-height: 1.5;
+                "
+                >04</span
+              >
+              <span style="font-size: 13.5px; line-height: 1.5; color: #cfc7b6"
+                >탑뷰의 주인공은 전장 — HUD는 가장자리로
+                <span
+                  style="
+                    display: block;
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 11px;
+                    color: #6f6755;
+                    margin-top: 3px;
+                  "
+                  >D4</span
+                ></span
+              >
+            </li>
+            <li
+              style="
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+                border: 1px solid rgba(216, 177, 90, 0.16);
+                border-radius: 10px;
+                padding: 14px 16px;
+                background: rgba(216, 177, 90, 0.03);
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: #d8b15a;
+                  flex-shrink: 0;
+                  line-height: 1.5;
+                "
+                >05</span
+              >
+              <span style="font-size: 13.5px; line-height: 1.5; color: #cfc7b6"
+                >컨트롤러를 잔손질의 형벌로 만들지 않는다
+                <span
+                  style="
+                    display: block;
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 11px;
+                    color: #6f6755;
+                    margin-top: 3px;
+                  "
+                  >D4 · PoE2</span
+                ></span
+              >
+            </li>
+            <li
+              style="
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+                border: 1px solid rgba(216, 177, 90, 0.16);
+                border-radius: 10px;
+                padding: 14px 16px;
+                background: rgba(216, 177, 90, 0.03);
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: #d8b15a;
+                  flex-shrink: 0;
+                  line-height: 1.5;
+                "
+                >06</span
+              >
+              <span style="font-size: 13.5px; line-height: 1.5; color: #cfc7b6"
+                >신규는 쉽게, 하드코어는 깊이를 모두
+                <span
+                  style="
+                    display: block;
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 11px;
+                    color: #6f6755;
+                    margin-top: 3px;
+                  "
+                  >D4</span
+                ></span
+              >
+            </li>
+            <li
+              style="
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+                border: 1px solid rgba(216, 177, 90, 0.16);
+                border-radius: 10px;
+                padding: 14px 16px;
+                background: rgba(216, 177, 90, 0.03);
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: #d8b15a;
+                  flex-shrink: 0;
+                  line-height: 1.5;
+                "
+                >07</span
+              >
+              <span style="font-size: 13.5px; line-height: 1.5; color: #cfc7b6"
+                >접근성은 옵션이 아니라 첫날 기본
+                <span
+                  style="
+                    display: block;
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 11px;
+                    color: #6f6755;
+                    margin-top: 3px;
+                  "
+                  >D4</span
+                ></span
+              >
+            </li>
+          </ol>
+
           <div
             id="principle-list"
             style="display: flex; flex-direction: column; gap: 30px"
@@ -1299,6 +1502,7 @@
             <!-- P01 -->
             <article
               data-reveal
+              tabindex="0"
               style="
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 background: #1a1610;
@@ -1356,7 +1560,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #d8b15a;
                         margin-bottom: 6px;
@@ -1371,16 +1575,16 @@
                         color: #cfc7b6;
                       "
                     >
-                      PoE2 디렉션 요약(직접 인용 아님): 부수적 복잡함(incidental
-                      complexity)은 덜되 깊이(depth)는 최대한 지킨다. 스킬젬
-                      시스템을 훨씬 쉽게 만들면서 빌드 자유도는 줄이지 않았다.
+                      PoE2 디렉션 요약(직접 인용 아님): 부수적 복잡함은 덜되
+                      깊이는 최대한 지킨다. 스킬젬 시스템을 훨씬 쉽게 만들면서
+                      빌드 자유도는 줄이지 않았다.
                     </div>
                   </div>
                   <div style="margin-bottom: 18px">
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #7fbf8a;
                         margin-bottom: 8px;
@@ -1392,12 +1596,12 @@
                       style="font-size: 14px; line-height: 1.65; color: #a9a08c"
                     >
                       던파의
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >마법부여·엠블렘</strong
                       >
                       조합이 만드는 빌드 깊이는 그대로 둔다. 대신 그 깊이에
                       닿기까지의 마찰 — 옵션을 바꿀 때마다 매번
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >해제 → 재장착을 반복하는 클릭</strong
                       >, 창 전환, 확인 단계 — 을 따로 분리해 압축한다. 복잡함이
                       곧 깊이라고 착각하지 않는다.
@@ -1417,7 +1621,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #d8b15a;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -1448,7 +1652,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #de5446;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -1492,7 +1696,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 9px;
+                        font-size: 11px;
                         letter-spacing: 0.12em;
                         color: #d8b15a;
                       "
@@ -1672,7 +1876,7 @@
                   <div
                     style="
                       font-family: &quot;JetBrains Mono&quot;, monospace;
-                      font-size: 10px;
+                      font-size: 11px;
                       color: #6f6755;
                       line-height: 1.55;
                       word-break: keep-all;
@@ -1688,6 +1892,7 @@
             <!-- P02 -->
             <article
               data-reveal
+              tabindex="0"
               style="
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 background: #1a1610;
@@ -1696,7 +1901,7 @@
               "
             >
               <div
-                style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 0"
+                style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 0"
               >
                 <div
                   style="
@@ -1736,6 +1941,19 @@
                       커스텀'이다
                     </h3>
                   </div>
+                  <p
+                    style="
+                      font-family: &quot;Nanum Myeongjo&quot;, serif;
+                      font-size: 19px;
+                      line-height: 1.5;
+                      color: #ecc873;
+                      margin: 0 0 22px;
+                      padding-left: 16px;
+                      border-left: 3px solid #c63f33;
+                    "
+                  >
+                    디아 루프를 던파 용어로 덧칠하지 않는다.
+                  </p>
                   <div
                     style="
                       margin-bottom: 20px;
@@ -1746,7 +1964,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #de5446;
                         margin-bottom: 6px;
@@ -1771,7 +1989,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #7fbf8a;
                         margin-bottom: 8px;
@@ -1784,17 +2002,16 @@
                     >
                       먼저 던파의 실제 루프를 정확히 짚는다 — 현행 던파의 장비
                       성장은
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >새 드랍으로 갈아끼우는 만큼이나, 이미 가진 장비를 두고
                         마법부여·엠블렘·융합석·연마 같은 시스템을 반복해서
                         다듬는 것이 핵심 루프</strong
                       >다. 자동 획득·자동 분해가 정착돼 '바닥에서 줍고
                       갈아끼우기'만으로는 성장이 끝나지 않는다. 그래서
                       디아블로식 '드랍 식별·교체 델타' 루프를 그대로 이식하지
-                      않는다 — 그건 던파 루프가 아니라 디아 루프를 던파 용어로
-                      덧칠하는 것이다.<br /><br />
+                      않는다.<br /><br />
                       대신 한 시스템을 끝까지 판다 — 여기서는
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >융합석 옵션을 다듬는 흐름</strong
                       >을 예시로 든다(실제 명칭·재화·절차는 라이브 사양에 맞춰
                       확정 필요). 지금은 어떤 옵션 조합이 가능한지, 현재 값 대비
@@ -1803,7 +2020,7 @@
                       교훈(선택지를 줄이고 각각을 더 또렷하게)과 PoE 시리즈의
                       반면교사(깊이를 외부 도구에 떠넘기지 말 것)를 붙인다 —
                       재설정 모달 안에서
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >현재 옵션 → 후보 옵션의 델타(▲힘·▼체력 등)와 누적
                         비용을 한 화면에서</strong
                       >
@@ -1827,7 +2044,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #d8b15a;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -1859,7 +2076,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #de5446;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -1903,7 +2120,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 9px;
+                        font-size: 11px;
                         letter-spacing: 0.12em;
                         color: #d8b15a;
                       "
@@ -2075,7 +2292,7 @@
                   <div
                     style="
                       font-family: &quot;JetBrains Mono&quot;, monospace;
-                      font-size: 10px;
+                      font-size: 11px;
                       color: #6f6755;
                       line-height: 1.55;
                       word-break: keep-all;
@@ -2108,7 +2325,7 @@
               <div
                 style="
                   font-family: &quot;JetBrains Mono&quot;, monospace;
-                  font-size: 10.5px;
+                  font-size: 11px;
                   letter-spacing: 0.16em;
                   color: #6f6755;
                   margin-bottom: 14px;
@@ -2151,6 +2368,7 @@
             <!-- P03 -->
             <article
               data-reveal
+              tabindex="0"
               style="
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 background: #1a1610;
@@ -2212,7 +2430,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 10px;
+                          font-size: 11px;
                           letter-spacing: 0.14em;
                           color: #de5446;
                           margin-bottom: 6px;
@@ -2227,8 +2445,8 @@
                           color: #cfc7b6;
                         "
                       >
-                        한 UI를 M&KB·컨트롤러에 통합 → 어느 입력으로 와도 같은
-                        멘탈 모델. 이해가 쉽다.
+                        한 UI를 키보드+마우스·컨트롤러에 통합 → 어느 입력으로
+                        와도 같은 머릿속 조작 감각. 이해가 쉽다.
                       </div>
                     </div>
                     <div
@@ -2237,7 +2455,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 10px;
+                          font-size: 11px;
                           letter-spacing: 0.14em;
                           color: #d8b15a;
                           margin-bottom: 6px;
@@ -2252,11 +2470,11 @@
                           color: #cfc7b6;
                         "
                       >
-                        컨트롤러 UI를 M&KB와 별도 설계 — 화면 거리·스틱 조작에
-                        맞춘 의도적 선택이고, 휠 인벤토리처럼 호평받은 부분도
-                        있다. 다만 분리가 깊어지며 일부 요소가 축약·삭제되고
-                        입력을 오가면 멘탈 모델이 끊긴다. 분리의 이유는 취하되
-                        그 부작용만 피한다.
+                        컨트롤러 UI를 키보드+마우스와 별도 설계 — 화면 거리·스틱
+                        조작에 맞춘 의도적 선택이고, 휠 인벤토리처럼 호평받은
+                        부분도 있다. 다만 분리가 깊어지며 일부 요소가
+                        축약·삭제되고 입력을 오가면 머릿속 조작 감각이 끊긴다.
+                        분리의 이유는 취하되 그 부작용만 피한다.
                       </div>
                     </div>
                   </div>
@@ -2264,7 +2482,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #7fbf8a;
                         margin-bottom: 8px;
@@ -2276,14 +2494,14 @@
                       style="font-size: 14px; line-height: 1.65; color: #a9a08c"
                     >
                       던파 마법부여·엠블렘·융합석을 다루는 창의
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >정보 위계·아이콘 언어·기능 집합</strong
                       >은 PC와 콘솔이 한 몸을 쓴다. 갈라지는 건
                       '선택/이동/확정'을 어떻게 하느냐 — 커서냐 포커스냐,
                       클릭이냐 래디얼이냐 — 그 인터랙션 레이어다. 솔직히 말하면,
                       콘솔에서 정보구조를 1픽셀도 안 바꾸는 건 불가능하다. 화면
                       거리·세이프존·스틱 정밀도가
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >밀도와 슬롯 수는 강제로 바꾼다</strong
                       >. 그래서 경계를 명시한다 —
                       <strong style="color: #ecc873; font-weight: 600"
@@ -2307,7 +2525,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #d8b15a;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -2338,7 +2556,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #de5446;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -2381,7 +2599,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 9px;
+                        font-size: 11px;
                         letter-spacing: 0.12em;
                         color: #d8b15a;
                       "
@@ -2516,7 +2734,7 @@
                   <div
                     style="
                       font-family: &quot;JetBrains Mono&quot;, monospace;
-                      font-size: 10px;
+                      font-size: 11px;
                       color: #6f6755;
                       line-height: 1.55;
                       word-break: keep-all;
@@ -2532,6 +2750,7 @@
             <!-- P04 -->
             <article
               data-reveal
+              tabindex="0"
               style="
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 background: #1a1610;
@@ -2540,7 +2759,7 @@
               "
             >
               <div
-                style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 0"
+                style="display: grid; grid-template-columns: 1.7fr 1fr; gap: 0"
               >
                 <div
                   style="
@@ -2589,7 +2808,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #de5446;
                         margin-bottom: 6px;
@@ -2612,7 +2831,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #7fbf8a;
                         margin-bottom: 8px;
@@ -2625,7 +2844,7 @@
                     >
                       탑뷰 핵앤슬래시에서 화면 중앙은 캐릭터와 적, 위협
                       텔레그래프의 자리다. 체력·자원·스킬 쿨다운 같은 HUD는
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >시선 동선 바깥(코너·하단)</strong
                       >으로 밀어 전장 가독성을 최우선한다.
                     </div>
@@ -2644,7 +2863,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #d8b15a;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -2675,7 +2894,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #de5446;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -2728,7 +2947,7 @@
                         justify-content: space-between;
                         align-items: center;
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 9px;
+                        font-size: 11px;
                         letter-spacing: 0.12em;
                         color: #6f6755;
                       "
@@ -2845,7 +3064,7 @@
                   <div
                     style="
                       font-family: &quot;JetBrains Mono&quot;, monospace;
-                      font-size: 10px;
+                      font-size: 11px;
                       color: #6f6755;
                       line-height: 1.55;
                       word-break: keep-all;
@@ -2861,6 +3080,7 @@
             <!-- P05 -->
             <article
               data-reveal
+              tabindex="0"
               style="
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 background: #1a1610;
@@ -2905,9 +3125,23 @@
                         line-height: 1.3;
                       "
                     >
-                      컨트롤러를 마이크로매니지먼트의 형벌로 만들지 않는다
+                      컨트롤러를 잔손질의 형벌로 만들지 않는다
                     </h3>
                   </div>
+                  <p
+                    style="
+                      font-family: &quot;Nanum Myeongjo&quot;, serif;
+                      font-size: 19px;
+                      line-height: 1.5;
+                      color: #ecc873;
+                      margin: 0 0 22px;
+                      padding-left: 16px;
+                      border-left: 3px solid #c63f33;
+                    "
+                  >
+                    컨트롤러 사용자가 PC로 갈아타고 싶어지는 순간, 그게 UX
+                    실패다.
+                  </p>
                   <div
                     style="
                       margin-bottom: 20px;
@@ -2922,7 +3156,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 10px;
+                          font-size: 11px;
                           letter-spacing: 0.14em;
                           color: #de5446;
                           margin-bottom: 6px;
@@ -2947,7 +3181,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 10px;
+                          font-size: 11px;
                           letter-spacing: 0.14em;
                           color: #d8b15a;
                           margin-bottom: 6px;
@@ -2962,8 +3196,8 @@
                           color: #cfc7b6;
                         "
                       >
-                        콘솔에서 인벤·스택탭·거래가 번거로워 "재화 쓸 땐 M&KB로
-                        로그인하라"는 우회법이 권장될 정도.
+                        콘솔에서 인벤·스택탭·거래가 번거로워 "재화 쓸 땐
+                        키보드+마우스로 로그인하라"는 우회법이 권장될 정도.
                       </div>
                     </div>
                   </div>
@@ -2971,7 +3205,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #7fbf8a;
                         margin-bottom: 8px;
@@ -2984,19 +3218,18 @@
                     >
                       먼저 인정한다 — PC 던파는 이미 일괄 분해를 잘한다. 그러니
                       이건 '새 제안'이 아니라
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >콘솔 이식 때 그 편의가 사라지지 않게 지키는 일</strong
                       >이다. 진짜 마찰은 콘솔에서 생긴다. 예를 들어
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >봉인 장비를 해제하고 항아리를 여는 흐름</strong
                       >, 또는
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >융합석 옵션을 재설정하며 비용을 확인하는 흐름</strong
                       >을 컨트롤러로 한 칸씩 커서 옮겨 처리하면, 한 번에 D-패드
                       이동·확정·다시 확인으로 클릭이 두세 배가 된다. 이런 반복
                       흐름은 일괄 처리·길게 누르기·래디얼로 입력 횟수를 PC
-                      수준으로 되돌린다. 컨트롤러 사용자가 PC로 갈아타고 싶게
-                      만드는 순간, 그건 UX 실패다.
+                      수준으로 되돌린다.
                     </div>
                     <div
                       style="
@@ -3010,7 +3243,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           letter-spacing: 0.12em;
                           color: #e88273;
                           margin-bottom: 10px;
@@ -3049,7 +3282,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #d8b15a;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -3080,7 +3313,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #de5446;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -3124,7 +3357,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 9px;
+                        font-size: 11px;
                         letter-spacing: 0.12em;
                         color: #d8b15a;
                       "
@@ -3280,7 +3513,7 @@
                   <div
                     style="
                       font-family: &quot;JetBrains Mono&quot;, monospace;
-                      font-size: 10px;
+                      font-size: 11px;
                       color: #6f6755;
                       line-height: 1.55;
                       word-break: keep-all;
@@ -3296,6 +3529,7 @@
             <!-- P06 -->
             <article
               data-reveal
+              tabindex="0"
               style="
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 background: #1a1610;
@@ -3353,7 +3587,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #d8b15a;
                         margin-bottom: 6px;
@@ -3377,7 +3611,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #7fbf8a;
                         margin-bottom: 8px;
@@ -3389,7 +3623,7 @@
                       style="font-size: 14px; line-height: 1.65; color: #a9a08c"
                     >
                       던파식 깊이를 첫 화면에 다 쏟지 않는다. 명성 구간에 맞춰
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >마법부여·엠블렘·융합석 같은 성장 시스템을 단계적으로
                         잠금 해제</strong
                       >하고, 고급 정보는 접어 둔 채(단계적 노출) 원하는 사람만
@@ -3410,7 +3644,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #d8b15a;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -3441,7 +3675,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #de5446;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -3485,7 +3719,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 9px;
+                        font-size: 11px;
                         letter-spacing: 0.12em;
                         color: #d8b15a;
                       "
@@ -3633,7 +3867,7 @@
                   <div
                     style="
                       font-family: &quot;JetBrains Mono&quot;, monospace;
-                      font-size: 10px;
+                      font-size: 11px;
                       color: #6f6755;
                       line-height: 1.55;
                       word-break: keep-all;
@@ -3650,6 +3884,7 @@
             <!-- P07 -->
             <article
               data-reveal
+              tabindex="0"
               style="
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 background: #1a1610;
@@ -3707,7 +3942,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #de5446;
                         margin-bottom: 6px;
@@ -3733,7 +3968,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 10px;
+                        font-size: 11px;
                         letter-spacing: 0.14em;
                         color: #7fbf8a;
                         margin-bottom: 8px;
@@ -3745,7 +3980,7 @@
                       style="font-size: 14px; line-height: 1.65; color: #a9a08c"
                     >
                       색맹 대응·텍스트 크기·UI 스케일·리매핑·오디오 큐를
-                      <strong style="color: #ece6d8; font-weight: 600"
+                      <strong style="color: #ece6d8; font-weight: 700"
                         >출시 1일차 기본 탑재</strong
                       >한다. 위협 텔레그래프와 등급 표현은 색에만 의존하지 않고
                       형태·소리·아이콘을 함께 쓴다. 글로벌 출시(NA 우선) 다국어
@@ -3766,7 +4001,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #d8b15a;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -3797,7 +4032,7 @@
                       <div
                         style="
                           font-family: &quot;JetBrains Mono&quot;, monospace;
-                          font-size: 9.5px;
+                          font-size: 11px;
                           color: #de5446;
                           letter-spacing: 0.1em;
                           margin-bottom: 5px;
@@ -3840,7 +4075,7 @@
                     <div
                       style="
                         font-family: &quot;JetBrains Mono&quot;, monospace;
-                        font-size: 9px;
+                        font-size: 11px;
                         letter-spacing: 0.12em;
                         color: #d8b15a;
                       "
@@ -3852,7 +4087,7 @@
                       width="100%"
                       style="display: block"
                       role="img"
-                      aria-label="접근성 패널 와이어프레임 — day-one 설정 토글과 색·형태·소리 3중 위협 텔레그래프, 다국어 길이 확장 레이아웃"
+                      aria-label="접근성 패널 와이어프레임 — 첫날 설정 토글과 색·형태·소리 3중 위협 텔레그래프, 다국어 길이 확장 레이아웃"
                     >
                       <rect
                         x="1"
@@ -3871,7 +4106,7 @@
                         font-size="8.5"
                         font-family="JetBrains Mono, monospace"
                       >
-                        접근성 (day-one)
+                        접근성 (첫날)
                       </text>
                       <!-- toggle rows -->
                       <text
@@ -4030,7 +4265,7 @@
                   <div
                     style="
                       font-family: &quot;JetBrains Mono&quot;, monospace;
-                      font-size: 10px;
+                      font-size: 11px;
                       color: #6f6755;
                       line-height: 1.55;
                       word-break: keep-all;
@@ -4545,7 +4780,7 @@
           >
             원칙:
             <span style="color: #d8b15a"
-              >입력별로 창이 달라지면 플레이어의 멘탈 모델이 끊긴다</span
+              >입력별로 창이 달라지면 플레이어의 머릿속 조작 감각이 끊긴다</span
             >
             — 정보구조(창)는 공유하고, 손가락 쓰는 법만 입력에 맞춰 갈라진다.
           </div>
@@ -4602,6 +4837,8 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
             <div
               data-reveal
+              class="anti-card"
+              tabindex="0"
               style="
                 border: 1px solid rgba(222, 84, 70, 0.2);
                 background: rgba(222, 84, 70, 0.04);
@@ -4635,13 +4872,15 @@
                   콘솔 인벤·거래의 버튼 과다
                 </div>
                 <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
-                  PoE2 콘솔처럼 재화 한 번 쓰는 데 버튼을 수십 번. "M&KB로
-                  로그인하라"는 우회법이 나오면 이미 실패.
+                  PoE2 콘솔처럼 재화 한 번 쓰는 데 버튼을 수십 번.
+                  "키보드+마우스로 로그인하라"는 우회법이 나오면 이미 실패.
                 </div>
               </div>
             </div>
             <div
               data-reveal
+              class="anti-card"
+              tabindex="0"
               style="
                 border: 1px solid rgba(222, 84, 70, 0.2);
                 background: rgba(222, 84, 70, 0.04);
@@ -4672,7 +4911,7 @@
                     line-height: 1.4;
                   "
                 >
-                  컨트롤러 마이크로매니지먼트
+                  컨트롤러 잔손질 지옥
                 </div>
                 <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
                   D4 컨트롤러 인벤토리 같은 "슈퍼 마이크로매니지먼트". 일괄
@@ -4682,11 +4921,14 @@
             </div>
             <div
               data-reveal
+              class="anti-card"
+              tabindex="0"
               style="
-                border: 1px solid rgba(222, 84, 70, 0.2);
-                background: rgba(222, 84, 70, 0.04);
+                grid-column: span 2;
+                border: 1.5px solid rgba(222, 84, 70, 0.45);
+                background: rgba(222, 84, 70, 0.07);
                 border-radius: 12px;
-                padding: 22px 24px;
+                padding: 24px 26px;
                 display: flex;
                 gap: 16px;
                 align-items: flex-start;
@@ -4705,23 +4947,47 @@
               <div>
                 <div
                   style="
-                    font-size: 15px;
-                    font-weight: 600;
-                    color: #ece6d8;
-                    margin-bottom: 6px;
-                    line-height: 1.4;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 7px;
+                    flex-wrap: wrap;
                   "
                 >
-                  번아웃 메커니즘
+                  <span
+                    style="
+                      font-size: 16px;
+                      font-weight: 700;
+                      color: #ece6d8;
+                      line-height: 1.4;
+                    "
+                    >번아웃 메커니즘</span
+                  >
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 11px;
+                      letter-spacing: 0.1em;
+                      color: #de5446;
+                      border: 1px solid rgba(222, 84, 70, 0.5);
+                      border-radius: 4px;
+                      padding: 1px 7px;
+                    "
+                    >CRITICAL</span
+                  >
                 </div>
-                <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
-                  D4 Tempering 실패로 재료 낭비, Masterworking 랜덤/리셋 같은
+                <div
+                  style="font-size: 13.5px; color: #a9a08c; line-height: 1.6"
+                >
+                  D4 Tempering 실패로 재료 낭비, Masterworking 랜덤·리셋 같은
                   스트레스 루프. 노력이 운에 증발하는 구조를 코어에 넣지 않는다.
                 </div>
               </div>
             </div>
             <div
               data-reveal
+              class="anti-card"
+              tabindex="0"
               style="
                 border: 1px solid rgba(222, 84, 70, 0.2);
                 background: rgba(222, 84, 70, 0.04);
@@ -4763,6 +5029,8 @@
             </div>
             <div
               data-reveal
+              class="anti-card"
+              tabindex="0"
               style="
                 border: 1px solid rgba(222, 84, 70, 0.2);
                 background: rgba(222, 84, 70, 0.04);
@@ -4803,11 +5071,14 @@
             </div>
             <div
               data-reveal
+              class="anti-card"
+              tabindex="0"
               style="
-                border: 1px solid rgba(222, 84, 70, 0.2);
-                background: rgba(222, 84, 70, 0.04);
+                grid-column: span 2;
+                border: 1.5px solid rgba(222, 84, 70, 0.45);
+                background: rgba(222, 84, 70, 0.07);
                 border-radius: 12px;
-                padding: 22px 24px;
+                padding: 24px 26px;
                 display: flex;
                 gap: 16px;
                 align-items: flex-start;
@@ -4826,16 +5097,38 @@
               <div>
                 <div
                   style="
-                    font-size: 15px;
-                    font-weight: 600;
-                    color: #ece6d8;
-                    margin-bottom: 6px;
-                    line-height: 1.4;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 7px;
+                    flex-wrap: wrap;
                   "
                 >
-                  전장을 덮는 HUD
+                  <span
+                    style="
+                      font-size: 16px;
+                      font-weight: 700;
+                      color: #ece6d8;
+                      line-height: 1.4;
+                    "
+                    >전장을 덮는 HUD</span
+                  >
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 11px;
+                      letter-spacing: 0.1em;
+                      color: #de5446;
+                      border: 1px solid rgba(222, 84, 70, 0.5);
+                      border-radius: 4px;
+                      padding: 1px 7px;
+                    "
+                    >CRITICAL</span
+                  >
                 </div>
-                <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
+                <div
+                  style="font-size: 13.5px; color: #a9a08c; line-height: 1.6"
+                >
                   탑뷰에서 중앙·시선 동선 위에 정보를 쌓아 위협 텔레그래프를
                   가리는 것. 화면 중앙은 늘 전장에 양보한다.
                 </div>
@@ -4843,6 +5136,8 @@
             </div>
             <div
               data-reveal
+              class="anti-card"
+              tabindex="0"
               style="
                 border: 1px solid rgba(222, 84, 70, 0.2);
                 background: rgba(222, 84, 70, 0.04);
@@ -4883,6 +5178,8 @@
             </div>
             <div
               data-reveal
+              class="anti-card"
+              tabindex="0"
               style="
                 border: 1px solid rgba(222, 84, 70, 0.2);
                 background: rgba(222, 84, 70, 0.04);
@@ -5002,7 +5299,7 @@
               >
                 오버킬의 UI/UX는 누구의 철학을 베끼는 작업이 아니다. 두 선배가
                 공개한 발언과 패치노트에서
-                <strong style="color: #ece6d8; font-weight: 600"
+                <strong style="color: #ece6d8; font-weight: 700"
                   >검증된 것은 흡수하고, 직접 데인 자리는 피해</strong
                 >
                 던파 코어루프에 맞는 균형점을 찾는 일이다. 이 문서의 7원칙과
