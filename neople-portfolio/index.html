@@ -167,8 +167,8 @@
         }
       }
       .scroll-cue {
-        position: absolute;
-        bottom: 24px;
+        position: fixed;
+        bottom: 16px;
         left: 0;
         right: 0;
         text-align: center;
@@ -176,6 +176,12 @@
         font-size: clamp(15px, 0.99vw, 19px);
         letter-spacing: 0.04em;
         animation: bob 1.9s ease-in-out infinite;
+        z-index: 60;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+      }
+      .scroll-cue.hide {
+        opacity: 0;
       }
       @keyframes bob {
         0%,
@@ -893,7 +899,7 @@
       /* Boxing 페이지 — 좌우 구도(비교 좌 2/3 · 사고흐름 우 1/3) */
       .bs-split {
         display: grid;
-        grid-template-columns: 1.95fr 1fr;
+        grid-template-columns: 2.45fr 1fr;
         gap: clamp(22px, 2.4vw, 48px);
         align-items: stretch;
         margin-top: clamp(10px, 1.4vh, 20px);
@@ -937,7 +943,7 @@
       }
       .bs-cases .cs-pair img,
       .bs-cases .ph-shot {
-        height: clamp(120px, 18vh, 222px);
+        height: clamp(132px, 21vh, 258px);
       }
       .ph-shot {
         width: 100%;
@@ -1256,6 +1262,8 @@
       </button>
     </div>
 
+    <div class="scroll-cue" id="scrollCue">↓ 스크롤 · 스와이프</div>
+
     <!-- 00 헤드라인 -->
     <section class="slide" data-title="헤드라인">
       <div class="slide-inner">
@@ -1299,7 +1307,6 @@
           </li>
         </ul>
       </div>
-      <div class="scroll-cue">↓ 스크롤 · 스와이프</div>
     </section>
 
     <!-- 01 핵심 역량 -->
@@ -1761,23 +1768,21 @@
               <div class="step-k">이슈</div>
               <p>
                 개발 속도를 확보하려면 원작 Boxing Star의 UI 컴포넌트와 3D 리소스를
-                그대로 재활용해야 했습니다.
+                그대로 재활용.
               </p>
             </div>
             <div class="varrow">↓</div>
             <div class="step s-diagnose">
               <div class="step-k">진단</div>
               <p>
-                가로뷰 원작을 세로뷰로 옮기는 과정에서 레이아웃을 전면 재구성해야
-                했습니다.
+                가로뷰 원작을 세로뷰로 옮기는 과정에서 레이아웃을 전면 재구성.
               </p>
             </div>
             <div class="varrow">↓</div>
             <div class="step s-standard">
               <div class="step-k">기준</div>
               <p>
-                코어 루프를 먼저 설계하고, 화면 단위로 정보 우선순위를 다시
-                정리했습니다.
+                코어 루프를 먼저 설계하고, 화면 단위로 정보 우선순위를 다시 정리.
               </p>
             </div>
             <div class="varrow">↓</div>
@@ -1785,7 +1790,7 @@
               <div class="step-k">적용·출시</div>
               <p>
                 원작의 코어 컨셉을 이어받아, 빠르게 결정을 내리며 UI/UX 결과물을
-                순조롭게 완성했습니다.
+                순조롭게 완성.
               </p>
             </div>
           </div>
@@ -2056,6 +2061,7 @@
         var btnToc = document.getElementById("btnToc");
         var total = slides.length;
         var curr = 0;
+        var scrollCue = document.getElementById("scrollCue");
 
         function pad2(n) {
           return n < 10 ? "0" + n : "" + n;
@@ -2112,6 +2118,7 @@
           });
           if (counter)
             counter.innerHTML = "<b>" + pad2(i + 1) + "</b> / " + pad2(total);
+          if (scrollCue) scrollCue.classList.toggle("hide", i !== 0);
         }
 
         // 뷰포트 중앙선을 지나는 슬라이드를 활성화 (긴 슬라이드도 안전)
