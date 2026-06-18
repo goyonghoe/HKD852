@@ -1,0 +1,5238 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    ></script>
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          rel="stylesheet"
+          as="style"
+          crossorigin
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+        <style>
+          * {
+            box-sizing: border-box;
+          }
+          html {
+            scroll-behavior: smooth;
+          }
+          body {
+            margin: 0;
+            background: #14110c;
+          }
+          ::selection {
+            background: #d8b15a;
+            color: #14110c;
+          }
+          ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+          }
+          ::-webkit-scrollbar-track {
+            background: #14110c;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: #3a3326;
+            border-radius: 6px;
+          }
+          .shot {
+            position: relative;
+            border: 1.5px dashed rgba(216, 177, 90, 0.32);
+            border-radius: 10px;
+            background: repeating-linear-gradient(
+              135deg,
+              rgba(255, 255, 255, 0.012),
+              rgba(255, 255, 255, 0.012) 10px,
+              transparent 10px,
+              transparent 20px
+            );
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 22px;
+            text-align: center;
+          }
+          .shot .pen {
+            font-size: 20px;
+            color: #d8b15a;
+            opacity: 0.85;
+          }
+          .shot .cap {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            letter-spacing: 0.04em;
+            color: #a9a08c;
+            line-height: 1.55;
+            word-break: keep-all;
+          }
+          .shot .tag {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9.5px;
+            letter-spacing: 0.14em;
+            color: #6f6755;
+          }
+          .shot .speclist {
+            align-self: stretch;
+            margin-top: 6px;
+            text-align: left;
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+          }
+          .shot .speclist li {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10.5px;
+            line-height: 1.5;
+            color: #a9a08c;
+            padding-left: 14px;
+            position: relative;
+            word-break: keep-all;
+          }
+          .shot .speclist li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #d8b15a;
+          }
+          @keyframes beltScroll {
+            from {
+              transform: translateY(-50%) translateX(0);
+            }
+            to {
+              transform: translateY(-50%) translateX(-50%);
+            }
+          }
+          .belt-marquee {
+            animation: beltScroll 38s linear infinite;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .belt-marquee {
+              animation: none;
+            }
+          }
+        </style>
+      </helmet>
+
+      <div
+        style="
+          font-family: &quot;Pretendard&quot;, sans-serif;
+          background: #14110c;
+          color: #ece6d8;
+          min-height: 100vh;
+          -webkit-font-smoothing: antialiased;
+          overflow-x: hidden;
+          word-break: keep-all;
+        "
+      >
+        <!-- progress -->
+        <div
+          style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.04);
+            z-index: 60;
+          "
+        >
+          <div
+            id="td-progress"
+            style="
+              height: 100%;
+              width: 0%;
+              background: linear-gradient(90deg, #d8b15a, #c63f33);
+              box-shadow: 0 0 12px rgba(216, 177, 90, 0.6);
+            "
+          ></div>
+        </div>
+
+        <!-- nav -->
+        <nav
+          style="
+            position: fixed;
+            top: 3px;
+            left: 0;
+            right: 0;
+            z-index: 55;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            background: rgba(20, 17, 12, 0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(216, 177, 90, 0.1);
+          "
+        >
+          <a
+            href="#top"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              text-decoration: none;
+              color: #ece6d8;
+            "
+          >
+            <span
+              style="
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 2px;
+                background: #d8b15a;
+                box-shadow: 6px 0 0 #c63f33;
+              "
+            ></span>
+            <span
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 12px;
+                letter-spacing: 0.18em;
+                font-weight: 600;
+                margin-left: 6px;
+              "
+              >OVERKILL · UI/UX 원칙</span
+            >
+          </a>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 2px;
+              font-family: &quot;JetBrains Mono&quot;, monospace;
+              font-size: 11.5px;
+              letter-spacing: 0.04em;
+            "
+          >
+            <a
+              data-nav="premise"
+              href="#premise"
+              style="
+                text-decoration: none;
+                color: #6f6755;
+                padding: 6px 9px;
+                border-bottom: 1px solid transparent;
+                transition: color 0.2s;
+              "
+              >전제</a
+            >
+            <a
+              data-nav="frame"
+              href="#frame"
+              style="
+                text-decoration: none;
+                color: #6f6755;
+                padding: 6px 9px;
+                border-bottom: 1px solid transparent;
+                transition: color 0.2s;
+              "
+              >프레임</a
+            >
+            <a
+              data-nav="principles"
+              href="#principles"
+              style="
+                text-decoration: none;
+                color: #6f6755;
+                padding: 6px 9px;
+                border-bottom: 1px solid transparent;
+                transition: color 0.2s;
+              "
+              >원칙</a
+            >
+            <a
+              data-nav="matrix"
+              href="#matrix"
+              style="
+                text-decoration: none;
+                color: #6f6755;
+                padding: 6px 9px;
+                border-bottom: 1px solid transparent;
+                transition: color 0.2s;
+              "
+              >입력 매트릭스</a
+            >
+            <a
+              data-nav="anti"
+              href="#anti"
+              style="
+                text-decoration: none;
+                color: #6f6755;
+                padding: 6px 9px;
+                border-bottom: 1px solid transparent;
+                transition: color 0.2s;
+              "
+              >안티패턴</a
+            >
+            <a
+              data-nav="closing"
+              href="#closing"
+              style="
+                text-decoration: none;
+                color: #6f6755;
+                padding: 6px 9px;
+                border-bottom: 1px solid transparent;
+                transition: color 0.2s;
+              "
+              >마무리</a
+            >
+          </div>
+        </nav>
+
+        <!-- ===== HERO ===== -->
+        <section
+          id="top"
+          style="
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(216, 177, 90, 0.12);
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              inset: 0;
+              background: radial-gradient(
+                120% 130% at 0% 50%,
+                rgba(216, 177, 90, 0.17),
+                rgba(20, 17, 12, 0) 52%
+              );
+            "
+          ></div>
+          <div
+            style="
+              position: absolute;
+              inset: 0;
+              background: radial-gradient(
+                120% 130% at 100% 50%,
+                rgba(198, 63, 51, 0.19),
+                rgba(20, 17, 12, 0) 52%
+              );
+            "
+          ></div>
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 50%;
+              width: 1px;
+              background: linear-gradient(
+                180deg,
+                transparent,
+                rgba(255, 255, 255, 0.12),
+                transparent
+              );
+            "
+          ></div>
+          <div
+            style="
+              position: relative;
+              z-index: 2;
+              text-align: center;
+              max-width: 1000px;
+              padding: 0 28px;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 12.5px;
+                letter-spacing: 0.26em;
+                color: #a9a08c;
+                margin-bottom: 30px;
+              "
+            >
+              PROJECT OVERKILL · UI / UX 설계 원칙
+            </div>
+            <h1
+              style="
+                font-size: clamp(42px, 7vw, 92px);
+                line-height: 1.04;
+                font-weight: 800;
+                letter-spacing: -0.035em;
+                margin: 0 0 28px;
+              "
+            >
+              <span style="color: #ece6d8">오버킬</span><br />
+              <span style="color: #d8b15a">UI/UX</span
+              ><span style="color: #ece6d8"> 원칙 </span
+              ><span style="color: #c63f33">가이드</span>
+            </h1>
+            <p
+              style="
+                font-family: &quot;Nanum Myeongjo&quot;, serif;
+                font-size: clamp(18px, 2vw, 24px);
+                line-height: 1.6;
+                color: #ecc873;
+                max-width: 720px;
+                margin: 0 auto 40px;
+              "
+            >
+              "깊이는 던파의 것으로 지키고,<br />마찰은 D4·PoE 시리즈가 안고 온
+              흉터에서 배운다."
+            </p>
+            <p
+              style="
+                font-size: clamp(15px, 1.5vw, 18px);
+                line-height: 1.7;
+                color: #a9a08c;
+                max-width: 640px;
+                margin: 0 auto;
+                text-wrap: pretty;
+              "
+            >
+              D4와 Path of Exile 시리즈(빌드 깊이 + 후속작 PoE2가 손본 마찰)의
+              <strong style="color: #ece6d8; font-weight: 600"
+                >장점은 취하고, 단점은 반복하지 않는다.</strong
+              >
+              탑뷰 핵앤슬래시 · PC+콘솔 하이브리드 · 던파 누적형 코어루프를
+              전제로 한 실무 지침서.
+            </p>
+            <div
+              style="
+                margin-top: 50px;
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: #6f6755;
+              "
+            >
+              SCROLL ↓
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== BELTSCROLL ANCHOR (던파 IP 모티프) ===== -->
+        <section
+          aria-hidden="true"
+          style="
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(216, 177, 90, 0.12);
+            background: linear-gradient(
+              180deg,
+              #16120b 0%,
+              #1c1710 60%,
+              #14110c 100%
+            );
+            padding: 0;
+            height: 96px;
+          "
+        >
+          <!-- 원경 파랄랙스 띠 -->
+          <div
+            style="
+              position: absolute;
+              left: 0;
+              right: 0;
+              bottom: 30px;
+              height: 2px;
+              background: repeating-linear-gradient(
+                90deg,
+                rgba(216, 177, 90, 0.22),
+                rgba(216, 177, 90, 0.22) 26px,
+                transparent 26px,
+                transparent 64px
+              );
+            "
+          ></div>
+          <!-- 바닥 라인 (벨트) -->
+          <div
+            style="
+              position: absolute;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              height: 30px;
+              background: linear-gradient(
+                180deg,
+                rgba(58, 51, 38, 0.5),
+                rgba(20, 17, 12, 0.9)
+              );
+              border-top: 1px solid rgba(216, 177, 90, 0.18);
+            "
+          ></div>
+          <!-- 던파 시스템 명칭 = 비주얼 앵커 (한글 명조, 흐르는 좌→우) -->
+          <div
+            class="belt-marquee"
+            style="
+              position: absolute;
+              left: 0;
+              top: 50%;
+              transform: translateY(-50%);
+              white-space: nowrap;
+              font-family: &quot;Nanum Myeongjo&quot;, serif;
+              font-weight: 800;
+              font-size: 30px;
+              letter-spacing: 0.08em;
+              color: rgba(236, 230, 216, 0.1);
+            "
+          >
+            <span style="padding: 0 22px"
+              >마법부여<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >엠블렘<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >융합석<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >에픽<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >태초<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >명성<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >탈리스만<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >성안의 마이스터</span
+            ><span style="padding: 0 22px" aria-hidden="true"
+              >마법부여<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >엠블렘<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >융합석<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >에픽<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >태초<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >명성<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >탈리스만<span style="color: rgba(216, 177, 90, 0.42)"> · </span
+              >성안의 마이스터</span
+            >
+          </div>
+          <!-- 전경 캐릭터 마커 (도트 모티프) -->
+          <div
+            style="
+              position: absolute;
+              left: 11%;
+              bottom: 18px;
+              width: 14px;
+              height: 22px;
+              background: #d8b15a;
+              box-shadow:
+                4px 0 0 rgba(198, 63, 51, 0.85),
+                -16px 6px 0 -4px rgba(111, 103, 85, 0.7);
+              border-radius: 2px;
+            "
+          ></div>
+          <div
+            style="
+              position: absolute;
+              right: 13%;
+              bottom: 16px;
+              width: 12px;
+              height: 18px;
+              background: #c63f33;
+              border-radius: 2px;
+              opacity: 0.85;
+            "
+          ></div>
+          <!-- 라벨 -->
+          <div
+            style="
+              position: absolute;
+              left: 32px;
+              top: 14px;
+              font-family: &quot;JetBrains Mono&quot;, monospace;
+              font-size: 10px;
+              letter-spacing: 0.18em;
+              color: #6f6755;
+            "
+          >
+            DNF 벨트스크롤 → 탑뷰 · 누적 성장 계보
+          </div>
+        </section>
+
+        <!-- ===== PREMISE ===== -->
+        <section
+          id="premise"
+          style="max-width: 1180px; margin: 0 auto; padding: 140px 32px 100px"
+        >
+          <div data-reveal style="text-align: center; margin-bottom: 60px">
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 12px;
+                letter-spacing: 0.22em;
+                color: #a9a08c;
+                margin-bottom: 18px;
+              "
+            >
+              00 — 전제
+            </div>
+            <h2
+              style="
+                font-size: clamp(30px, 4.4vw, 52px);
+                font-weight: 800;
+                letter-spacing: -0.025em;
+                margin: 0 0 22px;
+                line-height: 1.1;
+              "
+            >
+              무엇을 만들고 있는가
+            </h2>
+            <p
+              style="
+                font-size: 17px;
+                line-height: 1.75;
+                color: #a9a08c;
+                max-width: 680px;
+                margin: 0 auto;
+                text-wrap: pretty;
+              "
+            >
+              원칙을 세우기 전에 좌표를 고정한다. 오버킬은 던전앤파이터 IP를
+              <strong style="color: #ece6d8; font-weight: 600"
+                >탑뷰 핵앤슬래시</strong
+              >로 옮긴 3D 액션 RPG이며, 보도된 내부 레퍼런스 게임은
+              <strong style="color: #ece6d8; font-weight: 600"
+                >Path of Exile</strong
+              >
+              계열로 알려져 있다. 또 넥슨이 멀티플랫폼 기조를 밝힌 보도가 있어,
+              오버킬도 그 방향 아래 PC와 콘솔을 함께 보는 하이브리드가 설계의
+              출발점이 된다.
+            </p>
+          </div>
+
+          <div
+            data-reveal
+            style="
+              max-width: 760px;
+              margin: 30px auto 0;
+              border: 1px solid rgba(216, 177, 90, 0.18);
+              border-radius: 14px;
+              background: rgba(216, 177, 90, 0.04);
+              padding: 24px 26px;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 10.5px;
+                letter-spacing: 0.16em;
+                color: #d8b15a;
+                margin-bottom: 12px;
+              "
+            >
+              ⌖ Path of Exile 시리즈 — 깊이와 마찰을 함께 읽는다
+            </div>
+            <div style="font-size: 14px; line-height: 1.72; color: #cfc7b6">
+              보도된 내부 레퍼런스는
+              <strong style="color: #ece6d8; font-weight: 600"
+                >Path of Exile 계열</strong
+              >이다. 어느 편을 콕 집어 가리키기보다, 시리즈가 증명한 빌드
+              자유도(깊이)와 후속작 PoE2가 손본 마찰을 함께 참고한다. PoE
+              시리즈의 그 깊이는 오래도록 UX 부채와 한 몸으로 붙어 있었다 — (1)
+              <strong style="color: #ece6d8; font-weight: 600"
+                >아이템 식별을 외부 아이템 필터에 의존</strong
+              >해, 필터 스크립트를 직접 짜거나 받지 않으면 바닥에 쏟아지는
+              드랍을 읽기 어려웠고, (2)
+              <strong style="color: #ece6d8; font-weight: 600"
+                >거래가 외부 웹사이트로 빠져</strong
+              >나가 인게임 흐름이 끊겼으며, (3)
+              <strong style="color: #ece6d8; font-weight: 600"
+                >패시브 트리의 정보 과밀</strong
+              >로 신규 진입 장벽이 컸다 — 시리즈가 안고 온 알려진 마찰이다.<br /><br />
+              후속작 PoE2는 같은 스튜디오가
+              <strong style="color: #ecc873; font-weight: 600"
+                >그 마찰을 어떻게 손봤나</strong
+              >를 보여주는 비교 지점이다 — 다만 원샷 클릭 vs 콤보, 아이템 필터,
+              거래 철학이 상당히 다른 별개의 게임이라 둘을 한 줄로 봉합하지는
+              않는다. 오버킬은 시리즈가 증명한 깊이를 취하되, 그 깊이를
+              <strong style="color: #ecc873; font-weight: 600"
+                >외부 도구·외부 사이트에 떠넘기지 않고 게임 안에서
+                읽히게</strong
+              >
+              만드는 것이 목표다.
+            </div>
+          </div>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 22px;
+            "
+          >
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(216, 177, 90, 0.18);
+                background: linear-gradient(
+                  180deg,
+                  rgba(216, 177, 90, 0.05),
+                  rgba(216, 177, 90, 0.01)
+                );
+                border-radius: 14px;
+                padding: 26px 24px;
+              "
+            >
+              <div
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.16em;
+                  color: #d8b15a;
+                  margin-bottom: 12px;
+                "
+              >
+                GENRE
+              </div>
+              <div
+                style="
+                  font-size: 18px;
+                  font-weight: 700;
+                  color: #ece6d8;
+                  margin-bottom: 10px;
+                  line-height: 1.35;
+                "
+              >
+                탑뷰 핵앤슬래시
+              </div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: #a9a08c">
+                던파의 벨트스크롤이 탑뷰 액션 RPG로 진화. 화면 위에서 내려다보는
+                시야가 모든 UI 배치의 제1 제약 조건이 된다.
+              </div>
+            </div>
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(216, 177, 90, 0.18);
+                background: linear-gradient(
+                  180deg,
+                  rgba(216, 177, 90, 0.05),
+                  rgba(216, 177, 90, 0.01)
+                );
+                border-radius: 14px;
+                padding: 26px 24px;
+              "
+            >
+              <div
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.16em;
+                  color: #d8b15a;
+                  margin-bottom: 12px;
+                "
+              >
+                PLATFORM
+              </div>
+              <div
+                style="
+                  font-size: 18px;
+                  font-weight: 700;
+                  color: #ece6d8;
+                  margin-bottom: 10px;
+                  line-height: 1.35;
+                "
+              >
+                PC + 콘솔 하이브리드
+              </div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: #a9a08c">
+                넥슨이 밝힌 멀티플랫폼 기조 아래 콘솔 대응이 필요하다(전제
+                참조). 그래서 콘솔은 'PC를 옮긴 다음 일'이 아니라 기획 첫날의
+                전제로 둔다 — 키보드+마우스와 컨트롤러를 처음부터 동급으로
+                다룬다.
+              </div>
+            </div>
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(216, 177, 90, 0.18);
+                background: linear-gradient(
+                  180deg,
+                  rgba(216, 177, 90, 0.05),
+                  rgba(216, 177, 90, 0.01)
+                );
+                border-radius: 14px;
+                padding: 26px 24px;
+              "
+            >
+              <div
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.16em;
+                  color: #d8b15a;
+                  margin-bottom: 12px;
+                "
+              >
+                CORE LOOP
+              </div>
+              <div
+                style="
+                  font-size: 18px;
+                  font-weight: 700;
+                  color: #ece6d8;
+                  margin-bottom: 10px;
+                  line-height: 1.35;
+                "
+              >
+                던파 누적형 성장
+              </div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: #a9a08c">
+                수집·강화·반복 사냥이 쌓이는 코어루프. 깊이가 자산이지만, 매일
+                마주하는 마찰이 곧 이탈 사유가 된다.
+              </div>
+            </div>
+          </div>
+
+          <div
+            data-reveal
+            style="
+              margin-top: 24px;
+              display: flex;
+              align-items: center;
+              gap: 16px;
+              flex-wrap: wrap;
+              font-family: &quot;JetBrains Mono&quot;, monospace;
+              font-size: 12px;
+              color: #6f6755;
+              border: 1px dashed rgba(255, 255, 255, 0.1);
+              border-radius: 12px;
+              padding: 18px 24px;
+            "
+          >
+            <span style="color: #a9a08c; letter-spacing: 0.1em"
+              >벤치마킹 대상</span
+            >
+            <span style="color: #de5446">Diablo IV (Blizzard)</span
+            ><span style="opacity: 0.4">·</span>
+            <span style="color: #d8b15a"
+              >Path of Exile 2 (Grinding Gear Games)</span
+            ><span style="opacity: 0.4">·</span>
+            <span>두 게임이 공개한 디렉터 발언과 패치노트만 근거로 삼는다</span>
+          </div>
+        </section>
+
+        <!-- ===== FRAME ===== -->
+        <section
+          id="frame"
+          style="
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 90px 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+          "
+        >
+          <div data-reveal style="text-align: center; margin-bottom: 58px">
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 12px;
+                letter-spacing: 0.22em;
+                color: #a9a08c;
+                margin-bottom: 18px;
+              "
+            >
+              01 — 프레임
+            </div>
+            <h2
+              style="
+                font-size: clamp(28px, 4vw, 48px);
+                font-weight: 800;
+                letter-spacing: -0.025em;
+                margin: 0 0 22px;
+                line-height: 1.12;
+              "
+            >
+              장점은 취하고,<br />단점은 반복하지 않는다
+            </h2>
+            <p
+              style="
+                font-size: 17px;
+                line-height: 1.75;
+                color: #a9a08c;
+                max-width: 680px;
+                margin: 0 auto;
+                text-wrap: pretty;
+              "
+            >
+              두 선배 게임은 정반대 철학으로 같은 장르를 풀었고, 각자 분명한
+              강점과 흉터를 남겼다. 오버킬의 원칙은 이 네 개의 칸 중
+              <strong style="color: #ece6d8; font-weight: 600"
+                >초록 칸은 흡수하고, 붉은 칸은 피하는 것</strong
+              >에서 출발한다.
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px">
+            <!-- D4 card -->
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(222, 84, 70, 0.22);
+                background: linear-gradient(
+                  180deg,
+                  rgba(222, 84, 70, 0.06),
+                  rgba(222, 84, 70, 0.01)
+                );
+                border-radius: 16px;
+                padding: 32px 30px;
+              "
+            >
+              <div
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.18em;
+                  color: #de5446;
+                  margin-bottom: 8px;
+                "
+              >
+                BLIZZARD ENTERTAINMENT
+              </div>
+              <div
+                style="
+                  font-size: 22px;
+                  font-weight: 700;
+                  color: #ece6d8;
+                  margin-bottom: 20px;
+                "
+              >
+                Diablo IV — 즉시 명료성
+              </div>
+              <div
+                style="
+                  font-size: 14px;
+                  line-height: 1.7;
+                  color: #cfc7b6;
+                  margin-bottom: 14px;
+                "
+              >
+                접근성을 출시 초기부터 핵심 축으로 내세우고, 어픽스는 강하게
+                그러나 적게 가져가는
+                <strong style="color: #ece6d8; font-weight: 600"
+                  >방향으로 개선했다</strong
+                >는 게 시즌4 패치노트와 접근성 디자인 인터뷰에서 읽히는 취지다.
+                (어픽스 축소는 시즌4 'Loot Reborn'에서, 접근성 기능 일부는 이후
+                시즌 업데이트로 강화됐다.)
+              </div>
+              <div
+                style="
+                  font-size: 12px;
+                  color: #6f6755;
+                  margin-bottom: 24px;
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  line-height: 1.6;
+                "
+              >
+                주체 · Joe Shely(게임 디렉터) · 접근성 디자인을 주도한 팀(Senior
+                Lead UX &amp; Accessibility Designer Drew McCrory 등)<br />출처
+                · D4 시즌4 'Loot Reborn' 패치노트 + 접근성 디자인 인터뷰 종합 —
+                위 문장은 의역 요약(직접 인용 아님)
+              </div>
+
+              <div
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 10.5px;
+                  letter-spacing: 0.14em;
+                  color: #7fbf8a;
+                  margin-bottom: 10px;
+                "
+              >
+                ＋ 흡수할 강점
+              </div>
+              <ul
+                style="
+                  margin: 0 0 22px;
+                  padding-left: 18px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 8px;
+                "
+              >
+                <li
+                  style="font-size: 13.5px; color: #cfc7b6; line-height: 1.55"
+                >
+                  리매핑·자막·색 대비·<strong style="color: #ece6d8"
+                    >전리품 오디오 큐</strong
+                  >
+                  — 접근성을 게임플레이와 동등한 비중으로
+                </li>
+                <li
+                  style="font-size: 13.5px; color: #cfc7b6; line-height: 1.55"
+                >
+                  레어 2·레전더리 3 어픽스로 축소, 각각을 더 강력하게 — 정보량을
+                  줄여 즉시 판단
+                </li>
+                <li
+                  style="font-size: 13.5px; color: #cfc7b6; line-height: 1.55"
+                >
+                  액션바를 좌하단으로, 한 UI를 양 입력에 통합 — 전투 시야 확보
+                </li>
+              </ul>
+              <div
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 10.5px;
+                  letter-spacing: 0.14em;
+                  color: #e88273;
+                  margin-bottom: 10px;
+                "
+              >
+                － 반복하지 말 약점
+              </div>
+              <ul
+                style="
+                  margin: 0;
+                  padding-left: 18px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 8px;
+                "
+              >
+                <li
+                  style="font-size: 13.5px; color: #a9a08c; line-height: 1.55"
+                >
+                  컨트롤러 인벤토리 관리에
+                  <strong style="color: #e88273">버튼 입력 과다</strong> — "슈퍼
+                  마이크로매니지먼트"
+                </li>
+                <li
+                  style="font-size: 13.5px; color: #a9a08c; line-height: 1.55"
+                >
+                  Tempering 실패·Masterworking 랜덤/리셋 → 캐주얼
+                  <strong style="color: #e88273">번아웃·스트레스</strong>
+                </li>
+              </ul>
+            </div>
+
+            <!-- PoE2 card -->
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(216, 177, 90, 0.2);
+                background: linear-gradient(
+                  180deg,
+                  rgba(216, 177, 90, 0.06),
+                  rgba(216, 177, 90, 0.01)
+                );
+                border-radius: 16px;
+                padding: 32px 30px;
+              "
+            >
+              <div
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.18em;
+                  color: #d8b15a;
+                  margin-bottom: 8px;
+                "
+              >
+                GRINDING GEAR GAMES
+              </div>
+              <div
+                style="
+                  font-size: 22px;
+                  font-weight: 700;
+                  color: #ece6d8;
+                  margin-bottom: 20px;
+                "
+              >
+                Path of Exile 2 — 깊이 보존
+              </div>
+              <div
+                style="
+                  margin: 0 0 8px;
+                  border-left: 2px solid #d8b15a;
+                  padding-left: 18px;
+                "
+              >
+                <div
+                  style="
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 10px;
+                    letter-spacing: 0.14em;
+                    color: #d8b15a;
+                    margin-bottom: 7px;
+                  "
+                >
+                  디렉터 발언 — 취지 요약
+                </div>
+                <div
+                  style="
+                    font-family: &quot;Nanum Myeongjo&quot;, serif;
+                    font-size: 18px;
+                    line-height: 1.6;
+                    color: #ecc873;
+                  "
+                >
+                  incidental complexity는 제거하되, depth는 최대한 유지한다.
+                </div>
+                <div
+                  style="
+                    font-size: 12.5px;
+                    line-height: 1.6;
+                    color: #a9a08c;
+                    margin-top: 8px;
+                  "
+                >
+                  — 부수적 복잡함은 덜어내되, 빌드의 깊이는 끝까지 지킨다는
+                  취지(원문 그대로의 직접 인용이 아닌 요약).
+                </div>
+              </div>
+              <div
+                style="
+                  font-size: 12px;
+                  color: #6f6755;
+                  margin-bottom: 24px;
+                  padding-left: 18px;
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  line-height: 1.6;
+                "
+              >
+                주체 · Jonathan Rogers(게임 디렉터)<br />출처 · PoE2 디렉터
+                인터뷰 — 핵심 용어(영문)만 살린 취지 요약, 원문 그대로의 직접
+                인용 아님
+              </div>
+
+              <div
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 10.5px;
+                  letter-spacing: 0.14em;
+                  color: #7fbf8a;
+                  margin-bottom: 10px;
+                "
+              >
+                ＋ 흡수할 강점
+              </div>
+              <ul
+                style="
+                  margin: 0 0 22px;
+                  padding-left: 18px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 8px;
+                "
+              >
+                <li
+                  style="font-size: 13.5px; color: #cfc7b6; line-height: 1.55"
+                >
+                  스킬젬 시스템을 훨씬 쉽게 —
+                  <strong style="color: #ece6d8"
+                    >부수적 복잡함만 도려내고 깊이는 보존</strong
+                  >
+                </li>
+                <li
+                  style="font-size: 13.5px; color: #cfc7b6; line-height: 1.55"
+                >
+                  튜토리얼로 복잡함을 초반에 점진적 도입, 신규/하드코어 동시
+                  충족
+                </li>
+                <li
+                  style="font-size: 13.5px; color: #cfc7b6; line-height: 1.55"
+                >
+                  콘솔에서 위치 지정형 스킬에
+                  <strong style="color: #ece6d8">오토타게팅·방향 락온</strong>을
+                  부여해 정밀 조준 부담을 덜어줌, 보스전 시각 명료성(중독 시
+                  체력 오브 초록색)
+                </li>
+              </ul>
+              <div
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 10.5px;
+                  letter-spacing: 0.14em;
+                  color: #e88273;
+                  margin-bottom: 10px;
+                "
+              >
+                － 반복하지 말 약점
+              </div>
+              <ul
+                style="
+                  margin: 0;
+                  padding-left: 18px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 8px;
+                "
+              >
+                <li
+                  style="font-size: 13.5px; color: #a9a08c; line-height: 1.55"
+                >
+                  컨트롤러/콘솔에서
+                  <strong style="color: #e88273"
+                    >인벤토리·스택탭·거래 관리가 번거로움</strong
+                  >
+                </li>
+                <li
+                  style="font-size: 13.5px; color: #a9a08c; line-height: 1.55"
+                >
+                  컨트롤러 UI와 M&KB UI가
+                  <strong style="color: #e88273">완전히 분리</strong>, 콘솔에선
+                  일부 요소 축약/삭제 → "재화 쓸 땐 M&KB로 로그인하라"는
+                  우회법까지
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div
+            data-reveal
+            style="
+              margin-top: 28px;
+              border-radius: 14px;
+              border: 1px solid rgba(216, 177, 90, 0.18);
+              background: rgba(216, 177, 90, 0.04);
+              padding: 26px 28px;
+              display: flex;
+              gap: 20px;
+              align-items: flex-start;
+              flex-wrap: wrap;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 30px;
+                color: #d8b15a;
+                line-height: 1;
+                flex-shrink: 0;
+              "
+            >
+              ⌖
+            </div>
+            <div style="flex: 1; min-width: 280px">
+              <div
+                style="
+                  font-size: 16px;
+                  font-weight: 700;
+                  color: #ece6d8;
+                  margin-bottom: 8px;
+                "
+              >
+                던파 코어루프의 정답 = 두 철학의 균형
+              </div>
+              <div style="font-size: 14px; line-height: 1.65; color: #a9a08c">
+                누적 성장·수집이 핵심인 던파 루프에서는
+                <strong style="color: #ece6d8; font-weight: 600"
+                  >깊이를 보존하면서(PoE2) 진입 마찰은 제거(D4)</strong
+                >해야 한다. 한쪽을 희생하지 않는 것 — 그것이 오버킬 UI가 풀어야
+                할 본질적 긴장이다.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== PRINCIPLES ===== -->
+        <section
+          id="principles"
+          style="
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 90px 32px 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+          "
+        >
+          <div data-reveal style="text-align: center; margin-bottom: 64px">
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 12px;
+                letter-spacing: 0.22em;
+                color: #a9a08c;
+                margin-bottom: 18px;
+              "
+            >
+              02 — 핵심 원칙
+            </div>
+            <h2
+              style="
+                font-size: clamp(30px, 4.4vw, 52px);
+                font-weight: 800;
+                letter-spacing: -0.025em;
+                margin: 0 0 22px;
+                line-height: 1.1;
+              "
+            >
+              오버킬 7원칙
+            </h2>
+            <p
+              style="
+                font-size: 17px;
+                line-height: 1.75;
+                color: #a9a08c;
+                max-width: 680px;
+                margin: 0 auto;
+                text-wrap: pretty;
+              "
+            >
+              각 원칙은 한 줄 선언 → 근거가 된 실제 사례 → 오버킬 적용 지침 →
+              PC·콘솔 분기 고려 순으로 정리한다. 모든 사례는 두 게임이 공개한
+              발언·패치노트 기반이다.
+            </p>
+          </div>
+
+          <div
+            id="principle-list"
+            style="display: flex; flex-direction: column; gap: 30px"
+          >
+            <!-- P01 -->
+            <article
+              data-reveal
+              style="
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: #1a1610;
+                border-radius: 16px;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 0"
+              >
+                <div
+                  style="
+                    padding: 32px 32px 30px;
+                    border-right: 1px solid rgba(255, 255, 255, 0.05);
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: baseline;
+                      gap: 16px;
+                      margin-bottom: 18px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 34px;
+                        font-weight: 700;
+                        color: #34301f;
+                        line-height: 0.8;
+                      "
+                      >01</span
+                    >
+                    <h3
+                      style="
+                        font-size: 23px;
+                        font-weight: 800;
+                        color: #ece6d8;
+                        margin: 0;
+                        letter-spacing: -0.015em;
+                        line-height: 1.3;
+                      "
+                    >
+                      깊이는 보존하고, 부수적 복잡함만 도려낸다
+                    </h3>
+                  </div>
+                  <div
+                    style="
+                      margin-bottom: 20px;
+                      border-left: 2px solid #d8b15a;
+                      padding-left: 16px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #d8b15a;
+                        margin-bottom: 6px;
+                      "
+                    >
+                      근거 · PoE2
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.6;
+                        color: #cfc7b6;
+                      "
+                    >
+                      PoE2 디렉션 요약(직접 인용 아님): 부수적 복잡함(incidental
+                      complexity)은 덜되 깊이(depth)는 최대한 지킨다. 스킬젬
+                      시스템을 훨씬 쉽게 만들면서 빌드 자유도는 줄이지 않았다.
+                    </div>
+                  </div>
+                  <div style="margin-bottom: 18px">
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #7fbf8a;
+                        margin-bottom: 8px;
+                      "
+                    >
+                      ▸ 오버킬 적용
+                    </div>
+                    <div
+                      style="font-size: 14px; line-height: 1.65; color: #a9a08c"
+                    >
+                      던파의
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >마법부여·엠블렘</strong
+                      >
+                      조합이 만드는 빌드 깊이는 그대로 둔다. 대신 그 깊이에
+                      닿기까지의 마찰 — 옵션을 바꿀 때마다 매번
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >해제 → 재장착을 반복하는 클릭</strong
+                      >, 창 전환, 확인 단계 — 을 따로 분리해 압축한다. 복잡함이
+                      곧 깊이라고 착각하지 않는다.
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 14px; flex-wrap: wrap">
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(216, 177, 90, 0.05);
+                        border: 1px solid rgba(216, 177, 90, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #d8b15a;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        PC
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        툴팁 호버·우클릭 비교로 깊은 정보를 온디맨드 노출
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(222, 84, 70, 0.05);
+                        border: 1px solid rgba(222, 84, 70, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #de5446;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        콘솔
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        동일 정보를 단축버튼 1개로 펼침 — 깊이는 삭제하지 않고
+                        접근 방식만 적응
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    padding: 24px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                  "
+                >
+                  <div
+                    style="
+                      border: 1px solid rgba(216, 177, 90, 0.28);
+                      border-radius: 10px;
+                      background: #14110c;
+                      padding: 14px;
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 10px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 9px;
+                        letter-spacing: 0.12em;
+                        color: #d8b15a;
+                      "
+                    >
+                      WF 01 · 마법부여 재설정 Before / After (절차 마찰 압축)
+                    </div>
+                    <svg
+                      viewBox="0 0 320 168"
+                      width="100%"
+                      style="display: block"
+                      role="img"
+                      aria-label="마법부여 재설정 와이어프레임 — Before 3창 전환 흐름과 After 단일 모달 인플레이스 교체 비교"
+                    >
+                      <rect
+                        x="1"
+                        y="1"
+                        width="318"
+                        height="166"
+                        rx="6"
+                        fill="#100e09"
+                        stroke="#2a2418"
+                      />
+                      <!-- BEFORE label -->
+                      <text
+                        x="16"
+                        y="20"
+                        fill="#e88273"
+                        font-size="8.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        Before · 창 3회 전환
+                      </text>
+                      <!-- 3 windows -->
+                      <rect
+                        x="16"
+                        y="26"
+                        width="78"
+                        height="40"
+                        rx="5"
+                        fill="#161208"
+                        stroke="#3a3326"
+                      />
+                      <rect
+                        x="118"
+                        y="26"
+                        width="78"
+                        height="40"
+                        rx="5"
+                        fill="#161208"
+                        stroke="#3a3326"
+                      />
+                      <rect
+                        x="220"
+                        y="26"
+                        width="78"
+                        height="40"
+                        rx="5"
+                        fill="#161208"
+                        stroke="#3a3326"
+                      />
+                      <text
+                        x="55"
+                        y="50"
+                        text-anchor="middle"
+                        fill="#a9a08c"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        해제
+                      </text>
+                      <text
+                        x="157"
+                        y="50"
+                        text-anchor="middle"
+                        fill="#a9a08c"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        인벤 이동
+                      </text>
+                      <text
+                        x="259"
+                        y="50"
+                        text-anchor="middle"
+                        fill="#a9a08c"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        재장착
+                      </text>
+                      <text
+                        x="100"
+                        y="51"
+                        fill="#6f6755"
+                        font-size="10"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        ›
+                      </text>
+                      <text
+                        x="202"
+                        y="51"
+                        fill="#6f6755"
+                        font-size="10"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        ›
+                      </text>
+                      <!-- divider -->
+                      <line
+                        x1="16"
+                        y1="82"
+                        x2="304"
+                        y2="82"
+                        stroke="#2a2418"
+                        stroke-dasharray="3 3"
+                      />
+                      <!-- AFTER label -->
+                      <text
+                        x="16"
+                        y="100"
+                        fill="#7fbf8a"
+                        font-size="8.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        After · 단일 모달 1스텝
+                      </text>
+                      <!-- single modal -->
+                      <rect
+                        x="16"
+                        y="106"
+                        width="288"
+                        height="44"
+                        rx="6"
+                        fill="#1b1710"
+                        stroke="#d8b15a"
+                      />
+                      <text
+                        x="26"
+                        y="122"
+                        fill="#ecc873"
+                        font-size="8"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        재설정 모달 · 인플레이스 옵션 교체
+                      </text>
+                      <text
+                        x="26"
+                        y="139"
+                        fill="#a9a08c"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        옵션 풀(깊이) 그대로 · 창 전환 0회
+                      </text>
+                      <rect
+                        x="244"
+                        y="116"
+                        width="50"
+                        height="16"
+                        rx="8"
+                        fill="rgba(127,191,138,0.14)"
+                        stroke="#7fbf8a"
+                      />
+                      <text
+                        x="269"
+                        y="127"
+                        text-anchor="middle"
+                        fill="#7fbf8a"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        3창→1
+                      </text>
+                    </svg>
+                  </div>
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: #6f6755;
+                      line-height: 1.55;
+                      word-break: keep-all;
+                    "
+                  >
+                    절차 마찰만 압축 — 해제·이동·재장착 3창 전환을 재설정 모달
+                    안 1스텝으로. 옵션 풀(깊이)은 손대지 않는다.
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- P02 -->
+            <article
+              data-reveal
+              style="
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: #1a1610;
+                border-radius: 16px;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 0"
+              >
+                <div
+                  style="
+                    padding: 32px 32px 30px;
+                    border-right: 1px solid rgba(255, 255, 255, 0.05);
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: baseline;
+                      gap: 16px;
+                      margin-bottom: 18px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 34px;
+                        font-weight: 700;
+                        color: #34301f;
+                        line-height: 0.8;
+                      "
+                      >02</span
+                    >
+                    <h3
+                      style="
+                        font-size: 23px;
+                        font-weight: 800;
+                        color: #ece6d8;
+                        margin: 0;
+                        letter-spacing: -0.015em;
+                        line-height: 1.3;
+                      "
+                    >
+                      던파의 진짜 성장 루프는 '드랍 교체'가 아니라 '옵션
+                      커스텀'이다
+                    </h3>
+                  </div>
+                  <div
+                    style="
+                      margin-bottom: 20px;
+                      border-left: 2px solid #de5446;
+                      padding-left: 16px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #de5446;
+                        margin-bottom: 6px;
+                      "
+                    >
+                      근거 · D4
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.6;
+                        color: #cfc7b6;
+                      "
+                    >
+                      Loot Reborn(시즌4, 2024.5): "화요일에 데미지" 류 상황적
+                      어픽스가 과복잡하다는 비판 → 레어 2·레전더리 3으로 줄이고
+                      각 어픽스를 더 강력하게. Greater Affix 인디케이터 아이콘
+                      추가.
+                    </div>
+                  </div>
+                  <div style="margin-bottom: 18px">
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #7fbf8a;
+                        margin-bottom: 8px;
+                      "
+                    >
+                      ▸ 오버킬 적용
+                    </div>
+                    <div
+                      style="font-size: 14px; line-height: 1.65; color: #a9a08c"
+                    >
+                      먼저 던파의 실제 루프를 정확히 짚는다 — 현행 던파의 장비
+                      성장은
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >새 드랍으로 갈아끼우는 만큼이나, 이미 가진 장비를 두고
+                        마법부여·엠블렘·융합석·연마 같은 시스템을 반복해서
+                        다듬는 것이 핵심 루프</strong
+                      >다. 자동 획득·자동 분해가 정착돼 '바닥에서 줍고
+                      갈아끼우기'만으로는 성장이 끝나지 않는다. 그래서
+                      디아블로식 '드랍 식별·교체 델타' 루프를 그대로 이식하지
+                      않는다 — 그건 던파 루프가 아니라 디아 루프를 던파 용어로
+                      덧칠하는 것이다.<br /><br />
+                      대신 한 시스템을 끝까지 판다 — 여기서는
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >융합석 옵션을 다듬는 흐름</strong
+                      >을 예시로 든다(실제 명칭·재화·절차는 라이브 사양에 맞춰
+                      확정 필요). 지금은 어떤 옵션 조합이 가능한지, 현재 값 대비
+                      무엇이 오르내리는지, 비용이 얼마인지를 여러 창과 외부
+                      계산기를 오가며 가늠해야 한다. 여기에 D4 'Loot Reborn'의
+                      교훈(선택지를 줄이고 각각을 더 또렷하게)과 PoE 시리즈의
+                      반면교사(깊이를 외부 도구에 떠넘기지 말 것)를 붙인다 —
+                      재설정 모달 안에서
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >현재 옵션 → 후보 옵션의 델타(▲힘·▼체력 등)와 누적
+                        비용을 한 화면에서</strong
+                      >
+                      읽게 해, '바꿀까 말까'를 외부 계산 없이 그 자리에서
+                      끝낸다. 마법부여·엠블렘 등 다른 시스템도 같은 패턴을
+                      재사용하되, 깊이(옵션 풀)는 손대지 않고 판단 마찰만
+                      줄인다.
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 14px; flex-wrap: wrap">
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(216, 177, 90, 0.05);
+                        border: 1px solid rgba(216, 177, 90, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #d8b15a;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        PC
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        재설정 모달 내 후보 옵션 호버 시 현재값 대비 델타·누적
+                        비용 인라인 표시
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(222, 84, 70, 0.05);
+                        border: 1px solid rgba(222, 84, 70, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #de5446;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        콘솔
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        스틱 스텝퍼로 후보 옵션 순환, 확정 전 델타·비용 프리뷰
+                        고정 표시 (외부 계산기 불필요)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    padding: 24px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                  "
+                >
+                  <div
+                    style="
+                      border: 1px solid rgba(216, 177, 90, 0.28);
+                      border-radius: 10px;
+                      background: #14110c;
+                      padding: 14px;
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 10px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 9px;
+                        letter-spacing: 0.12em;
+                        color: #d8b15a;
+                      "
+                    >
+                      WF 02 · 융합석 옵션 재설정 — 현재 vs 후보 델타·비용
+                    </div>
+                    <svg
+                      viewBox="0 0 320 168"
+                      width="100%"
+                      style="display: block"
+                      role="img"
+                      aria-label="융합석 옵션 재설정 모달 와이어프레임 — 현재 옵션 대비 후보 옵션 델타와 누적 비용"
+                    >
+                      <rect
+                        x="1"
+                        y="1"
+                        width="318"
+                        height="166"
+                        rx="6"
+                        fill="#100e09"
+                        stroke="#2a2418"
+                      />
+                      <!-- modal title -->
+                      <text
+                        x="16"
+                        y="22"
+                        fill="#ecc873"
+                        font-size="9"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        융합석 옵션 재설정 · 강타의 건틀릿
+                      </text>
+                      <!-- current option row -->
+                      <rect
+                        x="16"
+                        y="30"
+                        width="288"
+                        height="30"
+                        rx="6"
+                        fill="#161208"
+                        stroke="#3a3326"
+                      />
+                      <text
+                        x="26"
+                        y="49"
+                        fill="#a9a08c"
+                        font-size="8"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        현재 옵션 · 힘 +30 / 체력 +120
+                      </text>
+                      <text
+                        x="234"
+                        y="49"
+                        fill="#6f6755"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        비교 기준
+                      </text>
+                      <!-- candidate option card (highlighted) -->
+                      <rect
+                        x="16"
+                        y="66"
+                        width="288"
+                        height="44"
+                        rx="6"
+                        fill="#1b1710"
+                        stroke="#d8b15a"
+                      />
+                      <text
+                        x="26"
+                        y="82"
+                        fill="#ecc873"
+                        font-size="8.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        후보 옵션 ◂▸ (스틱/호버로 순환)
+                      </text>
+                      <!-- delta vs current -->
+                      <text
+                        x="26"
+                        y="100"
+                        fill="#7fbf8a"
+                        font-size="8.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        ▲ 힘 +14 ▲ 쿨감 +2%
+                      </text>
+                      <text
+                        x="150"
+                        y="100"
+                        fill="#e88273"
+                        font-size="8.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        ▼ 체력 −60
+                      </text>
+                      <!-- verdict chip -->
+                      <rect
+                        x="236"
+                        y="74"
+                        width="58"
+                        height="20"
+                        rx="10"
+                        fill="rgba(127,191,138,0.14)"
+                        stroke="#7fbf8a"
+                      />
+                      <text
+                        x="265"
+                        y="87"
+                        text-anchor="middle"
+                        fill="#7fbf8a"
+                        font-size="8"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        ↑ 순이득
+                      </text>
+                      <!-- cumulative cost row -->
+                      <rect
+                        x="16"
+                        y="118"
+                        width="288"
+                        height="22"
+                        rx="6"
+                        fill="#14110c"
+                        stroke="#2a2418"
+                      />
+                      <text
+                        x="26"
+                        y="133"
+                        fill="#a9a08c"
+                        font-size="8"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        누적 비용 · 골드 1.2M + 재설정권 ×3
+                      </text>
+                      <!-- confirm chip -->
+                      <rect
+                        x="236"
+                        y="121"
+                        width="58"
+                        height="16"
+                        rx="8"
+                        fill="rgba(216,177,90,0.14)"
+                        stroke="#d8b15a"
+                      />
+                      <text
+                        x="265"
+                        y="132"
+                        text-anchor="middle"
+                        fill="#ecc873"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        확정
+                      </text>
+                      <text
+                        x="16"
+                        y="156"
+                        fill="#6f6755"
+                        font-size="8"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        한 모달에서 델타+비용 확인 → 외부 계산기 없이 결정
+                      </text>
+                    </svg>
+                  </div>
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: #6f6755;
+                      line-height: 1.55;
+                      word-break: keep-all;
+                    "
+                  >
+                    던파 옵션 풀(깊이)은 그대로 — 모달 안에서 현재 대비 델타와
+                    누적 비용을 한 화면에 모아 '바꿀까 말까'를 외부 계산기 없이
+                    끝낸다. (아이템명·재화·수치는 설계 의도를 보이기 위한 예시
+                    값으로, 실제 라이브 사양과는 별개다.)
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 1인칭 회고 — 카드 리듬을 한 번 끊는 비대칭 블록 -->
+            <div
+              data-reveal
+              style="
+                margin: 4px 0 8px;
+                padding: 30px 34px;
+                border-left: 3px solid #d8b15a;
+                background: linear-gradient(
+                  90deg,
+                  rgba(216, 177, 90, 0.05),
+                  transparent
+                );
+                border-radius: 0 14px 14px 0;
+              "
+            >
+              <div
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 10.5px;
+                  letter-spacing: 0.16em;
+                  color: #6f6755;
+                  margin-bottom: 14px;
+                "
+              >
+                ✎ 직접 플레이하며 느낀 것 — 1인칭 메모
+              </div>
+              <p
+                style="
+                  font-family: &quot;Nanum Myeongjo&quot;, serif;
+                  font-size: 17px;
+                  line-height: 1.7;
+                  color: #ecc873;
+                  margin: 0 0 14px;
+                  max-width: 760px;
+                  word-break: keep-all;
+                "
+              >
+                던파에서 옵션을 한 번 손볼 때마다 창 두세 개를 오가고 결국
+                브라우저 계산기를 켜던 흐름이, 나에겐 가장 지치는 순간이었다.
+              </p>
+              <p
+                style="
+                  font-size: 14px;
+                  line-height: 1.7;
+                  color: #a9a08c;
+                  margin: 0;
+                  max-width: 760px;
+                  word-break: keep-all;
+                "
+              >
+                깊이가 싫었던 게 아니다. 깊이에 닿기까지 게임 밖으로 끌려나가는
+                게 싫었다. 이 원칙은 거창한 이론이라기보다, 그 피로를 줄이고
+                싶었던 플레이어로서의 바람을 설계 언어로 옮긴 것에 가깝다.
+                정답을 다 안다고는 못 하겠고, 라이브 사양과 부딪히며 다듬어야 할
+                가설이다.
+              </p>
+            </div>
+
+            <!-- P03 -->
+            <article
+              data-reveal
+              style="
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: #1a1610;
+                border-radius: 16px;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 0"
+              >
+                <div
+                  style="
+                    padding: 32px 32px 30px;
+                    border-right: 1px solid rgba(255, 255, 255, 0.05);
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: baseline;
+                      gap: 16px;
+                      margin-bottom: 18px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 34px;
+                        font-weight: 700;
+                        color: #34301f;
+                        line-height: 0.8;
+                      "
+                      >03</span
+                    >
+                    <h3
+                      style="
+                        font-size: 23px;
+                        font-weight: 800;
+                        color: #ece6d8;
+                        margin: 0;
+                        letter-spacing: -0.015em;
+                        line-height: 1.3;
+                      "
+                    >
+                      정보구조는 공통, 인터랙션만 입력별로
+                    </h3>
+                  </div>
+                  <div
+                    style="
+                      margin-bottom: 20px;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 12px;
+                    "
+                  >
+                    <div
+                      style="border-left: 2px solid #de5446; padding-left: 16px"
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 10px;
+                          letter-spacing: 0.14em;
+                          color: #de5446;
+                          margin-bottom: 6px;
+                        "
+                      >
+                        근거 · D4 (장점)
+                      </div>
+                      <div
+                        style="
+                          font-size: 13px;
+                          line-height: 1.55;
+                          color: #cfc7b6;
+                        "
+                      >
+                        한 UI를 M&KB·컨트롤러에 통합 → 어느 입력으로 와도 같은
+                        멘탈 모델. 이해가 쉽다.
+                      </div>
+                    </div>
+                    <div
+                      style="border-left: 2px solid #d8b15a; padding-left: 16px"
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 10px;
+                          letter-spacing: 0.14em;
+                          color: #d8b15a;
+                          margin-bottom: 6px;
+                        "
+                      >
+                        근거 · PoE2 (트레이드오프)
+                      </div>
+                      <div
+                        style="
+                          font-size: 13px;
+                          line-height: 1.55;
+                          color: #cfc7b6;
+                        "
+                      >
+                        컨트롤러 UI를 M&KB와 별도 설계 — 화면 거리·스틱 조작에
+                        맞춘 의도적 선택이고, 휠 인벤토리처럼 호평받은 부분도
+                        있다. 다만 분리가 깊어지며 일부 요소가 축약·삭제되고
+                        입력을 오가면 멘탈 모델이 끊긴다. 분리의 이유는 취하되
+                        그 부작용만 피한다.
+                      </div>
+                    </div>
+                  </div>
+                  <div style="margin-bottom: 18px">
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #7fbf8a;
+                        margin-bottom: 8px;
+                      "
+                    >
+                      ▸ 오버킬 적용
+                    </div>
+                    <div
+                      style="font-size: 14px; line-height: 1.65; color: #a9a08c"
+                    >
+                      던파 마법부여·엠블렘·융합석을 다루는 창의
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >정보 위계·아이콘 언어·기능 집합</strong
+                      >은 PC와 콘솔이 한 몸을 쓴다. 갈라지는 건
+                      '선택/이동/확정'을 어떻게 하느냐 — 커서냐 포커스냐,
+                      클릭이냐 래디얼이냐 — 그 인터랙션 레이어다. 솔직히 말하면,
+                      콘솔에서 정보구조를 1픽셀도 안 바꾸는 건 불가능하다. 화면
+                      거리·세이프존·스틱 정밀도가
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >밀도와 슬롯 수는 강제로 바꾼다</strong
+                      >. 그래서 경계를 명시한다 —
+                      <strong style="color: #ecc873; font-weight: 600"
+                        >콘솔은 한 화면 밀도를 낮추되, 위계·아이콘·기능 누락은
+                        없다</strong
+                      >. 융합석 옵션을 콘솔에서 숨기는 식의 '한쪽에서만 가능한
+                      기능'은 만들지 않는다.
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 14px; flex-wrap: wrap">
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(216, 177, 90, 0.05);
+                        border: 1px solid rgba(216, 177, 90, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #d8b15a;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        PC
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        자유 커서·드래그·다중 선택 → 빠른 정밀 조작
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(222, 84, 70, 0.05);
+                        border: 1px solid rgba(222, 84, 70, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #de5446;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        콘솔
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        포커스 이동·스냅·래디얼 메뉴 → 같은 결과, 다른 손맛
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    padding: 24px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                  "
+                >
+                  <div
+                    style="
+                      border: 1px solid rgba(216, 177, 90, 0.28);
+                      border-radius: 10px;
+                      background: #14110c;
+                      padding: 14px;
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 10px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 9px;
+                        letter-spacing: 0.12em;
+                        color: #d8b15a;
+                      "
+                    >
+                      WF 03 · 같은 인벤토리, 입력별 인터랙션
+                    </div>
+                    <svg
+                      viewBox="0 0 320 150"
+                      width="100%"
+                      style="display: block"
+                      role="img"
+                      aria-label="인벤토리 와이어프레임 — 커서 모드와 포커스 모드 비교"
+                    >
+                      <!-- PC: cursor mode -->
+                      <text
+                        x="10"
+                        y="14"
+                        fill="#d8b15a"
+                        font-size="8"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        PC · 커서
+                      </text>
+                      <rect
+                        x="10"
+                        y="20"
+                        width="135"
+                        height="118"
+                        rx="5"
+                        fill="#100e09"
+                        stroke="#2a2418"
+                      />
+                      <g stroke="#3a3326" fill="#1f1b13">
+                        <rect x="20" y="30" width="22" height="22" rx="3" />
+                        <rect x="46" y="30" width="22" height="22" rx="3" />
+                        <rect x="72" y="30" width="22" height="22" rx="3" />
+                        <rect x="98" y="30" width="22" height="22" rx="3" />
+                        <rect x="20" y="56" width="22" height="22" rx="3" />
+                        <rect x="46" y="56" width="22" height="22" rx="3" />
+                        <rect x="72" y="56" width="22" height="22" rx="3" />
+                        <rect x="98" y="56" width="22" height="22" rx="3" />
+                      </g>
+                      <!-- drag-selected cluster -->
+                      <rect
+                        x="44"
+                        y="54"
+                        width="50"
+                        height="26"
+                        rx="4"
+                        fill="rgba(216,177,90,0.12)"
+                        stroke="#d8b15a"
+                        stroke-dasharray="3 2"
+                      />
+                      <!-- cursor -->
+                      <path
+                        d="M104 96 L104 116 L109 111 L113 119 L116 117 L112 110 L119 110 Z"
+                        fill="#ece6d8"
+                        stroke="#14110c"
+                      />
+                      <text
+                        x="20"
+                        y="130"
+                        fill="#6f6755"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        드래그 다중선택
+                      </text>
+
+                      <!-- Console: focus mode -->
+                      <text
+                        x="175"
+                        y="14"
+                        fill="#de5446"
+                        font-size="8"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        콘솔 · 포커스
+                      </text>
+                      <rect
+                        x="175"
+                        y="20"
+                        width="135"
+                        height="118"
+                        rx="5"
+                        fill="#100e09"
+                        stroke="#2a2418"
+                      />
+                      <g stroke="#3a3326" fill="#1f1b13">
+                        <rect x="185" y="30" width="22" height="22" rx="3" />
+                        <rect x="211" y="30" width="22" height="22" rx="3" />
+                        <rect x="237" y="30" width="22" height="22" rx="3" />
+                        <rect x="263" y="30" width="22" height="22" rx="3" />
+                        <rect x="185" y="56" width="22" height="22" rx="3" />
+                        <rect x="237" y="56" width="22" height="22" rx="3" />
+                        <rect x="263" y="56" width="22" height="22" rx="3" />
+                      </g>
+                      <!-- focused slot -->
+                      <rect
+                        x="209"
+                        y="54"
+                        width="26"
+                        height="26"
+                        rx="3"
+                        fill="rgba(222,84,70,0.14)"
+                        stroke="#de5446"
+                        stroke-width="2"
+                      />
+                      <!-- radial menu -->
+                      <circle
+                        cx="222"
+                        cy="105"
+                        r="18"
+                        fill="rgba(222,84,70,0.06)"
+                        stroke="#de5446"
+                        stroke-dasharray="3 3"
+                      />
+                      <circle cx="222" cy="90" r="3" fill="#de5446" />
+                      <circle cx="237" cy="108" r="3" fill="#6f6755" />
+                      <circle cx="207" cy="108" r="3" fill="#6f6755" />
+                      <text
+                        x="185"
+                        y="134"
+                        fill="#6f6755"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        포커스 스냅 + 래디얼
+                      </text>
+                    </svg>
+                  </div>
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: #6f6755;
+                      line-height: 1.55;
+                      word-break: keep-all;
+                    "
+                  >
+                    슬롯 그리드·등급 색·정렬 규칙은 한 몸 — 갈라지는 건 선택
+                    방식(드래그 vs 포커스 스냅)과 컨텍스트(우클릭 vs 래디얼)뿐.
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- P04 -->
+            <article
+              data-reveal
+              style="
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: #1a1610;
+                border-radius: 16px;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 0"
+              >
+                <div
+                  style="
+                    padding: 32px 32px 30px;
+                    border-right: 1px solid rgba(255, 255, 255, 0.05);
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: baseline;
+                      gap: 16px;
+                      margin-bottom: 18px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 34px;
+                        font-weight: 700;
+                        color: #34301f;
+                        line-height: 0.8;
+                      "
+                      >04</span
+                    >
+                    <h3
+                      style="
+                        font-size: 23px;
+                        font-weight: 800;
+                        color: #ece6d8;
+                        margin: 0;
+                        letter-spacing: -0.015em;
+                        line-height: 1.3;
+                      "
+                    >
+                      탑뷰의 주인공은 전장이다 — HUD는 가장자리로
+                    </h3>
+                  </div>
+                  <div
+                    style="
+                      margin-bottom: 20px;
+                      border-left: 2px solid #de5446;
+                      padding-left: 16px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #de5446;
+                        margin-bottom: 6px;
+                      "
+                    >
+                      근거 · D4
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.6;
+                        color: #cfc7b6;
+                      "
+                    >
+                      액션바를 좌하단 코너로 이동해 전투 시야를 확보. 상태바는
+                      PC 중앙/좌측, 콘솔 코너로 배치를 분기.
+                    </div>
+                  </div>
+                  <div style="margin-bottom: 18px">
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #7fbf8a;
+                        margin-bottom: 8px;
+                      "
+                    >
+                      ▸ 오버킬 적용
+                    </div>
+                    <div
+                      style="font-size: 14px; line-height: 1.65; color: #a9a08c"
+                    >
+                      탑뷰 핵앤슬래시에서 화면 중앙은 캐릭터와 적, 위협
+                      텔레그래프의 자리다. 체력·자원·스킬 쿨다운 같은 HUD는
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >시선 동선 바깥(코너·하단)</strong
+                      >으로 밀어 전장 가독성을 최우선한다.
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 14px; flex-wrap: wrap">
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(216, 177, 90, 0.05);
+                        border: 1px solid rgba(216, 177, 90, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #d8b15a;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        PC
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        와이드 화면 — 정보를 좌우로 분산, 중앙 클리어
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(222, 84, 70, 0.05);
+                        border: 1px solid rgba(222, 84, 70, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #de5446;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        콘솔
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        TV 거리·세이프존 코너 정렬 + 요소 크기 상향. 피드백은
+                        기종별 분기 —
+                        <strong style="color: #e88273">PS5</strong> 어댑티브
+                        트리거 '저항=쿨다운 미충전' + DualSense 햅틱은 결정적
+                        순간만, <strong style="color: #e88273">Xbox</strong>는
+                        트리거 진동,
+                        <strong style="color: #e88273">스팀덱</strong>은 일반
+                        럼블+사운드로 동등 대체 (상시 진동 금지)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    padding: 24px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                  "
+                >
+                  <div
+                    style="
+                      border: 1px solid rgba(216, 177, 90, 0.28);
+                      border-radius: 10px;
+                      background: #14110c;
+                      padding: 14px;
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 8px;
+                    "
+                  >
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 9px;
+                        letter-spacing: 0.12em;
+                        color: #6f6755;
+                      "
+                    >
+                      <span style="color: #d8b15a">WF 04 · 전투 HUD</span
+                      ><span>16:9 · 콘솔 세이프존</span>
+                    </div>
+                    <svg
+                      viewBox="0 0 320 180"
+                      width="100%"
+                      style="display: block"
+                      role="img"
+                      aria-label="전투 HUD 와이어프레임 — 중앙 클리어존과 코너 배치"
+                    >
+                      <rect
+                        x="1"
+                        y="1"
+                        width="318"
+                        height="178"
+                        rx="6"
+                        fill="#100e09"
+                        stroke="#2a2418"
+                      />
+                      <!-- safe area -->
+                      <rect
+                        x="14"
+                        y="12"
+                        width="292"
+                        height="156"
+                        rx="4"
+                        fill="none"
+                        stroke="#3a3326"
+                        stroke-dasharray="3 4"
+                      />
+                      <!-- center clear zone -->
+                      <rect
+                        x="96"
+                        y="40"
+                        width="128"
+                        height="92"
+                        rx="6"
+                        fill="rgba(216,177,90,0.04)"
+                        stroke="rgba(216,177,90,0.32)"
+                        stroke-dasharray="2 3"
+                      />
+                      <circle cx="160" cy="86" r="11" fill="#d8b15a" />
+                      <path
+                        d="M160 86 L160 70"
+                        stroke="#c63f33"
+                        stroke-width="2"
+                      />
+                      <circle
+                        cx="160"
+                        cy="86"
+                        r="26"
+                        fill="none"
+                        stroke="rgba(222,84,70,0.45)"
+                        stroke-dasharray="3 3"
+                      />
+                      <circle cx="128" cy="58" r="6" fill="#5a3330" />
+                      <circle cx="200" cy="112" r="6" fill="#5a3330" />
+                      <text
+                        x="160"
+                        y="148"
+                        text-anchor="middle"
+                        fill="#6f6755"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        CLEAR ZONE · 위협 텔레그래프
+                      </text>
+                      <!-- top-left: 체력/자원 -->
+                      <rect
+                        x="20"
+                        y="18"
+                        width="58"
+                        height="9"
+                        rx="3"
+                        fill="#c63f33"
+                      />
+                      <rect
+                        x="20"
+                        y="30"
+                        width="44"
+                        height="7"
+                        rx="3"
+                        fill="#3f6db0"
+                      />
+                      <!-- top-right: 미니맵 -->
+                      <rect
+                        x="266"
+                        y="18"
+                        width="34"
+                        height="34"
+                        rx="3"
+                        fill="rgba(216,177,90,0.1)"
+                        stroke="#3a3326"
+                      />
+                      <!-- bottom action bar -->
+                      <g fill="#1f1b13" stroke="#3a3326">
+                        <rect x="116" y="148" width="16" height="16" rx="3" />
+                        <rect x="136" y="148" width="16" height="16" rx="3" />
+                        <rect x="156" y="148" width="16" height="16" rx="3" />
+                        <rect x="176" y="148" width="16" height="16" rx="3" />
+                        <rect x="196" y="148" width="16" height="16" rx="3" />
+                      </g>
+                      <!-- bottom-right: 버프 -->
+                      <g fill="rgba(216,177,90,0.18)">
+                        <rect x="276" y="150" width="11" height="11" rx="2" />
+                        <rect x="290" y="150" width="11" height="11" rx="2" />
+                      </g>
+                    </svg>
+                  </div>
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: #6f6755;
+                      line-height: 1.55;
+                      word-break: keep-all;
+                    "
+                  >
+                    중앙 클리어존은 비우고 — 체력·자원은 좌상단, 미니맵 우상단,
+                    스킬바 하단 중앙, 버프 우하단 코너로.
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- P05 -->
+            <article
+              data-reveal
+              style="
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: #1a1610;
+                border-radius: 16px;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 0"
+              >
+                <div
+                  style="
+                    padding: 32px 32px 30px;
+                    border-right: 1px solid rgba(255, 255, 255, 0.05);
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: baseline;
+                      gap: 16px;
+                      margin-bottom: 18px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 34px;
+                        font-weight: 700;
+                        color: #34301f;
+                        line-height: 0.8;
+                      "
+                      >05</span
+                    >
+                    <h3
+                      style="
+                        font-size: 23px;
+                        font-weight: 800;
+                        color: #ece6d8;
+                        margin: 0;
+                        letter-spacing: -0.015em;
+                        line-height: 1.3;
+                      "
+                    >
+                      컨트롤러를 마이크로매니지먼트의 형벌로 만들지 않는다
+                    </h3>
+                  </div>
+                  <div
+                    style="
+                      margin-bottom: 20px;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 12px;
+                    "
+                  >
+                    <div
+                      style="border-left: 2px solid #de5446; padding-left: 16px"
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 10px;
+                          letter-spacing: 0.14em;
+                          color: #de5446;
+                          margin-bottom: 6px;
+                        "
+                      >
+                        반면교사 · D4
+                      </div>
+                      <div
+                        style="
+                          font-size: 13px;
+                          line-height: 1.55;
+                          color: #cfc7b6;
+                        "
+                      >
+                        컨트롤러 인벤토리 관리에 버튼 입력 과다 — D3 콘솔 대비
+                        "슈퍼 마이크로매니지먼트"라는 비판.
+                      </div>
+                    </div>
+                    <div
+                      style="border-left: 2px solid #d8b15a; padding-left: 16px"
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 10px;
+                          letter-spacing: 0.14em;
+                          color: #d8b15a;
+                          margin-bottom: 6px;
+                        "
+                      >
+                        반면교사 · PoE2
+                      </div>
+                      <div
+                        style="
+                          font-size: 13px;
+                          line-height: 1.55;
+                          color: #cfc7b6;
+                        "
+                      >
+                        콘솔에서 인벤·스택탭·거래가 번거로워 "재화 쓸 땐 M&KB로
+                        로그인하라"는 우회법이 권장될 정도.
+                      </div>
+                    </div>
+                  </div>
+                  <div style="margin-bottom: 18px">
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #7fbf8a;
+                        margin-bottom: 8px;
+                      "
+                    >
+                      ▸ 오버킬 적용
+                    </div>
+                    <div
+                      style="font-size: 14px; line-height: 1.65; color: #a9a08c"
+                    >
+                      먼저 인정한다 — PC 던파는 이미 일괄 분해를 잘한다. 그러니
+                      이건 '새 제안'이 아니라
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >콘솔 이식 때 그 편의가 사라지지 않게 지키는 일</strong
+                      >이다. 진짜 마찰은 콘솔에서 생긴다. 예를 들어
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >봉인 장비를 해제하고 항아리를 여는 흐름</strong
+                      >, 또는
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >융합석 옵션을 재설정하며 비용을 확인하는 흐름</strong
+                      >을 컨트롤러로 한 칸씩 커서 옮겨 처리하면, 한 번에 D-패드
+                      이동·확정·다시 확인으로 클릭이 두세 배가 된다. 이런 반복
+                      흐름은 일괄 처리·길게 누르기·래디얼로 입력 횟수를 PC
+                      수준으로 되돌린다. 컨트롤러 사용자가 PC로 갈아타고 싶게
+                      만드는 순간, 그건 UX 실패다.
+                    </div>
+                    <div
+                      style="
+                        margin-top: 16px;
+                        border: 1px solid rgba(222, 84, 70, 0.22);
+                        border-radius: 10px;
+                        background: rgba(222, 84, 70, 0.04);
+                        padding: 14px 16px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          letter-spacing: 0.12em;
+                          color: #e88273;
+                          margin-bottom: 10px;
+                        "
+                      >
+                        현장 클릭 수 · 융합석 옵션 재설정(콘솔, 컨트롤러)
+                      </div>
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 12px;
+                          line-height: 1.7;
+                          color: #cfc7b6;
+                        "
+                      >
+                        지금: 슬롯 포커스 → 옵션 목록 진입 → 항목 스크롤 → 비용
+                        확인 → 확정 → 결과 닫기 ·
+                        <strong style="color: #e88273">6+ 입력</strong><br />
+                        목표: 슬롯 길게 누르기 → 래디얼 '재설정' → 비용 인라인
+                        확인·확정 ·
+                        <strong style="color: #7fbf8a">3 입력</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 14px; flex-wrap: wrap">
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(216, 177, 90, 0.05);
+                        border: 1px solid rgba(216, 177, 90, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #d8b15a;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        PC
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        Shift+클릭 일괄 분해·드래그 다중 선택 등 단축 흐름
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(222, 84, 70, 0.05);
+                        border: 1px solid rgba(222, 84, 70, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #de5446;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        콘솔
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        "재료템 전체 분해 / 등급 이하 일괄" 한 버튼 + 자동
+                        정렬을 기본값으로
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    padding: 24px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                  "
+                >
+                  <div
+                    style="
+                      border: 1px solid rgba(216, 177, 90, 0.28);
+                      border-radius: 10px;
+                      background: #14110c;
+                      padding: 14px;
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 10px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 9px;
+                        letter-spacing: 0.12em;
+                        color: #d8b15a;
+                      "
+                    >
+                      WF 05 · 콘솔 래디얼 + 재료 일괄 분해
+                    </div>
+                    <svg
+                      viewBox="0 0 320 170"
+                      width="100%"
+                      style="display: block"
+                      role="img"
+                      aria-label="콘솔 인벤 와이어프레임 — 4분면 래디얼 메뉴와 일괄 분해 버튼"
+                    >
+                      <rect
+                        x="1"
+                        y="1"
+                        width="318"
+                        height="168"
+                        rx="6"
+                        fill="#100e09"
+                        stroke="#2a2418"
+                      />
+                      <!-- material grid (auto-grouped) -->
+                      <g stroke="#3a3326" fill="#1f1b13">
+                        <rect x="16" y="18" width="20" height="20" rx="3" />
+                        <rect x="40" y="18" width="20" height="20" rx="3" />
+                        <rect x="64" y="18" width="20" height="20" rx="3" />
+                        <rect x="16" y="42" width="20" height="20" rx="3" />
+                        <rect x="40" y="42" width="20" height="20" rx="3" />
+                        <rect x="64" y="42" width="20" height="20" rx="3" />
+                      </g>
+                      <!-- group highlight -->
+                      <rect
+                        x="13"
+                        y="15"
+                        width="74"
+                        height="50"
+                        rx="5"
+                        fill="rgba(216,177,90,0.06)"
+                        stroke="#d8b15a"
+                        stroke-dasharray="3 2"
+                      />
+                      <text
+                        x="16"
+                        y="78"
+                        fill="#6f6755"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        재료템 자동 그룹핑
+                      </text>
+                      <!-- radial menu on focused slot -->
+                      <circle
+                        cx="210"
+                        cy="68"
+                        r="40"
+                        fill="rgba(216,177,90,0.05)"
+                        stroke="#d8b15a"
+                        stroke-dasharray="3 3"
+                      />
+                      <circle
+                        cx="210"
+                        cy="68"
+                        r="13"
+                        fill="#1f1b13"
+                        stroke="#3a3326"
+                      />
+                      <!-- 4 quadrants -->
+                      <circle cx="210" cy="38" r="4" fill="#de5446" />
+                      <text
+                        x="210"
+                        y="30"
+                        text-anchor="middle"
+                        fill="#a9a08c"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        분해
+                      </text>
+                      <circle cx="240" cy="68" r="4" fill="#d8b15a" />
+                      <text
+                        x="252"
+                        y="71"
+                        text-anchor="middle"
+                        fill="#a9a08c"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        정렬
+                      </text>
+                      <circle cx="210" cy="98" r="4" fill="#6f6755" />
+                      <text
+                        x="210"
+                        y="113"
+                        text-anchor="middle"
+                        fill="#a9a08c"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        이동
+                      </text>
+                      <circle cx="180" cy="68" r="4" fill="#6f6755" />
+                      <text
+                        x="168"
+                        y="71"
+                        text-anchor="middle"
+                        fill="#a9a08c"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        잠금
+                      </text>
+                      <!-- one-button bulk + hold -->
+                      <rect
+                        x="16"
+                        y="120"
+                        width="150"
+                        height="26"
+                        rx="13"
+                        fill="rgba(222,84,70,0.1)"
+                        stroke="#de5446"
+                      />
+                      <text
+                        x="91"
+                        y="137"
+                        text-anchor="middle"
+                        fill="#e88273"
+                        font-size="8.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        ▣ 재료 전체 분해 (1버튼)
+                      </text>
+                      <text
+                        x="180"
+                        y="137"
+                        fill="#6f6755"
+                        font-size="8"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        길게=등급 이하 일괄
+                      </text>
+                      <text
+                        x="16"
+                        y="160"
+                        fill="#6f6755"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        확인 다이얼로그 1회 · 잠금 슬롯 자동 제외
+                      </text>
+                    </svg>
+                  </div>
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: #6f6755;
+                      line-height: 1.55;
+                      word-break: keep-all;
+                    "
+                  >
+                    PC의 일괄 편의를 콘솔에서도 — 4분면 래디얼 + 1버튼 전체
+                    분해로 한 칸씩 옮기는 형벌을 없앤다.
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- P06 -->
+            <article
+              data-reveal
+              style="
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: #1a1610;
+                border-radius: 16px;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 0"
+              >
+                <div
+                  style="
+                    padding: 32px 32px 30px;
+                    border-right: 1px solid rgba(255, 255, 255, 0.05);
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: baseline;
+                      gap: 16px;
+                      margin-bottom: 18px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 34px;
+                        font-weight: 700;
+                        color: #34301f;
+                        line-height: 0.8;
+                      "
+                      >06</span
+                    >
+                    <h3
+                      style="
+                        font-size: 23px;
+                        font-weight: 800;
+                        color: #ece6d8;
+                        margin: 0;
+                        letter-spacing: -0.015em;
+                        line-height: 1.3;
+                      "
+                    >
+                      복잡함은 한 번에 쏟지 않고 층층이 연다
+                    </h3>
+                  </div>
+                  <div
+                    style="
+                      margin-bottom: 20px;
+                      border-left: 2px solid #d8b15a;
+                      padding-left: 16px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #d8b15a;
+                        margin-bottom: 6px;
+                      "
+                    >
+                      근거 · PoE2
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.6;
+                        color: #cfc7b6;
+                      "
+                    >
+                      신규는 쉽게 진입, 하드코어는 깊이를 모두 누리도록 접근성과
+                      깊이를 동시 추구. 튜토리얼로 복잡함을 초반에 점진적으로
+                      도입.
+                    </div>
+                  </div>
+                  <div style="margin-bottom: 18px">
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #7fbf8a;
+                        margin-bottom: 8px;
+                      "
+                    >
+                      ▸ 오버킬 적용
+                    </div>
+                    <div
+                      style="font-size: 14px; line-height: 1.65; color: #a9a08c"
+                    >
+                      던파식 깊이를 첫 화면에 다 쏟지 않는다. 명성 구간에 맞춰
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >마법부여·엠블렘·융합석 같은 성장 시스템을 단계적으로
+                        잠금 해제</strong
+                      >하고, 고급 정보는 접어 둔 채(단계적 노출) 원하는 사람만
+                      펼친다. 신규의 이탈과 고인물의 답답함을 동시에 막는다.
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 14px; flex-wrap: wrap">
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(216, 177, 90, 0.05);
+                        border: 1px solid rgba(216, 177, 90, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #d8b15a;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        PC
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        고급 패널 토글·즐겨찾기로 베테랑은 단계를 건너뛰기
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(222, 84, 70, 0.05);
+                        border: 1px solid rgba(222, 84, 70, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #de5446;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        콘솔
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        맥락형 힌트 프롬프트 + 화면당 정보량 제한으로 인지 부하
+                        관리
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    padding: 24px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                  "
+                >
+                  <div
+                    style="
+                      border: 1px solid rgba(216, 177, 90, 0.28);
+                      border-radius: 10px;
+                      background: #14110c;
+                      padding: 14px;
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 10px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 9px;
+                        letter-spacing: 0.12em;
+                        color: #d8b15a;
+                      "
+                    >
+                      WF 06 · 명성 구간별 성장 시스템 단계적 노출
+                    </div>
+                    <svg
+                      viewBox="0 0 320 168"
+                      width="100%"
+                      style="display: block"
+                      role="img"
+                      aria-label="명성 구간 타임라인 와이어프레임 — 마법부여·엠블렘·융합석 순차 해제와 접힘 패널, 베테랑 건너뛰기 토글"
+                    >
+                      <rect
+                        x="1"
+                        y="1"
+                        width="318"
+                        height="166"
+                        rx="6"
+                        fill="#100e09"
+                        stroke="#2a2418"
+                      />
+                      <!-- timeline axis -->
+                      <line x1="30" y1="40" x2="290" y2="40" stroke="#3a3326" />
+                      <text
+                        x="16"
+                        y="22"
+                        fill="#a9a08c"
+                        font-size="8"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        명성 구간 축 →
+                      </text>
+                      <!-- node 1 unlocked -->
+                      <circle cx="55" cy="40" r="6" fill="#d8b15a" />
+                      <text
+                        x="55"
+                        y="60"
+                        text-anchor="middle"
+                        fill="#ecc873"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        마법부여
+                      </text>
+                      <!-- node 2 unlocked -->
+                      <circle cx="160" cy="40" r="6" fill="#d8b15a" />
+                      <text
+                        x="160"
+                        y="60"
+                        text-anchor="middle"
+                        fill="#ecc873"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        엠블렘
+                      </text>
+                      <!-- node 3 locked -->
+                      <circle
+                        cx="265"
+                        cy="40"
+                        r="6"
+                        fill="#1f1b13"
+                        stroke="#6f6755"
+                      />
+                      <text
+                        x="265"
+                        y="60"
+                        text-anchor="middle"
+                        fill="#6f6755"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        융합석 🔒
+                      </text>
+                      <!-- collapsed advanced panel -->
+                      <rect
+                        x="16"
+                        y="78"
+                        width="288"
+                        height="24"
+                        rx="5"
+                        fill="#161208"
+                        stroke="#3a3326"
+                      />
+                      <text
+                        x="26"
+                        y="93"
+                        fill="#a9a08c"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        ▸ 고급 옵션 (접힘 — 단계적 노출 기본)
+                      </text>
+                      <!-- expanded panel -->
+                      <rect
+                        x="16"
+                        y="106"
+                        width="288"
+                        height="30"
+                        rx="5"
+                        fill="#1b1710"
+                        stroke="#d8b15a"
+                      />
+                      <text
+                        x="26"
+                        y="121"
+                        fill="#ecc873"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        ▾ 펼침 — 옵션 상세 표시
+                      </text>
+                      <text
+                        x="26"
+                        y="132"
+                        fill="#6f6755"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        펼침 상태 기억
+                      </text>
+                      <!-- veteran skip toggle -->
+                      <rect
+                        x="206"
+                        y="142"
+                        width="98"
+                        height="18"
+                        rx="9"
+                        fill="rgba(216,177,90,0.12)"
+                        stroke="#d8b15a"
+                      />
+                      <circle cx="293" cy="151" r="6" fill="#d8b15a" />
+                      <text
+                        x="214"
+                        y="154"
+                        fill="#ecc873"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        베테랑 · 단계 건너뛰기
+                      </text>
+                    </svg>
+                  </div>
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: #6f6755;
+                      line-height: 1.55;
+                      word-break: keep-all;
+                    "
+                  >
+                    신규는 명성 구간을 따라 시스템이 차례로 열리고, 베테랑은
+                    토글로 펼침 상태를 기억하고 단계를 건너뛴다 — 깊이는 그대로,
+                    노출 속도만 사람에 맞춘다.
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- P07 -->
+            <article
+              data-reveal
+              style="
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: #1a1610;
+                border-radius: 16px;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 0"
+              >
+                <div
+                  style="
+                    padding: 32px 32px 30px;
+                    border-right: 1px solid rgba(255, 255, 255, 0.05);
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: baseline;
+                      gap: 16px;
+                      margin-bottom: 18px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 34px;
+                        font-weight: 700;
+                        color: #34301f;
+                        line-height: 0.8;
+                      "
+                      >07</span
+                    >
+                    <h3
+                      style="
+                        font-size: 23px;
+                        font-weight: 800;
+                        color: #ece6d8;
+                        margin: 0;
+                        letter-spacing: -0.015em;
+                        line-height: 1.3;
+                      "
+                    >
+                      접근성은 옵션이 아니라 출시 초기부터의 핵심 축이다
+                    </h3>
+                  </div>
+                  <div
+                    style="
+                      margin-bottom: 20px;
+                      border-left: 2px solid #de5446;
+                      padding-left: 16px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #de5446;
+                        margin-bottom: 6px;
+                      "
+                    >
+                      근거 · D4
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.6;
+                        color: #cfc7b6;
+                      "
+                    >
+                      접근성을 출시 초기부터 핵심 축으로(게임플레이와 동등한
+                      비중): 키 리매핑, 자막 커스터마이즈, 색 대비 설정, 전리품
+                      오디오 큐. 기능 일부는 이후 시즌 업데이트로 더 강화됐다.
+                      PoE2도 보스전 시각 명료성(중독 시 체력 오브 초록색)으로
+                      가독성을 보강.
+                    </div>
+                  </div>
+                  <div style="margin-bottom: 18px">
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 10px;
+                        letter-spacing: 0.14em;
+                        color: #7fbf8a;
+                        margin-bottom: 8px;
+                      "
+                    >
+                      ▸ 오버킬 적용
+                    </div>
+                    <div
+                      style="font-size: 14px; line-height: 1.65; color: #a9a08c"
+                    >
+                      색맹 대응·텍스트 크기·UI 스케일·리매핑·오디오 큐를
+                      <strong style="color: #ece6d8; font-weight: 600"
+                        >출시 1일차 기본 탑재</strong
+                      >한다. 위협 텔레그래프와 등급 표현은 색에만 의존하지 않고
+                      형태·소리·아이콘을 함께 쓴다. 글로벌 출시(NA 우선) 다국어
+                      길이까지 레이아웃이 견디게 설계한다.
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 14px; flex-wrap: wrap">
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(216, 177, 90, 0.05);
+                        border: 1px solid rgba(216, 177, 90, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #d8b15a;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        PC
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        전 키 리바인드·UI 스케일 슬라이더·고대비 테마
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        min-width: 200px;
+                        border-radius: 8px;
+                        background: rgba(222, 84, 70, 0.05);
+                        border: 1px solid rgba(222, 84, 70, 0.14);
+                        padding: 12px 14px;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: &quot;JetBrains Mono&quot;, monospace;
+                          font-size: 9.5px;
+                          color: #de5446;
+                          letter-spacing: 0.1em;
+                          margin-bottom: 5px;
+                        "
+                      >
+                        콘솔
+                      </div>
+                      <div
+                        style="
+                          font-size: 12.5px;
+                          color: #a9a08c;
+                          line-height: 1.5;
+                        "
+                      >
+                        버튼 리매핑·자막 배경·전리품/위협 오디오 큐 기본 ON
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    padding: 24px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                  "
+                >
+                  <div
+                    style="
+                      border: 1px solid rgba(216, 177, 90, 0.28);
+                      border-radius: 10px;
+                      background: #14110c;
+                      padding: 14px;
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 10px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, monospace;
+                        font-size: 9px;
+                        letter-spacing: 0.12em;
+                        color: #d8b15a;
+                      "
+                    >
+                      WF 07 · 출시 1일차 접근성 패널 + 3중 위협 텔레그래프
+                    </div>
+                    <svg
+                      viewBox="0 0 320 168"
+                      width="100%"
+                      style="display: block"
+                      role="img"
+                      aria-label="접근성 패널 와이어프레임 — day-one 설정 토글과 색·형태·소리 3중 위협 텔레그래프, 다국어 길이 확장 레이아웃"
+                    >
+                      <rect
+                        x="1"
+                        y="1"
+                        width="318"
+                        height="166"
+                        rx="6"
+                        fill="#100e09"
+                        stroke="#2a2418"
+                      />
+                      <!-- panel title -->
+                      <text
+                        x="16"
+                        y="20"
+                        fill="#ecc873"
+                        font-size="8.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        접근성 (day-one)
+                      </text>
+                      <!-- toggle rows -->
+                      <text
+                        x="16"
+                        y="40"
+                        fill="#a9a08c"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        리매핑
+                      </text>
+                      <rect
+                        x="118"
+                        y="33"
+                        width="34"
+                        height="12"
+                        rx="6"
+                        fill="rgba(216,177,90,0.16)"
+                        stroke="#d8b15a"
+                      />
+                      <circle cx="145" cy="39" r="5" fill="#d8b15a" />
+                      <text
+                        x="16"
+                        y="58"
+                        fill="#a9a08c"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        UI 스케일 · 자막 · 고대비
+                      </text>
+                      <rect
+                        x="118"
+                        y="51"
+                        width="34"
+                        height="12"
+                        rx="6"
+                        fill="rgba(216,177,90,0.16)"
+                        stroke="#d8b15a"
+                      />
+                      <circle cx="145" cy="57" r="5" fill="#d8b15a" />
+                      <!-- divider -->
+                      <line
+                        x1="16"
+                        y1="72"
+                        x2="304"
+                        y2="72"
+                        stroke="#2a2418"
+                        stroke-dasharray="3 3"
+                      />
+                      <!-- threat telegraph: color + shape + sound -->
+                      <text
+                        x="16"
+                        y="90"
+                        fill="#cfc7b6"
+                        font-size="8"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        위협 = 색 + 형태 + 소리 (색맹 대비)
+                      </text>
+                      <!-- color -->
+                      <rect
+                        x="16"
+                        y="98"
+                        width="40"
+                        height="28"
+                        rx="4"
+                        fill="rgba(222,84,70,0.5)"
+                        stroke="#de5446"
+                      />
+                      <text
+                        x="36"
+                        y="138"
+                        text-anchor="middle"
+                        fill="#6f6755"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        색
+                      </text>
+                      <!-- shape (triangle) -->
+                      <path
+                        d="M86 100 l16 26 l-32 0 Z"
+                        fill="none"
+                        stroke="#de5446"
+                        stroke-width="2"
+                      />
+                      <text
+                        x="86"
+                        y="138"
+                        text-anchor="middle"
+                        fill="#6f6755"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        형태
+                      </text>
+                      <!-- sound (wave) -->
+                      <path
+                        d="M124 112 l8 0 l9 -8 l0 24 l-9 -8 l-8 0 Z"
+                        fill="#d8b15a"
+                      />
+                      <path
+                        d="M146 108 q5 6 0 16"
+                        fill="none"
+                        stroke="#d8b15a"
+                      />
+                      <text
+                        x="135"
+                        y="138"
+                        text-anchor="middle"
+                        fill="#6f6755"
+                        font-size="7"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        소리
+                      </text>
+                      <!-- i18n length box -->
+                      <rect
+                        x="176"
+                        y="98"
+                        width="128"
+                        height="40"
+                        rx="5"
+                        fill="#161208"
+                        stroke="#3a3326"
+                      />
+                      <text
+                        x="186"
+                        y="114"
+                        fill="#a9a08c"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        KO ▕━━▏
+                      </text>
+                      <text
+                        x="186"
+                        y="128"
+                        fill="#a9a08c"
+                        font-size="7.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        EN(NA) ▕━━━━━▏
+                      </text>
+                      <text
+                        x="186"
+                        y="150"
+                        fill="#6f6755"
+                        font-size="6.5"
+                        font-family="JetBrains Mono, monospace"
+                      >
+                        길이 확장 견디는 레이아웃
+                      </text>
+                    </svg>
+                  </div>
+                  <div
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, monospace;
+                      font-size: 10px;
+                      color: #6f6755;
+                      line-height: 1.55;
+                      word-break: keep-all;
+                    "
+                  >
+                    접근성은 옵션이 아니라 첫날 기본 — 위협은 색 하나에 기대지
+                    않고 형태·소리로 중복 부호화하고, 레이아웃은 NA 우선 다국어
+                    길이 확장을 견딘다.
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ===== MATRIX ===== -->
+        <section
+          id="matrix"
+          style="
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 90px 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+          "
+        >
+          <div data-reveal style="text-align: center; margin-bottom: 50px">
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 12px;
+                letter-spacing: 0.22em;
+                color: #a9a08c;
+                margin-bottom: 18px;
+              "
+            >
+              03 — 입력 적응 매트릭스
+            </div>
+            <h2
+              style="
+                font-size: clamp(28px, 4vw, 48px);
+                font-weight: 800;
+                letter-spacing: -0.025em;
+                margin: 0 0 22px;
+                line-height: 1.12;
+              "
+            >
+              정보구조는 공통,<br />인터랙션은 입력별
+            </h2>
+            <p
+              style="
+                font-size: 17px;
+                line-height: 1.75;
+                color: #a9a08c;
+                max-width: 680px;
+                margin: 0 auto;
+                text-wrap: pretty;
+              "
+            >
+              D4의 통합 장점은 살리고 PoE2의 분리 실패는 피한다. 왼쪽
+              열(정보구조)은 두 입력이 한 몸으로 공유하고, 인터랙션만 입력
+              특성에 맞춰 갈라진다.
+            </p>
+          </div>
+
+          <div
+            data-reveal
+            style="
+              border: 1px solid rgba(255, 255, 255, 0.08);
+              border-radius: 16px;
+              overflow: hidden;
+              background: #1a1610;
+            "
+          >
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.1fr 1fr 1fr;
+                background: rgba(255, 255, 255, 0.03);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+              "
+            >
+              <div
+                style="
+                  padding: 16px 20px;
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.12em;
+                  color: #a9a08c;
+                "
+              >
+                화면 / 공통 정보구조
+              </div>
+              <div
+                style="
+                  padding: 16px 20px;
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.12em;
+                  color: #d8b15a;
+                  border-left: 1px solid rgba(255, 255, 255, 0.06);
+                "
+              >
+                PC · 마우스+키보드
+              </div>
+              <div
+                style="
+                  padding: 16px 20px;
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.12em;
+                  color: #de5446;
+                  border-left: 1px solid rgba(255, 255, 255, 0.06);
+                "
+              >
+                콘솔 · 컨트롤러 (PS5 / Xbox / 스팀덱)
+              </div>
+            </div>
+
+            <!-- rows -->
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.1fr 1fr 1fr;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+              "
+            >
+              <div style="padding: 18px 20px">
+                <div
+                  style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 4px;
+                  "
+                >
+                  인벤토리
+                </div>
+                <div style="font-size: 12px; color: #6f6755; line-height: 1.5">
+                  균일 슬롯 그리드 · 등급 색 · 정렬 규칙 동일
+                </div>
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                자유 커서 · 드래그 · 다중 선택 · 우클릭 컨텍스트
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                포커스 스냅 이동 · 길게 누르기 · 래디얼 컨텍스트
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.1fr 1fr 1fr;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                background: rgba(255, 255, 255, 0.012);
+              "
+            >
+              <div style="padding: 18px 20px">
+                <div
+                  style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 4px;
+                  "
+                >
+                  스킬 / 성장
+                </div>
+                <div style="font-size: 12px; color: #6f6755; line-height: 1.5">
+                  노드 구조 · 위계 · 아이콘 언어 동일
+                </div>
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                자유 줌·팬 · 검색 · 경로 미리보기 호버
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                스틱 가속 줌 · 노드 점프 · 확정 전 프리뷰 토글
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.1fr 1fr 1fr;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+              "
+            >
+              <div style="padding: 18px 20px">
+                <div
+                  style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 4px;
+                  "
+                >
+                  전투 타게팅
+                </div>
+                <div style="font-size: 12px; color: #6f6755; line-height: 1.5">
+                  동일 스킬·동일 사거리·동일 텔레그래프
+                </div>
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                커서 위치 = 조준점, 정밀 클릭 타게팅
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                오토타게팅 + 스틱 방향 락온, 데드존·오토에임 강도는 옵션
+                슬라이더로. 60fps 유지 위해 위협 텔레그래프는 최소 3프레임(약
+                50ms) 가독 예산 확보 — 이펙트 과밀 시 적 외곽선 우선
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.1fr 1fr 1fr;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                background: rgba(255, 255, 255, 0.012);
+              "
+            >
+              <div style="padding: 18px 20px">
+                <div
+                  style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 4px;
+                  "
+                >
+                  상점 / 거래
+                </div>
+                <div style="font-size: 12px; color: #6f6755; line-height: 1.5">
+                  동일 목록·필터·가격 표기
+                </div>
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                수량 직접 입력 · Shift 일괄 구매·판매
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                수량 스텝퍼 · 일괄 처리 단축버튼 (PoE2 콘솔 마찰 회피)
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.1fr 1fr 1fr;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+              "
+            >
+              <div style="padding: 18px 20px">
+                <div
+                  style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 4px;
+                  "
+                >
+                  HUD / 상태
+                </div>
+                <div style="font-size: 12px; color: #6f6755; line-height: 1.5">
+                  표시 항목·우선순위 동일
+                </div>
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                분산 배치 · 마우스 동선 밖 코너
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                세이프존 코너 정렬 + 요소 스케일 상향. 스팀덱(7인치)~4K TV를 한
+                레이아웃으로 — 최소 폰트 18px 상당·터치/포커스 타깃 1cm 환산
+                기준을 가장 작은 화면에 맞춰 잡고 위로 스케일
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.1fr 1fr 1fr;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                background: rgba(255, 255, 255, 0.012);
+              "
+            >
+              <div style="padding: 18px 20px">
+                <div
+                  style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 4px;
+                  "
+                >
+                  거래·검색 입력
+                </div>
+                <div style="font-size: 12px; color: #6f6755; line-height: 1.5">
+                  동일 검색 필드·필터·결과 위계
+                </div>
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                물리 키보드로 즉시 타이핑 · 자동완성
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                가상 키보드 마찰을
+                <strong style="color: #ece6d8"
+                  >프리셋·태그 필터·최근 검색</strong
+                >으로 우회 (타이핑 최소화)
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.1fr 1fr 1fr;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+              "
+            >
+              <div style="padding: 18px 20px">
+                <div
+                  style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 4px;
+                  "
+                >
+                  피드백 채널
+                </div>
+                <div style="font-size: 12px; color: #6f6755; line-height: 1.5">
+                  전리품 등급·위협 텔레그래프 동일 매핑
+                </div>
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                화면 플래시·사운드 큐 중심
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                여기에 손끝 피드백을 더하되 기종별로 분기 —
+                <strong style="color: #ece6d8"
+                  >PS5는 DualSense 햅틱·어댑티브 트리거</strong
+                >, Xbox는 트리거 진동, 스팀덱은 럼블+사운드로 등급·위협을 동등
+                전달 (PS5 전용 기능에 게임플레이를 의존하지 않음)
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1.1fr 1fr 1fr">
+              <div style="padding: 18px 20px">
+                <div
+                  style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 4px;
+                  "
+                >
+                  연결·일시정지
+                </div>
+                <div style="font-size: 12px; color: #6f6755; line-height: 1.5">
+                  세션 상태·진행 흐름 동일
+                </div>
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                창 포커스·ESC 메뉴 — 플랫폼 인증 제약 적음
+              </div>
+              <div
+                style="
+                  padding: 18px 20px;
+                  border-left: 1px solid rgba(255, 255, 255, 0.05);
+                  font-size: 13px;
+                  color: #a9a08c;
+                  line-height: 1.55;
+                "
+              >
+                각 콘솔의
+                <strong style="color: #ece6d8"
+                  >컨트롤러 핫스왑·재연결, 일시정지, 세이브 인증</strong
+                >
+                요구를 출하 체크리스트로 풀어 설계 —
+                <strong style="color: #ece6d8"
+                  >PS5=TRC · Xbox=XR(Xbox Requirements)</strong
+                >에 매핑한다. 스팀덱은 별도 출하 인증이 아닌 PC 플랫폼이라
+                <strong style="color: #ece6d8"
+                  >Steam Deck Verified 호환성 기준</strong
+                >으로 축을 따로 둔다(컨트롤러 기본 매핑·텍스트 가독성·일시정지
+                동작 등). 컨트롤러 분리 시 자동 일시정지·재연결 안내, 저장 중
+                종료 차단 메시지까지 각 항목으로 명세에 포함
+              </div>
+            </div>
+          </div>
+
+          <div
+            data-reveal
+            style="
+              margin-top: 20px;
+              font-family: &quot;JetBrains Mono&quot;, monospace;
+              font-size: 11.5px;
+              color: #6f6755;
+              text-align: center;
+              letter-spacing: 0.04em;
+            "
+          >
+            원칙:
+            <span style="color: #d8b15a"
+              >입력별로 창이 달라지면 플레이어의 멘탈 모델이 끊긴다</span
+            >
+            — 정보구조(창)는 공유하고, 손가락 쓰는 법만 입력에 맞춰 갈라진다.
+          </div>
+        </section>
+
+        <!-- ===== ANTI-PATTERNS ===== -->
+        <section
+          id="anti"
+          style="
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 90px 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+          "
+        >
+          <div data-reveal style="text-align: center; margin-bottom: 50px">
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 12px;
+                letter-spacing: 0.22em;
+                color: #a9a08c;
+                margin-bottom: 18px;
+              "
+            >
+              04 — 안티패턴 체크리스트
+            </div>
+            <h2
+              style="
+                font-size: clamp(28px, 4vw, 48px);
+                font-weight: 800;
+                letter-spacing: -0.025em;
+                margin: 0 0 22px;
+                line-height: 1.12;
+              "
+            >
+              반복하면 안 되는 것
+            </h2>
+            <p
+              style="
+                font-size: 17px;
+                line-height: 1.75;
+                color: #a9a08c;
+                max-width: 680px;
+                margin: 0 auto;
+                text-wrap: pretty;
+              "
+            >
+              선배들이 이미 데인 자리. 빌드 검수 때마다 이 목록으로 점검한다. 한
+              칸이라도 걸리면 출고 보류.
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(222, 84, 70, 0.2);
+                background: rgba(222, 84, 70, 0.04);
+                border-radius: 12px;
+                padding: 22px 24px;
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 18px;
+                  color: #de5446;
+                  flex-shrink: 0;
+                  line-height: 1.4;
+                "
+                >✕</span
+              >
+              <div>
+                <div
+                  style="
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 6px;
+                    line-height: 1.4;
+                  "
+                >
+                  콘솔 인벤·거래의 버튼 과다
+                </div>
+                <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
+                  PoE2 콘솔처럼 재화 한 번 쓰는 데 버튼을 수십 번. "M&KB로
+                  로그인하라"는 우회법이 나오면 이미 실패.
+                </div>
+              </div>
+            </div>
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(222, 84, 70, 0.2);
+                background: rgba(222, 84, 70, 0.04);
+                border-radius: 12px;
+                padding: 22px 24px;
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 18px;
+                  color: #de5446;
+                  flex-shrink: 0;
+                  line-height: 1.4;
+                "
+                >✕</span
+              >
+              <div>
+                <div
+                  style="
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 6px;
+                    line-height: 1.4;
+                  "
+                >
+                  컨트롤러 마이크로매니지먼트
+                </div>
+                <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
+                  D4 컨트롤러 인벤토리 같은 "슈퍼 마이크로매니지먼트". 일괄
+                  처리·자동 정렬 없이 한 칸씩 옮기게 만들지 않는다.
+                </div>
+              </div>
+            </div>
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(222, 84, 70, 0.2);
+                background: rgba(222, 84, 70, 0.04);
+                border-radius: 12px;
+                padding: 22px 24px;
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 18px;
+                  color: #de5446;
+                  flex-shrink: 0;
+                  line-height: 1.4;
+                "
+                >✕</span
+              >
+              <div>
+                <div
+                  style="
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 6px;
+                    line-height: 1.4;
+                  "
+                >
+                  번아웃 메커니즘
+                </div>
+                <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
+                  D4 Tempering 실패로 재료 낭비, Masterworking 랜덤/리셋 같은
+                  스트레스 루프. 노력이 운에 증발하는 구조를 코어에 넣지 않는다.
+                </div>
+              </div>
+            </div>
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(222, 84, 70, 0.2);
+                background: rgba(222, 84, 70, 0.04);
+                border-radius: 12px;
+                padding: 22px 24px;
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 18px;
+                  color: #de5446;
+                  flex-shrink: 0;
+                  line-height: 1.4;
+                "
+                >✕</span
+              >
+              <div>
+                <div
+                  style="
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 6px;
+                    line-height: 1.4;
+                  "
+                >
+                  분리가 기능 축약으로 번지는 것
+                </div>
+                <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
+                  입력별 인터랙션 분리 자체는 OK(콘솔 제약상 필요). 막을 건
+                  PoE2처럼 분리가 깊어져 콘솔에서 기능이 축약·삭제되고 멘탈
+                  모델이 끊기는 것. 위계·기능 집합은 한 몸을 지킨다.
+                </div>
+              </div>
+            </div>
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(222, 84, 70, 0.2);
+                background: rgba(222, 84, 70, 0.04);
+                border-radius: 12px;
+                padding: 22px 24px;
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 18px;
+                  color: #de5446;
+                  flex-shrink: 0;
+                  line-height: 1.4;
+                "
+                >✕</span
+              >
+              <div>
+                <div
+                  style="
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 6px;
+                    line-height: 1.4;
+                  "
+                >
+                  조건부 과복잡 어픽스
+                </div>
+                <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
+                  "화요일에 데미지" 류 상황 의존 옵션 남발. D4가 Loot Reborn으로
+                  직접 걷어낸 실수를 되풀이하지 않는다.
+                </div>
+              </div>
+            </div>
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(222, 84, 70, 0.2);
+                background: rgba(222, 84, 70, 0.04);
+                border-radius: 12px;
+                padding: 22px 24px;
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 18px;
+                  color: #de5446;
+                  flex-shrink: 0;
+                  line-height: 1.4;
+                "
+                >✕</span
+              >
+              <div>
+                <div
+                  style="
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 6px;
+                    line-height: 1.4;
+                  "
+                >
+                  전장을 덮는 HUD
+                </div>
+                <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
+                  탑뷰에서 중앙·시선 동선 위에 정보를 쌓아 위협 텔레그래프를
+                  가리는 것. 화면 중앙은 늘 전장에 양보한다.
+                </div>
+              </div>
+            </div>
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(222, 84, 70, 0.2);
+                background: rgba(222, 84, 70, 0.04);
+                border-radius: 12px;
+                padding: 22px 24px;
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 18px;
+                  color: #de5446;
+                  flex-shrink: 0;
+                  line-height: 1.4;
+                "
+                >✕</span
+              >
+              <div>
+                <div
+                  style="
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 6px;
+                    line-height: 1.4;
+                  "
+                >
+                  색에만 기댄 표현
+                </div>
+                <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
+                  등급·위협을 색 하나로만 구분. 색맹·TV 환경에서 무너진다.
+                  형태·소리·아이콘을 함께 쓴다.
+                </div>
+              </div>
+            </div>
+            <div
+              data-reveal
+              style="
+                border: 1px solid rgba(222, 84, 70, 0.2);
+                background: rgba(222, 84, 70, 0.04);
+                border-radius: 12px;
+                padding: 22px 24px;
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 18px;
+                  color: #de5446;
+                  flex-shrink: 0;
+                  line-height: 1.4;
+                "
+                >✕</span
+              >
+              <div>
+                <div
+                  style="
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #ece6d8;
+                    margin-bottom: 6px;
+                    line-height: 1.4;
+                  "
+                >
+                  첫 화면 정보 폭격
+                </div>
+                <div style="font-size: 13px; color: #a9a08c; line-height: 1.6">
+                  던파식 깊이를 튜토리얼 없이 한꺼번에 노출. 점진적 학습 없이
+                  신규를 절벽에 세우지 않는다.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== CLOSING ===== -->
+        <section
+          id="closing"
+          style="
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              inset: 0;
+              background: radial-gradient(
+                110% 120% at 50% 0%,
+                rgba(216, 177, 90, 0.12),
+                rgba(20, 17, 12, 0) 55%
+              );
+            "
+          ></div>
+          <div
+            style="
+              position: relative;
+              z-index: 2;
+              max-width: 920px;
+              margin: 0 auto;
+              padding: 120px 32px 110px;
+              text-align: center;
+            "
+          >
+            <div data-reveal>
+              <div
+                style="
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                  font-size: 12px;
+                  letter-spacing: 0.22em;
+                  color: #a9a08c;
+                  margin-bottom: 24px;
+                "
+              >
+                05 — 마무리
+              </div>
+              <h2
+                style="
+                  font-size: clamp(28px, 4.2vw, 50px);
+                  font-weight: 800;
+                  letter-spacing: -0.025em;
+                  margin: 0 0 28px;
+                  line-height: 1.18;
+                "
+              >
+                한 문장으로 압축하면
+              </h2>
+              <p
+                style="
+                  font-family: &quot;Nanum Myeongjo&quot;, serif;
+                  font-size: clamp(20px, 2.4vw, 28px);
+                  line-height: 1.55;
+                  color: #ecc873;
+                  margin: 0 auto 40px;
+                  max-width: 760px;
+                "
+              >
+                "던파의 깊이는 한 칸도 버리지 않되,<br />그 깊이에 닿는 길에서
+                D4·PoE2가 남긴 마찰은 전부 걷어낸다."
+              </p>
+              <p
+                style="
+                  font-size: 16px;
+                  line-height: 1.75;
+                  color: #a9a08c;
+                  max-width: 660px;
+                  margin: 0 auto 44px;
+                  text-wrap: pretty;
+                "
+              >
+                오버킬의 UI/UX는 누구의 철학을 베끼는 작업이 아니다. 두 선배가
+                공개한 발언과 패치노트에서
+                <strong style="color: #ece6d8; font-weight: 600"
+                  >검증된 것은 흡수하고, 직접 데인 자리는 피해</strong
+                >
+                던파 코어루프에 맞는 균형점을 찾는 일이다. 이 문서의 7원칙과
+                입력 매트릭스, 안티패턴 체크리스트는 그 균형을 매 빌드마다
+                검증하는 잣대다.
+              </p>
+              <div
+                style="
+                  display: inline-flex;
+                  gap: 14px;
+                  flex-wrap: wrap;
+                  justify-content: center;
+                "
+              >
+                <span
+                  style="
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 11.5px;
+                    color: #d8b15a;
+                    border: 1px solid rgba(216, 177, 90, 0.3);
+                    border-radius: 22px;
+                    padding: 9px 18px;
+                    letter-spacing: 0.06em;
+                  "
+                  >깊이 보존 · PoE2</span
+                >
+                <span
+                  style="
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 11.5px;
+                    color: #de5446;
+                    border: 1px solid rgba(222, 84, 70, 0.32);
+                    border-radius: 22px;
+                    padding: 9px 18px;
+                    letter-spacing: 0.06em;
+                  "
+                  >즉시 명료 · D4</span
+                >
+                <span
+                  style="
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 11.5px;
+                    color: #ece6d8;
+                    border: 1px solid rgba(255, 255, 255, 0.18);
+                    border-radius: 22px;
+                    padding: 9px 18px;
+                    letter-spacing: 0.06em;
+                  "
+                  >균형 · OVERKILL</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer
+          style="
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 50px 32px;
+            background: #100e09;
+          "
+        >
+          <div
+            style="
+              max-width: 1180px;
+              margin: 0 auto;
+              display: flex;
+              justify-content: space-between;
+              gap: 24px;
+              flex-wrap: wrap;
+              align-items: flex-start;
+            "
+          >
+            <div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  margin-bottom: 12px;
+                "
+              >
+                <span
+                  style="
+                    display: inline-block;
+                    width: 9px;
+                    height: 9px;
+                    border-radius: 2px;
+                    background: #d8b15a;
+                    box-shadow: 6px 0 0 #c63f33;
+                  "
+                ></span
+                ><span
+                  style="
+                    font-family: &quot;JetBrains Mono&quot;, monospace;
+                    font-size: 12px;
+                    letter-spacing: 0.18em;
+                    color: #ece6d8;
+                    margin-left: 6px;
+                  "
+                  >OVERKILL · UI/UX 원칙</span
+                >
+              </div>
+              <div
+                style="
+                  font-size: 12px;
+                  color: #6f6755;
+                  line-height: 1.6;
+                  max-width: 440px;
+                "
+              >
+                Project Overkill UI/UX 설계 원칙 가이드 · 포트폴리오. 7개 원칙의
+                와이어프레임(WF 01~07)은 모두 직접 그린 오리지널 저해상도
+                추상화이며, 실제 게임 화면의 재현이 아닌 설계 의도
+                전달용입니다.<br /><br />
+                <span style="color: #a9a08c">직접 한 것</span>: 원칙
+                선정·콘셉트·와이어프레임 의도·던파/D4/PoE 해석.
+                <span style="color: #a9a08c">Claude 보조</span>: 리서치 정리,
+                초안 문장·HTML 마크업. 인용·수치는 사람이 다시 대조했습니다.
+              </div>
+            </div>
+            <div
+              style="
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                font-size: 11px;
+                color: #6f6755;
+                line-height: 1.9;
+              "
+            >
+              <div style="color: #a9a08c; margin-bottom: 6px">근거 · 출처</div>
+              <div>
+                · Jonathan Rogers(PoE2 디렉터) — depth vs incidental complexity
+                인터뷰(취지 요약 인용)
+              </div>
+              <div>
+                · PoE 시리즈 — 아이템 필터·외부 거래 사이트·패시브 트리 정보
+                과밀(시리즈가 안고 온 알려진 마찰)
+              </div>
+              <div>· PoE2 콘솔 80h 컨트롤러 리뷰 · 공식 포럼</div>
+              <div>
+                · D4 'Loot Reborn'(시즌4) 패치노트 · Joe Shely·Drew McCrory
+                접근성 디자인
+              </div>
+              <div>· D4 공식 포럼 — 컨트롤러 마이크로매니지먼트 피드백</div>
+              <div>
+                · 넥슨 멀티플랫폼 기조 관련 보도 — 콘솔 대응 방향성(경영진 발언
+                톤, '확정'이 아닌 지향으로 해석)
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+      <template id="__bundler_thumbnail">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="400" fill="#14110c" />
+          <rect
+            x="110"
+            y="120"
+            width="180"
+            height="160"
+            rx="18"
+            fill="#1c1813"
+          />
+          <circle cx="160" cy="200" r="30" fill="#d8b15a" />
+          <rect x="206" y="170" width="62" height="22" rx="6" fill="#c63f33" />
+          <rect x="206" y="206" width="62" height="14" rx="6" fill="#3a3326" />
+          <rect x="150" y="306" width="100" height="8" rx="4" fill="#3a3326" />
+        </svg>
+      </template>
+    </x-dc>
+    <script type="text/x-dc" data-dc-script>
+      class Component extends DCLogic {
+        state = {};
+
+        componentDidMount() {
+          const navIds = ['premise','frame','principles','matrix','anti','closing'];
+          this.onScroll = () => {
+            const doc = document.documentElement;
+            const max = doc.scrollHeight - window.innerHeight;
+            const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+            const bar = document.getElementById('td-progress');
+            if (bar) bar.style.width = (p * 100) + '%';
+            let cur = navIds[0];
+            for (const id of navIds) {
+              const el = document.getElementById(id);
+              if (el && el.getBoundingClientRect().top <= 130) cur = id;
+            }
+            document.querySelectorAll('[data-nav]').forEach(a => {
+              const on = a.getAttribute('data-nav') === cur;
+              a.style.color = on ? '#ece6d8' : '#6f6755';
+              a.style.borderBottomColor = on ? '#d8b15a' : 'transparent';
+            });
+          };
+          window.addEventListener('scroll', this.onScroll, { passive: true });
+          this.onScroll();
+
+          const els = Array.from(document.querySelectorAll('[data-reveal]'));
+          els.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(22px)';
+            el.style.transition = 'opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)';
+          });
+          if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver((ents) => {
+              ents.forEach(e => {
+                if (e.isIntersecting) {
+                  e.target.style.opacity = '1';
+                  e.target.style.transform = 'none';
+                  io.unobserve(e.target);
+                }
+              });
+            }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+            els.forEach(el => io.observe(el));
+          }
+          this._fb = setTimeout(() => {
+            els.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+          }, 1600);
+        }
+
+        componentWillUnmount() {
+          window.removeEventListener('scroll', this.onScroll);
+          clearTimeout(this._fb);
+        }
+
+        renderVals() {
+          return {};
+        }
+      }
+    </script>
+  </body>
+</html>
